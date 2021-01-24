@@ -1,8 +1,12 @@
-import Vue from 'vue'
 
-require('./bootstrap');
+require('./bootstrap')
+
+import Vue from 'vue'
+;
 //Main pages
 import App from './views/app.vue'
+
+
 
 
 const app = new Vue({

@@ -1,20 +1,19 @@
 <template>
   <div>
-   <div class="alert alert-primary" role="alert">
-    {{message}}
-    </div>
+    <welcome/>
   </div>
 </template>
 <script>
-const default_layout = "default";
+import Welcome from '../components/Welcome.vue';
 
 
 export default {
-  computed: {},
+  components: {Welcome},
   data() {
       return {
-          message:'Hello World! Our Laravel-Vue-Bootstrap app is ready'
+
       }
   },
+
 };
 </script>
