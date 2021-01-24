@@ -16,7 +16,10 @@ With Laravel and offcourse git setup on your system, follow the below steps:
 -   Enter your newly cloned project directory using `cd vlab`.
 -   Create a file named `.env` file and copy the contents of the [.env.example](.env.example) into the new .env file or alternatively rename the `.env.example` file to `.env`.
 -   Run `php artisan key:generate && composer install` on your terminal/command prompt to generate a secured key for your project as well as download the project dependencies.
+-   Run `yarn install && yarn watch` or `npm install && npm run watch` to install the frontend dependencies.
 -   Run `php artisan serve` to spin up the development server.
+
+_Check out this [link](https://laravel.com/docs/8.x/structure) to understand the folder structure. BTW frontend codes should reside in `/resources/js`_
 
 ## How to test the software
 
