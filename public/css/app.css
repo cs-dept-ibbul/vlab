@@ -1,13 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);
-@charset "UTF-8";
-
-/*!
- * Bootstrap v4.6.0 (https://getbootstrap.com/)
- * Copyright 2011-2021 The Bootstrap Authors
- * Copyright 2011-2021 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
-
+@import url(https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap);
 :root {
   --blue: #3490dc;
   --indigo: #6574cd;
@@ -10942,6 +10933,10 @@ a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6;
   }
+}
+
+body {
+  font-family: "Oswald", sans-serif;
 }
 
 
