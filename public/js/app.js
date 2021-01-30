@@ -1956,9 +1956,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Navbar'
 });
@@ -39073,19 +39070,6 @@ var render = function() {
                       "router-link",
                       { staticClass: "nav-link", attrs: { to: "/login" } },
                       [_vm._v("Login")]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "li",
-                  { staticClass: "nav-item" },
-                  [
-                    _c(
-                      "router-link",
-                      { staticClass: "nav-link", attrs: { to: "/signup" } },
-                      [_vm._v("Signup")]
                     )
                   ],
                   1
