@@ -92,4 +92,17 @@ export default {
     }
   }
 }
+.nav-link{
+			color:#FFFFFF;
+            font-weight:800;
+            font-size: large;
+			padding:8px 15px;
+			white-space:nowrap;
+			background-color: #161d99;
+			border-radius: 1rem;
+			&:hover{
+				color:rgb(255, 255, 255);
+				background-color: #454aa1;
+			}
+		}
 </style>
