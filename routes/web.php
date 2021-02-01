@@ -13,4 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{any}', 'App\Http\Controllers\PagesController@index')->where('any', '.*');
+//Route::get('/{any}', 'App\Http\Controllers\PagesController@index')->where('any', '.*');
+Route::get('/vernier-caliper','App\Http\Controllers\experimentController@vernierCaliper');
+	
