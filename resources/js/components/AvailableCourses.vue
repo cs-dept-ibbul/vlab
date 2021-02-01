@@ -23,7 +23,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #alignment {
   display: flex;
   flex-direction: column;
