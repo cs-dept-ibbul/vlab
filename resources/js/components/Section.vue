@@ -3,7 +3,7 @@
     <div id="alignment">
       <div class="row custom-section d-flex align-items-center">
         <div class="col-12 col-lg-8">
-          <h2>Virtual Laboratory</h2>
+          <h2 class="page-title">Virtual Laboratory</h2>
           <p>A Simulation Virtual Environment for Experiment and Research</p>
           <div class="links">
             <a href="/explore" class="nav-link">Explore V-lab</a>
@@ -28,7 +28,7 @@ export default {
 <style lang="scss" scoped>
 .intro_vid {
   position: absolute;
-  background-color: #0c105a;
+  background-color: #2F2651;
   width: 25rem;
   height: 28rem;
   z-index: 1;
@@ -46,7 +46,7 @@ export default {
 
 //section
 .custom-section {
-  width: 95%;
+  width: 99%;
   padding: 40px 0px;
   background-color: #eeeeef;
   border-radius: 1rem;
@@ -60,7 +60,7 @@ export default {
     h2 {
       font-weight: 700px;
       font-size: 63px;
-      color: #0c105a;
+      color: #2F2651;
       margin-bottom: 0;
       line-height: 1;
       white-space: nowrap;
@@ -94,7 +94,7 @@ export default {
       font-size: large;
 			padding:8px 15px;
 			white-space:nowrap;
-			background-color: #161d99;
+			background-color: #2F2651;
 			border-radius: 1rem;
 			&:hover{
 				color:rgb(255, 255, 255);

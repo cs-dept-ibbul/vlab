@@ -8,7 +8,7 @@
  .play-btn {
   width: 94px;
   height: 94px;
-  background: radial-gradient(#3f43fd 50%, rgba(63, 67, 253, 0.4) 52%);
+  background: radial-gradient(#2F2651 50%, rgba(63, 67, 253, 0.4) 52%);
   border-radius: 50%;
   display: block;
   position: absolute;
@@ -104,4 +104,13 @@
   padding-left: 100px;
   padding-right: 100px
 }
-
+.page-title{
+  color: #0B0524;
+  font-weight: bold;
+  font-size: 32px;
+}
+.page-sub-title{
+  color: #0B0524;
+  font-weight: bold;
+  font-size: 32px;
+}

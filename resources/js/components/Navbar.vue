@@ -75,11 +75,13 @@ export default {
     font-size: large;
     padding: 8px 15px;
     white-space: nowrap;
-    background-color: #161d99;
+    background-color: #D4D2DC;
     border-radius: 1rem;
+    color:#000000;
+
     &:hover {
       color: rgb(255, 255, 255);
-      background-color: #454aa1;
+      background-color: #D4D2DC;
     }
   }
 }
