@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <div class="container-fluid" id="app">
+    <div class="container-fluid" id="app" style="padding-right: 0;">
        @yield('content-body')
     </div>
 

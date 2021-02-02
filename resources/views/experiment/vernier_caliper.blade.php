@@ -1,8 +1,25 @@
 @extends('layouts/main')
 @section('content-body')
-<div class="row bg-warning">
-    <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
-	<tlb></tlb>
+<div style="display: flex;">   
+	
+	<tlb></tlb>   
+
+   <div style="width: 100%;">
+   		<topnave></topnave>
+   		<!-- content -->
+   		<div style="display: flex;flex-wrap: wrap;">
+   			<div style="width: 300px;">
+   				<guide></guide>   				
+   			</div>
+   			<div style="width: 100%;">
+   			</div>
+   			<div style="flex: 100% 0 0;">
+   				<expfooter></expfooter>
+   			</div>
+   		</div>
+   </div>
+
 
 </div>
+
 @endsection
