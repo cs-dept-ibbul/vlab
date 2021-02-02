@@ -24,6 +24,7 @@ export default {
 </script>
 
 <style scoped>
+
 #alignment {
   display: flex;
   flex-direction: column;
