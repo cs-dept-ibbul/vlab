@@ -1,6 +1,5 @@
 <template>
-  <div class="container">
-    <div class="head my-3">
+  <div class="head my-3">
       <nav class="navbar navbar-expand-lg navbar-light head_custom-nave">
         <router-link to="/" class="navbar-brand d-flex align-items-center">
           <img src="" alt="Logo" />
@@ -21,7 +20,7 @@
         >
           <ul class="navbar-nav">
             <li class="nav-item">
-              <router-link to="/learn" class="nav-link">Learn</router-link>
+              <a href="/learn" class="nav-link">Learn</a>
             </li>
             <li class="nav-item">
               <router-link to="/Articles" class="nav-link"
@@ -47,7 +46,6 @@
         </div>
       </nav>
     </div>
-  </div>
 </template>
 <script>
 export default {
@@ -85,6 +83,8 @@ export default {
     }
   }
 }
+
+
 </style>
 
     

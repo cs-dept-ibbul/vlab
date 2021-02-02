@@ -6,14 +6,16 @@
           <h2>Virtual Laboratory</h2>
           <p>A Simulation Virtual Environment for Experiment and Research</p>
           <div class="links">
-            <router-link to="/explore" class="nav-link">Explore V-lab</router-link>
-            <router-link to="/practice">Practice a Practical</router-link>
+            <a href="/explore" class="nav-link">Explore V-lab</a>
+            <a href="/practice" class="Practice">Practice a Practical</a>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="intro_vid"></div>
+    <div class="intro_vid">
+      <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
+    </div>
   </div>
 </template>
 
@@ -30,7 +32,7 @@ export default {
   width: 25rem;
   height: 28rem;
   z-index: 1;
-  border-radius: 2rem;
+  border-radius: 2.5rem;
   right: 15%;
   top: 25%;
 }
@@ -78,24 +80,18 @@ export default {
       display: inline-block;
       padding: 8px 22px;
       color: #ffffff;
-      background-color: #0c105a;
       border: 1px solid transparent;
       margin-top: 60px;
       text-decoration: none;
       transition: 5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-
-      &:hover {
-        color: white;
-        background-color: darkblue;
-        border: 1px solid rgb(0, 0, 255);
-      }
     }
+
   }
 }
 .nav-link{
 			color:#FFFFFF;
-            font-weight:800;
-            font-size: large;
+      font-weight:800;
+      font-size: large;
 			padding:8px 15px;
 			white-space:nowrap;
 			background-color: #161d99;
