@@ -79,7 +79,7 @@ export default {
     a {
       display: inline-block;
       padding: 8px 22px;
-      color: #ffffff;
+      
       border: 1px solid transparent;
       margin-top: 60px;
       text-decoration: none;
@@ -89,16 +89,21 @@ export default {
   }
 }
 .nav-link{
-			color:#FFFFFF;
-      font-weight:800;
+			color:#FFF;
       font-size: large;
 			padding:8px 15px;
 			white-space:nowrap;
 			background-color: #2F2651;
-			border-radius: 1rem;
+      border-radius: 1rem;
+      
 			&:hover{
 				color:rgb(255, 255, 255);
 				background-color: #454aa1;
 			}
-		}
+    }
+  .Practice{
+
+    color:#000;
+  }
+  
 </style>
