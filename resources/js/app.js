@@ -15,6 +15,8 @@ Vue.component('t', require('./components/Section.vue').default);
 Vue.component('sponsor', require('./components/SponsorSection.vue').default);
 Vue.component('avl', require('./components/ExploreSection.vue').default);
 Vue.component('avlc', require('./components/AvailableCourses.vue').default);
+Vue.component('viewcourses', require('./components/VewCourse.vue').default);
+
 /*end experiment page component*/
  const app = new Vue({
    el: '#app',

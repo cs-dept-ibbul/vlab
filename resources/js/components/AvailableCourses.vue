@@ -1,5 +1,5 @@
 <template>
-  <div class="AvalaibleCourses">
+  <div class="page-Container">
     <div class="input-row">
       <div class="col-md-6">
         <p>Available V-lab Courses</p>
@@ -31,7 +31,7 @@
           />
           <div class="card-body">
             <h5 class="card-title">
-              <a href="#" class="btn btn-light">Applied Sciences</a>
+              <a href="/vewCourse" class="btn btn-light">Applied Sciences</a>
             </h5>
             <p class="card-text">Electrical Engineering</p>
             <p>Dr Shemsu Laika</p>
@@ -93,29 +93,7 @@ export default {
   background-color: #eeeeef;
   margin: 0 0 20px 0;
 }
-.AvalaibleCourses {
-  width: 100%;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  margin: 0;
-}
 
-.input-container {
-  position: relative;
-  width: 100%;
-  margin-bottom: 20px;
-}
 
-.btn-container {
-  position: absolute;
-  right: 0;
-}
-
-.input-row, .course-container{
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0;
-    width: 100%;
-}
 
 </style>
