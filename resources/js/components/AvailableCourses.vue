@@ -1,11 +1,18 @@
 <template>
     <div class="AvalaibleCourses">
-      <div class="row" style="margin:0px;padding:0px">
-          <div class="col-md-6" style="padding-left:35px">
+      <div class="row">
+          <div class="col-md-6">
               <p>Available V-lab Courses</p>
           </div>
-           <div class="col-md-6" style="padding:0px;margin:0px">
-             <input type="text" class="form-control" style="border-radius: 0.5rem;width:40%;float:right;background-color:#eeeeef;">
+           <div class="col-md-6">
+             <div class="input-group">
+    <input type="text" class="form-control" placeholder="Search Courses">
+    <div class="input-group-btn">
+      <button class="btn btn-default" type="submit">
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+  </div>
            </div>
       </div>
       <div class="row">
@@ -14,16 +21,14 @@
   <img src="../../images/course_image.png" class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">
-      <a href="#" class="btn btn-secondary">Applied Sciences</a>
+      <a href="#" class="btn btn-light">Applied Sciences</a>
     </h5>
     <p class="card-text">Electrical Engineering</p>
-    
+    <p>Dr Shemsu Laika</p>
+
     <a href="#" class="card-link">
-       <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
-    </a>
-    <a href="#" class="card-link">
-      <i class="fa fa-copy"></i>
-       <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+      <a href="#" class="card-link" style="float:left;"><span class="fa fa-windows"></span>32 Modules</a>
+      <a href="#" class="card-link" style="float:right;"><span class="fa fa-user"></span>409 Students</a>
     </a>
   </div>
 </div>
@@ -39,8 +44,26 @@ export default {
 </script>
 
 <style scoped>
-.btn{
+.card-link{
+  color: #2F2651;
+  font-size: 12px;
+}
+.h5{
+  font-size: 10px;
+  color:#000;
+}
+.form-control{
+  border-radius: 0.5rem;
+  width:40%;
+  float:right;
+  background-color:#eeeeef;
+}
+.col-md-6{
+  padding-left:35px;
+}
+.btn-light{
   border-radius: 1rem;
+  background-color:eeeeef;
 }
 .card-text{
   color: #2F2651;

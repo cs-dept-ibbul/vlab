@@ -1879,6 +1879,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "AvalaibleCourses"
 });
@@ -6705,7 +6710,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.btn[data-v-1755cf9a]{\r\n  border-radius: 1rem;\n}\n.card-text[data-v-1755cf9a]{\r\n  color: #2F2651;\r\n  font-weight: bold;\n}\n#alignment[data-v-1755cf9a] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.card-img-top[data-v-1755cf9a] {\r\n  border-radius: 1rem;\n}\n.card[data-v-1755cf9a] {\r\n  padding: 10px;\r\n  background-color: #eeeeef;\r\n  margin: 20px;\n}\n.AvalaibleCourses[data-v-1755cf9a] {\r\n  width: 95%;\r\n  padding-top: 30px;\r\n  padding-bottom: 30px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card-link[data-v-1755cf9a]{\r\n  color: #2F2651;\r\n  font-size: 12px;\n}\n.h5[data-v-1755cf9a]{\r\n  font-size: 10px;\r\n  color:#000;\n}\n.form-control[data-v-1755cf9a]{\r\n  border-radius: 0.5rem;\r\n  width:40%;\r\n  float:right;\r\n  background-color:#eeeeef;\n}\n.col-md-6[data-v-1755cf9a]{\r\n  padding-left:35px;\n}\n.btn-light[data-v-1755cf9a]{\r\n  border-radius: 1rem;\r\n  background-color:eeeeef;\n}\n.card-text[data-v-1755cf9a]{\r\n  color: #2F2651;\r\n  font-weight: bold;\n}\n#alignment[data-v-1755cf9a] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.card-img-top[data-v-1755cf9a] {\r\n  border-radius: 1rem;\n}\n.card[data-v-1755cf9a] {\r\n  padding: 10px;\r\n  background-color: #eeeeef;\r\n  margin: 20px;\n}\n.AvalaibleCourses[data-v-1755cf9a] {\r\n  width: 95%;\r\n  padding-top: 30px;\r\n  padding-bottom: 30px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38680,37 +38685,28 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "row", staticStyle: { margin: "0px", padding: "0px" } },
-      [
-        _c(
-          "div",
-          { staticClass: "col-md-6", staticStyle: { "padding-left": "35px" } },
-          [_c("p", [_vm._v("Available V-lab Courses")])]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "col-md-6",
-            staticStyle: { padding: "0px", margin: "0px" }
-          },
-          [
-            _c("input", {
-              staticClass: "form-control",
-              staticStyle: {
-                "border-radius": "0.5rem",
-                width: "40%",
-                float: "right",
-                "background-color": "#eeeeef"
-              },
-              attrs: { type: "text" }
-            })
-          ]
-        )
-      ]
-    )
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("p", [_vm._v("Available V-lab Courses")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "input-group" }, [
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text", placeholder: "Search Courses" }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-group-btn" }, [
+            _c(
+              "button",
+              { staticClass: "btn btn-default", attrs: { type: "submit" } },
+              [_c("i", { staticClass: "fa fa-search" })]
+            )
+          ])
+        ])
+      ])
+    ])
   },
   function() {
     var _vm = this
@@ -38724,7 +38720,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("h5", { staticClass: "card-title" }, [
-          _c("a", { staticClass: "btn btn-secondary", attrs: { href: "#" } }, [
+          _c("a", { staticClass: "btn btn-light", attrs: { href: "#" } }, [
             _vm._v("Applied Sciences")
           ])
         ]),
@@ -38733,20 +38729,28 @@ var staticRenderFns = [
           _vm._v("Electrical Engineering")
         ]),
         _vm._v(" "),
-        _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-          _c("span", {
-            staticClass: "glyphicon glyphicon-align-left",
-            attrs: { "aria-hidden": "true" }
-          })
-        ]),
+        _c("p", [_vm._v("Dr Shemsu Laika")]),
         _vm._v(" "),
         _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-          _c("i", { staticClass: "fa fa-copy" }),
+          _c(
+            "a",
+            {
+              staticClass: "card-link",
+              staticStyle: { float: "left" },
+              attrs: { href: "#" }
+            },
+            [_c("span", { staticClass: "fa fa-windows" }), _vm._v("32 Modules")]
+          ),
           _vm._v(" "),
-          _c("span", {
-            staticClass: "glyphicon glyphicon-align-left",
-            attrs: { "aria-hidden": "true" }
-          })
+          _c(
+            "a",
+            {
+              staticClass: "card-link",
+              staticStyle: { float: "right" },
+              attrs: { href: "#" }
+            },
+            [_c("span", { staticClass: "fa fa-user" }), _vm._v("409 Students")]
+          )
         ])
       ])
     ])

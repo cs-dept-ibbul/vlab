@@ -1,11 +1,13 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap');
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
 @import "node_modules/font-awesome/scss/font-awesome.scss";
 // Variables
 @import 'variables';
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+
 
 body{
     font-family: 'Oswald', sans-serif;
