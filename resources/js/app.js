@@ -9,9 +9,9 @@ import bootstrap from "bootstrap";
    
 /*experiment page component*/
  window.Vue = require('vue');
-Vue.component('tlb', require('./components/leftNavBar.vue').default);
+Vue.component('msidebar', require('./components/leftNavBar.vue').default);//main system side bar
 Vue.component('topnave', require('./components/experimentTopNav.vue').default);
-Vue.component('guide', require('./components/ExphowToNav.vue').default);
+Vue.component('guide', require('./components/ExphowToNav.vue').default); //experiment side bar
 Vue.component('expfooter', require('./components/ExpbottomNav.vue').default);
 
 Vue.component('tlb2', require('./components/title-left-bar.vue').default);

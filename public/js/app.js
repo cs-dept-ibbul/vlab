@@ -2125,9 +2125,11 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 /*experiment page component*/
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('tlb', __webpack_require__(/*! ./components/leftNavBar.vue */ "./resources/js/components/leftNavBar.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_1__.default.component('msidebar', __webpack_require__(/*! ./components/leftNavBar.vue */ "./resources/js/components/leftNavBar.vue").default); //main system side bar
+
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('topnave', __webpack_require__(/*! ./components/experimentTopNav.vue */ "./resources/js/components/experimentTopNav.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('guide', __webpack_require__(/*! ./components/ExphowToNav.vue */ "./resources/js/components/ExphowToNav.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_1__.default.component('guide', __webpack_require__(/*! ./components/ExphowToNav.vue */ "./resources/js/components/ExphowToNav.vue").default); //experiment side bar
+
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('expfooter', __webpack_require__(/*! ./components/ExpbottomNav.vue */ "./resources/js/components/ExpbottomNav.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('tlb2', __webpack_require__(/*! ./components/title-left-bar.vue */ "./resources/js/components/title-left-bar.vue").default); // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 

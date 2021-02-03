@@ -8,7 +8,7 @@ $ct = 1;
 <div style="display: flex;">   
 
 	<!-- main side bar -->
-	<tlb></tlb>   
+	<msidebar></msidebar>   
 	<!-- end main side bar -->
 
    <div style="width: 100%;">
