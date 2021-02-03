@@ -84,7 +84,6 @@ export default {
   color: #2f2651;
   font-weight: bold;
 }
-#alignment {
 
 .card-img-top {
   border-radius: 1rem;
