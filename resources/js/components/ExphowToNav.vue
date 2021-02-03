@@ -1,6 +1,9 @@
 <template>
-	<div style="width:100%;">
-		<div style="display: flex;background: #2F274E;">
+	<div style="display: flex;width: 0px;" id="expSideBar">
+		
+		<div   v-bind:class="{slidein:show, slideout:hide}" >	
+
+		<div style="display: flex;background: #2F274E;" >
 			<div v-bind:class="{btnVActive:intro}" class="btnV"  @click="toggller('introduction')">Introduction</div>
 			<div v-bind:class="{btnVActive:instru}"  class="btnV" @click="toggller('instruction')">Instruction</div>
 			<div v-bind:class="{btnVActive:proced}"  class="btnV"  @click="toggller('procedure')">Procedure</div>
@@ -33,6 +36,8 @@
 					<div id="procedure" style="display: none">procedures</div>
 				</div>
 		</div>
+		</div>
+		<span class="fa fa-arrows-alt mr-5 pr-4"  @click="toggleNavOnHover"  style="font-size: 1.5em;padding-top: 5px;color:white;position: absolute;bottom: -2px;z-index: 5;left: 250px;cursor: pointer;"></span>
 	</div>
 </template>
 <script>
@@ -43,6 +48,9 @@
 		    	intro:true,
 		    	instru:false,
 		    	proced:false,
+		    	show:false,
+            	hide:true,
+            	control:false,
             /*classObj:{ "color-red" : true } ,
             show:false,
             hide:true,
@@ -51,6 +59,24 @@
 		    	}
         },
         methods:{
+        	toggleNavOffHover(){
+        			                    		 
+            	//control = false;
+        	},
+        	toggleNavOnHover(){          
+        		//this.control = true;
+        		this.show = !this.show;
+        			this.hide= !this.show; 
+               if (this.show){
+            	    //this.show=true;                      
+            		document.getElementById('expSideBar').classList.add('addSize');  
+    	        	document.getElementById('mainExp').style.width= '59%';                    		 
+	            		
+                }else{              		
+	            	document.getElementById('expSideBar').classList.remove('addSize');  	
+	            		document.getElementById('mainExp').style.width= '85%';	
+                }  
+            },
         	toggller(e){
         		if (e == 'introduction'){
         			document.getElementById('instruction').style.display ='none';
@@ -76,6 +102,11 @@
         		}
         	}
         },	
+         props: {
+         	//control:control,
+         },
+         mounted(){	        
+         }
 	}
 
 </script>
@@ -84,6 +115,55 @@
 		font-family: 'Roboto', sans-serif;
 	}
 	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+	.slidewr {
+    position: absolute;
+    width: 100px;
+    height: 100px;    
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    
+}
+
+.slidein {
+    animation: slide-in 0.5s forwards;
+    -webkit-animation: slide-in 0.5s forwards;
+}
+
+.slideout {
+    animation: slide-out 0.5s forwards;
+    -webkit-animation: slide-out 0.5s forwards;
+}
+    
+@keyframes slide-in {
+   0%   { transform:scale(0.5); opacity:0.0; left:0}
+    50%  { transform:scale(1.2); opacity:0.5; left:100px}
+    100% { transform:scale(1.0); opacity:1.0; left:200px}
+
+}
+
+@-webkit-keyframes slide-in {
+    0%   { transform:scale(0.5); opacity:0.0; left:0}
+    50%  { transform:scale(1.2); opacity:0.5; left:100px}
+    100% { transform:scale(1.0); opacity:1.0; left:200px}
+
+}
+    
+@keyframes slide-out {
+   0%   { transform:scale(1); opacity:1; }
+    50%  { transform:scale(0.1); opacity:0.5;}
+    100% { transform:translateX(-300%); opacity:0; }
+}
+
+@-webkit-keyframes slide-out {
+    0%   { transform:scale(1); opacity:1; }
+    50%  { transform:scale(0.5); opacity:0.5;}
+    100% { transform:translateX(-300%); opacity:-10; }
+}
+.addSize{
+	width: 300px !important;
+	transition: width 0.5s;
+
+}
 	.btnV{
 		
 		color:#eee;
@@ -136,4 +216,5 @@ p{
 	position: relative;		
 	
 }
+/*.toggleNavOnHover:hover */
 </style>

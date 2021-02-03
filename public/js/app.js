@@ -1855,6 +1855,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1918,12 +1919,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       intro: true,
       instru: false,
-      proced: false
+      proced: false,
+      show: false,
+      hide: true,
+      control: false
       /*classObj:{ "color-red" : true } ,
       show:false,
       hide:true,
@@ -1933,6 +1942,22 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    toggleNavOffHover: function toggleNavOffHover() {//control = false;
+    },
+    toggleNavOnHover: function toggleNavOnHover() {
+      //this.control = true;
+      this.show = !this.show;
+      this.hide = !this.show;
+
+      if (this.show) {
+        //this.show=true;                      
+        document.getElementById('expSideBar').classList.add('addSize');
+        document.getElementById('mainExp').style.width = '59%';
+      } else {
+        document.getElementById('expSideBar').classList.remove('addSize');
+        document.getElementById('mainExp').style.width = '85%';
+      }
+    },
     toggller: function toggller(e) {
       if (e == 'introduction') {
         document.getElementById('instruction').style.display = 'none';
@@ -1957,7 +1982,10 @@ __webpack_require__.r(__webpack_exports__);
         this.proced = true;
       }
     }
-  }
+  },
+  props: {//control:control,
+  },
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -6645,7 +6673,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\ndiv[data-v-50575fba]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.btnV[data-v-50575fba]{\n\t\t\n\t\tcolor:#eee;\n\t\tfont-family: calibri;\n\t\tfont-size: 1em;\n\t\tcursor: pointer;\n\t\tborder-bottom: 3px solid #2F274E;\n\t\t/*letter-spacing: px;*/\n}\n.btnV[data-v-50575fba]:nth-child(odd){\n\t\tpadding: 6px 20px;\n}\n.btnV[data-v-50575fba]:nth-child(even){\n\t\tpadding: 6px 0px;\n}\n.btnVActive[data-v-50575fba]{\n\t   border-bottom: 3px solid #fff;\n\t   transition: border-bottom 0.8s;\n}\n\t/* width */\n[data-v-50575fba]::-webkit-scrollbar {\n  width: 9px; \n  cursor: pointer;\n}\n\n/* Track */\n[data-v-50575fba]::-webkit-scrollbar-track {\n\twidth: 50px;\n  border-radius: 5px;\n}\n \n/* Handle */\n[data-v-50575fba]::-webkit-scrollbar-thumb {\n  background: #eee; \n  border-radius: 10px;\n  cursor: pointer;\n}\n\n/* Handle on hover */\n[data-v-50575fba]::-webkit-scrollbar-thumb:hover {\n  background: #fff; \n  cursor: pointer;\n}\np[data-v-50575fba]{\n\ttext-align: justify;\n}\n.venobox[data-v-50575fba]{\n\tposition: relative;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\ndiv[data-v-50575fba]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.slidewr[data-v-50575fba] {\n    position: absolute;\n    width: 100px;\n    height: 100px;    \n    transform: translateX(-100%);\n    -webkit-transform: translateX(-100%);\n}\n.slidein[data-v-50575fba] {\n    animation: slide-in-data-v-50575fba 0.5s forwards;\n    -webkit-animation: slide-in-data-v-50575fba 0.5s forwards;\n}\n.slideout[data-v-50575fba] {\n    animation: slide-out-data-v-50575fba 0.5s forwards;\n    -webkit-animation: slide-out-data-v-50575fba 0.5s forwards;\n}\n@keyframes slide-in-data-v-50575fba {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@-webkit-keyframes slide-in-data-v-50575fba {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@keyframes slide-out-data-v-50575fba {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.1); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:0;\n}\n}\n@-webkit-keyframes slide-out-data-v-50575fba {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.5); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:-10;\n}\n}\n.addSize[data-v-50575fba]{\n\twidth: 300px !important;\n\ttransition: width 0.5s;\n}\n.btnV[data-v-50575fba]{\n\t\t\n\t\tcolor:#eee;\n\t\tfont-family: calibri;\n\t\tfont-size: 1em;\n\t\tcursor: pointer;\n\t\tborder-bottom: 3px solid #2F274E;\n\t\t/*letter-spacing: px;*/\n}\n.btnV[data-v-50575fba]:nth-child(odd){\n\t\tpadding: 6px 20px;\n}\n.btnV[data-v-50575fba]:nth-child(even){\n\t\tpadding: 6px 0px;\n}\n.btnVActive[data-v-50575fba]{\n\t   border-bottom: 3px solid #fff;\n\t   transition: border-bottom 0.8s;\n}\n\t/* width */\n[data-v-50575fba]::-webkit-scrollbar {\n  width: 9px; \n  cursor: pointer;\n}\n\n/* Track */\n[data-v-50575fba]::-webkit-scrollbar-track {\n\twidth: 50px;\n  border-radius: 5px;\n}\n \n/* Handle */\n[data-v-50575fba]::-webkit-scrollbar-thumb {\n  background: #eee; \n  border-radius: 10px;\n  cursor: pointer;\n}\n\n/* Handle on hover */\n[data-v-50575fba]::-webkit-scrollbar-thumb:hover {\n  background: #fff; \n  cursor: pointer;\n}\np[data-v-50575fba]{\n\ttext-align: justify;\n}\n.venobox[data-v-50575fba]{\n\tposition: relative;\n}\n/*.toggleNavOnHover:hover */\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6695,7 +6723,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.widthRed[data-v-ff21283c]{\r\n\twidth: 60px !important;\n}\n.MenuLContainer[data-v-ff21283c]{\r\n\tdisplay: flex;\r\n\tmargin-top:50px;\n}\n.menuBtnToggler[data-v-ff21283c]{\r\n\tcursor: pointer;\n}\n.slider[data-v-ff21283c] {\r\n    position: absolute;\r\n    width: 100px;\r\n    height: 100px;    \r\n    transform: translateX(-100%);\r\n    -webkit-transform: translateX(-100%);\n}\n.slidein[data-v-ff21283c] {\r\n    animation: slide-in-data-v-ff21283c 0.5s forwards;\r\n    -webkit-animation: slide-in-data-v-ff21283c 0.5s forwards;\n}\n.slideout[data-v-ff21283c] {\r\n    animation: slide-out-data-v-ff21283c 0.5s forwards;\r\n    -webkit-animation: slide-out-data-v-ff21283c 0.5s forwards;\n}\n@keyframes slide-in-data-v-ff21283c {\n100% { transform: translateX(0%);\n}\n}\n@-webkit-keyframes slide-in-data-v-ff21283c {\n100% { -webkit-transform: translateX(0%);\n}\n}\n@keyframes slide-out-data-v-ff21283c {\n0% { transform: translateX(0%);\n}\n100% { transform: translateX(-300%);\n}\n}\n@-webkit-keyframes slide-out-data-v-ff21283c {\n0% { -webkit-transform: translateX(0%);\n}\n100% { -webkit-transform: translateX(-300%);\n}\n}\n.reduceSize[data-v-ff21283c]{\r\n\twidth: 0px !important;\r\n\ttransition: width 0.5s;\n}\n.niconsV[data-v-ff21283c]{\r\n\t\twidth: 55px; \r\n\t\tmargin-top: 5px;\n}\n.menuLI[data-v-ff21283c]{\r\n\t\tcolor:#2F274E;\r\n\t\tfont-size: 1.4em;\n}\n.menuBtnToggler[data-v-ff21283c]{\r\n\t\tdisplay: flex;\r\n\t\tflex-wrap: wrap;\r\n\t\talign-items:center;\r\n\t\tcolor:#2F274E;\r\n\t\tmargin-top:50px;\r\n\t\tmargin-left: 10px;\n}\n.nChildV[data-v-ff21283c]{\r\n\t\tdisplay: flex;\r\n\t\tpadding: 10px 18px;\t\t\t\r\n\t\tcolor:#2F274E;\r\n\t\tfont-size: 1.1em;\r\n\t\ttext-align: left;\t\t\r\n\t\talign-items: center;\r\n\t\tflex-wrap: wrap;\r\n\t\tmargin:5px 0px;\r\n\t\tborder-radius: 8px;\r\n\t\tcursor: pointer;\n}\n.nChildV[data-v-ff21283c]:hover{\r\n\t\tbackground: #2F274E;\r\n\t\tcolor:#fff;\n}\n.btn-active[data-v-ff21283c]{\r\n\t\tbackground: #EBEAEF;\n}\n.iconV[data-v-ff21283c]{\r\n\t\tmargin-right: 10px;\n}\n.iconOV[data-v-ff21283c]{\r\n\t\tfloat: left;\t\t\t\r\n\t\tpadding: 15px 18px;\r\n\t\tborder-radius: 8px;\r\n\t\tdisplay:block;\r\n\t\twidth: 100%;\r\n\t\tcursor: pointer;\r\n\t\tfont-size: 1.1em;\n}\n.iconOV[data-v-ff21283c]:not(:first-child){\r\n\t\tmargin:2px 0px;\n}\n.iconOV[data-v-ff21283c]:hover{\r\n\t\tbackground: #2F274E;\r\n\t\tcolor:#fff;\n}\n.nChildV[data-v-ff21283c]:hover{\r\n\t\tbackground: #2F274E;\r\n\t\tcolor:#fff;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.widthRed[data-v-ff21283c]{\r\n\twidth: 60px !important;\n}\n.MenuLContainer[data-v-ff21283c]{\r\n\tdisplay: flex;\r\n\tmargin-top:50px;\n}\n.menuBtnToggler[data-v-ff21283c]{\r\n\tcursor: pointer;\n}\n.slider[data-v-ff21283c] {\r\n    position: absolute;\r\n    width: 100px;\r\n    height: 100px;    \r\n    transform: translateX(-100%);\r\n    -webkit-transform: translateX(-100%);\r\n    z-index: 5;\n}\n.slidein[data-v-ff21283c] {\r\n    animation: slide-in-data-v-ff21283c 0.5s forwards;\r\n    -webkit-animation: slide-in-data-v-ff21283c 0.5s forwards;\n}\n.slideout[data-v-ff21283c] {\r\n    animation: slide-out-data-v-ff21283c 0.5s forwards;\r\n    -webkit-animation: slide-out-data-v-ff21283c 0.5s forwards;\n}\n@keyframes slide-in-data-v-ff21283c {\n100% { transform: translateX(0%);\n}\n}\n@-webkit-keyframes slide-in-data-v-ff21283c {\n100% { -webkit-transform: translateX(0%);\n}\n}\n@keyframes slide-out-data-v-ff21283c {\n0% { transform: translateX(0%);\n}\n100% { transform: translateX(-300%);\n}\n}\n@-webkit-keyframes slide-out-data-v-ff21283c {\n0% { -webkit-transform: translateX(0%);\n}\n100% { -webkit-transform: translateX(-300%);\n}\n}\n.reduceSize[data-v-ff21283c]{\r\n\twidth: 0px !important;\r\n\ttransition: width 0.5s;\n}\n.niconsV[data-v-ff21283c]{\r\n\t\twidth: 55px; \r\n\t\tmargin-top: 5px;\n}\n.menuLI[data-v-ff21283c]{\r\n\t\tcolor:#2F274E;\r\n\t\tfont-size: 1.4em;\n}\n.menuBtnToggler[data-v-ff21283c]{\r\n\t\tdisplay: flex;\r\n\t\tflex-wrap: wrap;\r\n\t\talign-items:center;\r\n\t\tcolor:#2F274E;\r\n\t\tmargin-top:50px;\r\n\t\tmargin-left: 10px;\n}\n.nChildV[data-v-ff21283c]{\r\n\t\tdisplay: flex;\r\n\t\tpadding: 10px 18px;\t\t\t\r\n\t\tcolor:#2F274E;\r\n\t\tfont-size: 1.1em;\r\n\t\ttext-align: left;\t\t\r\n\t\talign-items: center;\r\n\t\tflex-wrap: wrap;\r\n\t\tmargin:5px 0px;\r\n\t\tborder-radius: 8px;\r\n\t\tcursor: pointer;\n}\n.nChildV[data-v-ff21283c]:hover{\r\n\t\tbackground: #2F274E;\r\n\t\tcolor:#fff;\n}\n.btn-active[data-v-ff21283c]{\r\n\t\tbackground: #EBEAEF;\n}\n.iconV[data-v-ff21283c]{\r\n\t\tmargin-right: 10px;\n}\n.iconOV[data-v-ff21283c]{\r\n\t\tfloat: left;\t\t\t\r\n\t\tpadding: 15px 18px;\r\n\t\tborder-radius: 8px;\r\n\t\tdisplay:block;\r\n\t\twidth: 100%;\r\n\t\tcursor: pointer;\r\n\t\tfont-size: 1.1em;\n}\n.iconOV[data-v-ff21283c]:not(:first-child){\r\n\t\tmargin:2px 0px;\n}\n.iconOV[data-v-ff21283c]:hover{\r\n\t\tbackground: #2F274E;\r\n\t\tcolor:#fff;\n}\n.nChildV[data-v-ff21283c]:hover{\r\n\t\tbackground: #2F274E;\r\n\t\tcolor:#fff;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38531,15 +38559,14 @@ var staticRenderFns = [
       },
       [
         _c("div", { staticStyle: { display: "flex", width: "400px" } }, [
-          _c("span", {
-            staticClass: "fa fa-arrows-alt mr-5 pr-4",
-            staticStyle: { "font-size": "1.4em", "padding-top": "5px" }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "start" }, [
-            _c("span", { staticClass: "fa fa-caret-right mr-1" }),
-            _vm._v("Start Experiment\n\t\t")
-          ])
+          _c(
+            "span",
+            { staticClass: "start", staticStyle: { "margin-left": "50px" } },
+            [
+              _c("span", { staticClass: "fa fa-caret-right mr-1" }),
+              _vm._v("Start Experiment\n\t\t")
+            ]
+          )
         ])
       ]
     )
@@ -38567,53 +38594,77 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticStyle: { width: "100%" } }, [
-    _c("div", { staticStyle: { display: "flex", background: "#2F274E" } }, [
-      _c(
-        "div",
-        {
-          staticClass: "btnV",
-          class: { btnVActive: _vm.intro },
-          on: {
-            click: function($event) {
-              return _vm.toggller("introduction")
-            }
-          }
-        },
-        [_vm._v("Introduction")]
-      ),
+  return _c(
+    "div",
+    {
+      staticStyle: { display: "flex", width: "0px" },
+      attrs: { id: "expSideBar" }
+    },
+    [
+      _c("div", { class: { slidein: _vm.show, slideout: _vm.hide } }, [
+        _c("div", { staticStyle: { display: "flex", background: "#2F274E" } }, [
+          _c(
+            "div",
+            {
+              staticClass: "btnV",
+              class: { btnVActive: _vm.intro },
+              on: {
+                click: function($event) {
+                  return _vm.toggller("introduction")
+                }
+              }
+            },
+            [_vm._v("Introduction")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "btnV",
+              class: { btnVActive: _vm.instru },
+              on: {
+                click: function($event) {
+                  return _vm.toggller("instruction")
+                }
+              }
+            },
+            [_vm._v("Instruction")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "btnV",
+              class: { btnVActive: _vm.proced },
+              on: {
+                click: function($event) {
+                  return _vm.toggller("procedure")
+                }
+              }
+            },
+            [_vm._v("Procedure")]
+          )
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
+      ]),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "btnV",
-          class: { btnVActive: _vm.instru },
-          on: {
-            click: function($event) {
-              return _vm.toggller("instruction")
-            }
-          }
+      _c("span", {
+        staticClass: "fa fa-arrows-alt mr-5 pr-4",
+        staticStyle: {
+          "font-size": "1.5em",
+          "padding-top": "5px",
+          color: "white",
+          position: "absolute",
+          bottom: "-2px",
+          "z-index": "5",
+          left: "250px",
+          cursor: "pointer"
         },
-        [_vm._v("Instruction")]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "btnV",
-          class: { btnVActive: _vm.proced },
-          on: {
-            click: function($event) {
-              return _vm.toggller("procedure")
-            }
-          }
-        },
-        [_vm._v("Procedure")]
-      )
-    ]),
-    _vm._v(" "),
-    _vm._m(0)
-  ])
+        on: { click: _vm.toggleNavOnHover }
+      })
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -38805,7 +38856,7 @@ var render = function() {
       "div",
       {
         staticClass: "menuBtnToggler",
-        staticStyle: { cursor: "pointer" },
+        staticStyle: { cursor: "pointer", background: "#fff" },
         attrs: { id: "togglerV" },
         on: { click: _vm.toggleMenu }
       },
@@ -38831,7 +38882,7 @@ var render = function() {
       {
         staticClass: "MenuLContainer",
         class: { reduceSize: _vm.show },
-        staticStyle: { display: "flex", width: "200px" }
+        staticStyle: { display: "flex", width: "200px", background: "#fff" }
       },
       [
         _c(

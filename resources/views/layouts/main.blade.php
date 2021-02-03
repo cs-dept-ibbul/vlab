@@ -14,11 +14,8 @@
     </div>
 
     @include('layouts.scripts')
-
-    <script>
-    </script>
-    <div>
-        @yield('scripts_section')
-    </div>
+      
+   @yield('scripts_section')
+    
 </body>
 </html>

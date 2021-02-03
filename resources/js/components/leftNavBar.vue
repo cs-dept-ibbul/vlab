@@ -1,11 +1,11 @@
 <template>
 	<div>
-		<div class="menuBtnToggler" id="togglerV"  @click="toggleMenu" style="cursor: pointer;">
+		<div class="menuBtnToggler" id="togglerV"  @click="toggleMenu" style="cursor: pointer; background: #fff">
 			<span class="fa fa-square mr-2" style="font-size: 2em;"></span>
 			<b class="menuLI" v-bind:class="{slidein:show1, slideout:hide1}">V-LAB</b>
 		</div>
 
-		<div style="display: flex;width: 200px;" class="MenuLContainer"  v-bind:class="{reduceSize:show}">			
+		<div style="display: flex;width: 200px;background: #fff" class="MenuLContainer"  v-bind:class="{reduceSize:show}">			
 			<div v-bind:class="{slidein:show, slideout:hide}" class="niconsV slider">
 				<span class="iconOV fa fa-home btn-active" title="Home"></span>
 				<span class="iconOV fa fa-spinner" title="Explore"></span>
@@ -80,6 +80,7 @@ $(document).ready(function(){
     height: 100px;    
     transform: translateX(-100%);
     -webkit-transform: translateX(-100%);
+    z-index: 5;
 }
 
 .slidein {

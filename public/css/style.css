@@ -98,3 +98,15 @@
     transform: scale(1, 1);
     opacity: 0;
   }
+.input-search{
+  width: 100%;
+  height: 40px;
+  border: none;
+}
+.input-dark{
+  background: #2F274E;
+  color:white;
+}
+.zero-space{
+  padding: 0px;margin: 0px;
+}
