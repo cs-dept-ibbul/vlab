@@ -101,8 +101,9 @@
 }
 
 .content{
-  padding-left: 100px;
-  padding-right: 100px
+  padding-left: 98px;
+  padding-right: 98px;
+  width: 100%;
 }
 .page-title{
   color: #0B0524;
@@ -114,3 +115,5 @@
   font-weight: bold;
   font-size: 32px;
 }
+
+

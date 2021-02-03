@@ -4,7 +4,7 @@
       <div class="row custom-section d-flex align-items-center">
         <div class="col-12 col-lg-8">
           <h2 class="page-title">Virtual Laboratory</h2>
-          <p>A Simulation Virtual Environment for Experiment and Research</p>
+          <p>A virtual environment for Science and Engineering Practicals</p>
           <div class="links">
             <a href="/explore" class="nav-link">Explore V-lab</a>
             <a href="/practice" class="Practice">Practice a Practical</a>
@@ -72,8 +72,8 @@ export default {
       line-height: 1;
     }
     p {
-      color: #0c105a;
-      font-size: 14px;
+      color: #0d0d0e;
+      font-size: 20px;
       margin-top: 30px;
     }
     a {

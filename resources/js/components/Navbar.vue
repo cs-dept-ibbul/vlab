@@ -1,7 +1,7 @@
 <template>
   <div class="head my-3">
       <nav class="navbar navbar-expand-lg navbar-light head_custom-nave">
-        <a class="navbar-brand d-flex align-items-center">
+        <a href="/" class="navbar-brand d-flex align-items-center">
           <img src="" alt="Logo" />
           <span>V-Lab</span>
         </a>
