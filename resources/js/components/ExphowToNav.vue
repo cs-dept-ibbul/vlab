@@ -3,37 +3,67 @@
 		
 		<div   v-bind:class="{slidein:show, slideout:hide}" >	
 
-		<div style="display: flex;background: #2F274E;" >
-			<div v-bind:class="{btnVActive:intro}" class="btnV"  @click="toggller('introduction')">Introduction</div>
-			<div v-bind:class="{btnVActive:instru}"  class="btnV" @click="toggller('instruction')">Instruction</div>
-			<div v-bind:class="{btnVActive:proced}"  class="btnV"  @click="toggller('procedure')">Procedure</div>
+		<div style="display: flex;background: #191236;" >
+			<div v-bind:class="{btnVActive:proced}" class="btnV"  @click="toggller('procedure')">Procedure</div>
+			<div v-bind:class="{btnVActive:exerc}"  class="btnV" @click="toggller('exercise')">Exercise</div>
+			<div v-bind:class="{btnVActive:resour}"  class="btnV"  @click="toggller('resources')">Resources</div>
 		</div>
-		<div style="background: #50496E;">
-				<div style="color: #eee;font-family: 'Roboto', sans-serif;font-weight: 300; font-size: 0.8em;padding: 25px 20px;height: 500px;overflow-y: scroll;width: 97%;">
-					<div id="introduction" style="">
+		<div style="background: #2F274E; padding-right: 9px;">
+				<div class="holder">
+					<div id="procedure" class="m-0 p-0">	
+						<div style="padding: 10px 20px; font-family: 'Roboto';">
+							<p class="p-0 m-0" style="font-weight: 300;font-size: 0.95;">Title</p>
+					    	<p class="mt-2" style=" font-weight: 500;color:#fff;font-size: 1.3em;">Measurement With Vernier Caliper</p>
 							
-						<p>lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</p>
-						<h4>PREPARATION OF LABORATROY REPORT</h4>
-						<p>lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</p>
-
-						<h4>Watch How To</h4>
-						<iframe width="100%" height="auto" src="https://www.youtube.com/embed/5Vc21hGJLpM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>							
+						</div>
+						<!-- Aim -->
+						<h3 class="accordion accordBtnV" >Aim<span class="fa fa-chevron-right fontType-ico" style=""></span> </h3>
+						<div class="panel accordBodyV">
+						    		Aim Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</div>						  								
+						<!-- Aparatus -->
+						<h3 class="accordion accordBtnV" >Aparatus<span class="fa fa-chevron-right fontType-ico" style=""></span> </h3>
+						<div class="panel accordBodyV">
+						    		Aim Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</div>		
+						<!-- Theory -->
+						<h3 class="accordion accordBtnV" >Theory<span class="fa fa-chevron-right fontType-ico" style=""></span> </h3>
+						<div class="panel accordBodyV">
+						    		Aim Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</div>		
+						<!-- Requirment -->
+						<h3 class="accordion accordBtnV" >Requirement<span class="fa fa-chevron-right fontType-ico" style=""></span> </h3>
+						<div class="panel accordBodyV">
+						    		Aim Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</div>		
+						<p class="fontType-ico mt-2" style="font-size: 1.3em;padding: 0px 14px;">Instructor's Mock Experiment</p>
+						<div class="mt-1" style="padding: 0px 14px;">
+							<iframe width="100%" height="auto" src="https://www.youtube.com/embed/5Vc21hGJLpM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>														
+						</div>
 
 					</div>
-					<div id="instruction" style="display: none"></div>
-					<div id="procedure" style="display: none">procedures</div>
+					<div id="exercise" style="display: none"></div>
+					<div id="resources" style="display: none">procedures</div>
 				</div>
 		</div>
 		</div>
@@ -45,9 +75,9 @@
 
 	 data:function() {
 		    	return{
-		    	intro:true,
-		    	instru:false,
-		    	proced:false,
+		    	proced:true,
+		    	exerc:false,
+		    	resour:false,
 		    	show:false,
             	hide:true,
             	control:false,
@@ -78,43 +108,101 @@
                 }  
             },
         	toggller(e){
-        		if (e == 'introduction'){
-        			document.getElementById('instruction').style.display ='none';
-        			document.getElementById('procedure').style.display ='none';
-        			document.getElementById('introduction').style.display ='block';
-        			this.intro = true;
-        			this.instru= false;
-        			this.proced= false;
-        		}else if(e === 'instruction'){
-        			document.getElementById('introduction').style.display ='none';
-        			document.getElementById('procedure').style.display ='none';
-        			document.getElementById('instruction').style.display ='block';
-        			this.intro = false;
-        			this.proced= false;
-        			this.instru= true;
-        		}else if (e === 'procedure') {
-        			document.getElementById('introduction').style.display ='none';
-        			document.getElementById('instruction').style.display ='none';
+        		if (e == 'procedure'){
+        			document.getElementById('exercise').style.display ='none';
+        			document.getElementById('resources').style.display ='none';
         			document.getElementById('procedure').style.display ='block';
-        			this.intro = false;
-        			this.instru= false;
-        			this.proced= true;
+        			this.proced = true;
+        			this.exerc = false;
+        			this.resour = false;
+        		}else if(e === 'exercise'){
+        			document.getElementById('resources').style.display ='none';
+        			document.getElementById('procedure').style.display ='none';
+        			document.getElementById('exercise').style.display ='block';
+        			this.proced = false;
+        			this.resour = false;
+        			this.exerc  = true;
+        		}else if (e === 'resources') {
+        			document.getElementById('exercise').style.display ='none';
+        			document.getElementById('procedure').style.display ='none';
+        			document.getElementById('resources').style.display ='block';
+        			this.resour = true;
+        			this.exerc  = false;
+        			this.proced = false;
         		}
+        	},
+        	accordion(e){
+        		console.log(e.target.nextElementSibling);
         	}
         },	
          props: {
          	//control:control,
          },
-         mounted(){	        
+         mounted(){	       
+         var acc = document.getElementsByClassName("accordion");
+			var i;
+
+			for (i = 0; i < acc.length; i++) {
+			  acc[i].addEventListener("click", function(ev) {
+			    closeAll(ev.target);
+			    this.classList.toggle("active");
+			    var panel = this.nextElementSibling;
+			    if (panel.style.maxHeight) {
+			      panel.style.maxHeight = null;
+			    } else {
+			      panel.style.maxHeight = panel.scrollHeight + "px";
+			    }
+			  });
+			}
+
+			function closeAll(tar) {
+			  var accs = document.querySelectorAll('.accordion');
+			  for (var i = 0; i < accs.length; i++) {
+			    if (accs[i] == tar) {
+			      continue;
+			    }
+			    accs[i].classList.remove('active');
+			    var panel = accs[i].nextElementSibling;
+			    panel.style.maxHeight = null;
+			  }
+			} 
          }
 	}
 
 </script>
 <style scoped>
+	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+	/*@import url("https://use.fontawesome.com/releases/v5.13.0/css/all.css");*/
+	.fontType-ico{		
+		font-weight: 100;
+	}
+	.accordBtnV{
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		padding: 10px 20px 10px 20px;
+		font-family: 'Roboto';
+		font-weight: 300;
+		margin-bottom: 5px;
+		background: #40356E;
+		font-size: 0.95em;
+		color: #fff;
+	}
+
+	.holder{
+		color: #eee;
+		font-family: 'Roboto', sans-serif;
+		font-weight: 300; 
+		font-size: 0.8em;
+		height: 500px;		
+		width: 100%;
+		margin: 0px;
+		padding: 0px !important;
+		overflow-y: scroll;
+	}
 	div{
 		font-family: 'Roboto', sans-serif;
 	}
-	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 	.slidewr {
     position: absolute;
     width: 100px;
@@ -216,5 +304,28 @@ p{
 	position: relative;		
 	
 }
-/*.toggleNavOnHover:hover */
+.accordion {
+  outline: none;
+  transition: 0.4s;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.open,
+.accordion:hover {
+  background-color: #ADAABB !important; 
+  color:#191236;
+}
+
+.panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.2s ease-out;
+  padding: 0px 20px;
+  text-align: justify;
+}
+
+
+
 </style>

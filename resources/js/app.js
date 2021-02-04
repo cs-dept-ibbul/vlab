@@ -8,12 +8,12 @@ import bootstrap from "bootstrap";
 
 /*experiment page component*/
  window.Vue = require('vue');
-Vue.component('msidebar', require('./components/leftNavBar.vue').default);//main system side bar
-Vue.component('topnave', require('./components/experimentTopNav.vue').default);
-Vue.component('guide', require('./components/ExphowToNav.vue').default); //experiment side bar
-Vue.component('expfooter', require('./components/ExpbottomNav.vue').default);
+Vue.component('v-msidebar', require('./components/leftNavBar.vue').default);//main system side bar
+Vue.component('v-topnave', require('./components/experimentTopNav.vue').default);
+Vue.component('v-guide', require('./components/ExphowToNav.vue').default); //experiment side bar
+Vue.component('v-expfooter', require('./components/ExpbottomNav.vue').default);
 
-Vue.component('tlb2', require('./components/title-left-bar.vue').default);
+Vue.component('v-tlb2', require('./components/title-left-bar.vue').default);
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('v-tlb', require('./components/title-left-bar.vue').default);
 Vue.component('v-navb', require('./components/Navbar.vue').default);

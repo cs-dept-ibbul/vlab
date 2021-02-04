@@ -8,19 +8,19 @@ $ct = 1;
 <div style="display: flex;">   
 
 	<!-- main side bar -->
-	<msidebar></msidebar>   
+	<v-msidebar></v-msidebar>   
 	<!-- end main side bar -->
 
    <div style="width: 100%;">
    		<!-- top nav bar -->
-   		<topnave></topnave>
+   		<v-topnave></v-topnave>
    		<!-- end to nav bar -->
 
    		<!-- content -->
    		<div style="display: flex;flex-wrap: wrap;">
 
    			<!-- experiment left side bar -->
-   				<guide ></guide>   	
+   				<v-guide ></v-guide>   	
    				<!--<guide :control="control"></guide>   	-->
    			<!-- end experiment side bar -->
 
@@ -57,7 +57,7 @@ $ct = 1;
    			</div>
    			<!-- experiment footer -->
    			<div style="flex:100%">
-   				<expfooter></expfooter>
+   				<v-expfooter></v-expfooter>
    			</div>
    			<!-- end experiment footer -->
 
