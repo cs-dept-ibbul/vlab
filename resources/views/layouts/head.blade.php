@@ -5,3 +5,5 @@
  <link href="{{ asset('css/datatable.css')}}" rel="stylesheet" media="all">
  <link href="{{ asset('css/style.css')}}" rel="stylesheet" media="all">
    <link href="{{ asset('venobox/venobox.css')}}" rel="stylesheet">
+
+   <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">

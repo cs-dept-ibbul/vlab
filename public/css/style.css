@@ -8,7 +8,7 @@
  .play-btn {
   width: 94px;
   height: 94px;
-  background: radial-gradient(#3f43fd 50%, rgba(63, 67, 253, 0.4) 52%);
+  background: radial-gradient(#2F2651 50%, rgba(63, 67, 253, 0.4) 52%);
   border-radius: 50%;
   display: block;
   position: absolute;
@@ -98,15 +98,119 @@
     transform: scale(1, 1);
     opacity: 0;
   }
-.input-search{
+}
+
+.content{
+  padding-left: 98px;
+  padding-right: 98px;
   width: 100%;
-  height: 40px;
-  border: none;
 }
-.input-dark{
-  background: #2F274E;
-  color:white;
+.page-title{
+  color: #0B0524;
+  font-weight: bold;
+  font-size: 32px;
 }
-.zero-space{
-  padding: 0px;margin: 0px;
+.page-sub-title{
+  color: #0B0524;
+  font-weight: bold;
+  font-size: 32px;
 }
+
+.page-Container {
+  width: 100%;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin: 0;
+}
+
+/* The container */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #78718f;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  
+}
+
+
+.input-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.btn-container {
+  position: absolute;
+  right: 0;
+}
+
+.input-row, .course-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    width: 100%;
+}
+.input-bgc{
+  background-color: #78718f;
+}
+

@@ -2,10 +2,10 @@
   <div>
     <div id="alignment">
         <div id="title">
-            <h2>Explore V-Lab Available Courses</h2>
+            <h2 class="page-title">Explore V-Lab Available Courses</h2>
             <p>Most Visited Courses</p>
         </div>
-      <div class="row custom-section d-flex align-items-center">
+      <div class="row custom-section ">
        
       </div>
     </div>
@@ -35,11 +35,11 @@ export default {
 }
 //section
 .custom-section {
-  width: 95%;
+  width: 99%;
   padding: 40px 0px;
   background-color: #eeeeef;
   border-radius: 2rem;
-  height: 350px;
+  height: 250px;
 
   @media screen and (width: 991.98px) {
     flex-direction: column-reverse;
@@ -62,9 +62,10 @@ export default {
       line-height: 1;
     }
     p {
+      padding-top: 100px;
       color: #0c105a;
       font-size: 14px;
-      margin-top: 30px;
+      
     }
     a {
       display: inline-block;

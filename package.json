@@ -13,6 +13,7 @@
         "axios": "^0.21",
         "bootstrap": "^4.0.0",
         "jquery": "^3.5.1",
+        "jquery": "^3.2",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "popper.js": "^1.12",
@@ -25,8 +26,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "store": "^2.0.12",
-        "vue-router": "^3.4.9",
-        "vuex": "^3.6.2"
+        "font-awesome": "^4.7.0",
+        "vue-router": "^3.4.9"
     }
 }

@@ -2,7 +2,7 @@
 @section('content-body')
     <div class="content">
         <navb></navb>
-        <t></t>
-        <sponsor></sponsor>
+        <avl></avl>
+        <avlc></avlc>
     </div>
 @endsection
