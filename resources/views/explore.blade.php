@@ -1,8 +1,8 @@
 @extends('layouts/main')
 @section('content-body')
     <div class="content">
-        <navb></navb>
-        <avl></avl>
-        <avlc></avlc>
+        <v-navb></v-navb>
+        <v-avl></v-avl>
+        <v-avlc></v-avlc>
     </div>
 @endsection
