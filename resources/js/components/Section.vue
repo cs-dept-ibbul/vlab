@@ -3,17 +3,19 @@
     <div id="alignment">
       <div class="row custom-section d-flex align-items-center">
         <div class="col-12 col-lg-8">
-          <h2>Virtual Laboratory</h2>
-          <p>A Simulation Virtual Environment for Experiment and Research</p>
+          <h2 class="page-title">Virtual Laboratory</h2>
+          <p>A virtual environment for Science and Engineering Practicals</p>
           <div class="links">
-            <router-link to="/explore" class="nav-link">Explore V-lab</router-link>
-            <router-link to="/practice">Practice a Practical</router-link>
+            <a href="/explore" class="nav-link">Explore V-lab</a>
+            <a href="/practice" class="Practice">Practice a Practical</a>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="intro_vid"></div>
+    <div class="intro_vid">
+      <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
+    </div>
   </div>
 </template>
 
@@ -26,11 +28,11 @@ export default {
 <style lang="scss" scoped>
 .intro_vid {
   position: absolute;
-  background-color: #0c105a;
+  background-color: #2F2651;
   width: 25rem;
   height: 28rem;
   z-index: 1;
-  border-radius: 2rem;
+  border-radius: 2.5rem;
   right: 15%;
   top: 25%;
 }
@@ -44,7 +46,7 @@ export default {
 
 //section
 .custom-section {
-  width: 95%;
+  width: 99%;
   padding: 40px 0px;
   background-color: #eeeeef;
   border-radius: 1rem;
@@ -58,7 +60,7 @@ export default {
     h2 {
       font-weight: 700px;
       font-size: 63px;
-      color: #0c105a;
+      color: #2F2651;
       margin-bottom: 0;
       line-height: 1;
       white-space: nowrap;
@@ -70,39 +72,38 @@ export default {
       line-height: 1;
     }
     p {
-      color: #0c105a;
-      font-size: 14px;
+      color: #0d0d0e;
+      font-size: 20px;
       margin-top: 30px;
     }
     a {
       display: inline-block;
       padding: 8px 22px;
-      color: #ffffff;
-      background-color: #0c105a;
+      
       border: 1px solid transparent;
       margin-top: 60px;
       text-decoration: none;
       transition: 5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-
-      &:hover {
-        color: white;
-        background-color: darkblue;
-        border: 1px solid rgb(0, 0, 255);
-      }
     }
+
   }
 }
 .nav-link{
-			color:#FFFFFF;
-            font-weight:800;
-            font-size: large;
+			color:#FFF;
+      font-size: large;
 			padding:8px 15px;
 			white-space:nowrap;
-			background-color: #161d99;
-			border-radius: 1rem;
+			background-color: #2F2651;
+      border-radius: 1rem;
+      
 			&:hover{
 				color:rgb(255, 255, 255);
 				background-color: #454aa1;
 			}
-		}
+    }
+  .Practice{
+
+    color:#000;
+  }
+  
 </style>

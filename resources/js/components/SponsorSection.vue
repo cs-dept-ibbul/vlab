@@ -6,13 +6,13 @@
 		 </div>
 		 <div class="sponsors">
 			<div class="row custom-section d-flex align-items-center">
-				hh
+				
 			</div>
 			<div class="row custom-section d-flex align-items-center">
-				hh
+				
 			</div>
 			<div class="row custom-section d-flex align-items-center">
-				hh
+				
 			</div>
 		 </div>
 	

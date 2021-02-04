@@ -1,8 +1,16 @@
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Nunito");
-
-// Variables
-@import "variables";
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap');
 
 // Bootstrap
-@import "~bootstrap/scss/bootstrap";
+@import '~bootstrap/scss/bootstrap';
+@import "node_modules/font-awesome/scss/font-awesome.scss";
+// Variables
+@import 'variables';
+
+
+
+body{
+    font-family: 'Oswald', sans-serif;
+}
+
+
