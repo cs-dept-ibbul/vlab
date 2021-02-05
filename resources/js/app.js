@@ -8,10 +8,17 @@ import bootstrap from "bootstrap";
 
 /*experiment page component*/
  window.Vue = require('vue');
+
+/*global event bus and communication*/
+Vue.prototype.$eventBus = new Vue(); 
+
 Vue.component('v-msidebar', require('./components/leftNavBar.vue').default);//main system side bar
 Vue.component('v-topnave', require('./components/experimentTopNav.vue').default);
 Vue.component('v-guide', require('./components/ExphowToNav.vue').default); //experiment side bar
 Vue.component('v-expfooter', require('./components/ExpbottomNav.vue').default);
+Vue.component('v-ribbon', require('./components/ExperimentRibbon.vue').default);
+Vue.component('v-start', require('./components/StartExperimentBtn.vue').default);
+
 
 Vue.component('v-tlb2', require('./components/title-left-bar.vue').default);
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
@@ -27,6 +34,11 @@ Vue.component('v-viewcourses', require('./components/VewCourse.vue').default);
  const app = new Vue({
    el: '#app',
    bootstrap,
+   	 data:function() {
+	    	return{
+	    	 poor:false
+	    	}
+        },
     methods:{
             toggleClass(){            	
                 this.isLoading=!this.isLoading;
@@ -34,3 +46,13 @@ Vue.component('v-viewcourses', require('./components/VewCourse.vue').default);
             }
         }
  });
+Vue.filter('two_digits', (value) => {
+  if (value < 0) {
+  	value = 0;
+    return '00';
+  }
+  if (value.toString().length <= 1) {
+    return `0${value}`;
+  }
+  return value;
+});

@@ -1,7 +1,7 @@
 <template>
 	<div style="margin:0; padding: 35px 20px 10px 20px;display: flex;justify-content: space-between;width: 100%;background: #eee;">
 		<div style="display: flex;flex-wrap: wrap;align-items: center; ">
-			<span style="font-size: 1.4em;" class="fa fa-align-justify mr-3"></span>
+			<span @click="toggleExperimentGuider" style="font-size: 1.4em;cursor: pointer;" class="fa fa-align-justify mr-3"></span>
 			<b><span style="font-weight: 800;font-size: 1.7em;">Vernier Caliper /</span><span style="font-weight: 600;font-size: 1.3em;">Experiment I</span></b>
 		</div>
 		<div style="display: flex;flex-wrap: wrap;align-items: center;">
@@ -13,7 +13,30 @@
 </template>
 
 <script>
-	
+	export default{
+
+	 data:function() {
+	    	return{
+	    	 navState:false
+	    	}
+        },
+        methods:{
+        	toggleExperimentGuider: function () {
+//        		alert(this.navState);
+        		this.navState = !this.navState;
+			   this.$eventBus.$emit('toggleClick',{text:this.navState});
+			    //this.newTodoText = ''
+			}
+        },	
+        
+         props: [],
+         mounted(){	         	
+         },
+         events :{
+         	'toggleClick':'toggleClick'
+         }
+
+	}
 </script>
 <style scoped>
 	div{

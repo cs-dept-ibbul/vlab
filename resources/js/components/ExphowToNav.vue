@@ -3,12 +3,12 @@
 		
 		<div   v-bind:class="{slidein:show, slideout:hide}" >	
 
-		<div style="display: flex;background: #191236;" >
+		<div style="display: flex;background: #2F274E;" >
 			<div v-bind:class="{btnVActive:proced}" class="btnV"  @click="toggller('procedure')">Procedure</div>
 			<div v-bind:class="{btnVActive:exerc}"  class="btnV" @click="toggller('exercise')">Exercise</div>
 			<div v-bind:class="{btnVActive:resour}"  class="btnV"  @click="toggller('resources')">Resources</div>
 		</div>
-		<div style="background: #2F274E; padding-right: 9px;">
+		<div style="background: #40356E; padding-right: 9px;">
 				<div class="holder">
 					<div id="procedure" class="m-0 p-0">	
 						<div style="padding: 10px 20px; font-family: 'Roboto';">
@@ -18,43 +18,18 @@
 						</div>
 						<!-- Aim -->
 						<h3 class="accordion accordBtnV" >Aim<span class="fa fa-chevron-right fontType-ico" style=""></span> </h3>
-						<div class="panel accordBodyV">
-						    		Aim Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</div>						  								
+						<div class="panel accordBodyV" v-html="aim"></div>						  								
 						<!-- Aparatus -->
 						<h3 class="accordion accordBtnV" >Aparatus<span class="fa fa-chevron-right fontType-ico" style=""></span> </h3>
-						<div class="panel accordBodyV">
-						    		Aim Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</div>		
+						<div class="panel accordBodyV" v-html="aparatus">	
+						</div>					    		
 						<!-- Theory -->
-						<h3 class="accordion accordBtnV" >Theory<span class="fa fa-chevron-right fontType-ico" style=""></span> </h3>
-						<div class="panel accordBodyV">
-						    		Aim Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						<h3 class="accordion accordBtnV">Theory<span class="fa fa-chevron-right fontType-ico" style=""></span> </h3>
+						<div class="panel accordBodyV" v-html="theory">						    		
 						</div>		
 						<!-- Requirment -->
 						<h3 class="accordion accordBtnV" >Requirement<span class="fa fa-chevron-right fontType-ico" style=""></span> </h3>
-						<div class="panel accordBodyV">
-						    		Aim Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						<div class="panel accordBodyV" v-html="requirment">						    		
 						</div>		
 						<p class="fontType-ico mt-2" style="font-size: 1.3em;padding: 0px 14px;">Instructor's Mock Experiment</p>
 						<div class="mt-1" style="padding: 0px 14px;">
@@ -62,13 +37,13 @@
 						</div>
 
 					</div>
-					<div id="exercise" style="display: none"></div>
-					<div id="resources" style="display: none">procedures</div>
+					<div id="exercise" style="display: none; padding: 10px 14px;" v-html="exercise"></div>
+					<div id="resources" style="display: none; padding: 10px 14px" v-html="resources" >resources</div>
 				</div>
 		</div>
-		</div>
-		<span class="fa fa-arrows-alt mr-5 pr-4"  @click="toggleNavOnHover"  style="font-size: 1.5em;padding-top: 5px;color:white;position: absolute;bottom: -2px;z-index: 5;left: 250px;cursor: pointer;"></span>
-	</div>
+		</div>	
+	
+</div>
 </template>
 <script>
 	export default{
@@ -93,18 +68,19 @@
         			                    		 
             	//control = false;
         	},
-        	toggleNavOnHover(){          
+        	toggleNavOnHover: function(value){          
         		//this.control = true;
+        		//alert(value);
         		this.show = !this.show;
-        			this.hide= !this.show; 
+        		this.hide= !this.show; 
                if (this.show){
             	    //this.show=true;                      
             		document.getElementById('expSideBar').classList.add('addSize');  
-    	        	document.getElementById('mainExp').style.width= '59%';                    		 
+    	        	document.getElementById('mainExp').style.width= '62%';                    		 
 	            		
                 }else{              		
 	            	document.getElementById('expSideBar').classList.remove('addSize');  	
-	            		document.getElementById('mainExp').style.width= '85%';	
+	            		document.getElementById('mainExp').style.width= '88%';	
                 }  
             },
         	toggller(e){
@@ -135,17 +111,29 @@
         		console.log(e.target.nextElementSibling);
         	}
         },	
-         props: {
-         	//control:control,
-         },
+        
+        created: function () {
+		 
+		  this.$eventBus.$on('toggleClick', data => {
+		  	this.toggleNavOnHover();
+		  })		  
+
+		},
+
+		beforeDestroy: function () {
+		  this.eventBus.$off('toggleClick', this.toggleNavOnHover)		  
+		},
+
+         props: ['aim','aparatus','theory','requirment', 'exercise', 'resources'],
          mounted(){	       
+         	
          var acc = document.getElementsByClassName("accordion");
 			var i;
 
 			for (i = 0; i < acc.length; i++) {
 			  acc[i].addEventListener("click", function(ev) {
 			    closeAll(ev.target);
-			    this.classList.toggle("active");
+			    this.classList.toggle("accordActiv");
 			    var panel = this.nextElementSibling;
 			    if (panel.style.maxHeight) {
 			      panel.style.maxHeight = null;
@@ -161,7 +149,7 @@
 			    if (accs[i] == tar) {
 			      continue;
 			    }
-			    accs[i].classList.remove('active');
+			    accs[i].classList.remove('accordActiv');
 			    var panel = accs[i].nextElementSibling;
 			    panel.style.maxHeight = null;
 			  }
@@ -184,7 +172,7 @@
 		font-family: 'Roboto';
 		font-weight: 300;
 		margin-bottom: 5px;
-		background: #40356E;
+		background: rgba(40,35,65,.4);
 		font-size: 0.95em;
 		color: #fff;
 	}
@@ -252,20 +240,18 @@
 	transition: width 0.5s;
 
 }
-	.btnV{
-		
+	.btnV{		
 		color:#eee;
 		font-family: calibri;
 		font-size: 1em;
 		cursor: pointer;
-		border-bottom: 3px solid #2F274E;
-		/*letter-spacing: px;*/
+		border-bottom: 3px solid #2F274E;		
 	}
 	.btnV:nth-child(odd){
-		padding: 6px 20px;
+		padding: 5px 20px;
 	}
 	.btnV:nth-child(even){
-		padding: 6px 0px;
+		padding: 5px 0px;
 	}
 	.btnVActive{
 	   border-bottom: 3px solid #fff;
@@ -312,10 +298,17 @@ p{
   justify-content: space-between;
 }
 
-.open,
 .accordion:hover {
   background-color: #ADAABB !important; 
-  color:#191236;
+  color:#fff !important;
+  text-shadow: 1px 2px 3px #000;
+  font-weight: 500 !important;
+}
+.accordActiv{
+background-color: #ADAABB !important; 
+  color:#fff !important;
+  text-shadow: 1px 2px 3px #000;
+  font-weight: 500 !important;	
 }
 
 .panel {
