@@ -24,11 +24,7 @@
     <div class="course-container">
       <div v-for="x in 8" :key="x" class="col-md-3">
         <div class="card" style="width: 100%;">
-          <img
-            src="../../images/course_image.png"
-            class="card-img-top"
-            alt="..."
-          />
+          
           <div class="card-body">
             <h5 class="card-title">
               <a href="/vewCourse" class="btn btn-light">Applied Sciences</a>
@@ -54,6 +50,16 @@
 <script>
 export default {
   name: "AvalaibleCourses",
+  props: ['image1'],
+  mounted: function () {
+   var $vm  = this;
+  this.$nextTick(function () {
+    // Code that will run only after the
+    // entire view has been rendered
+    console.log($vm.image1);
+  })
+}
+ 
 };
 </script>
 

@@ -20,8 +20,6 @@ Vue.component('v-ribbon', require('./components/ExperimentRibbon.vue').default);
 Vue.component('v-start', require('./components/StartExperimentBtn.vue').default);
 
 
-Vue.component('v-tlb2', require('./components/title-left-bar.vue').default);
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('v-tlb', require('./components/title-left-bar.vue').default);
 Vue.component('v-navb', require('./components/Navbar.vue').default);
 Vue.component('v-t', require('./components/Section.vue').default);

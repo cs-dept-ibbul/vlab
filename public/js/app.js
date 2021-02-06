@@ -61,12 +61,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "AvalaibleCourses"
+  name: "AvalaibleCourses",
+  props: ['image1'],
+  mounted: function mounted() {
+    var $vm = this;
+    this.$nextTick(function () {
+      // Code that will run only after the
+      // entire view has been rendered
+      console.log($vm.image1);
+    });
+  }
 });
 
 /***/ }),
@@ -442,6 +447,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Section"
 });
@@ -634,6 +640,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
 //
 //
 //
@@ -941,8 +949,6 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-guide', __webpack_require_
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-expfooter', __webpack_require__(/*! ./components/ExpbottomNav.vue */ "./resources/js/components/ExpbottomNav.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-ribbon', __webpack_require__(/*! ./components/ExperimentRibbon.vue */ "./resources/js/components/ExperimentRibbon.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-start', __webpack_require__(/*! ./components/StartExperimentBtn.vue */ "./resources/js/components/StartExperimentBtn.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-tlb2', __webpack_require__(/*! ./components/title-left-bar.vue */ "./resources/js/components/title-left-bar.vue").default); // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-tlb', __webpack_require__(/*! ./components/title-left-bar.vue */ "./resources/js/components/title-left-bar.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-navb', __webpack_require__(/*! ./components/Navbar.vue */ "./resources/js/components/Navbar.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-t', __webpack_require__(/*! ./components/Section.vue */ "./resources/js/components/Section.vue").default);
@@ -5463,7 +5469,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "#navbarNav .navbar-nav .nav-link[data-v-6dde423b] {\n  color: #0B0524;\n  font-size: large;\n  padding: 8px 15px;\n  white-space: nowrap;\n  transition: 0.5s cubic-bezie(0.785, 0.135, 0.15, 0.86);\n}\n#navbarNav .navbar-nav .nav-link[data-v-6dde423b]:hover {\n  color: darkblue;\n}\n#navbarNav .nav-link-login[data-v-6dde423b] {\n  color: #ffffff;\n  font-weight: 800;\n  font-size: large;\n  padding: 8px 15px;\n  white-space: nowrap;\n  background-color: #D4D2DC;\n  border-radius: 1rem;\n  color: #000000;\n}\n#navbarNav .nav-link-login[data-v-6dde423b]:hover {\n  color: white;\n  background-color: #D4D2DC;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "#navbarNav .navbar-nav .nav-link[data-v-6dde423b] {\n  color: #0B0524;\n  font-size: large;\n  padding: 8px 15px;\n  white-space: nowrap;\n  transition: 0.5s cubic-bezie(0.785, 0.135, 0.15, 0.86);\n}\n#navbarNav .navbar-nav .nav-link[data-v-6dde423b]:hover {\n  color: darkblue;\n}\n#navbarNav .nav-link-login[data-v-6dde423b] {\n  color: #ffffff;\n  font-weight: 200;\n  font-size: large;\n  padding: 10px 25px;\n  white-space: nowrap;\n  background-color: rgba(25, 10, 100, 0.2);\n  border-radius: 10px;\n  color: #000000;\n}\n#navbarNav .nav-link-login[data-v-6dde423b]:hover {\n  color: white;\n  background-color: #D4D2DC;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -5486,8 +5492,9 @@ __webpack_require__.r(__webpack_exports__);
 // Imports
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".intro_vid[data-v-0c7ea46c] {\n  position: absolute;\n  background-color: #2F2651;\n  width: 25rem;\n  height: 28rem;\n  z-index: 1;\n  border-radius: 2.5rem;\n  right: 15%;\n  top: 25%;\n}\n#alignment[data-v-0c7ea46c] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.custom-section[data-v-0c7ea46c] {\n  width: 99%;\n  padding: 40px 0px;\n  background-color: #eeeeef;\n  border-radius: 1rem;\n}\n@media screen and (width: 991.98px) {\n.custom-section[data-v-0c7ea46c] {\n    flex-direction: column-reverse;\n}\n}\n.custom-section .col-lg-8[data-v-0c7ea46c] {\n  margin-top: 100px;\n}\n.custom-section .col-lg-8 h2[data-v-0c7ea46c] {\n  font-weight: 700px;\n  font-size: 63px;\n  color: #2F2651;\n  margin-bottom: 0;\n  line-height: 1;\n  white-space: nowrap;\n}\n.custom-section .col-lg-8 h3[data-v-0c7ea46c] {\n  font-weight: 300px;\n  font-size: 64px;\n  color: #0c105a;\n  line-height: 1;\n}\n.custom-section .col-lg-8 p[data-v-0c7ea46c] {\n  color: #0d0d0e;\n  font-size: 20px;\n  margin-top: 30px;\n}\n.custom-section .col-lg-8 a[data-v-0c7ea46c] {\n  display: inline-block;\n  padding: 8px 22px;\n  border: 1px solid transparent;\n  margin-top: 60px;\n  text-decoration: none;\n  transition: 5s cubic-bezier(0.785, 0.135, 0.15, 0.86);\n}\n.nav-link[data-v-0c7ea46c] {\n  color: #FFF;\n  font-size: large;\n  padding: 8px 15px;\n  white-space: nowrap;\n  background-color: #2F2651;\n  border-radius: 1rem;\n}\n.nav-link[data-v-0c7ea46c]:hover {\n  color: white;\n  background-color: #454aa1;\n}\n.Practice[data-v-0c7ea46c] {\n  color: #000;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "div[data-v-0c7ea46c] {\n  font-family: \"Roboto\", sans-serif;\n}\n.intro_vid[data-v-0c7ea46c] {\n  position: absolute;\n  background-color: #2F2651;\n  width: 25rem;\n  height: 28rem;\n  z-index: 1;\n  border-radius: 20px;\n  right: 15%;\n  top: 25%;\n}\n#alignment[data-v-0c7ea46c] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.custom-section[data-v-0c7ea46c] {\n  width: 99%;\n  padding: 40px 0px;\n  background-color: #efefef;\n  border-radius: 16px;\n}\n@media screen and (width: 991.98px) {\n.custom-section[data-v-0c7ea46c] {\n    flex-direction: column-reverse;\n}\n}\n.custom-section .col-lg-8[data-v-0c7ea46c] {\n  margin-top: 100px;\n}\n.custom-section .col-lg-8 h2[data-v-0c7ea46c] {\n  font-weight: 700px;\n  font-size: 63px;\n  color: #2F2651;\n  margin-bottom: 0;\n  line-height: 1;\n  white-space: nowrap;\n}\n.custom-section .col-lg-8 h3[data-v-0c7ea46c] {\n  font-weight: 300px;\n  font-size: 64px;\n  color: #0c105a;\n  line-height: 1;\n}\n.custom-section .col-lg-8 p[data-v-0c7ea46c] {\n  color: #0d0d0e;\n  font-size: 20px;\n  margin-top: 30px;\n}\n.custom-section .col-lg-8 a[data-v-0c7ea46c] {\n  display: inline-block;\n  padding: 8px 22px;\n  border: 1px solid transparent;\n  margin-top: 60px;\n  text-decoration: none;\n  transition: 5s cubic-bezier(0.785, 0.135, 0.15, 0.86);\n}\n.nav-link[data-v-0c7ea46c] {\n  color: #FFF;\n  font-size: large;\n  padding: 8px 15px;\n  white-space: nowrap;\n  background-color: #2F2651;\n  border-radius: 10px;\n}\n.nav-link[data-v-0c7ea46c]:hover {\n  color: white;\n  background-color: #454aa1;\n}\n.Practice[data-v-0c7ea46c] {\n  color: #000;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -5659,7 +5666,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.child[data-v-68ce3688] {\r\n  background-color: #fff;\r\n  margin-bottom: 30px;\r\n  border-radius: 0.5rem;\n}\nul.timeline[data-v-68ce3688] {\r\n  list-style-type: none;\r\n  position: relative;\n}\nul.timeline[data-v-68ce3688]:before {\r\n  content: \" \";\r\n  background: #d4d9df;\r\n  display: inline-block;\r\n  position: absolute;\r\n  left: 29px;\r\n  width: 2px;\r\n  height: 100%;\r\n  z-index: 400;\n}\nul.timeline > li[data-v-68ce3688] {\r\n  margin: 0px 0;\r\n  padding-left: 20px;\n}\nul.timeline > li[data-v-68ce3688]:before {\r\n  content: \" \";\r\n  background: white;\r\n  display: inline-block;\r\n  position: absolute;\r\n  border-radius: 50%;\r\n  border: 3px solid #0b0524;\r\n  left: 20px;\r\n  width: 20px;\r\n  height: 20px;\r\n  z-index: 400;\n}\n.vlab-practicals[data-v-68ce3688] {\r\n  width: 100%;\r\n  background-color: #ebeaef;\r\n  max-height: 500px;\r\n  border-radius: 2.5rem;\r\n  overflow-x: hidden;\r\n  overflow-y: scroll;\n}\n.instructors[data-v-68ce3688] {\r\n  color: #959399;\r\n  margin-bottom: 0%;\n}\n.view-practicals[data-v-68ce3688] {\r\n  width: 95%;\r\n  background-color: #ebeaef;\r\n  height: 200px;\r\n  border-radius: 2rem;\r\n  margin-top: 55px;\r\n  display: flex;\n}\n.view-practicals-box[data-v-68ce3688] {\r\n  width: 12%;\r\n  background-color: #adaabb;\r\n  height: 150px;\r\n\r\n  position: absolute;\r\n  z-index: 1;\r\n  border-radius: 2.5rem;\r\n  right: 55%;\r\n  top: 38%;\n}\n.view-Practical_text[data-v-68ce3688] {\r\n  align-self: flex-end;\r\n  padding-left: 20px;\n}\n.fa[data-v-68ce3688] {\r\n  padding-left: 5px;\n}\n.side[data-v-68ce3688] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.expect[data-v-68ce3688] {\r\n  width: 55%;\r\n  background-color: #ebeaef;\r\n  height: 300px;\r\n  border-radius: 2rem;\r\n  margin-top: 55px;\n}\n.what-to-expect-text[data-v-68ce3688] {\r\n  padding-left: 20px;\r\n  padding-top: 20px;\r\n  font-weight: bold;\r\n  color: #0b0524;\n}\n.expect-content[data-v-68ce3688] {\r\n  width: 90%;\r\n  overflow-x: hidden;\r\n  overflow-y: scroll;\r\n  scrollbar-color: #0b0524 #bebebe;\r\n  scrollbar-width: thin;\r\n  max-height: 220px;\r\n  margin-left: 15px;\n}\n.input-row[data-v-68ce3688] {\r\n  margin-top: 20px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.text[data-v-68ce3688]{\r\n  background-color: #d4d9df; \r\n  padding: 8px; \r\n  border-radius: 10px; \r\n  font-size: 16px;\n}\n.practical-desc[data-v-68ce3688] {\r\n  display: flex; \r\n  justify-content: space-between;\r\n  width: 52%;\r\n  font-size: 16px;\r\n  padding: 8px 0;\n}\n.bttn-container[data-v-68ce3688] {\r\n  border: 1px solid black;\r\n  border-radius: 5px;\n}\n.col-md-10[data-v-68ce3688] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: 8rem;\n}\n.col-md-2[data-v-68ce3688] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content:space-around;\n}\n.practical-title[data-v-68ce3688] {\r\n  font-weight: bolder;\r\n  padding-top: 10px;\r\n  text-transform: capitalize;\n}\n.child[data-v-68ce3688] {\r\n  background-color: #fff;\r\n  margin-bottom: 30px;\r\n  border-radius: 0.5rem;\r\n  padding: 10px;\r\n  height: 10rem;\r\n  display: flex;\r\n  justify-content: space-between;\n}\nul.timeline[data-v-68ce3688] {\r\n  list-style-type: none;\r\n  position: relative;\n}\nul.timeline[data-v-68ce3688]:before {\r\n  content: \" \";\r\n  background: #d4d9df;\r\n  display: inline-block;\r\n  position: absolute;\r\n  left: 29px;\r\n  width: 2px;\r\n  height: 100%;\r\n  z-index: 400;\n}\nul.timeline > li[data-v-68ce3688] {\r\n  margin: 0px 0;\r\n  padding-left: 20px;\n}\nul.timeline > li[data-v-68ce3688]:before {\r\n  content: \" \";\r\n  background: white;\r\n  display: inline-block;\r\n  position: absolute;\r\n  border-radius: 50%;\r\n  border: 3px solid #0b0524;\r\n  left: 20px;\r\n  width: 20px;\r\n  height: 20px;\r\n  z-index: 400;\n}\n.vlab-practicals[data-v-68ce3688] {\r\n  width: 100%;\r\n  background-color: #ebeaef;\r\n  max-height: 500px;\r\n  border-radius: 2.5rem;\r\n  overflow-x: hidden;\r\n  overflow-y: scroll;\n}\n.instructors[data-v-68ce3688] {\r\n  color: #959399;\r\n  margin-bottom: 0%;\n}\n.view-practicals[data-v-68ce3688] {\r\n  width: 95%;\r\n  background-color: #ebeaef;\r\n  height: 200px;\r\n  border-radius: 2rem;\r\n  margin-top: 55px;\r\n  display: flex;\n}\n.view-practicals-box[data-v-68ce3688] {\r\n  width: 12%;\r\n  background-color: #adaabb;\r\n  height: 150px;\r\n\r\n  position: absolute;\r\n  z-index: 1;\r\n  border-radius: 2.5rem;\r\n  right: 55%;\r\n  top: 38%;\n}\n.view-Practical_text[data-v-68ce3688] {\r\n  align-self: flex-end;\r\n  padding-left: 20px;\n}\n.fa[data-v-68ce3688] {\r\n  padding-left: 5px;\n}\n.side[data-v-68ce3688] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.expect[data-v-68ce3688] {\r\n  width: 55%;\r\n  background-color: #ebeaef;\r\n  height: 300px;\r\n  border-radius: 2rem;\r\n  margin-top: 55px;\n}\n.what-to-expect-text[data-v-68ce3688] {\r\n  padding-left: 20px;\r\n  padding-top: 20px;\r\n  font-weight: bold;\r\n  color: #0b0524;\n}\n.expect-content[data-v-68ce3688] {\r\n  width: 90%;\r\n  overflow-x: hidden;\r\n  overflow-y: scroll;\r\n  scrollbar-color: #0b0524 #bebebe;\r\n  scrollbar-width: thin;\r\n  max-height: 220px;\r\n  margin-left: 15px;\n}\n.input-row[data-v-68ce3688] {\r\n  margin-top: 20px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -5789,21 +5796,6 @@ module.exports = function (cssWithMappingToString) {
 
   return list;
 };
-
-/***/ }),
-
-/***/ "./resources/images/course_image.png":
-/*!*******************************************!*\
-  !*** ./resources/images/course_image.png ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/course_image.png?dca79949235667ecff5073ff984443bc");
 
 /***/ }),
 
@@ -21175,11 +21167,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card", staticStyle: { width: "100%" } }, [
-      _c("img", {
-        staticClass: "card-img-top",
-        attrs: { src: __webpack_require__(/*! ../../images/course_image.png */ "./resources/images/course_image.png"), alt: "..." }
-      }),
-      _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("h5", { staticClass: "card-title" }, [
           _c(
@@ -21796,11 +21783,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { attrs: { id: "alignment" } }, [
+    return _c("div", {}, [
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "m-0 p-0", attrs: { id: "alignment" } }, [
         _c(
           "div",
-          { staticClass: "row custom-section d-flex align-items-center" },
+          {
+            staticClass: "row p-5 pb-3 custom-section d-flex align-items-center"
+          },
           [
             _c("div", { staticClass: "col-12 col-lg-8" }, [
               _c("h2", { staticClass: "page-title" }, [
@@ -21825,7 +21816,9 @@ var staticRenderFns = [
                   { staticClass: "Practice", attrs: { href: "/practice" } },
                   [_vm._v("Practice a Practical")]
                 )
-              ])
+              ]),
+              _vm._v(" "),
+              _c("br")
             ])
           ]
         )
@@ -22116,10 +22109,38 @@ var staticRenderFns = [
           _c("div", { staticClass: "col-md-12" }, [
             _c("ul", { staticClass: "timeline" }, [
               _c("li", { staticClass: "child" }, [
-                _c("div", { staticClass: "col-md-10" }, [_vm._v("s")]),
+                _c("div", { staticClass: "col-md-10" }, [
+                  _c("div", [
+                    _c("span", { staticClass: "text" }, [_vm._v("100 level")]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "text" }, [_vm._v("Phy117")]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "text" }, [_vm._v("100 level")])
+                  ]),
+                  _vm._v(" "),
+                  _c("h3", { staticClass: "practical-title" }, [
+                    _vm._v("virtual optics")
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticStyle: { "font-size": "14px" } }, [
+                    _vm._v(
+                      "Lorem ipsum dolor sit amet, consectetur adipisicing elit.\n                  Tenetur"
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "practical-desc" }, [
+                    _c("span", [_vm._v("12 Practicals")]),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("Lectures")]),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("Dr.Shamsu Laika")]),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("Dr.Shamsu Laika")])
+                  ])
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-2" }, [
-                  _c("div", [
+                  _c("div", { staticClass: "bttn-container" }, [
                     _c(
                       "button",
                       {
@@ -22128,34 +22149,12 @@ var staticRenderFns = [
                       },
                       [
                         _c("i", { staticClass: "fa fa-plus" }),
-                        _vm._v("Add to Lab\n                    ")
+                        _vm._v("Add to Lab\n                  ")
                       ]
                     )
                   ]),
                   _vm._v(" "),
-                  _c("p", [_vm._v("More Details")])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "child" }, [
-                _c("div", { staticClass: "col-md-10" }, [_vm._v("s")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-2" }, [
-                  _c("div", [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-default",
-                        attrs: { type: "submit" }
-                      },
-                      [
-                        _c("i", { staticClass: "fa fa-plus" }),
-                        _vm._v("Add to Lab\n                    ")
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v("More Details")])
+                  _c("div", [_c("p", [_vm._v("More Details")])])
                 ])
               ])
             ])
