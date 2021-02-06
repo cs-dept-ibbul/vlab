@@ -868,10 +868,10 @@ var _stringProperties = {};
     xy5 = [[x2-size/2,y1],[x2-size/2,y1+size/2],[x2,y1+size/2],[x2,y1+6*size2],[x2-size/2,y1+5*size2],[x2-size*1.5,y1],[x2,y1]]; // EjsS Model.Variables.topjaw.xy5
   });
 
-  _model.addToReset(function() {
+  _model.addToReset(function() {  
     shapetype = "RECTANGLE"; // EjsS Model.Variables.object.shapetype
     roundshapetype = false; // EjsS Model.Variables.object.roundshapetype
-    w = Math.max(40*Math.random(),10); // EjsS Model.Variables.object.w
+    w =  <?php echo $_GET['size'];  ?> //Math.max(40*Math.random(),10); // EjsS Model.Variables.object.w //Object size variable
     oxmin = x2; // EjsS Model.Variables.object.oxmin
     oxmax = oxmin+x; // EjsS Model.Variables.object.oxmax
     h = size*2; // EjsS Model.Variables.object.h, here we can resize object [object shaperesize]
@@ -2405,7 +2405,7 @@ var _stringProperties = {};
   }
 
 }); // HtmlView Page setting action 'OnDrag' for element 'bottomDragme'
-          w=48;
+          //w=48;
           redrawObject(w);
           function redrawObject(wid){
             _view.bottomObject2.linkProperty("SizeX",  function() { return wid; }, function(_v) { wid = _v; } ); // HtmlView Page linking property 'SizeX' for element 'bottomObject2'
@@ -2980,6 +2980,7 @@ var _stringProperties = {};
   tail=false;
   topone=false;
   roundshapetype=true;
+  
   h=w; // make as circle
   _view.plottingPanel.setProperty("MinimumX",-175);
   _view.plottingPanel.setProperty("MaximumX",75);
@@ -4119,7 +4120,7 @@ function AAPTVernierCaliper_View_0 (_topFrame) {
 
     _view._addElement(EJSS_INTERFACE.panel,"text", _view._topFrame) // EJsS HtmlView.HtmlView Page: declaration of element 'text'
       .setProperty("CSS",{   "position" : "absolute",   "top" : "100%",    "margin-left":"0px",    "left":"0%" }) // EJsS HtmlView.HtmlView Page: setting property 'CSS' for element 'text'
-      .setProperty("Html","<h2>General Description</h2> <p>This JavaScript App simulates the Vernier Caliper. The simulation shows the instrument setup with a rectangular object .</p> <p>The Vernier calipers model has  an object (Blue) for the internal jaws to measure width of an object with slider to control width of the object and simple drag action to control position of object.</p> <p>An object (Green) for external jaws to measure internal diameter of a cylinder for example with slider to control dimensions of the cylinder.</p> <p>An test tube (Pink) for depth measurement vai the depth probe</p> <h2>Visual Elements</h2> <ul> <li>Outside jaws: used to measure external diameter or width of an object (Blue)          </li> <li>Inside jaws: used to measure internal diameter of an object  </li> <li>Depth probe: used to measure depths of an object or a hole ( not shown in this model) . </li> <li>Main scale: gives measurements in mm. </li> <li>Vernier gives measurements up to one decimal places in mm </li> <li>Retainer: used to block movable part to allow the easy transferring a measurement ( not shown in this model) </li> <li> fine  control buttons for learners to manipulate the model with single incremental precision control </li> <li>Vernier gives measurements up to one decimal places in mm </li> </ul> <h2>Controls</h2> <ul> <li>ComboBox 1: Sets the type of caliper scales.</li> <li>ComboBox 2: Show and hide hints, answers, common objects etc </li> <li>ComboBox 3: Sets the zero error </li> <li>play button to run the caliper to move automatically.</li> <li>reset button to bring simulation back to original (default) setting.</li> <li>?= click to toggle between combobox or input field.</li> <li>combobox/inputfield to ease selecting answers like 0.00 and key in numbers.</li> <li>cm/mm text click to toggle between the 2 units, centimeter and millimeter</li> <li>double click on the screen to go full screen, especially useful on mobile browsers</li> <li>drag on the screen reposition, especially useful on mobile browsers</li> <li>pinch in/out to zoom in/out, especially useful on observing the vernier scale readings</li> <li>menu to show or hide the control panel</li> </ul>") // EJsS HtmlView.HtmlView Page: setting property 'Html' for element 'text'
+      //.setProperty("Html","<h2>General Description</h2> <p>This JavaScript App simulates the Vernier Caliper. The simulation shows the instrument setup with a rectangular object .</p> <p>The Vernier calipers model has  an object (Blue) for the internal jaws to measure width of an object with slider to control width of the object and simple drag action to control position of object.</p> <p>An object (Green) for external jaws to measure internal diameter of a cylinder for example with slider to control dimensions of the cylinder.</p> <p>An test tube (Pink) for depth measurement vai the depth probe</p> <h2>Visual Elements</h2> <ul> <li>Outside jaws: used to measure external diameter or width of an object (Blue)          </li> <li>Inside jaws: used to measure internal diameter of an object  </li> <li>Depth probe: used to measure depths of an object or a hole ( not shown in this model) . </li> <li>Main scale: gives measurements in mm. </li> <li>Vernier gives measurements up to one decimal places in mm </li> <li>Retainer: used to block movable part to allow the easy transferring a measurement ( not shown in this model) </li> <li> fine  control buttons for learners to manipulate the model with single incremental precision control </li> <li>Vernier gives measurements up to one decimal places in mm </li> </ul> <h2>Controls</h2> <ul> <li>ComboBox 1: Sets the type of caliper scales.</li> <li>ComboBox 2: Show and hide hints, answers, common objects etc </li> <li>ComboBox 3: Sets the zero error </li> <li>play button to run the caliper to move automatically.</li> <li>reset button to bring simulation back to original (default) setting.</li> <li>?= click to toggle between combobox or input field.</li> <li>combobox/inputfield to ease selecting answers like 0.00 and key in numbers.</li> <li>cm/mm text click to toggle between the 2 units, centimeter and millimeter</li> <li>double click on the screen to go full screen, especially useful on mobile browsers</li> <li>drag on the screen reposition, especially useful on mobile browsers</li> <li>pinch in/out to zoom in/out, especially useful on observing the vernier scale readings</li> <li>menu to show or hide the control panel</li> </ul>") // EJsS HtmlView.HtmlView Page: setting property 'Html' for element 'text'
       ;
 
   };

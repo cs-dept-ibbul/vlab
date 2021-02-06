@@ -532,6 +532,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mounted: function mounted() {
     this.tickT(); //alert(parseInt(this.hourdata)+10);
@@ -541,22 +543,33 @@ __webpack_require__.r(__webpack_exports__);
     return {
       now: Math.trunc(new Date().getTime() / 1000),
       startTime: Math.trunc(new Date().getTime() / 1000),
-      start: false
+      start: false,
+      timeexpires: false
     };
   },
   methods: {
     tickT: function tickT() {
       var _this = this;
 
+      var experimentSheet = document.getElementById('experimentSheet');
       window.setInterval(function () {
-        if (_this.start === true) {
+        if (_this.start === true || experimentSheet.style.display != 'none') {
           _this.now = Math.trunc(new Date().getTime() / 1000);
+
+          if (_this.seconds == '00' && _this.minutes == '00' && _this.hours == '00') {
+            /*&& this.minutes == '00' && this.hours == '00'*/
+            if (_this.timeexpires == false) {
+              experimentSheet.remove();
+              _this.timeexpires = true;
+            }
+          }
         }
       }, 1000);
     },
     startT: function startT() {
       this.start = true;
       this.startTime = Math.trunc(new Date().getTime() / 1000);
+      document.getElementById('experimentSheet').style.display = 'block';
     },
     valueFilter: function valueFilter(value) {
       if (value < 0) {
@@ -21947,6 +21960,29 @@ var render = function() {
         ])
       ]
     ),
+    _vm._v(" "),
+    _vm.timeexpires == true
+      ? _c(
+          "span",
+          {
+            staticClass: "start",
+            staticStyle: {
+              position: "absolute",
+              top: "45%",
+              left: "45%",
+              cursor: "pointer",
+              background: "#a23",
+              color: "#fff",
+              padding: "15px 20px",
+              "border-radius": "8px"
+            }
+          },
+          [
+            _c("span", { staticClass: "fa fa-lock mr-1" }),
+            _vm._v("Time Up\n\t")
+          ]
+        )
+      : _vm._e(),
     _vm._v(" "),
     _vm.start == false
       ? _c(
