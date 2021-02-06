@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Module>
+<ModulePrefs
+title="AAPTVernierCaliper"
+author="Fu-Kwun Hwang; lookang"
+description="http://weelookang.blogspot.sg/2015/07/ejss-vernier-caliper-model.html
+Original Source code by Fu-Kwun Hwang http://www.phy.ntnu.edu.tw/ntnujava/index.php?topic=567.msg2364#msg2364 Derived work by Loo Kang WEE under creative commons http://creativecommons.org/licenses/by/2.5/tw/deed.en
+
+http://www.phy.ntnu.edu.tw/ntnujava/index.php?topic=684.msg2452#msg2452
+
+http://weelookang.blogspot.sg/2012/01/vernier-calipers-with-njc-class-307.html https://sites.google.com/site/lookang/001-vernier-caliper"
+screenshot="./VernierCaliper/Screen Shot 2017-02-24 at 8.40.53 AM (2).png"
+thumbnail="./VernierCaliper/Screen Shot 2017-02-24 at 8.40.53 AM (2).png">
+<Require feature="opensocial-0.9"/>
+<Require feature="dynamic-height"/>
+</ModulePrefs>
+<Content type="html" href="AAPTVernierCaliper_Simulation.xhtml"/>
+</Module>

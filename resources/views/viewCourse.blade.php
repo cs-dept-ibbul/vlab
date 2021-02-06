@@ -1,7 +1,7 @@
 @extends('layouts/main')
 @section('content-body')
     <div class="content">
-        <navb></navb>
-        <viewcourses></viewcourses>
+        <v-navb></v-navb>
+        <v-viewcourses></v-viewcourses>
     </div>
 @endsection

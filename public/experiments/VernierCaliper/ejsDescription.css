@@ -1,0 +1,59 @@
+﻿/* This defines styles and classes used in OSP-EjsS simulations*/
+body { margin-left: 3%; margin-right: 3%; margin-top: 2%; margin-bottom: 5%; text-align: justify; font-size: medium; }
+h1, h2, h3, h4, h5, h6 {
+  page-break-after: avoid !important;
+  page-break-inside: avoid !important;
+  text-indent: 0px;
+  text-align: left;
+  font-family: Helvetica, Arial, sans-serif; }
+h1 { text-align: left; color: #0000C8; margin: 0; padding: 0.2em; border-top: solid #000000 medium; border-bottom: solid #000000 thin; font-size: 135% !important;}
+h2 { text-align: left; color: #000777; font-size: 120% !important; page-break-after: avoid !important;}
+h3 { text-align: left; color:navy; font-size: 110% !important; page-break-after: avoid !important;}
+h4 { text-align: left; }
+h5 { text-align: left; }
+h6 { text-align: left; }
+p { font-family: "Times New Roman", "Palatino", Caecilia, serif;
+  line-height: 1.5em;
+  margin: 0;
+  margin-bottom:1.0em;
+  text-align: justify;
+  orphans: 2;
+  widows: 2; }
+code {font-family: monospace; font-size:100% !important; font-weight: bold;}
+h1.title {text-align: center !important; color: #0000C8!important; margin: 0; padding: 0.25em; border-top: solid #000000 medium !important;
+border-bottom: solid #000000 thin !important; font-size: 130% !important;}
+h2.author {text-align: center !important; color: #000090 !important; font-size: 115% !important;}
+h3.date {text-align: center;}
+div.coverImage {text-align: center !important; width: 60% !important;}
+    
+p.example{background-color: #f5a9A9 !important;}
+p.solution{background-color: #d8d8d8 !important;}
+div.example{background-color: #d8d8d8 !important;}
+
+
+div.figure {text-align: center !important;  page-break-inside: avoid !important; page-break-after: avoid !important;}
+p.caption { margin: 0 !important;  text-align: center !important; font-size: 75% !important; margin-top: 0.25em !important; margin-bottom: 0.25em !important;}
+p.a {margin: 0 !important;  text-align: center !important; font-size: 75% !important; margin-top: 0.5em !important; margin-bottom: 0.3em !important;}
+
+p.math{text-align: center !important}
+p.center {text-align: center !important;}
+
+.centered{ display:block; margin-left:auto; margin-right:auto;}
+
+div.center {text-align: center !important;}
+
+section.footnotes{margin-top: -1em; margin-bottom: 0em; font-size:smaller;}
+ol{list-style-type: lower-alpha;}
+section.footnotes li{list-style-type: decimal !important;}
+li{text-align: left; margin-top: 1em; margin-bottom: 1em !important;}
+ol.toc { padding: 0; margin-left: 1em; }
+ol.toc li { list-style-type: none !important; margin: 0; padding: 0;}
+/* For source-code highlighting */
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode, table.sourceCode pre
+   { margin: 0; padding: 0; vertical-align: baseline; border: none; }
+td.lineNumbers { border-right: 1px solid #AAAAAA; text-align: right; color: #AAAAAA; padding-right: 5px; padding-left: 5px; }
+td.sourceCode { padding-left: 5px; }
+
+
+mspace {white-space: pre !important; content:normal;}
+
