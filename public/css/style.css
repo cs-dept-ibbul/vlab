@@ -214,3 +214,30 @@
   background-color: #78718f;
 }
 
+
+/* width */
+::-webkit-scrollbar {
+  width: 9px; 
+  cursor: pointer;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  width: 50px;
+  border-radius: 5px;
+}
+ 
+/* Handle */
+    
+::-webkit-scrollbar-thumb {
+  background: #eee; 
+  border-radius: 10px;
+  cursor: pointer;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #fff; 
+  cursor: pointer;
+}

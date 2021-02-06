@@ -1,0 +1,38 @@
+generated-with: Easy Java/Javascript Simulations, version 6.1 BETA, build 201115. Visit http://www.um.es/fem/Ejs
+title: Vernier Calipers Model
+logo-image: VernierCaliper/Screen Shot 2017-02-24 at 8.40.53 AM (2).png
+author: Fu-Kwun Hwang; lookang
+copyright: creative commons attribution share alike
+author-image: VernierCaliper/s200_fu-kwun.hwang.png;./01authorlookang50x50.png
+source: AAPTVernierCaliper.ejss
+main-script: 
+main-simulation: AAPTVernierCaliper_Simulation.xhtml
+available-languages: 
+html-description: AAPTVernierCaliper_Intro_1.html
+html-contents: AAPTVernierCaliper_Contents.xhtml
+html-main: AAPTVernierCaliper.xhtml
+page-title: About
+page-index: AAPTVernierCaliper_Intro_1.html
+page-title: VernierCaliper
+page-index: VernierCaliper/VernierCaliper.html
+page-title: Vernier Calipers Model
+page-index: AAPTVernierCaliper_Simulation.xhtml
+resource: VernierCaliper/s200_fu-kwun.hwang.png
+resource: VernierCaliper/lookangphoto.png
+resource: VernierCaliper/ejsDescription.css
+resource: VernierCaliper/VernierCaliper.xhtml
+resource: VernierCaliper/bottomverniertop.png
+resource: VernierCaliper/2014-11-27_2315s.png
+resource: VernierCaliper/Metallic-windows-backgrounds-swirls-pattern.png
+resource: VernierCaliper/fu-kwun.jpg
+resource: VernierCaliper/Screen Shot 2017-02-24 at 8.40.53 AM (2).png
+resource: VernierCaliper/Vernier_icon.png
+resource: VernierCaliper/Screen Shot 2016-09-28 at 11.33.51 AM (2) 2.png
+resource: VernierCaliper/verniervernier.png
+resource: VernierCaliper/VernierCaliper.html
+resource: VernierCaliper/VernierCaliper.PNG
+resource: VernierCaliper/Screenshot 2018-12-07 at 10.13.43 AM (2).png
+resource: VernierCaliper/verniermain.png
+resource: VernierCaliper/topvernier.png
+resource: VernierCaliper/verniercaliperss.png
+resource: 01authorlookang50x50.png
