@@ -20,7 +20,9 @@
 			    </div>
 			  </div>
 		</div>
-		
+		<span v-if="timeexpires==true" class="start" style="position: absolute;top:45%; left: 45%;  cursor: pointer;background: #a23;color: #fff;padding: 15px 20px;border-radius: 8px;">
+			<span class="fa fa-lock mr-1" ></span>Time Up
+		</span>
 		<span class="start" style="position: absolute;top:78%; left: 45%;  cursor: pointer;background: #7d9;color: #fff;padding: 15px 20px;border-radius: 8px;" @click="startT" v-if="start==false">
 			<span class="fa fa-caret-right mr-1" ></span>Start Experiment
 		</span>
@@ -39,13 +41,23 @@ mounted() {
       now: Math.trunc((new Date()).getTime() / 1000),
       startTime:Math.trunc((new Date()).getTime() / 1000),
       start: false,
+      timeexpires:false
     }
   },
   methods:{
   	tickT(){
+  		let experimentSheet = document.getElementById('experimentSheet');
+  		
   		 window.setInterval(() => {
-  		 	if (this.start === true) {  		 		
+  		 	if (this.start === true || experimentSheet.style.display != 'none') {  		 		
 		        this.now = Math.trunc((new Date()).getTime() / 1000);
+		        if (this.seconds == '00' && this.minutes == '00' && this.hours == '00' ) {
+		        	/*&& this.minutes == '00' && this.hours == '00'*/
+		        	if (this.timeexpires == false) {
+		        		experimentSheet.remove();
+		        		this.timeexpires = true;
+		        	}
+		        }
 			}
     	},1000);
   	},
@@ -53,6 +65,7 @@ mounted() {
 
   		this.start = true;
       this.startTime=Math.trunc((new Date()).getTime() / 1000);
+      document.getElementById('experimentSheet').style.display = 'block'
 
   	},
   	valueFilter(value){
