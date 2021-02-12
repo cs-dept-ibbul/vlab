@@ -1,4 +1,5 @@
 <script src="{{ asset('js/app.js') }}" defer></script> 
+<script src="{{ asset('js/jquery-1.11.3.min.js')}}"></script>
 <!-- <link rel="stylesheet" type="text/css" href="{{asset('css/sweetalert2.css')}}"> -->
  <link rel="stylesheet" href="{{ asset('css/bootstrap4.css')}}">
 <!-- <link rel="stylesheet" href="{{ asset('js/datepicker.css')}}"> -->

@@ -15,6 +15,7 @@ Vue.prototype.$eventBus = new Vue();
 Vue.component('v-msidebar', require('./components/leftNavBar.vue').default);//main system side bar
 Vue.component('v-topnave', require('./components/experimentTopNav.vue').default);
 Vue.component('v-guide', require('./components/ExphowToNav.vue').default); //experiment side bar
+Vue.component('v-rightnav', require('./components/ExpRightNav.vue').default); //experiment Right Nav bar
 Vue.component('v-expfooter', require('./components/ExpbottomNav.vue').default);
 Vue.component('v-ribbon', require('./components/ExperimentRibbon.vue').default);
 Vue.component('v-start', require('./components/StartExperimentBtn.vue').default);

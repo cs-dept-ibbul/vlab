@@ -1,0 +1,38 @@
+body {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: purple;
+  background-color: #C8DFD0;
+  margin-right: 0px;
+}
+a { text-decoration: none }
+a:link    { color: blue }
+a:visited { color: purple }
+a:hover   { text-decoration: underline; }
+li{text-align: left; margin-top: 1em; margin-bottom: 1em !important;}
+h1 {
+  text-align: center;
+  font-family: Helvetica, Geneva, Arial, SunSans-Regular, sans-serif;
+  border: 2px solid black;
+}
+h2 {
+  text-align: left;
+  margin-bottom: 3px;
+}
+div.contents {
+  border-top: thin solid;
+  border-bottom: thin solid;
+}
+div.intro, div.simulation {
+  background: #C8DFFF;
+  margin: 3px 0;
+  padding: 0.3em;
+  border-right: 1em solid black;
+}
+div.simulation {
+  background: #00DFFF;
+}
+div.signature {
+  background: url(../images/EjsLogo.gif) no-repeat 0px 5px; 
+  margin-top: 0;
+  padding: 15px 65px 54px;  
+}
