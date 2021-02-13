@@ -25,6 +25,7 @@ let ropeLenght = 2;
 var mode = 1;
 let myFontNormal;
 let elapseT;
+var cx,cy,cr,button;
 function setup() {
   createCanvas(940, 360);
   // Make a new Pendulum with an origin position and armlength
@@ -32,7 +33,7 @@ function setup() {
   
   p.timer();//set timer;
   
- button = createButton('START');
+ button = createButton('STOP');
   button.position(19, 19);
   button.mousePressed(btnControl);
   button.id('btnC');
@@ -108,7 +109,9 @@ function resizeRope(){
   p = new Pendulum(createVector(width / 2, 0), ropeLenght,ballSize);    
 }
 function btnControl(){  
-  if(!btnstate){    
+    p.stop();
+    select('#elapseT').html(select('#timec').html());
+ /* if(!btnstate){    
     
        btnstate = true;
     this.elt.innerText= 'STOP';
@@ -118,12 +121,10 @@ function btnControl(){
     btnstate = false;   
    this.elt.innerText= 'START';
     
-    p.stop();
     
-    select('#elapseT').html(select('#timec').html());
-  }
-
+  }*/
 }
+
 function resetPendulum() {
    p = new Pendulum(createVector(width / 2, 0), ropeLenght,ballSize);     
 }
@@ -132,5 +133,18 @@ function mousePressed() {
 }
 
 function mouseReleased() {
-  p.stopDragging();
+    /*
+    cx = p.distance()
+    cr = p.getCR()
+    print(cx); 
+    print(cr);*/
+    p.stopDragging();
+    p.restarttimer();  
+    btnstate = true;      
+
+    /*if (cx < cr) {
+      document.getElementById('btnC').innerText= 'STOP';
+    }*/
+
+
 }
