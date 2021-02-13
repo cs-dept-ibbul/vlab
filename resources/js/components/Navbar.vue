@@ -67,12 +67,12 @@ export default {
 
   .nav-link-login {
     color: #ffffff;
-    font-weight: 800;
+    font-weight: 200;
     font-size: large;
-    padding: 8px 15px;
+    padding: 10px 25px;
     white-space: nowrap;
-    background-color: #D4D2DC;
-    border-radius: 1rem;
+    background-color: rgba(25,10,100,.2);
+    border-radius: 10px;
     color:#000000;
 
     &:hover {
