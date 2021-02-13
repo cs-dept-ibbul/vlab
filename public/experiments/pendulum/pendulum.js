@@ -66,6 +66,10 @@ class Pendulum {
     //text($vm.munitesK + ":" + this.timerValue, 45,height/1.5);     
     }
   }
+  restarttimer(){
+   this.timerValue = 0;
+   this.munitesK = 0; 
+  }
   timeIt(){    
       this.timerValue++;    
   }
@@ -174,8 +178,18 @@ class Pendulum {
     
     
   }
-
-
+  distance(){
+    return dist(mouseX,mouseY, this.position.x, this.position.y);    
+  }
+  getCX(){
+    return this.position.x;
+  }
+  getCY(){
+    return this.position.y;
+  }
+  getCR(){
+    return this.ballr
+  }
   // The methods below are for mouse interaction
 
   // This checks to see if we clicked on the pendulum ball

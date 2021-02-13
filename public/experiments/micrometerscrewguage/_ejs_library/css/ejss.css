@@ -1,0 +1,106 @@
+﻿/* This defines styles and classes used for OSP-EjsS pages */
+body { 
+    text-align: justify; 
+    font-size: medium; 
+    font-family: Georgia, "Times New Roman", Times, serif; 
+}
+h1, h2, h3, h4, h5, h6 {
+  hyphens: none !important;
+  -moz-hyphens: none !important;
+  -webkit-hyphens: none !important;
+  adobe-hyphenate: none !important;
+  page-break-after: avoid !important;
+  page-break-inside: avoid !important;
+  text-indent: 0px;
+  text-align: left;
+  font-family: Helvetica, Geneva, Arial, SunSans-Regular, sans-serif;}
+h1 { text-align: left; color: #0000C8; margin: 0; padding: 0.2em; font-size: 135% !important;}
+h2 { text-align: left; color: #000777; font-size: 120% !important; page-break-after: avoid !important;}
+h3 { text-align: left; color:navy; font-size: 110% !important; page-break-after: avoid !important;}
+h4 { text-align: left; }
+h5 { text-align: left; }
+h6 { text-align: left; }
+li {text-align: left; margin-top: 1em; margin-bottom: 1em;}
+
+p  { 
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+  hyphenate-after: 3;
+  hyphenate-before: 3;
+  hyphenate-lines: 2;
+  -webkit-hyphenate-after: 3;
+  -webkit-hyphenate-before: 3;
+  -webkit-hyphenate-lines: 2;
+  line-height: 1.5em;
+  margin: 0;
+  margin-bottom:1.5em;
+  text-align: justify;
+  orphans: 2;
+  widows: 2; }
+a:link { color:red}
+a:visited { color:fuchsia}
+address {
+  margin-top: 1em;
+  padding-top: 1em;
+  border-top: thin dotted 
+}
+
+button { font-family: Georgia, "Times New Roman", Times, serif; font-size: 1em; color: black; }
+
+input { font-size: 0.70em; }
+input[readonly] {
+    background:lightgray;
+    color:black;
+}
+svg { overflow: hidden; }
+
+
+div.experiment p {
+  display: inline;
+}
+
+
+.ArrayPanel, .DataTable {
+  border: 1px solid black;
+  display: table;
+  width: 100%;
+}
+.ArrayPanel thead, .ArrayPanel tbody {
+  float: left;
+  width: 100%;
+}
+.ArrayPanel tbody, .DataTable tbody {
+  overflow: auto;
+}
+.ArrayPanel tr, .DataPanel tr {
+  width: 100%;
+  display: table;
+}
+.ArrayPanel th, .DataTable th {
+  width: 1%;
+  border: 1px solid black;
+  text-align: center;
+}
+.ArrayPanel td, .DataTable td {
+  width: 1%;
+  border: 1px solid black;
+  text-align: right;
+}
+.ArrayPanel thead, .DataTable thead {
+    background: lightgray;
+    overflow-y: scroll;
+    position: relative;
+}
+
+.BoxPanel {
+  background : red;
+}
+
+._TabbedPanel\.span { display : table;  margin : auto; }
+
+._TabbedPanel\.ul { list-style-type: none; margin: 0; padding: 0; overflow: hidden; }
+._TabbedPanel\.li { float: left; text-align: center; margin-top: 0em; margin-bottom: 0em; 
+                    border: 1px solid #ccc; border-top-left-radius: 5px; border-top-right-radius: 5px; }
+._TabbedPanel\.a { userSelect: none; display: inline-block; color: black; text-align: center; 
+                  padding: 7px 8px; text-decoration: none; transition: 0.3s;  font-size: 14px; }
