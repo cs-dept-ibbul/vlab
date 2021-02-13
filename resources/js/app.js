@@ -28,6 +28,12 @@ Vue.component('v-avl', require('./components/ExploreSection.vue').default);
 Vue.component('v-avlc', require('./components/AvailableCourses.vue').default);
 Vue.component('v-viewcourses', require('./components/VewCourse.vue').default);
 
+Vue.component('v-lnb', require('./components/NavbarLogin.vue').default);
+Vue.component('v-lbx', require('./components/loginBox.vue').default);
+Vue.component('v-lbx2', require('./components/loginBox2.vue').default);
+Vue.component('v-vlb', require('./components/welcomevlb.vue').default);
+
+
 /*end experiment page component*/
  const app = new Vue({
    el: '#app',

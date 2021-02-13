@@ -63,7 +63,7 @@
         <div class="row">
           <div class="col-md-12">
             <ul class="timeline">
-              <li class="child">
+              <li class="child" v-for="x in 3" :key="x">
                 <div class="col-md-10">
                   <div>
                     <span class="text">100 level</span>
@@ -84,12 +84,12 @@
                 </div>
                 <div class="col-md-2">
                   <div class="bttn-container">
-                    <button class="btn btn-default" type="submit">
+                    <button class="btn btn-secondary" type="submit">
                       <i class="fa fa-plus"></i>Add to Lab
                     </button>
                   </div>
                   <div>
-                    <p>More Details</p>
+                    <p class="md-size">More Details</p>
                   </div>
                 </div>
               </li>
@@ -108,6 +108,9 @@ export default {
 };
 </script>
 <style scoped>
+.timeline{
+  margin-top:10px
+}
 .text{
   background-color: #d4d9df; 
   padding: 8px; 
@@ -121,15 +124,12 @@ export default {
   font-size: 16px;
   padding: 8px 0;
 }
-.bttn-container {
-  border: 1px solid black;
-  border-radius: 5px;
-}
 
 .col-md-10 {
   display: flex;
   flex-direction: column;
   height: 8rem;
+  
 }
 
 .col-md-2 {
@@ -147,6 +147,7 @@ export default {
 .child {
   background-color: #fff;
   margin-bottom: 30px;
+  margin-top:10px;
   border-radius: 0.5rem;
   padding: 10px;
   height: 10rem;
@@ -170,6 +171,7 @@ ul.timeline:before {
 ul.timeline > li {
   margin: 0px 0;
   padding-left: 20px;
+  margin-bottom: 10px;
 }
 ul.timeline > li:before {
   content: " ";
@@ -186,10 +188,9 @@ ul.timeline > li:before {
 .vlab-practicals {
   width: 100%;
   background-color: #ebeaef;
-  max-height: 500px;
+  max-height: 700px;
   border-radius: 2.5rem;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  
 }
 .instructors {
   color: #959399;
@@ -250,5 +251,8 @@ ul.timeline > li:before {
 }
 .input-row {
   margin-top: 20px;
+}
+.md-size{
+  font-size: 16px;
 }
 </style>

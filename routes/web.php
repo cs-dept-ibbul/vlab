@@ -22,7 +22,9 @@ Route::get('/vernierEquipment', function ()
 	return view('experiment.vernierEquipment');
 })->name('vernierEquipment');
 
+Route::get('/login', 'App\Http\Controllers\loginController@index');
 Route::get('/vewCourse', 'App\Http\Controllers\ViewCourseController@index');
+
 Route::get('/', 'App\Http\Controllers\PagesController@index');
 
 	
