@@ -15,7 +15,7 @@ With Laravel and offcourse git setup on your system, follow the below steps:
 -   Clone this repo by entering `git clone https://github.com/cs-dept-ibbul/vlab.git` into your terminal.
 -   Enter your newly cloned project directory using `cd vlab`.
 -   Create a file named `.env` file and copy the contents of the [.env.example](.env.example) into the new .env file or alternatively rename the `.env.example` file to `.env`.
--   Run `php artisan key:generate && composer install` on your terminal/command prompt to generate a secured key for your project as well as download the project dependencies.
+-   Run `composer install` then `php artisan key:generate` on your terminal/command prompt to generate a secured key for your project as well as download the project dependencies.
 -   Run `yarn install && yarn watch` or `npm install && npm run watch` to install the frontend dependencies.
 -   Run `php artisan serve` to spin up the development server.
 
