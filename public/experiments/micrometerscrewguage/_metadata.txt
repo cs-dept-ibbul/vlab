@@ -1,0 +1,49 @@
+generated-with: Easy Java/Javascript Simulations, version 6.0, build 191124. Visit http://www.um.es/fem/Ejs
+title: Micrometer Model
+logo-image: Micrometer/Screenshot 2020-10-28 at 9.55.58 AM (2).png
+author: Fu-Kwun Hwang; lookang; Wolfgang Christian
+copyright: CC-BY-SA-NC
+preferred-width: 800
+preferred-height: 600
+author-image: Micrometer/01authorfu-kwun.hwang.png;./01authorlookang50x50.png;./01authorwc_icon.png
+source: Micrometer02.ejss
+main-script: 
+main-simulation: Micrometer02_Simulation.xhtml
+id-main-script: 
+id-main-simulation: Micrometer02_Simulation_id.xhtml
+zh-main-script: 
+zh-main-simulation: Micrometer02_Simulation_zh.xhtml
+available-languages: id,zh
+html-description: Micrometer02_Intro_1.html
+html-contents: Micrometer02_Contents.xhtml
+html-main: Micrometer02.xhtml
+page-title: About
+page-index: Micrometer02_Intro_1.html
+page-title: Micrometer Model
+page-index: Micrometer02_Simulation.xhtml
+id-html-contents: Micrometer02_Contents_id.xhtml
+id-html-main: Micrometer02_id.xhtml
+id-page-title: About
+id-page-index: Micrometer02_Intro_1.html
+id-page-title: Micrometer Model
+id-page-index: Micrometer02_Simulation_id.xhtml
+zh-html-contents: Micrometer02_Contents_zh.xhtml
+zh-html-main: Micrometer02_zh.xhtml
+zh-page-title: About
+zh-page-index: Micrometer02_Intro_1.html
+zh-page-title: Micrometer Model
+zh-page-index: Micrometer02_Simulation_zh.xhtml
+resource: Micrometer/pattern-1314301_640.jpg
+resource: Micrometer/icon.png
+resource: Micrometer/lookangphoto.png
+resource: Micrometer/unnamed.gif
+resource: Micrometer/Screenshot 2020-10-28 at 9.55.58 AM (2).png
+resource: Micrometer/Screen Shot 2017-01-03 at 1.58.23 PM.png
+resource: Micrometer/micrometers.png
+resource: Micrometer/Micrometer.html.bak
+resource: Micrometer/01authorfu-kwun.hwang.png
+resource: Micrometer/mircometer.PNG
+resource: Micrometer/Screen Shot 2017-02-24 at 9.59.22 AM (2).png
+resource: Micrometer/Micrometer.html
+resource: 01authorwc_icon.png
+resource: 01authorlookang50x50.png

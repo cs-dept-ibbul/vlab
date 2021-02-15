@@ -14,7 +14,7 @@ $started = 0; //this will be from database
 
    //localStorage.setItem('objectSize',{{$toolSizes[0]}});
    var experimentSheet;
-   var url = '{{route('vernierEquipment').'?size='.$toolSizes[0] }} ' //localStorage.getItem('objectSize');
+   var url = '{{route('micrometerEquipment').'?size='.$toolSizes[0] }} ' //localStorage.getItem('objectSize');
    
    window.onload = function(){
     experimentSheet = document.getElementById('experimentSheet');
@@ -59,7 +59,7 @@ $started = 0; //this will be from database
             </div>
             <!-- end experiment -->
             <div  class="zero-space exprightNav" id="rightNav">               
-               <v-rightnav toolState='true' toolsizes="<?php echo json_encode($toolSizes); ?>" url="{{route('vernierEquipment').'?size='}}"></v-rightnav>
+               <v-rightnav toolState='true' toolsizes="<?php echo json_encode($toolSizes); ?>" url="{{route('micrometerEquipment').'?size='}}"></v-rightnav>
             </div>
             <!-- experiment footer -->
             <div style="flex:100%">

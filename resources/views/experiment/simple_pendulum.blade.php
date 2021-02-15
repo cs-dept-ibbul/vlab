@@ -3,7 +3,8 @@ $tools = 5;
 $toolSizes = [80,54,69,70,90];
 $ct = 1;
 $started = 0; //this will be from database
-
+$experimentName= "Simple Pendulum";
+$experimentNum = "Experiment I";
 ?>
 @extends('layouts/main')
 
@@ -14,7 +15,7 @@ $started = 0; //this will be from database
 
    //localStorage.setItem('objectSize',{{$toolSizes[0]}});
    var experimentSheet;
-   var url = '{{route('vernierEquipment').'?size='.$toolSizes[0] }} ' //localStorage.getItem('objectSize');
+   var url = '{{route('simplependulumEquipment').'?size='.$toolSizes[0] }} ' //localStorage.getItem('objectSize');
    
    window.onload = function(){
     experimentSheet = document.getElementById('experimentSheet');
@@ -39,7 +40,7 @@ $started = 0; //this will be from database
 
    <div style="width: 100%;">
          <!-- top nav bar -->
-         <v-topnave equipmentname="Micrometer Screw Guage" experimentnum='Experiment I'></v-topnave>
+         <v-topnave equipmentname="{{$experimentName}}" experimentnum='{{$experimentNum}}'></v-topnave>
          <!-- end to nav bar -->
 
          <!-- content -->
@@ -59,7 +60,7 @@ $started = 0; //this will be from database
             </div>
             <!-- end experiment -->
             <div  class="zero-space exprightNav" id="rightNav">               
-               <v-rightnav toolState='true' toolsizes="<?php echo json_encode($toolSizes); ?>" url="{{route('vernierEquipment').'?size='}}"></v-rightnav>
+               <v-rightnav toolState='false' toolsizes="[]" url="{{route('simplependulumEquipment').'?size='}}"></v-rightnav>
             </div>
             <!-- experiment footer -->
             <div style="flex:100%">
