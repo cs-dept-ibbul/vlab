@@ -1,9 +1,9 @@
 @extends('layouts/main-login')
 @section('content-body')
     <div class="content">
-        <v-lnb></v-lnb>
-        <v-vlb></v-vlb>
-        <v-lbx></v-lbx>
-        <v-lbx2></v-lbx2>
+        <v-logintopnavbar></v-logintopnavbar>
+        <v-welcometext></v-welcometext>
+        <v-loginbox></v-loginbox>
+        <v-secondbox></v-secondbox>
     </div>
 @endsection

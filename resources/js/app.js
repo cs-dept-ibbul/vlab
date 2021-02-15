@@ -28,10 +28,16 @@ Vue.component('v-avl', require('./components/ExploreSection.vue').default);
 Vue.component('v-avlc', require('./components/AvailableCourses.vue').default);
 Vue.component('v-viewcourses', require('./components/VewCourse.vue').default);
 
-Vue.component('v-lnb', require('./components/NavbarLogin.vue').default);
-Vue.component('v-lbx', require('./components/loginBox.vue').default);
-Vue.component('v-lbx2', require('./components/loginBox2.vue').default);
-Vue.component('v-vlb', require('./components/welcomevlb.vue').default);
+Vue.component('v-logintopnavbar', require('./components/NavbarLogin.vue').default);
+Vue.component('v-loginbox', require('./components/loginBox.vue').default);
+Vue.component('v-secondbox', require('./components/loginBox2.vue').default);
+Vue.component('v-welcometext', require('./components/welcomevlb.vue').default);
+
+Vue.component('v-dashb', require('./components/UserDashboard.vue').default);
+Vue.component('v-topnav', require('./components/TopNav.vue').default);
+Vue.component('v-lactivity', require('./components/Lastactivity.vue').default);
+Vue.component('v-practicaltimeline', require('./components/PracticalTimeLine.vue').default);
+
 
 
 /*end experiment page component*/

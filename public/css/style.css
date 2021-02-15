@@ -241,3 +241,13 @@
   background: #fff; 
   cursor: pointer;
 }
+
+.dashboard-content {
+  background-color:#EBEAEF;
+  width: 80%;
+  left: 20%;
+  position: absolute;
+  z-index: 1;
+  top: 0%;
+  height: 100vh;
+}

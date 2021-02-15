@@ -13,7 +13,7 @@
 		</div>
 
          <div class="form-group">
-			<button type="submit" class="btn btn-success form-control-lg">Login</button>                   	
+			<a href="/UserDashboard" class="btn btn-success form-control-lg">Login</a>                   	
 		</div>                       
 
          <div class="passwd">

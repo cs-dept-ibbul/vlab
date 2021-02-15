@@ -24,6 +24,8 @@ Route::get('/vernierEquipment', function ()
 
 Route::get('/login', 'App\Http\Controllers\loginController@index');
 Route::get('/vewCourse', 'App\Http\Controllers\ViewCourseController@index');
+Route::get('/UserDashboard', 'App\Http\Controllers\ViewUserDashboard@index');
+
 
 Route::get('/', 'App\Http\Controllers\PagesController@index');
 
