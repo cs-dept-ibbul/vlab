@@ -31,7 +31,6 @@ Route::get('/vernierEquipment', function ()
 })->name('vernierEquipment');
 
 
-
 Route::get('/micrometer','App\Http\Controllers\experimentController@micrometerScrewGuage');
 Route::get('/micrometerEquipment', function ()
 {
@@ -39,5 +38,6 @@ Route::get('/micrometerEquipment', function ()
 })->name('micrometerEquipment');
 
 Route::get('/vewCourse', 'App\Http\Controllers\ViewCourseController@index');
+Route::get('/', 'App\Http\Controllers\PagesController@index');
 
 	

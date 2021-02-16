@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <div id="alignment">
-      <div class="row custom-section d-flex align-items-center">
+  <div class=""><br>
+    <div id="alignment" class="m-0 p-0">
+      <div class="row p-5 pb-3 custom-section d-flex align-items-center">
         <div class="col-12 col-lg-8">
           <h2 class="page-title">Virtual Laboratory</h2>
           <p>A virtual environment for Science and Engineering Practicals</p>
@@ -9,6 +9,7 @@
             <a href="/explore" class="nav-link">Explore V-lab</a>
             <a href="/practice" class="Practice">Practice a Practical</a>
           </div>
+          <br>
         </div>
       </div>
     </div>
@@ -26,13 +27,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+div{
+  font-family: 'Roboto', sans-serif;
+}
 .intro_vid {
   position: absolute;
   background-color: #2F2651;
   width: 25rem;
   height: 28rem;
   z-index: 1;
-  border-radius: 2.5rem;
+  border-radius: 20px;
   right: 15%;
   top: 25%;
 }
@@ -48,8 +53,8 @@ export default {
 .custom-section {
   width: 99%;
   padding: 40px 0px;
-  background-color: #eeeeef;
-  border-radius: 1rem;
+  background-color: #efefef;
+  border-radius: 16px;
 
   @media screen and (width: 991.98px) {
     flex-direction: column-reverse;
@@ -94,7 +99,7 @@ export default {
 			padding:8px 15px;
 			white-space:nowrap;
 			background-color: #2F2651;
-      border-radius: 1rem;
+      border-radius: 10px;
       
 			&:hover{
 				color:rgb(255, 255, 255);
