@@ -21,7 +21,7 @@
 let p;
 let btnstate = false;
 let ballSize = 30;
-let ropeLenght = 2;
+let ropeLenght = 4;
 var mode = 1;
 let myFontNormal;
 let elapseT;
@@ -91,8 +91,8 @@ function draw() {
   
   fill('#fff');
   textSize(15);
-  text('Object Size',19,90);
-  text('Rope Lenght',19,150);
+  text('Object Size (Kg)',19,90);
+  text('Rope Lenght (m)',19,150);
   //console.log(p.period);
   textFont('Oswald');
   textStyle('bolder');
