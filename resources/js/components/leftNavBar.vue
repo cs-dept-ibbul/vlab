@@ -136,7 +136,7 @@ $(document).ready(function(){
 		display: flex;
 		padding: 10px 18px;			
 		color:#2F274E;
-		font-size: 1.1em;
+		font-size: 1em;
 		text-align: left;		
 		align-items: center;
 		flex-wrap: wrap;

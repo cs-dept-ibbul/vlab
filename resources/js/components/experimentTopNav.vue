@@ -2,7 +2,7 @@
 	<div style="margin:0; padding: 35px 20px 10px 20px;display: flex;justify-content: space-between;width: 100%;background: #eee;">
 		<div style="display: flex;flex-wrap: wrap;align-items: center; ">
 			<span @click="toggleExperimentGuider" style="font-size: 1.4em;cursor: pointer;" class="fa fa-align-justify mr-3"></span>
-			<b><span style="font-weight: 800;font-size: 1.7em;">Vernier Caliper /</span><span style="font-weight: 600;font-size: 1.3em;">Experiment I</span></b>
+			<b><span style="font-weight: 800;font-size: 1.7em;">{{equipmentname}}/</span><span style="font-weight: 600;font-size: 1.3em;" >{{experimentnum}}</span></b>
 		</div>
 		<div style="display: flex;flex-wrap: wrap;align-items: center;">
 			<span class="fa fa-user mr-2"></span>
@@ -29,7 +29,7 @@
 			}
         },	
         
-         props: [],
+         props: ['equipmentname','experimentnum'],
          mounted(){	         	
          },
          events :{

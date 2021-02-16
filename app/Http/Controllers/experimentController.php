@@ -10,4 +10,12 @@ class experimentController extends Controller
     {
     	return view('experiment/vernier_caliper');
     }
+    public function micrometerScrewGuage()
+    {
+    	return view('experiment/micrometer');    	
+    }
+    public function simplePendulum()
+    {
+    	return view('experiment/simple_pendulum');
+    }
 }

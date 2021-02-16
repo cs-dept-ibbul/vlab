@@ -4,6 +4,8 @@
   <head>
     <meta charset="utf-8" />
     <title>Vernier Calipers Model</title>
+ <link href="{{ asset('css/style.css')}}" rel="stylesheet" media="all">
+
 <style type="text/css">
 .metadata { display: none; }
 </style>
@@ -4046,7 +4048,7 @@ function AAPTVernierCaliper_View_0 (_topFrame) {
 
     _view._addElement(EJSS_INTERFACE.twoStateButton,"collate", _view.control) // EJsS HtmlView.HtmlView Page: declaration of element 'collate'
       .setProperty("TextOn","☰") // EJsS HtmlView.HtmlView Page: setting property 'TextOn' for element 'collate'
-      .setProperty("CSS",{"position": "fixed", "display": "block", "top":"0px","right": "0px"}) // EJsS HtmlView.HtmlView Page: setting property 'CSS' for element 'collate'
+      .setProperty("CSS",{"position": "fixed", "display": "block", "top":"0px","right": "30px"}) // EJsS HtmlView.HtmlView Page: setting property 'CSS' for element 'collate'
       .setProperty("TextOff","◀") // EJsS HtmlView.HtmlView Page: setting property 'TextOff' for element 'collate'
       .setProperty("Font","normal normal 3vw ") // EJsS HtmlView.HtmlView Page: setting property 'Font' for element 'collate'
       ;
@@ -4132,17 +4134,9 @@ function AAPTVernierCaliper_View_0 (_topFrame) {
 //--><!]]></script>
   </head>
   <body>
-    
+    <div class="lds-ripple" id="exploader"><div></div><div></div></div>    
     <div role="button" id="_topFrame" style="text-align:center"></div>
-    <div class="sizePicker" >
-      <ul>
-        <li onclick="(function(){redrawObject(50)})()">size one</li>
-        <li>size two</li>
-        <li>size three</li>
-        <li>size four</li>
-        <li>size five</li>
-      </ul>
-    </div>
+  
     <script type="text/javascript"><!--//--><![CDATA[//><!--
       var _model;
       var _scorm;
