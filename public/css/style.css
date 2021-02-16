@@ -1,5 +1,116 @@
+html body{
+  font-family: 'Roboto', serif;
+}
+.input-search2{
+  width:250px;
+  height:45px;  
+  padding:8px 5px 8px 34px;
+  color:#777;
+  font-family: 'Roboto', serif;
+  font-weight: 300;
+  transition: all 1s;
+  border-radius: 9px;
+  border:1px solid #fff;
+  cursor: text !important;
+}
+@media screen and  (max-width:896px){
+  .input-search2{
+    width: 160px !important;
+  }
+}
+.input-search2:focus{
+  outline: none;
+  border: 1px solid #6c5;
+}
+.sortbtn{
+  background: transparent !important;
+  font-family: 'Roboto', serif;
+  font-weight: 300;
+  font-size: 0.9em;
+  color: #888;
+  cursor: pointer;
+  border: none;
+  transition: 0.5s all;
+}
+.sortbtn:focus{
+ color: #222;
+}
 
- .video-box {
+.serachicon2{
+  color:#888;
+  position: absolute;
+  left: 10px; 
+  top: 15px;
+}
+.sysbg{
+  background: #fafafa;
+}
+.progress {
+    background: #eee !important;
+    border-radius: 13px;    
+    width: 87% !important;
+    padding: 0px;
+    max-height: 7px;
+}
+.progress-bar{
+    border-radius: 13px;
+    padding: 1px;
+    max-height: 7px;
+    padding: 0px;
+    margin: 0px;
+    position: relative;
+}
+.p-danger{
+  background: #ff0000 !important;
+}
+.p-warning{
+  background: orange !important; 
+
+}
+.p-success{    
+    background: #00b96b !important;  
+}
+.font1{
+  font-family: 'Roboto', serif !important;
+}
+.font2{
+  font-family: 'Source Sans Pro', sans-serif !important;
+}
+.fw1{
+  font-weight: 100;
+}
+.fw2{
+  font-weight: 200;
+}
+.fw3{
+  font-weight: 300;
+}
+.fw4{
+  font-weight: 400;
+}
+.fw5{
+  font-weight: 500;
+}
+.fw6{
+  font-weight: 600;
+}
+.fw7{
+  font-weight: 700;
+}
+.fw8{
+  font-weight: 800;
+}
+.sysbtn-md{
+  padding: 10px 15px;
+  font-family: 'Roboto',serif;
+  font-size: 0.9em;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 6px;
+  word-break: keep-all;
+  white-space: nowrap;
+}
+.video-box {
   background: url("../img/about.png") center center no-repeat;
   background-size: contain;
   min-height: 300px;
