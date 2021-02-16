@@ -124,6 +124,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5707,7 +5709,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400|Roboto:100);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".countdown[data-v-60f51b08] {\n  display: flex;\n}\n.block[data-v-60f51b08] {\n  display: flex;\n  flex-direction: column;\n  margin: 5px;\n}\n.text[data-v-60f51b08] {\n  color: #191236;\n  font-size: 0.8em;\n  font-family: \"Roboto Condensed\", serif;\n  font-weight: 40;\n  margin-top: 10px;\n  margin-bottom: 2px;\n  text-align: center;\n}\n.digit[data-v-60f51b08] {\n  color: #191236;\n  font-size: 1em;\n  font-weight: 100;\n  font-family: \"Roboto\", serif;\n  margin: 0px;\n  text-align: center;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".countdown[data-v-60f51b08] {\n  display: flex;\n}\n.block[data-v-60f51b08] {\n  display: flex;\n  flex-direction: column;\n  margin: 5px;\n}\n.text[data-v-60f51b08] {\n  color: #191236;\n  font-size: 0.8em;\n  font-family: \"Roboto Condensed\", serif;\n  font-weight: 40;\n  margin-top: 10px;\n  margin-bottom: 2px;\n  text-align: center;\n}\n.digit[data-v-60f51b08] {\n  color: #191236;\n  font-size: 1em;\n  font-weight: 400;\n  font-family: \"Roboto\", serif;\n  margin: 0px;\n  text-align: center;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -21536,43 +21538,40 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "rightNavigation" } }, [
-    _c("div", { staticClass: "containerR", attrs: { id: "tools" } }, [
-      _vm.toolState == true
-        ? _c(
-            "span",
-            [
-              _c("input", {
-                staticClass: "input-search input-dark",
-                attrs: { type: "text", name: "search" }
-              }),
-              _c("span", { staticClass: "fa fa-search serachicon " }),
-              _vm._v(" "),
-              _c("span", {
-                staticClass: "fa fa-align-justify bg-white rightnavexpander"
-              }),
-              _vm._v(" "),
-              _vm._l(_vm.toolSizes, function(tool) {
-                return _c(
-                  "div",
-                  {
-                    key: tool,
-                    staticClass: "box",
-                    style: { width: tool + "px" },
-                    on: {
-                      click: function($event) {
-                        _vm.addactivate
-                        _vm.changeApparatus(tool)
-                      }
-                    }
-                  },
-                  [_vm._v("\n            \t\tSize\n        \t")]
-                )
-              })
-            ],
-            2
+    _c(
+      "div",
+      { staticClass: "containerR", attrs: { id: "tools" } },
+      [
+        _c("input", {
+          staticClass: "input-search input-dark",
+          attrs: { type: "text", name: "search" }
+        }),
+        _c("span", { staticClass: "fa fa-search serachicon " }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "fa fa-align-justify bg-white rightnavexpander"
+        }),
+        _vm._v(" "),
+        _vm._l(_vm.toolSizes, function(tool) {
+          return _c(
+            "div",
+            {
+              key: tool,
+              staticClass: "box",
+              style: { width: tool + "px" },
+              on: {
+                click: function($event) {
+                  _vm.addactivate
+                  _vm.changeApparatus(tool)
+                }
+              }
+            },
+            [_vm._v("\n            \t\tSize\n        \t")]
           )
-        : _c("span")
-    ]),
+        })
+      ],
+      2
+    ),
     _vm._v(" "),
     _vm._m(0),
     _vm._v(" "),
@@ -21580,7 +21579,44 @@ var render = function() {
     _vm._v(" "),
     _vm._m(2),
     _vm._v(" "),
-    _vm._m(3)
+    _c(
+      "div",
+      {
+        staticClass: "containerR",
+        staticStyle: { display: "none" },
+        attrs: { id: "unkl" }
+      },
+      [
+        _c("input", {
+          staticClass: "input-search input-dark",
+          attrs: { type: "text", name: "search" }
+        }),
+        _c("span", { staticClass: "fa fa-search serachicon " }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "fa fa-align-justify bg-white rightnavexpander"
+        }),
+        _vm._v(" "),
+        _vm._l(_vm.toolSizes, function(tool) {
+          return _c(
+            "div",
+            {
+              key: tool,
+              staticClass: "box",
+              style: { width: tool + "px" },
+              on: {
+                click: function($event) {
+                  _vm.addactivate
+                  _vm.changeApparatus(tool)
+                }
+              }
+            },
+            [_vm._v("\n            \t\tSize\n        \t")]
+          )
+        })
+      ],
+      2
+    )
   ])
 }
 var staticRenderFns = [
@@ -21645,24 +21681,6 @@ var staticRenderFns = [
         _c("span", {
           staticClass: "fa fa-align-justify bg-white rightnavexpander"
         }),
-        _vm._v(" "),
-        _c("h1", [_vm._v("Help")])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "containerR",
-        staticStyle: { display: "none" },
-        attrs: { id: "unkl" }
-      },
-      [
-        _c("div", { staticClass: "input-alt" }),
         _vm._v(" "),
         _c("h1", [_vm._v("Help")])
       ]
