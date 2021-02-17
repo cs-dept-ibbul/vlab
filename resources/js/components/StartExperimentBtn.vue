@@ -162,7 +162,7 @@ mounted() {
 .digit {
     color:#191236;
     font-size: 1em;
-    font-weight: 100;
+    font-weight: 400;
     font-family: 'Roboto', serif;
     margin: 0px;
     text-align: center;

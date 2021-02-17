@@ -10,6 +10,7 @@
 // This constructor could be improved to allow a greater variety of pendulums
 class Pendulum {
 
+
   constructor(origin_, r_,ballr,angle=40 ) {
     // Fill all variables
     this.origin = origin_.copy();
@@ -33,6 +34,8 @@ class Pendulum {
     var $bigVm = this;
     this.angle = angle;
     var angleDet=angle;
+    var myTimer;
+    var ballTarget = 0;
  
   }
 
@@ -42,13 +45,24 @@ class Pendulum {
     this.drag(); // for user interaction
     this.display();
   }
-  timer(){
-       let $vm = this;
-    setInterval(function(){ 
-      $vm.timerValue = $vm.timerValue+1;         
+  timer(stage){
+    let $vm = this;
+    
+    
+      $vm.myTimer = setInterval(function(){ 
+       $vm.timerValue = $vm.timerValue+1;         
     }, 1000);    
-    $vm.timeholder('--:--');
+      $vm.timeholder('--:--');
+      print(true)
   }
+
+  stopTimer(){
+       print(false)
+      let $vm = this;
+      clearInterval($vm.myTimer);         
+  }
+
+
   showTimer(){  
     let $vm = this;
     let timec = select('#timec');
@@ -66,9 +80,13 @@ class Pendulum {
     //text($vm.munitesK + ":" + this.timerValue, 45,height/1.5);     
     }
   }
+
   restarttimer(){
    this.timerValue = 0;
    this.munitesK = 0; 
+ /*  clearInterval(myTimer);
+    myTimer = setInterval(myFn, 4000);*/
+
   }
   timeIt(){    
       this.timerValue++;    
@@ -98,14 +116,19 @@ class Pendulum {
 
       /*speed determinant */
       this.affect = abs((this.r - this.ballr + this.angle)/30);
-      print(this.angleDet) ;
+      //print(this.affect);
+
+      //this.affect = abs((this.r - this.ballr + this.angle)/30);
+      //print(this.angleDet) ;
       /*end speed determinant*/
       let gravity = this.affect; // Arbitrary constant
-      this.aAcceleration = (-1 * gravity / this.r) * sin(this.angle); 
+      let k = (this.r/50)*20;
+      this.aAcceleration = (-1  * sin(this.angle)/ k); 
+      print(this.aAcceleration);
       if(this.aprev == 0){
         this.aprev = this.angle;        
       }else{
-        if(Math.sign(this.aprev) != Math.sign(this.angle))         { 
+        if(Math.sign(this.aprev) != Math.sign(this.angle)){ 
           this.activateP++;
           this.aprev = this.angle;
         }else{
@@ -149,6 +172,7 @@ class Pendulum {
         
       this.aVelocity += this.aAcceleration; // Increment velocity
       this.aVelocity *= this.damping; // Arbitrary damping
+      print('velocity: '+this.aVelocity);
       this.angle += this.aVelocity; // Increment angle
         angleMode(DEGREES);
     let a = atan2(mouseY - height / 2, mouseX - width / 2);
@@ -197,9 +221,14 @@ class Pendulum {
     let d = dist(mx, my, this.position.x, this.position.y);
     if (d < this.ballr) {
       this.dragging = true;
+      this.ballTarget = 1;
     }
   }
-
+  clickTarget(){
+    let theTarget = this.ballTarget;
+    this.ballTarget = 0;
+    return theTarget;
+  }
   // This tells us we are not longer clicking on the ball
   stopDragging(){
    //$vm.timeholder('--:--');   
@@ -208,7 +237,7 @@ class Pendulum {
   }
   //this stop the swinging
   stop(){
-    this.angle =0;    
+    this.angle = 0;    
     this.aVelocity = 0; 
   }
 
@@ -219,13 +248,13 @@ class Pendulum {
     if (this.dragging) {
       let diff = p5.Vector.sub(this.origin, createVector(mouseX, mouseY)); // Difference between 2 points
       this.angle = atan2(-1 * diff.y, diff.x) - radians(90); // Angle relative to vertical axis
-    }
-        angleMode(DEGREES);
+    angleMode(DEGREES);
     let determin = atan2(mouseY, mouseX - width / 2);
  //   print(abs(abs(a)-90));
     this.angleDet = abs(abs(determin)-90);
-    print(this.angleDet);
+    //print(this.angleDet);
     select('#showdegree').html(Math.round(this.angleDet)+'<deg>&deg</deg>');
      angleMode(RADIANS);
   }
+    }
 }
