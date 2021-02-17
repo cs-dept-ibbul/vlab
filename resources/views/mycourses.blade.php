@@ -7,6 +7,31 @@
 ?>
 
 @extends('layouts/main')
+@section('head')
+<script src="{{ asset('js/jquery-1.11.3.min.js')}}"></script>
+
+<script>
+	 $(document).ready(function(){
+	 	var filterDataKey='', filterDataValue='';
+	 	var $md;
+	 	$('#filter').keyup(function(){
+	 		filterDataKey = $(this).val();
+	 		$('.fholder').each(function(){
+	 			$md = $(this);
+	 			$(this).find('.fdata').each(function(e){	
+	 				filterDataValue = $(this).text();
+	 				if(filterDataValue.toLowerCase().includes(filterDataKey.toLowerCase())=== false){	 					
+	 					$md.hide();
+	 				}else{
+	 					$md.show();
+	 				}
+	 			});
+	 			
+	 		})
+	 	})
+	 })
+</script>
+@endsection
 @section('content-body')
 <div style="display: flex;">   
 
@@ -36,10 +61,10 @@
 			</div>
 			<div class="row">
 				<!-- experiment box -->
-				<div class="p-4 w-100 bg-white shadow-sm my-3" style="border-radius: 9px;">
+				<div class="p-4 w-100 bg-white shadow-sm my-3 fholder" style="border-radius: 9px;">
 					<div class="d-flex justify-content-between align-items-center mb-2">
 						<div class="font ">
-							<h3 class="fw6">PHY 107</h3>
+							<h3 class="fw6 fdata">PHY 107</h3>
 							<p class="my-1 font2 " style="color:#888;font-size: 0.85em;">But I must explain to you how you will go about this experiment</p>
 							<p class="my-0 fw5" style="font-size: 0.9em;">4 Practicals</p>
 						</div>
@@ -52,10 +77,10 @@
 				<!-- end experiment box -->
 
 				<!-- experiment box -->
-				<div class="p-4 w-100 bg-white shadow-sm my-3" style="border-radius: 9px;">
+				<div class="p-4 w-100 bg-white shadow-sm my-3 fholder" style="border-radius: 9px;">
 					<div class="d-flex justify-content-between align-items-center mb-2">
 						<div class="font ">
-							<h3 class="fw6">CHM 107</h3>
+							<h3 class="fw6 fdata">CHM 107</h3>
 							<p class="my-1 font2 " style="color:#888;font-size: 0.85em;">But I must explain to you how you will go about this experiment</p>
 							<p class="my-0 fw5" style="font-size: 0.9em;">4 Practicals</p>
 						</div>
@@ -68,10 +93,10 @@
 				<!-- end experiment box -->
 
 					<!-- experiment box -->
-				<div class="p-4 w-100 bg-white shadow-sm my-3" style="border-radius: 9px;">
+				<div class="p-4 w-100 bg-white shadow-sm my-3 fholder" style="border-radius: 9px;">
 					<div class="d-flex justify-content-between align-items-center mb-2">
 						<div class="font ">
-							<h3 class="fw6">BIO 107</h3>
+							<h3 class="fw6 fdata">BIO 107</h3>
 							<p class="my-1 font2 " style="color:#888;font-size: 0.85em;">But I must explain to you how you will go about this experiment</p>
 							<p class="my-0 fw5" style="font-size: 0.9em;">4 Practicals</p>
 						</div>
@@ -85,10 +110,10 @@
 				<!-- end experiment box -->
 
 					<!-- experiment box -->
-				<div class="p-4 w-100 bg-white shadow-sm my-3" style="border-radius: 9px;">
+				<div class="p-4 w-100 bg-white shadow-sm my-3 fholder" style="border-radius: 9px;">
 					<div class="d-flex justify-content-between align-items-center mb-2">
 						<div class="font ">
-							<h3 class="fw6">Virtual Optics</h3>
+							<h3 class="fw6 fdata">Virtual Optics</h3>
 							<p class="my-1 font2 " style="color:#888;font-size: 0.85em;">But I must explain to you how you will go about this experiment</p>
 							<p class="my-0 fw5" style="font-size: 0.9em;">4 Practicals</p>
 						</div>
