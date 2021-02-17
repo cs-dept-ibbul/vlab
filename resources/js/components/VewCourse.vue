@@ -185,6 +185,7 @@ ul.timeline > li:before {
   height: 20px;
   z-index: 400;
 }
+
 .vlab-practicals {
   width: 100%;
   background-color: #ebeaef;
