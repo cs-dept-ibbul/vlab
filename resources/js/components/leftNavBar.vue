@@ -17,7 +17,7 @@
 			<div v-bind:class="{slidein:show1, slideout:hide1}" style="position: relative; margin-left: 20px; margin-right:20px;height: " >
 				<div class="nChildV btn-active"><span class="iconV fa fa-home "></span><div class="labelV">Home</div></div>	
 				<div class="nChildV"><span class="iconV fa fa-spinner"></span><div class="labelV">Explore</div></div>	
-				<div class="nChildV"><span class="iconV fa fa-toggle-on"></span><div class="labelV">My Practical</div></div>	
+				<div class="nChildV"><span class="iconV fa fa-toggle-on"></span><div class="labelV"><a href="/my-Practical">My Practical</a></div></div>	
 				<div class="nChildV"><span class="iconV fa fa-comment"></span><div class="labelV">Discussion</div></div>	
 				<div class="nChildV"><span class="iconV fa fa-gear"></span><div class="labelV">Settings</div></div>					
 				<div class="nChildV"><span class="iconV fa fa-arrow-circle-left"></span><div class="labelV">Logout</div>

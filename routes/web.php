@@ -41,6 +41,9 @@ Route::get('/micrometerEquipment', function ()
 Route::get('/vewCourse', 'App\Http\Controllers\ViewCourseController@index');
 Route::get('/UserDashboard', 'App\Http\Controllers\ViewUserDashboard@index');
 
+Route::get('/my-Practical', 'App\Http\Controllers\ViewMyPracticalController@index');
+
+
 
 Route::get('/', 'App\Http\Controllers\PagesController@index');
 

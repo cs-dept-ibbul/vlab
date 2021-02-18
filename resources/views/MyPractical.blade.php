@@ -6,8 +6,7 @@
          <!-- top nav bar -->
             <v-topnav></v-topnav>
          <!-- end to nav bar -->
-            <v-lactivity></v-lactivity>
-            <v-practicaltimeline></v-practicaltimeline>
+         <v-enrolledpracticals></v-enrolledpracticals>
         </div>
     </div>
 @endsection
