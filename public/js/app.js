@@ -680,6 +680,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
 
 /***/ }),
@@ -6211,7 +6253,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.contener{\n    margin:0; padding: 35px 20px 10px 65px;display: flex;justify-content: space-between;width: 100%;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.contener {\r\n  margin: 0;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n  width: 100%;\n}\n.title {\r\n  padding: 35px 20px 20px 65px;\n}\n.timeline {\r\n  margin-top: 10px;\n}\n.parentTimeline b {\r\n    width: 8%;\n}\n.text {\r\n  background-color: #d4d9df;\r\n  padding: 8px;\r\n  border-radius: 10px;\r\n  font-size: 16px;\n}\n.practical-desc {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  width: 52%;\r\n  font-size: 16px;\r\n  padding: 8px 0;\n}\n.col-md-10 {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: 8rem;\n}\n.col-md-2 {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: space-around;\n}\n.practical-title {\r\n  font-weight: bolder;\r\n  padding-top: 10px;\r\n  text-transform: capitalize;\n}\n.parentTimeline {\r\n  list-style-type: none;\r\n  position: relative;\r\n  display: flex;\r\n  padding: 0px 20px 0px 65px;\n}\n.parentTimeline div {\r\n    width: 100%;\n}\n.parentTimeline > div:before {\r\n  content: \"\";\r\n  background: #0b0524;\r\n  display: inline-block;\r\n  position: absolute;\r\n  border-radius: 50%;\r\n  border: 1px solid #0b0524;\r\n  left: 161px;\r\n  width: 20px;\r\n  height: 20px;\r\n  z-index: 400;\n}\n.child {\r\n  background-color: #fff;\r\n  margin-bottom: 30px;\r\n  margin-top: 10px;\r\n  border-radius: 0.5rem;\r\n  padding: 10px;\r\n  height: 10rem;\r\n  display: flex;\r\n  justify-content: space-between;\n}\nul.timeline {\r\n  list-style-type: none;\r\n  position: relative;\r\n  padding-top: 30px;\n}\nul.timeline:before {\r\n  content: \" \";\r\n  background: #d4d9df;\r\n  display: inline-block;\r\n  position: absolute;\r\n  top: 10px;\r\n  left: 29px;\r\n  width: 2px;\r\n  height: 100%;\r\n  z-index: 400;\n}\nul.timeline > li {\r\n  margin: 0px 0;\r\n  padding-left: 20px;\r\n  margin-bottom: 10px;\r\n  margin-left: 10px;\n}\nul.timeline > li:before {\r\n  content: \"\";\r\n  background: #0b0524;\r\n  display: inline-block;\r\n  position: absolute;\r\n  border-radius: 50%;\r\n  border: 1px solid #0b0524;\r\n  left: 22px;\r\n  width: 15px;\r\n  height: 15px;\r\n  z-index: 400;\n}\n.vlab-practicals {\r\n  width: 100%;\r\n  background-color: #ebeaef;\r\n  max-height: 700px;\r\n  border-radius: 2.5rem;\r\n  overflow-y: scroll;\n}\n.instructors {\r\n  color: #959399;\r\n  margin-bottom: 0%;\n}\n.view-practicals {\r\n  width: 95%;\r\n  background-color: #ebeaef;\r\n  height: 200px;\r\n  border-radius: 2rem;\r\n  margin-top: 55px;\r\n  display: flex;\n}\n.view-practicals-box {\r\n  width: 12%;\r\n  background-color: #adaabb;\r\n  height: 150px;\r\n\r\n  position: absolute;\r\n  z-index: 1;\r\n  border-radius: 2.5rem;\r\n  right: 55%;\r\n  top: 38%;\n}\n.view-Practical_text {\r\n  align-self: flex-end;\r\n  padding-left: 20px;\n}\n.fa {\r\n  padding-left: 5px;\n}\n.side {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.expect {\r\n  width: 55%;\r\n  background-color: #ebeaef;\r\n  height: 300px;\r\n  border-radius: 2rem;\r\n  margin-top: 55px;\n}\n.what-to-expect-text {\r\n  padding-left: 20px;\r\n  padding-top: 20px;\r\n  font-weight: bold;\r\n  color: #0b0524;\n}\n.expect-content {\r\n  width: 90%;\r\n  overflow-x: hidden;\r\n  overflow-y: scroll;\r\n  scrollbar-color: #0b0524 #bebebe;\r\n  scrollbar-width: thin;\r\n  max-height: 220px;\r\n  margin-left: 15px;\n}\n.input-row {\r\n  margin-top: 20px;\n}\n.md-size {\r\n  font-size: 16px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23772,15 +23814,78 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "contener" }, [
+    _c("b", { staticClass: "title" }, [_vm._v("All Pracrical Class Timeline")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "vlab-practicals" }, [
+      _c("div", { staticClass: "container mb-12" }, [
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-md-12" },
+            _vm._l(3, function(x) {
+              return _c("div", { key: x, staticClass: "parentTimeline" }, [
+                _c("b", [_vm._v("Week 1")]),
+                _vm._v(" "),
+                _vm._m(0, true)
+              ])
+            }),
+            0
+          )
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "contener" }, [
-      _c("b", [_vm._v("All Pracrical Class Timeline")])
+    return _c("div", [
+      _c("ul", { staticClass: "timeline" }, [
+        _c("li", { staticClass: "child" }, [
+          _c("div", { staticClass: "col-md-10" }, [
+            _c("div", [
+              _c("span", { staticClass: "text" }, [_vm._v("100 level")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-2" }, [
+            _c("div", { staticClass: "bttn-container" }, [
+              _c(
+                "button",
+                { staticClass: "btn btn-secondary", attrs: { type: "submit" } },
+                [
+                  _c("i", { staticClass: "fa fa-plus" }),
+                  _vm._v("Add to Lab\n                      ")
+                ]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "child" }, [
+          _c("div", { staticClass: "col-md-10" }, [
+            _c("div", [
+              _c("span", { staticClass: "text" }, [_vm._v("100 level")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-2" }, [
+            _c("div", { staticClass: "bttn-container" }, [
+              _c(
+                "button",
+                { staticClass: "btn btn-secondary", attrs: { type: "submit" } },
+                [
+                  _c("i", { staticClass: "fa fa-plus" }),
+                  _vm._v("Add to Lab\n                      ")
+                ]
+              )
+            ])
+          ])
+        ])
+      ])
     ])
   }
 ]
