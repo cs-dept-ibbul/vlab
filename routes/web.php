@@ -18,6 +18,7 @@ Route::get('/login', 'App\Http\Controllers\loginController@index');
 Route::get('/', 'App\Http\Controllers\PagesController@index');
 Route::get('/explore', 'App\Http\Controllers\ExploreController@index');
 Route::get('/my-courses', 'App\Http\Controllers\StudentCourses@index');
+Route::get('/my-course-review', 'App\Http\Controllers\StudentCourses@review');
 
 
 

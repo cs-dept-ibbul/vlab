@@ -10,6 +10,9 @@ class StudentCourses extends Controller
         return view('mycourses');
     }
 
+    public function review(){
+        return view('reviewcourse');
+    }
     
 }
 ?>
