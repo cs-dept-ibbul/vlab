@@ -7,21 +7,50 @@
 
 		<div style="display: flex;width: 200px;background: #fff" class="MenuLContainer"  v-bind:class="{reduceSize:show}">			
 			<div v-bind:class="{slidein:show, slideout:hide}" class="niconsV slider">
-				<span class="iconOV fa fa-home btn-active" title="Home"></span>
-				<span class="iconOV fa fa-spinner" title="Explore"></span>
-				<span class="iconOV fa fa-toggle-on" title="My Practical"></span>
-				<span class="iconOV fa fa-comment" title="Discussion"></span>
-				<span class="iconOV fa fa-gear" title="Settings"></span>
-				<span class="iconOV fa fa-arrow-circle-left" style="margin-top: ;" title="Logout"></span>
+				<a :href="home"  v-bind:class="{btnActive:homeA}">
+					<span class="iconOV fa fa-home btnActive" title="Home"></span>					
+				</a>
+				<a :href="explore"  v-bind:class="{btnActive:exploreA}">
+					<span class="iconOV fa fa-spinner" title="Explore"></span>					
+				</a>
+				<a :href="courses"  v-if="incourse == '1'"  v-bind:class="{btnActive:coursesA}">
+					<span class="iconOV fa fa-toggle-on" title="Courses"></span>					
+				</a>
+				<a :href="mycourse" v-else v-bind:class="{btnActive:mycourseA}">
+					<span class="iconOV fa fa-toggle-on" title="My Courses"></span>					
+				</a>
+				<a :href="discussion" v-bind:class="{btnActive:discussionA}">
+					<span class="iconOV fa fa-comment" title="Settings"></span>					
+				</a>
+				<a :href="settings" v-bind:class="{btnActive:settingsA}">
+					<span class="iconOV fa fa-gear" title="Settings"></span>					
+				</a>
+				<a :href="logout" >
+					<span class="iconOV fa fa-arrow-circle-left" style="margin-top: ;" title="Logout"></span>
+				</a>
 			</div>
 			<div v-bind:class="{slidein:show1, slideout:hide1}" style="position: relative; margin-left: 20px; margin-right:20px;height: " >
-				<div class="nChildV btn-active"><span class="iconV fa fa-home "></span><div class="labelV">Home</div></div>	
-				<div class="nChildV"><span class="iconV fa fa-spinner"></span><div class="labelV">Explore</div></div>	
-				<div class="nChildV"><span class="iconV fa fa-toggle-on"></span><div class="labelV">My Practical</div></div>	
-				<div class="nChildV"><span class="iconV fa fa-comment"></span><div class="labelV">Discussion</div></div>	
-				<div class="nChildV"><span class="iconV fa fa-gear"></span><div class="labelV">Settings</div></div>					
-				<div class="nChildV"><span class="iconV fa fa-arrow-circle-left"></span><div class="labelV">Logout</div>
-				</div>
+				<a :href="home" class="nChildV" v-bind:class="{btnActive:homeA}">
+					<span class="iconV fa fa-home "></span><div class="labelV">Home</div>
+				</a>	
+				<a :href="explore" class="nChildV"  v-bind:class="{btnActive:exploreA}">
+					<span class="iconV fa fa-spinner"></span><div class="labelV">Explore</div>
+				</a>	
+				<a :href="courses" v-if="incourse == '1'" class="nChildV" v-bind:class="{btnActive:coursesA}">
+					<span class="iconV fa fa-toggle-on"></span><div class="labelV">Course</div>
+				</a>
+				<a :href="mycourse" v-else class="nChildV" v-bind:class="{btnActive:mycourseA}">
+					<span class="iconV fa fa-toggle-on"></span><div class="labelV">My Courses</div>
+				</a>
+				<a :href="discussion"  class="nChildV" v-bind:class="{btnActive:discussionA}">
+					<span class="iconV fa fa-comment"></span><div class="labelV">Discussion</div>
+				</a>	
+				<a :href="settings"  class="nChildV" v-bind:class="{btnActive:settingsA}">
+					<span class="iconV fa fa-gear"></span><div class="labelV">Settings</div>
+				</a>					
+				<a :href="logout"  class="nChildV">
+					<span class="iconV fa fa-arrow-circle-left"></span><div class="labelV">Logout</div>
+				</a>
 				
 			</div>
 		</div>
@@ -37,6 +66,12 @@
             hide:true,
             show1:true,
             hide1:false,
+            homeA:false,
+            exploreA:false,
+            coursesA:false,
+            discussionA:false,
+            settingsA:false,
+            mycourseA:false
 		    	}
         },
         methods:{
@@ -52,8 +87,30 @@
                 this.hide1=!this.hide1;                
               
             }
-        }
+        },
+        created:function(){
+        	if (this.active=='home'){
+        		this.homeA = true;
+        	}
+        	if (this.active=='explore'){
+        		this.exploreA = true;
+        	}
+        	if (this.active=='courses'){
+        		this.coursesA = true;
+        	}
+        	if (this.active=='mycourse'){
+        		this.mycourseA = true;
+        	}
+        	if (this.active=='settings'){
+        		this.settingsA = true;
+        	}
+        	if (this.active=='discussion'){
+        		this.discussionA = true;
+        	}
+        },
+        props:['home','explore','mycourse','courses','discussion','settings', 'logout', 'active', 'incourse']
 	};
+
 /*
 $(document).ready(function(){
    $('button').click(function(){
@@ -63,6 +120,11 @@ $(document).ready(function(){
 </script> 
 <style scoped>
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+a{
+	text-decoration: none;	
+}
 .widthRed{
 	width: 60px !important;
 }
@@ -133,10 +195,12 @@ $(document).ready(function(){
 		margin-left: 10px;
 	}
 	.nChildV{
+		font-weight: 400;
+		font-size: 0.95em;
+		font-family: 'Roboto';		
 		display: flex;
 		padding: 10px 18px;			
 		color:#2F274E;
-		font-size: 1em;
 		text-align: left;		
 		align-items: center;
 		flex-wrap: wrap;
@@ -146,11 +210,12 @@ $(document).ready(function(){
 
 	}
 	.nChildV:hover{
-		background: #2F274E;
+		background: #3c9;
 		color:#fff;
 	}
-	.btn-active{
-		background: #EBEAEF;
+	.btnActive{
+		background: rgba(150,200,150,.1) !important;
+		color: #3c9 !important;
 		
 	}
 	.iconV{
@@ -164,17 +229,18 @@ $(document).ready(function(){
 		width: 100%;
 		cursor: pointer;
 		font-size: 1.1em;	
+		color:#2F274E;
 	}
 	.iconOV:not(:first-child){
 		margin:2px 0px;
 	}
 
 	.iconOV:hover{
-		background: #2F274E;
+		background: #3c9;
 		color:#fff;		
 	}
 	.nChildV:hover{
-		background: #2F274E;
+		background: #3c9;
 		color:#fff;
 	}
 </style>

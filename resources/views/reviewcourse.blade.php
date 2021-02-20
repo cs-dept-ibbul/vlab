@@ -1,9 +1,9 @@
 <?php 
 	$threadTrends = [
-	 	 	[2,1,[1,1,1]],
-	 	 	[1,1,[1,0]],
-	 	 	[1,0,[0]],
-	 	 	[2,1,[1]]
+	 	 	[1,1,[1,1,1]],//sub array is for exercises in the week 1=>completed, 0=> not completed
+	 	 	[2,1,[1,0]],
+	 	 	[3,0,[0]],
+	 	 	[4,1,[1]]
 	 ];
 	 $threadTrends = (array) $threadTrends;
 
@@ -46,7 +46,8 @@
 <div style="display: flex;">   
 
    <!-- main side bar -->
-   <v-msidebar></v-msidebar>   
+   <v-msidebar home="{{route('home')}}" explore="{{route('explore')}}" settings="{{route('home')}}" mycourse="{{route('my-course-review')}}" courses="{{route('courses')}}" incourse="0" active="mycourse"  ></v-msidebar>   
+   
    <!-- end main side bar -->
 
    <div style="width: 100%; " class="sysbg">

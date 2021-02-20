@@ -28,7 +28,7 @@
 <div style="display: flex;">   
 
    <!-- main side bar -->
-   <v-msidebar></v-msidebar>   
+   <v-msidebar home="{{route('home')}}" explore="{{route('explore')}}" settings="{{route('home')}}" mycourse="{{route('my-course-review')}}" courses="{{route('courses')}}" incourse="1" active="courses"  ></v-msidebar>   
    <!-- end main side bar -->
 
    <div style="width: 100%; " class="sysbg">
@@ -53,7 +53,7 @@
 			</div>
 			<div class="row">
 				<!-- experiment box -->
-				<div class="p-4 w-100 bg-white shadow-sm my-3 fholder" style="border-radius: 9px;">
+				<!-- <div class="p-4 w-100 bg-white shadow-sm my-3 fholder" style="border-radius: 9px;">
 					<div class="d-flex justify-content-between align-items-center mb-2">
 						<div class="font ">
 							<h3 class="fw6 fdata">PHY 107</h3>
@@ -65,11 +65,11 @@
 						</div>
 					</div>					
 					<v-progress evalue=2 avalue=4></v-progress>
-				</div>
+				</div> -->
 				<!-- end experiment box -->
 
 				<!-- experiment box -->
-				<div class="p-4 w-100 bg-white shadow-sm my-3 fholder" style="border-radius: 9px;">
+			<!-- 	<div class="p-4 w-100 bg-white shadow-sm my-3 fholder" style="border-radius: 9px;">
 					<div class="d-flex justify-content-between align-items-center mb-2">
 						<div class="font ">
 							<h3 class="fw6 fdata">CHM 107</h3>
@@ -81,19 +81,19 @@
 						</div>
 					</div>
 					<v-progress evalue=1 avalue=4></v-progress>					
-				</div>
+				</div> -->
 				<!-- end experiment box -->
 
 					<!-- experiment box -->
 				<div class="p-4 w-100 bg-white shadow-sm my-3 fholder" style="border-radius: 9px;">
 					<div class="d-flex justify-content-between align-items-center mb-2">
 						<div class="font ">
-							<h3 class="fw6 fdata">BIO 107</h3>
+							<h3 class="fw6 fdata">PHY 107</h3>
 							<p class="my-1 font2 " style="color:#888;font-size: 0.85em;">But I must explain to you how you will go about this experiment</p>
 							<p class="my-0 fw5" style="font-size: 0.9em;">4 Practicals</p>
 						</div>
 						<div>
-							<a href="" class="sysbtn-md p-success text-white">Start <span class="fa fa-arrow-right text-white"></span></a>
+							<a href="{{route('my-course-review',1)}}" class="sysbtn-md p-success text-white">Start <span class="fa fa-arrow-right text-white"></span></a>
 						</div>
 					</div>
 					<v-progress evalue=0 avalue=4></v-progress>
@@ -110,7 +110,7 @@
 							<p class="my-0 fw5" style="font-size: 0.9em;">4 Practicals</p>
 						</div>
 						<div>
-							<a  class="sysbtn-md p-success text-white" style="cursor:not-allowed;"><span class="fa fa-check-circle text-white"></span> completed </a>
+							<a href="{{route('my-course-review',2)}}" class="sysbtn-md p-success text-white" style="cursor:not-allowed;"><span class="fa fa-check-circle text-white"></span> completed </a>
 						</div>
 					</div>
 					<v-progress evalue=4 avalue=4></v-progress>					

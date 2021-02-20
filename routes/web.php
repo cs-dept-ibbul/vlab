@@ -15,12 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/login', 'App\Http\Controllers\loginController@index');
-Route::get('/', 'App\Http\Controllers\PagesController@index');
-Route::get('/explore', 'App\Http\Controllers\ExploreController@index');
-Route::get('/my-courses', 'App\Http\Controllers\StudentCourses@index');
-Route::get('/my-course-review', 'App\Http\Controllers\StudentCourses@review');
-
-
+Route::get('/', 'App\Http\Controllers\PagesController@index')->name('home');
+Route::get('/explore', 'App\Http\Controllers\ExploreController@index')->name('explore');
+Route::get('/my-courses', 'App\Http\Controllers\StudentCourses@index')->name('courses');
+Route::get('/my-course-review/{id?}', 'App\Http\Controllers\StudentCourses@review')->name('my-course-review')->where('id', '[0-9]+');;
+//{name?}
 
 
 

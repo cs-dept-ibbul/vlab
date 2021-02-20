@@ -10,8 +10,13 @@ class StudentCourses extends Controller
         return view('mycourses');
     }
 
-    public function review(){
-        return view('reviewcourse');
+    public function review(Request $request){
+    	//return dd($request->id);
+    	if ($request->id != null) {
+        	return view('reviewcourse');    		
+    	}else{
+    		return abort(404);
+    	}
     }
     
 }

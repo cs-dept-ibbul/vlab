@@ -60,6 +60,11 @@ html body{
     margin: 0px;
     position: relative;
 }
+.boxX{
+  background: #f5f5f5; border-radius: 10px; width: 100%;
+  height: 350px;
+  overflow-y: scroll;
+}
 .p-danger{
   background: #ff0000 !important;
 }
@@ -69,6 +74,15 @@ html body{
 }
 .p-success{    
     background: #00b96b !important;  
+}
+.p-light{    
+    background: rgba(0,190,70,.1) !important;  
+}
+.h1{
+  height: 26px;
+}
+.r1{
+  border-radius: 4px;
 }
 .t-success{    
     color: #00b96b !important;  
@@ -539,7 +553,7 @@ body {
   width: 25px;
   height: 25px;
   right: -17px;  
-  border: 4px solid #444;
+  border: 4px solid #FF9F55;
   top: 15px;
   border-radius: 50%;
   z-index: 1;
