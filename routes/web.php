@@ -25,7 +25,7 @@ Route::get('/my-course-review/{id?}', 'App\Http\Controllers\StudentCourses@revie
 
 
 
-Route::get('/simple-pendulum','App\Http\Controllers\experimentController@simplePendulum');
+Route::get('/simple-pendulum','App\Http\Controllers\experimentController@simplePendulum')->name('simple-pendulum');
 
 Route::get('/simplependulumEquipment', function ()
 {
@@ -33,14 +33,14 @@ Route::get('/simplependulumEquipment', function ()
 })->name('simplependulumEquipment');
 
 
-Route::get('/vernier-caliper','App\Http\Controllers\experimentController@vernierCaliper');
+Route::get('/vernier-caliper','App\Http\Controllers\experimentController@vernierCaliper')->name('vernier-caliper');
 Route::get('/vernierEquipment', function ()
 {
 	return view('experiment.vernierEquipment');
 })->name('vernierEquipment');
 
 
-Route::get('/micrometer','App\Http\Controllers\experimentController@micrometerScrewGuage');
+Route::get('/micrometer','App\Http\Controllers\experimentController@micrometerScrewGuage')->name('micrometer');
 Route::get('/micrometerEquipment', function ()
 {
 	return view('experiment.micrometerEquipment');
