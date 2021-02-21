@@ -45,8 +45,8 @@ Route::get('/micrometerEquipment', function ()
 {
 	return view('experiment.micrometerEquipment');
 })->name('micrometerEquipment');
-
-Route::get('/vewCourse', 'App\Http\Controllers\ViewCourseController@index');
+//vewCourse changed to viewCourse on line 49.
+Route::get('/viewCourse', 'App\Http\Controllers\ViewCourseController@index');
 Route::get('/UserDashboard', 'App\Http\Controllers\ViewUserDashboard@index');
 
 
