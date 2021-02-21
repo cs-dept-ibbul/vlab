@@ -2,7 +2,7 @@
 	<div class="w-100">
 		<div v-for="(week,index) in weeks" class=""><!-- loop weekly -->
 			<div class="d-flex flex-wrap-center timelineSM" style="margin-bottom: 20px;" v-if="weeks[index][1] != 0">
-				<span class="fs1 w10">Week {{index+1}}</span>
+				<span class="fs1 w10">Week {{week[0]}} </span>
 				<span class="fa fa-check-circle fs3 text-success"></span>				
 			</div>
 			<div class="d-flex flex-wrap-center timelineSM-o" style="margin-bottom: 20px;"  v-else>				
@@ -13,7 +13,7 @@
 			<div v-for="(exp, i) in weeks[index][2]"> 
 				<div class="d-flex flex-wrap-center">		
 					<span class="fs1 w10"></span>
-					<span v-if="week[i+1]==1">
+					<span v-if="exp==1">
 						<span class="syscircle timelineX"></span>						
 					</span>
 					<span v-else>

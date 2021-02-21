@@ -25435,7 +25435,7 @@ var render = function() {
                 },
                 [
                   _c("span", { staticClass: "fs1 w10" }, [
-                    _vm._v("Week " + _vm._s(index + 1))
+                    _vm._v("Week " + _vm._s(week[0]) + " ")
                   ]),
                   _vm._v(" "),
                   _c("span", {
@@ -25463,7 +25463,7 @@ var render = function() {
               _c("div", { staticClass: "d-flex flex-wrap-center" }, [
                 _c("span", { staticClass: "fs1 w10" }),
                 _vm._v(" "),
-                week[i + 1] == 1
+                exp == 1
                   ? _c("span", [
                       _c("span", { staticClass: "syscircle timelineX" })
                     ])

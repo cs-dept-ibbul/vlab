@@ -3,25 +3,25 @@
 	 	 	[1,1,[1,1,1]],//sub array is for exercises in the week 1=>completed, 0=> not completed
 	 	 	[2,1,[1,0]],
 	 	 	[3,0,[0]],
-	 	 	[4,1,[1]]
+	 	 	[4,0,[0]]
 	 ];
 	 $threadTrends = (array) $threadTrends;
 
 	 $weeksExp = [
  		'week 1'=>[
-	 			['title'=>'Phy 107', 'experimentType'=>'Experiment I', 'start'=>'11-12-2020','submit'=>'11-12-2020','status'=>1],
-	 			['title'=>'Phy 107', 'experimentType'=>'Experiment II', 'start'=>'11-12-2020','submit'=>'11-12-2020','status'=>1],
-	 			['title'=>'Phy 107', 'experimentType'=>'Experiment III', 'start'=>'11-12-2020','submit'=>'11-12-2020','status'=>1],
+	 			['title'=>'Phy 107', 'experimentType'=>'Experiment I', 'start'=>'11-12-2020','submit'=>'11-12-2020','page'=>'simple-pendulum','status'=>1],
+	 			['title'=>'Phy 107', 'experimentType'=>'Experiment II', 'start'=>'11-12-2020','submit'=>'11-12-2020','page'=>'vernier-caliper','status'=>1],
+	 			['title'=>'Phy 107', 'experimentType'=>'Experiment III', 'start'=>'11-12-2020','submit'=>'11-12-2020','page'=>'micrometer','status'=>1],
  		],
  		'week 2'=>[
-	 			['title'=>'Phy 107', 'experimentType'=>'Experiment I', 'start'=>'11-12-2020','submit'=>'11-12-2020','status'=>1],
-	 			['title'=>'Phy 107', 'experimentType'=>'Experiment II', 'start'=>'11-12-2020','submit'=>'11-12-2020','status'=>0]
+	 			['title'=>'Phy 107', 'experimentType'=>'Experiment I', 'start'=>'11-12-2020','submit'=>'11-12-2020','page'=>'micrometer','status'=>1],
+	 			['title'=>'Phy 107', 'experimentType'=>'Experiment II', 'start'=>'11-12-2020','submit'=>'11-12-2020','page'=>'vernier-caliper','status'=>0]
  		],
  		'week 3'=>[
-	 			['title'=>'Phy 107', 'experimentType'=>'Experiment I', 'start'=>'11-12-2020','submit'=>'11-12-2020','status'=>0]
+	 			['title'=>'Phy 107', 'experimentType'=>'Experiment I', 'start'=>'11-12-2020','submit'=>'11-12-2020','page'=>'simple-pendulum','status'=>0]
  		],
  		'week 4'=>[
-	 			['title'=>'Phy 107', 'experimentType'=>'Experiment I', 'start'=>'11-12-2020','submit'=>'11-12-2020','status'=>1]
+	 			['title'=>'Phy 107', 'experimentType'=>'Experiment I', 'start'=>'11-12-2020','submit'=>'11-12-2020','page'=>'micrometer','status'=>0]
  		]
 	 ];
 	 $weeksExp = json_decode(json_encode($weeksExp));
@@ -153,20 +153,28 @@
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="font">
 										<span class="fw4 sys-bg-success fs1 p-2 rounded">{{$week->title}}</span>
-										<p class="fw4 pt-2 pb-0 mb-1" >Experiment I</p>
+										<p class="fw4 pt-2 pb-0 mb-1" >{{$week->experimentType}}</p>
 										<div>
-											<div class="float-left fs1 font2"><span style="color: #888;">Started</span> <span>11-12-2020</span></div>
-											<div class="float-left fs1 font2 ml-4"><span style="color: #888;">Started</span> <span>11-12-2020</span></div>
+											<div class="float-left fs1 font2"><span style="color: #888;">Started</span> <span>{{$week->start}}</span></div>
+											<div class="float-left fs1 font2 ml-4"><span style="color: #888;">Started</span> <span>{{$week->submit}}</span></div>
 										</div>
 									</div>
 									<div>
+			     					@if($week->status ==1)
 										<span>Completed</span>
+									@else
+										<a href="{{route($week->page)}}" class="text-success fs1 fw3">Start</a>
+									@endif
 									</div>
 								</div>				
 							</div>
 							<div class="pl-2">
-								<span class="fs8 fa fa-check-circle t-success"></span>						
+								@if($week->status ==1)
+									<span class="fs8 fa fa-check-circle t-success"></span>				
+								@endif
 							</div>
+
+
 						</div>
 					@endforeach
      				</div>
