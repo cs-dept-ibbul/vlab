@@ -6409,7 +6409,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.mainNav{\n  border-bottom: 1px solid #ccc;\n}\n.navM a{\n   font-family: 'Roboto', serif;\n   font-weight: 300;\n   margin: 0px 10px;\n   font-size: 0.9em;\n   color: #333;\n   text-decoration: none;\n}\n.navM a:hover{\n  color:#3c8;\n}\n.nlogin{\n  background: #3c8;\n  color: #fff !important;\n  padding: 10px 13px;\n  border-radius: 5px;  \n  border: 1px solid transparent;\n}\n.nlogin:hover{\n  background: #fff !important;\n  color: #368 !important;\n  border: 1px solid #ccc;\n}\n.mainNavM{\n  flex-wrap: wrap;\n  align-items: center;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.mainNav{\n  border-bottom: 1px solid #f2f2f2;\n}\n.navM a{\n   font-family: 'Roboto', serif;\n   font-weight: 300;\n   margin: 0px 10px;\n   font-size: 0.9em;\n   color: #333;\n   text-decoration: none;\n}\n.navM a:last-child{\n  margin-right: 0px !important;\n}\n.navM a:hover{\n  color:#3c8;\n}\n.nlogin{\n  background: #3c8;\n  color: #fff !important;\n  padding: 10px 13px;\n  border-radius: 5px;  \n  border: 1px solid transparent;\n}\n.nlogin:hover{\n  background: #fff !important;\n  color: #368 !important;\n  border: 1px solid #fefefe;\n}\n.mainNavM{\n  flex-wrap: wrap;\n  align-items: center;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -24207,7 +24207,7 @@ var staticRenderFns = [
       _c(
         "div",
         {
-          staticClass: "d-flex px-5 py-4 justify-content-between mainNavM w-100"
+          staticClass: "d-flex px-6 py-4 justify-content-between mainNavM w-100"
         },
         [
           _c("div", {
@@ -24220,8 +24220,8 @@ var staticRenderFns = [
             }
           }),
           _vm._v(" "),
-          _c("div", [
-            _c("div", { staticClass: "navM" }, [
+          _c("div", { staticClass: "p-0" }, [
+            _c("div", { staticClass: "navM p-0" }, [
               _c("a", { staticClass: "nbtn", attrs: { href: "" } }, [
                 _vm._v("Home")
               ]),

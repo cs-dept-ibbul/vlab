@@ -13,12 +13,31 @@ html body{
   border:1px solid #fff;
   cursor: text !important;
 }
+.input-search3{
+  width:250px;
+  height:45px;  
+  padding:8px 5px 8px 34px;
+  color:#777;
+  font-family: 'Roboto', serif;
+  font-weight: 300;
+  transition: all 1s;
+  border-radius: 9px;
+  border:1px solid #eee;
+  cursor: text !important;
+}
 @media screen and  (max-width:896px){
   .input-search2{
     width: 160px !important;
   }
+  .input-search3{
+    width: 160px !important;
+  }
 }
 .input-search2:focus{
+  outline: none;
+  border: 1px solid #6c5;
+}
+.input-search3:focus{
   outline: none;
   border: 1px solid #6c5;
 }
@@ -78,11 +97,35 @@ html body{
 .p-light{    
     background: rgba(0,190,70,.1) !important;  
 }
+.p-secondary{
+  background: #f0f0f0 !important;
+}
+.px-6{
+  padding-left: 90px;
+  padding-right:90px;
+}
+.ftag{
+    background: rgba(0,190,70,.1) !important;  
+    color: #00b96b !important;
+    padding: 4px 7px;
+    margin: 1px 2px;    
+    border-radius: 5px;
+}
+
 .h1{
   height: 26px;
 }
+.h500{
+  height: 500px;
+}
+.hm300{
+  min-height: 300px;
+}
 .r1{
   border-radius: 4px;
+}
+.r2{
+  border-radius: 8px;
 }
 .t-success{    
     color: #00b96b !important;  
@@ -130,6 +173,9 @@ html body{
 .fs8{
   font-size: 1.5em !important;
 }
+.fs01{
+  font-size: 0.8em;
+}
 .systabActive{
  border-bottom: 2px solid #00b96b !important; 
  color: #00b96b !important;
@@ -151,6 +197,68 @@ html body{
     margin-bottom: 15px;
   }
 
+}
+.more-detail-pin{
+  cursor: pointer !important;
+}
+.more-detail-pin:hover{  
+  text-decoration: underline;
+}
+.more-detail {
+  padding: 10px !important;
+  width: 100%;
+  background-color: #fff;
+  color: #fff;  
+  border-radius: 10px;
+  padding: 5px 0;
+  display:block;
+  position: relative;  
+  bottom: 0px;
+  height: 200px;
+  border: 1px solid #ccc;
+  z-index: 4;  
+  margin-top: 10px;
+  display: none;
+
+}
+.more-detail p::-webkit-scrollbar-thumb{
+  background: #999 !important;
+}
+.more-detail p{
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  
+  padding: 2px 20px;
+  height: 90%;
+  overflow-y: scroll;
+  color:#555;
+
+}
+.more-detail::after {
+  content: "";
+  position: absolute;
+  bottom: 93.5%;
+  left: 93%;
+  width: 25px;
+  height: 25px;
+  margin-left: -5px;  
+  z-index: 1;  
+  background: #fff;
+  border: 1px solid #bbb;
+  transform: rotate(45deg);
+}
+.more-detail::before {
+  content: "";
+  position: absolute;
+  bottom: 89.6%;
+  left: 92.8%;
+  width: 30px;
+  height: 30px;
+  margin-left: -5px;  
+  z-index: 2;  
+  background:#fff;  
+  transform: rotate(45deg);
 }
 .small-box{
   display: inline-block;

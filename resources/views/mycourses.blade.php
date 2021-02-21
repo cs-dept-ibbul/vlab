@@ -1,7 +1,6 @@
 @extends('layouts/main')
 @section('head')
 <script src="{{ asset('js/jquery-1.11.3.min.js')}}"></script>
-
 <script>
 	 $(document).ready(function(){
 	 	var filterDataKey='', filterDataValue='';
