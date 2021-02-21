@@ -49,7 +49,7 @@
 @section('content-body')
     <div class="w-100 m-0 p-0">
         {{-- <img src="{{asset('images/course_image.png')}}"> --}}
-        <v-navb></v-navb>
+        <v-navb home="{{route('home')}}" explore="{{route('explore')}}" login="{{route('login')}}"></v-navb>
         	<br><br><br><br>
         <div class="w-100 row px-6 mx-0">
         	<div class="col-lg-6 col-md-12 col-sm-12 p-0">        	

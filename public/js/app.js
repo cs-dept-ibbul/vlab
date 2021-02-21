@@ -594,7 +594,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "Navbar"
+  name: "Navbar",
+  props: ['home', 'explore', 'login']
 });
 
 /***/ }),
@@ -1403,6 +1404,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
 //
 //
 //
@@ -24238,58 +24243,53 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-100 mainNav p-0 m-0" }, [
-      _c(
-        "div",
-        {
-          staticClass: "d-flex px-6 py-4 justify-content-between mainNavM w-100"
-        },
-        [
-          _c("div", {
-            staticClass: "m-0 p-0",
-            staticStyle: {
-              width: "40px",
-              height: "40px",
-              "border-radius": "9px",
-              background: "green"
-            }
-          }),
-          _vm._v(" "),
-          _c("div", { staticClass: "p-0" }, [
-            _c("div", { staticClass: "navM p-0" }, [
-              _c("a", { staticClass: "nbtn", attrs: { href: "" } }, [
-                _vm._v("Home")
-              ]),
-              _vm._v(" "),
-              _c("a", { staticClass: "nbtn", attrs: { href: "" } }, [
-                _vm._v("Explore")
-              ]),
-              _vm._v(" "),
-              _c("a", { staticClass: "nbtn", attrs: { href: "" } }, [
-                _vm._v("Articles")
-              ]),
-              _vm._v(" "),
-              _c("a", { staticClass: "nbtn", attrs: { href: "" } }, [
-                _vm._v("Videos")
-              ]),
-              _vm._v(" "),
-              _c("a", { staticClass: "nlogin ml-5", attrs: { href: "" } }, [
-                _vm._v("Login")
-              ])
-            ])
+  return _c("div", { staticClass: "w-100 mainNav p-0 m-0" }, [
+    _c(
+      "div",
+      {
+        staticClass: "d-flex px-6 py-4 justify-content-between mainNavM w-100"
+      },
+      [
+        _c("div", {
+          staticClass: "m-0 p-0",
+          staticStyle: {
+            width: "40px",
+            height: "40px",
+            "border-radius": "9px",
+            background: "green"
+          }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "p-0" }, [
+          _c("div", { staticClass: "navM p-0" }, [
+            _c("a", { staticClass: "nbtn", attrs: { href: _vm.home } }, [
+              _vm._v("Home")
+            ]),
+            _vm._v(" "),
+            _c("a", { staticClass: "nbtn", attrs: { href: _vm.explore } }, [
+              _vm._v("Explore")
+            ]),
+            _vm._v(" "),
+            _c("a", { staticClass: "nbtn", attrs: { href: "" } }, [
+              _vm._v("Articles")
+            ]),
+            _vm._v(" "),
+            _c("a", { staticClass: "nbtn", attrs: { href: "" } }, [
+              _vm._v("Videos")
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "nlogin ml-5", attrs: { href: _vm.login } },
+              [_vm._v("Login")]
+            )
           ])
-        ]
-      )
-    ])
-  }
-]
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -25401,103 +25401,20 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticStyle: { width: "100%" } }, [
-    _vm.percentage == 100
-      ? _c("span", [
-          _c(
-            "div",
-            { staticClass: "progress mt-4", staticStyle: { width: "100%" } },
-            [
-              _c("div", {
-                staticClass: "p-success progress-bar",
-                style: { width: _vm.percentage + "%" }
-              }),
-              _vm._v(" "),
-              _c(
-                "span",
-                { staticStyle: { position: "absolute", right: "20px" } },
-                [_vm._v(_vm._s(_vm.percentage) + "% Complete")]
-              )
-            ]
-          )
+    _c(
+      "div",
+      { staticClass: "progress mt-4", staticStyle: { width: "100%" } },
+      [
+        _c("div", {
+          staticClass: "p-success progress-bar",
+          style: { width: _vm.percentage + "%" }
+        }),
+        _vm._v(" "),
+        _c("span", { staticStyle: { position: "absolute", right: "20px" } }, [
+          _vm._v(_vm._s(_vm.percentage) + "% Complete")
         ])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.percentage > 49
-      ? _c("span", { staticClass: "m-0 p-0" }, [
-          _vm.percentage < 100
-            ? _c("span", { staticClass: "m-0 p-0" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "progress mt-4",
-                    staticStyle: { width: "100%" }
-                  },
-                  [
-                    _c("div", {
-                      staticClass: "p-success progress-bar m-0",
-                      style: { width: _vm.percentage + "%" }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      { staticStyle: { position: "absolute", right: "20px" } },
-                      [_vm._v(_vm._s(_vm.percentage) + "% Complete")]
-                    )
-                  ]
-                )
-              ])
-            : _vm._e()
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.percentage < 50
-      ? _c("span", [
-          _vm.percentage > 0
-            ? _c("span", [
-                _c(
-                  "div",
-                  {
-                    staticClass: "progress mt-4",
-                    staticStyle: { width: "100%" }
-                  },
-                  [
-                    _c("div", {
-                      staticClass: "p-danger progress-bar",
-                      style: { width: _vm.percentage + "%" }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      { staticStyle: { position: "absolute", right: "20px" } },
-                      [_vm._v(_vm._s(_vm.percentage) + "% Complete")]
-                    )
-                  ]
-                )
-              ])
-            : _vm._e()
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.percentage === 0
-      ? _c("span", [
-          _c(
-            "div",
-            { staticClass: "progress mt-4", staticStyle: { width: "100%" } },
-            [
-              _c("div", {
-                staticClass: "p-success progress-bar",
-                style: { width: _vm.percentage + "%" }
-              }),
-              _vm._v(" "),
-              _c(
-                "span",
-                { staticStyle: { position: "absolute", right: "20px" } },
-                [_vm._v(_vm._s(_vm.percentage) + "% Complete")]
-              )
-            ]
-          )
-        ])
-      : _vm._e()
+      ]
+    )
   ])
 }
 var staticRenderFns = []

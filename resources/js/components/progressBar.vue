@@ -1,6 +1,10 @@
 <template>
 	<div style="width: 100%;">
-		
+		<div class ="progress mt-4" style="width: 100%;">			
+				<div v-bind:style="{width:percentage +'%'}" class="p-success progress-bar"></div>
+				<span style="position: absolute;right: 20px;">{{percentage}}% Complete</span>					
+			</div>
+		<!-- 
 		<span v-if="percentage==100">
 			<div class ="progress mt-4" style="width: 100%;">
 				<div v-bind:style="{width:percentage +'%'}" class="p-success progress-bar"></div>
@@ -31,7 +35,7 @@
 				<div v-bind:style="{width:percentage +'%'}" class="p-success progress-bar"></div>
 				<span style="position: absolute;right: 20px;">{{percentage}}% Complete</span>					
 			</div>
-		</span>
+		</span> -->
 	</div>
 		
 </template>

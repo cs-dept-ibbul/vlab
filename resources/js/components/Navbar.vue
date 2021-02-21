@@ -5,11 +5,11 @@
       <div style="width: 40px; height: 40px;border-radius:9px; background: green;" class="m-0 p-0"></div>
       <div class="p-0">
         <div class="navM p-0">
-          <a href="" class="nbtn">Home</a>
-          <a href="" class="nbtn">Explore</a>
+          <a :href="home" class="nbtn">Home</a>
+          <a :href="explore" class="nbtn">Explore</a>
           <a href="" class="nbtn">Articles</a>
           <a href="" class="nbtn">Videos</a>        
-          <a href="" class="nlogin ml-5">Login</a>
+          <a :href="login" class="nlogin ml-5">Login</a>
         </div>      
       </div>
     </div>   
@@ -18,6 +18,7 @@
 <script>
 export default {
   name: "Navbar",
+  props:['home','explore', 'login']
 };
 </script>
 <style >

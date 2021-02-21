@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/login', 'App\Http\Controllers\loginController@index');
+Route::get('/login', 'App\Http\Controllers\loginController@index')->name('login');
 Route::get('/', 'App\Http\Controllers\PagesController@index')->name('home');
 Route::get('/explore', 'App\Http\Controllers\ExploreController@index')->name('explore');
 Route::get('/my-courses', 'App\Http\Controllers\StudentCourses@index')->name('courses');
@@ -45,8 +45,8 @@ Route::get('/micrometerEquipment', function ()
 {
 	return view('experiment.micrometerEquipment');
 })->name('micrometerEquipment');
-//vewCourse changed to viewCourse on line 49.
-Route::get('/viewCourse', 'App\Http\Controllers\ViewCourseController@index');
+
+Route::get('/viewCourse/{id?}', 'App\Http\Controllers\ViewCourseController@index')->name('viewCourse');
 Route::get('/UserDashboard', 'App\Http\Controllers\ViewUserDashboard@index');
 
 
