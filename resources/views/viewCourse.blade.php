@@ -18,10 +18,8 @@
 	 $(document).ready(function(){
 	 	var filterDataKey='', filterDataValue='';
 	 	var $md;
-	 	$('#filter').keyup(function(){
-	 		$('html, body').animate({
-	 			scrollTop: $(this).offset().top
-	 		},2000);
+	 	$('#filter').keyup(function(){	 		
+	 		window.scrollTo({top:600,left:0, behavior:'smooth'});
 	 		filterDataKey = $(this).val();
 	 		$('.fholder').each(function(){
 	 			$md = $(this);
