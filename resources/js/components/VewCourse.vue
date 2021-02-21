@@ -1,5 +1,6 @@
 <template>
-  <div class="page-Container">
+  <div></div>
+  <!-- <div class="page-Container">
     <div class="row">
       <div class="col-md-6">
         <p class="page-title">Physical Sciences</p>
@@ -100,7 +101,7 @@
     </div>
 
     <div class="view-practicals-box"></div>
-  </div>
+  </div> -->
 </template>
 <script>
 export default {

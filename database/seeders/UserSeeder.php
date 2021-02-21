@@ -30,4 +30,4 @@ class UserSeeder extends Seeder
     }
 }
 
-// INSERT INTO `users` (`id`, `first_name`, `other_names`, `gender`, `role_id`, `email`, `matric_number`, `password`, `user_ip_address`, `token`, `status`, `date_added`, `date_modified`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES ('', 'Abdusalam', 'Abubakar Olajide', 'male', '', 'bynalabs@gmail.com', 'U16/FNS/MTH/1059', MD5('12345'), '', '', 'Active', '', '', NULL, NULL, NULL, NULL);
+// INSERT INTO `users` (`id`, `first_name`, `other_names`, `gender`, `role_id`, `email`, `matric_number`, `password`, `user_ip_address`, `token`, `status`, `date_added`, `date_modified`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES (null, 'Abdusalam', 'Abubakar Olajide', 'male', '', 'bynalabs@gmail.com', 'U16/FNS/MTH/1059', MD5('12345'), '', '', 'Active', '', '', NULL, NULL, NULL, NULL),(null, 'said', 'abdulsalam', 'male', '', 'saidabdulsalam5@gmail.com', 'U16/FNS/CSC/1052', MD5('12345'), '', '', 'Active', '', '', NULL, NULL, NULL, NULL);
