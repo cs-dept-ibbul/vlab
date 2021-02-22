@@ -53,7 +53,7 @@ export default {
 #navbarNav {
   .navbar-nav {
     .nav-link {
-      color: #0B0524;
+      color: #191236;
       font-size: large;
       padding: 8px 15px;
       white-space: nowrap;

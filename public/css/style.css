@@ -101,17 +101,17 @@
 }
 
 .content{
-  padding-left: 98px;
-  padding-right: 98px;
+  /* padding-left: 98px;
+  padding-right: 98px; */
   width: 100%;
 }
 .page-title{
-  color: #0B0524;
+  color: #191236;
   font-weight: bold;
   font-size: 32px;
 }
 .page-sub-title{
-  color: #0B0524;
+  color: #191236;
   font-weight: bold;
   font-size: 32px;
 }
@@ -129,7 +129,7 @@
   position: relative;
   padding-left: 35px;
   margin-bottom: 12px;
-  cursor: pointer;
+  /* cursor: pointer; */
   font-size: 22px;
   -webkit-user-select: none;
   -moz-user-select: none;

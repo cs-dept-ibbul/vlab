@@ -13982,8 +13982,44 @@ a.text-dark:focus {
   clip: auto;
 }
 
+@font-face {
+  font-family: 'Avenir';
+  src: url('../fonts/AvenirNextCyr-Regular.ttf');
+}
+@font-face {
+  font-family: 'Avenir';
+  src: url('../fonts/AvenirNextCyr-Bold.ttf');
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'Avenir';
+  src: url('../fonts/AvenirNextCyr-Heavy.ttf');
+  font-weight: 900;
+}
+@font-face {
+  font-family: 'Avenir';
+  src: url('../fonts/AvenirNextCyr-Medium.ttf');
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'Avenir';
+  src: url('../fonts/AvenirNextCyr-Light.ttf');
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'Avenir';
+  src: url('../fonts/AvenirNextCyr-Thin.ttf');
+  font-weight: 200;
+}
+@font-face {
+  font-family: 'Avenir';
+  src: url('../fonts/AvenirNextCyr-UltraLight.ttf');
+  font-weight: 100;
+}
+
 body {
-  font-family: "Oswald", sans-serif;
+  font-family: "Avenir", sans-serif;
+  color: #191236;
 }
 
 
