@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\SchoolController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,5 +28,15 @@ Route::group(['middleware' => 'api',
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
+
+    Route::group(['prefix' => 'schools'
+    ], function() {
+        Route::post('create', [SchoolController::class, 'create']);
+    });
+
+    Route::group(['prefix' => 'faculties'
+    ], function() {
+        Route::post('create', [FacultyController::class, 'create']);
+    });
 
 });
