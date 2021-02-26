@@ -22,6 +22,7 @@ Vue.component('v-ribbon', require('./components/ExperimentRibbon.vue').default);
 Vue.component('v-start', require('./components/StartExperimentBtn.vue').default);
 Vue.component('v-progress', require('./components/progressBar.vue').default);
 Vue.component('v-thread', require('./components/threadTrends.vue').default);
+Vue.component('v-createcourse', require('./components/createCourse.vue').default);
 
 
 Vue.component('v-tlb2', require('./components/title-left-bar.vue').default);

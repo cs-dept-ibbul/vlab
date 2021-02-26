@@ -22,6 +22,7 @@ Route::get('/my-course-review/{id?}', 'App\Http\Controllers\StudentCourses@revie
 //{name?}
 
 
+Route::get('/create-course', 'App\Http\Controllers\CreateCourse@index')->name('create-courses');
 
 
 
