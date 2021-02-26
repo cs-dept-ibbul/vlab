@@ -53,7 +53,7 @@
    <div style="width: 100%; " class="sysbg">
      <v-systopnave title="My Courses" username='said'></v-systopnave>     
      <div class="row pd-lg-3 pd-sm-2  " style="width: 98%; margin: 50px auto;height: 75.5vh;overflow-y: scroll;" class="">
-     	<div class="col-lg-8 col-md-7 col-sm-12 col-xs-12">   
+     	<div class="col-lg-5 col-md-8 col-sm-12 col-xs-12">   
      		<p class="fw6 font2">Introduction</p>
      		<p class="text-justify font2 fw4" style="color: #666;font-size: 0.9em;">
      			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -65,7 +65,7 @@
 
      		<p class="fw6 font2" style="font-size: 0.9em;">4 Prcaticals</p>
 	    </div>
-     	<div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 mb-5">
+     	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-5">
      		<div style="width: 90%;height: 150px;border-radius: 9px;background: #333;" class="mx-auto shadow">
      			<iframe width="100%" class="rounded" height="auto" src="https://www.youtube.com/embed/5Vc21hGJLpM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>		
      		</div>
