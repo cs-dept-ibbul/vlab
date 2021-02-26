@@ -249,6 +249,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+var _data$methods$props$e;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -266,9 +270,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_data$methods$props$e = {
   data: function data() {
-    return {};
+    return {
+      btnState: true
+    };
   },
   methods: {
     toggleRightNav: function toggleRightNav(e) {
@@ -281,24 +290,23 @@ __webpack_require__.r(__webpack_exports__);
       /*this.navState = !this.navState;
       */
       //this.newTodoText = ''
+    },
+    toggleExperimentGuider: function toggleExperimentGuider() {
+      //        		alert(this.navState);
+      this.btnState = !this.btnState;
+      this.navState = !this.navState;
+      this.$eventBus.$emit('toggleClick', {
+        text: this.navState
+      }); //this.newTodoText = ''
     }
   },
   props: [],
   events: {
     'rightNavtoggleClick': 'rightNavtoggleClick'
-  },
-  mounted: function mounted() {}
-  /*,
-  created: function () {
-  this.$eventBus.$on('toggleClick', data => {
-  this.toggleNavOnHover();
-  })		  
-  },
-  beforeDestroy: function () {
-  this.eventBus.$off('toggleClick', this.toggleNavOnHover)		  
-  },*/
-
-});
+  }
+}, _defineProperty(_data$methods$props$e, "events", {
+  'toggleClick': 'toggleClick'
+}), _defineProperty(_data$methods$props$e, "mounted", function mounted() {}), _data$methods$props$e);
 
 /***/ }),
 
@@ -1440,10 +1448,10 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    toggleExperimentGuider: function toggleExperimentGuider() {
+    toggleSysnav: function toggleSysnav() {
       //        		alert(this.navState);
       this.navState = !this.navState;
-      this.$eventBus.$emit('toggleClick', {
+      this.$eventBus.$emit('toggleSysNav', {
         text: this.navState
       }); //this.newTodoText = ''
     }
@@ -1451,7 +1459,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['equipmentname', 'experimentnum'],
   mounted: function mounted() {},
   events: {
-    'toggleClick': 'toggleClick'
+    'toggleSysNav': 'toggleSysNav'
   }
 });
 
@@ -1560,6 +1568,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
+    var _this = this;
+
+    this.$eventBus.$on('toggleSysNav', function (data) {
+      _this.toggleMenu();
+    });
+
     if (this.active == 'home') {
       this.homeA = true;
     }
@@ -1583,6 +1597,9 @@ __webpack_require__.r(__webpack_exports__);
     if (this.active == 'discussion') {
       this.discussionA = true;
     }
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.eventBus.$off('toggleSysNav', this.toggleNavOnHover);
   },
   props: ['home', 'explore', 'mycourse', 'courses', 'discussion', 'settings', 'logout', 'active', 'incourse']
 });
@@ -6502,7 +6519,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400|Roboto:100);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".countdown[data-v-60f51b08] {\n  display: flex;\n}\n.block[data-v-60f51b08] {\n  display: flex;\n  flex-direction: column;\n  margin: 5px;\n}\n.text[data-v-60f51b08] {\n  color: #191236;\n  font-size: 0.8em;\n  font-family: \"Roboto Condensed\", serif;\n  font-weight: 40;\n  margin-top: 10px;\n  margin-bottom: 2px;\n  text-align: center;\n}\n.digit[data-v-60f51b08] {\n  color: #191236;\n  font-size: 1em;\n  font-weight: 400;\n  font-family: \"Roboto\", serif;\n  margin: 0px;\n  text-align: center;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".countdown[data-v-60f51b08] {\n  display: flex;\n}\n.block[data-v-60f51b08] {\n  display: flex;\n  flex-direction: column;\n  margin: 5px 0px;\n}\n.text[data-v-60f51b08] {\n  color: #191236;\n  font-size: 0.8em;\n  font-family: \"Roboto Condensed\", serif;\n  font-weight: 40;\n  margin-top: 10px;\n  margin-bottom: 2px;\n  text-align: center;\n}\n.digit[data-v-60f51b08] {\n  color: #4c5;\n  font-size: 1em;\n  font-weight: 500;\n  font-family: \"Roboto\", serif;\n  margin: 0px;\n  text-align: center;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6651,7 +6668,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n/*@import url(\"https://use.fontawesome.com/releases/v5.13.0/css/all.css\");*/\n.fa-ico[data-v-0f3afc1e]{\n\tmargin: 0px 5px;\n\tpadding: 2px 5px;\n\tborder-radius: 5px;\n\tcolor:#eee;\n\tfont-size: 1.2em;\t\t\n\tcursor: pointer;\n\tmargin: 0px 5px;\n}\n.fa-ico[data-v-0f3afc1e]:hover{\n\tbackground: #EBEAEF;\n\tcolor:#2F274E;\n}\n.activeIco[data-v-0f3afc1e]{\n\tbackground: #EBEAEF;\n\tcolor:#2F274E;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/*@import url(\"https://use.fontawesome.com/releases/v5.13.0/css/all.css\");*/\n.tbtn[data-v-0f3afc1e]:active{\n    \tbox-shadow: inset 1px 2px 3px #111;\n}\n.tbtn[data-v-0f3afc1e]{\n    \tdisplay: flex;\n    \t\n    \tflex-wrap: wrap;\n    \talign-items: center;\n    \twidth:25px;\n    \theight: 25px; \n    \tborder-radius: 50%;\n    \tbackground: #eee;\n    \tcursor: pointer;\n}\n.fa-ico[data-v-0f3afc1e]{\n\t\tmargin: 0px 5px;\n\t\tpadding: 2px 5px;\n\t\tborder-radius: 5px;\n\t\tcolor:#eee;\n\t\tfont-size: 1.2em;\t\t\n\t\tcursor: pointer;\n\t\tmargin: 0px 5px;\n}\n.fa-ico[data-v-0f3afc1e]:hover{\n\t\tbackground: #EBEAEF;\n\t\tcolor:#2F274E;\n}\n.activeIco[data-v-0f3afc1e]{\n\t\tbackground: #EBEAEF;\n\t\tcolor:#2F274E;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23959,11 +23976,7 @@ var render = function() {
       "div",
       { staticClass: "containerR", attrs: { id: "tools" } },
       [
-        _c("input", {
-          staticClass: "input-search input-dark",
-          attrs: { type: "text", name: "search" }
-        }),
-        _c("span", { staticClass: "fa fa-search serachicon " }),
+        _c("div", { staticClass: "input-alt" }),
         _vm._v(" "),
         _c("span", {
           staticClass: "fa fa-align-justify bg-white rightnavexpander"
@@ -24004,12 +24017,6 @@ var render = function() {
         attrs: { id: "unkl" }
       },
       [
-        _c("input", {
-          staticClass: "input-search input-dark",
-          attrs: { type: "text", name: "search" }
-        }),
-        _c("span", { staticClass: "fa fa-search serachicon " }),
-        _vm._v(" "),
         _c("span", {
           staticClass: "fa fa-align-justify bg-white rightnavexpander"
         }),
@@ -24185,7 +24192,28 @@ var render = function() {
       }
     },
     [
-      _c("span", { staticStyle: { width: "30%" } }),
+      _c(
+        "span",
+        {
+          staticStyle: {
+            width: "30%",
+            display: "flex",
+            "flex-wrap": "wrap",
+            "align-items": "center"
+          }
+        },
+        [
+          _vm.btnState == true
+            ? _c("span", {
+                staticClass: "fa fa-chevron-right text-dark ml-4 pl-2 tbtn",
+                on: { click: _vm.toggleExperimentGuider }
+              })
+            : _c("span", {
+                staticClass: "fa fa-chevron-left text-dark ml-4  tbtn",
+                on: { click: _vm.toggleExperimentGuider }
+              })
+        ]
+      ),
       _vm._v(" "),
       _c(
         "div",
@@ -25030,35 +25058,25 @@ var render = function() {
         staticClass: "timer",
         staticStyle: {
           position: "absolute",
-          top: "20px",
-          right: "160px",
+          top: "87px",
+          right: "40px",
           "z-index": "15"
         }
       },
       [
         _c("div", { staticClass: "countdown" }, [
           _c("div", { staticClass: "block" }, [
-            _c("p", { staticClass: "digit" }, [_vm._v(_vm._s(_vm.days))]),
-            _vm._v(" "),
-            _c("p", { staticClass: "text" }, [_vm._v("Days")])
+            _c("p", { staticClass: "digit" }, [_vm._v(_vm._s(_vm.hours) + ":")])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "block" }, [
-            _c("p", { staticClass: "digit" }, [_vm._v(_vm._s(_vm.hours))]),
-            _vm._v(" "),
-            _c("p", { staticClass: "text" }, [_vm._v("Hours")])
+            _c("p", { staticClass: "digit" }, [
+              _vm._v(_vm._s(_vm.minutes) + ":")
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "block" }, [
-            _c("p", { staticClass: "digit" }, [_vm._v(_vm._s(_vm.minutes))]),
-            _vm._v(" "),
-            _c("p", { staticClass: "text" }, [_vm._v("Minutes")])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "block" }, [
-            _c("p", { staticClass: "digit" }, [_vm._v(_vm._s(_vm.seconds))]),
-            _vm._v(" "),
-            _c("p", { staticClass: "text" }, [_vm._v("Seconds")])
+            _c("p", { staticClass: "digit" }, [_vm._v(_vm._s(_vm.seconds))])
           ])
         ])
       ]
@@ -25695,7 +25713,7 @@ var render = function() {
           _c("span", {
             staticClass: "fa fa-align-justify mr-3",
             staticStyle: { "font-size": "1.4em", cursor: "pointer" },
-            on: { click: _vm.toggleExperimentGuider }
+            on: { click: _vm.toggleSysnav }
           }),
           _vm._v(" "),
           _c("b", [
