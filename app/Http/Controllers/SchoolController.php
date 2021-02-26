@@ -34,7 +34,7 @@ class SchoolController extends Controller
         $id = $this->uuid();
         $schoolName = $request->get('schoolName');
         $schoolCode = $request->get('schoolCode');
-        $status = 'Active';
+        $status = $request->get('status') ?? 'Active';
         $school = new School();
         $school->id = $id;
         $school->name = $schoolName;
@@ -48,7 +48,7 @@ class SchoolController extends Controller
             }
             return response()->json(['success' => false], 200);
         }
-        return response()->json(['error' => 'This school already exist'], 200);
+        return response()->json(['error' => 'This school already exist'], 409);
     }
 
     /**

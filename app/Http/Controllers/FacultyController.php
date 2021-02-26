@@ -33,7 +33,7 @@ class FacultyController extends Controller
         $facultyName = $request->get('faculty_name');
         $facultyCode = $request->get('faculty_code');
         $schoolID = $request->get('school_id');
-        $status = 'Active';
+        $status = $request->get('status') ?? 'Active';
         $faculty = new Faculty();
         $faculty->id = $id;
         $faculty->name = $facultyName;
@@ -49,7 +49,7 @@ class FacultyController extends Controller
             }
             return response()->json(['success' => false], 200);
         }
-        return response()->json(['error' => 'This faculty already exist'], 200);
+        return response()->json(['error' => 'This faculty already exist'], 409);
     }
 
     /**
