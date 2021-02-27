@@ -20,7 +20,8 @@ Route::get('/explore', 'App\Http\Controllers\ExploreController@index')->name('ex
 Route::get('/my-courses', 'App\Http\Controllers\StudentCourses@index')->name('courses');
 Route::get('/my-course-review/{id?}', 'App\Http\Controllers\StudentCourses@review')->name('my-course-review')->where('id', '[0-9]+');;
 //{name?}
-
+//AMDIN
+Route::get('/dashboard', 'App\Http\Controllers\adminDashboard@index')->name('dashboard');
 
 
 
