@@ -23,6 +23,7 @@ Route::get('/my-course-review/{id?}', 'App\Http\Controllers\StudentCourses@revie
 //AMDIN
 Route::get('/dashboard', 'App\Http\Controllers\adminDashboard@index')->name('dashboard');
 
+Route::get('/create-course', 'App\Http\Controllers\CreateCourse@index')->name('create-courses');
 
 
 

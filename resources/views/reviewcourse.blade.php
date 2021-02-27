@@ -53,7 +53,7 @@
    <div style="width: 100%; " class="sysbg">
      <v-systopnave title="My Courses" username='said'></v-systopnave>     
      <div class="row pd-lg-3 pd-sm-2  " style="width: 98%; margin: 50px auto;height: 75.5vh;overflow-y: scroll;" class="">
-     	<div class="col-lg-8 col-md-7 col-sm-12 col-xs-12">   
+     	<div class="col-lg-7 col-md-8 col-sm-12 col-xs-12">   
      		<p class="fw6 font2">Introduction</p>
      		<p class="text-justify font2 fw4" style="color: #666;font-size: 0.9em;">
      			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -65,13 +65,13 @@
 
      		<p class="fw6 font2" style="font-size: 0.9em;">4 Prcaticals</p>
 	    </div>
-     	<div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 mb-5">
+     	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-5">
      		<div style="width: 90%;height: 150px;border-radius: 9px;background: #333;" class="mx-auto shadow">
      			<iframe width="100%" class="rounded" height="auto" src="https://www.youtube.com/embed/5Vc21hGJLpM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>		
      		</div>
      	</div>
      	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row ml-3"> 
-     		<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 shadow bg-white p-4 pd-sm-2  row" style="border-radius: 24px;">     			
+     		<div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 shadow bg-white p-4 pd-sm-2  row" style="border-radius: 24px;">     			
 	     		<div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 mx-0 mt-0 mb-4 p-0 md-center ">
 	     			<p class="fw6 font2">Summary</p>
 					<h1 class="fw8 font mt-4 py-0" style="font-size: 6em;line-height: 0.8;">20</h1>	

@@ -2,7 +2,7 @@
 	<div style="" id="rightNavigation">
 		<div class="containerR" id="tools">	
 			
-		   <input type="text" name="search" class="input-search input-dark" ><span class="fa fa-search serachicon "></span>           
+		   	<div class="input-alt"></div>		   
 		   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>
             <div v-for="tool in toolSizes"  :key="tool" @click="addactivate;changeApparatus(tool)"  v-bind:style="{width:tool+'px'}" class="box">
             		Size
@@ -29,7 +29,7 @@
 		   <h1>Help</h1>				                
 		</div>
 		<div class="containerR" style="display: none;" id="unkl">	
-		   	 <input type="text" name="search" class="input-search input-dark" ><span class="fa fa-search serachicon "></span>           
+		<!--    	 <input type="text" name="search" class="input-search input-dark" ><span class="fa fa-search serachicon "></span> -->           
 		   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>
             <div v-for="tool in toolSizes"  :key="tool" @click="addactivate;changeApparatus(tool)"  v-bind:style="{width:tool+'px'}" class="box">
             		Size
