@@ -24,17 +24,17 @@
             <div class="row" style="justify-content: space-between">
                 <div class="shadow-sm pl-0 py-3" style="background-color:white;border-radius: 1rem;width:30%;">
                     <div class="d-flex p-0 flex-wrap" style=" justify-content: space-between;">
-                        <div class="p-0"><span class="fa fa-user fa-lg text-danger p-0" style="font-size: 120px;"></span></div>
+                        <div class="p-0"><span class="fa fa-user fa-lg  p-0" style="font-size: 120px;color:#f8d877"></span></div>
                         <div>
                             <p class="fs2 fw8 mb-0" style="font-size: 3em;">50</p>
                             <p class="mt-0">Students</p>
                             <div>
-                                <span class="fa fa-cube text-danger"></span>
-                                <span>3 Level</span>
+                                <span class="fa fa-cube" style="color:#f8d877"></span>
+                                <span style="color:#f8d877">3 Level</span>
                             </div>
                         </div>
                         <div>
-                            <span class="fa fa-plus p-2 r1 text-danger bg-danger-l1 mr-3"></span>
+                            <span class="fa fa-plus p-2 r1 bg-danger-l1 mr-3" style="color:#f8d877"></span>
                         </div>
                     </div>
                 </div>

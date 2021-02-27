@@ -13,7 +13,7 @@
    		<!-- content -->
    		<div style="display: flex;" class="px-4">
    			<div class="w-100 mt-4 ">
-                <a class="btn py-3 px-4 text-white fs1 font1 p-success btn-lg pull-right">Create New <span class="text-white fa fa-chevron-down"></span></a>
+                <a class="btn py-3 px-4 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 0.6rem">Create New <span class="text-white fa fa-chevron-down"></span></a>
             <div>
             <div style="clear: right;">
                 <p class="font fw6">Summary</p>
@@ -21,7 +21,7 @@
             <div class="row" style="justify-content: space-between">
                 <div class="shadow-sm pl-0 py-3" style="background-color:white;border-radius: 1rem;width:30%;">
                     <div class="d-flex p-0 flex-wrap" style=" justify-content: space-between;">
-                        <div class="p-0"><span class="fa fa-user fa-lg text-danger p-0" style="font-size: 120px;"></span></div>
+                        <div class="p-0"><span class="fa fa-user fa-lg  p-0" style="font-size: 6em;color:#f8d877"></span></div>
                         <div>
                             <p class="fs2 fw8 mb-0" style="font-size: 3em;">2000</p>
                             <p class="mt-0">Students</p>
@@ -38,7 +38,7 @@
                 
                 <div class="shadow-sm pl-0 py-3" style="background-color:white;border-radius: 1rem;width:30%;">
                     <div class="d-flex p-0 flex-wrap" style=" justify-content: space-between;">
-                        <div class="p-0"><span class="fa fa-graduation-cap fa-lg text-danger p-0" style="font-size: 5em;"></span></div>
+                        <div class="p-0"><span class="fa fa-book fa-lg p-0" style="font-size: 6em;color:#96e4b0"></span></div>
                         <div>
                             <p class="fs2 fw8 mb-0" style="font-size: 3em;">2000</p>
                             <p class="mt-0">Courses</p>
@@ -55,7 +55,7 @@
 
                 <div class="shadow-sm pl-0 py-3" style="background-color:white;border-radius: 1rem;width:30%;">
                     <div class="d-flex p-0 flex-wrap" style=" justify-content: space-between;">
-                        <div class="p-0"><span class="fa fa-graduation-cap fa-lg text-danger p-0" style="font-size: 5em;"></span></div>
+                        <div class="p-0"><span class="fa fa-flask fa-lg p-0" style="font-size: 6em; color:#b4a3f1"></span></div>
                         <div>
                             <p class="fs2 fw8 mb-0" style="font-size: 3em;">3</p>
                             <p class="mt-0">Experiments</p>
@@ -87,7 +87,7 @@
             <td width="2%">
                 <label class="container">
                     <input type="checkbox">
-                    <span class="checkmark"></span>
+                    <span class="checkmark" style="background-color:#f8d877"></span>
                   </label>
             </td>
             <td width="20%">Experiment Submision</td>

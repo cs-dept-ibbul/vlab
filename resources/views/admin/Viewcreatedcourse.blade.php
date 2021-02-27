@@ -13,7 +13,7 @@
    		<!-- content -->
    		<div style="display: flex;" class="px-4">
    			<div class="w-100 mt-4 ">
-                <a class="btn py-3 px-4 text-white fs1 font1 p-success btn-lg pull-right">Create New <span class="text-white fa fa-chevron-down"></span></a>
+                <a class="btn py-3 px-4 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 0.6rem">Create New <span class="text-white fa fa-chevron-down"></span></a>
             <div>
           
    </div>
