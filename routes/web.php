@@ -24,6 +24,7 @@ Route::get('/my-course-review/{id?}', 'App\Http\Controllers\StudentCourses@revie
 Route::get('/dashboard', 'App\Http\Controllers\adminDashboard@index')->name('dashboard');
 
 Route::get('/create-course', 'App\Http\Controllers\CreateCourse@index')->name('create-courses');
+Route::get('/view-created-course', 'App\Http\Controllers\Viewcreatedcourse@index')->name('view-created-course');
 
 
 
