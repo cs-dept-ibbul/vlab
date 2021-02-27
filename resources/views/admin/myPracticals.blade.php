@@ -84,7 +84,12 @@
 <div class="notification-table">
     <table class="table table-hover">
         <tr v-for="x in 7" :key="x">
-            <td width="2%"></td>
+            <td width="2%">
+                <label class="container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                  </label>
+            </td>
             <td width="20%">Experiment Submision</td>
             <td width="10%">PHY507</td>
             <td width="45%">Abdullahi Abubakar Sani</td>

@@ -21,7 +21,7 @@ Route::get('/my-courses', 'App\Http\Controllers\StudentCourses@index')->name('co
 Route::get('/my-course-review/{id?}', 'App\Http\Controllers\StudentCourses@review')->name('my-course-review')->where('id', '[0-9]+');;
 //{name?}
 //AMDIN
-Route::get('/dashboard', 'App\Http\Controllers\adminDashboard@index')->name('dashboard');
+Route::get('/my-practicals', 'App\Http\Controllers\MyPracticals@index')->name('my-practicals');
 
 Route::get('/create-course', 'App\Http\Controllers\CreateCourse@index')->name('create-courses');
 Route::get('/view-created-course', 'App\Http\Controllers\Viewcreatedcourse@index')->name('view-created-course');
