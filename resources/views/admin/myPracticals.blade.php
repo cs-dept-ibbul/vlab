@@ -7,7 +7,7 @@
 
    <div class="expr-dashboard-container" style="background-color:#eee;">
    		<!-- top nav bar -->
-        <v-systopnave title="Dashboard" username='said'></v-systopnave>   
+        <v-systopnave title="My Practicals" username='said'></v-systopnave>   
    		<!-- end to nav bar -->
 
    		<!-- content -->
