@@ -25,7 +25,8 @@ Route::get('/my-practicals', 'App\Http\Controllers\MyPracticals@index')->name('m
 
 Route::get('/create-course', 'App\Http\Controllers\CreateCourse@index')->name('create-courses');
 Route::get('/view-created-course', 'App\Http\Controllers\Viewcreatedcourse@index')->name('view-created-course');
-Route::get('/course-activities', 'App\Http\Controllers\adminViewCourses@index')->name('Viewcourses');
+Route::get('/course-activities', 'App\Http\Controllers\adminViewCourses@index')->name('course-activities');
+Route::get('/course-resources', 'App\Http\Controllers\adminCourseResources@index')->name('course-resources');
 
 
 

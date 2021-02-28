@@ -1,7 +1,7 @@
 <template>
     <div style="display: flex;" class="px-0 mx-0">
             <div class="w-100 bg-white px-4" style="box-shadow: 1px 6px 5px rgba(100,100,100,.1);position: relative;z-index: 2;">
-                <a href="course-activities" class="font2 fw4  systab" v-bind:class="{systabActive:activities}">
+                <a href="/course-activities" class="font2 fw4  systab" v-bind:class="{systabActive:activities}">
 					Activities
 			</a>
 
@@ -30,12 +30,12 @@
 	export default {
 		    data:function() {
 		    	return{
-            classObj:{ "color-red" : true } ,
-            activities:true,
+           
+            activities:false,
             experiments:false,
             students:false,
             resources:false,
-            details:false
+            details:true
 		    	}
         },
         methods:{
@@ -44,19 +44,19 @@
 
 
         created:function(){		  
-        	if (this.systabActive=='activities'){
+        	if (this.active=='activities'){
         		this.activities = true;
         	}
-            if (this.systabActive=='experiments'){
+            if (this.active=='experiments'){
         		this.experiments = true;
         	}
-            if (this.systabActive=='students'){
+            if (this.active=='students'){
         		this.students = true;
         	}
-            if (this.systabActive=='resources'){
+            if (this.active=='resources'){
         		this.resources = true;
         	}
-            if (this.systabActive=='details'){
+            if (this.active=='details'){
         		this.details = true;
         	}
         	

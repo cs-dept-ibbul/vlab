@@ -51,7 +51,6 @@ Vue.component('v-coursestab', require('./components/CoursesTab.vue').default);
 
 
 
-
 /*end experiment page component*/
  const app = new Vue({
    el: '#app',

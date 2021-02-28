@@ -118,35 +118,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      classObj: {
-        "color-red": true
-      },
-      activities: true,
+      activities: false,
       experiments: false,
       students: false,
       resources: false,
-      details: false
+      details: true
     };
   },
   methods: {},
   created: function created() {
-    if (this.systabActive == 'activities') {
+    if (this.active == 'activities') {
       this.activities = true;
     }
 
-    if (this.systabActive == 'experiments') {
+    if (this.active == 'experiments') {
       this.experiments = true;
     }
 
-    if (this.systabActive == 'students') {
+    if (this.active == 'students') {
       this.students = true;
     }
 
-    if (this.systabActive == 'resources') {
+    if (this.active == 'resources') {
       this.resources = true;
     }
 
-    if (this.systabActive == 'details') {
+    if (this.active == 'details') {
       this.details = true;
     }
   }
@@ -24466,7 +24463,7 @@ var render = function() {
             {
               staticClass: "font2 fw4  systab",
               class: { systabActive: _vm.activities },
-              attrs: { href: "course-activities" }
+              attrs: { href: "/course-activities" }
             },
             [_vm._v("\n\t\t\t\t\tActivities\n\t\t\t")]
           ),
