@@ -47,6 +47,8 @@ Vue.component('v-practicaltimeline', require('./components/PracticalTimeLine.vue
 
 Vue.component('v-enrolledpracticals', require('./components/EnrolledPractical.vue').default);
 
+Vue.component('v-coursestab', require('./components/CoursesTab.vue').default);
+
 
 
 

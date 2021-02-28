@@ -11,15 +11,11 @@
    		<!-- end to nav bar -->
 
    		<!-- content -->
-   		<div style="display: flex;" class="px-0 mx-0">
-            <div class="w-100 bg-white px-4" style="box-shadow: 1px 6px 5px rgba(100,100,100,.1);position: relative;z-index: 2;">
-                <div class="font2 fw4  systab systabActive ">Activities</div>
-                <div class="font2 fw4 systab ml-3">Experiments</div>
-                <div class="font2 fw4 systab ml-3">Students</div>
-                <div class="font2 fw4 systab ml-3">Resources</div>
-                <div class="font2 fw4 systab ml-3">Details</div>
-            </div>
-        </div>
+        
+        <!-- start tab -->
+   		<v-coursestab systabActive="activities"></v-coursestab>
+        <!-- End tab -->
+
         <div class="px-5 mt-5">
             <div class="row" style="justify-content: space-between">
                 <div class="shadow-sm pl-0 py-3" style="background-color:white;border-radius: 1rem;width:30%;">
