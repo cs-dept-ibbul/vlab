@@ -1,5 +1,6 @@
 <template>
-  <div class="page-Container">
+  <div></div>
+  <!-- <div class="page-Container">
     <div class="row">
       <div class="col-md-6">
         <p class="page-title">Physical Sciences</p>
@@ -63,34 +64,36 @@
         <div class="row">
           <div class="col-md-12">
             <ul class="timeline">
-              <li class="child">
-                
-                  <div class="col-md-10">s</div>
-                  <div class="col-md-2">
-                    <div>
-                      <button class="btn btn-default" type="submit">
-                        <i class="fa fa-plus"></i>Add to Lab
-                      </button>
-                    </div>
-                    <p>More Details</p>
+              <li class="child" v-for="x in 3" :key="x">
+                <div class="col-md-10">
+                  <div>
+                    <span class="text">100 level</span>
+                    <span class="text">Phy117</span>
+                    <span class="text">100 level</span>
                   </div>
-                
-              </li>
-
-               <li class="child">
-                
-                  <div class="col-md-10">s</div>
-                  <div class="col-md-2">
-                    <div>
-                      <button class="btn btn-default" type="submit">
-                        <i class="fa fa-plus"></i>Add to Lab
-                      </button>
-                    </div>
-                    <p>More Details</p>
-                 
+                  <h3 class="practical-title">virtual optics</h3>
+                  <span style="font-size: 14px"
+                    >Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Tenetur</span
+                  >
+                  <div class="practical-desc">
+                    <span>12 Practicals</span>
+                    <span>Lectures</span>
+                    <span>Dr.Shamsu Laika</span>
+                    <span>Dr.Shamsu Laika</span>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="bttn-container">
+                    <button class="btn btn-secondary" type="submit">
+                      <i class="fa fa-plus"></i>Add to Lab
+                    </button>
+                  </div>
+                  <div>
+                    <p class="md-size">More Details</p>
+                  </div>
                 </div>
               </li>
-
             </ul>
           </div>
         </div>
@@ -98,7 +101,7 @@
     </div>
 
     <div class="view-practicals-box"></div>
-  </div>
+  </div> -->
 </template>
 <script>
 export default {
@@ -106,10 +109,51 @@ export default {
 };
 </script>
 <style scoped>
+.timeline{
+  margin-top:10px
+}
+.text{
+  background-color: #d4d9df; 
+  padding: 8px; 
+  border-radius: 10px; 
+  font-size: 16px;
+}
+.practical-desc {
+  display: flex; 
+  justify-content: space-between;
+  width: 52%;
+  font-size: 16px;
+  padding: 8px 0;
+}
+
+.col-md-10 {
+  display: flex;
+  flex-direction: column;
+  height: 8rem;
+  
+}
+
+.col-md-2 {
+  display: flex;
+  flex-direction: column;
+  justify-content:space-around;
+}
+
+.practical-title {
+  font-weight: bolder;
+  padding-top: 10px;
+  text-transform: capitalize;
+}
+
 .child {
   background-color: #fff;
   margin-bottom: 30px;
+  margin-top:10px;
   border-radius: 0.5rem;
+  padding: 10px;
+  height: 10rem;
+  display: flex;
+  justify-content: space-between;
 }
 ul.timeline {
   list-style-type: none;
@@ -128,6 +172,7 @@ ul.timeline:before {
 ul.timeline > li {
   margin: 0px 0;
   padding-left: 20px;
+  margin-bottom: 10px;
 }
 ul.timeline > li:before {
   content: " ";
@@ -141,13 +186,13 @@ ul.timeline > li:before {
   height: 20px;
   z-index: 400;
 }
+
 .vlab-practicals {
   width: 100%;
   background-color: #ebeaef;
-  max-height: 500px;
+  max-height: 700px;
   border-radius: 2.5rem;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  
 }
 .instructors {
   color: #959399;
@@ -208,5 +253,8 @@ ul.timeline > li:before {
 }
 .input-row {
   margin-top: 20px;
+}
+.md-size{
+  font-size: 16px;
 }
 </style>

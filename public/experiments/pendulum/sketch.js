@@ -21,10 +21,11 @@
 let p;
 let btnstate = false;
 let ballSize = 30;
-let ropeLenght = 2;
+let ropeLenght = 4;
 var mode = 1;
 let myFontNormal;
 let elapseT;
+var cx,cy,cr,button, balltarget;
 function setup() {
   createCanvas(940, 360);
   // Make a new Pendulum with an origin position and armlength
@@ -32,7 +33,7 @@ function setup() {
   
   p.timer();//set timer;
   
- button = createButton('START');
+ button = createButton('Get Time');
   button.position(19, 19);
   button.mousePressed(btnControl);
   button.id('btnC');
@@ -59,7 +60,7 @@ function setup() {
   elapseT.id('elapseT');
   elapseT.style('font-weight','bold');
 
-  showdegree = createP('-- degree');
+  showdegree = createP('');
   showdegree.position(465,-23);
   showdegree.style('font-size', '25px');
   showdegree.style('font-family', 'Oswald');
@@ -90,8 +91,8 @@ function draw() {
   
   fill('#fff');
   textSize(15);
-  text('Object Size',19,90);
-  text('Rope Lenght',19,150);
+  text('Object Size (Kg)',19,90);
+  text('Rope Lenght (m)',19,150);
   //console.log(p.period);
   textFont('Oswald');
   textStyle('bolder');
@@ -108,22 +109,18 @@ function resizeRope(){
   p = new Pendulum(createVector(width / 2, 0), ropeLenght,ballSize);    
 }
 function btnControl(){  
-  if(!btnstate){    
-    
-       btnstate = true;
-    this.elt.innerText= 'STOP';
-    resetPendulum();
-     p.timer();
-  }else{
-    btnstate = false;   
-   this.elt.innerText= 'START';
-    
-    p.stop();
-    
     select('#elapseT').html(select('#timec').html());
+ if(!btnstate){    
+   p.stopDragging();
+  //  p.timer();
+    p.stop();
+    p.stopTimer()
+    p.timer();
+  }else{
+    btnstate = false;   //not in used for now    
   }
-
 }
+
 function resetPendulum() {
    p = new Pendulum(createVector(width / 2, 0), ropeLenght,ballSize);     
 }
@@ -132,5 +129,10 @@ function mousePressed() {
 }
 
 function mouseReleased() {
-  p.stopDragging();
+   balltarget = p.clickTarget();
+  if (balltarget == 1) {    
+    p.stopDragging();
+    p.restarttimer();  
+  }
+
 }

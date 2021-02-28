@@ -1,88 +1,62 @@
 <template>
-  <div class="head my-3">
-      <nav class="navbar navbar-expand-lg navbar-light head_custom-nave">
-        <a href="/" class="navbar-brand d-flex align-items-center">
-          <img src="" alt="Logo" />
-          <span>V-Lab</span>
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collape"
-          data-terget="#navbarNav"
-        >
-          <span><img src="../../images/logo.png" class="img-circle" alt="Menu" /></span>
-        </button>
-
-        <div
-          class="collapse navbar-collapse justify-content-center"
-          id="navbarNav"
-        >
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a href="/learn" class="nav-link">Learn</a>
-            </li>
-            <li class="nav-item">
-              <a href="/Articles" class="nav-link">Articles</a>
-            </li>
-            <li class="nav-item">
-              <a href="/about" class="nav-link">About</a>
-            </li>
-            <li class="nav-item">
-              <a href="/learn" class="nav-link">Blog</a>
-            </li>
-          </ul>
-        </div>
-        <div class="collape navbar-collapse justify-content-end" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a href="/login" class="nav-link-login"
-                >Login</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+  <div class="w-100 mainNav p-0 m-0">
+    <div class="d-flex px-6 py-4 justify-content-between mainNavM w-100">
+      
+      <div style="width: 40px; height: 40px;border-radius:9px; background: green;" class="m-0 p-0"></div>
+      <div class="p-0">
+        <div class="navM p-0">
+          <a :href="home" class="nbtn">Home</a>
+          <a :href="explore" class="nbtn">Explore</a>
+          <a href="" class="nbtn">Articles</a>
+          <a href="" class="nbtn">Videos</a>        
+          <a :href="login" class="nlogin ml-5">Login</a>
+        </div>      
+      </div>
+    </div>   
     </div>
 </template>
 <script>
 export default {
   name: "Navbar",
+  props:['home','explore', 'login']
 };
 </script>
-<style lang="scss" scoped>
-#navbarNav {
-  .navbar-nav {
-    .nav-link {
-      color: #191236;
-      font-size: large;
-      padding: 8px 15px;
-      white-space: nowrap;
-      transition: 0.5s cubic-bezie(0.785, 0.135, 0.15, 0.86);
+<style >
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
-      &:hover {
-        color: darkblue;
-      }
-    }
+  .mainNav{
+    border-bottom: 1px solid #f2f2f2;  
   }
-
-  .nav-link-login {
-    color: #ffffff;
-    font-weight: 800;
-    font-size: large;
-    padding: 8px 15px;
-    white-space: nowrap;
-    background-color: #D4D2DC;
-    border-radius: 1rem;
-    color:#000000;
-
-    &:hover {
-      color: rgb(255, 255, 255);
-      background-color: #D4D2DC;
-    }
+  .navM a{
+     font-family: 'Roboto', serif;
+     font-weight: 300;
+     margin: 0px 10px;
+     font-size: 0.9em;
+     color: #333;
+     text-decoration: none;
   }
-}
-
-
+  .navM a:last-child{
+    margin-right: 0px !important;
+  }
+  .navM a:hover{
+    color:#3c8; 
+  }
+  .nlogin{
+    background: #3c8;
+    color: #fff !important;
+    padding: 10px 13px;
+    border-radius: 5px;  
+    border: 1px solid transparent;
+  }
+  .nlogin:hover{
+    background: #fff !important;
+    color: #368 !important;
+    border: 1px solid #fefefe;
+  }
+  .mainNavM{
+    flex-wrap: wrap;
+    align-items: center;
+  }
 </style>
 
     
