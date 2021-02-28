@@ -20,9 +20,13 @@ Route::get('/explore', 'App\Http\Controllers\ExploreController@index')->name('ex
 Route::get('/my-courses', 'App\Http\Controllers\StudentCourses@index')->name('courses');
 Route::get('/my-course-review/{id?}', 'App\Http\Controllers\StudentCourses@review')->name('my-course-review')->where('id', '[0-9]+');;
 //{name?}
-
+//AMDIN
+Route::get('/my-practicals', 'App\Http\Controllers\MyPracticals@index')->name('my-practicals');
 
 Route::get('/create-course', 'App\Http\Controllers\CreateCourse@index')->name('create-courses');
+Route::get('/view-created-course', 'App\Http\Controllers\Viewcreatedcourse@index')->name('view-created-course');
+Route::get('/course-activities', 'App\Http\Controllers\adminViewCourses@index')->name('course-activities');
+Route::get('/course-resources', 'App\Http\Controllers\adminCourseResources@index')->name('course-resources');
 
 
 
@@ -49,6 +53,9 @@ Route::get('/micrometerEquipment', function ()
 
 Route::get('/viewCourse/{id?}', 'App\Http\Controllers\ViewCourseController@index')->name('viewCourse');
 Route::get('/UserDashboard', 'App\Http\Controllers\ViewUserDashboard@index');
+
+Route::get('/my-Practical', 'App\Http\Controllers\ViewMyPracticalController@index');
+
 
 
 

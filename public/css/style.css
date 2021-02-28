@@ -153,6 +153,9 @@ html body{
 .r1{
   border-radius: 4px;
 }
+.bg-danger-l1{
+  background-color: rgba(200,0, 0, 0.4);
+}
 .r2{
   border-radius: 8px !important;
 }
@@ -209,13 +212,13 @@ html body{
   color: #00b96b !important;
 }
 .fs1{
-  font-size: 0.9em;
+  font-size: 0.9em !important;
 }
 .fs8{
   font-size: 1.5em !important;
 }
 .fs01{
-  font-size: 0.8em;
+  font-size: 0.8em !important;
 }
 .fs9{
   font-size: 2em;
@@ -233,7 +236,6 @@ html body{
   }
 }
 @media screen and (max-width: 950px){
-
   .md-center{
     text-align: center !important; 
   }
@@ -312,28 +314,28 @@ html body{
   background:rgba(0,200,0,0.3);
 }
 .fw1{
-  font-weight: 100;
+  font-weight: 100 !important;
 }
 .fw2{
-  font-weight: 200;
+  font-weight: 200 !important;
 }
 .fw3{
-  font-weight: 300;
+  font-weight: 300 !important;
 }
 .fw4{
-  font-weight: 400;
+  font-weight: 400 !important;
 }
 .fw5{
-  font-weight: 500;
+  font-weight: 500 !important;
 }
 .fw6{
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 .fw7{
-  font-weight: 700;
+  font-weight: 700 !important;
 }
 .fw8{
-  font-weight: 800;
+  font-weight: 800 !important;
 }
 .sysbtn-md{
   padding: 10px 15px;
@@ -595,7 +597,7 @@ html body{
   position: absolute;
   z-index: 1;
   top: 0%;
-  height: 100vh;
+  
 }
 
 .loader {
@@ -781,10 +783,10 @@ body {
   
   /* Make sure that all arrows are pointing leftwards */
   .containerT::before {
-  left: 60px;
-  border: medium solid white;
-  border-width: 10px 10px 10px 0;
-  border-color: transparent white transparent transparent;
+    left: 60px;
+    border: medium solid white;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent white transparent transparent;
   }
 
   /* Make sure all circles are at the same spot */
@@ -796,4 +798,75 @@ body {
   .right {
   left: 0%;
   }
+}
+
+.expr-uploads-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 80px;
+}
+
+.expr-dashboard-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.expr-items {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 22%;
+}
+
+.notification-table{
+  border-radius: 1rem;
+  width: 100%;
+  background-color: white;
+}
+
+* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #f8d877;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #f8d877;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #f8d877;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
