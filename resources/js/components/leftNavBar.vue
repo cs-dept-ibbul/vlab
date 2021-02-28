@@ -88,7 +88,12 @@
               
             }
         },
+
+
         created:function(){
+		  this.$eventBus.$on('toggleSysNav', data => {
+		  	this.toggleMenu();
+		  })		  
         	if (this.active=='home'){
         		this.homeA = true;
         	}
@@ -108,6 +113,10 @@
         		this.discussionA = true;
         	}
         },
+        
+		beforeDestroy: function () {
+		  this.eventBus.$off('toggleSysNav', this.toggleNavOnHover)		  
+		},
         props:['home','explore','mycourse','courses','discussion','settings', 'logout', 'active', 'incourse']
 	};
 

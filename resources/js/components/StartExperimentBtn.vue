@@ -1,22 +1,22 @@
 <template>
 	<div>
-		<div style="position: absolute;top: 20px; right: 160px; z-index: 15;" class="timer">
+		<div style="position: absolute;top: 87px; right: 40px; z-index: 15;" class="timer">
 			  <div class="countdown">
-			    <div class="block">
-			      <p class="digit">{{ days}}</p>
+			    <!-- <div class="block">
+			      <p class="digit">{{ days}}:</p>
 			      <p class="text">Days</p>
+			    </div> -->
+			    <div class="block">
+			      <p class="digit">{{hours}}:</p>
+			      <!-- <p class="text">Hours</p> -->
 			    </div>
 			    <div class="block">
-			      <p class="digit">{{ hours }}</p>
-			      <p class="text">Hours</p>
+			      <p class="digit">{{minutes}}:</p>
+			      <!-- <p class="text">Minutes</p> -->
 			    </div>
 			    <div class="block">
-			      <p class="digit">{{ minutes }}</p>
-			      <p class="text">Minutes</p>
-			    </div>
-			    <div class="block">
-			      <p class="digit">{{ seconds }}</p>
-			      <p class="text">Seconds</p>
+			      <p class="digit">{{seconds}}</p>
+			      <!-- <p class="text">Seconds</p> -->
 			    </div>
 			  </div>
 		</div>
@@ -146,7 +146,7 @@ mounted() {
 .block {
     display: flex;
     flex-direction: column;
-    margin: 5px;
+    margin: 5px 0px;
 }
 
 .text {
@@ -160,9 +160,10 @@ mounted() {
 }
 
 .digit {
-    color:#191236;
+    color:#4c5;
+
     font-size: 1em;
-    font-weight: 400;
+    font-weight: 500;
     font-family: 'Roboto', serif;
     margin: 0px;
     text-align: center;

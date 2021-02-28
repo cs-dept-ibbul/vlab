@@ -22,6 +22,7 @@ Vue.component('v-ribbon', require('./components/ExperimentRibbon.vue').default);
 Vue.component('v-start', require('./components/StartExperimentBtn.vue').default);
 Vue.component('v-progress', require('./components/progressBar.vue').default);
 Vue.component('v-thread', require('./components/threadTrends.vue').default);
+Vue.component('v-createcourse', require('./components/createCourse.vue').default);
 
 
 Vue.component('v-tlb2', require('./components/title-left-bar.vue').default);
@@ -43,6 +44,10 @@ Vue.component('v-dashb', require('./components/UserDashboard.vue').default);
 Vue.component('v-topnav', require('./components/TopNav.vue').default);
 Vue.component('v-lactivity', require('./components/Lastactivity.vue').default);
 Vue.component('v-practicaltimeline', require('./components/PracticalTimeLine.vue').default);
+
+Vue.component('v-enrolledpracticals', require('./components/EnrolledPractical.vue').default);
+
+Vue.component('v-coursestab', require('./components/CoursesTab.vue').default);
 
 
 
