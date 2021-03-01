@@ -27,6 +27,7 @@ Route::get('/create-course', 'App\Http\Controllers\CreateCourse@index')->name('c
 Route::get('/view-created-course', 'App\Http\Controllers\Viewcreatedcourse@index')->name('view-created-course');
 Route::get('/course-activities', 'App\Http\Controllers\adminViewCourses@index')->name('course-activities');
 Route::get('/course-resources', 'App\Http\Controllers\adminCourseResources@index')->name('course-resources');
+Route::get('/course-experiments', 'App\Http\Controllers\adminCourseExperiments@index')->name('course-experiments');
 
 
 
