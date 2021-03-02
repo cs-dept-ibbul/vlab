@@ -22,15 +22,9 @@ class ExperimentController extends Controller
             'experiment_goal'=>'required',
             'experiment_mock'=>'required',
             'aparatus'=>'required',
-            'experiment_resource'=>'required',
             'procedures'=>'required',
             'exercise'=>'required',
-            'required'=>'required',
-            'theory'=>'required',
             'faculty_id'=>'required',
-            'tables'=>'required',
-            'graph'=>'required',
-            'status'=>'required'
         ]);
         
         if ($validator->fails()) {
@@ -52,7 +46,7 @@ class ExperimentController extends Controller
         $faculty_id = $request->get('faculty_id');
         $tables = $request->get('tables');
         $graph = $request->get('graph');
-        $status = $request->get('status');
+        $status = $request->get('status') ?? 'Active';
 
         $experiment->id = $id;
         $experiment->name = $name;
