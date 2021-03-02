@@ -55,6 +55,6 @@ VLab is licensed under the [MIT License](LICENSE).
 We acknowledge initial pilot support from the Royal Academy of Engineering (RAEng), United Kingdom under the Higher Education Partnership in Sub-Saharan Africa (HEP-SSA), Project Reference: HEP/2021/129
 
 # Partners
-This project is co-design and developed with faculties from [IBB University, Lapai]((https://ibbu.edu.ng), [Baze University, Abuja](https://bazeuniversity.edu.ng), and Scientific Equipment and Development Institute, Minna.
+This project is co-design and developed with faculties from [IBB University, Lapai](https://ibbu.edu.ng), [Baze University, Abuja](https://bazeuniversity.edu.ng), and Scientific Equipment and Development Institute, Minna.
 
 For further enquiries, please email Project Lead, [Abdullahi](https://github.com/abdullahikawu) via abdullahikawu@ibbu.edu.ng or abdullahibnkawu@gmail.com
