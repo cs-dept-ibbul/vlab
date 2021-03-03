@@ -25,7 +25,8 @@ Route::get('/my-course-review/{id?}', 'App\Http\Controllers\StudentCourses@revie
 Route::get('/create-course', 'App\Http\Controllers\CreateCourse@index')->name('create-courses');
 
 
-
+ 
+Route::get('/vicelab-exp2','App\Http\Controllers\experimentController@vicelabexp2')->name('vicelab-exp2');
 Route::get('/simple-pendulum','App\Http\Controllers\experimentController@simplePendulum')->name('simple-pendulum');
 
 Route::get('/simplependulumEquipment', function ()

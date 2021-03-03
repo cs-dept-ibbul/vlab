@@ -2,11 +2,17 @@
 	<div style="" id="rightNavigation">
 		<div class="containerR" id="tools">	
 			
-		   	<div class="input-alt"></div>		   
-		   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>
-            <div v-for="tool in toolSizes"  :key="tool" @click="addactivate;changeApparatus(tool)"  v-bind:style="{width:tool+'px'}" class="box">
-            		Size
-        	</div>                  
+		   	<div class="input-alt"></div>	
+		   	<span v-if="vicelab==1" class="pr z-1">		 
+		   	 	<vicelabtools has='1' ></vicelabtools>
+		   	</span>	   
+		   	<span v-else>
+		   		
+			   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>
+	            <div v-for="tool in toolSizes"  :key="tool" @click="addactivate;changeApparatus(tool)"  v-bind:style="{width:tool+'px'}" class="box">
+	            		Size
+	        	</div>                  
+		   	</span>
 		<!-- <span v-if="toolState==true">
 		</span>		
 		<span v-else>			
@@ -31,15 +37,18 @@
 		<div class="containerR" style="display: none;" id="unkl">	
 		<!--    	 <input type="text" name="search" class="input-search input-dark" ><span class="fa fa-search serachicon "></span> -->           
 		   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>
-            <div v-for="tool in toolSizes"  :key="tool" @click="addactivate;changeApparatus(tool)"  v-bind:style="{width:tool+'px'}" class="box">
+            <div v-if="toolState==true" v-for="tool in toolSizes"  :key="tool" @click="addactivate;changeApparatus(tool)"  v-bind:style="{width:tool+'px'}" class="box">
             		Size
         	</div> 			                
 		</div>
 	</div>
 </template>
 <script>
+	import vicelabtools from './vicelabExpEquip';
 	export default{
-
+	components:{
+		vicelabtools,
+	},
 	 data:function() {
 		    return{
 		    	numC:0,
@@ -84,8 +93,11 @@
 
         },	
         
-        created: function () {
+        created: function () {        	
+        	if (this.toolState==true) {
+        		
 		  this.toolSizes = JSON.parse(this.toolsizes);
+        	}
 		  this.$eventBus.$on('rightNavtoggleClick', data => {		  	
 		  	//this.toggleNavOnHover();
 		  	if(this.activeRightNav === data.text){		  		
@@ -106,7 +118,8 @@
         props:{
             toolsizes: String,
             url:String,
-            toolState:String
+            toolState:Boolean,
+            vicelab:String
         },        
         mounted(){
         var $vm = this;	               	
@@ -255,11 +268,20 @@
 	padding:10px;
 	color:#fff;
 	border:none;
+	position: relative;
+	z-index: 10;
 }
 .serachicon{
 	color:#eee;
 	position: absolute;
 	right: 10px; 
 	top: 10px;
+}
+.pr{
+	position: relative;
+	display: block;
+	} 
+.z-1{
+	z-index: 1;
 }
 </style>

@@ -18,4 +18,8 @@ class experimentController extends Controller
     {
     	return view('experiment/simple_pendulum');
     }
+    public function vicelabexp2()
+    {
+        return view('experiment/vicelabexp2');
+    }
 }

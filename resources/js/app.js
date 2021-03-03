@@ -1,7 +1,8 @@
 
 
-import Vue from 'vue'
+import Vue from 'vue'   
 import bootstrap from "bootstrap";
+import Vuex from 'vuex'
 
 //Main pages
 //import App from './views/app.vue'
@@ -9,6 +10,17 @@ import bootstrap from "bootstrap";
 /*experiment page component*/
  window.Vue = require('vue');
 
+//vuex
+Vue.use(Vuex)
+/*import storeData from "./store/index";*/
+import expvicelab2 from "./store/exp2";
+/*
+const store = new Vuex.Store(
+   storeData
+)*/
+const store = new Vuex.Store(
+   expvicelab2
+)
 /*global event bus and communication*/
 Vue.prototype.$eventBus = new Vue(); 
 
@@ -23,6 +35,9 @@ Vue.component('v-start', require('./components/StartExperimentBtn.vue').default)
 Vue.component('v-progress', require('./components/progressBar.vue').default);
 Vue.component('v-thread', require('./components/threadTrends.vue').default);
 Vue.component('v-createcourse', require('./components/createCourse.vue').default);
+Vue.component('v-vicelabexp2', require('./components/vicelabexp2.vue').default);
+Vue.component('v-vicelabtools', require('./components/vicelabExpEquip.vue').default); //experiment Right Nav bar
+
 
 
 Vue.component('v-tlb2', require('./components/title-left-bar.vue').default);
@@ -51,9 +66,12 @@ Vue.component('v-practicaltimeline', require('./components/PracticalTimeLine.vue
  const app = new Vue({
    el: '#app',
    bootstrap,
+   store,
+   /*expvicelab2,*/
    	 data:function() {
 	    	return{
-	    	 poor:false
+	    	 poor:false,
+         exp2vicelab: this.exp2vicelab
 	    	}
         },
     methods:{
@@ -61,7 +79,10 @@ Vue.component('v-practicaltimeline', require('./components/PracticalTimeLine.vue
                 this.isLoading=!this.isLoading;
                 //this.classObj = { "color-blue" : true};
             }
-        }
+        },
+          mounted(){
+            /*console.log(expvicelab2.state);*/
+    }
  });
 Vue.filter('two_digits', (value) => {
   if (value < 0) {
