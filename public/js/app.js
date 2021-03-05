@@ -119,10 +119,10 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       activities: false,
-      experiments: false,
+      experiments: true,
       students: false,
       resources: false,
-      details: true
+      details: false
     };
   },
   methods: {},
