@@ -19,7 +19,10 @@ Route::get('/', 'App\Http\Controllers\PagesController@index')->name('home');
 Route::get('/explore', 'App\Http\Controllers\ExploreController@index')->name('explore');
 Route::get('/my-courses', 'App\Http\Controllers\StudentCourses@index')->name('courses');
 Route::get('/my-course-review/{id?}', 'App\Http\Controllers\StudentCourses@review')->name('my-course-review')->where('id', '[0-9]+');;
+Route::get('/view-Students-dashboard', 'App\Http\Controllers\adminViewStudentsdashboard@index')->name('view-Students-dashboard');
+
 //{name?}
+
 //AMDIN
 Route::get('/my-practicals', 'App\Http\Controllers\MyPracticals@index')->name('my-practicals');
 
@@ -28,6 +31,7 @@ Route::get('/view-created-course', 'App\Http\Controllers\Viewcreatedcourse@index
 Route::get('/course-activities', 'App\Http\Controllers\adminViewCourses@index')->name('course-activities');
 Route::get('/course-resources', 'App\Http\Controllers\adminCourseResources@index')->name('course-resources');
 Route::get('/course-experiments', 'App\Http\Controllers\adminCourseExperiments@index')->name('course-experiments');
+
 
 
 
