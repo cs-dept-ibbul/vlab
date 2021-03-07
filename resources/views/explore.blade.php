@@ -11,17 +11,17 @@
 
 @extends('layouts/main')
 @section('content-body')
-    <div class="w-100 m-0 p-0">
+    <div class="w-100 m-0 p-0 explore">
         <v-navb home="{{route('home')}}" explore="{{route('explore')}}" login="{{route('login')}}"></v-navb>
         <br>
-        <div class="my-5 fs9 fw5 font w-100 text-center">Explore Available V-lab Courses</div>
+        <h1 class="my-5 text-center explore__header">Explore Available V-lab Courses</h1>
         <div class="w-100 bg-white px-6" style="box-shadow: 1px 6px 5px rgba(100,100,100,.1);position: relative;z-index: 2;">
-        	<div class="font2 fw4  systab systabActive ">Course Category</div>
+        	<div class="font2 fw4  systab systab--active ">Course Category</div>
      		<div class="font2 fw4 systab ml-3">Most Visited Courses</div>
         </div>
         <div class="row hm300 w-100 px-6 py-5" style="background: #f0f0f0;">
         	@foreach($courseCate as $cat)
-        	<div class="col-lg-4 col-md-4 col-sm-6 mt-5">
+        	<div class="col-12 col-md-6 col-lg-4 mt-5">
         		<a style="text-decoration: none;" href="{{route('viewCourse',$cat->id)}}" class="w-100 cadin">
         			
 	        	<div class="w-100 r2 shadow">

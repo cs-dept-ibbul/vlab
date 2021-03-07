@@ -61,6 +61,10 @@ Vue.component('v-topnav', require('./components/TopNav.vue').default);
 Vue.component('v-lactivity', require('./components/Lastactivity.vue').default);
 Vue.component('v-practicaltimeline', require('./components/PracticalTimeLine.vue').default);
 
+Vue.component('v-enrolledpracticals', require('./components/EnrolledPractical.vue').default);
+
+Vue.component('v-coursestab', require('./components/CoursesTab.vue').default);
+
 
 
 /*end experiment page component*/
