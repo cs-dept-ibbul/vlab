@@ -20,17 +20,17 @@
 
                 <div class="shadow-sm pl-0 py-3 mb-5" style="background-color:white;border-radius: 1rem;width:32%;height:190px;">
                     <div class="d-flex p-0 flex-wrap" style=" justify-content: space-between;">
-                        <div class="p-0"><span class="fa fa-user fa-lg  p-0" style="font-size: 8em;color:#f8d877"></span></div>
+                        <div class="p-0"><img src="images/user-graduate-solid.svg" style="width:85%;"/></div>
                         <div>
-                            <p class="fs2 fw8 mb-0" style="font-size: 3em;">154</p>
-                            <p class="mt-0">Students</p>
+                            <p class="fs2 fw8 mb-3" style="font: normal normal bold 20px/27px Avenir Next;color:#1E0B67;font-size:50px;">154</p>
+                            <p class="mt-0" style="color:#1E0B67;font-size:20px;">Students</p>
                             <div>
-                                <span class="fa fa-cube" style="font-size: 1.5em;color:#f8d877"></span>
-                                <span style="font-size: 1.5em;color:#f8d877">PHY 107</span>
+                                <span class="fa fa-cube" style="font-size: 1.5em;color:#FF8200"></span>
+                                <span style="font-size: 1.5em;color:#FF8200">PHY 107</span>
                             </div>
                         </div>
                         <div>
-                            <span class="fa fa-plus p-2 r1 mr-3" style="font-size: 2em;background-color:#f8a677;color:#8a0505"></span>
+                            <span class="fa fa-plus p-2 r2 mr-3" style="font-size: 2em;background-color:#FFDBB5;color:#FF8200"></span>
                         </div>
                     </div>
                 </div>
@@ -38,34 +38,34 @@
 
                 <div class="shadow-sm pl-0 py-3 mb-5" style="background-color:white;border-radius: 1rem;width:32%;height:190px;">
                     <div class="d-flex p-0 flex-wrap" style=" justify-content: space-between;">
-                        <div class="p-0"><span class="fa fa-user fa-lg  p-0" style="font-size: 8em;color:#f8d877"></span></div>
+                        <div class="p-0"><img src="images/user-graduate-solid.svg" style="width:85%;"/></div>
                         <div>
-                            <p class="fs2 fw8 mb-0" style="font-size: 3em;">46</p>
-                            <p class="mt-0">Students</p>
+                            <p class="fs2 fw8 mb-3" style="font: normal normal bold 20px/27px Avenir Next;color:#1E0B67;font-size:50px;">46</p>
+                            <p class="mt-0" style="color:#1E0B67;font-size:20px;">Students</p>
                             <div>
-                                <span class="fa fa-cube" style="font-size: 1.5em;color:#f8d877"></span>
-                                <span style="font-size: 1.5em;color:#f8d877">PHY 126</span>
+                                <span class="fa fa-cube" style="font-size: 1.5em;color:#FF8200"></span>
+                                <span style="font-size: 1.5em;color:#FF8200">PHY 126</span>
                             </div>
                         </div>
                         <div>
-                            <span class="fa fa-plus p-2 r1 mr-3" style="font-size: 2em;background-color:#f8a677;color:#8a0505"></span>
+                            <span class="fa fa-plus p-2 r1 mr-3" style="font-size: 2em;background-color:#FFDBB5;color:#FF8200"></span>
                         </div>
                     </div>
                 </div>
 
                 <div class="shadow-sm pl-0 py-3 mb-5" style="background-color:white;border-radius: 1rem;width:32%;height:190px;">
                     <div class="d-flex p-0 flex-wrap" style=" justify-content: space-between;">
-                        <div class="p-0"><span class="fa fa-user fa-lg  p-0" style="font-size: 8em;color:#f8d877"></span></div>
+                        <div class="p-0"><img src="images/user-graduate-solid.svg" style="width:85%;"/></div>
                         <div>
-                            <p class="fs2 fw8 mb-0" style="font-size: 3em;">21</p>
-                            <p class="mt-0">Students</p>
+                            <p class="fs2 fw8 mb-3" style="font: normal normal bold 20px/27px Avenir Next;color:#1E0B67;font-size:50px;">21</p>
+                            <p class="mt-0" style="color:#1E0B67;font-size:20px;">Students</p>
                             <div>
-                                <span class="fa fa-cube" style="font-size: 1.5em;color:#f8d877"></span>
-                                <span style="font-size: 1.5em;color:#f8d877">PHY 201</span>
+                                <span class="fa fa-cube" style="font-size: 1.5em;color:#FF8200"></span>
+                                <span style="font-size: 1.5em;color:#FF8200">PHY 201</span>
                             </div>
                         </div>
                         <div>
-                            <span class="fa fa-plus p-2 r1 mr-3" style="font-size: 2em;background-color:#f8a677;color:#8a0505"></span>
+                            <span class="fa fa-plus p-2 r1 mr-3" style="font-size: 2em;background-color:#FFDBB5;color:#FF8200"></span>
                         </div>
                     </div>
                 </div>
@@ -73,34 +73,34 @@
 
                 <div class="shadow-sm pl-0 py-3 mb-5" style="background-color:white;border-radius: 1rem;width:32%;height:190px;">
                     <div class="d-flex p-0 flex-wrap" style=" justify-content: space-between;">
-                        <div class="p-0"><span class="fa fa-user fa-lg  p-0" style="font-size: 8em;color:#f8d877"></span></div>
+                        <div class="p-0"><img src="images/user-graduate-solid.svg" style="width:85%;"/></div>
                         <div>
-                            <p class="fs2 fw8 mb-0" style="font-size: 3em;">14</p>
-                            <p class="mt-0">Students</p>
+                            <p class="fs2 fw8 mb-3" style="font: normal normal bold 20px/27px Avenir Next;color:#1E0B67;font-size:50px;">14</p>
+                            <p class="mt-0" style="color:#1E0B67;font-size:20px;">Students</p>
                             <div>
-                                <span class="fa fa-cube" style="font-size: 1.5em;color:#f8d877"></span>
-                                <span style="font-size: 1.5em;color:#f8d877">CHM 111</span>
+                                <span class="fa fa-cube" style="font-size: 1.5em;color:#FF8200"></span>
+                                <span style="font-size: 1.5em;color:#FF8200">CHM 111</span>
                             </div>
                         </div>
                         <div>
-                            <span class="fa fa-plus p-2 r1 mr-3" style="font-size: 2em;background-color:#f8a677;color:#8a0505"></span>
+                            <span class="fa fa-plus p-2 r1 mr-3" style="font-size: 2em;background-color:#FFDBB5;color:#FF8200"></span>
                         </div>
                     </div>
                 </div>
 
                 <div class="shadow-sm pl-0 py-3 mb-5" style="background-color:white;border-radius: 1rem;width:32%;height:190px;">
                     <div class="d-flex p-0 flex-wrap" style=" justify-content: space-between;">
-                        <div class="p-0"><span class="fa fa-user fa-lg  p-0" style="font-size: 8em;color:#f8d877"></span></div>
+                        <div class="p-0"><img src="images/user-graduate-solid.svg" style="width:85%;"/></div>
                         <div>
-                            <p class="fs2 fw8 mb-0" style="font-size: 3em;">16</p>
-                            <p class="mt-0">Students</p>
+                            <p class="fs2 fw8 mb-3" style="font: normal normal bold 20px/27px Avenir Next;color:#1E0B67;font-size:50px;">16</p>
+                            <p class="mt-0" style="color:#1E0B67;font-size:20px;">Students</p>
                             <div>
-                                <span class="fa fa-cube" style="font-size: 1.5em;color:#f8d877"></span>
-                                <span style="font-size: 1.5em;color:#f8d877">ECE 311</span>
+                                <span class="fa fa-cube" style="font-size: 1.5em;color:#FF8200"></span>
+                                <span style="font-size: 1.5em;color:#FF8200">ECE 311</span>
                             </div>
                         </div>
                         <div>
-                            <span class="fa fa-plus p-2 r1 mr-3" style="font-size: 2em;background-color:#f8a677;color:#8a0505"></span>
+                            <span class="fa fa-plus p-2 r1 mr-3" style="font-size: 2em;background-color:#FFDBB5;color:#FF8200"></span>
                         </div>
                     </div>
                 </div>
@@ -108,17 +108,17 @@
 
                 <div class="shadow-sm pl-0 py-3 mb-5" style="background-color:white;border-radius: 1rem;width:32%;height:190px;">
                     <div class="d-flex p-0 flex-wrap" style=" justify-content: space-between;">
-                        <div class="p-0"><span class="fa fa-user fa-lg  p-0" style="font-size: 8em;color:#f8d877"></span></div>
+                        <div class="p-0"><img src="images/user-graduate-solid.svg" style="width:85%;"/></div>
                         <div>
-                            <p class="fs2 fw8 mb-0" style="font-size: 3em;">09</p>
-                            <p class="mt-0">Students</p>
+                            <p class="fs2 fw8 mb-3" style="font: normal normal bold 20px/27px Avenir Next;color:#1E0B67;font-size:50px;">09</p>
+                            <p class="mt-0" style="color:#1E0B67;font-size:20px;">Students</p>
                             <div>
-                                <span class="fa fa-cube" style="font-size: 1.5em;color:#f8d877"></span>
-                                <span style="font-size: 1.5em;color:#f8d877">CPT 213</span>
+                                <span class="fa fa-cube" style="font-size: 1.5em;color:#FF8200"></span>
+                                <span style="font-size: 1.5em;color:#FF8200">CPT 213</span>
                             </div>
                         </div>
                         <div>
-                            <span class="fa fa-plus p-2 r1 mr-3" style="font-size: 2em;background-color:#f8a677;color:#8a0505"></span>
+                            <span class="fa fa-plus p-2 r1 mr-3" style="font-size: 2em;background-color:#FFDBB5;color:#FF8200"></span>
                         </div>
                     </div>
                 </div>
