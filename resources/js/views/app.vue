@@ -14,3 +14,7 @@ export default {
 
 };
 </script>
+
+<style>
+@import url('../assets/index.css');
+</style>

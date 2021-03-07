@@ -180,7 +180,7 @@ ul.timeline > li:before {
   display: inline-block;
   position: absolute;
   border-radius: 50%;
-  border: 3px solid #0b0524;
+  border: 3px solid #191236;
   left: 20px;
   width: 20px;
   height: 20px;
@@ -240,13 +240,13 @@ ul.timeline > li:before {
   padding-left: 20px;
   padding-top: 20px;
   font-weight: bold;
-  color: #0b0524;
+  color: #191236;
 }
 .expect-content {
   width: 90%;
   overflow-x: hidden;
   overflow-y: scroll;
-  scrollbar-color: #0b0524 #bebebe;
+  scrollbar-color: #191236 #bebebe;
   scrollbar-width: thin;
   max-height: 220px;
   margin-left: 15px;

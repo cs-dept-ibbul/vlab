@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\FacultyController;
-use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\Api\ExperimentController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\FacultyController;
+use App\Http\Controllers\Api\SchoolController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,11 +33,22 @@ Route::group(['middleware' => 'api',
     Route::group(['prefix' => 'schools'
     ], function() {
         Route::post('create', [SchoolController::class, 'create']);
+        Route::post('school', [SchoolController::class, 'getSchool']);
+        Route::get('schools', [SchoolController::class, 'getAllSchools']);
     });
 
     Route::group(['prefix' => 'faculties'
     ], function() {
         Route::post('create', [FacultyController::class, 'create']);
+        Route::post('faculty', [FacultyController::class, 'getFaculty']);
+        Route::get('faculties', [FacultyController::class, 'getAllFaculties']);
+    });
+
+    Route::group(['prefix' => 'experiments'
+    ], function() {
+        Route::post('create', [ExperimentController::class, 'create']);
+        Route::post('experiment', [ExperimentController::class, 'getExperiment']);
+        Route::get('experiments', [ExperimentController::class, 'getAllExperiment']);
     });
 
 });
