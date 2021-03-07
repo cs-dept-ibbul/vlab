@@ -1,48 +1,53 @@
  <template>
-  <div data-demo-id="draggableConnectors"class="w-100">
+  <div data-demo-id="draggableConnectors">
 
-        <div class="main row">            
+        <div class="main row">
+            <!-- demo -->
             
             <div class="noticeboard" v-if='guidings'>
                 <p><span class='noteb'></span> <i>Invalid/Required Connection</i></p>
             </div>
            
            
-
-    
-          <div class='w-100'>
+          <div class="w-100">
+           
             
             <!-- Start sheet header -->
         <!--   <no-ssr> -->
-       <!--      <div class="d-flex align-center" style="padding: 9px;   box-shadow: 0px 2px 10px  #ccc;  background: var(--color-t);color:var(--color);" >
+        <!--     <div class="d-flex align-center" style="padding: 9px;   box-shadow: 0px 2px 10px  #ccc;  background: var(--color-t);color:var(--color);" >
               <span><span color="var(--color)">mdi-chevron-left</span></span>
               <a href="/experiment/" style="color:var(--color); font-size: 1em;">Experiments</a>              
-              
+           
                 <button id="resetall" class="mx-2 bg-dark text-white" style="font-size: 0.75em;" >Clear</button><a href="" style="text-decoration: none;" >
                 <button color="red" class="mr-2" style="color: #fff;font-size: 0.75em;" >Reset</button></a>
                 <button class="read">Run</button>   
               <v-spacer></v-spacer>
-              
-              <saveTab :dataTosave1 ='resulInHtmlF' :exp_num = '$route.params.id' type='photovolatic' ></saveTab>                                  
+            <saveTab :dataTosave1 ='resulInHtmlF' :exp_num = '$route.params.id' type='photovolatic' ></saveTab>    
               <v-spacer></v-spacer>
                 <h3 style="text-transform: capitalize;font-weight: normal; font-size: 1em;">{{$route.params.id}}.{{expType}} </h3>
-            </div> 
-          -->
-     
+            </div> -->
+     <!--      </no-ssr> -->
             <!-- end sheet header -->
 
-             <img  src="/expImages/physics/exp1/1-0.png" class="img-pos" width="200px">
+             <img class="img-pos" src="/expImages/physics/exp1/1-0.png" width="200px">
             <div class="mainJ drag-drop scrollbar w-100"  id="mainSheet" >
-                <div v-for="id in solarCell_id" v-bind:key="id.id" class="equipments drags solarsAll dp-none" :id="'solar_cell'+id.id" @mouseover="removeClass" >
+                <div v-for="id in solarCell_id" v-bind:key="id.id" class="equipments drags  dp-none pointer-auto" :id="'solar_cell'+id.id" @mouseover="removeClass" >
+                 
                     <span>                       
-                        <img class="ek" src="/expImages/physics/exp1/solar_cell3.jpeg" width="80px">
+                        <img class="ek pointer-auto" src="/expImages/physics/exp1/solar_cell3.jpeg" width="100px" height="200px" >
+                        <div style="" class="shadowCover"></div>
                     </span>
                   <div class="cbtn">
-                    <button class="detach" :rel="'solar_cell'+id.id">detach</button>                    
-                    <button class="deleteCell" :rel="'solar_cell'+id.id" @click='solar_num1--'><span><span class="fa fa-remove"></span></span></button>                    
+                    <button class="detach pointer-auto" :rel="'solar_cell'+id.id" style="">detach</button>                    
+                     <button class="shadowRange pointer-auto" rel="zero" id="zero"><var>0</var></button>                    
+                    <button class="shadowRange pointer-auto" rel="quater" id="quater" ><var>1/4</var></button>                    
+                    <button class="shadowRange pointer-auto" rel="half" id="hlaf" ><var>1/2</var></button>                    
+                    <button class="shadowRange pointer-auto" rel="threeQuater" id="quater" ><var>3/4</var></button>                    
+                    <button class="shadowRange pointer-auto" rel="fullOne" id="quater" ><var>1</var></button>
+                    <button class="deleteCell dp-none pointer-auto" :rel="'solar_cell'+id.id" @click='solar_num1--'  ><span style="color: #ba6;" class="fa fa-remove"></span></button>                    
                   </div>
                 </div>
-                    <div class="equipments drags dp-none" id="ameterRead" @mouseover="removeClass">
+                    <div class="equipments drags dp-none" id="ameterRead" @mouseover="removeClass" >
                     <span>
                         <canvas id="ameter-gauage">
                         <center><h2>{{ ampValue }}A</h2></center>
@@ -52,7 +57,7 @@
                     </span>
                   <div class="cbtn">
                     <button class="detach" rel='ameterRead'>detach</button>        
-                      <button class="read switchbtn" rel='voltmeterRead'>Read</button>            
+                      <button class="read" rel='voltmeterRead'>Read</button>            
                   </div>
                 </div>
                 <div class="equipments drags dp-none" id="voltmeterRead" @mouseover="removeClass">
@@ -73,43 +78,40 @@
                 </div>
                   <!-- sunligh  --> 
 
-                  <div class="picker equipments drags forsunligt dp-none" style="" id="sunLight" >
+                  <div class="picker equipments drags dp-none pointer-auto forsunligt" id="sunLight" >
                     
-                  <img   src="/expImages/physics/exp1/lightModul.jpg" v-bind="attrs" v-on="on" @click='' width="80%" height="80%">
-                  <div class="cbtn">
+                  <img   src="/expImages/physics/exp1/lightModul.jpg" v-bind="attrs" v-on="on" @click='' width="100%" >
+                     <div class="cbtn">
                     <button class="deleteCell sunlightDelBtn" rel="sunLight" style="" ><span style="color: #ba6;" class="fa fa-remove"></span></button>                    
+                  </div>              
                   </div>
-                  </div>
-               </div>
-          </div>
-           <!--    <rightNav :passResult='resulInHtmlF' has='1'></rightNav> -->
-            
-                <!-- <rightNav :passResult='resulInHtmlF'  style=" " ></rightNav>                                                  -->
-         
+               </div>          
+          
          </div>
-         
-
-                <div id="list" style="border: 1px solid #ccc; box-shadow: 2px 3px 10px #fafafa;"></div>
-        </div>            
+           <div id="list" ></div>
+        </div>         
+        
+        </div>    
 </template>
-<script>
-var ArrConn;
-var experimentOne, resulInHtml;
 
+<script>
+
+
+var ArrConn;
+var experimenttwo, resulInHtml, iterationType;
 export default {
+  components:{
+ 
+  },
 
 computed: {
-/*      instructions() {
-        let b = this.$exp2vicelab.state.instructions.all.findIndex(x => x.experiment === this.$route.params.type)         
-        return  this.$exp2vicelab.state.instructions.all[b];
-      },
-*/
-      
-      experimentOne() {               
-        return  this.$store.state.exp1;
-      },
-    
+
+      experimenttwo() {       
+        return  this.$store.state.exp2;
+      }
+  
     },
+
 
   data () {
     return{
@@ -118,10 +120,12 @@ computed: {
       menuName2: "mdi-chevron-left",
       menuState2: false,
       navdType:'none',
-        experimentOneResult:[
-         { series:{one:'-', two:'-', three:'-'},parallel:{one:'-', two:'-', three:'-'}},
-         { series:{one:'-', two:'-', three:'-'},parallel:{one:'-', two:'-', three:'-'}}
-        ],    
+      experimenttwoResult:{
+                  v: {zero:'-', onequater:'-', half:'-', threequater:'-', fullone:'-'},         
+                  c: {zero:'-', onequater:'-', half:'-', threequater:'-', fullone:'-'},         
+                  p: {zero:'-', onequater:'-', half:'-', threequater:'-', fullone:'-'}         
+                },    
+        iterationType:0,
         resulInHtml : '',
         resulInHtmlF: '',
         sunToolTip: false,
@@ -264,74 +268,95 @@ computed: {
 
 
   },
-  created(){
-    //console.log(this.$store.state);
-    let subExp = [2,'photovolatic'];
+  created(){    
+    let subExp = [3,'photovolatic'];
       this.expNum = Number(subExp[0]);
       this.expType = Number(subExp[1])
-
-  
   },
   mounted(){
 
     let $vm = this;
      this.$nextTick(function(){
-  
- /*   function resultTable(){
-        
-      for(var ih in $vm.experimentOneResult){
-    
-        if (ih==0){
-          $vm.resulInHtml =" <h6>Series Connection</h6><table class='table table-bordered'><thead><th></th><th>One Solar Cell</th><th>Two Solar Cell</th><th>Three Solar Cell</th></thead><tbody>";
-          $vm.resulInHtml +="<tr><td>Vsc</td>";
-          $vm.resulInHtml +="<td  id='vsigna' class='Bsign'>"+$vm.experimentOneResult[0].series.one+"</td>";
-          $vm.resulInHtml +="<td id='vsignb' class='Bsign'>"+$vm.experimentOneResult[0].series.two+"</td>";
-          $vm.resulInHtml +="<td id='vsignc' class='Bsign'>"+$vm.experimentOneResult[0].series.three+"</td></tr>";
-          $vm.resulInHtml +="<tr><td>Isc</td>";
-          $vm.resulInHtml +="<td id='csigna' class='Bsign'>"+$vm.experimentOneResult[1].series.one+"</td>";
-          $vm.resulInHtml +="<td id='csignb' class='Bsign'>"+$vm.experimentOneResult[1].series.two+"</td>";
-          $vm.resulInHtml +="<td id='csignc' class='Bsign'>"+$vm.experimentOneResult[1].series.three+"</td></tr></tbody></table>";
-        }else{
-          $vm.resulInHtml +=" <h6>parallel Connection</h6><table class='table table-bordered'><thead><th></th><th>One Solar Cell</th><th>Two Solar Cell</th><th>Three Solar Cell</th></thead><tbody>";
-          $vm.resulInHtml +="<tr><td>Vsc</td>";
-          $vm.resulInHtml +="<td id='vsignc' class='Bsign'>"+$vm.experimentOneResult[0].parallel.one+"</td>";
-          $vm.resulInHtml +="<td id='vsignd' class='Bsign'>"+$vm.experimentOneResult[0].parallel.two+"</td>";
-          $vm.resulInHtml +="<td id='vsigne' class='Bsign'>"+$vm.experimentOneResult[0].parallel.three+"</td></tr>";
-          $vm.resulInHtml +="<tr><td>Isc</td>";
-          $vm.resulInHtml +="<td id='csignc' class='Bsign'>"+$vm.experimentOneResult[1].parallel.one+"</td>";
-          $vm.resulInHtml +="<td id='csignd' class='Bsign'>"+$vm.experimentOneResult[1].parallel.two+"</td>";
-          $vm.resulInHtml +="<td id='csigne' class='Bsign'>"+$vm.experimentOneResult[1].parallel.three+"</td></tr></tbody></table>";
-        }
-      }
-      return $vm.resulInHtml;
-      }*/
 
-      function checkConnectionfunc(exp2vicelabdA, connA, guide=false ){
+        function resultTable(){
+        
+        for(let ai in $vm.experimenttwoResult){
+          
+          if (ai == 'v' ) {
+          
+            $vm.resulInHtml =" <h6>MEASURED VALUES</h6><table class='table table-bordered' style=''><thead><th></th><th style='word-wrap:wrap;'>0(not covered)</th><th>1/4</th><th>1/2</th><th>3/4</th><th>1</th></thead><tbody>";
+            $vm.resulInHtml +="<tr><th>V<sub>oc</sub></th>";
+            $vm.resulInHtml +="<td id='vsigna' class='Bsign'>"+$vm.experimenttwoResult[ai].zero+"</td>";
+            $vm.resulInHtml +="<td id='vsignb' class='Bsign'>"+$vm.experimenttwoResult[ai].onequater+"</td>";
+            $vm.resulInHtml +="<td id='vsignc' class='Bsign'>"+$vm.experimenttwoResult[ai].half+"</td>";
+            $vm.resulInHtml +="<td id='vsignd' class='Bsign'>"+$vm.experimenttwoResult[ai].threequater+"</td>";
+            $vm.resulInHtml +="<td id='vsigne' class='Bsign'>"+$vm.experimenttwoResult[ai].fullone+"</td>";            
+          }else if(ai=='c'){
+              $vm.resulInHtml +="<tr><th>I<sub>sc</sub></th>";
+            $vm.resulInHtml +="<td id='csigna' class='Bsign'>"+$vm.experimenttwoResult[ai].zero+"</td>";
+            $vm.resulInHtml +="<td id='csignb' class='Bsign'>"+$vm.experimenttwoResult[ai].onequater+"</td>";
+            $vm.resulInHtml +="<td id='csignc' class='Bsign'>"+$vm.experimenttwoResult[ai].half+"</td>";
+            $vm.resulInHtml +="<td id='csignd' class='Bsign'>"+$vm.experimenttwoResult[ai].threequater+"</td>";
+            $vm.resulInHtml +="<td id='csigne' class='Bsign'>"+$vm.experimenttwoResult[ai].fullone+"</td>"; 
+          } else if(ai=='p'){
+            let p1='-',p2='-',p3='-',p4='-',p5 = '-';
+            if ($vm.experimenttwoResult['v'].zero != '-' && $vm.experimenttwoResult['c'].zero != '-') {
+                p1 = $vm.experimenttwoResult['v'].zero * $vm.experimenttwoResult['c'].zero;
+            }
+            if ($vm.experimenttwoResult['v'].onequater != '-' && $vm.experimenttwoResult['c'].onequater != '-') {
+              p2 = $vm.experimenttwoResult['v'].onequater * $vm.experimenttwoResult['c'].onequater ;
+            }
+            if ($vm.experimenttwoResult['v'].half != '-' && $vm.experimenttwoResult['c'].half != '-') {
+              p3 = $vm.experimenttwoResult['v'].half * $vm.experimenttwoResult['c'].half ;
+            }
+            if ($vm.experimenttwoResult['v'].threequater != '-' && $vm.experimenttwoResult['c'].threequater != '-') {
+              p4 = $vm.experimenttwoResult['v'].threequater * $vm.experimenttwoResult['c'].threequater ;
+            }
+            if ($vm.experimenttwoResult['v'].fullone != '-' && $vm.experimenttwoResult['c'].fullone != '-') {
+              p5 = $vm.experimenttwoResult['v'].fullone * $vm.experimenttwoResult['c'].fullone ;
+            }
+            
+            
+              $vm.resulInHtml +="<tr><th>P<code>I*V</code></th>";
+            $vm.resulInHtml +="<td>"+p1+"</td>";
+            $vm.resulInHtml +="<td>"+p2+"</td>";
+            $vm.resulInHtml +="<td>"+p3+"</td>";
+            $vm.resulInHtml +="<td>"+p4+"</td>";
+            $vm.resulInHtml +="<td>"+p5+"</td>"; 
+          }         
+        }
+     
+      return $vm.resulInHtml;
+      }
+      
+
+      function checkConnectionfunc(storedA, connA, guide=false ){
             let count = 0;
             let sobj = [];
-           // let exp2vicelabdA2 = JSON.parse(JSON.stringify(exp2vicelabdA));
-            for (var i = 0; i < exp2vicelabdA.length; i++) {
+           // let storedA2 = JSON.parse(JSON.stringify(storedA));
+            for (var i = 0; i < storedA.length; i++) {
                 for (var j = 0; j < connA.length; j++) {                    
-                      if(exp2vicelabdA[i].source == connA[j].source && exp2vicelabdA[i].target == connA[j].target || exp2vicelabdA[i].source == connA[j].target && exp2vicelabdA[i].target == connA[j].source){
+                      if(storedA[i].source == connA[j].source && storedA[i].target == connA[j].target || storedA[i].source == connA[j].target && storedA[i].target == connA[j].source){
                             count++;
                             j = connA.length;
                             //remove from original correct connection
                             sobj.push(i);
-                           // exp2vicelabdA2.splice(i, 1);
-                        }                    
+                           // storedA2.splice(i, 1);
+                        }
+                    
                 }
             }
             
-            if(count == exp2vicelabdA.length){
+            if(count == storedA.length){
                 return true;
             }else{
-              // console.log(exp2vicelabdA2);
+              // console.log(storedA2);
              
                 if (guide == true) {                        
-                    for (var i = 0; i < exp2vicelabdA.length; i++) {
+                    for (var i = 0; i < storedA.length; i++) {
                             if (JSON.stringify(sobj).includes(i)) {}else{                        
-                              document.getElementById(exp2vicelabdA[i].sid).classList.add('needConnection');
-                              document.getElementById(exp2vicelabdA[i].tid).classList.add('needConnection');
+                              document.getElementById(storedA[i].sid).classList.add('needConnection');
+                              document.getElementById(storedA[i].tid).classList.add('needConnection');
                         }
                     }
                 }
@@ -348,7 +373,7 @@ computed: {
               if(keeperC.includes(Array1[m].sid) || keeperC.includes(Array1[m].tid)){
                   readerIsConnected = 1;
               }else{
-                //check connection typ
+                //check connection type
                  if (Array1[m].source != Array1[m].target ){
                     seriesCount++;
                 }else{
@@ -400,116 +425,100 @@ computed: {
                   rType = 'voltage';
                   readerT = 'v';                
                 }
+                
 
-                if(count==1){
-                  confirm = checkConnectionfunc($vm.experimentOne['arr1'+readerT+1], Array1, guid ) ;
+                if(count==0){
+                  confirm = checkConnectionfunc($vm.experimenttwo['arr1'+readerT+1], Array1, guid ) ;
                   if(confirm){
                     if ($vm.sun_light == 1) {                  
-                      result.push(rType, $vm.experimentOne['arr1'+readerT]);
+                      result.push(rType, $vm.experimenttwo['arr1'+readerT]);
                      
                       if (rType=='voltage') {
-                        $vm.experimentOneResult[0]['series'].one = $vm.experimentOne['arr1'+readerT]
-                        $vm.experimentOneResult[0]['parallel'].one= $vm.experimentOne['arr1'+readerT]
-                      }else{
-                        $vm.experimentOneResult[1]['series'].one = $vm.experimentOne['arr1'+readerT]
-                        $vm.experimentOneResult[1]['parallel'].one = $vm.experimentOne['arr1'+readerT]
+                        $vm.experimenttwoResult['v'].zero = $vm.experimenttwo['arr1'+readerT]                        
+                      }else{                     
+                        $vm.experimenttwoResult['c'].zero = $vm.experimenttwo['arr1'+readerT]
                       }
-
                       return result;                
                     }else{
                       return 0;//no sun light 
                     }
                   }else{ result = null; return result;/* connection not valid */}
                 }
-                //two solar sell
-                else if(count == 2){
-                  
-                  //series connection
-                  if (seriesCount != 0 && parallelCount == 0){
-                    //confirm = checkConnectionfunc($vm.experimentOne.arr2s, Array1, guid)  
-
-                    confirm = checkConnectionfunc($vm.experimentOne['arr2s'+readerT+1], Array1, guid )  
-                    if(confirm){
-                      if ($vm.sun_light == 1) {                  
-                        //result.push({'voltage': $vm.experimentOne.arr2sv, 'current':$vm.experimentOne.arr2sc});
-                        result.push(rType, $vm.experimentOne['arr2s'+readerT]);
-                        //push result
-                        if (rType=='voltage') {
-                          $vm.experimentOneResult[0]['series'].two = $vm.experimentOne['arr2s'+readerT]
-                        }else{
-                          $vm.experimentOneResult[1]['series'].two = $vm.experimentOne['arr2s'+readerT]                        
-                        }
-                        return result;                
-                      }else{
-                        return 0;//no sun light 
+                //quarter covered solar sell
+                else if(count == 'quater'){
+                   confirm = checkConnectionfunc($vm.experimenttwo['arr2'+readerT+1], Array1, guid ) ;
+                  if(confirm){
+                    if ($vm.sun_light == 1) {                  
+                      result.push(rType, $vm.experimenttwo['arr2'+readerT]);
+                     
+                      if (rType=='voltage') {
+                        $vm.experimenttwoResult['v'].onequater = $vm.experimenttwo['arr2'+readerT]                        
+                      }else{                     
+                        $vm.experimenttwoResult['c'].onequater = $vm.experimenttwo['arr2'+readerT]
                       }
-                    }else{ result = null; return result;/* connection not valid */}
-                  }//parallel connection
-                  else if(seriesCount == 0 && parallelCount != 0){     
-                     /*alert(2)             */
-                    confirm = checkConnectionfunc($vm.experimentOne['arr2p'+readerT+1], Array1, guid )  
-                    if(confirm){
-                      if ($vm.sun_light == 1) {                  
-                        //result.push({'voltage': $vm.experimentOne.arr2pv, 'current':$vm.experimentOne.arr2pc});
-                        result.push(rType, $vm.experimentOne['arr2p'+readerT]); 
-                        //push result
-                        if (rType=='voltage') {
-                          $vm.experimentOneResult[0]['parallel'].two = $vm.experimentOne['arr2p'+readerT]
-                        }else{
-                          $vm.experimentOneResult[1]['parallel'].two = $vm.experimentOne['arr2p'+readerT]
-                        }                     
-                        return result;                
-                      }else{
-                        return 0;//no sun light 
-                      }
-                    }else{ result = null; return result;/* connection not valid */}
-                  }
+                      return result;                
+                    }else{
+                      return 0;//no sun light 
+                    }
+                  }else{ result = null; return result;/* connection not valid */}
+                 
                 }
-                //three solar cell
-                else if(count == 3){
-
-                  //series connection
-                  if (seriesCount != 0 && parallelCount == 0){
-                    //confirm = checkConnectionfunc($vm.experimentOne.arr3s, Array1, guid)
-                    confirm = checkConnectionfunc($vm.experimentOne['arr3s'+readerT+1], Array1, guid )  
-                    if(confirm){
-                      if ($vm.sun_light == 1) {                  
-                       // result.push({'voltage': $vm.experimentOne.arr3sv, 'current':$vm.experimentOne.arr3sc});
-                        result.push(rType, $vm.experimentOne['arr3s'+readerT]);  
-                        //push result
-                        if (rType=='voltage') {
-                          $vm.experimentOneResult[0]['series'].three = $vm.experimentOne['arr3s'+readerT]
-                        }else{
-                          $vm.experimentOneResult[1]['series'].three = $vm.experimentOne['arr3s'+readerT]
-                        }                                         
-                        return result;                
-                      }else{
-                        return 0;//no sun light 
+                //half covered solar cell
+                else if(count == 'half'){
+                   confirm = checkConnectionfunc($vm.experimenttwo['arr3'+readerT+1], Array1, guid ) ;
+                  if(confirm){
+                    if ($vm.sun_light == 1) {                  
+                      result.push(rType, $vm.experimenttwo['arr3'+readerT]);
+                     
+                      if (rType=='voltage') {
+                        $vm.experimenttwoResult['v'].half = $vm.experimenttwo['arr3'+readerT]                        
+                      }else{                     
+                        $vm.experimenttwoResult['c'].half = $vm.experimenttwo['arr3'+readerT]
                       }
-                    }else{ result = null; return result;/* connection not valid */}
-                  }//parallel connection
-                  else if(seriesCount == 0 && parallelCount != 0){
-                     //  alert(3)
-                    //confirm = checkConnectionfunc($vm.experimentOne.arr3p, Array1, guid)  
-                    confirm = checkConnectionfunc($vm.experimentOne['arr3p'+readerT+1], Array1, guid )  
-                    if(confirm){
-                      if ($vm.sun_light == 1) {                  
-                        //result.push({'voltage': $vm.experimentOne.arr3pv, 'current':$vm.experimentOne.arr3pc});
-                        result.push(rType, $vm.experimentOne['arr3p'+readerT]);
-                        //push result
-                        if (rType=='voltage') {
-                          $vm.experimentOneResult[0]['parallel'].three = $vm.experimentOne['arr3p'+readerT]
-                        }else{
-                          $vm.experimentOneResult[1]['parallel'].three =$vm.experimentOne['arr3p'+readerT]
-                        }                                         
-                        return result;                
-                      }else{
-                        return 0;//no sun light 
+                      return result;                
+                    }else{
+                      return 0;//no sun light 
+                    }
+                  }else{ result = null; return result;/* connection not valid */}
+                
+                }
+                //three quarter covered solar cell
+                else if(count == 'threeQuater'){
+                   confirm = checkConnectionfunc($vm.experimenttwo['arr4'+readerT+1], Array1, guid ) ;
+                  if(confirm){
+                    if ($vm.sun_light == 1) {                  
+                      result.push(rType, $vm.experimenttwo['arr4'+readerT]);
+                     
+                      if (rType=='voltage') {
+                        $vm.experimenttwoResult['v'].threequater = $vm.experimenttwo['arr4'+readerT]                        
+                      }else{                     
+                        $vm.experimenttwoResult['c'].threequater = $vm.experimenttwo['arr4'+readerT]
                       }
-                    }else{ result = null; return result;/* connection not valid */}
-                  }
-                }else{
-                  return -3 // maximum cell to use is 3 in experiment 1
+                      return result;                
+                    }else{
+                      return 0;//no sun light 
+                    }
+                  }else{ result = null; return result;/* connection not valid */}
+               
+                }
+                //fullone covered solar cell
+                else if(count == 'fullOne'){
+                   confirm = checkConnectionfunc($vm.experimenttwo['arr5'+readerT+1], Array1, guid ) ;
+                  if(confirm){
+                    if ($vm.sun_light == 1) {                  
+                      result.push(rType, $vm.experimenttwo['arr5'+readerT]);
+                      
+                      if (rType=='voltage') {
+                        $vm.experimenttwoResult['v'].one = $vm.experimenttwo['arr5'+readerT]                        
+                      }else{                     
+                        $vm.experimenttwoResult['c'].one = $vm.experimenttwo['arr5'+readerT]
+                      }
+                      return result;                
+                    }else{
+                      return 0;//no sun light 
+                    }
+                  }else{ result = null; return result;/* connection not valid */}
+               
                 }
               }else{
                 document.getElementById('ameterRead').classList.add('needConnection');
@@ -630,9 +639,9 @@ computed: {
                 }
             ],
              borderShadowWidth: 0,
-            borders: false,
+            borders: false/*,
             animateOnInit: true,
-            animatedValue: true
+            animatedValue: true*/
             }).draw();
         }else{
             console.log('empty ameter data parameters');
@@ -652,7 +661,7 @@ computed: {
                     listDiv.style.position = "fixed";
                     listDiv.style.zIndex = "10";
                     listDiv.style.top = "30px";
-                    listDiv.style.left = "65%";
+                    listDiv.style.left = "64%";
                     listDiv.style.width = "350px";
                     
                 },
@@ -690,7 +699,7 @@ computed: {
                         console.log(ArrConn)
                       
 /////////////////////////evaluation if connnection //////////////////////////////                      
-                      /* var connState = checkConnectionfunc(use_exp2vicelabArrConn,ArrConn, guidings);
+                      /* var connState = checkConnectionfunc(use_StoreArrConn,ArrConn, guidings);
                        //console.log($vm.switchState);
                         if (connState) {
                             //check if key is close
@@ -892,21 +901,21 @@ computed: {
 
                         let type = e.currentTarget.id                            
                         if (type == 'scell'){
-                            if ($vm.solar_num < 10) {
+                            if ($vm.solar_num < 1) {
                                 $vm.solar_num++;
                                 $vm.solar_num1++;
                                 $('#solar_cell'+$vm.solar_num).css('display','flex');
-                      instance.addEndpoint('solar_cell'+$vm.solar_num, { anchor:  [0.09, 1.5, 0, 1]}, exampleEndpoint21);
-                        instance.addEndpoint('solar_cell'+$vm.solar_num, { anchor:  [0.3, 1.5, 0, 1] }, exampleEndpoint2);
+                      instance.addEndpoint('solar_cell'+$vm.solar_num, { anchor:  [0.16, 1.8, 0, 1]}, exampleEndpoint21);
+                        instance.addEndpoint('solar_cell'+$vm.solar_num, { anchor:  [0.4, 1.8, 0, 1] }, exampleEndpoint2);
                             }else{
-                              document.location.reload(true);
+                              alert('only one solar cell allow in this experiment')
                             }
                         }else if(type =='voltmeter'){
                               
                             if ($vm.volt_num<1) {
                                 
                                 $vm.volt_num++;
-                                $('#voltmeterRead').css('display','flex');;
+                                $('#voltmeterRead').css('display','flex');
                                 instance.addEndpoint('voltmeterRead', { anchor:  [0.3, 1.3, 0, 1]}, exampleEndpoint21);
                                 instance.addEndpoint('voltmeterRead', { anchor:  [0.6, 1.3, 0, 1] }, exampleEndpoint2);
                                 
@@ -929,7 +938,7 @@ computed: {
                         }else if(type =='sun'){
                           if ($vm.sun_light==0) {
                                $vm.sun_light++;
-                            $('#sunLight').show();
+                            $('#sunLight').css('display','flex');
                           }else{
                             alert('light module already added')
                           }
@@ -995,12 +1004,38 @@ computed: {
 
                         jsPlumbUtil.consume(e);
                     });
+
+                     var shadowRangeBtn = jsPlumb.getSelector('.shadowRange');
+                    instance.on(shadowRangeBtn, "click", function (e) {
+                      let rel =  this.getAttribute("rel")
+
+
+                      if (rel=='quater') {  
+                        $vm.iterationType = 'quater';                      
+                        $('.shadowCover').css('height','50px');                      
+                      }else if(rel=='half'){
+                        $vm.iterationType = 'half'; 
+                        $('.shadowCover').css('height','100px');
+                      }else if(rel=='threeQuater'){
+                        $vm.iterationType = 'threeQuater'; 
+                        $('.shadowCover').css('height','150px');
+                      }else if(rel=='fullOne'){
+                        $vm.iterationType = 'fullOne'; 
+                        $('.shadowCover').css('height','200px');
+                      }else if(rel=='zero'){
+                        $vm.iterationType = 0; 
+                        $('.shadowCover').css('height','0px');                        
+                      }
+
+
+
+                    })
 ///////////////////////////////main junction
                     //take reading
                     var readMeter = jsPlumb.getSelector('.read');
                     instance.on(readMeter, "click", function (e) {
                      // alert($vm.solar_num)
-                      var connState = solveExpression(ArrConn, $vm.solar_num1, true);
+                      var connState = solveExpression(ArrConn, $vm.iterationType, true);
                         if (connState == null) {
                           alert('invalid connnections');
                         }else if(connState== 0){
@@ -1013,27 +1048,92 @@ computed: {
                         }else if(connState == -3){
                           alert('Experiments one Required only Three solar Cell; please delete')
                         }else{
-                          //$vm.resulInHtmlF = resultTable()
+                          $vm.resulInHtmlF = resultTable()
                           
                           
                           if (connState[0] =='current'){
+                              
                             DrawGauge('',1, 0,0);
                             setTimeout(function(){
-                              DrawGauge('',1, 0, connState[1]+5)
+                              DrawGauge('',1,0, connState[1]+ 5);
                               setTimeout(function(){
-                                DrawGauge('',1, 0, connState[1])
+                                DrawGauge('',1, 0, connState[1]);
                               },200)  
                             },200)                            
-
+                               /*sign on current iteration*/
+                              if( $vm.iterationType==0){                            
+                            setTimeout(function(){
+                              $('.Bsign').removeClass('tableRow');
+                              $('#csigna').addClass('tableRow');
+                              },3000);                                            
+                            } 
+                            if($vm.iterationType=='quater'){                            
+                            setTimeout(function(){
+                                $('.Bsign').removeClass('tableRow');
+                                $('#csignb').addClass('tableRow');                              
+                              },3000);                                            
+                            } 
+                            if($vm.iterationType=='half'){                            
+                            setTimeout(function(){
+                                $('.Bsign').removeClass('tableRow');
+                                $('#csignc').addClass('tableRow');                              
+                              },3000);                                            
+                            } 
+                            if($vm.iterationType=='threeQuater'){                            
+                            setTimeout(function(){
+                                $('.Bsign').removeClass('tableRow');
+                                $('#csignd').addClass('tableRow');                              
+                              },3000);                                            
+                            } 
+                             if($vm.iterationType=='fullOne'){                            
+                            setTimeout(function(){
+                                $('.Bsign').removeClass('tableRow');
+                                $('#csigne').addClass('tableRow');                              
+                              },3000);                                            
+                            } 
+                            /*end */
                           }else{
-                           //  alert($vm.experimentOneResult[0].series.one)
+                            
                              DrawGauge(1,1, 0,0);
                             setTimeout(function(){
                               DrawGauge(1,'', connState[1]+5,0);
                                 setTimeout(function(){
                                 DrawGauge(1,'', connState[1],0);                              
                               },200)                                   
-                            },200)     
+                            },200)
+
+                            /*sign on current iteration*/
+                              if( $vm.iterationType==0){                            
+                            setTimeout(function(){
+                              $('.Bsign').removeClass('tableRow');
+                              $('#vsigna').addClass('tableRow');
+                              },3000);                                            
+                            } 
+                            if($vm.iterationType=='quater'){                            
+                            setTimeout(function(){
+                                $('.Bsign').removeClass('tableRow');
+                                $('#vsignb').addClass('tableRow');                              
+                              },3000);                                            
+                            } 
+                            if($vm.iterationType=='half'){                            
+                            setTimeout(function(){
+                                $('.Bsign').removeClass('tableRow');
+                                $('#vsignc').addClass('tableRow');                              
+                              },3000);                                            
+                            } 
+                            if($vm.iterationType=='threeQuater'){                            
+                            setTimeout(function(){
+                                $('.Bsign').removeClass('tableRow');
+                                $('#vsignd').addClass('tableRow');                              
+                              },3000);                                            
+                            } 
+                             if($vm.iterationType=='fullOne'){                            
+                            setTimeout(function(){
+                                $('.Bsign').removeClass('tableRow');
+                                $('#vsigne').addClass('tableRow');                              
+                              },3000);                                            
+                            } 
+                            /*end */     
                             
                           }                                                  
                         }
@@ -1047,8 +1147,9 @@ computed: {
                         var rel = this.getAttribute("rel")
                         if(rel.includes('solar_cell')){
                         instance.remove(rel, false, [false]) 
-                         
                         $('#mainSheet').append('<div class="equipments drags solarsAll" style="display: none;" id="'+rel+'" @mouseover="removeClass" ><span><img class="ek" src="/expImages/physics/exp1/solar_cell3.jpeg" width="80px"></span><div class="cbtn"><button class="detach" rel="'+rel+'">detach</button><button class="deleteCell" rel="'+rel+'"><span><span>mdi-close</span></span></button></div></div>');
+                       /*
+                        $('#mainSheet').append('<div class="equipments drags solarsAll" style="display: none;" id="'+rel+'" @mouseover="removeClass" ><span><img class="ek" src="/expImages/physics/exp1/solar_cell3.jpeg" width="80px"></span><div class="cbtn"><button class="detach" rel="'+rel+'">detach</button><button class="deleteCell" rel="'+rel+'"><span ></span></button></div></div>');*/
                        
 
                         }else{
@@ -1407,9 +1508,7 @@ computed: {
   opacity: 1;
   transform: translateY(-2px);
 }
-#list{
-      display: none !important;
-    }
+
 .img-pos{
   position: absolute;
   top: 62px; 
@@ -1429,5 +1528,34 @@ computed: {
 }
 .sunlightDelBtn{
   position: relative; right: 50%;pointer-events: auto !important; 
+}
+.shadowCover{
+  width: 100px;
+  height: 0px;
+  background: rgba(170,170,170,.5);
+  position: relative;
+  top: -175.5%; 
+  border: 3px dashed #8f9 ;
+  transition: height 1s;
+}
+.shadowMain1{
+  height: 50px !important;
+}
+.shadowMain2{
+  height: 100px !important;
+}
+.shadowMain3{
+  height: 150px !important;
+}
+.shadowMain4{
+  height: 200px !important;
+}
+#list{
+      display: none !important;
+      border: 1px solid #ccc; 
+      box-shadow: 2px 3px 10px #fafafa;
+}
+.pointer-auto{
+  pointer-events:auto;
 }
 </style>

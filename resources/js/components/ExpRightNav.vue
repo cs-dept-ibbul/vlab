@@ -1,10 +1,10 @@
 <template>
-	<div style="" id="rightNavigation">
-		<div class="containerR" id="tools">	
+	<div class="vhE-2" id="rightNavigation">
+		<div class="containerR" id="tools" style="height:100%;">	
 			
 		   	<div class="input-alt"></div>	
-		   	<span v-if="vicelab==1" class="pr z-1">		 
-		   	 	<vicelabtools has='1' ></vicelabtools>
+		   	<span v-if="vicelab==1" class="pr z-1" >		 
+		   	 	<vicelabtools has='1'  ></vicelabtools>
 		   	</span>	   
 		   	<span v-else>
 		   		
@@ -283,5 +283,9 @@
 	} 
 .z-1{
 	z-index: 1;
+}
+.vhE-2{
+	height: 87vh;
+	width: 100%;
 }
 </style>

@@ -25,6 +25,15 @@ html body{
   border:1px solid #eee;
   cursor: text !important;
 }
+.vh-100{
+  min-height: 100vh;
+}
+.vh-1{
+  min-height: 13vh;
+}
+.vh-87{
+  min-height: 87vh;
+}
 @media screen and  (max-width:896px){
   .input-search2{
     width: 160px !important;
@@ -176,7 +185,12 @@ html body{
 .flex-wrap{
       flex-wrap: wrap;
       align-items: center;
-  }
+}
+.exp-cont-view{
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 87vh;
+}
 @media screen and (min-width: 644px){
   .lg-flex{
       display: flex;
@@ -219,6 +233,10 @@ html body{
 }
 .fs9{
   font-size: 2em;
+}
+#mainExp{
+  width: 88%;
+  overflow-x: scroll;
 }
 .systabActive{
  border-bottom: 2px solid #00b96b !important; 
@@ -657,8 +675,11 @@ html body{
   top: 85px !important;
   width: 200px;
   transition: width 1s;  
-}
 
+}
+.bottom-0{
+bottom: 0;  
+}
 
 
 

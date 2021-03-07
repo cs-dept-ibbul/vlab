@@ -22,4 +22,8 @@ class experimentController extends Controller
     {
         return view('experiment/vicelabexp2');
     }
+    public function vicelabexp3()
+    {
+        return view('experiment/vicelabexp3');
+    }
 }

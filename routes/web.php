@@ -26,7 +26,8 @@ Route::get('/create-course', 'App\Http\Controllers\CreateCourse@index')->name('c
 
 
  
-Route::get('/vicelab-exp2','App\Http\Controllers\experimentController@vicelabexp2')->name('vicelab-exp2');
+Route::get('/photovoltaic-2','App\Http\Controllers\experimentController@vicelabexp2')->name('vicelab-exp2');
+Route::get('/photovoltaic-3','App\Http\Controllers\experimentController@vicelabexp3')->name('photovoltaic-3');
 Route::get('/simple-pendulum','App\Http\Controllers\experimentController@simplePendulum')->name('simple-pendulum');
 
 Route::get('/simplependulumEquipment', function ()

@@ -32,19 +32,19 @@ $experimentNum = "Experiment I";
      
 @endsection
 @section('content-body')
-<div style="display: flex;">   
+<div class="d-flex">   
 
    <!-- main side bar -->
-   <v-msidebar></v-msidebar>   
+   <v-msidebar  class='vh-100'></v-msidebar>   
    <!-- end main side bar -->
 
-   <div style="width: 100%;">
+   <div class="w-100 vh-100 position-relative">
          <!-- top nav bar -->
-         <v-topnave equipmentname="{{$experimentName}}" experimentnum='{{$experimentNum}}'></v-topnave>
+         <v-topnave class="vh-1" equipmentname="{{$experimentName}}" experimentnum='{{$experimentNum}}'></v-topnave>
          <!-- end to nav bar -->
 
          <!-- content -->
-         <div style="display: flex;flex-wrap: wrap;" >
+         <div class="exp-cont-view" >
 
             <!-- experiment left side bar -->
                <v-guide aim="<h2>This is Aim</h2>" aparatus="<h2>This is aparatus</h2>" theory="<h2>This is theory</h2>" requirment="" exercise="<h2>exercises comes here</h2>" resources="<h2>No resources Available for this experiment</h2>" ></v-guide>    
@@ -52,7 +52,7 @@ $experimentNum = "Experiment I";
             <!-- end experiment side bar -->
 
             <!-- experiment  -->
-            <div style="width: 88%;overflow-x: scroll;" id="mainExp">
+            <div id="mainExp">
                <v-ribbon></v-ribbon>
                 <iframe width="100%" height="480px"  frameborder="0" style="display: none;" src="" id="experimentSheet"></iframe>
              
@@ -63,7 +63,7 @@ $experimentNum = "Experiment I";
                <v-rightnav toolState='false' toolsizes="[]" url="{{route('simplependulumEquipment').'?size='}}"></v-rightnav>
             </div>
             <!-- experiment footer -->
-            <div style="flex:100%">
+            <div class="position-absolute bottom-0 w-100">
                <v-expfooter></v-expfooter>
             </div>
             <!-- end experiment footer -->

@@ -1,131 +1,29 @@
 <template>
   <div>
-    <div class="d-md-none d-flex  align-center pa-0 ma-0 alert alert-success pa-10 "  style="width: 105vw;height: 100%; position: fixed;top: 0;  z-index: 99990000000000;opacity: 0.9;text-align: center; text-transform: uppercase; ">
+   <!--  <div class="d-md-none d-flex  align-center pa-0 ma-0 alert alert-success pa-10 "  style="width: 105vw;height: 100%; position: fixed;top: 0;  z-index: 99990000000000;opacity: 0.9;text-align: center; text-transform: uppercase; ">
     <div class="" >
         <p style=" font-size: 1.4em; "> sorry this experiment can only be undertaken on a Personal Computer (PC)</p>
             <a to="/" class="v-btn v-btn--contained theme--light success" style="width: 220px !important; text-decoration: none;" >Back to home page</a>
     </div>
-    </div>
-	 <div v-if="has" class=" d-md-flex p-0" id="leftNav" style="; width: 100%; background: var(--color-t);flex-direction: column; ">
-                <ul class="navBtn" style="">
-                    <li v-bind:class="{navBtnActive:configBtn}" @click='navBtnFunc1'>
-                        <span>Config</span>
-                        <!-- <hr>  -->                       
-                    </li>
-                    <li v-bind:class="{navBtnActive:EquipBtn}" @click='navBtnFunc2'>
-                        <span>Equipments</span>
-                    <!-- <hr> -->
-                    </li>
-                </ul>
-                 <transition name="component-fade" mode="out-in"  >                
+    </div> -->
+	 <div  class=" d-md-flex p-0" id="leftNav">                                  
                 <div class="left-panel1 scrollbar mt-2 px-2" v-if="navSlide1 " v-bind:class='{show:navSlide1}' >
-                        <h4 style="text-align: center;color: var(--color);" >Equipments</h4>
+                        <h4 class="text-center text-white">Equipments</h4>
                         <center>                          
                           <span style="font-size: 0.9em;">click to select an equipment</span>                          
                         </center>
-                        
-                          <br>
-                       <div class="m-0 p-0">                        
-                                <img data-toggle="tooltip" title="Solar Cell" data-placement="top" class="picker" src="/expImages/physics/exp1/solar_cell3.jpeg" v-bind="attrs" v-on="on" @click='' id="scell" >
-                         
-                                <img data-toggle="tooltip" title="Voltmeter" data-placement="bottom" class="picker" src="/expImages/physics/exp1/voltmeter1.png" v-bind="attrs" v-on="on" @click='' id="voltmeter" >                                                   
-                                <img data-toggle="tooltip" title="Ameter" data-placement="bottom"  class="picker" src="/expImages/physics/exp1/ameter.png" v-bind="attrs" v-on="on" @click='' id="ameter">
-                          
-                          <span v-bind:class="{tooltip:sunToolTip}" data-tooltip="Add Sun light by clicking">
-                          </span>                                
-                                <img data-toggle="tooltip" title="sun light" data-placement="bottom" class="picker" src="/expImages/physics/exp1/lightModulNav.jpg" width="100px" height="100px" v-bind="attrs" v-on="on" @click='sunToolTip= !sunToolTip' id="sun">                                                
-                       </div>
-                    </div>
-                </transition>
-                 <transition name="component-fade" mode="out-in"  >
-                    <div class="left-panel" v-if="navSlide2" v-bind:class='{show:navSlide2}' style="display: none ;" >
-                        <p style="text-align: center;color: var(--color); font-size: 105%;font-weight: bold" >CONFIGURATION</p>
-                        <span v-if="ktype== -1">
-                          
-                        <input type="checkbox" id="spillAll" @click=""  name=""> <span class="config-label ml-1">arrage circuit</span><br>
-                        </span>
-                        <p class="my-2 green px-4 rounded" style="color: #fff; font-size: 0.9em; text-align: center;">MODE</p>
-                        <input type="radio" id=""  name="mode" checked="" > <span class="config-label ml-1">Practice </span><br>                      
-                        <input type="radio" id=""  name="mode"> <span class="config-label ml-1">Test </span><br>
-                        <!-- experiment 4 only -->
-                        <span v-if="ktype==1">      
-                          <p class="my-2 green px-4 rounded" style="color: #fff; font-size: 0.9em; text-align: center;">WEATHER STATE</p>
-                          <input type="radio" class="" @click="function1" name="weather" checked="" value="w"><span class="config-label ml-2">Winter</span><br>
-                          <input type="radio" class="" @click="function2"  name="weather" value="s"><span class="config-label ml-2">Summer</span><br>
-                          <label>Latitude: </label><input class="border" type="number" min="0" max="360" name="latitude" :value="latitude" @input="function3" @keyup="function3">
-                        </span>
-                        <!-- experiment 5 only -->
-                        <span v-if="ktype==2">      
-                          <p class="my-2 green px-4 rounded" style="color: #fff; font-size: 0.9em; text-align: center;">DATA</p>
-                          <div class="row">
-                            <div class="col-lg-7 my-1 py-0"><label width>lamp Strength: </label></div>
-                            <div class=" col-lg-5 my-1 py-0">
-                              <input class="border rounded px-3 my-0" type="number" min="0" max="360" name="exp4lampWatt" :value="lampStrenght" @input="exp4func1"></div>                                                        
-                          </div>
-                          
-                          
-                        </span>
-                    </div>                    
-                </transition>
-   </div>
-   <div v-else class=" d-md-flex" id="leftNav1" style="height: 100vh; width: 100%; background: var(--color-t); padding: 1px 5px 0px 15px;   flex-direction: column; ">
-                <ul class="navBtn" style="">
-                    <li v-bind:class="{navBtnActive:configBtn}" @click='navBtnFunc1'>
-                        <span>Config</span>
-                        <!-- <hr>  -->                       
-                    </li>
-                    <li v-bind:class="{navBtnActive:EquipBtn}" @click='navBtnFunc2'>
-                        <span>Equipments</span>
-                    <!-- <hr> -->
-                    </li>
-                </ul>
-                 <transition name="component-fade" mode="out-in"  >                
-                <div class="left-panel1 scrollbar" v-if="navSlide1" v-bind:class='{show:navSlide1}' style="display: none;margin-top: 6px; border:1px solid #ccc;box-shadow: 1px 2px 3px #ccc; overflow-y: scroll;" >
-                        <h4 style="text-align: center;color: var(--color);" >Equipments</h4>
-                        
-                          <br>
-                       <div> 
-                        <v-tooltip bottom>
-                          <template v-slot:activator="{ on, attrs }">
-                                <img class="picker1" src="/expImages/physics/exp1/solar_cell3.jpeg" v-bind="attrs" v-on="on" @click='' id="scell" >
-                          </template>
-                          <span>Solar Cell</span>
-                        </v-tooltip>
-                        <v-tooltip bottom>
-                          <template v-slot:activator="{ on, attrs }">                                
-                                <img class="picker1" src="/expImages/physics/exp1/voltmeter1.png" v-bind="attrs" v-on="on" @click='' id="voltmeter" >
-                          </template>
-                          <span>Voltmeter</span>
-                        </v-tooltip>
-                        <v-tooltip bottom>
-                          <template v-slot:activator="{ on, attrs }">                                
-                                <img class="picker1" src="/expImages/physics/exp1/ameter.png" v-bind="attrs" v-on="on" @click='' id="ameter">
-                          </template>
-                          <span>Ameter</span>
-                        </v-tooltip>
-                         <v-tooltip bottom>
+                        <br>
+                      <div class="m-0 p-0">                        
+                        <img data-toggle="tooltip" title="Solar Cell" data-placement="top" class="picker" src="/expImages/physics/exp1/solar_cell3.jpeg" v-bind="attrs" v-on="on" @click='' id="scell" >
 
-                          <template v-slot:activator="{ on, attrs }">
-                          <span v-bind:class="{tooltip:sunToolTip}" data-tooltip="Add Sun light by clicking">
-                          </span>                                
-                                <img class="picker1" src="/expImages/physics/exp1/lightModul.jpg" v-bind="attrs" v-on="on" @click='sunToolTip= !sunToolTip' id="sun">
-                          </template>
-                          <span>sun light</span>
-                        </v-tooltip>
+                            <img data-toggle="tooltip" title="Voltmeter" data-placement="bottom" class="picker" src="/expImages/physics/exp1/voltmeter1.png" v-bind="attrs" v-on="on" @click='' id="voltmeter" >                                                   
+                            <img data-toggle="tooltip" title="Ameter" data-placement="bottom"  class="picker" src="/expImages/physics/exp1/ameter.png" v-bind="attrs" v-on="on" @click='' id="ameter">                                              
+                      </span>                                
+                          <img data-toggle="tooltip" title="sun light" data-placement="bottom" class="picker" src="/expImages/physics/exp1/lightModulNav.jpg" width="100px" height="100px" v-bind="attrs" v-on="on" @click='sunToolTip= !sunToolTip' id="sun">                                                
                        </div>
-                </div>
-                </transition>
-                 <transition name="component-fade" mode="out-in"  >
-                    <div class="left-panel" v-if="navSlide2" v-bind:class='{show:navSlide2}' style="display: none ;" >
-                        <p style="text-align: center;color: var(--color); font-size: 105%;font-weight: bold" >CONFIGURATION</p>
-                        <input type="checkbox" id="spillAll" @click=""  name=""> <span class="config-label">arrage circuit</span><br>
-                        
-                        <input type="radio" id=""  name="mode"> <span class="config-label">Practice Mode</span><br>
-                        
-                        <input type="radio" id=""  name="mode"> <span class="config-label">Test Mode</span><br>
-                    </div>                    
-                </transition>
-   </div>
+                    </div>                
+                  </div>
+
  </div>
 </template>
 <script >
@@ -173,7 +71,7 @@
   props: ['has', 'ktype', 'function1','function2', 'function3', 'latitude', 'lampStrenght', 'exp4func1'],
   mounted(){
     $(document).ready(function(){
-      $('[data-toggle="tooltip"]').tooltip();
+      
     });
   }
 }
@@ -565,5 +463,10 @@
 .tooltip::after {
   opacity: 1;
   transform: translateY(-2px);
+}
+.leftNav{
+   width: 100%;
+  background: var(--color-t);
+   flex-direction: column; 
 }
 </style>

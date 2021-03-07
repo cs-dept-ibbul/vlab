@@ -1913,108 +1913,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2047,9 +1945,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: ['has', 'ktype', 'function1', 'function2', 'function3', 'latitude', 'lampStrenght', 'exp4func1'],
   mounted: function mounted() {
-    $(document).ready(function () {
-      $('[data-toggle="tooltip"]').tooltip();
-    });
+    $(document).ready(function () {});
   }
 });
 
@@ -2160,7 +2056,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 var ArrConn;
 var experimentOne, resulInHtml;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2171,7 +2066,7 @@ var experimentOne, resulInHtml;
           },
     */
     experimentOne: function experimentOne() {
-      return this.$store.state;
+      return this.$store.state.exp1;
     }
   },
   data: function data() {
@@ -2368,7 +2263,7 @@ var experimentOne, resulInHtml;
     }
   },
   created: function created() {
-    console.log(this.$store.state);
+    //console.log(this.$store.state);
     var subExp = [2, 'photovolatic'];
     this.expNum = Number(subExp[0]);
     this.expType = Number(subExp[1]);
@@ -2376,35 +2271,34 @@ var experimentOne, resulInHtml;
   mounted: function mounted() {
     var $vm = this;
     this.$nextTick(function () {
-      function resultTable() {
-        for (var ih in $vm.experimentOneResult) {
-          /*<h3 v-else >Parallel Connection</h3>*/
-          if (ih == 0) {
-            $vm.resulInHtml = " <h6>Series Connection</h6><table class='table table-bordered'><thead><th></th><th>One Solar Cell</th><th>Two Solar Cell</th><th>Three Solar Cell</th></thead><tbody>";
-            $vm.resulInHtml += "<tr><td>Vsc</td>";
-            $vm.resulInHtml += "<td  id='vsigna' class='Bsign'>" + $vm.experimentOneResult[0].series.one + "</td>";
-            $vm.resulInHtml += "<td id='vsignb' class='Bsign'>" + $vm.experimentOneResult[0].series.two + "</td>";
-            $vm.resulInHtml += "<td id='vsignc' class='Bsign'>" + $vm.experimentOneResult[0].series.three + "</td></tr>";
-            $vm.resulInHtml += "<tr><td>Isc</td>";
-            $vm.resulInHtml += "<td id='csigna' class='Bsign'>" + $vm.experimentOneResult[1].series.one + "</td>";
-            $vm.resulInHtml += "<td id='csignb' class='Bsign'>" + $vm.experimentOneResult[1].series.two + "</td>";
-            $vm.resulInHtml += "<td id='csignc' class='Bsign'>" + $vm.experimentOneResult[1].series.three + "</td></tr></tbody></table>";
-          } else {
-            $vm.resulInHtml += " <h6>parallel Connection</h6><table class='table table-bordered'><thead><th></th><th>One Solar Cell</th><th>Two Solar Cell</th><th>Three Solar Cell</th></thead><tbody>";
-            $vm.resulInHtml += "<tr><td>Vsc</td>";
-            $vm.resulInHtml += "<td id='vsignc' class='Bsign'>" + $vm.experimentOneResult[0].parallel.one + "</td>";
-            $vm.resulInHtml += "<td id='vsignd' class='Bsign'>" + $vm.experimentOneResult[0].parallel.two + "</td>";
-            $vm.resulInHtml += "<td id='vsigne' class='Bsign'>" + $vm.experimentOneResult[0].parallel.three + "</td></tr>";
-            $vm.resulInHtml += "<tr><td>Isc</td>";
-            $vm.resulInHtml += "<td id='csignc' class='Bsign'>" + $vm.experimentOneResult[1].parallel.one + "</td>";
-            $vm.resulInHtml += "<td id='csignd' class='Bsign'>" + $vm.experimentOneResult[1].parallel.two + "</td>";
-            $vm.resulInHtml += "<td id='csigne' class='Bsign'>" + $vm.experimentOneResult[1].parallel.three + "</td></tr></tbody></table>";
-          }
-        }
-
-        return $vm.resulInHtml;
-      }
-
+      /*   function resultTable(){
+             
+           for(var ih in $vm.experimentOneResult){
+         
+             if (ih==0){
+               $vm.resulInHtml =" <h6>Series Connection</h6><table class='table table-bordered'><thead><th></th><th>One Solar Cell</th><th>Two Solar Cell</th><th>Three Solar Cell</th></thead><tbody>";
+               $vm.resulInHtml +="<tr><td>Vsc</td>";
+               $vm.resulInHtml +="<td  id='vsigna' class='Bsign'>"+$vm.experimentOneResult[0].series.one+"</td>";
+               $vm.resulInHtml +="<td id='vsignb' class='Bsign'>"+$vm.experimentOneResult[0].series.two+"</td>";
+               $vm.resulInHtml +="<td id='vsignc' class='Bsign'>"+$vm.experimentOneResult[0].series.three+"</td></tr>";
+               $vm.resulInHtml +="<tr><td>Isc</td>";
+               $vm.resulInHtml +="<td id='csigna' class='Bsign'>"+$vm.experimentOneResult[1].series.one+"</td>";
+               $vm.resulInHtml +="<td id='csignb' class='Bsign'>"+$vm.experimentOneResult[1].series.two+"</td>";
+               $vm.resulInHtml +="<td id='csignc' class='Bsign'>"+$vm.experimentOneResult[1].series.three+"</td></tr></tbody></table>";
+             }else{
+               $vm.resulInHtml +=" <h6>parallel Connection</h6><table class='table table-bordered'><thead><th></th><th>One Solar Cell</th><th>Two Solar Cell</th><th>Three Solar Cell</th></thead><tbody>";
+               $vm.resulInHtml +="<tr><td>Vsc</td>";
+               $vm.resulInHtml +="<td id='vsignc' class='Bsign'>"+$vm.experimentOneResult[0].parallel.one+"</td>";
+               $vm.resulInHtml +="<td id='vsignd' class='Bsign'>"+$vm.experimentOneResult[0].parallel.two+"</td>";
+               $vm.resulInHtml +="<td id='vsigne' class='Bsign'>"+$vm.experimentOneResult[0].parallel.three+"</td></tr>";
+               $vm.resulInHtml +="<tr><td>Isc</td>";
+               $vm.resulInHtml +="<td id='csignc' class='Bsign'>"+$vm.experimentOneResult[1].parallel.one+"</td>";
+               $vm.resulInHtml +="<td id='csignd' class='Bsign'>"+$vm.experimentOneResult[1].parallel.two+"</td>";
+               $vm.resulInHtml +="<td id='csigne' class='Bsign'>"+$vm.experimentOneResult[1].parallel.three+"</td></tr></tbody></table>";
+             }
+           }
+           return $vm.resulInHtml;
+           }*/
       function checkConnectionfunc(exp2vicelabdA, connA) {
         var guide = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
         var count = 0;
@@ -3182,8 +3076,7 @@ var experimentOne, resulInHtml;
               } else if (connState == -3) {
                 alert('Experiments one Required only Three solar Cell; please delete');
               } else {
-                $vm.resulInHtmlF = resultTable();
-
+                //$vm.resulInHtmlF = resultTable()
                 if (connState[0] == 'current') {
                   DrawGauge('', 1, 0, 0);
                   setTimeout(function () {
@@ -3214,6 +3107,1311 @@ var experimentOne, resulInHtml;
               if (rel.includes('solar_cell')) {
                 instance.remove(rel, false, [false]);
                 $('#mainSheet').append('<div class="equipments drags solarsAll" style="display: none;" id="' + rel + '" @mouseover="removeClass" ><span><img class="ek" src="/expImages/physics/exp1/solar_cell3.jpeg" width="80px"></span><div class="cbtn"><button class="detach" rel="' + rel + '">detach</button><button class="deleteCell" rel="' + rel + '"><span><span>mdi-close</span></span></button></div></div>');
+              } else {
+                $('#' + this.getAttribute("rel")).hide(); //reset sunlight value
+
+                $vm.sun_light = 0;
+                $('sunL'); // alert( $vm.sun_light);    
+              }
+            });
+            /* instance.on(document.getElementById("doAsIdo"), "click", function (e) {
+                     instance.selectEndpoints({ source: dot }).each(function (endpoint) {
+                         endpoint.connectorStyle.dashstyle = "2 4";
+                         instance.repaint(element);
+                     });
+             });
+            */
+
+            instance.on(document.getElementById("resetall"), "click", function (e) {
+              $('.solarsAll').hide();
+              $('.voltmeterRead').hide();
+              $('.ameterRead').hide();
+              $vm.amp_num = 0;
+              $vm.volt_num = 0;
+              $vm.solar_num = 0;
+              $vm.solar_num1 = 0;
+              $vm.sun_light = 0;
+              instance.deleteEveryEndpoint();
+              /* showConnectionInfo("");
+               jsPlumbUtil.consume(e);*/
+            });
+          });
+          instance.draggable($(".drags"), {
+            containment: 'parent',
+            filter: ".ui-resizable-handle"
+          });
+          jsPlumb.fire("jsPlumbDemoLoaded", instance);
+        });
+      })();
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var ArrConn;
+var experimenttwo, resulInHtml, iterationType;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {},
+  computed: {
+    experimenttwo: function experimenttwo() {
+      return this.$store.state.exp2;
+    }
+  },
+  data: function data() {
+    return {
+      menuName1: "mdi-chevron-right",
+      menuState1: false,
+      menuName2: "mdi-chevron-left",
+      menuState2: false,
+      navdType: 'none',
+      experimenttwoResult: {
+        v: {
+          zero: '-',
+          onequater: '-',
+          half: '-',
+          threequater: '-',
+          fullone: '-'
+        },
+        c: {
+          zero: '-',
+          onequater: '-',
+          half: '-',
+          threequater: '-',
+          fullone: '-'
+        },
+        p: {
+          zero: '-',
+          onequater: '-',
+          half: '-',
+          threequater: '-',
+          fullone: '-'
+        }
+      },
+      iterationType: 0,
+      resulInHtml: '',
+      resulInHtmlF: '',
+      sunToolTip: false,
+      attrs: false,
+      on: false,
+      expNum: 0,
+      expType: 0,
+      solar_num: 0,
+      solar_num1: 0,
+      amp_num: 0,
+      sun_light: 0,
+      volt_num: 0,
+      navSlide1: true,
+      navSlide2: false,
+      configBtn: false,
+      EquipBtn: true,
+      naviconRight: 'mdi-reorder-horizontal',
+      navClickRightState: false,
+      guidings: false,
+      solarCell_id: [{
+        id: 1,
+        volt: 0
+      }, {
+        id: 2,
+        volt: 0
+      }, {
+        id: 3,
+        volt: 0
+      }, {
+        id: 4,
+        volt: 0
+      }, {
+        id: 5,
+        volt: 0
+      }, {
+        id: 6,
+        volt: 0
+      }, {
+        id: 7,
+        volt: 0
+      }, {
+        id: 8,
+        volt: 0
+      }, {
+        id: 9,
+        volt: 0
+      }, {
+        id: 10,
+        volt: 0
+      }, {
+        id: 11,
+        volt: 0
+      }, {
+        id: 12,
+        volt: 0
+      }, {
+        id: 13,
+        volt: 0
+      }, {
+        id: 14,
+        volt: 0
+      }, {
+        id: 15,
+        volt: 0
+      }, {
+        id: 16,
+        volt: 0
+      }],
+      voltValue: 0,
+      ampValue: 0
+    };
+  },
+  methods: {
+    menuClick1: function menuClick1() {
+      this.menuState1 = !this.menuState1;
+
+      if (this.menuState1 == true) {
+        this.menuName1 = "mdi-chevron-left";
+      } else {
+        this.menuName1 = "mdi-chevron-right";
+      }
+    },
+    menuClick2: function menuClick2() {
+      this.menuState2 = !this.menuState2;
+
+      if (this.menuState2 == true) {
+        this.menuName2 = "mdi-chevron-right";
+      } else {
+        this.menuName2 = "mdi-chevron-left";
+      }
+    },
+    onClickOutside: function onClickOutside() {
+      this.sunToolTip = false;
+    },
+    navBtnFunc1: function navBtnFunc1() {
+      if (this.configBtn == true && this.EquipBtn == false) {} else if (this.configBtn == false) {
+        this.navSlide2 = !this.navSlide2;
+        this.navSlide1 = !this.navSlide1;
+        this.configBtn = !this.configBtn;
+        this.EquipBtn = !this.EquipBtn;
+      }
+    },
+    navBtnFunc2: function navBtnFunc2() {
+      if (this.configBtn == false && this.EquipBtn == true) {} else if (this.EquipBtn == false) {
+        this.navSlide2 = !this.navSlide2;
+        this.navSlide1 = !this.navSlide1;
+        this.configBtn = !this.configBtn;
+        this.EquipBtn = !this.EquipBtn;
+      }
+    },
+    clickOutside: function clickOutside() {
+      this.navClickRightState = false;
+      document.getElementsByClassName('right-panel')[0].classList.remove('paneliWidth'); //d3.selectAll('.hideC').style('display','none');
+    },
+    switchStatefunc: function switchStatefunc() {
+      this.switchState = !this.switchState;
+
+      if (this.switchState) {
+        this.switchStatebtn = 'open switch';
+        this.switchSrc = "/expImages/physics/exp1/close_switch.png";
+      } else {
+        this.switchStatebtn = 'close switch';
+        this.switchSrc = "/expImages/physics/exp1/switch.png";
+      }
+    },
+    addCellfunc: function addCellfunc() {
+      this.cellCount++;
+
+      if (this.cellCount > this.maxCell) {
+        alert('maximum cell is ' + this.maxCell);
+        this.cellCount--;
+      } else {
+        this.bcellvalue += 1.5;
+        this.cellToAdd += singleCell;
+      }
+    },
+    removeCellfunc: function removeCellfunc() {
+      this.cellCount--;
+
+      if (this.cellCount == 0) {
+        alert('minimum cell is 1');
+        this.cellCount = 1;
+      } else {
+        this.bcellvalue -= 1.5;
+
+        for (var i = 1; i <= this.cellCount; i++) {
+          if (i == 1) {
+            this.cellToAdd = singleCell;
+          } else {
+            this.cellToAdd += singleCell;
+          }
+        }
+      }
+    },
+    //remove class from equipment on hover 
+    removeClass: function removeClass(e) {
+      var x = e.currentTarget; // console.log(x.className);
+
+      if (x.className.indexOf("needConnection") > 0) {
+        document.getElementById(x.id).classList.remove('needConnection');
+      }
+    }
+  },
+  created: function created() {
+    var subExp = [3, 'photovolatic'];
+    this.expNum = Number(subExp[0]);
+    this.expType = Number(subExp[1]);
+  },
+  mounted: function mounted() {
+    var $vm = this;
+    this.$nextTick(function () {
+      function resultTable() {
+        for (var ai in $vm.experimenttwoResult) {
+          if (ai == 'v') {
+            $vm.resulInHtml = " <h6>MEASURED VALUES</h6><table class='table table-bordered' style=''><thead><th></th><th style='word-wrap:wrap;'>0(not covered)</th><th>1/4</th><th>1/2</th><th>3/4</th><th>1</th></thead><tbody>";
+            $vm.resulInHtml += "<tr><th>V<sub>oc</sub></th>";
+            $vm.resulInHtml += "<td id='vsigna' class='Bsign'>" + $vm.experimenttwoResult[ai].zero + "</td>";
+            $vm.resulInHtml += "<td id='vsignb' class='Bsign'>" + $vm.experimenttwoResult[ai].onequater + "</td>";
+            $vm.resulInHtml += "<td id='vsignc' class='Bsign'>" + $vm.experimenttwoResult[ai].half + "</td>";
+            $vm.resulInHtml += "<td id='vsignd' class='Bsign'>" + $vm.experimenttwoResult[ai].threequater + "</td>";
+            $vm.resulInHtml += "<td id='vsigne' class='Bsign'>" + $vm.experimenttwoResult[ai].fullone + "</td>";
+          } else if (ai == 'c') {
+            $vm.resulInHtml += "<tr><th>I<sub>sc</sub></th>";
+            $vm.resulInHtml += "<td id='csigna' class='Bsign'>" + $vm.experimenttwoResult[ai].zero + "</td>";
+            $vm.resulInHtml += "<td id='csignb' class='Bsign'>" + $vm.experimenttwoResult[ai].onequater + "</td>";
+            $vm.resulInHtml += "<td id='csignc' class='Bsign'>" + $vm.experimenttwoResult[ai].half + "</td>";
+            $vm.resulInHtml += "<td id='csignd' class='Bsign'>" + $vm.experimenttwoResult[ai].threequater + "</td>";
+            $vm.resulInHtml += "<td id='csigne' class='Bsign'>" + $vm.experimenttwoResult[ai].fullone + "</td>";
+          } else if (ai == 'p') {
+            var p1 = '-',
+                p2 = '-',
+                p3 = '-',
+                p4 = '-',
+                p5 = '-';
+
+            if ($vm.experimenttwoResult['v'].zero != '-' && $vm.experimenttwoResult['c'].zero != '-') {
+              p1 = $vm.experimenttwoResult['v'].zero * $vm.experimenttwoResult['c'].zero;
+            }
+
+            if ($vm.experimenttwoResult['v'].onequater != '-' && $vm.experimenttwoResult['c'].onequater != '-') {
+              p2 = $vm.experimenttwoResult['v'].onequater * $vm.experimenttwoResult['c'].onequater;
+            }
+
+            if ($vm.experimenttwoResult['v'].half != '-' && $vm.experimenttwoResult['c'].half != '-') {
+              p3 = $vm.experimenttwoResult['v'].half * $vm.experimenttwoResult['c'].half;
+            }
+
+            if ($vm.experimenttwoResult['v'].threequater != '-' && $vm.experimenttwoResult['c'].threequater != '-') {
+              p4 = $vm.experimenttwoResult['v'].threequater * $vm.experimenttwoResult['c'].threequater;
+            }
+
+            if ($vm.experimenttwoResult['v'].fullone != '-' && $vm.experimenttwoResult['c'].fullone != '-') {
+              p5 = $vm.experimenttwoResult['v'].fullone * $vm.experimenttwoResult['c'].fullone;
+            }
+
+            $vm.resulInHtml += "<tr><th>P<code>I*V</code></th>";
+            $vm.resulInHtml += "<td>" + p1 + "</td>";
+            $vm.resulInHtml += "<td>" + p2 + "</td>";
+            $vm.resulInHtml += "<td>" + p3 + "</td>";
+            $vm.resulInHtml += "<td>" + p4 + "</td>";
+            $vm.resulInHtml += "<td>" + p5 + "</td>";
+          }
+        }
+
+        return $vm.resulInHtml;
+      }
+
+      function checkConnectionfunc(storedA, connA) {
+        var guide = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+        var count = 0;
+        var sobj = []; // let storedA2 = JSON.parse(JSON.stringify(storedA));
+
+        for (var i = 0; i < storedA.length; i++) {
+          for (var j = 0; j < connA.length; j++) {
+            if (storedA[i].source == connA[j].source && storedA[i].target == connA[j].target || storedA[i].source == connA[j].target && storedA[i].target == connA[j].source) {
+              count++;
+              j = connA.length; //remove from original correct connection
+
+              sobj.push(i); // storedA2.splice(i, 1);
+            }
+          }
+        }
+
+        if (count == storedA.length) {
+          return true;
+        } else {
+          // console.log(storedA2);
+          if (guide == true) {
+            for (var i = 0; i < storedA.length; i++) {
+              if (JSON.stringify(sobj).includes(i)) {} else {
+                document.getElementById(storedA[i].sid).classList.add('needConnection');
+                document.getElementById(storedA[i].tid).classList.add('needConnection');
+              }
+            }
+          }
+
+          return false;
+        }
+      }
+
+      function solveExpression(Array1, count) {
+        var guid = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+        var m,
+            seriesCount = 0,
+            parallelCount = 0;
+        var confirm,
+            result = [],
+            keeperR,
+            tracker = 0,
+            trackerC = -1,
+            keeperC = ['voltmeterRead', 'ameterRead'],
+            readerIsConnected = 0;
+
+        for (m in Array1) {
+          // check if any of the reader is connected
+          if (keeperC.includes(Array1[m].sid) || keeperC.includes(Array1[m].tid)) {
+            readerIsConnected = 1;
+          } else {
+            //check connection type
+            if (Array1[m].source != Array1[m].target) {
+              seriesCount++;
+            } else {
+              parallelCount++;
+            }
+          }
+
+          if (tracker == 0) {
+            if (Array1[m].sid == 'voltmeterRead' || Array1[m].sid == 'ameterRead' || Array1[m].tid == 'voltmeterRead' || Array1[m].tid == 'ameterRead') {
+              if (Array1[m].sid == 'voltmeterRead' || Array1[m].tid == 'voltmeterRead') {
+                if (Array1[m].sid == 'voltmeterRead') {
+                  keeperR = Array1[m].sid;
+                  tracker = 1; //to track the first source or target
+                } else {
+                  keeperR = Array1[m].tid;
+                  tracker = 1; //to track the first source or target
+                }
+              } else {
+                if (Array1[m].sid == 'ameterRead') {
+                  keeperR = Array1[m].sid;
+                  tracker = 1; //to track the first source or target
+                } else {
+                  keeperR = Array1[m].tid;
+                  tracker = 1; //to track the first source or target
+                }
+              }
+            }
+          } else {
+            //alert(keeperR +'+'+Array1[m].sid+'+'+Array1[m].tid)
+            if (keeperC.includes(Array1[m].sid) || keeperC.includes(Array1[m].tid)) {
+              if (Array1[m].sid == keeperR || Array1[m].tid == keeperR) {
+                trackerC = 1;
+              } else {
+                trackerC = 0;
+                break;
+              }
+            }
+          }
+        }
+
+        if (readerIsConnected == 1) {
+          if (trackerC == 1) {
+            var readerT, rType;
+
+            if (keeperR == 'ameterRead') {
+              readerT = 'c';
+              rType = 'current';
+            } else {
+              rType = 'voltage';
+              readerT = 'v';
+            }
+
+            if (count == 0) {
+              confirm = checkConnectionfunc($vm.experimenttwo['arr1' + readerT + 1], Array1, guid);
+
+              if (confirm) {
+                if ($vm.sun_light == 1) {
+                  result.push(rType, $vm.experimenttwo['arr1' + readerT]);
+
+                  if (rType == 'voltage') {
+                    $vm.experimenttwoResult['v'].zero = $vm.experimenttwo['arr1' + readerT];
+                  } else {
+                    $vm.experimenttwoResult['c'].zero = $vm.experimenttwo['arr1' + readerT];
+                  }
+
+                  return result;
+                } else {
+                  return 0; //no sun light 
+                }
+              } else {
+                result = null;
+                return result;
+                /* connection not valid */
+              }
+            } //quarter covered solar sell
+            else if (count == 'quater') {
+                confirm = checkConnectionfunc($vm.experimenttwo['arr2' + readerT + 1], Array1, guid);
+
+                if (confirm) {
+                  if ($vm.sun_light == 1) {
+                    result.push(rType, $vm.experimenttwo['arr2' + readerT]);
+
+                    if (rType == 'voltage') {
+                      $vm.experimenttwoResult['v'].onequater = $vm.experimenttwo['arr2' + readerT];
+                    } else {
+                      $vm.experimenttwoResult['c'].onequater = $vm.experimenttwo['arr2' + readerT];
+                    }
+
+                    return result;
+                  } else {
+                    return 0; //no sun light 
+                  }
+                } else {
+                  result = null;
+                  return result;
+                  /* connection not valid */
+                }
+              } //half covered solar cell
+              else if (count == 'half') {
+                  confirm = checkConnectionfunc($vm.experimenttwo['arr3' + readerT + 1], Array1, guid);
+
+                  if (confirm) {
+                    if ($vm.sun_light == 1) {
+                      result.push(rType, $vm.experimenttwo['arr3' + readerT]);
+
+                      if (rType == 'voltage') {
+                        $vm.experimenttwoResult['v'].half = $vm.experimenttwo['arr3' + readerT];
+                      } else {
+                        $vm.experimenttwoResult['c'].half = $vm.experimenttwo['arr3' + readerT];
+                      }
+
+                      return result;
+                    } else {
+                      return 0; //no sun light 
+                    }
+                  } else {
+                    result = null;
+                    return result;
+                    /* connection not valid */
+                  }
+                } //three quarter covered solar cell
+                else if (count == 'threeQuater') {
+                    confirm = checkConnectionfunc($vm.experimenttwo['arr4' + readerT + 1], Array1, guid);
+
+                    if (confirm) {
+                      if ($vm.sun_light == 1) {
+                        result.push(rType, $vm.experimenttwo['arr4' + readerT]);
+
+                        if (rType == 'voltage') {
+                          $vm.experimenttwoResult['v'].threequater = $vm.experimenttwo['arr4' + readerT];
+                        } else {
+                          $vm.experimenttwoResult['c'].threequater = $vm.experimenttwo['arr4' + readerT];
+                        }
+
+                        return result;
+                      } else {
+                        return 0; //no sun light 
+                      }
+                    } else {
+                      result = null;
+                      return result;
+                      /* connection not valid */
+                    }
+                  } //fullone covered solar cell
+                  else if (count == 'fullOne') {
+                      confirm = checkConnectionfunc($vm.experimenttwo['arr5' + readerT + 1], Array1, guid);
+
+                      if (confirm) {
+                        if ($vm.sun_light == 1) {
+                          result.push(rType, $vm.experimenttwo['arr5' + readerT]);
+
+                          if (rType == 'voltage') {
+                            $vm.experimenttwoResult['v'].one = $vm.experimenttwo['arr5' + readerT];
+                          } else {
+                            $vm.experimenttwoResult['c'].one = $vm.experimenttwo['arr5' + readerT];
+                          }
+
+                          return result;
+                        } else {
+                          return 0; //no sun light 
+                        }
+                      } else {
+                        result = null;
+                        return result;
+                        /* connection not valid */
+                      }
+                    }
+          } else {
+            document.getElementById('ameterRead').classList.add('needConnection');
+            document.getElementById('voltmeterRead').classList.add('needConnection');
+            return -1; //multi reading not allowed
+          }
+        } else {
+          return -2; // no reader connected
+        }
+      }
+
+      function DrawVolt() {
+        new RadialGauge({
+          renderTo: 'another-gauge',
+          width: 150,
+          height: 150,
+          units: 'Volts',
+          title: false,
+          value: 0,
+          minValue: 0,
+          maxValue: 35,
+          majorTicks: ['0', '5', '10', '15', '20', '25', '30', '35'],
+          highlights: [{
+            "from": 0,
+            "to": 35,
+            "color": "#A8D3D5"
+          }]
+        }).draw();
+      }
+
+      function DrawAmpere() {
+        new RadialGauge({
+          renderTo: 'ameter-gauage',
+          width: 150,
+          height: 150,
+          units: 'A',
+          title: false,
+          value: 0,
+          minValue: 0,
+          maxValue: 20,
+          majorTicks: ['0', '5', '10', '15', '20'],
+          highlightsWidth: 25,
+          colorNeedle: "#3CA7DB",
+          needleType: "arrow",
+          colorPlate: "#fff",
+          colorUnits: "#3CA7DB",
+          colorNumbers: "#3CA7DB",
+          highlights: [{
+            "from": 0,
+            "to": 20,
+            "color": "#A8D3D5"
+          }],
+          borderShadowWidth: 0,
+          borders: false,
+          animateOnInit: true,
+          animatedValue: true
+        }).draw();
+      }
+
+      function DrawGauge() {
+        var type1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+        var type2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+        var volt = arguments.length > 2 ? arguments[2] : undefined;
+        var ame = arguments.length > 3 ? arguments[3] : undefined;
+
+        if (type1 != '') {
+          new RadialGauge({
+            renderTo: 'another-gauge',
+            width: 150,
+            height: 150,
+            units: 'Volts',
+            title: false,
+            value: volt,
+            minValue: 0,
+            maxValue: 35,
+            majorTicks: ['0', '5', '10', '15', '20', '25', '30', '35'],
+            highlights: [{
+              "from": 0,
+              "to": 35,
+              "color": "#A8D3D5"
+            }]
+          }).draw();
+        } else {
+          console.log('empty volt data parameters 312');
+        }
+
+        if (type2 != '') {
+          new RadialGauge({
+            renderTo: 'ameter-gauage',
+            width: 150,
+            height: 150,
+            units: 'A',
+            title: false,
+            value: ame,
+            minValue: 0,
+            maxValue: 20,
+            majorTicks: ['0', '5', '10', '15', '20'],
+            highlightsWidth: 25,
+            colorNeedle: "#3CA7DB",
+            needleType: "arrow",
+            colorPlate: "#fff",
+            colorUnits: "#3CA7DB",
+            colorNumbers: "#3CA7DB",
+            highlights: [{
+              "from": 0,
+              "to": 20,
+              "color": "#A8D3D5"
+            }],
+            borderShadowWidth: 0,
+            borders: false
+            /*,
+            animateOnInit: true,
+            animatedValue: true*/
+
+          }).draw();
+        } else {
+          console.log('empty ameter data parameters');
+        }
+      }
+
+      DrawAmpere($vm.v);
+      DrawVolt();
+
+      (function () {
+        var listDiv = document.getElementById("list"),
+            showConnectionInfo = function showConnectionInfo(s) {
+          listDiv.innerHTML = s;
+          listDiv.style.display = "block";
+          listDiv.style.position = "fixed";
+          listDiv.style.zIndex = "10";
+          listDiv.style.top = "30px";
+          listDiv.style.left = "64%";
+          listDiv.style.width = "350px";
+        },
+            hideConnectionInfo = function hideConnectionInfo() {
+          listDiv.style.display = "none";
+        },
+            connections = [],
+            updateConnections = function updateConnections(conn, remove) {
+          if (!remove) connections.push(conn);else {
+            var idx = -1;
+
+            for (var i = 0; i < connections.length; i++) {
+              if (connections[i] == conn) {
+                idx = i;
+                break;
+              }
+            }
+
+            if (idx != -1) {
+              connections.splice(idx, 1); //ArrConn.splice()
+            }
+
+            ;
+          }
+
+          if (connections.length > 0) {
+            var s = "<span id='connNav1' style='font-size:2em; color:#d53; float:right;cursor:pointer' onclick='$(document).ready(function(){$(\"#connTable\").fadeOut(50); $(\"#connNav1\").fadeOut(50); $(\"#connNav2\").show(80);})' >-</span><span style='font-size:2em; color:#d53; float:right;cursor:pointer;display:none;' id='connNav2' onclick='$(document).ready(function(){$(\"#connTable\").fadeIn(50); $(\"#connNav1\").fadeIn(80); $(\"#connNav2\").fadeOut(50);})' >+</span><span style='clear:right;'><strong>Connections</strong></span><br/><br/><table id='connTable'><tr><th>Scope</th><th>Source</th><th>Target</th></tr>";
+            ArrConn = [];
+            var tid, sid;
+
+            for (var j = 0; j < connections.length; j++) {
+              // console.log(connections);
+              tid = connections[j].targetId;
+              sid = connections[j].sourceId;
+              ArrConn.push({
+                'source': connections[j].sourceId[0] + '_' + connections[j].endpoints[0].type,
+                'target': connections[j].targetId[0] + '_' + connections[j].endpoints[1].type,
+                'tid': tid,
+                'sid': sid
+              }); // console.log(connections[j].endpoints[0].type);
+
+              s = s + "<tr><td>" + connections[j].scope + "</td>" + "<td>" + connections[j].sourceId + "</td><td>" + connections[j].targetId + "</td></tr>";
+            }
+
+            console.log(ArrConn); /////////////////////////evaluation if connnection //////////////////////////////                      
+
+            /* var connState = checkConnectionfunc(use_StoreArrConn,ArrConn, guidings);
+             //console.log($vm.switchState);
+              if (connState) {
+                  //check if key is close
+                  if ($vm.switchState){
+                      let TOTAL_R =  (1/$vm.resistor) + (1/$vm.vResistor);
+                       $vm.ampValue = $vm.bcellvalue/TOTAL_R;
+                       intactCon = true;
+                      DrawGauge( $vm.voltValue, $vm.ampValue);
+                         //animateGauges();
+                  }else{
+                      if(guidings){
+                          alert('Switch is open');
+                      }
+                  }
+              }*/
+            /////////////////////////End evaluation if connnection //////////////////////////////
+            //console.log(ArrConn);
+
+            showConnectionInfo(s);
+          } else hideConnectionInfo();
+        };
+
+        jsPlumb.ready(function () {
+          var instance = jsPlumb.getInstance({
+            DragOptions: {
+              cursor: 'pointer',
+              zIndex: 2000
+            },
+            PaintStyle: {
+              stroke: '#a66'
+            },
+            EndpointHoverStyle: {
+              fill: "orange"
+            },
+            HoverPaintStyle: {
+              stroke: "orange"
+            },
+            EndpointStyle: {
+              width: 20,
+              height: 16,
+              stroke: '#666'
+            },
+            Endpoint: "Rectangle",
+            Anchors: ["bottomLeft", "bottomRight"],
+            Container: "canvas"
+          }); // suspend drawing and initialise.
+
+          instance.batch(function () {
+            // bind to connection/connectionDetached events, and update the list of connections on screen.
+            instance.bind("connection", function (info, originalEvent) {
+              updateConnections(info.connection);
+            });
+            instance.bind("connectionDetached", function (info, originalEvent) {
+              updateConnections(info.connection, true);
+            });
+            instance.bind("connectionMoved", function (info, originalEvent) {
+              //  only remove here, because a 'connection' event is also fired.
+              // in a future release of jsplumb this extra connection event will not
+              // be fired.
+              updateConnections(info.connection, true);
+            });
+            instance.bind("dblclick", function (info, originalEvent) {
+              updateConnections(info.connection, true);
+            }); // configure some drop options for use by all endpoints.
+
+            var exampleDropOptions = {
+              tolerance: "touch",
+              hoverClass: "dropHover",
+              activeClass: "dragActive"
+            }; //
+            // first example endpoint.  it's a 25x21 rectangle (the size is provided in the 'style' arg to the Endpoint),
+            // and it's both a source and target.  the 'scope' of this Endpoint is 'exampleConnection', meaning any connection
+            // starting from this Endpoint is of type 'exampleConnection' and can only be dropped on an Endpoint target
+            // that declares 'exampleEndpoint' as its drop scope, and also that
+            // only 'exampleConnection' types can be dropped here.
+            //
+            // the connection style for this endpoint is a Bezier curve (we didn't provide one, so we use the default), with a strokeWidth of
+            // 5 pixels, and a gradient.
+            //
+            // there is a 'beforeDrop' interceptor on this endpoint which is used to allow the user to decide whether
+            // or not to allow a particular connection to be established.
+            //
+
+            var exampleColor = "#00f";
+            var exampleEndpoint = {
+              endpoint: "Rectangle",
+              paintStyle: {
+                width: 45,
+                height: 41,
+                fill: exampleColor
+              },
+              isSource: true,
+              reattach: true,
+              scope: "blue",
+              connectorStyle: {
+                gradient: {
+                  stops: [[0, exampleColor], [0.5, "#09098e"], [1, exampleColor]]
+                },
+                strokeWidth: 5,
+                stroke: exampleColor,
+                dashstyle: "2 2"
+              },
+              isTarget: true,
+              beforeDrop: function beforeDrop(params) {
+                return confirm("Connect " + params.sourceId + " to " + params.targetId + "?");
+              },
+              dropOptions: exampleDropOptions
+            }; //
+            // the second example uses a Dot of radius 15 as the endpoint marker, is both a source and target,
+            // and has scope 'exampleConnection2'.
+            //
+
+            var color2 = "red";
+            var exampleEndpoint2 = {
+              endpoint: "Rectangle",
+              paintStyle: {
+                width: 25,
+                height: 25,
+                fill: color2
+              },
+              isSource: true,
+              scope: "connect",
+              connectorStyle: {
+                stroke: color2,
+                strokeWidth: 2
+              },
+              connector: ["Bezier", {
+                curviness: 63
+              }],
+              maxConnections: 3,
+              isTarget: true,
+              uuid: 'positive',
+              overlays: [['Label', {
+                label: '+',
+                location: 50,
+                id: '+ive'
+              }]],
+              labelStyle: {
+                color: 'var(--color)'
+              },
+              beforeDrop: function beforeDrop(params) {
+                //console.log(params);
+                return true; //confirm("Connect " + params.sourceId + " to " + params.targetId + "?");
+              },
+              dropOptions: exampleDropOptions
+            };
+            var color21 = "blue";
+            var exampleEndpoint21 = {
+              endpoint: ["Dot", {
+                radius: 15
+              }],
+              paintStyle: {
+                fill: color21
+              },
+              isSource: true,
+              scope: "connect",
+              connectorStyle: {
+                stroke: color21,
+                strokeWidth: 2
+              },
+              connector: ["Bezier", {
+                curviness: 63
+              }],
+              maxConnections: 3,
+              isTarget: true,
+              uuid: 'negative',
+              overlays: [['Label', {
+                label: '-',
+                location: 50,
+                id: '-ive'
+              }]],
+              beforeDrop: function beforeDrop(params) {
+                //console.log(params);
+                return true; //return confirm("Connect " + params.sourceId + " to " + params.targetId + "?");
+              },
+              dropOptions: exampleDropOptions
+            }; //
+            // the third example uses a Dot of radius 17 as the endpoint marker, is both a source and target, and has scope
+            // 'exampleConnection3'.  it uses a Straight connector, and the Anchor is created here (bottom left corner) and never
+            // overriden, so it appears in the same place on every element.
+            //
+            // this example also demonstrates the beforeDetach interceptor, which allows you to intercept
+            // a connection detach and decide whether or not you wish to allow it to proceed.
+            //
+
+            var example3Color = "rgba(229,219,61,0.5)";
+            var exampleEndpoint3 = {
+              endpoint: ["Dot", {
+                radius: 6
+              }],
+              anchor: "BottomLeft",
+              paintStyle: {
+                fill: example3Color,
+                opacity: 0.5
+              },
+              isSource: true,
+              scope: 'blue',
+              connectorStyle: {
+                stroke: example3Color,
+                strokeWidth: 4
+              },
+              connector: "Straight",
+              isTarget: true,
+              dropOptions: exampleDropOptions,
+              beforeDetach: function beforeDetach(conn) {// return confirm("Detach connection?");
+              },
+              onMaxConnections: function onMaxConnections(info) {//alert("Cannot drop connection " + info.connection.id + " : maxConnections has been reached on Endpoint " + info.endpoint.id);
+              }
+            }; // setup some empty endpoints.  again note the use of the three-arg method to reuse all the parameters except the location
+            // of the anchor (purely because we want to move the anchor around here; you could set it one time and forget about it though.)
+
+            for (var i = 1; i <= 10; i++) {} // setup some DynamicAnchors for use with the blue endpoints
+            // and a function to set as the maxConnections callback.
+
+
+            var anchors = [[1, 0.2, 1, 0], [0.8, 1, 0, 1], [0, 0.8, -1, 0], [0.2, 0, 0, -1]],
+                maxConnectionsCallback = function maxConnectionsCallback(info) {// alert("Cannot drop connection " + info.connection.id + " : maxConnections has been reached on Endpoint " + info.endpoint.id);
+            };
+            /*----------------------------------large screen left nav, unique id was required--------------------------------*/
+
+
+            $('#leftNav').on('click', '.picker', function (e) {
+              var type = e.currentTarget.id;
+
+              if (type == 'scell') {
+                if ($vm.solar_num < 1) {
+                  $vm.solar_num++;
+                  $vm.solar_num1++;
+                  $('#solar_cell' + $vm.solar_num).css('display', 'flex');
+                  instance.addEndpoint('solar_cell' + $vm.solar_num, {
+                    anchor: [0.16, 1.8, 0, 1]
+                  }, exampleEndpoint21);
+                  instance.addEndpoint('solar_cell' + $vm.solar_num, {
+                    anchor: [0.4, 1.8, 0, 1]
+                  }, exampleEndpoint2);
+                } else {
+                  alert('only one solar cell allow in this experiment');
+                }
+              } else if (type == 'voltmeter') {
+                if ($vm.volt_num < 1) {
+                  $vm.volt_num++;
+                  $('#voltmeterRead').css('display', 'flex');
+                  instance.addEndpoint('voltmeterRead', {
+                    anchor: [0.3, 1.3, 0, 1]
+                  }, exampleEndpoint21);
+                  instance.addEndpoint('voltmeterRead', {
+                    anchor: [0.6, 1.3, 0, 1]
+                  }, exampleEndpoint2);
+                } else {
+                  alert('voltmeter already exist');
+                }
+              } else if (type == 'ameter') {
+                if ($vm.amp_num < 1) {
+                  $vm.amp_num++;
+                  $('#ameterRead').css('display', 'flex');
+                  setTimeout(function () {
+                    instance.addEndpoint('ameterRead', {
+                      anchor: [0.3, 1.3, 0, 1]
+                    }, exampleEndpoint21);
+                    instance.addEndpoint('ameterRead', {
+                      anchor: [0.6, 1.3, 0, 1]
+                    }, exampleEndpoint2);
+                  }, 700);
+                } else {
+                  alert('ameter already exist');
+                }
+              } else if (type == 'sun') {
+                if ($vm.sun_light == 0) {
+                  $vm.sun_light++;
+                  $('#sunLight').css('display', 'flex');
+                } else {
+                  alert('light module already added');
+                }
+              }
+            });
+            /*----------------------------------end of large screen left nav bar-----------------------------------------------*/
+
+            /*----------------------------for small screen left nav bar, unique id was required----------------------------------------*/
+
+            $('#leftNav1').on('click', '.picker', function (e) {
+              var type = e.currentTarget.id;
+
+              if (type == 'scell') {
+                if ($vm.solar_num < 10) {
+                  $vm.solar_num++;
+                  $vm.solar_num1++;
+                  $('#solar_cell' + $vm.solar_num).show();
+                  instance.addEndpoint('solar_cell' + $vm.solar_num, {
+                    anchor: [-0.1, 0.94, 0, 1]
+                  }, exampleEndpoint21);
+                  instance.addEndpoint('solar_cell' + $vm.solar_num, {
+                    anchor: [0.5, 0.94, 0, 1]
+                  }, exampleEndpoint2);
+                } else {
+                  document.location.reload(true);
+                }
+              } else if (type == 'voltmeter') {
+                if ($vm.volt_num < 1) {
+                  $vm.volt_num++;
+                  $('#voltmeterRead').show();
+                  instance.addEndpoint('voltmeterRead', {
+                    anchor: [0.3, 1.3, 0, 1]
+                  }, exampleEndpoint21);
+                  instance.addEndpoint('voltmeterRead', {
+                    anchor: [0.6, 1.3, 0, 1]
+                  }, exampleEndpoint2);
+                } else {
+                  alert('voltmeter already exist');
+                }
+              } else if (type == 'ameter') {
+                if ($vm.amp_num < 1) {
+                  $vm.amp_num++;
+                  $('#ameterRead').show();
+                  setTimeout(function () {
+                    instance.addEndpoint('ameterRead', {
+                      anchor: [0.3, 1.3, 0, 1]
+                    }, exampleEndpoint21);
+                    instance.addEndpoint('ameterRead', {
+                      anchor: [0.6, 1.3, 0, 1]
+                    }, exampleEndpoint2);
+                  }, 700);
+                } else {
+                  alert('ameter already exist');
+                }
+              } else if (type == 'sun') {
+                if ($vm.sun_light == 0) {
+                  $vm.sun_light++;
+                  $('#sunLight').show();
+                } else {
+                  alert('light module already added');
+                }
+              }
+            });
+            /*-----------------------------end of small screen left nav bar------------------------------------------------*/
+            //detach links
+
+            var detachLinks = jsPlumb.getSelector('.detach');
+            instance.on(detachLinks, "click", function (e) {
+              var rel = this.getAttribute("rel").split('-');
+              instance.deleteConnectionsForElement(this.getAttribute("rel")); //console.log(this.getAttribute("rel"));
+
+              DrawGauge(1, 1, 0, 0);
+              jsPlumbUtil.consume(e);
+            });
+            var shadowRangeBtn = jsPlumb.getSelector('.shadowRange');
+            instance.on(shadowRangeBtn, "click", function (e) {
+              var rel = this.getAttribute("rel");
+
+              if (rel == 'quater') {
+                $vm.iterationType = 'quater';
+                $('.shadowCover').css('height', '50px');
+              } else if (rel == 'half') {
+                $vm.iterationType = 'half';
+                $('.shadowCover').css('height', '100px');
+              } else if (rel == 'threeQuater') {
+                $vm.iterationType = 'threeQuater';
+                $('.shadowCover').css('height', '150px');
+              } else if (rel == 'fullOne') {
+                $vm.iterationType = 'fullOne';
+                $('.shadowCover').css('height', '200px');
+              } else if (rel == 'zero') {
+                $vm.iterationType = 0;
+                $('.shadowCover').css('height', '0px');
+              }
+            }); ///////////////////////////////main junction
+            //take reading
+
+            var readMeter = jsPlumb.getSelector('.read');
+            instance.on(readMeter, "click", function (e) {
+              // alert($vm.solar_num)
+              var connState = solveExpression(ArrConn, $vm.iterationType, true);
+
+              if (connState == null) {
+                alert('invalid connnections');
+              } else if (connState == 0) {
+                alert('add sunLight');
+                $vm.sunToolTip = true;
+              } else if (connState == -1) {
+                alert('multi reading not allowed');
+              } else if (connState == -2) {
+                alert('connect the Reader');
+              } else if (connState == -3) {
+                alert('Experiments one Required only Three solar Cell; please delete');
+              } else {
+                $vm.resulInHtmlF = resultTable();
+
+                if (connState[0] == 'current') {
+                  DrawGauge('', 1, 0, 0);
+                  setTimeout(function () {
+                    DrawGauge('', 1, 0, connState[1] + 5);
+                    setTimeout(function () {
+                      DrawGauge('', 1, 0, connState[1]);
+                    }, 200);
+                  }, 200);
+                  /*sign on current iteration*/
+
+                  if ($vm.iterationType == 0) {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#csigna').addClass('tableRow');
+                    }, 3000);
+                  }
+
+                  if ($vm.iterationType == 'quater') {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#csignb').addClass('tableRow');
+                    }, 3000);
+                  }
+
+                  if ($vm.iterationType == 'half') {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#csignc').addClass('tableRow');
+                    }, 3000);
+                  }
+
+                  if ($vm.iterationType == 'threeQuater') {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#csignd').addClass('tableRow');
+                    }, 3000);
+                  }
+
+                  if ($vm.iterationType == 'fullOne') {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#csigne').addClass('tableRow');
+                    }, 3000);
+                  }
+                  /*end */
+
+                } else {
+                  DrawGauge(1, 1, 0, 0);
+                  setTimeout(function () {
+                    DrawGauge(1, '', connState[1] + 5, 0);
+                    setTimeout(function () {
+                      DrawGauge(1, '', connState[1], 0);
+                    }, 200);
+                  }, 200);
+                  /*sign on current iteration*/
+
+                  if ($vm.iterationType == 0) {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#vsigna').addClass('tableRow');
+                    }, 3000);
+                  }
+
+                  if ($vm.iterationType == 'quater') {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#vsignb').addClass('tableRow');
+                    }, 3000);
+                  }
+
+                  if ($vm.iterationType == 'half') {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#vsignc').addClass('tableRow');
+                    }, 3000);
+                  }
+
+                  if ($vm.iterationType == 'threeQuater') {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#vsignd').addClass('tableRow');
+                    }, 3000);
+                  }
+
+                  if ($vm.iterationType == 'fullOne') {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#vsigne').addClass('tableRow');
+                    }, 3000);
+                  }
+                  /*end */
+
+                }
+              }
+            }); ///////////////////////////////end main junction                    
+            // delete cell
+
+            var deleteCell = jsPlumb.getSelector('.deleteCell');
+            instance.on(deleteCell, "click", function (e) {
+              //readding elelemt becaus jsplumb has remove the element completely
+              var rel = this.getAttribute("rel");
+
+              if (rel.includes('solar_cell')) {
+                instance.remove(rel, false, [false]);
+                $('#mainSheet').append('<div class="equipments drags solarsAll" style="display: none;" id="' + rel + '" @mouseover="removeClass" ><span><img class="ek" src="/expImages/physics/exp1/solar_cell3.jpeg" width="80px"></span><div class="cbtn"><button class="detach" rel="' + rel + '">detach</button><button class="deleteCell" rel="' + rel + '"><span><span>mdi-close</span></span></button></div></div>');
+                /*
+                 $('#mainSheet').append('<div class="equipments drags solarsAll" style="display: none;" id="'+rel+'" @mouseover="removeClass" ><span><img class="ek" src="/expImages/physics/exp1/solar_cell3.jpeg" width="80px"></span><div class="cbtn"><button class="detach" rel="'+rel+'">detach</button><button class="deleteCell" rel="'+rel+'"><span ></span></button></div></div>');*/
               } else {
                 $('#' + this.getAttribute("rel")).hide(); //reset sunlight value
 
@@ -3289,7 +4487,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
 /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(bootstrap__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _store_exp2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store/exp2 */ "./resources/js/store/exp2.js");
+/* harmony import */ var _store_exp1__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store/exp1 */ "./resources/js/store/exp1.js");
+/* harmony import */ var _store_exp2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store/exp2 */ "./resources/js/store/exp2.js");
 
 
  //Main pages
@@ -3303,12 +4502,14 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vuex__WEBPACK_IMPORTED_MODULE_2__.d
 /*import storeData from "./store/index";*/
 
 
+
 /*
 const store = new Vuex.Store(
    storeData
 )*/
 
-var store = new vuex__WEBPACK_IMPORTED_MODULE_2__.default.Store(_store_exp2__WEBPACK_IMPORTED_MODULE_3__.default);
+var store = new vuex__WEBPACK_IMPORTED_MODULE_2__.default.Store(_store_exp1__WEBPACK_IMPORTED_MODULE_3__.default);
+var store2 = new vuex__WEBPACK_IMPORTED_MODULE_2__.default.Store(_store_exp2__WEBPACK_IMPORTED_MODULE_4__.default);
 /*global event bus and communication*/
 
 vue__WEBPACK_IMPORTED_MODULE_1__.default.prototype.$eventBus = new vue__WEBPACK_IMPORTED_MODULE_1__.default();
@@ -3327,6 +4528,7 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-progress', __webpack_requi
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-thread', __webpack_require__(/*! ./components/threadTrends.vue */ "./resources/js/components/threadTrends.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-createcourse', __webpack_require__(/*! ./components/createCourse.vue */ "./resources/js/components/createCourse.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-vicelabexp2', __webpack_require__(/*! ./components/vicelabexp2.vue */ "./resources/js/components/vicelabexp2.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-vicelabexp3', __webpack_require__(/*! ./components/vicelabexp3.vue */ "./resources/js/components/vicelabexp3.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-vicelabtools', __webpack_require__(/*! ./components/vicelabExpEquip.vue */ "./resources/js/components/vicelabExpEquip.vue").default); //experiment Right Nav bar
 
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-tlb2', __webpack_require__(/*! ./components/title-left-bar.vue */ "./resources/js/components/title-left-bar.vue").default); // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
@@ -3352,6 +4554,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_1__.default({
   el: '#app',
   bootstrap: (bootstrap__WEBPACK_IMPORTED_MODULE_0___default()),
   store: store,
+  store2: store2,
 
   /*expvicelab2,*/
   data: function data() {
@@ -3362,13 +4565,13 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_1__.default({
   },
   methods: {
     toggleClass: function toggleClass() {
-      this.isLoading = !this.isLoading; //this.classObj = { "color-blue" : true};
+      this.isLoading = !this.isLoading;
     }
   },
-  mounted: function mounted() {
-    /*console.log(expvicelab2.state);*/
-  }
+  mounted: function mounted() {}
 });
+/*experiment timing filter */
+
 vue__WEBPACK_IMPORTED_MODULE_1__.default.filter('two_digits', function (value) {
   if (value < 0) {
     value = 0;
@@ -3380,6 +4583,372 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.filter('two_digits', function (value) {
   }
 
   return value;
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/exp1.js":
+/*!************************************!*\
+  !*** ./resources/js/store/exp1.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  state: {
+    exp1: {
+      //###################################One###########################################################  
+      arr1v1: [{
+        source: "v_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }, {
+        source: "v_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }],
+      arr1c1: [{
+        source: "a_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }, {
+        source: "a_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }],
+      arr1v: 11.5,
+      arr1c: 2.65,
+      //###################################Two###########################################################  
+      //two solar cell
+      //parallele
+      arr2pv1: [{
+        source: "s_Dot",
+        target: "s_Dot",
+        tid: "solar_cell2",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell2",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Dot",
+        target: "v_Dot",
+        tid: "voltmeterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "v_Rectangle",
+        tid: "voltmeterRead",
+        sid: "solar_cell1"
+      }],
+      arr2pc1: [{
+        source: "s_Dot",
+        target: "s_Dot",
+        tid: "solar_cell2",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell2",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Dot",
+        target: "a_Dot",
+        tid: "ameterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "a_Rectangle",
+        tid: "ameterRead",
+        sid: "solar_cell1"
+      }],
+      arr2pv: 11.5,
+      arr2pc: 2.65 * 2,
+      //series
+      arr2sv1: [{
+        source: "s_Rectangle",
+        target: "v_Rectangle",
+        tid: "voltmeterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "solar_cell2"
+      }, {
+        source: "s_Dot",
+        target: "v_Dot",
+        tid: "voltmeterRead",
+        sid: "solar_cell2"
+      }],
+      arr2sc1: [{
+        source: "s_Rectangle",
+        target: "a_Rectangle",
+        tid: "ameterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "solar_cell2"
+      }, {
+        source: "s_Dot",
+        target: "a_Dot",
+        tid: "ameterRead",
+        sid: "solar_cell2"
+      }],
+      arr2sv: 6 * 2,
+      arr2sc: 2.65,
+      //###################################Three###########################################################        
+      //three solar cell
+      //parallel
+      arr3pv1: [{
+        source: "s_Dot",
+        target: "v_Dot",
+        tid: "voltmeterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "v_Rectangle",
+        tid: "voltmeterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "solar_cell2"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "solar_cell2"
+      }, {
+        source: "s_Dot",
+        target: "s_Dot",
+        tid: "solar_cell2",
+        sid: "solar_cell3"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell2",
+        sid: "solar_cell3"
+      }],
+      arr3pc1: [{
+        source: "s_Dot",
+        target: "a_Dot",
+        tid: "ameterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "a_Rectangle",
+        tid: "ameterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "solar_cell2"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "solar_cell2"
+      }, {
+        source: "s_Dot",
+        target: "s_Dot",
+        tid: "solar_cell2",
+        sid: "solar_cell3"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell2",
+        sid: "solar_cell3"
+      }],
+      arr3pv: 11.5,
+      arr3pc: 2.65 * 3,
+      //series
+      arr3sv1: [{
+        source: "s_Rectangle",
+        target: "v_Rectangle",
+        tid: "voltmeterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Dot",
+        tid: "solar_cell4",
+        sid: "solar_cell3"
+      }, {
+        source: "s_Dot",
+        target: "v_Dot",
+        tid: "voltmeterRead",
+        sid: "solar_cell3"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "solar_cell4"
+      }],
+      arr3sc1: [{
+        source: "s_Rectangle",
+        target: "a_Rectangle",
+        tid: "ameterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Dot",
+        tid: "solar_cell4",
+        sid: "solar_cell3"
+      }, {
+        source: "s_Dot",
+        target: "a_Dot",
+        tid: "ameterRead",
+        sid: "solar_cell3"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "solar_cell4"
+      }],
+      arr3sv: 6 * 3,
+      arr3sc: 2.65
+    },
+    exp2: {
+      //###################################zero covered###########################################################  
+      arr1v1: [{
+        source: "v_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }, {
+        source: "v_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }],
+      arr1c1: [{
+        source: "a_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }, {
+        source: "a_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }],
+      arr1v: 12,
+      arr1c: 4.65,
+      //###################################one quater###########################################################  
+      arr2v1: [{
+        source: "v_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }, {
+        source: "v_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }],
+      arr2c1: [{
+        source: "a_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }, {
+        source: "a_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }],
+      arr2v: 9.5,
+      arr2c: 3.44,
+      //###################################half###########################################################    
+      arr3v1: [{
+        source: "v_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }, {
+        source: "v_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }],
+      arr3c1: [{
+        source: "a_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }, {
+        source: "a_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }],
+      arr3v: 7.5,
+      arr3c: 2.32,
+      //###################################three Quater###########################################################    
+      arr4v1: [{
+        source: "v_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }, {
+        source: "v_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }],
+      arr4c1: [{
+        source: "a_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }, {
+        source: "a_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }],
+      arr4v: 5.5,
+      arr4c: 1.16,
+      //###################################full coverered###########################################################    
+      arr5v1: [{
+        source: "v_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }, {
+        source: "v_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }],
+      arr5c1: [{
+        source: "a_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }, {
+        source: "a_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }],
+      arr5v: 0,
+      arr5c: 0
+    }
+  }
 });
 
 /***/ }),
@@ -3397,7 +4966,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   state: {
-    //###################################One###########################################################  
+    //###################################zero covered###########################################################  
     arr1v1: [{
       source: "v_Dot",
       target: "s_Dot",
@@ -3420,202 +4989,108 @@ __webpack_require__.r(__webpack_exports__);
       tid: "solar_cell1",
       sid: "ameterRead"
     }],
-    arr1v: 11.5,
-    arr1c: 2.65,
-    //###################################Two###########################################################  
-    //two solar cell
-    //parallele
-    arr2pv1: [{
-      source: "s_Dot",
-      target: "s_Dot",
-      tid: "solar_cell2",
-      sid: "solar_cell1"
-    }, {
-      source: "s_Rectangle",
-      target: "s_Rectangle",
-      tid: "solar_cell2",
-      sid: "solar_cell1"
-    }, {
-      source: "s_Dot",
-      target: "v_Dot",
-      tid: "voltmeterRead",
-      sid: "solar_cell1"
-    }, {
-      source: "s_Rectangle",
-      target: "v_Rectangle",
-      tid: "voltmeterRead",
-      sid: "solar_cell1"
-    }],
-    arr2pc1: [{
-      source: "s_Dot",
-      target: "s_Dot",
-      tid: "solar_cell2",
-      sid: "solar_cell1"
-    }, {
-      source: "s_Rectangle",
-      target: "s_Rectangle",
-      tid: "solar_cell2",
-      sid: "solar_cell1"
-    }, {
-      source: "s_Dot",
-      target: "a_Dot",
-      tid: "ameterRead",
-      sid: "solar_cell1"
-    }, {
-      source: "s_Rectangle",
-      target: "a_Rectangle",
-      tid: "ameterRead",
-      sid: "solar_cell1"
-    }],
-    arr2pv: 11.5,
-    arr2pc: 2.65 * 2,
-    //series
-    arr2sv1: [{
-      source: "s_Rectangle",
-      target: "v_Rectangle",
-      tid: "voltmeterRead",
-      sid: "solar_cell1"
-    }, {
-      source: "s_Rectangle",
+    arr1v: 12,
+    arr1c: 4.65,
+    //###################################one quater###########################################################  
+    arr2v1: [{
+      source: "v_Dot",
       target: "s_Dot",
       tid: "solar_cell1",
-      sid: "solar_cell2"
+      sid: "voltmeterRead"
     }, {
-      source: "s_Dot",
-      target: "v_Dot",
-      tid: "voltmeterRead",
-      sid: "solar_cell2"
-    }],
-    arr2sc1: [{
-      source: "s_Rectangle",
-      target: "a_Rectangle",
-      tid: "ameterRead",
-      sid: "solar_cell1"
-    }, {
-      source: "s_Rectangle",
-      target: "s_Dot",
-      tid: "solar_cell1",
-      sid: "solar_cell2"
-    }, {
-      source: "s_Dot",
-      target: "a_Dot",
-      tid: "ameterRead",
-      sid: "solar_cell2"
-    }],
-    arr2sv: 6 * 2,
-    arr2sc: 2.65,
-    //###################################Three###########################################################        
-    //three solar cell
-    //parallel
-    arr3pv1: [{
-      source: "s_Dot",
-      target: "v_Dot",
-      tid: "voltmeterRead",
-      sid: "solar_cell1"
-    }, {
-      source: "s_Rectangle",
-      target: "v_Rectangle",
-      tid: "voltmeterRead",
-      sid: "solar_cell1"
-    }, {
-      source: "s_Dot",
-      target: "s_Dot",
-      tid: "solar_cell1",
-      sid: "solar_cell2"
-    }, {
-      source: "s_Rectangle",
+      source: "v_Rectangle",
       target: "s_Rectangle",
       tid: "solar_cell1",
-      sid: "solar_cell2"
-    }, {
-      source: "s_Dot",
-      target: "s_Dot",
-      tid: "solar_cell2",
-      sid: "solar_cell3"
-    }, {
-      source: "s_Rectangle",
-      target: "s_Rectangle",
-      tid: "solar_cell2",
-      sid: "solar_cell3"
+      sid: "voltmeterRead"
     }],
-    arr3pc1: [{
-      source: "s_Dot",
-      target: "a_Dot",
-      tid: "ameterRead",
-      sid: "solar_cell1"
-    }, {
-      source: "s_Rectangle",
-      target: "a_Rectangle",
-      tid: "ameterRead",
-      sid: "solar_cell1"
-    }, {
-      source: "s_Dot",
+    arr2c1: [{
+      source: "a_Dot",
       target: "s_Dot",
       tid: "solar_cell1",
-      sid: "solar_cell2"
+      sid: "ameterRead"
     }, {
-      source: "s_Rectangle",
+      source: "a_Rectangle",
       target: "s_Rectangle",
       tid: "solar_cell1",
-      sid: "solar_cell2"
-    }, {
-      source: "s_Dot",
+      sid: "ameterRead"
+    }],
+    arr2v: 9.5,
+    arr2c: 3.44,
+    //###################################half###########################################################    
+    arr3v1: [{
+      source: "v_Dot",
       target: "s_Dot",
-      tid: "solar_cell2",
-      sid: "solar_cell3"
+      tid: "solar_cell1",
+      sid: "voltmeterRead"
     }, {
-      source: "s_Rectangle",
+      source: "v_Rectangle",
       target: "s_Rectangle",
-      tid: "solar_cell2",
-      sid: "solar_cell3"
+      tid: "solar_cell1",
+      sid: "voltmeterRead"
     }],
-    arr3pv: 11.5,
-    arr3pc: 2.65 * 3,
-    //series
-    arr3sv1: [{
-      source: "s_Rectangle",
-      target: "v_Rectangle",
-      tid: "voltmeterRead",
-      sid: "solar_cell1"
-    }, {
-      source: "s_Rectangle",
-      target: "s_Dot",
-      tid: "solar_cell4",
-      sid: "solar_cell3"
-    }, {
-      source: "s_Dot",
-      target: "v_Dot",
-      tid: "voltmeterRead",
-      sid: "solar_cell3"
-    }, {
-      source: "s_Rectangle",
+    arr3c1: [{
+      source: "a_Dot",
       target: "s_Dot",
       tid: "solar_cell1",
-      sid: "solar_cell4"
+      sid: "ameterRead"
+    }, {
+      source: "a_Rectangle",
+      target: "s_Rectangle",
+      tid: "solar_cell1",
+      sid: "ameterRead"
     }],
-    arr3sc1: [{
-      source: "s_Rectangle",
-      target: "a_Rectangle",
-      tid: "ameterRead",
-      sid: "solar_cell1"
-    }, {
-      source: "s_Rectangle",
-      target: "s_Dot",
-      tid: "solar_cell4",
-      sid: "solar_cell3"
-    }, {
-      source: "s_Dot",
-      target: "a_Dot",
-      tid: "ameterRead",
-      sid: "solar_cell3"
-    }, {
-      source: "s_Rectangle",
+    arr3v: 7.5,
+    arr3c: 2.32,
+    //###################################three Quater###########################################################    
+    arr4v1: [{
+      source: "v_Dot",
       target: "s_Dot",
       tid: "solar_cell1",
-      sid: "solar_cell4"
+      sid: "voltmeterRead"
+    }, {
+      source: "v_Rectangle",
+      target: "s_Rectangle",
+      tid: "solar_cell1",
+      sid: "voltmeterRead"
     }],
-    arr3sv: 6 * 3,
-    arr3sc: 2.65
+    arr4c1: [{
+      source: "a_Dot",
+      target: "s_Dot",
+      tid: "solar_cell1",
+      sid: "ameterRead"
+    }, {
+      source: "a_Rectangle",
+      target: "s_Rectangle",
+      tid: "solar_cell1",
+      sid: "ameterRead"
+    }],
+    arr4v: 5.5,
+    arr4c: 1.16,
+    //###################################full coverered###########################################################    
+    arr5v1: [{
+      source: "v_Dot",
+      target: "s_Dot",
+      tid: "solar_cell1",
+      sid: "voltmeterRead"
+    }, {
+      source: "v_Rectangle",
+      target: "s_Rectangle",
+      tid: "solar_cell1",
+      sid: "voltmeterRead"
+    }],
+    arr5c1: [{
+      source: "a_Dot",
+      target: "s_Dot",
+      tid: "solar_cell1",
+      sid: "ameterRead"
+    }, {
+      source: "a_Rectangle",
+      target: "s_Rectangle",
+      tid: "solar_cell1",
+      sid: "ameterRead"
+    }],
+    arr5v: 0,
+    arr5c: 0
   }
 });
 
@@ -8276,7 +9751,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n/*@import url(\"https://use.fontawesome.com/releases/v5.13.0/css/all.css\");*/\ndiv[data-v-fc4318ee]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.slidewr[data-v-fc4318ee] {\n    position: absolute;\n    width: 100px;\n    height: 100px;    \n    transform: translateX(-100%);\n    -webkit-transform: translateX(-100%);\n}\n.slidein[data-v-fc4318ee] {\n    animation: slide-in-data-v-fc4318ee 0.5s forwards;\n    -webkit-animation: slide-in-data-v-fc4318ee 0.5s forwards;\n}\n.slideout[data-v-fc4318ee] {\n    animation: slide-out-data-v-fc4318ee 0.5s forwards;\n    -webkit-animation: slide-out-data-v-fc4318ee 0.5s forwards;\n}\n@keyframes slide-in-data-v-fc4318ee {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@-webkit-keyframes slide-in-data-v-fc4318ee {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@keyframes slide-out-data-v-fc4318ee {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.1); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:0;\n}\n}\n@-webkit-keyframes slide-out-data-v-fc4318ee {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.5); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:-10;\n}\n}\n[data-v-fc4318ee]::-webkit-scrollbar {\n  width: 9px; \n  cursor: pointer;\n}\n\n/* Track */\n[data-v-fc4318ee]::-webkit-scrollbar-track {\n\twidth: 50px;\n  border-radius: 5px;\n}\n \n/* Handle */\n[data-v-fc4318ee]::-webkit-scrollbar-thumb {\n  background: #eee; \n  border-radius: 10px;\n  cursor: pointer;\n}\n\n/* Handle on hover */\n[data-v-fc4318ee]::-webkit-scrollbar-thumb:hover {\n  background: #fff; \n  cursor: pointer;\n}\n.box[data-v-fc4318ee]{\n\theight: 35px; \n\t/*background-image:linear-gradient(#2F274E, #34d, #2F274E);*/\n\tbackground: darkblue;\n\tbox-shadow: 0px 0px 10px #fff;\n\tmargin: 35px auto;\n\ttext-align: center;\n\tcolor: #fff;\n\tpadding-top: 5px;\n\tborder-radius: 4px;\n\ttext-shadow: 1px 2px 2px #555;\n\tcursor: pointer !important;\n}\n.boxActive[data-v-fc4318ee]{\n\tbackground: #2F274E;\n}\n.containerR[data-v-fc4318ee]{\n\theight: 537px;\n\tbackground: #40356E;\n\toverflow-x: scroll;\n\tcolor: #fff;\n}\n.fa-align-justify[data-v-fc4318ee]{\n\tpadding: 5px;\n\tborder-radius: 0px 0px 3px 0px;\n\tcursor: pointer;\n\tborder-left: 1px solid #2F274E;\n\tcolor: #fff;\t\n\tbackground:transparent !important;\n}\n.fa-align-justify[data-v-fc4318ee]:hover{\n\tcolor: #2F274E;\n\tbackground:#fff !important;\n}\n.input-search[data-v-fc4318ee]{\n\twidth:100%;\n\theight:37px;\n\tbackground:#2F274E;\n\tpadding:10px;\n\tcolor:#fff;\n\tborder:none;\n}\n.input-alt[data-v-fc4318ee]{\n\twidth:100%;\n\theight:37px;\n\tbackground:#2F274E;\n\tpadding:10px;\n\tcolor:#fff;\n\tborder:none;\n\tposition: relative;\n\tz-index: 10;\n}\n.serachicon[data-v-fc4318ee]{\n\tcolor:#eee;\n\tposition: absolute;\n\tright: 10px; \n\ttop: 10px;\n}\n.pr[data-v-fc4318ee]{\n\tposition: relative;\n\tdisplay: block;\n}\n.z-1[data-v-fc4318ee]{\n\tz-index: 1;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/*@import url(\"https://use.fontawesome.com/releases/v5.13.0/css/all.css\");*/\ndiv[data-v-fc4318ee]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.slidewr[data-v-fc4318ee] {\n    position: absolute;\n    width: 100px;\n    height: 100px;    \n    transform: translateX(-100%);\n    -webkit-transform: translateX(-100%);\n}\n.slidein[data-v-fc4318ee] {\n    animation: slide-in-data-v-fc4318ee 0.5s forwards;\n    -webkit-animation: slide-in-data-v-fc4318ee 0.5s forwards;\n}\n.slideout[data-v-fc4318ee] {\n    animation: slide-out-data-v-fc4318ee 0.5s forwards;\n    -webkit-animation: slide-out-data-v-fc4318ee 0.5s forwards;\n}\n@keyframes slide-in-data-v-fc4318ee {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@-webkit-keyframes slide-in-data-v-fc4318ee {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@keyframes slide-out-data-v-fc4318ee {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.1); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:0;\n}\n}\n@-webkit-keyframes slide-out-data-v-fc4318ee {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.5); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:-10;\n}\n}\n[data-v-fc4318ee]::-webkit-scrollbar {\n  width: 9px; \n  cursor: pointer;\n}\n\n/* Track */\n[data-v-fc4318ee]::-webkit-scrollbar-track {\n\twidth: 50px;\n  border-radius: 5px;\n}\n \n/* Handle */\n[data-v-fc4318ee]::-webkit-scrollbar-thumb {\n  background: #eee; \n  border-radius: 10px;\n  cursor: pointer;\n}\n\n/* Handle on hover */\n[data-v-fc4318ee]::-webkit-scrollbar-thumb:hover {\n  background: #fff; \n  cursor: pointer;\n}\n.box[data-v-fc4318ee]{\n\theight: 35px; \n\t/*background-image:linear-gradient(#2F274E, #34d, #2F274E);*/\n\tbackground: darkblue;\n\tbox-shadow: 0px 0px 10px #fff;\n\tmargin: 35px auto;\n\ttext-align: center;\n\tcolor: #fff;\n\tpadding-top: 5px;\n\tborder-radius: 4px;\n\ttext-shadow: 1px 2px 2px #555;\n\tcursor: pointer !important;\n}\n.boxActive[data-v-fc4318ee]{\n\tbackground: #2F274E;\n}\n.containerR[data-v-fc4318ee]{\n\theight: 537px;\n\tbackground: #40356E;\n\toverflow-x: scroll;\n\tcolor: #fff;\n}\n.fa-align-justify[data-v-fc4318ee]{\n\tpadding: 5px;\n\tborder-radius: 0px 0px 3px 0px;\n\tcursor: pointer;\n\tborder-left: 1px solid #2F274E;\n\tcolor: #fff;\t\n\tbackground:transparent !important;\n}\n.fa-align-justify[data-v-fc4318ee]:hover{\n\tcolor: #2F274E;\n\tbackground:#fff !important;\n}\n.input-search[data-v-fc4318ee]{\n\twidth:100%;\n\theight:37px;\n\tbackground:#2F274E;\n\tpadding:10px;\n\tcolor:#fff;\n\tborder:none;\n}\n.input-alt[data-v-fc4318ee]{\n\twidth:100%;\n\theight:37px;\n\tbackground:#2F274E;\n\tpadding:10px;\n\tcolor:#fff;\n\tborder:none;\n\tposition: relative;\n\tz-index: 10;\n}\n.serachicon[data-v-fc4318ee]{\n\tcolor:#eee;\n\tposition: absolute;\n\tright: 10px; \n\ttop: 10px;\n}\n.pr[data-v-fc4318ee]{\n\tposition: relative;\n\tdisplay: block;\n}\n.z-1[data-v-fc4318ee]{\n\tz-index: 1;\n}\n.vhE-2[data-v-fc4318ee]{\n\theight: 87vh;\n\twidth: 100%;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -8648,7 +10123,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n[data-v-42e4f650]:root {\n      --color:  rgb(38, 95, 9);\n      --colorbtn: #fff;      \n      --color-t: #6b3;\n      --color-t1:  rgba(255, 255, 255);\n      --color-primary: rgb(255, 255, 255) ;\n      --color-secondary: rgb(255, 255, 255);\n      --bg: rgb(0, 16, 65);\n      --bg-secondary: rgb(0, 25, 165);\n      --border-color: rgb(153, 214, 255);\n}\n.v-btn[data-v-42e4f650]{\n        padding: 1px !important;\n        width: 5px !important;\n}\n.navBtn[data-v-42e4f650]{\n        padding: 0px;\n        margin: 0px;\n        height: 40px;\n        width: 100%;\n        display: flex;\n}\n.navBtn li[data-v-42e4f650]{\n        cursor: pointer;\n        box-shadow: 1px 2px 4px #ccc;\n        list-style: none;\n        display: inline-block;\n        padding: 8px 0px 0px 0px;\n         border: 1px solid #6b3;\n        margin: 0px;\n        color:#6b3;\n        background: #fff;\n        text-align: center;\n        width: 50%;\n        margin: 2px;\n\n        height: 40px;\n}\n.navBtn li span[data-v-42e4f650]{\n        font-size: 0.8em;\n        font-family: arial;\n        font-weight: bold;\n        text-transform: capitalize;\n}\n.navBtn li hr[data-v-42e4f650]{\n        margin: 8px 0px;\n        padding: 0px;\n        width: 100%;\n        border:1px solid var(--color);\n        box-shadow: 0px 3px 5px #000;\n}\n.navBtnActive[data-v-42e4f650]{\n        background:  #6b3 !important;        \n        /*box-shadow: 0px 2px 10px inset var(--color-t) !important;*/\n        color: #fff !important;\n        transition : background 1000ms ease;\n}\n.navBtn li:hover hr[data-v-42e4f650]{\n\n        border:1px solid #555;\n        transition : border 500ms ease-out;\n}\n.component-fade-enter-active[data-v-42e4f650], .component-fade-leave-active[data-v-42e4f650] {\n  transition: 1s ease;\n}\n.component-fade-enter[data-v-42e4f650], .component-fade-leave-to[data-v-42e4f650]\n{\n  transform: translateX(-250px);\n}\n.picker[data-v-42e4f650]{\n        width: 80px;\n        height: 80px;\n        \n        margin: 5px;\n        float: left;\n        border-radius: 3px;        \n        cursor: pointer;\n}\n.picker[data-v-42e4f650]:hover{\n        box-shadow: 1px 2px 2px #ccc;\n}\n.picker1[data-v-42e4f650]{\n        width: 140px;\n        height: 140px;\n        padding: 5px;\n        border-radius: 3px;\n        border: 1px solid #ccc;\n        cursor: pointer;\n}\n.picker1[data-v-42e4f650]:hover{\n        box-shadow: 1px 2px 2px #ccc;\n}\n.show[data-v-42e4f650]{\n    display: block !important;\n}\n.left-panel1[data-v-42e4f650]{  \n        color: var(--color) !important;\n        padding: 20px 0px;\n        margin: 0px auto;\n        background: var(--color-t);\n        width:100%;\n        height: 100%;\n}\n.left-panel[data-v-42e4f650]{ \n        /*box-shadow: 1px 2px 8px #ccc; */\n        border: 1px solid #ccc; \n           box-shadow: 1px 2px 3px #ccc;\n       /* border-radius: 0px 8px 8px 0px; */\n        height: 85%; \n        color: var(--color) !important;\n        padding: 20px;\n        position: absolute;\n        z-index: 100;                     \n        left:5px;\n        top: 48px;\n        width:95%;\n        background: var(--color-t);\n}\n.v-btn[data-v-42e4f650]{\n        padding: 1px !important;\n        width: 5px !important;\n}\n.smLong[data-v-42e4f650]:hover{\n      transform: translateX(-70px);\n}\n.smLong[data-v-42e4f650]{      \n        position: relative;\n        z-index: 104;\n        background: rgba(60,150,40,.4) !important;\n        color: black !important;\n}\n.component-fade-enter-active[data-v-42e4f650], .component-fade-leave-active[data-v-42e4f650] {\n  transition: 1s ease;\n}\n.component-fade-enter[data-v-42e4f650], .component-fade-leave-to[data-v-42e4f650]\n{\n  transform: translateX(-50px);\n}\n.show[data-v-42e4f650]{\n    display: block !important;\n}\n.paneli[data-v-42e4f650]{\n        top:13px;       \n        height: 96vh;\n        position: fixed;\n        z-index: 10;\n        padding: 6px;\n}\n.right-panel[data-v-42e4f650]{\n        display: none;\n        right: 120px;         \n        width: 400px;\n        overflow-y:hidden;\n        -webkit-animation-name: rightP-data-v-42e4f650;\n                animation-name: rightP-data-v-42e4f650;\n        -webkit-animation-duration: 1.5s;\n                animation-duration: 1.5s;\n        -webkit-animation-delay: 0s;\n                animation-delay: 0s;\n        -webkit-animation-iteration-count: 1;\n                animation-iteration-count: 1;\n        -webkit-animation-timing-function: ease;\n                animation-timing-function: ease;\n}\n.right-panel1[data-v-42e4f650]{\n        display: none;\n        right: 120px;         \n        width: 250px;\n        overflow-y:hidden;\n        -webkit-animation-name: rightP-data-v-42e4f650;\n                animation-name: rightP-data-v-42e4f650;\n        -webkit-animation-duration: 1.5s;\n                animation-duration: 1.5s;\n        -webkit-animation-delay: 0s;\n                animation-delay: 0s;\n        -webkit-animation-iteration-count: 1;\n                animation-iteration-count: 1;\n        -webkit-animation-timing-function: ease;\n                animation-timing-function: ease;\n}\n.paneliWidth[data-v-42e4f650]{\n        display: block;\n        right: 120px;\n        /*transition: width 0.9s linear 0s;*/\n        -webkit-animation-name: rightPi-data-v-42e4f650;\n                animation-name: rightPi-data-v-42e4f650;\n         -webkit-animation-duration: 1s;\n                 animation-duration: 1s;\n}\n@-webkit-keyframes rightPi-data-v-42e4f650{\n0%{\n            right: -100px;\n}\n100%{\n            right: 120px ;\n}\n}\n@keyframes rightPi-data-v-42e4f650{\n0%{\n            right: -100px;\n}\n100%{\n            right: 120px ;\n}\n}\n.paneliWidth1[data-v-42e4f650]{\n        display: block;\n        right: 50px;\n        position: fixed;\n        z-index: 102;\n        box-shadow: 1px 3px 3px #ccc !important;\n        border-radius: 15px !important;\n        /*transition: width 0.9s linear 0s;*/\n        -webkit-animation-name: rightPii-data-v-42e4f650;\n                animation-name: rightPii-data-v-42e4f650;\n         -webkit-animation-duration: 1s;\n                 animation-duration: 1s;\n}\n@media screen and (max-width: 959px){\n.styledBtn[data-v-42e4f650]{\n            position: relative !important;\n            right: 23% !important;\n}\n}\n@-webkit-keyframes rightPii-data-v-42e4f650{\n0%{\n            right: -100px;\n}\n100%{\n            right: 50px ;\n}\n}\n@keyframes rightPii-data-v-42e4f650{\n0%{\n            right: -100px;\n}\n100%{\n            right: 50px ;\n}\n}\nol li[data-v-42e4f650]{\n        text-align:justify;\n        font-size: 0.9em;\n}\n@-webkit-keyframes leftP-data-v-42e4f650{\n0%{\n            left: -380px;\n}\n100%{\n            left: -100px;\n}\n}\n@keyframes leftP-data-v-42e4f650{\n0%{\n            left: -380px;\n}\n100%{\n            left: -100px;\n}\n}\n@-webkit-keyframes rightP-data-v-42e4f650{\n0%{\n            right: -100px;\n}\n100%{\n            right: -100px;\n}\n}\n@keyframes rightP-data-v-42e4f650{\n0%{\n            right: -100px;\n}\n100%{\n            right: -100px;\n}\n}\n.styledBtn[data-v-42e4f650]{\n        padding:12px;\n        border-radius: 5px;\n        width:100%;\n        text-align: center;\n        cursor: pointer;\n        margin:6px;\n        color: var(--color-t);\n        background: var(--colorbtn) ;\n        box-sizing: border-box;\n        box-shadow: 1px 2px 3px #ccc;\n        outline: none;\n}\n.styledBtn[data-v-42e4f650]:hover{\n        background: white;\n        color:#a93;\n        box-shadow:inset 0 0 10px var(--color) !important;\n}\n.styledBtn[data-v-42e4f650]:focus{\n        background: white;\n        color:#a93;\n        box-shadow:inset 0 0 10px var(--color-t) !important;\n}\n.hideC[data-v-42e4f650]{\n        display: none !important;\n}\n.cbtn button[data-v-42e4f650]{        \n        text-transform: capitalize;\n        margin:5px;\n        letter-spacing: 0.6px;\n        font-size: 0.8em;\n        padding: 4px;\n        text-decoration: none;\n        border-radius: 4px;\n        width: 90px !important;\n        background: rgba(150,150,150,.02);\n        color:#ba6;\n        box-shadow: 1px 2px 2px #eee;\n        text-align: center;\n}\n.cbtn button[data-v-42e4f650]:hover{\n        background: orange !important;\n        color:white;\n}\n.config-label[data-v-42e4f650]{\n        font-size: 0.8em;\n        color:var(--color);\n}\ninput[type=checkbox][data-v-42e4f650]{\n        cursor: pointer;\n}\n.vr[data-v-42e4f650]{\n        top: 90px !important;\n         left:330px !important;\n        /*transition: width 0.9s linear 0s;*/\n        -webkit-animation-name: vresi-data-v-42e4f650 !important;\n                animation-name: vresi-data-v-42e4f650 !important;\n        -webkit-animation-duration: 2s;\n                animation-duration: 2s;\n         -webkit-animation-iteration-count: 1;\n                 animation-iteration-count: 1;\n         -webkit-animation-delay: 0s;\n                 animation-delay: 0s;\n        -webkit-animation-timing-function: ease;\n                animation-timing-function: ease;\n}\n@-webkit-keyframes vresi-data-v-42e4f650{\n0%{\n            top: 0px !important;\n}\n100%{\n            to:90px !important;\n}\n}\n@keyframes vresi-data-v-42e4f650{\n0%{\n            top: 0px !important;\n}\n100%{\n            to:90px !important;\n}\n}\n.rightnav[data-v-42e4f650]{\n      box-shadow: 1px 2px 8px #ccc; \n        border-radius: 8px 0px 0px 8px;         \n        padding: 16px;\n        background: var(--color-t);\n        width: 250px;\n        height: 100%;\n      font-size: 0.85em;\n      text-align: justify !important;\n}\n.rightnav ol[data-v-42e4f650]{\n      padding: 8px 8px;\n}\n.tooltip[data-v-42e4f650] {\n  position: relative;\n  color: #fff;\n  padding: 0px 12px;\n    text-align: center;\n  height: 80px;\n  margin: 5px;\n  font-size: 15px;\n  border-radius: 100%;\n}\n.tooltip[data-v-42e4f650]:before,\n.tooltip[data-v-42e4f650]:after {\n  position: absolute;\n  content: '';\n  opacity: 0;\n  transition: all 0.4s ease;\n}\n.tooltip[data-v-42e4f650]:before {\n  border-width: 10px 8px 0 8px;\n  border-style: solid;\n  border-color: #c32 transparent transparent transparent;\n  top: 20px;\n  z-index: 3;\n}\n.tooltip[data-v-42e4f650]:after {\n  box-shadow: 1px 2px 8px #ccc;\n  content: attr(data-tooltip);\n  background: rgba(50,50,50,.7);\n  width: 160px;\n  height: 55px;\n  font-size: 13px;\n  font-weight: 300;\n  top: -35px;\n  left: -10px;\n  z-index: 2;\n  padding: 4px;\n  border-radius: 5px;\n  letter-spacing: 1px;\n  transition: background 2s;\n  transform: translateY(20px);\n}\n.tooltip[data-v-42e4f650]::before,\n.tooltip[data-v-42e4f650]::after {\n  opacity: 1;\n  transform: translateY(-2px);\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n[data-v-42e4f650]:root {\n      --color:  rgb(38, 95, 9);\n      --colorbtn: #fff;      \n      --color-t: #6b3;\n      --color-t1:  rgba(255, 255, 255);\n      --color-primary: rgb(255, 255, 255) ;\n      --color-secondary: rgb(255, 255, 255);\n      --bg: rgb(0, 16, 65);\n      --bg-secondary: rgb(0, 25, 165);\n      --border-color: rgb(153, 214, 255);\n}\n.v-btn[data-v-42e4f650]{\n        padding: 1px !important;\n        width: 5px !important;\n}\n.navBtn[data-v-42e4f650]{\n        padding: 0px;\n        margin: 0px;\n        height: 40px;\n        width: 100%;\n        display: flex;\n}\n.navBtn li[data-v-42e4f650]{\n        cursor: pointer;\n        box-shadow: 1px 2px 4px #ccc;\n        list-style: none;\n        display: inline-block;\n        padding: 8px 0px 0px 0px;\n         border: 1px solid #6b3;\n        margin: 0px;\n        color:#6b3;\n        background: #fff;\n        text-align: center;\n        width: 50%;\n        margin: 2px;\n\n        height: 40px;\n}\n.navBtn li span[data-v-42e4f650]{\n        font-size: 0.8em;\n        font-family: arial;\n        font-weight: bold;\n        text-transform: capitalize;\n}\n.navBtn li hr[data-v-42e4f650]{\n        margin: 8px 0px;\n        padding: 0px;\n        width: 100%;\n        border:1px solid var(--color);\n        box-shadow: 0px 3px 5px #000;\n}\n.navBtnActive[data-v-42e4f650]{\n        background:  #6b3 !important;        \n        /*box-shadow: 0px 2px 10px inset var(--color-t) !important;*/\n        color: #fff !important;\n        transition : background 1000ms ease;\n}\n.navBtn li:hover hr[data-v-42e4f650]{\n\n        border:1px solid #555;\n        transition : border 500ms ease-out;\n}\n.component-fade-enter-active[data-v-42e4f650], .component-fade-leave-active[data-v-42e4f650] {\n  transition: 1s ease;\n}\n.component-fade-enter[data-v-42e4f650], .component-fade-leave-to[data-v-42e4f650]\n{\n  transform: translateX(-250px);\n}\n.picker[data-v-42e4f650]{\n        width: 80px;\n        height: 80px;\n        \n        margin: 5px;\n        float: left;\n        border-radius: 3px;        \n        cursor: pointer;\n}\n.picker[data-v-42e4f650]:hover{\n        box-shadow: 1px 2px 2px #ccc;\n}\n.picker1[data-v-42e4f650]{\n        width: 140px;\n        height: 140px;\n        padding: 5px;\n        border-radius: 3px;\n        border: 1px solid #ccc;\n        cursor: pointer;\n}\n.picker1[data-v-42e4f650]:hover{\n        box-shadow: 1px 2px 2px #ccc;\n}\n.show[data-v-42e4f650]{\n    display: block !important;\n}\n.left-panel1[data-v-42e4f650]{  \n        color: var(--color) !important;\n        padding: 20px 0px;\n        margin: 0px auto;\n        background: var(--color-t);\n        width:100%;\n        height: 100%;\n}\n.left-panel[data-v-42e4f650]{ \n        /*box-shadow: 1px 2px 8px #ccc; */\n        border: 1px solid #ccc; \n           box-shadow: 1px 2px 3px #ccc;\n       /* border-radius: 0px 8px 8px 0px; */\n        height: 85%; \n        color: var(--color) !important;\n        padding: 20px;\n        position: absolute;\n        z-index: 100;                     \n        left:5px;\n        top: 48px;\n        width:95%;\n        background: var(--color-t);\n}\n.v-btn[data-v-42e4f650]{\n        padding: 1px !important;\n        width: 5px !important;\n}\n.smLong[data-v-42e4f650]:hover{\n      transform: translateX(-70px);\n}\n.smLong[data-v-42e4f650]{      \n        position: relative;\n        z-index: 104;\n        background: rgba(60,150,40,.4) !important;\n        color: black !important;\n}\n.component-fade-enter-active[data-v-42e4f650], .component-fade-leave-active[data-v-42e4f650] {\n  transition: 1s ease;\n}\n.component-fade-enter[data-v-42e4f650], .component-fade-leave-to[data-v-42e4f650]\n{\n  transform: translateX(-50px);\n}\n.show[data-v-42e4f650]{\n    display: block !important;\n}\n.paneli[data-v-42e4f650]{\n        top:13px;       \n        height: 96vh;\n        position: fixed;\n        z-index: 10;\n        padding: 6px;\n}\n.right-panel[data-v-42e4f650]{\n        display: none;\n        right: 120px;         \n        width: 400px;\n        overflow-y:hidden;\n        -webkit-animation-name: rightP-data-v-42e4f650;\n                animation-name: rightP-data-v-42e4f650;\n        -webkit-animation-duration: 1.5s;\n                animation-duration: 1.5s;\n        -webkit-animation-delay: 0s;\n                animation-delay: 0s;\n        -webkit-animation-iteration-count: 1;\n                animation-iteration-count: 1;\n        -webkit-animation-timing-function: ease;\n                animation-timing-function: ease;\n}\n.right-panel1[data-v-42e4f650]{\n        display: none;\n        right: 120px;         \n        width: 250px;\n        overflow-y:hidden;\n        -webkit-animation-name: rightP-data-v-42e4f650;\n                animation-name: rightP-data-v-42e4f650;\n        -webkit-animation-duration: 1.5s;\n                animation-duration: 1.5s;\n        -webkit-animation-delay: 0s;\n                animation-delay: 0s;\n        -webkit-animation-iteration-count: 1;\n                animation-iteration-count: 1;\n        -webkit-animation-timing-function: ease;\n                animation-timing-function: ease;\n}\n.paneliWidth[data-v-42e4f650]{\n        display: block;\n        right: 120px;\n        /*transition: width 0.9s linear 0s;*/\n        -webkit-animation-name: rightPi-data-v-42e4f650;\n                animation-name: rightPi-data-v-42e4f650;\n         -webkit-animation-duration: 1s;\n                 animation-duration: 1s;\n}\n@-webkit-keyframes rightPi-data-v-42e4f650{\n0%{\n            right: -100px;\n}\n100%{\n            right: 120px ;\n}\n}\n@keyframes rightPi-data-v-42e4f650{\n0%{\n            right: -100px;\n}\n100%{\n            right: 120px ;\n}\n}\n.paneliWidth1[data-v-42e4f650]{\n        display: block;\n        right: 50px;\n        position: fixed;\n        z-index: 102;\n        box-shadow: 1px 3px 3px #ccc !important;\n        border-radius: 15px !important;\n        /*transition: width 0.9s linear 0s;*/\n        -webkit-animation-name: rightPii-data-v-42e4f650;\n                animation-name: rightPii-data-v-42e4f650;\n         -webkit-animation-duration: 1s;\n                 animation-duration: 1s;\n}\n@media screen and (max-width: 959px){\n.styledBtn[data-v-42e4f650]{\n            position: relative !important;\n            right: 23% !important;\n}\n}\n@-webkit-keyframes rightPii-data-v-42e4f650{\n0%{\n            right: -100px;\n}\n100%{\n            right: 50px ;\n}\n}\n@keyframes rightPii-data-v-42e4f650{\n0%{\n            right: -100px;\n}\n100%{\n            right: 50px ;\n}\n}\nol li[data-v-42e4f650]{\n        text-align:justify;\n        font-size: 0.9em;\n}\n@-webkit-keyframes leftP-data-v-42e4f650{\n0%{\n            left: -380px;\n}\n100%{\n            left: -100px;\n}\n}\n@keyframes leftP-data-v-42e4f650{\n0%{\n            left: -380px;\n}\n100%{\n            left: -100px;\n}\n}\n@-webkit-keyframes rightP-data-v-42e4f650{\n0%{\n            right: -100px;\n}\n100%{\n            right: -100px;\n}\n}\n@keyframes rightP-data-v-42e4f650{\n0%{\n            right: -100px;\n}\n100%{\n            right: -100px;\n}\n}\n.styledBtn[data-v-42e4f650]{\n        padding:12px;\n        border-radius: 5px;\n        width:100%;\n        text-align: center;\n        cursor: pointer;\n        margin:6px;\n        color: var(--color-t);\n        background: var(--colorbtn) ;\n        box-sizing: border-box;\n        box-shadow: 1px 2px 3px #ccc;\n        outline: none;\n}\n.styledBtn[data-v-42e4f650]:hover{\n        background: white;\n        color:#a93;\n        box-shadow:inset 0 0 10px var(--color) !important;\n}\n.styledBtn[data-v-42e4f650]:focus{\n        background: white;\n        color:#a93;\n        box-shadow:inset 0 0 10px var(--color-t) !important;\n}\n.hideC[data-v-42e4f650]{\n        display: none !important;\n}\n.cbtn button[data-v-42e4f650]{        \n        text-transform: capitalize;\n        margin:5px;\n        letter-spacing: 0.6px;\n        font-size: 0.8em;\n        padding: 4px;\n        text-decoration: none;\n        border-radius: 4px;\n        width: 90px !important;\n        background: rgba(150,150,150,.02);\n        color:#ba6;\n        box-shadow: 1px 2px 2px #eee;\n        text-align: center;\n}\n.cbtn button[data-v-42e4f650]:hover{\n        background: orange !important;\n        color:white;\n}\n.config-label[data-v-42e4f650]{\n        font-size: 0.8em;\n        color:var(--color);\n}\ninput[type=checkbox][data-v-42e4f650]{\n        cursor: pointer;\n}\n.vr[data-v-42e4f650]{\n        top: 90px !important;\n         left:330px !important;\n        /*transition: width 0.9s linear 0s;*/\n        -webkit-animation-name: vresi-data-v-42e4f650 !important;\n                animation-name: vresi-data-v-42e4f650 !important;\n        -webkit-animation-duration: 2s;\n                animation-duration: 2s;\n         -webkit-animation-iteration-count: 1;\n                 animation-iteration-count: 1;\n         -webkit-animation-delay: 0s;\n                 animation-delay: 0s;\n        -webkit-animation-timing-function: ease;\n                animation-timing-function: ease;\n}\n@-webkit-keyframes vresi-data-v-42e4f650{\n0%{\n            top: 0px !important;\n}\n100%{\n            to:90px !important;\n}\n}\n@keyframes vresi-data-v-42e4f650{\n0%{\n            top: 0px !important;\n}\n100%{\n            to:90px !important;\n}\n}\n.rightnav[data-v-42e4f650]{\n      box-shadow: 1px 2px 8px #ccc; \n        border-radius: 8px 0px 0px 8px;         \n        padding: 16px;\n        background: var(--color-t);\n        width: 250px;\n        height: 100%;\n      font-size: 0.85em;\n      text-align: justify !important;\n}\n.rightnav ol[data-v-42e4f650]{\n      padding: 8px 8px;\n}\n.tooltip[data-v-42e4f650] {\n  position: relative;\n  color: #fff;\n  padding: 0px 12px;\n    text-align: center;\n  height: 80px;\n  margin: 5px;\n  font-size: 15px;\n  border-radius: 100%;\n}\n.tooltip[data-v-42e4f650]:before,\n.tooltip[data-v-42e4f650]:after {\n  position: absolute;\n  content: '';\n  opacity: 0;\n  transition: all 0.4s ease;\n}\n.tooltip[data-v-42e4f650]:before {\n  border-width: 10px 8px 0 8px;\n  border-style: solid;\n  border-color: #c32 transparent transparent transparent;\n  top: 20px;\n  z-index: 3;\n}\n.tooltip[data-v-42e4f650]:after {\n  box-shadow: 1px 2px 8px #ccc;\n  content: attr(data-tooltip);\n  background: rgba(50,50,50,.7);\n  width: 160px;\n  height: 55px;\n  font-size: 13px;\n  font-weight: 300;\n  top: -35px;\n  left: -10px;\n  z-index: 2;\n  padding: 4px;\n  border-radius: 5px;\n  letter-spacing: 1px;\n  transition: background 2s;\n  transform: translateY(20px);\n}\n.tooltip[data-v-42e4f650]::before,\n.tooltip[data-v-42e4f650]::after {\n  opacity: 1;\n  transform: translateY(-2px);\n}\n.leftNav[data-v-42e4f650]{\n   width: 100%;\n  background: var(--color-t);\n   flex-direction: column;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -8672,7 +10147,31 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n[data-v-27304d52]:root {\n\n      --color:  rgb(38, 95, 9);\n      --colorbtn: #6b3;\n    \n      --color-t:  #fff;\n      --color-t1:  rgba(255, 255, 255);\n      --color-primary: rgb(255, 255, 255) ;\n      --color-secondary: rgb(255, 255, 255);\n      --bg: rgb(0, 16, 65);\n      --bg-secondary: rgb(0, 25, 165);\n      --border-color: rgb(153, 214, 255);\n}\n.tableRow[data-v-27304d52]{\n    background:rgba(200,0,0,.1) !important;\n    border:5px solid red !important;\n    border-radius:5px !important;\n}\n.button[data-v-27304d52]{\n        padding: 1px !important;\n        width: 5px !important;\n}\n.navBtn[data-v-27304d52]{\n        padding: 0px;\n        margin: 0px;\n        height: 40px;\n        width: 100%;\n        display: flex;\n}\n.navBtn li[data-v-27304d52]{\n        cursor: pointer;\n        box-shadow: 1px 2px 4px #ccc;\n        list-style: none;\n        display: inline-block;\n        padding: 8px 0px 0px 0px;\n        margin: 0px;\n        color:var(--color-t);\n        background: var(--colorbtn);\n        text-align: center;\n        width: 50%;\n        margin: 2px;\n\n        height: 40px;\n}\n.navBtn li span[data-v-27304d52]{\n        font-size: 0.8em;\n        font-family: arial;\n        font-weight: bold;\n        text-transform: capitalize;\n}\n.navBtn li hr[data-v-27304d52]{\n        margin: 8px 0px;\n        padding: 0px;\n        width: 100%;\n        border:1px solid var(--color);\n        box-shadow: 0px 3px 5px #000;\n}\n.navBtnActive[data-v-27304d52]{\n        background: var(--color-t) !important;        \n        /*box-shadow: 0px 2px 10px inset var(--color-t) !important;*/\n        color: var(--colorbtn) !important;\n        border: 1px solid var(--colorbtn);\n        transition : background 1000ms ease;\n}\n.navBtn li:hover hr[data-v-27304d52]{\n\n        border:1px solid #555;\n        transition : border 500ms ease-out;\n}\n.component-fade-enter-active[data-v-27304d52], .component-fade-leave-active[data-v-27304d52] {\n  transition: 1s ease;\n}\n.component-fade-enter[data-v-27304d52], .component-fade-leave-to[data-v-27304d52]\n{\n  transform: translateX(-250px);\n}\n.show[data-v-27304d52]{\n    display: block !important;\n}\n.picker[data-v-27304d52]{\n        width: 140px;\n        height: 140px;\n        padding: 5px;\n        border-radius: 3px;\n        border: 1px solid #ccc;\n        cursor: pointer;\n}\n.picker[data-v-27304d52]:hover{\n        box-shadow: 1px 2px 2px #ccc;\n}\n.equipments[data-v-27304d52]{\n        display: flex;\n        padding:3px;\n        margin:5px;\n        width: 200px;\n        z-index: 1;\n        position: absolute;\n        top: 0px ;\n        left: 0px;\n        height: 120px;\n}\n.main[data-v-27304d52]{\n        position: relative;\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n}\n.mainJ[data-v-27304d52]{\n        position: relative;        \n        width: 100%;\n        margin: 0px auto;\n        height: 470px;\n        padding: 10px;\n        border-radius: 0px 0px 5px 5px;\n       /* border: 1px solid #ccc; */\n}\nimg.ek[data-v-27304d52]{\n        border-right: 1px dashed #ddd;\n}\n.needConnection[data-v-27304d52]{\n        background: rgba(180,0,0,.3 );\n}\n.noticeboard[data-v-27304d52]{\n        position: absolute;\n        top: 20px;\n        left: 60px;\n        border-radius: 5px;\n        width: 300px;\n        padding: 15px;\n        font-size: 0.7em !important;\n}\n.noteb[data-v-27304d52]{\n        display: inline-block;\n        background: rgba(180,0,0,.1);\n        width: 30px;\n        height: 20px;\n        margin-right: 2px;\n        margin-top: 5px;\n}\nol li[data-v-27304d52]{\n        text-align:justify;\n        font-size: 0.9em;\n}\n@-webkit-keyframes leftP-data-v-27304d52{\n0%{\n            left: -380px;\n}\n100%{\n            left: -100px;\n}\n}\n@keyframes leftP-data-v-27304d52{\n0%{\n            left: -380px;\n}\n100%{\n            left: -100px;\n}\n}\n@-webkit-keyframes rightP-data-v-27304d52{\n0%{\n            right: -100px;\n}\n100%{\n            right: -100px;\n}\n}\n@keyframes rightP-data-v-27304d52{\n0%{\n            right: -100px;\n}\n100%{\n            right: -100px;\n}\n}\n.styledBtn[data-v-27304d52]{\n        padding:12px;\n        border-radius: 5px;\n        width:100%;\n        text-align: center;\n        cursor: pointer;\n        margin:6px;\n        color: var(--color-t) !important;\n        background: var(--colorbtn) !important;\n        box-sizing: border-box;\n        box-shadow: 1px 2px 3px #ccc;\n        outline: none;\n}\n.styledBtn[data-v-27304d52]:hover{\n        background: white;\n        color:#a93;\n        box-shadow:inset 0 0 10px var(--color) !important;\n}\n.styledBtn[data-v-27304d52]:focus{\n        background: white;\n        color:#a93;\n        box-shadow:inset 0 0 10px var(--color-t) !important;\n}\n.hideC[data-v-27304d52]{\n        display: none !important;\n}\n.cbtn button[data-v-27304d52]{\n        display: block;\n        text-transform: capitalize;\n        margin:5px;\n        letter-spacing: 0.6px;\n        font-size: 0.8em;\n        padding: 4px;\n        text-decoration: none;\n        border-radius: 4px;\n        width: 90px !important;\n        background: rgba(25,35,65,.8); \n        box-shadow: inset 1px 3px 6px rgb(25,35,65);\n\n        color:#fff;\n        border: 1px solid transparent;\n        text-align: center;\n}\n.cbtn button[data-v-27304d52]:active{\n        box-shadow: inset 1px -3px 6px rgb(25,35,65);\n}\n/*    .cbtn button:hover{\n        background: rgba(10,10,10,.5);\n        color:white;\n    }*/\n.config-label[data-v-27304d52]{\n        font-size: 0.8em;\n        color:var(--color);\n}\ninput[type=checkbox][data-v-27304d52]{\n        cursor: pointer;\n}\n.vr[data-v-27304d52]{\n        top: 90px !important;\n         left:330px !important;\n        /*transition: width 0.9s linear 0s;*/\n        -webkit-animation-name: vresi-data-v-27304d52 !important;\n                animation-name: vresi-data-v-27304d52 !important;\n        -webkit-animation-duration: 2s;\n                animation-duration: 2s;\n         -webkit-animation-iteration-count: 1;\n                 animation-iteration-count: 1;\n         -webkit-animation-delay: 0s;\n                 animation-delay: 0s;\n        -webkit-animation-timing-function: ease;\n                animation-timing-function: ease;\n}\n@-webkit-keyframes vresi-data-v-27304d52{\n0%{\n            top: 0px !important;\n}\n100%{\n            to:90px !important;\n}\n}\n@keyframes vresi-data-v-27304d52{\n0%{\n            top: 0px !important;\n}\n100%{\n            to:90px !important;\n}\n}\n.tooltip[data-v-27304d52] {\n  position: relative;\n  color: #fff;\n  padding: 0px 12px;\n    text-align: center;\n  height: 80px;\n  margin: 5px;\n  font-size: 15px;\n  border-radius: 100%;\n}\n.tooltip[data-v-27304d52]:before,\n.tooltip[data-v-27304d52]:after {\n  position: absolute;\n  content: '';\n  opacity: 0;\n  transition: all 0.4s ease;\n}\n.tooltip[data-v-27304d52]:before {\n  border-width: 10px 8px 0 8px;\n  border-style: solid;\n  border-color: #c32 transparent transparent transparent;\n  top: 20px;\n  z-index: 3;\n}\n.tooltip[data-v-27304d52]:after {\n  box-shadow: 1px 2px 8px #ccc;\n  content: attr(data-tooltip);\n  background: rgba(50,50,50,.7);\n  width: 160px;\n  height: 55px;\n  font-size: 13px;\n  font-weight: 300;\n  top: -35px;\n  left: -10px;\n  z-index: 2;\n  padding: 4px;\n  border-radius: 5px;\n  letter-spacing: 1px;\n  transition: background 2s;\n  transform: translateY(20px);\n}\n.tooltip[data-v-27304d52]::before,\n.tooltip[data-v-27304d52]::after {\n  opacity: 1;\n  transform: translateY(-2px);\n}\n#list[data-v-27304d52]{\n      display: none !important;\n}\n.img-pos[data-v-27304d52]{\n  position: absolute;\n  top: 62px; \n  right: 90px; \n  z-index: 2;\n}\n.dp-none[data-v-27304d52]{\n  display: none;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n[data-v-27304d52]:root {\n\n      --color:  rgb(38, 95, 9);\n      --colorbtn: #6b3;\n    \n      --color-t:  #fff;\n      --color-t1:  rgba(255, 255, 255);\n      --color-primary: rgb(255, 255, 255) ;\n      --color-secondary: rgb(255, 255, 255);\n      --bg: rgb(0, 16, 65);\n      --bg-secondary: rgb(0, 25, 165);\n      --border-color: rgb(153, 214, 255);\n}\n.tableRow[data-v-27304d52]{\n    background:rgba(200,0,0,.1) !important;\n    border:5px solid red !important;\n    border-radius:5px !important;\n}\n.button[data-v-27304d52]{\n        padding: 1px !important;\n        width: 5px !important;\n}\n.navBtn[data-v-27304d52]{\n        padding: 0px;\n        margin: 0px;\n        height: 40px;\n        width: 100%;\n        display: flex;\n}\n.navBtn li[data-v-27304d52]{\n        cursor: pointer;\n        box-shadow: 1px 2px 4px #ccc;\n        list-style: none;\n        display: inline-block;\n        padding: 8px 0px 0px 0px;\n        margin: 0px;\n        color:var(--color-t);\n        background: var(--colorbtn);\n        text-align: center;\n        width: 50%;\n        margin: 2px;\n\n        height: 40px;\n}\n.navBtn li span[data-v-27304d52]{\n        font-size: 0.8em;\n        font-family: arial;\n        font-weight: bold;\n        text-transform: capitalize;\n}\n.navBtn li hr[data-v-27304d52]{\n        margin: 8px 0px;\n        padding: 0px;\n        width: 100%;\n        border:1px solid var(--color);\n        box-shadow: 0px 3px 5px #000;\n}\n.navBtnActive[data-v-27304d52]{\n        background: var(--color-t) !important;        \n        /*box-shadow: 0px 2px 10px inset var(--color-t) !important;*/\n        color: var(--colorbtn) !important;\n        border: 1px solid var(--colorbtn);\n        transition : background 1000ms ease;\n}\n.navBtn li:hover hr[data-v-27304d52]{\n\n        border:1px solid #555;\n        transition : border 500ms ease-out;\n}\n.component-fade-enter-active[data-v-27304d52], .component-fade-leave-active[data-v-27304d52] {\n  transition: 1s ease;\n}\n.component-fade-enter[data-v-27304d52], .component-fade-leave-to[data-v-27304d52]\n{\n  transform: translateX(-250px);\n}\n.show[data-v-27304d52]{\n    display: block !important;\n}\n.picker[data-v-27304d52]{\n        width: 140px;\n        height: 140px;\n        padding: 5px;\n        border-radius: 3px;\n        border: 1px solid #ccc;\n        cursor: pointer;\n}\n.picker[data-v-27304d52]:hover{\n        box-shadow: 1px 2px 2px #ccc;\n}\n.equipments[data-v-27304d52]{\n        display: flex;\n        padding:3px;\n        margin:5px;\n        width: 200px;\n        z-index: 1;\n        position: absolute;\n        top: 0px ;\n        left: 0px;\n        height: 120px;\n}\n.main[data-v-27304d52]{\n        position: relative;\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n}\n.mainJ[data-v-27304d52]{\n        position: relative;        \n        width: 100%;\n        margin: 0px auto;\n        height: 470px;\n        padding: 10px;\n        border-radius: 0px 0px 5px 5px;\n       /* border: 1px solid #ccc; */\n}\nimg.ek[data-v-27304d52]{\n        border-right: 1px dashed #ddd;\n}\n.needConnection[data-v-27304d52]{\n        background: rgba(180,0,0,.3 );\n}\n.noticeboard[data-v-27304d52]{\n        position: absolute;\n        top: 20px;\n        left: 60px;\n        border-radius: 5px;\n        width: 300px;\n        padding: 15px;\n        font-size: 0.7em !important;\n}\n.noteb[data-v-27304d52]{\n        display: inline-block;\n        background: rgba(180,0,0,.1);\n        width: 30px;\n        height: 20px;\n        margin-right: 2px;\n        margin-top: 5px;\n}\nol li[data-v-27304d52]{\n        text-align:justify;\n        font-size: 0.9em;\n}\n@-webkit-keyframes leftP-data-v-27304d52{\n0%{\n            left: -380px;\n}\n100%{\n            left: -100px;\n}\n}\n@keyframes leftP-data-v-27304d52{\n0%{\n            left: -380px;\n}\n100%{\n            left: -100px;\n}\n}\n@-webkit-keyframes rightP-data-v-27304d52{\n0%{\n            right: -100px;\n}\n100%{\n            right: -100px;\n}\n}\n@keyframes rightP-data-v-27304d52{\n0%{\n            right: -100px;\n}\n100%{\n            right: -100px;\n}\n}\n.styledBtn[data-v-27304d52]{\n        padding:12px;\n        border-radius: 5px;\n        width:100%;\n        text-align: center;\n        cursor: pointer;\n        margin:6px;\n        color: var(--color-t) !important;\n        background: var(--colorbtn) !important;\n        box-sizing: border-box;\n        box-shadow: 1px 2px 3px #ccc;\n        outline: none;\n}\n.styledBtn[data-v-27304d52]:hover{\n        background: white;\n        color:#a93;\n        box-shadow:inset 0 0 10px var(--color) !important;\n}\n.styledBtn[data-v-27304d52]:focus{\n        background: white;\n        color:#a93;\n        box-shadow:inset 0 0 10px var(--color-t) !important;\n}\n.hideC[data-v-27304d52]{\n        display: none !important;\n}\n.cbtn button[data-v-27304d52]{\n        display: block;\n        text-transform: capitalize;\n        margin:5px;\n        letter-spacing: 0.6px;\n        font-size: 0.8em;\n        padding: 4px;\n        text-decoration: none;\n        border-radius: 4px;\n        width: 90px !important;\n        background: rgba(25,35,65,.8); \n        box-shadow: inset 1px 3px 6px rgb(25,35,65);\n\n        color:#fff;\n        border: 1px solid transparent;\n        text-align: center;\n}\n.cbtn button[data-v-27304d52]:active{\n        box-shadow: inset 1px -3px 6px rgb(25,35,65);\n}\n/*    .cbtn button:hover{\n        background: rgba(10,10,10,.5);\n        color:white;\n    }*/\n.config-label[data-v-27304d52]{\n        font-size: 0.8em;\n        color:var(--color);\n}\ninput[type=checkbox][data-v-27304d52]{\n        cursor: pointer;\n}\n.vr[data-v-27304d52]{\n        top: 90px !important;\n         left:330px !important;\n        /*transition: width 0.9s linear 0s;*/\n        -webkit-animation-name: vresi-data-v-27304d52 !important;\n                animation-name: vresi-data-v-27304d52 !important;\n        -webkit-animation-duration: 2s;\n                animation-duration: 2s;\n         -webkit-animation-iteration-count: 1;\n                 animation-iteration-count: 1;\n         -webkit-animation-delay: 0s;\n                 animation-delay: 0s;\n        -webkit-animation-timing-function: ease;\n                animation-timing-function: ease;\n}\n@-webkit-keyframes vresi-data-v-27304d52{\n0%{\n            top: 0px !important;\n}\n100%{\n            to:90px !important;\n}\n}\n@keyframes vresi-data-v-27304d52{\n0%{\n            top: 0px !important;\n}\n100%{\n            to:90px !important;\n}\n}\n.tooltip[data-v-27304d52] {\n  position: relative;\n  color: #fff;\n  padding: 0px 12px;\n    text-align: center;\n  height: 80px;\n  margin: 5px;\n  font-size: 15px;\n  border-radius: 100%;\n}\n.tooltip[data-v-27304d52]:before,\n.tooltip[data-v-27304d52]:after {\n  position: absolute;\n  content: '';\n  opacity: 0;\n  transition: all 0.4s ease;\n}\n.tooltip[data-v-27304d52]:before {\n  border-width: 10px 8px 0 8px;\n  border-style: solid;\n  border-color: #c32 transparent transparent transparent;\n  top: 20px;\n  z-index: 3;\n}\n.tooltip[data-v-27304d52]:after {\n  box-shadow: 1px 2px 8px #ccc;\n  content: attr(data-tooltip);\n  background: rgba(50,50,50,.7);\n  width: 160px;\n  height: 55px;\n  font-size: 13px;\n  font-weight: 300;\n  top: -35px;\n  left: -10px;\n  z-index: 2;\n  padding: 4px;\n  border-radius: 5px;\n  letter-spacing: 1px;\n  transition: background 2s;\n  transform: translateY(20px);\n}\n.tooltip[data-v-27304d52]::before,\n.tooltip[data-v-27304d52]::after {\n  opacity: 1;\n  transform: translateY(-2px);\n}\n#list[data-v-27304d52]{\n      display: none !important;\n}\n.img-pos[data-v-27304d52]{\n  position: absolute;\n  top: 62px; \n  right: 90px; \n  z-index: 2;\n}\n.dp-none[data-v-27304d52]{\n  display: none;\n}\n.forsunligt[data-v-27304d52]{\n  pointer-events:none;\n  z-index: 0;\n  display: none;\n  width: 97% ;\n  box-shadow: none;\n  height: 110%;\n}\n.sunlightDelBtn[data-v-27304d52]{\n  position: relative; right: 50%;pointer-events: auto !important;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n[data-v-273e64d3]:root {\n\n      --color:  rgb(38, 95, 9);\n      --colorbtn: #6b3;\n    \n      --color-t:  #fff;\n      --color-t1:  rgba(255, 255, 255);\n      --color-primary: rgb(255, 255, 255) ;\n      --color-secondary: rgb(255, 255, 255);\n      --bg: rgb(0, 16, 65);\n      --bg-secondary: rgb(0, 25, 165);\n      --border-color: rgb(153, 214, 255);\n}\n.tableRow[data-v-273e64d3]{\n    background:rgba(200,0,0,.1) !important;\n    border:5px solid red !important;\n    border-radius:5px !important;\n}\n.button[data-v-273e64d3]{\n        padding: 1px !important;\n        width: 5px !important;\n}\n.navBtn[data-v-273e64d3]{\n        padding: 0px;\n        margin: 0px;\n        height: 40px;\n        width: 100%;\n        display: flex;\n}\n.navBtn li[data-v-273e64d3]{\n        cursor: pointer;\n        box-shadow: 1px 2px 4px #ccc;\n        list-style: none;\n        display: inline-block;\n        padding: 8px 0px 0px 0px;\n        margin: 0px;\n        color:var(--color-t);\n        background: var(--colorbtn);\n        text-align: center;\n        width: 50%;\n        margin: 2px;\n\n        height: 40px;\n}\n.navBtn li span[data-v-273e64d3]{\n        font-size: 0.8em;\n        font-family: arial;\n        font-weight: bold;\n        text-transform: capitalize;\n}\n.navBtn li hr[data-v-273e64d3]{\n        margin: 8px 0px;\n        padding: 0px;\n        width: 100%;\n        border:1px solid var(--color);\n        box-shadow: 0px 3px 5px #000;\n}\n.navBtnActive[data-v-273e64d3]{\n        background: var(--color-t) !important;        \n        /*box-shadow: 0px 2px 10px inset var(--color-t) !important;*/\n        color: var(--colorbtn) !important;\n        border: 1px solid var(--colorbtn);\n        transition : background 1000ms ease;\n}\n.navBtn li:hover hr[data-v-273e64d3]{\n\n        border:1px solid #555;\n        transition : border 500ms ease-out;\n}\n.component-fade-enter-active[data-v-273e64d3], .component-fade-leave-active[data-v-273e64d3] {\n  transition: 1s ease;\n}\n.component-fade-enter[data-v-273e64d3], .component-fade-leave-to[data-v-273e64d3]\n{\n  transform: translateX(-250px);\n}\n.show[data-v-273e64d3]{\n    display: block !important;\n}\n.picker[data-v-273e64d3]{\n        width: 140px;\n        height: 140px;\n        padding: 5px;\n        border-radius: 3px;\n        border: 1px solid #ccc;\n        cursor: pointer;\n}\n.picker[data-v-273e64d3]:hover{\n        box-shadow: 1px 2px 2px #ccc;\n}\n.equipments[data-v-273e64d3]{\n        display: flex;\n        padding:3px;\n        margin:5px;\n        width: 200px;\n        z-index: 1;\n        position: absolute;\n        top: 0px ;\n        left: 0px;\n        height: 120px;\n}\n.main[data-v-273e64d3]{\n        position: relative;\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n}\n.mainJ[data-v-273e64d3]{\n        position: relative;        \n        width: 100%;\n        margin: 0px auto;\n        height: 470px;\n        padding: 10px;\n        border-radius: 0px 0px 5px 5px;\n       /* border: 1px solid #ccc; */\n}\nimg.ek[data-v-273e64d3]{\n        border-right: 1px dashed #ddd;\n}\n.needConnection[data-v-273e64d3]{\n        background: rgba(180,0,0,.3 );\n}\n.noticeboard[data-v-273e64d3]{\n        position: absolute;\n        top: 20px;\n        left: 60px;\n        border-radius: 5px;\n        width: 300px;\n        padding: 15px;\n        font-size: 0.7em !important;\n}\n.noteb[data-v-273e64d3]{\n        display: inline-block;\n        background: rgba(180,0,0,.1);\n        width: 30px;\n        height: 20px;\n        margin-right: 2px;\n        margin-top: 5px;\n}\nol li[data-v-273e64d3]{\n        text-align:justify;\n        font-size: 0.9em;\n}\n@-webkit-keyframes leftP-data-v-273e64d3{\n0%{\n            left: -380px;\n}\n100%{\n            left: -100px;\n}\n}\n@keyframes leftP-data-v-273e64d3{\n0%{\n            left: -380px;\n}\n100%{\n            left: -100px;\n}\n}\n@-webkit-keyframes rightP-data-v-273e64d3{\n0%{\n            right: -100px;\n}\n100%{\n            right: -100px;\n}\n}\n@keyframes rightP-data-v-273e64d3{\n0%{\n            right: -100px;\n}\n100%{\n            right: -100px;\n}\n}\n.styledBtn[data-v-273e64d3]{\n        padding:12px;\n        border-radius: 5px;\n        width:100%;\n        text-align: center;\n        cursor: pointer;\n        margin:6px;\n        color: var(--color-t) !important;\n        background: var(--colorbtn) !important;\n        box-sizing: border-box;\n        box-shadow: 1px 2px 3px #ccc;\n        outline: none;\n}\n.styledBtn[data-v-273e64d3]:hover{\n        background: white;\n        color:#a93;\n        box-shadow:inset 0 0 10px var(--color) !important;\n}\n.styledBtn[data-v-273e64d3]:focus{\n        background: white;\n        color:#a93;\n        box-shadow:inset 0 0 10px var(--color-t) !important;\n}\n.hideC[data-v-273e64d3]{\n        display: none !important;\n}\n.cbtn button[data-v-273e64d3]{\n        display: block;\n        text-transform: capitalize;\n        margin:5px;\n        letter-spacing: 0.6px;\n        font-size: 0.8em;\n        padding: 4px;\n        text-decoration: none;\n        border-radius: 4px;\n        width: 90px !important;\n        background: rgba(25,35,65,.8); \n        box-shadow: inset 1px 3px 6px rgb(25,35,65);\n\n        color:#fff;\n        border: 1px solid transparent;\n        text-align: center;\n}\n.cbtn button[data-v-273e64d3]:active{\n        box-shadow: inset 1px -3px 6px rgb(25,35,65);\n}\n/*    .cbtn button:hover{\n        background: rgba(10,10,10,.5);\n        color:white;\n    }*/\n.config-label[data-v-273e64d3]{\n        font-size: 0.8em;\n        color:var(--color);\n}\ninput[type=checkbox][data-v-273e64d3]{\n        cursor: pointer;\n}\n.vr[data-v-273e64d3]{\n        top: 90px !important;\n         left:330px !important;\n        /*transition: width 0.9s linear 0s;*/\n        -webkit-animation-name: vresi-data-v-273e64d3 !important;\n                animation-name: vresi-data-v-273e64d3 !important;\n        -webkit-animation-duration: 2s;\n                animation-duration: 2s;\n         -webkit-animation-iteration-count: 1;\n                 animation-iteration-count: 1;\n         -webkit-animation-delay: 0s;\n                 animation-delay: 0s;\n        -webkit-animation-timing-function: ease;\n                animation-timing-function: ease;\n}\n@-webkit-keyframes vresi-data-v-273e64d3{\n0%{\n            top: 0px !important;\n}\n100%{\n            to:90px !important;\n}\n}\n@keyframes vresi-data-v-273e64d3{\n0%{\n            top: 0px !important;\n}\n100%{\n            to:90px !important;\n}\n}\n.tooltip[data-v-273e64d3] {\n  position: relative;\n  color: #fff;\n  padding: 0px 12px;\n    text-align: center;\n  height: 80px;\n  margin: 5px;\n  font-size: 15px;\n  border-radius: 100%;\n}\n.tooltip[data-v-273e64d3]:before,\n.tooltip[data-v-273e64d3]:after {\n  position: absolute;\n  content: '';\n  opacity: 0;\n  transition: all 0.4s ease;\n}\n.tooltip[data-v-273e64d3]:before {\n  border-width: 10px 8px 0 8px;\n  border-style: solid;\n  border-color: #c32 transparent transparent transparent;\n  top: 20px;\n  z-index: 3;\n}\n.tooltip[data-v-273e64d3]:after {\n  box-shadow: 1px 2px 8px #ccc;\n  content: attr(data-tooltip);\n  background: rgba(50,50,50,.7);\n  width: 160px;\n  height: 55px;\n  font-size: 13px;\n  font-weight: 300;\n  top: -35px;\n  left: -10px;\n  z-index: 2;\n  padding: 4px;\n  border-radius: 5px;\n  letter-spacing: 1px;\n  transition: background 2s;\n  transform: translateY(20px);\n}\n.tooltip[data-v-273e64d3]::before,\n.tooltip[data-v-273e64d3]::after {\n  opacity: 1;\n  transform: translateY(-2px);\n}\n.img-pos[data-v-273e64d3]{\n  position: absolute;\n  top: 62px; \n  right: 90px; \n  z-index: 2;\n}\n.dp-none[data-v-273e64d3]{\n  display: none;\n}\n.forsunligt[data-v-273e64d3]{\n  pointer-events:none;\n  z-index: 0;\n  display: none;\n  width: 97% ;\n  box-shadow: none;\n  height: 110%;\n}\n.sunlightDelBtn[data-v-273e64d3]{\n  position: relative; right: 50%;pointer-events: auto !important;\n}\n.shadowCover[data-v-273e64d3]{\n  width: 100px;\n  height: 0px;\n  background: rgba(170,170,170,.5);\n  position: relative;\n  top: -175.5%; \n  border: 3px dashed #8f9 ;\n  transition: height 1s;\n}\n.shadowMain1[data-v-273e64d3]{\n  height: 50px !important;\n}\n.shadowMain2[data-v-273e64d3]{\n  height: 100px !important;\n}\n.shadowMain3[data-v-273e64d3]{\n  height: 150px !important;\n}\n.shadowMain4[data-v-273e64d3]{\n  height: 200px !important;\n}\n#list[data-v-273e64d3]{\n      display: none !important;\n      border: 1px solid #ccc; \n      box-shadow: 2px 3px 10px #fafafa;\n}\n.pointer-auto[data-v-273e64d3]{\n  pointer-events:auto;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23056,6 +24555,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp3_vue_vue_type_style_index_0_id_273e64d3_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp3_vue_vue_type_style_index_0_id_273e64d3_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default, options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp3_vue_vue_type_style_index_0_id_273e64d3_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/welcomevlb.vue?vue&type=style&index=0&lang=css&":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/welcomevlb.vue?vue&type=style&index=0&lang=css& ***!
@@ -24474,6 +26003,47 @@ component.options.__file = "resources/js/components/vicelabexp2.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/vicelabexp3.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/vicelabexp3.vue ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _vicelabexp3_vue_vue_type_template_id_273e64d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vicelabexp3.vue?vue&type=template&id=273e64d3&scoped=true& */ "./resources/js/components/vicelabexp3.vue?vue&type=template&id=273e64d3&scoped=true&");
+/* harmony import */ var _vicelabexp3_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./vicelabexp3.vue?vue&type=script&lang=js& */ "./resources/js/components/vicelabexp3.vue?vue&type=script&lang=js&");
+/* harmony import */ var _vicelabexp3_vue_vue_type_style_index_0_id_273e64d3_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css& */ "./resources/js/components/vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _vicelabexp3_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _vicelabexp3_vue_vue_type_template_id_273e64d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _vicelabexp3_vue_vue_type_template_id_273e64d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "273e64d3",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/vicelabexp3.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/welcomevlb.vue":
 /*!************************************************!*\
   !*** ./resources/js/components/welcomevlb.vue ***!
@@ -24955,6 +26525,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/vicelabexp3.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/vicelabexp3.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp3_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./vicelabexp3.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp3_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/welcomevlb.vue?vue&type=script&lang=js&":
 /*!*************************************************************************!*\
   !*** ./resources/js/components/welcomevlb.vue?vue&type=script&lang=js& ***!
@@ -25292,6 +26878,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp2_vue_vue_type_style_index_0_id_27304d52_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./vicelabexp2.vue?vue&type=style&index=0&id=27304d52&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp2.vue?vue&type=style&index=0&id=27304d52&scoped=true&lang=css&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/components/vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css& ***!
+  \**********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp3_vue_vue_type_style_index_0_id_273e64d3_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css&");
 
 
 /***/ }),
@@ -25768,6 +27367,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/vicelabexp3.vue?vue&type=template&id=273e64d3&scoped=true&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/vicelabexp3.vue?vue&type=template&id=273e64d3&scoped=true& ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp3_vue_vue_type_template_id_273e64d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp3_vue_vue_type_template_id_273e64d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp3_vue_vue_type_template_id_273e64d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./vicelabexp3.vue?vue&type=template&id=273e64d3&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=template&id=273e64d3&scoped=true&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/welcomevlb.vue?vue&type=template&id=495c7556&":
 /*!*******************************************************************************!*\
   !*** ./resources/js/components/welcomevlb.vue?vue&type=template&id=495c7556& ***!
@@ -25911,45 +27527,53 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "rightNavigation" } }, [
-    _c("div", { staticClass: "containerR", attrs: { id: "tools" } }, [
-      _c("div", { staticClass: "input-alt" }),
-      _vm._v(" "),
-      _vm.vicelab == 1
-        ? _c(
-            "span",
-            { staticClass: "pr z-1" },
-            [_c("vicelabtools", { attrs: { has: "1" } })],
-            1
-          )
-        : _c(
-            "span",
-            [
-              _c("span", {
-                staticClass: "fa fa-align-justify bg-white rightnavexpander"
-              }),
-              _vm._v(" "),
-              _vm._l(_vm.toolSizes, function(tool) {
-                return _c(
-                  "div",
-                  {
-                    key: tool,
-                    staticClass: "box",
-                    style: { width: tool + "px" },
-                    on: {
-                      click: function($event) {
-                        _vm.addactivate
-                        _vm.changeApparatus(tool)
+  return _c("div", { staticClass: "vhE-2", attrs: { id: "rightNavigation" } }, [
+    _c(
+      "div",
+      {
+        staticClass: "containerR",
+        staticStyle: { height: "100%" },
+        attrs: { id: "tools" }
+      },
+      [
+        _c("div", { staticClass: "input-alt" }),
+        _vm._v(" "),
+        _vm.vicelab == 1
+          ? _c(
+              "span",
+              { staticClass: "pr z-1" },
+              [_c("vicelabtools", { attrs: { has: "1" } })],
+              1
+            )
+          : _c(
+              "span",
+              [
+                _c("span", {
+                  staticClass: "fa fa-align-justify bg-white rightnavexpander"
+                }),
+                _vm._v(" "),
+                _vm._l(_vm.toolSizes, function(tool) {
+                  return _c(
+                    "div",
+                    {
+                      key: tool,
+                      staticClass: "box",
+                      style: { width: tool + "px" },
+                      on: {
+                        click: function($event) {
+                          _vm.addactivate
+                          _vm.changeApparatus(tool)
+                        }
                       }
-                    }
-                  },
-                  [_vm._v("\n\t            \t\tSize\n\t        \t")]
-                )
-              })
-            ],
-            2
-          )
-    ]),
+                    },
+                    [_vm._v("\n\t            \t\tSize\n\t        \t")]
+                  )
+                })
+              ],
+              2
+            )
+      ]
+    ),
     _vm._v(" "),
     _vm._m(0),
     _vm._v(" "),
@@ -28244,764 +29868,134 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
-    _vm.has
-      ? _c(
-          "div",
-          {
-            staticClass: " d-md-flex p-0",
-            staticStyle: {
-              width: "100%",
-              background: "var(--color-t)",
-              "flex-direction": "column"
+    _c("div", { staticClass: " d-md-flex p-0", attrs: { id: "leftNav" } }, [
+      _vm.navSlide1
+        ? _c(
+            "div",
+            {
+              staticClass: "left-panel1 scrollbar mt-2 px-2",
+              class: { show: _vm.navSlide1 }
             },
-            attrs: { id: "leftNav" }
-          },
-          [
-            _c("ul", { staticClass: "navBtn" }, [
-              _c(
-                "li",
-                {
-                  class: { navBtnActive: _vm.configBtn },
-                  on: { click: _vm.navBtnFunc1 }
-                },
-                [_c("span", [_vm._v("Config")])]
-              ),
+            [
+              _c("h4", { staticClass: "text-center text-white" }, [
+                _vm._v("Equipments")
+              ]),
               _vm._v(" "),
-              _c(
-                "li",
-                {
-                  class: { navBtnActive: _vm.EquipBtn },
-                  on: { click: _vm.navBtnFunc2 }
-                },
-                [_c("span", [_vm._v("Equipments")])]
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "transition",
-              { attrs: { name: "component-fade", mode: "out-in" } },
-              [
-                _vm.navSlide1
-                  ? _c(
-                      "div",
+              _c("center", [
+                _c("span", { staticStyle: { "font-size": "0.9em" } }, [
+                  _vm._v("click to select an equipment")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("div", { staticClass: "m-0 p-0" }, [
+                _c(
+                  "img",
+                  _vm._g(
+                    _vm._b(
                       {
-                        staticClass: "left-panel1 scrollbar mt-2 px-2",
-                        class: { show: _vm.navSlide1 }
+                        staticClass: "picker",
+                        attrs: {
+                          "data-toggle": "tooltip",
+                          title: "Solar Cell",
+                          "data-placement": "top",
+                          src: "/expImages/physics/exp1/solar_cell3.jpeg",
+                          id: "scell"
+                        },
+                        on: { click: function($event) {} }
                       },
-                      [
-                        _c(
-                          "h4",
-                          {
-                            staticStyle: {
-                              "text-align": "center",
-                              color: "var(--color)"
-                            }
-                          },
-                          [_vm._v("Equipments")]
-                        ),
-                        _vm._v(" "),
-                        _c("center", [
-                          _c(
-                            "span",
-                            { staticStyle: { "font-size": "0.9em" } },
-                            [_vm._v("click to select an equipment")]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("br"),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "m-0 p-0" }, [
-                          _c(
-                            "img",
-                            _vm._g(
-                              _vm._b(
-                                {
-                                  staticClass: "picker",
-                                  attrs: {
-                                    "data-toggle": "tooltip",
-                                    title: "Solar Cell",
-                                    "data-placement": "top",
-                                    src:
-                                      "/expImages/physics/exp1/solar_cell3.jpeg",
-                                    id: "scell"
-                                  },
-                                  on: { click: function($event) {} }
-                                },
-                                "img",
-                                _vm.attrs,
-                                false
-                              ),
-                              _vm.on
-                            )
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "img",
-                            _vm._g(
-                              _vm._b(
-                                {
-                                  staticClass: "picker",
-                                  attrs: {
-                                    "data-toggle": "tooltip",
-                                    title: "Voltmeter",
-                                    "data-placement": "bottom",
-                                    src:
-                                      "/expImages/physics/exp1/voltmeter1.png",
-                                    id: "voltmeter"
-                                  },
-                                  on: { click: function($event) {} }
-                                },
-                                "img",
-                                _vm.attrs,
-                                false
-                              ),
-                              _vm.on
-                            )
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "img",
-                            _vm._g(
-                              _vm._b(
-                                {
-                                  staticClass: "picker",
-                                  attrs: {
-                                    "data-toggle": "tooltip",
-                                    title: "Ameter",
-                                    "data-placement": "bottom",
-                                    src: "/expImages/physics/exp1/ameter.png",
-                                    id: "ameter"
-                                  },
-                                  on: { click: function($event) {} }
-                                },
-                                "img",
-                                _vm.attrs,
-                                false
-                              ),
-                              _vm.on
-                            )
-                          ),
-                          _vm._v(" "),
-                          _c("span", {
-                            class: { tooltip: _vm.sunToolTip },
-                            attrs: {
-                              "data-tooltip": "Add Sun light by clicking"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "img",
-                            _vm._g(
-                              _vm._b(
-                                {
-                                  staticClass: "picker",
-                                  attrs: {
-                                    "data-toggle": "tooltip",
-                                    title: "sun light",
-                                    "data-placement": "bottom",
-                                    src:
-                                      "/expImages/physics/exp1/lightModulNav.jpg",
-                                    width: "100px",
-                                    height: "100px",
-                                    id: "sun"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.sunToolTip = !_vm.sunToolTip
-                                    }
-                                  }
-                                },
-                                "img",
-                                _vm.attrs,
-                                false
-                              ),
-                              _vm.on
-                            )
-                          )
-                        ])
-                      ],
-                      1
-                    )
-                  : _vm._e()
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "transition",
-              { attrs: { name: "component-fade", mode: "out-in" } },
-              [
-                _vm.navSlide2
-                  ? _c(
-                      "div",
+                      "img",
+                      _vm.attrs,
+                      false
+                    ),
+                    _vm.on
+                  )
+                ),
+                _vm._v(" "),
+                _c(
+                  "img",
+                  _vm._g(
+                    _vm._b(
                       {
-                        staticClass: "left-panel",
-                        class: { show: _vm.navSlide2 },
-                        staticStyle: { display: "none" }
+                        staticClass: "picker",
+                        attrs: {
+                          "data-toggle": "tooltip",
+                          title: "Voltmeter",
+                          "data-placement": "bottom",
+                          src: "/expImages/physics/exp1/voltmeter1.png",
+                          id: "voltmeter"
+                        },
+                        on: { click: function($event) {} }
                       },
-                      [
-                        _c(
-                          "p",
-                          {
-                            staticStyle: {
-                              "text-align": "center",
-                              color: "var(--color)",
-                              "font-size": "105%",
-                              "font-weight": "bold"
-                            }
-                          },
-                          [_vm._v("CONFIGURATION")]
-                        ),
-                        _vm._v(" "),
-                        _vm.ktype == -1
-                          ? _c("span", [
-                              _c("input", {
-                                attrs: {
-                                  type: "checkbox",
-                                  id: "spillAll",
-                                  name: ""
-                                },
-                                on: { click: function($event) {} }
-                              }),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "config-label ml-1" }, [
-                                _vm._v("arrage circuit")
-                              ]),
-                              _c("br")
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c(
-                          "p",
-                          {
-                            staticClass: "my-2 green px-4 rounded",
-                            staticStyle: {
-                              color: "#fff",
-                              "font-size": "0.9em",
-                              "text-align": "center"
-                            }
-                          },
-                          [_vm._v("MODE")]
-                        ),
-                        _vm._v(" "),
-                        _c("input", {
-                          attrs: {
-                            type: "radio",
-                            id: "",
-                            name: "mode",
-                            checked: ""
+                      "img",
+                      _vm.attrs,
+                      false
+                    ),
+                    _vm.on
+                  )
+                ),
+                _vm._v(" "),
+                _c(
+                  "img",
+                  _vm._g(
+                    _vm._b(
+                      {
+                        staticClass: "picker",
+                        attrs: {
+                          "data-toggle": "tooltip",
+                          title: "Ameter",
+                          "data-placement": "bottom",
+                          src: "/expImages/physics/exp1/ameter.png",
+                          id: "ameter"
+                        },
+                        on: { click: function($event) {} }
+                      },
+                      "img",
+                      _vm.attrs,
+                      false
+                    ),
+                    _vm.on
+                  )
+                ),
+                _vm._v(" "),
+                _c(
+                  "img",
+                  _vm._g(
+                    _vm._b(
+                      {
+                        staticClass: "picker",
+                        attrs: {
+                          "data-toggle": "tooltip",
+                          title: "sun light",
+                          "data-placement": "bottom",
+                          src: "/expImages/physics/exp1/lightModulNav.jpg",
+                          width: "100px",
+                          height: "100px",
+                          id: "sun"
+                        },
+                        on: {
+                          click: function($event) {
+                            _vm.sunToolTip = !_vm.sunToolTip
                           }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "config-label ml-1" }, [
-                          _vm._v("Practice ")
-                        ]),
-                        _c("br"),
-                        _vm._v(" "),
-                        _c("input", {
-                          attrs: { type: "radio", id: "", name: "mode" }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "config-label ml-1" }, [
-                          _vm._v("Test ")
-                        ]),
-                        _c("br"),
-                        _vm._v(" "),
-                        _vm.ktype == 1
-                          ? _c("span", [
-                              _c(
-                                "p",
-                                {
-                                  staticClass: "my-2 green px-4 rounded",
-                                  staticStyle: {
-                                    color: "#fff",
-                                    "font-size": "0.9em",
-                                    "text-align": "center"
-                                  }
-                                },
-                                [_vm._v("WEATHER STATE")]
-                              ),
-                              _vm._v(" "),
-                              _c("input", {
-                                attrs: {
-                                  type: "radio",
-                                  name: "weather",
-                                  checked: "",
-                                  value: "w"
-                                },
-                                on: { click: _vm.function1 }
-                              }),
-                              _c("span", { staticClass: "config-label ml-2" }, [
-                                _vm._v("Winter")
-                              ]),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c("input", {
-                                attrs: {
-                                  type: "radio",
-                                  name: "weather",
-                                  value: "s"
-                                },
-                                on: { click: _vm.function2 }
-                              }),
-                              _c("span", { staticClass: "config-label ml-2" }, [
-                                _vm._v("Summer")
-                              ]),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c("label", [_vm._v("Latitude: ")]),
-                              _c("input", {
-                                staticClass: "border",
-                                attrs: {
-                                  type: "number",
-                                  min: "0",
-                                  max: "360",
-                                  name: "latitude"
-                                },
-                                domProps: { value: _vm.latitude },
-                                on: {
-                                  input: _vm.function3,
-                                  keyup: _vm.function3
-                                }
-                              })
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.ktype == 2
-                          ? _c("span", [
-                              _c(
-                                "p",
-                                {
-                                  staticClass: "my-2 green px-4 rounded",
-                                  staticStyle: {
-                                    color: "#fff",
-                                    "font-size": "0.9em",
-                                    "text-align": "center"
-                                  }
-                                },
-                                [_vm._v("DATA")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "row" }, [
-                                _c(
-                                  "div",
-                                  { staticClass: "col-lg-7 my-1 py-0" },
-                                  [
-                                    _c("label", { attrs: { width: "" } }, [
-                                      _vm._v("lamp Strength: ")
-                                    ])
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: " col-lg-5 my-1 py-0" },
-                                  [
-                                    _c("input", {
-                                      staticClass: "border rounded px-3 my-0",
-                                      attrs: {
-                                        type: "number",
-                                        min: "0",
-                                        max: "360",
-                                        name: "exp4lampWatt"
-                                      },
-                                      domProps: { value: _vm.lampStrenght },
-                                      on: { input: _vm.exp4func1 }
-                                    })
-                                  ]
-                                )
-                              ])
-                            ])
-                          : _vm._e()
-                      ]
-                    )
-                  : _vm._e()
-              ]
-            )
-          ],
-          1
-        )
-      : _c(
-          "div",
-          {
-            staticClass: " d-md-flex",
-            staticStyle: {
-              height: "100vh",
-              width: "100%",
-              background: "var(--color-t)",
-              padding: "1px 5px 0px 15px",
-              "flex-direction": "column"
-            },
-            attrs: { id: "leftNav1" }
-          },
-          [
-            _c("ul", { staticClass: "navBtn" }, [
-              _c(
-                "li",
-                {
-                  class: { navBtnActive: _vm.configBtn },
-                  on: { click: _vm.navBtnFunc1 }
-                },
-                [_c("span", [_vm._v("Config")])]
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                {
-                  class: { navBtnActive: _vm.EquipBtn },
-                  on: { click: _vm.navBtnFunc2 }
-                },
-                [_c("span", [_vm._v("Equipments")])]
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "transition",
-              { attrs: { name: "component-fade", mode: "out-in" } },
-              [
-                _vm.navSlide1
-                  ? _c(
-                      "div",
-                      {
-                        staticClass: "left-panel1 scrollbar",
-                        class: { show: _vm.navSlide1 },
-                        staticStyle: {
-                          display: "none",
-                          "margin-top": "6px",
-                          border: "1px solid #ccc",
-                          "box-shadow": "1px 2px 3px #ccc",
-                          "overflow-y": "scroll"
                         }
                       },
-                      [
-                        _c(
-                          "h4",
-                          {
-                            staticStyle: {
-                              "text-align": "center",
-                              color: "var(--color)"
-                            }
-                          },
-                          [_vm._v("Equipments")]
-                        ),
-                        _vm._v(" "),
-                        _c("br"),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          [
-                            _c(
-                              "v-tooltip",
-                              {
-                                attrs: { bottom: "" },
-                                scopedSlots: _vm._u(
-                                  [
-                                    {
-                                      key: "activator",
-                                      fn: function(ref) {
-                                        var on = ref.on
-                                        var attrs = ref.attrs
-                                        return [
-                                          _c(
-                                            "img",
-                                            _vm._g(
-                                              _vm._b(
-                                                {
-                                                  staticClass: "picker1",
-                                                  attrs: {
-                                                    src:
-                                                      "/expImages/physics/exp1/solar_cell3.jpeg",
-                                                    id: "scell"
-                                                  },
-                                                  on: {
-                                                    click: function($event) {}
-                                                  }
-                                                },
-                                                "img",
-                                                attrs,
-                                                false
-                                              ),
-                                              on
-                                            )
-                                          )
-                                        ]
-                                      }
-                                    }
-                                  ],
-                                  null,
-                                  false,
-                                  2986409273
-                                )
-                              },
-                              [_vm._v(" "), _c("span", [_vm._v("Solar Cell")])]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-tooltip",
-                              {
-                                attrs: { bottom: "" },
-                                scopedSlots: _vm._u(
-                                  [
-                                    {
-                                      key: "activator",
-                                      fn: function(ref) {
-                                        var on = ref.on
-                                        var attrs = ref.attrs
-                                        return [
-                                          _c(
-                                            "img",
-                                            _vm._g(
-                                              _vm._b(
-                                                {
-                                                  staticClass: "picker1",
-                                                  attrs: {
-                                                    src:
-                                                      "/expImages/physics/exp1/voltmeter1.png",
-                                                    id: "voltmeter"
-                                                  },
-                                                  on: {
-                                                    click: function($event) {}
-                                                  }
-                                                },
-                                                "img",
-                                                attrs,
-                                                false
-                                              ),
-                                              on
-                                            )
-                                          )
-                                        ]
-                                      }
-                                    }
-                                  ],
-                                  null,
-                                  false,
-                                  67142421
-                                )
-                              },
-                              [_vm._v(" "), _c("span", [_vm._v("Voltmeter")])]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-tooltip",
-                              {
-                                attrs: { bottom: "" },
-                                scopedSlots: _vm._u(
-                                  [
-                                    {
-                                      key: "activator",
-                                      fn: function(ref) {
-                                        var on = ref.on
-                                        var attrs = ref.attrs
-                                        return [
-                                          _c(
-                                            "img",
-                                            _vm._g(
-                                              _vm._b(
-                                                {
-                                                  staticClass: "picker1",
-                                                  attrs: {
-                                                    src:
-                                                      "/expImages/physics/exp1/ameter.png",
-                                                    id: "ameter"
-                                                  },
-                                                  on: {
-                                                    click: function($event) {}
-                                                  }
-                                                },
-                                                "img",
-                                                attrs,
-                                                false
-                                              ),
-                                              on
-                                            )
-                                          )
-                                        ]
-                                      }
-                                    }
-                                  ],
-                                  null,
-                                  false,
-                                  1983011396
-                                )
-                              },
-                              [_vm._v(" "), _c("span", [_vm._v("Ameter")])]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-tooltip",
-                              {
-                                attrs: { bottom: "" },
-                                scopedSlots: _vm._u(
-                                  [
-                                    {
-                                      key: "activator",
-                                      fn: function(ref) {
-                                        var on = ref.on
-                                        var attrs = ref.attrs
-                                        return [
-                                          _c("span", {
-                                            class: { tooltip: _vm.sunToolTip },
-                                            attrs: {
-                                              "data-tooltip":
-                                                "Add Sun light by clicking"
-                                            }
-                                          }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "img",
-                                            _vm._g(
-                                              _vm._b(
-                                                {
-                                                  staticClass: "picker1",
-                                                  attrs: {
-                                                    src:
-                                                      "/expImages/physics/exp1/lightModul.jpg",
-                                                    id: "sun"
-                                                  },
-                                                  on: {
-                                                    click: function($event) {
-                                                      _vm.sunToolTip = !_vm.sunToolTip
-                                                    }
-                                                  }
-                                                },
-                                                "img",
-                                                attrs,
-                                                false
-                                              ),
-                                              on
-                                            )
-                                          )
-                                        ]
-                                      }
-                                    }
-                                  ],
-                                  null,
-                                  false,
-                                  359303750
-                                )
-                              },
-                              [_vm._v(" "), _c("span", [_vm._v("sun light")])]
-                            )
-                          ],
-                          1
-                        )
-                      ]
-                    )
-                  : _vm._e()
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "transition",
-              { attrs: { name: "component-fade", mode: "out-in" } },
-              [
-                _vm.navSlide2
-                  ? _c(
-                      "div",
-                      {
-                        staticClass: "left-panel",
-                        class: { show: _vm.navSlide2 },
-                        staticStyle: { display: "none" }
-                      },
-                      [
-                        _c(
-                          "p",
-                          {
-                            staticStyle: {
-                              "text-align": "center",
-                              color: "var(--color)",
-                              "font-size": "105%",
-                              "font-weight": "bold"
-                            }
-                          },
-                          [_vm._v("CONFIGURATION")]
-                        ),
-                        _vm._v(" "),
-                        _c("input", {
-                          attrs: { type: "checkbox", id: "spillAll", name: "" },
-                          on: { click: function($event) {} }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "config-label" }, [
-                          _vm._v("arrage circuit")
-                        ]),
-                        _c("br"),
-                        _vm._v(" "),
-                        _c("input", {
-                          attrs: { type: "radio", id: "", name: "mode" }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "config-label" }, [
-                          _vm._v("Practice Mode")
-                        ]),
-                        _c("br"),
-                        _vm._v(" "),
-                        _c("input", {
-                          attrs: { type: "radio", id: "", name: "mode" }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "config-label" }, [
-                          _vm._v("Test Mode")
-                        ]),
-                        _c("br")
-                      ]
-                    )
-                  : _vm._e()
-              ]
-            )
-          ],
-          1
-        )
+                      "img",
+                      _vm.attrs,
+                      false
+                    ),
+                    _vm.on
+                  )
+                )
+              ])
+            ],
+            1
+          )
+        : _vm._e()
+    ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "d-md-none d-flex  align-center pa-0 ma-0 alert alert-success pa-10 ",
-        staticStyle: {
-          width: "105vw",
-          height: "100%",
-          position: "fixed",
-          top: "0",
-          "z-index": "99990000000000",
-          opacity: "0.9",
-          "text-align": "center",
-          "text-transform": "uppercase"
-        }
-      },
-      [
-        _c("div", {}, [
-          _c("p", { staticStyle: { "font-size": "1.4em" } }, [
-            _vm._v(
-              " sorry this experiment can only be undertaken on a Personal Computer (PC)"
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "v-btn v-btn--contained theme--light success",
-              staticStyle: {
-                width: "220px !important",
-                "text-decoration": "none"
-              },
-              attrs: { to: "/" }
-            },
-            [_vm._v("Back to home page")]
-          )
-        ])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -29159,15 +30153,7 @@ var render = function() {
               _c(
                 "div",
                 {
-                  staticClass: "picker equipments drags",
-                  staticStyle: {
-                    "pointer-events": "none",
-                    "z-index": "0",
-                    display: "none",
-                    width: "97% !important",
-                    "box-shadow": "none",
-                    height: "110% !important"
-                  },
+                  staticClass: "picker equipments drags forsunligt dp-none",
                   attrs: { id: "sunLight" }
                 },
                 [
@@ -29178,7 +30164,8 @@ var render = function() {
                         {
                           attrs: {
                             src: "/expImages/physics/exp1/lightModul.jpg",
-                            width: "100%"
+                            width: "80%",
+                            height: "80%"
                           },
                           on: { click: function($event) {} }
                         },
@@ -29278,21 +30265,359 @@ var staticRenderFns = [
       _c(
         "button",
         {
-          staticClass: "deleteCell",
-          staticStyle: {
-            position: "relative",
-            right: "50%",
-            "pointer-events": "auto !important"
-          },
+          staticClass: "deleteCell sunlightDelBtn",
           attrs: { rel: "sunLight" }
         },
         [
-          _c("span", [
-            _c("span", {
-              staticClass: "fa fa-remove",
-              staticStyle: { color: "#ba6" }
-            })
-          ])
+          _c("span", {
+            staticClass: "fa fa-remove",
+            staticStyle: { color: "#ba6" }
+          })
+        ]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=template&id=273e64d3&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=template&id=273e64d3&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { "data-demo-id": "draggableConnectors" } }, [
+    _c("div", { staticClass: "main row" }, [
+      _vm.guidings
+        ? _c("div", { staticClass: "noticeboard" }, [_vm._m(0)])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "w-100" }, [
+        _c("img", {
+          staticClass: "img-pos",
+          attrs: { src: "/expImages/physics/exp1/1-0.png", width: "200px" }
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "mainJ drag-drop scrollbar w-100",
+            attrs: { id: "mainSheet" }
+          },
+          [
+            _vm._l(_vm.solarCell_id, function(id) {
+              return _c(
+                "div",
+                {
+                  key: id.id,
+                  staticClass: "equipments drags  dp-none pointer-auto",
+                  attrs: { id: "solar_cell" + id.id },
+                  on: { mouseover: _vm.removeClass }
+                },
+                [
+                  _vm._m(1, true),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "cbtn" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "detach pointer-auto",
+                        attrs: { rel: "solar_cell" + id.id }
+                      },
+                      [_vm._v("detach")]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(2, true),
+                    _vm._v(" "),
+                    _vm._m(3, true),
+                    _vm._v(" "),
+                    _vm._m(4, true),
+                    _vm._v(" "),
+                    _vm._m(5, true),
+                    _vm._v(" "),
+                    _vm._m(6, true),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "deleteCell dp-none pointer-auto",
+                        attrs: { rel: "solar_cell" + id.id },
+                        on: {
+                          click: function($event) {
+                            _vm.solar_num1--
+                          }
+                        }
+                      },
+                      [
+                        _c("span", {
+                          staticClass: "fa fa-remove",
+                          staticStyle: { color: "#ba6" }
+                        })
+                      ]
+                    )
+                  ])
+                ]
+              )
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "equipments drags dp-none",
+                attrs: { id: "ameterRead" },
+                on: { mouseover: _vm.removeClass }
+              },
+              [
+                _c("span", [
+                  _c(
+                    "canvas",
+                    { attrs: { id: "ameter-gauage" } },
+                    [
+                      _c("center", [
+                        _c("h2", [_vm._v(_vm._s(_vm.ampValue) + "A")])
+                      ]),
+                      _vm._v(" "),
+                      _c("img", {
+                        staticClass: "ek",
+                        attrs: {
+                          src: "/expImages/physics/exp1/ameter.png",
+                          width: "110px"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v("\n                    Ameter\n                  ")
+                ]),
+                _vm._v(" "),
+                _vm._m(7)
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "equipments drags dp-none",
+                attrs: { id: "voltmeterRead" },
+                on: { mouseover: _vm.removeClass }
+              },
+              [
+                _c("span", [
+                  _c(
+                    "canvas",
+                    { attrs: { id: "another-gauge" } },
+                    [
+                      _c("center", [
+                        _c("h2", [_vm._v(_vm._s(_vm.voltValue) + "V")])
+                      ]),
+                      _vm._v(" "),
+                      _c("img", {
+                        staticClass: "ek",
+                        attrs: {
+                          src: "/expImages/physics/exp1/voltmeter1.png",
+                          width: "120px"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v("\n                    Voltmeter\n                  ")
+                ]),
+                _vm._v(" "),
+                _vm._m(8)
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "picker equipments drags dp-none pointer-auto forsunligt",
+                attrs: { id: "sunLight" }
+              },
+              [
+                _c(
+                  "img",
+                  _vm._g(
+                    _vm._b(
+                      {
+                        attrs: {
+                          src: "/expImages/physics/exp1/lightModul.jpg",
+                          width: "100%"
+                        },
+                        on: { click: function($event) {} }
+                      },
+                      "img",
+                      _vm.attrs,
+                      false
+                    ),
+                    _vm.on
+                  )
+                ),
+                _vm._v(" "),
+                _vm._m(9)
+              ]
+            )
+          ],
+          2
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "list" } })
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _c("span", { staticClass: "noteb" }),
+      _vm._v(" "),
+      _c("i", [_vm._v("Invalid/Required Connection")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [
+      _c("img", {
+        staticClass: "ek pointer-auto",
+        attrs: {
+          src: "/expImages/physics/exp1/solar_cell3.jpeg",
+          width: "100px",
+          height: "200px"
+        }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "shadowCover" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "shadowRange pointer-auto",
+        attrs: { rel: "zero", id: "zero" }
+      },
+      [_c("var", [_vm._v("0")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "shadowRange pointer-auto",
+        attrs: { rel: "quater", id: "quater" }
+      },
+      [_c("var", [_vm._v("1/4")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "shadowRange pointer-auto",
+        attrs: { rel: "half", id: "hlaf" }
+      },
+      [_c("var", [_vm._v("1/2")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "shadowRange pointer-auto",
+        attrs: { rel: "threeQuater", id: "quater" }
+      },
+      [_c("var", [_vm._v("3/4")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "shadowRange pointer-auto",
+        attrs: { rel: "fullOne", id: "quater" }
+      },
+      [_c("var", [_vm._v("1")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cbtn" }, [
+      _c("button", { staticClass: "detach", attrs: { rel: "ameterRead" } }, [
+        _vm._v("detach")
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "read", attrs: { rel: "voltmeterRead" } }, [
+        _vm._v("Read")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cbtn" }, [
+      _c("button", { staticClass: "detach", attrs: { rel: "voltmeterRead" } }, [
+        _vm._v("detach")
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "read", attrs: { rel: "voltmeterRead" } }, [
+        _vm._v("Read")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cbtn" }, [
+      _c(
+        "button",
+        {
+          staticClass: "deleteCell sunlightDelBtn",
+          attrs: { rel: "sunLight" }
+        },
+        [
+          _c("span", {
+            staticClass: "fa fa-remove",
+            staticStyle: { color: "#ba6" }
+          })
         ]
       )
     ])
