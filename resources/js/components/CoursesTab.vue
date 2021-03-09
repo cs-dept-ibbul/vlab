@@ -32,10 +32,10 @@
 		    	return{
            
             activities:false,
-            experiments:true,
+            experiments:false,
             students:false,
             resources:false,
-            details:false
+            details:true
 		    	}
         },
         methods:{
