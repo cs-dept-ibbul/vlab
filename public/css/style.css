@@ -672,7 +672,7 @@ html body{
 .exprightNav{
   position: absolute;
   right: 0px;
-  top: 85px !important;
+  top: 13vh ;
   width: 200px;
   transition: width 1s;  
 

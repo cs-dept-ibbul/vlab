@@ -68,5 +68,5 @@ state:{
       arr5v: 0,
       arr5c: 0,              
 	
-}
+ }
 }
