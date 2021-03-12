@@ -1575,6 +1575,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1592,9 +1596,11 @@ __webpack_require__.r(__webpack_exports__);
       sectionState: 1,
       title: '',
       ccode: '',
+      imagetoupload: '',
       validateState: false,
       selectedExperiment: [],
-      selectedExperimentName: []
+      selectedExperimentName: [],
+      percentage: 0
     };
   },
   methods: {
@@ -1672,9 +1678,7 @@ __webpack_require__.r(__webpack_exports__);
           $('.requiredv').remove();
           $('#' + id).after('<span class="text-danger requiredv">Required !</span>');
           this.validateState = false;
-          alert(1);
         } else {
-          alert(2);
           this.validateState = true;
         }
       }
@@ -1708,11 +1712,51 @@ __webpack_require__.r(__webpack_exports__);
           this.stagetwop = true;
           this.stagethree = true;
           this.sectionState = 3;
+          this.alldata.push(selectedExperiment);
         }
-      }
+      } else if (this.sectionState === 3) {
+        if (this.imagetoupload != '') {
+          this.stagethree = false;
+          this.stagethreep = true;
+          this.stagefour = true;
+          this.sectionState = 4;
+          this.alldata.push(this.imagetoupload);
+        } else {
+          this.singleValidate('dgbox');
+        }
+      } else if (this.sectionState === 3) {}
     },
-    getDragedInFile: function getDragedInFile() {
-      $('form p').text($('#fileI').files.length + " file(s) selected");
+    dragEnter: function dragEnter(e) {
+      var $nv = this;
+      var holder = document.getElementById('dgbox');
+      holder.classList.add('dragenter');
+      var file = e.dataTransfer.files[0];
+      var reader = new FileReader();
+      $('.progress').css('display', 'block');
+
+      reader.onloadstart = function (event) {
+        $('.progressi').css('display', 'block');
+      };
+
+      reader.onprogress = function (event) {
+        if (event.lengthComputable) {
+          $nv.percentage = event.loaded / event.total * 100;
+          $('.progress-bar').css('width', $nv.percentage + '%');
+        }
+      };
+
+      reader.onloadend = function (event) {
+        $('#imageprev').html('<img id="image_droped" width="200px"  src="' + event.target.result + '">');
+        $nv.imagetoupload = event.target.result;
+      };
+      /*reader.onload = function (event) {
+      }*/
+
+
+      reader.readAsDataURL(file);
+      e.preventDefault();
+    },
+    getDragedInFile: function getDragedInFile() {//$('#fileI').files;				
     }
   },
   props: [],
@@ -3105,57 +3149,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
-/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(bootstrap__WEBPACK_IMPORTED_MODULE_0__);
-
- //Main pages
-//import App from './views/app.vue'
-
-/*experiment page component*/
-
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/*global event bus and communication*/
-
-vue__WEBPACK_IMPORTED_MODULE_1__.default.prototype.$eventBus = new vue__WEBPACK_IMPORTED_MODULE_1__.default();
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-msidebar', __webpack_require__(/*! ./components/leftNavBar.vue */ "./resources/js/components/leftNavBar.vue").default); //main system side bar
-
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-topnave', __webpack_require__(/*! ./components/experimentTopNav.vue */ "./resources/js/components/experimentTopNav.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-systopnave', __webpack_require__(/*! ./components/SysTopNav.vue */ "./resources/js/components/SysTopNav.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-guide', __webpack_require__(/*! ./components/ExphowToNav.vue */ "./resources/js/components/ExphowToNav.vue").default); //experiment side bar
-
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-rightnav', __webpack_require__(/*! ./components/ExpRightNav.vue */ "./resources/js/components/ExpRightNav.vue").default); //experiment Right Nav bar
-
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-expfooter', __webpack_require__(/*! ./components/ExpbottomNav.vue */ "./resources/js/components/ExpbottomNav.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-ribbon', __webpack_require__(/*! ./components/ExperimentRibbon.vue */ "./resources/js/components/ExperimentRibbon.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-start', __webpack_require__(/*! ./components/StartExperimentBtn.vue */ "./resources/js/components/StartExperimentBtn.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-progress', __webpack_require__(/*! ./components/progressBar.vue */ "./resources/js/components/progressBar.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-thread', __webpack_require__(/*! ./components/threadTrends.vue */ "./resources/js/components/threadTrends.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-createcourse', __webpack_require__(/*! ./components/createCourse.vue */ "./resources/js/components/createCourse.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-tlb2', __webpack_require__(/*! ./components/title-left-bar.vue */ "./resources/js/components/title-left-bar.vue").default); // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-tlb', __webpack_require__(/*! ./components/title-left-bar.vue */ "./resources/js/components/title-left-bar.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-navb', __webpack_require__(/*! ./components/Navbar.vue */ "./resources/js/components/Navbar.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-t', __webpack_require__(/*! ./components/Section.vue */ "./resources/js/components/Section.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-sponsor', __webpack_require__(/*! ./components/SponsorSection.vue */ "./resources/js/components/SponsorSection.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-avl', __webpack_require__(/*! ./components/ExploreSection.vue */ "./resources/js/components/ExploreSection.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-avlc', __webpack_require__(/*! ./components/AvailableCourses.vue */ "./resources/js/components/AvailableCourses.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-viewcourses', __webpack_require__(/*! ./components/VewCourse.vue */ "./resources/js/components/VewCourse.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-logintopnavbar', __webpack_require__(/*! ./components/NavbarLogin.vue */ "./resources/js/components/NavbarLogin.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-loginbox', __webpack_require__(/*! ./components/loginBox.vue */ "./resources/js/components/loginBox.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-secondbox', __webpack_require__(/*! ./components/loginBox2.vue */ "./resources/js/components/loginBox2.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-welcometext', __webpack_require__(/*! ./components/welcomevlb.vue */ "./resources/js/components/welcomevlb.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-dashb', __webpack_require__(/*! ./components/UserDashboard.vue */ "./resources/js/components/UserDashboard.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-topnav', __webpack_require__(/*! ./components/TopNav.vue */ "./resources/js/components/TopNav.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-lactivity', __webpack_require__(/*! ./components/Lastactivity.vue */ "./resources/js/components/Lastactivity.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-practicaltimeline', __webpack_require__(/*! ./components/PracticalTimeLine.vue */ "./resources/js/components/PracticalTimeLine.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-enrolledpracticals', __webpack_require__(/*! ./components/EnrolledPractical.vue */ "./resources/js/components/EnrolledPractical.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-coursestab', __webpack_require__(/*! ./components/CoursesTab.vue */ "./resources/js/components/CoursesTab.vue").default);
-/*end experiment page component*/
-
-var app = new vue__WEBPACK_IMPORTED_MODULE_1__.default({
-  el: '#app',
-  bootstrap: (bootstrap__WEBPACK_IMPORTED_MODULE_0___default()),
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -3380,72 +3373,6 @@ var experimentOne, resulInHtml;
     },
     menuClick2: function menuClick2() {
       this.menuState2 = !this.menuState2;
-  return value;
-});
-document.querySelectorAll(".drop-zone__input").forEach(function (inputElement) {
-  var dropZoneElement = inputElement.closest(".drop-zone");
-  dropZoneElement.addEventListener("click", function (e) {
-    inputElement.click();
-  });
-  inputElement.addEventListener("change", function (e) {
-    if (inputElement.files.length) {
-      updateThumbnail(dropZoneElement, inputElement.files[0]);
-    }
-  });
-  dropZoneElement.addEventListener("dragover", function (e) {
-    e.preventDefault();
-    dropZoneElement.classList.add("drop-zone--over");
-  });
-  ["dragleave", "dragend"].forEach(function (type) {
-    dropZoneElement.addEventListener(type, function (e) {
-      dropZoneElement.classList.remove("drop-zone--over");
-    });
-  });
-  dropZoneElement.addEventListener("drop", function (e) {
-    e.preventDefault();
-
-    if (e.dataTransfer.files.length) {
-      inputElement.files = e.dataTransfer.files;
-      updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
-    }
-
-    dropZoneElement.classList.remove("drop-zone--over");
-  });
-});
-/**
- * Updates the thumbnail on a drop zone element.
- *
- * @param {HTMLElement} dropZoneElement
- * @param {File} file
- */
-
-function updateThumbnail(dropZoneElement, file) {
-  var thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb"); // First time - remove the prompt
-
-  if (dropZoneElement.querySelector(".drop-zone__prompt")) {
-    dropZoneElement.querySelector(".drop-zone__prompt").remove();
-  } // First time - there is no thumbnail element, so lets create it
-
-
-  if (!thumbnailElement) {
-    thumbnailElement = document.createElement("div");
-    thumbnailElement.classList.add("drop-zone__thumb");
-    dropZoneElement.appendChild(thumbnailElement);
-  }
-
-  thumbnailElement.dataset.label = file.name; // Show thumbnail for image files
-
-  if (file.type.startsWith("image/")) {
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    reader.onload = function () {
-      thumbnailElement.style.backgroundImage = "url('".concat(reader.result, "')");
-    };
-  } else {
-    thumbnailElement.style.backgroundImage = null;
-  }
-}
 
       if (this.menuState2 == true) {
         this.menuName2 = "mdi-chevron-right";
@@ -5812,6 +5739,8 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-dashb', __webpack_require_
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-topnav', __webpack_require__(/*! ./components/TopNav.vue */ "./resources/js/components/TopNav.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-lactivity', __webpack_require__(/*! ./components/Lastactivity.vue */ "./resources/js/components/Lastactivity.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-practicaltimeline', __webpack_require__(/*! ./components/PracticalTimeLine.vue */ "./resources/js/components/PracticalTimeLine.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-enrolledpracticals', __webpack_require__(/*! ./components/EnrolledPractical.vue */ "./resources/js/components/EnrolledPractical.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-coursestab', __webpack_require__(/*! ./components/CoursesTab.vue */ "./resources/js/components/CoursesTab.vue").default);
 /*end experiment page component*/
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_1__.default({
@@ -5848,6 +5777,70 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.filter('two_digits', function (value) {
 
   return value;
 });
+document.querySelectorAll(".drop-zone__input").forEach(function (inputElement) {
+  var dropZoneElement = inputElement.closest(".drop-zone");
+  dropZoneElement.addEventListener("click", function (e) {
+    inputElement.click();
+  });
+  inputElement.addEventListener("change", function (e) {
+    if (inputElement.files.length) {
+      updateThumbnail(dropZoneElement, inputElement.files[0]);
+    }
+  });
+  dropZoneElement.addEventListener("dragover", function (e) {
+    e.preventDefault();
+    dropZoneElement.classList.add("drop-zone--over");
+  });
+  ["dragleave", "dragend"].forEach(function (type) {
+    dropZoneElement.addEventListener(type, function (e) {
+      dropZoneElement.classList.remove("drop-zone--over");
+    });
+  });
+  dropZoneElement.addEventListener("drop", function (e) {
+    e.preventDefault();
+
+    if (e.dataTransfer.files.length) {
+      inputElement.files = e.dataTransfer.files;
+      updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+    }
+
+    dropZoneElement.classList.remove("drop-zone--over");
+  });
+});
+/**
+ * Updates the thumbnail on a drop zone element.
+ *
+ * @param {HTMLElement} dropZoneElement
+ * @param {File} file
+ */
+
+function updateThumbnail(dropZoneElement, file) {
+  var thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb"); // First time - remove the prompt
+
+  if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+    dropZoneElement.querySelector(".drop-zone__prompt").remove();
+  } // First time - there is no thumbnail element, so lets create it
+
+
+  if (!thumbnailElement) {
+    thumbnailElement = document.createElement("div");
+    thumbnailElement.classList.add("drop-zone__thumb");
+    dropZoneElement.appendChild(thumbnailElement);
+  }
+
+  thumbnailElement.dataset.label = file.name; // Show thumbnail for image files
+
+  if (file.type.startsWith("image/")) {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = function () {
+      thumbnailElement.style.backgroundImage = "url('".concat(reader.result, "')");
+    };
+  } else {
+    thumbnailElement.style.backgroundImage = null;
+  }
+}
 
 /***/ }),
 
@@ -11285,7 +11278,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.close[data-v-c36406fc]{\n\t\tbackground: #ccc !important;\n\t\tborder-radius: 50% !important;\n\t\tpadding: 2px !important;\n}\n.form-control[data-v-c36406fc]:focus{\n\t\toutline: none !important;\n\t\tbox-shadow: none !important;\n\t\tborder: 1px solid #aaa;\n}\n.bb[data-v-c36406fc]{\n\t\tborder-bottom: 1px solid #ccc !important;\n}\n.requiredI[data-v-c36406fc]{\n\t\ttransition: all 1s;\n\t\tcolor: #e45 !important;\n\t\tbackground: white;\n\t\tborder: 1px solid #aaa;\n\t\tbox-shadow: 1px 2px 3px #bbb;\n\t\tborder-radius: 5px;\n\t\tpadding: 4px;\n\t\tdisplay: block;\n\t\tposition: absolute;\n\t\ttop: 10px; /* At the bottom of the tooltip */\n\t  \tleft: 50px;\n\t  \tz-index: 15;\n}\n.requiredI[data-v-c36406fc]:before {\n\t  content: \" \";\n\t  position: relative;\n\t  top: 0%; /* At the bottom of the tooltip */\n\t  left: 50%;\n\t  margin-left: -5px;\n\t  border-width: 5px;\n\t  border-style: solid;\n\t  border-color: black transparent transparent transparent;\n}\n.sysbtn[data-v-c36406fc]{\n\t\t padding: 10px 15px;\n\t\t  font-family: 'Roboto',serif;\n\t\t  font-size: 0.9em;\n\t\t  text-align: center;\n\t\t  text-decoration: none;\n\t\t  border-radius: 6px;\n\t\t  word-break: keep-all;\n\t\t  white-space: nowrap;\n\t\t  border: none;\n\t\t  position: relative;\n}\n.sysbtn[data-v-c36406fc]:active{\n\t\tbox-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);\n  \t\ttop: 1px;\n}\n.sysbtn[data-v-c36406fc]:focus{\n\t\tbox-shadow: inset 0 2px 3px #294,\n}\n.ncircle[data-v-c36406fc]{\n\t\tborder: 2px solid #bbb; \n\t\tborder-radius: 50%;\n\t\twidth: 25px;\n\t\theight: 25px;\n\t\tfont-size: 0.9em;\n\t\tpadding: 2px 0px 0px 6.5px !important;\n\t\ttransition: all 1s;\n}\ndiv[data-v-c36406fc]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.no-break[data-v-c36406fc]{\n\t\twhite-space: nowrap;\n\t\tword-break:keep-all;\n}\n.tline[data-v-c36406fc]{\n\t\theight: 27px; width: 2px; background: #bbb; position: relative; top:26px; left: -13px;\n}\n.syscircle[data-v-c36406fc]{\n\t\twidth: 12px !important;\n\t\theight: 12px !important;\n\t\tborder-radius: 50%;\n\t\tbackground: #00b96b;\n\t\tdisplay: block;\n\t\tmargin: 0px 0px 0px 12px;\n}\n.tactive[data-v-c36406fc]{\n\t\tborder:2px solid #222 !important;\n}\n.tlactive[data-v-c36406fc]{\n\t\tbackground: #222 !important;\n}\n.tsuccess[data-v-c36406fc]{\n\t\tborder: 2.5px solid #4b6 !important;\n\t\tbackground: #4b6 !important;\n\t\tcolor:white;\n\t\tpadding-bottom: 2px;\n}\n.tlsuccess[data-v-c36406fc]{\n\t\tbackground: #4b6 !important;\n}\n.syscircle-o[data-v-c36406fc]{\n\t\twidth: 12px;\n\t\theight: 12px;\n\t\tborder-radius: 50%;\n\t\tborder: 2px solid #999;\n\t\tdisplay: block;\t\n\t\tmargin-left:12px;\n}\n.syscircle-o-l[data-v-c36406fc]{\n\t\twidth: 22px;\n\t\theight: 22px;\n\t\tborder-radius: 50%;\n\t\tborder: 2px solid #999;\n\t\tdisplay: block;\t\n\t\tmargin-left: 5px;\n}\n.fs3[data-v-c36406fc]{\n\t\tfont-size: 1.7em;\n}\n.fs1[data-v-c36406fc]{\n\t\tfont-family: 'Roboto', sans-serif;\n\t\tfont-size: 0.9em;\n\t\tcolor: #888;\n\t\tfont-weight: 300;\n}\n.flex-wrap-center[data-v-c36406fc]{\n\t\tflex-wrap: wrap;\n\t\talign-items: center;\n}\n.w10[data-v-c36406fc]{\n\t\twidth: 60px;\n}\n.timelineX[data-v-c36406fc]{\n\t\tmargin-top: 10px; \n\t\tmargin-bottom: 120px;\n}\n.timelineX-o[data-v-c36406fc]{\n\t\tmargin-top: 10px; \n\t\tmargin-bottom: 120px;\n}\n.timelineSM[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 40px;\n\t\twidth: 2px;\n\t\tbackground: #00b96b;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineSM-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 40px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineX-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 140px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineX[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 132px;\n\t\twidth: 2px;\n\t\tbackground: #00b96b;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 10px;\t\t\n\t\tleft: 5px;\n}\n.timelineX-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 130px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 10px;\t\t\n\t\tleft: 3px;\n}\n.fw8[data-v-c36406fc]{\n\t\tfont-weight: 600;\n\t\tcolor: #222;\n}\n.fw3[data-v-c36406fc]{\n\t\tfont-weight: 600 !important;\n\t\tcolor: #222 !important;\n}\n.fs001[data-v-c36406fc]{\n\t\tfont-size: 0.8em;\n\t\tcolor: #888;\n}\n.fs2[data-v-c36406fc]{\n\t\tfont-size: 1.2em;\n}\n.wrap-center[data-v-c36406fc]{\n\t\t  flex-wrap: wrap;\n      align-items: center;\n}\n.hr[data-v-c36406fc]{\n\t\theight: 1px !important;\n\t\tbackground: #ccc;\n\t\twidth: 100% !important;\n\t\tdisplay: block !important;\n}\n.w35[data-v-c36406fc]{\n\t\twidth: 35% !important;\n}\n.w30[data-v-c36406fc]{\n\t\twidth: 30%;\n}\n.shineA[data-v-c36406fc]{\n\t\ttransition: all 1s;\n}\n.draginto[data-v-c36406fc]{\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\topacity: 0;\n\t\tposition: absolute;\n}\n.dragbox[data-v-c36406fc]{\n\t\tposition: relative;\n\t\tborder: 2px dashed #c0c0cf;\n\t\tborder-radius: 5px;\t\t\n\t\twidth: 100%;\n\t\tpadding: 10px 0px;\n\t\tbackground: #f0f0ff;\n\t\tdisplay:flex;\n\t\tflex-direction: column;\n\t\tjustify-content: center;\n\t\tflex-wrap: wrap;\n\t\talign-items: center;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.close[data-v-c36406fc]{\n\t\tbackground: #ccc !important;\n\t\tborder-radius: 50% !important;\n\t\tpadding: 2px !important;\n}\n.form-control[data-v-c36406fc]:focus{\n\t\toutline: none !important;\n\t\tbox-shadow: none !important;\n\t\tborder: 1px solid #aaa;\n}\n.bb[data-v-c36406fc]{\n\t\tborder-bottom: 1px solid #ccc !important;\n}\n.requiredI[data-v-c36406fc]{\n\t\ttransition: all 1s;\n\t\tcolor: #e45 !important;\n\t\tbackground: white;\n\t\tborder: 1px solid #aaa;\n\t\tbox-shadow: 1px 2px 3px #bbb;\n\t\tborder-radius: 5px;\n\t\tpadding: 4px;\n\t\tdisplay: block;\n\t\tposition: absolute;\n\t\ttop: 10px; /* At the bottom of the tooltip */\n\t  \tleft: 50px;\n\t  \tz-index: 15;\n}\n.requiredI[data-v-c36406fc]:before {\n\t  content: \" \";\n\t  position: relative;\n\t  top: 0%; /* At the bottom of the tooltip */\n\t  left: 50%;\n\t  margin-left: -5px;\n\t  border-width: 5px;\n\t  border-style: solid;\n\t  border-color: black transparent transparent transparent;\n}\n.sysbtn[data-v-c36406fc]{\n\t\t padding: 10px 15px;\n\t\t  font-family: 'Roboto',serif;\n\t\t  font-size: 0.9em;\n\t\t  text-align: center;\n\t\t  text-decoration: none;\n\t\t  border-radius: 6px;\n\t\t  word-break: keep-all;\n\t\t  white-space: nowrap;\n\t\t  border: none;\n\t\t  position: relative;\n}\n.sysbtn[data-v-c36406fc]:active{\n\t\tbox-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);\n  \t\ttop: 1px;\n}\n.sysbtn[data-v-c36406fc]:focus{\n\t\tbox-shadow: inset 0 2px 3px #294,\n}\n.ncircle[data-v-c36406fc]{\n\t\tborder: 2px solid #bbb; \n\t\tborder-radius: 50%;\n\t\twidth: 25px;\n\t\theight: 25px;\n\t\tfont-size: 0.9em;\n\t\tpadding: 2px 0px 0px 6.5px !important;\n\t\ttransition: all 1s;\n}\ndiv[data-v-c36406fc]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.no-break[data-v-c36406fc]{\n\t\twhite-space: nowrap;\n\t\tword-break:keep-all;\n}\n.tline[data-v-c36406fc]{\n\t\theight: 27px; width: 2px; background: #bbb; position: relative; top:26px; left: -13px;\n}\n.syscircle[data-v-c36406fc]{\n\t\twidth: 12px !important;\n\t\theight: 12px !important;\n\t\tborder-radius: 50%;\n\t\tbackground: #00b96b;\n\t\tdisplay: block;\n\t\tmargin: 0px 0px 0px 12px;\n}\n.tactive[data-v-c36406fc]{\n\t\tborder:2px solid #222 !important;\n}\n.tlactive[data-v-c36406fc]{\n\t\tbackground: #222 !important;\n}\n.tsuccess[data-v-c36406fc]{\n\t\tborder: 2.5px solid #4b6 !important;\n\t\tbackground: #4b6 !important;\n\t\tcolor:white;\n\t\tpadding-bottom: 2px;\n}\n.tlsuccess[data-v-c36406fc]{\n\t\tbackground: #4b6 !important;\n}\n.syscircle-o[data-v-c36406fc]{\n\t\twidth: 12px;\n\t\theight: 12px;\n\t\tborder-radius: 50%;\n\t\tborder: 2px solid #999;\n\t\tdisplay: block;\t\n\t\tmargin-left:12px;\n}\n.syscircle-o-l[data-v-c36406fc]{\n\t\twidth: 22px;\n\t\theight: 22px;\n\t\tborder-radius: 50%;\n\t\tborder: 2px solid #999;\n\t\tdisplay: block;\t\n\t\tmargin-left: 5px;\n}\n.fs3[data-v-c36406fc]{\n\t\tfont-size: 1.7em;\n}\n.fs1[data-v-c36406fc]{\n\t\tfont-family: 'Roboto', sans-serif;\n\t\tfont-size: 0.9em;\n\t\tcolor: #888;\n\t\tfont-weight: 300;\n}\n.flex-wrap-center[data-v-c36406fc]{\n\t\tflex-wrap: wrap;\n\t\talign-items: center;\n}\n.w10[data-v-c36406fc]{\n\t\twidth: 60px;\n}\n.timelineX[data-v-c36406fc]{\n\t\tmargin-top: 10px; \n\t\tmargin-bottom: 120px;\n}\n.timelineX-o[data-v-c36406fc]{\n\t\tmargin-top: 10px; \n\t\tmargin-bottom: 120px;\n}\n.timelineSM[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 40px;\n\t\twidth: 2px;\n\t\tbackground: #00b96b;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineSM-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 40px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineX-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 140px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineX[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 132px;\n\t\twidth: 2px;\n\t\tbackground: #00b96b;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 10px;\t\t\n\t\tleft: 5px;\n}\n.timelineX-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 130px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 10px;\t\t\n\t\tleft: 3px;\n}\n.fw8[data-v-c36406fc]{\n\t\tfont-weight: 600;\n\t\tcolor: #222;\n}\n.fw3[data-v-c36406fc]{\n\t\tfont-weight: 600 !important;\n\t\tcolor: #222 !important;\n}\n.fs001[data-v-c36406fc]{\n\t\tfont-size: 0.8em;\n\t\tcolor: #888;\n}\n.fs2[data-v-c36406fc]{\n\t\tfont-size: 1.2em;\n}\n.wrap-center[data-v-c36406fc]{\n\t\t  flex-wrap: wrap;\n      align-items: center;\n}\n.hr[data-v-c36406fc]{\n\t\theight: 1px !important;\n\t\tbackground: #ccc;\n\t\twidth: 100% !important;\n\t\tdisplay: block !important;\n}\n.w35[data-v-c36406fc]{\n\t\twidth: 35% !important;\n}\n.w30[data-v-c36406fc]{\n\t\twidth: 30%;\n}\n.shineA[data-v-c36406fc]{\n\t\ttransition: all 1s;\n}\n.draginto[data-v-c36406fc]{\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\topacity: 0;\n\t\tposition: absolute;\n}\n.dragbox[data-v-c36406fc]{\n\t\tposition: relative;\n\t\tborder: 2px dashed #c0c0cf;\n\t\tborder-radius: 5px;\t\t\n\t\twidth: 100%;\n\t\tpadding: 10px 0px;\n\t\tbackground: #f0f0ff;\n\t\tdisplay:flex;\n\t\tflex-direction: column;\n\t\tjustify-content: center;\n\t\tflex-wrap: wrap;\n\t\talign-items: center;\n}\n.dragenter[data-v-c36406fc]{\n\t\tborder: 2px dashed #c5ddc5 !important;\n\t\tbackground: #f0fff0 !important;\n}\n.progressi[data-v-c36406fc] {\n    background: #eee;\n    border-radius: 13px;    \n    width: 40%;\n    padding: 0px;\n    max-height: 7px;\n    display: block;\n}\n.progress-bar[data-v-c36406fc]{\n    border-radius: 13px;    \n    height: 7px;\n    padding: 0px;\n    margin: 0px;\n    position: relative;\n    width: 0%;\n    transition: all 1s;\n}\n.p-success[data-v-c36406fc]{    \n    background: #00b96b !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -31258,31 +31251,33 @@ var render = function() {
                       [_vm._v("Add Resources")]
                     ),
                     _vm._v(" "),
-                    _c("div", { staticClass: "dragbox" }, [
-                      _c("input", {
-                        staticClass: "draginto",
-                        attrs: { type: "file", name: "files[]", id: "fileI" },
-                        on: { change: _vm.getDragedInFile }
-                      }),
-                      _vm._v(" "),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("span", {
-                        staticClass: "fa fa-cloud-upload fs3 text-dark"
-                      }),
-                      _vm._v(" "),
-                      _c("label", { staticClass: "fw3" }, [
-                        _vm._v("Upload Additional resources")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "p",
-                        {
-                          staticStyle: { color: "#bbb", "font-size": "0.8em" }
-                        },
-                        [_vm._v("Format: .jpeg, .jpg, or .png only")]
-                      )
-                    ])
+                    _c(
+                      "div",
+                      {
+                        staticClass: "dragbox",
+                        attrs: { id: "dgbox" },
+                        on: {
+                          dragenter: function($event) {
+                            $event.preventDefault()
+                          },
+                          dragover: function($event) {
+                            $event.preventDefault()
+                          },
+                          drop: _vm.dragEnter
+                        }
+                      },
+                      [
+                        _c("input", {
+                          staticClass: "draginto",
+                          attrs: { type: "file", name: "files[]", id: "fileI" },
+                          on: { change: _vm.getDragedInFile }
+                        }),
+                        _vm._v(" "),
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _vm._m(2)
+                      ]
+                    )
                   ]
                 )
               : _vm._e()
@@ -31351,6 +31346,38 @@ var staticRenderFns = [
         _c("span", { staticClass: "w30" }, [_vm._v("Added Experiment")]),
         _vm._v(" "),
         _c("div", { staticClass: "hr w35" })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { attrs: { id: "imageprev" } }, [
+      _c("span", { staticClass: "fa fa-cloud-upload fs3 text-dark" }),
+      _c("br"),
+      _vm._v(" "),
+      _c("label", { staticClass: "fw3" }, [
+        _vm._v("Upload Additional resources")
+      ]),
+      _vm._v(" "),
+      _c("p", { staticStyle: { color: "#bbb", "font-size": "0.8em" } }, [
+        _vm._v("Format: .jpeg, .jpg, or .png only")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "progressi mt-4", staticStyle: { width: "50%" } },
+      [
+        _c("div", {
+          staticClass: "p-success progress-bar",
+          attrs: { id: "progressBar" }
+        })
       ]
     )
   }

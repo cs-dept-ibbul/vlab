@@ -78,12 +78,16 @@
 	            	</div>
 	            	<div id="uploadResources" v-if="sectionState==3" class="m-0 p-0 shineA">  
 	            		<p class="fw8 fs1 font" style="color: #777;">Add Resources</p>   
-	            		<div class="dragbox">
-	            			<input @change="getDragedInFile" type="file" name="files[]" class="draginto" id="fileI">
-	            			<br>
-	            			<span class="fa fa-cloud-upload fs3 text-dark"></span>
-	            			<label class="fw3">Upload Additional resources</label>
-	            			<p class="" style="color: #bbb;font-size: 0.8em;">Format: .jpeg, .jpg, or .png only</p>
+	            		<div class="dragbox" id="dgbox" @dragenter.prevent @dragover.prevent @drop="dragEnter">
+	            			<input @change="getDragedInFile" type="file" name="files[]" class="draginto" id="fileI">            					            		
+	            			<span id="imageprev">	            				
+		            			<span class="fa fa-cloud-upload fs3 text-dark"></span><br>
+		            			<label class="fw3">Upload Additional resources</label>
+		            			<p class="" style="color: #bbb;font-size: 0.8em;">Format: .jpeg, .jpg, or .png only</p>
+	            			</span>
+	            			<div class ="progressi mt-4" style="width: 50%;">			
+								<div id="progressBar" class="p-success progress-bar"></div>
+							</div>
 	            		</div>
 	            	</div>
             	</div>
@@ -124,9 +128,11 @@
 	    	 sectionState: 1,
 	    	 title:'',
 	    	 ccode:'',
+	    	 imagetoupload:'',
 	    	 validateState:false,
 	    	 selectedExperiment:[],
-	    	 selectedExperimentName:[]
+	    	 selectedExperimentName:[],
+	    	 percentage:0
 	    	}
         },
         methods:{
@@ -199,11 +205,8 @@
 						$('#'+id).css('border','1px solid #e45');
 						$('.requiredv').remove();
 						$('#'+id).after('<span class="text-danger requiredv">Required !</span>');						
-						this.validateState = false;
-						alert(1)
-					}else{
-						alert(2)
-
+						this.validateState = false;						
+					}else{						
 						this.validateState = true;	
 					}
 				}
@@ -235,12 +238,51 @@
 				    	this.stagetwop = true;
 				    	this.stagethree = true;
 				    	this.sectionState = 3;
+				    	this.alldata.push(selectedExperiment)
 					}
 
+				}else if (this.sectionState === 3){
+					if (this.imagetoupload != '') {
+						this.stagethree= false;
+				    	this.stagethreep = true;
+				    	this.stagefour = true;
+				    	this.sectionState = 4;
+				    	this.alldata.push(this.imagetoupload);
+					}else{
+						this.singleValidate('dgbox');
+					}
+				}else if (this.sectionState === 3){
+					
 				}
 			},
+			dragEnter(e){			
+				let $nv = this;	
+				let holder = document.getElementById('dgbox');
+				holder.classList.add('dragenter');
+				   let file = e.dataTransfer.files[0];
+				   let reader = new FileReader();
+				$('.progress').css('display','block');
+
+				   reader.onloadstart = function(event) {
+					    $('.progressi').css('display','block');
+					};
+					reader.onprogress = function(event) {						
+					   if (event.lengthComputable) {
+         					$nv.percentage  = (event.loaded/event.total)* 100;					    
+         					$('.progress-bar').css('width', $nv.percentage+'%');         					
+					    }
+					};
+					reader.onloadend = function(event) {
+				 		$('#imageprev').html('<img id="image_droped" width="200px"  src="'+event.target.result+'">');		
+				 		$nv.imagetoupload = event.target.result;					    
+					};
+				    /*reader.onload = function (event) {
+				    }*/
+				    reader.readAsDataURL(file);				
+				 	e.preventDefault();
+			},
 			getDragedInFile: function(){
-				 $('form p').text($('#fileI').files.length + " file(s) selected");				
+				 //$('#fileI').files;				
 			}
         },	
 
@@ -258,8 +300,11 @@
          			/*
 					$('#'+$(this).attr('rel')).remove();					
 					*/
+	         		
 				});
-		  })
+			
+		  });
+
 
 		},
          events :{
@@ -511,4 +556,28 @@
 		flex-wrap: wrap;
 		align-items: center;
 	}
+	.dragenter{
+		border: 2px dashed #c5ddc5 !important;
+		background: #f0fff0 !important;
+	}
+	.progressi {
+    background: #eee;
+    border-radius: 13px;    
+    width: 40%;
+    padding: 0px;
+    max-height: 7px;
+    display: block;
+	}
+	.progress-bar{
+    border-radius: 13px;    
+    height: 7px;
+    padding: 0px;
+    margin: 0px;
+    position: relative;
+    width: 0%;
+    transition: all 1s;
+}
+.p-success{    
+    background: #00b96b !important;  
+}
 </style>
