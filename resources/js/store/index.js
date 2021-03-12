@@ -1,14 +1,7 @@
+	import Vuex from 'vuex'
+import exp2Vicelab from "./exp2";
+
 export default {
-
-
-
-state: {
-    todos: [
-      { id: 1, text: '...', done: true },
-      { id: 2, text: '...', done: false }
-    ]
-  },
-
 
 
 

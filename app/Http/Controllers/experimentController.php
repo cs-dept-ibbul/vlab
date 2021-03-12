@@ -26,4 +26,7 @@ class experimentController extends Controller
     {
         return view('experiment/vicelabexp3');
     }
+    public function simpleCircuit(){
+        return view('experiment/simple_circuit');        
+    }
 }

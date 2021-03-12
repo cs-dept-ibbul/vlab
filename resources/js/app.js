@@ -37,6 +37,7 @@ Vue.component('v-thread', require('./components/threadTrends.vue').default);
 Vue.component('v-createcourse', require('./components/createCourse.vue').default);
 Vue.component('v-vicelabexp2', require('./components/vicelabexp2.vue').default);
 Vue.component('v-vicelabexp3', require('./components/vicelabexp3.vue').default);
+Vue.component('v-simplecircuit', require('./components/simple-circuit.vue').default);
 Vue.component('v-vicelabtools', require('./components/vicelabExpEquip.vue').default); //experiment Right Nav bar
 
 

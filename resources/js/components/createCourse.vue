@@ -2,7 +2,7 @@
 	<div class="m-0 p-0">
 		
 	<div class="row bg-light m-0 px-2 pt-4">
-            <div class="col-lg-3 col-md-5 col-sm-12 m-0 ">
+            <div class="col-lg- col-md-5 col-sm-12 m-0 ">
             	<p class="fs2 fw8 font">Create Course</p>
             	<div  class="w-100 bg-white r2 px-4 py-4 shadow-sm"><!-- loop weekly -->
 						<div class="d-flex flex-wrap-center mb-4" >
