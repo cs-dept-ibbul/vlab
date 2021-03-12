@@ -1271,6 +1271,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1406,6 +1416,9 @@ __webpack_require__.r(__webpack_exports__);
           this.sectionState = 3;
         }
       }
+    },
+    getDragedInFile: function getDragedInFile() {
+      $('form p').text($('#fileI').files.length + " file(s) selected");
     }
   },
   props: [],
@@ -10838,7 +10851,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.close[data-v-c36406fc]{\n\t\tbackground: #ccc !important;\n\t\tborder-radius: 50% !important;\n\t\tpadding: 2px !important;\n}\n.form-control[data-v-c36406fc]:focus{\n\t\toutline: none !important;\n\t\tbox-shadow: none !important;\n\t\tborder: 1px solid #aaa;\n}\n.bb[data-v-c36406fc]{\n\t\tborder-bottom: 1px solid #ccc !important;\n}\n.requiredI[data-v-c36406fc]{\n\t\ttransition: all 1s;\n\t\tcolor: #e45 !important;\n\t\tbackground: white;\n\t\tborder: 1px solid #aaa;\n\t\tbox-shadow: 1px 2px 3px #bbb;\n\t\tborder-radius: 5px;\n\t\tpadding: 4px;\n\t\tdisplay: block;\n\t\tposition: absolute;\n\t\ttop: 10px; /* At the bottom of the tooltip */\n\t  \tleft: 50px;\n\t  \tz-index: 15;\n}\n.requiredI[data-v-c36406fc]:before {\n\t  content: \" \";\n\t  position: relative;\n\t  top: 0%; /* At the bottom of the tooltip */\n\t  left: 50%;\n\t  margin-left: -5px;\n\t  border-width: 5px;\n\t  border-style: solid;\n\t  border-color: black transparent transparent transparent;\n}\n.sysbtn[data-v-c36406fc]{\n\t\t padding: 10px 15px;\n\t\t  font-family: 'Roboto',serif;\n\t\t  font-size: 0.9em;\n\t\t  text-align: center;\n\t\t  text-decoration: none;\n\t\t  border-radius: 6px;\n\t\t  word-break: keep-all;\n\t\t  white-space: nowrap;\n\t\t  border: none;\n\t\t  position: relative;\n}\n.sysbtn[data-v-c36406fc]:active{\n\t\tbox-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);\n  \t\ttop: 1px;\n}\n.sysbtn[data-v-c36406fc]:focus{\n\t\tbox-shadow: inset 0 2px 3px #294,\n}\n.ncircle[data-v-c36406fc]{\n\t\tborder: 2px solid #bbb; \n\t\tborder-radius: 50%;\n\t\twidth: 25px;\n\t\theight: 25px;\n\t\tfont-size: 0.9em;\n\t\tpadding: 2px 0px 0px 6.5px !important;\n\t\ttransition: all 1s;\n}\ndiv[data-v-c36406fc]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.no-break[data-v-c36406fc]{\n\t\twhite-space: nowrap;\n\t\tword-break:keep-all;\n}\n.tline[data-v-c36406fc]{\n\t\theight: 27px; width: 2px; background: #bbb; position: relative; top:26px; left: -13px;\n}\n.syscircle[data-v-c36406fc]{\n\t\twidth: 12px !important;\n\t\theight: 12px !important;\n\t\tborder-radius: 50%;\n\t\tbackground: #00b96b;\n\t\tdisplay: block;\n\t\tmargin: 0px 0px 0px 12px;\n}\n.tactive[data-v-c36406fc]{\n\t\tborder:2px solid #222 !important;\n}\n.tlactive[data-v-c36406fc]{\n\t\tbackground: #222 !important;\n}\n.tsuccess[data-v-c36406fc]{\n\t\tborder: 2.5px solid #4b6 !important;\n\t\tbackground: #4b6 !important;\n\t\tcolor:white;\n\t\tpadding-bottom: 2px;\n}\n.tlsuccess[data-v-c36406fc]{\n\t\tbackground: #4b6 !important;\n}\n.syscircle-o[data-v-c36406fc]{\n\t\twidth: 12px;\n\t\theight: 12px;\n\t\tborder-radius: 50%;\n\t\tborder: 2px solid #999;\n\t\tdisplay: block;\t\n\t\tmargin-left:12px;\n}\n.syscircle-o-l[data-v-c36406fc]{\n\t\twidth: 22px;\n\t\theight: 22px;\n\t\tborder-radius: 50%;\n\t\tborder: 2px solid #999;\n\t\tdisplay: block;\t\n\t\tmargin-left: 5px;\n}\n.fs3[data-v-c36406fc]{\n\t\tfont-size: 1.7em;\n}\n.fs1[data-v-c36406fc]{\n\t\tfont-family: 'Roboto', sans-serif;\n\t\tfont-size: 0.9em;\n\t\tcolor: #888;\n\t\tfont-weight: 300;\n}\n.flex-wrap-center[data-v-c36406fc]{\n\t\tflex-wrap: wrap;\n\t\talign-items: center;\n}\n.w10[data-v-c36406fc]{\n\t\twidth: 60px;\n}\n.timelineX[data-v-c36406fc]{\n\t\tmargin-top: 10px; \n\t\tmargin-bottom: 120px;\n}\n.timelineX-o[data-v-c36406fc]{\n\t\tmargin-top: 10px; \n\t\tmargin-bottom: 120px;\n}\n.timelineSM[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 40px;\n\t\twidth: 2px;\n\t\tbackground: #00b96b;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineSM-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 40px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineX-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 140px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineX[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 132px;\n\t\twidth: 2px;\n\t\tbackground: #00b96b;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 10px;\t\t\n\t\tleft: 5px;\n}\n.timelineX-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 130px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 10px;\t\t\n\t\tleft: 3px;\n}\n.fw8[data-v-c36406fc]{\n\t\tfont-weight: 600;\n\t\tcolor: #222;\n}\n.fw3[data-v-c36406fc]{\n\t\tfont-weight: 600 !important;\n\t\tcolor: #222 !important;\n}\n.fs001[data-v-c36406fc]{\n\t\tfont-size: 0.8em;\n\t\tcolor: #888;\n}\n.fs2[data-v-c36406fc]{\n\t\tfont-size: 1.2em;\n}\n.wrap-center[data-v-c36406fc]{\n\t\t  flex-wrap: wrap;\n      align-items: center;\n}\n.hr[data-v-c36406fc]{\n\t\theight: 1px !important;\n\t\tbackground: #ccc;\n\t\twidth: 100% !important;\n\t\tdisplay: block !important;\n}\n.w35[data-v-c36406fc]{\n\t\twidth: 35% !important;\n}\n.w30[data-v-c36406fc]{\n\t\twidth: 30%;\n}\n.shineA[data-v-c36406fc]{\n\t\ttransition: all 1s;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.close[data-v-c36406fc]{\n\t\tbackground: #ccc !important;\n\t\tborder-radius: 50% !important;\n\t\tpadding: 2px !important;\n}\n.form-control[data-v-c36406fc]:focus{\n\t\toutline: none !important;\n\t\tbox-shadow: none !important;\n\t\tborder: 1px solid #aaa;\n}\n.bb[data-v-c36406fc]{\n\t\tborder-bottom: 1px solid #ccc !important;\n}\n.requiredI[data-v-c36406fc]{\n\t\ttransition: all 1s;\n\t\tcolor: #e45 !important;\n\t\tbackground: white;\n\t\tborder: 1px solid #aaa;\n\t\tbox-shadow: 1px 2px 3px #bbb;\n\t\tborder-radius: 5px;\n\t\tpadding: 4px;\n\t\tdisplay: block;\n\t\tposition: absolute;\n\t\ttop: 10px; /* At the bottom of the tooltip */\n\t  \tleft: 50px;\n\t  \tz-index: 15;\n}\n.requiredI[data-v-c36406fc]:before {\n\t  content: \" \";\n\t  position: relative;\n\t  top: 0%; /* At the bottom of the tooltip */\n\t  left: 50%;\n\t  margin-left: -5px;\n\t  border-width: 5px;\n\t  border-style: solid;\n\t  border-color: black transparent transparent transparent;\n}\n.sysbtn[data-v-c36406fc]{\n\t\t padding: 10px 15px;\n\t\t  font-family: 'Roboto',serif;\n\t\t  font-size: 0.9em;\n\t\t  text-align: center;\n\t\t  text-decoration: none;\n\t\t  border-radius: 6px;\n\t\t  word-break: keep-all;\n\t\t  white-space: nowrap;\n\t\t  border: none;\n\t\t  position: relative;\n}\n.sysbtn[data-v-c36406fc]:active{\n\t\tbox-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);\n  \t\ttop: 1px;\n}\n.sysbtn[data-v-c36406fc]:focus{\n\t\tbox-shadow: inset 0 2px 3px #294,\n}\n.ncircle[data-v-c36406fc]{\n\t\tborder: 2px solid #bbb; \n\t\tborder-radius: 50%;\n\t\twidth: 25px;\n\t\theight: 25px;\n\t\tfont-size: 0.9em;\n\t\tpadding: 2px 0px 0px 6.5px !important;\n\t\ttransition: all 1s;\n}\ndiv[data-v-c36406fc]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.no-break[data-v-c36406fc]{\n\t\twhite-space: nowrap;\n\t\tword-break:keep-all;\n}\n.tline[data-v-c36406fc]{\n\t\theight: 27px; width: 2px; background: #bbb; position: relative; top:26px; left: -13px;\n}\n.syscircle[data-v-c36406fc]{\n\t\twidth: 12px !important;\n\t\theight: 12px !important;\n\t\tborder-radius: 50%;\n\t\tbackground: #00b96b;\n\t\tdisplay: block;\n\t\tmargin: 0px 0px 0px 12px;\n}\n.tactive[data-v-c36406fc]{\n\t\tborder:2px solid #222 !important;\n}\n.tlactive[data-v-c36406fc]{\n\t\tbackground: #222 !important;\n}\n.tsuccess[data-v-c36406fc]{\n\t\tborder: 2.5px solid #4b6 !important;\n\t\tbackground: #4b6 !important;\n\t\tcolor:white;\n\t\tpadding-bottom: 2px;\n}\n.tlsuccess[data-v-c36406fc]{\n\t\tbackground: #4b6 !important;\n}\n.syscircle-o[data-v-c36406fc]{\n\t\twidth: 12px;\n\t\theight: 12px;\n\t\tborder-radius: 50%;\n\t\tborder: 2px solid #999;\n\t\tdisplay: block;\t\n\t\tmargin-left:12px;\n}\n.syscircle-o-l[data-v-c36406fc]{\n\t\twidth: 22px;\n\t\theight: 22px;\n\t\tborder-radius: 50%;\n\t\tborder: 2px solid #999;\n\t\tdisplay: block;\t\n\t\tmargin-left: 5px;\n}\n.fs3[data-v-c36406fc]{\n\t\tfont-size: 1.7em;\n}\n.fs1[data-v-c36406fc]{\n\t\tfont-family: 'Roboto', sans-serif;\n\t\tfont-size: 0.9em;\n\t\tcolor: #888;\n\t\tfont-weight: 300;\n}\n.flex-wrap-center[data-v-c36406fc]{\n\t\tflex-wrap: wrap;\n\t\talign-items: center;\n}\n.w10[data-v-c36406fc]{\n\t\twidth: 60px;\n}\n.timelineX[data-v-c36406fc]{\n\t\tmargin-top: 10px; \n\t\tmargin-bottom: 120px;\n}\n.timelineX-o[data-v-c36406fc]{\n\t\tmargin-top: 10px; \n\t\tmargin-bottom: 120px;\n}\n.timelineSM[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 40px;\n\t\twidth: 2px;\n\t\tbackground: #00b96b;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineSM-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 40px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineX-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 140px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineX[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 132px;\n\t\twidth: 2px;\n\t\tbackground: #00b96b;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 10px;\t\t\n\t\tleft: 5px;\n}\n.timelineX-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 130px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 10px;\t\t\n\t\tleft: 3px;\n}\n.fw8[data-v-c36406fc]{\n\t\tfont-weight: 600;\n\t\tcolor: #222;\n}\n.fw3[data-v-c36406fc]{\n\t\tfont-weight: 600 !important;\n\t\tcolor: #222 !important;\n}\n.fs001[data-v-c36406fc]{\n\t\tfont-size: 0.8em;\n\t\tcolor: #888;\n}\n.fs2[data-v-c36406fc]{\n\t\tfont-size: 1.2em;\n}\n.wrap-center[data-v-c36406fc]{\n\t\t  flex-wrap: wrap;\n      align-items: center;\n}\n.hr[data-v-c36406fc]{\n\t\theight: 1px !important;\n\t\tbackground: #ccc;\n\t\twidth: 100% !important;\n\t\tdisplay: block !important;\n}\n.w35[data-v-c36406fc]{\n\t\twidth: 35% !important;\n}\n.w30[data-v-c36406fc]{\n\t\twidth: 30%;\n}\n.shineA[data-v-c36406fc]{\n\t\ttransition: all 1s;\n}\n.draginto[data-v-c36406fc]{\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\topacity: 0;\n\t\tposition: absolute;\n}\n.dragbox[data-v-c36406fc]{\n\t\tposition: relative;\n\t\tborder: 2px dashed #c0c0cf;\n\t\tborder-radius: 5px;\t\t\n\t\twidth: 100%;\n\t\tpadding: 10px 0px;\n\t\tbackground: #f0f0ff;\n\t\tdisplay:flex;\n\t\tflex-direction: column;\n\t\tjustify-content: center;\n\t\tflex-wrap: wrap;\n\t\talign-items: center;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -29930,7 +29943,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "m-0 p-0" }, [
     _c("div", { staticClass: "row bg-light m-0 px-2 pt-4" }, [
-      _c("div", { staticClass: "col-lg- col-md-5 col-sm-12 m-0 " }, [
+      _c("div", { staticClass: "col-lg-4 col-md-5 col-sm-12 m-0 " }, [
         _c("p", { staticClass: "fs2 fw8 font" }, [_vm._v("Create Course")]),
         _vm._v(" "),
         _c("div", { staticClass: "w-100 bg-white r2 px-4 py-4 shadow-sm" }, [
@@ -30015,7 +30028,7 @@ var render = function() {
         "div",
         {
           staticClass: "col-lg-8 col-md-7 col-sm-12 pt-3",
-          staticStyle: { height: "550px" }
+          staticStyle: { height: "76vh" }
         },
         [
           _c("div", { staticClass: "py-4 px-4 mt-3 r2 bg-white shadow-sm" }, [
@@ -30147,6 +30160,52 @@ var render = function() {
                           attrs: { id: "addEBox" }
                         })
                       ])
+                    ])
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.sectionState == 3
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "m-0 p-0 shineA",
+                    attrs: { id: "uploadResources" }
+                  },
+                  [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "fw8 fs1 font",
+                        staticStyle: { color: "#777" }
+                      },
+                      [_vm._v("Add Resources")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "dragbox" }, [
+                      _c("input", {
+                        staticClass: "draginto",
+                        attrs: { type: "file", name: "files[]", id: "fileI" },
+                        on: { change: _vm.getDragedInFile }
+                      }),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("span", {
+                        staticClass: "fa fa-cloud-upload fs3 text-dark"
+                      }),
+                      _vm._v(" "),
+                      _c("label", { staticClass: "fw3" }, [
+                        _vm._v("Upload Additional resources")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "p",
+                        {
+                          staticStyle: { color: "#bbb", "font-size": "0.8em" }
+                        },
+                        [_vm._v("Format: .jpeg, .jpg, or .png only")]
+                      )
                     ])
                   ]
                 )

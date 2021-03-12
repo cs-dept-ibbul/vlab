@@ -2,7 +2,7 @@
 	<div class="m-0 p-0">
 		
 	<div class="row bg-light m-0 px-2 pt-4">
-            <div class="col-lg- col-md-5 col-sm-12 m-0 ">
+            <div class="col-lg-4 col-md-5 col-sm-12 m-0 ">
             	<p class="fs2 fw8 font">Create Course</p>
             	<div  class="w-100 bg-white r2 px-4 py-4 shadow-sm"><!-- loop weekly -->
 						<div class="d-flex flex-wrap-center mb-4" >
@@ -28,7 +28,7 @@
             			   	
             </div>
             	
-            <div class="col-lg-8 col-md-7 col-sm-12 pt-3" style="height: 550px;">
+            <div class="col-lg-8 col-md-7 col-sm-12 pt-3" style="height: 76vh;">
             	<!-- course detatil -->            	
             	<div  class="py-4 px-4 mt-3 r2 bg-white shadow-sm" style="">
             		<div id="cdetail" v-if="sectionState==1" class="m-0 p-0">            			
@@ -75,6 +75,16 @@
 		            				</div>
 		            			</div>
 	            			</div>       			
+	            	</div>
+	            	<div id="uploadResources" v-if="sectionState==3" class="m-0 p-0 shineA">  
+	            		<p class="fw8 fs1 font" style="color: #777;">Add Resources</p>   
+	            		<div class="dragbox">
+	            			<input @change="getDragedInFile" type="file" name="files[]" class="draginto" id="fileI">
+	            			<br>
+	            			<span class="fa fa-cloud-upload fs3 text-dark"></span>
+	            			<label class="fw3">Upload Additional resources</label>
+	            			<p class="" style="color: #bbb;font-size: 0.8em;">Format: .jpeg, .jpg, or .png only</p>
+	            		</div>
 	            	</div>
             	</div>
             	
@@ -228,6 +238,9 @@
 					}
 
 				}
+			},
+			getDragedInFile: function(){
+				 $('form p').text($('#fileI').files.length + " file(s) selected");				
 			}
         },	
 
@@ -247,6 +260,7 @@
 					*/
 				});
 		  })
+
 		},
          events :{
          	'toggleClick':'toggleClick'
@@ -477,5 +491,24 @@
 	}
 	.shineA{
 		transition: all 1s;
+	}
+	.draginto{
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		position: absolute;
+	}
+	.dragbox{
+		position: relative;
+		border: 2px dashed #c0c0cf;
+		border-radius: 5px;		
+		width: 100%;
+		padding: 10px 0px;
+		background: #f0f0ff;
+		display:flex;
+		flex-direction: column;
+		justify-content: center;
+		flex-wrap: wrap;
+		align-items: center;
 	}
 </style>

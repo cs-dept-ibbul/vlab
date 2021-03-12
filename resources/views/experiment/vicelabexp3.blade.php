@@ -48,7 +48,6 @@ $started = 0; //this will be from database
        		   <v-expfooter></v-expfooter>
        			</div>
        			<!-- end experiment footer -->
-
    		</div>
    </div>
 
