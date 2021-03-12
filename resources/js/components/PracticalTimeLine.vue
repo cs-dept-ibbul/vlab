@@ -6,10 +6,10 @@
         <div class="row">
           <div class="col-md-12">
             <div class="parentTimeline" v-for="x in 3" :key="x">
-              <b>Week 1</b>
+              <b>Week {{x}}</b>
               <div>
                 <ul class="timeline">
-                  <li class="child">
+                  <li class="child" v-for="y in 2" :key="y">
                     <div class="col-md-10">
                       <div>
                         <span class="text">100 level</span>
@@ -18,21 +18,7 @@
                     <div class="col-md-2">
                       <div class="bttn-container">
                         <button class="btn btn-secondary" type="submit">
-                          <i class="fa fa-plus"></i>Add to Lab
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="child">
-                    <div class="col-md-10">
-                      <div>
-                        <span class="text">100 level</span>
-                      </div>
-                    </div>
-                    <div class="col-md-2">
-                      <div class="bttn-container">
-                        <button class="btn btn-secondary" type="submit">
-                          <i class="fa fa-plus"></i>Add to Lab
+                          <i class="fa fa-good"></i>
                         </button>
                       </div>
                     </div>
