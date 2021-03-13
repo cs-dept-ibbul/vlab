@@ -1,11 +1,11 @@
 <template>
   <nav class="navbar">
-    <div class="container align-items-center">
+    <div class="container align-items-center mb-0">
       <div class="navbar__logo">
         <img src="https://picsum.photos/200/300" alt="" />
       </div>
       <ul
-        class="navbar__list d-lg-flex mobile-nav"
+        class="navbar__list d-lg-flex mobile-nav mb-0"
         :class="showNav ? 'mobile-nav--open' : null"
       >
         <button
@@ -26,7 +26,7 @@
           </li>
         </div>
       </ul>
-      <ul class="navbar__list d-none d-lg-flex align-items-lg-center">
+      <ul class="navbar__list d-none d-lg-flex align-items-lg-center mb-0">
         <li class="navbar__list__item"><a :href="login">Login</a></li>
         <li class="navbar__list__item navbar__list__item--btn">
           <a href="#">Signup</a>
@@ -63,6 +63,8 @@ export default {
   width: 100%;
   max-height: 81px;
   background-color: #fff;
+  box-shadow: 0 4px 7px rgba($color: #000, $alpha: .1);
+  z-index: 10;
 
   &__logo {
     position: relative;
@@ -170,7 +172,7 @@ export default {
 
     &--open {
       position: fixed;
-      z-index: 9999;
+      z-index: 11;
       top: 0;
       right: 0;
       height: 100vh;
@@ -188,8 +190,8 @@ export default {
 
       .navbar__toggle {
         position: absolute;
-        top: 20px;
-        right: 20px;
+        top: 18px;
+        right: 31px;
         width: 30px;
         height: 30px;
         border-radius: 50%;
@@ -209,40 +211,6 @@ export default {
     }
   }
 }
-
-/* .mainNav {
-  border-bottom: 1px solid #f2f2f2;
-}
-.navM a {
-  font-family: 'Roboto', serif;
-  font-weight: 300;
-  margin: 0px 10px;
-  font-size: 0.9em;
-  color: #333;
-  text-decoration: none;
-}
-.navM a:last-child {
-  margin-right: 0px !important;
-}
-.navM a:hover {
-  color: #3c8;
-}
-.nlogin {
-  background: #3c8;
-  color: #fff !important;
-  padding: 10px 13px;
-  border-radius: 5px;
-  border: 1px solid transparent;
-}
-.nlogin:hover {
-  background: #fff !important;
-  color: #368 !important;
-  border: 1px solid #fefefe;
-}
-.mainNavM {
-  flex-wrap: wrap;
-  align-items: center;
-} */
 </style>
 
     

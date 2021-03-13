@@ -1033,6 +1033,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Section"
 });
@@ -1050,12 +1054,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -6741,7 +6739,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".navbar[data-v-6dde423b] {\n  position: fixed;\n  top: 0;\n  width: 100%;\n  max-height: 81px;\n  background-color: #fff;\n}\n.navbar__logo[data-v-6dde423b] {\n  position: relative;\n  width: 50px;\n  height: 50px;\n  overflow: hidden;\n}\n.navbar__logo img[data-v-6dde423b] {\n  max-width: 50px;\n}\n.navbar__list[data-v-6dde423b] {\n  list-style-type: none;\n  padding: 0;\n}\n.navbar__list__item[data-v-6dde423b] {\n  margin: 10px;\n  font-weight: 500;\n}\n.navbar__list__item a[data-v-6dde423b] {\n  color: #2f2651;\n}\n.navbar__list__item a[data-v-6dde423b]:hover {\n  color: rgba(47, 38, 81, 0.8);\n}\n.navbar__list__item--btn a[data-v-6dde423b] {\n  background-color: rgba(47, 38, 81, 0.1);\n  padding: 10px 30px;\n  border-radius: 5px;\n  transition: background-color 0.2s ease;\n  display: inline-block;\n}\n.navbar__list__item--btn a[data-v-6dde423b]:hover, .navbar__list__item--btn a[data-v-6dde423b]:focus {\n  background-color: rgba(47, 38, 81, 0.2);\n}\n.navbar__toggle[data-v-6dde423b] {\n  position: relative;\n  display: inline-block;\n  width: 30px;\n  height: 24px;\n  border: none;\n  background-color: transparent;\n  transition-timing-function: linear;\n  transition-duration: 0.15s;\n  transition-property: opacity, filter;\n}\n.navbar__toggle__block[data-v-6dde423b] {\n  width: 100%;\n  height: 4px;\n  background-color: #2f2651;\n  top: 50%;\n  margin-top: -2px;\n  display: block;\n  position: absolute;\n  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  transition-duration: 75ms;\n}\n.navbar__toggle__block[data-v-6dde423b]::after, .navbar__toggle__block[data-v-6dde423b]::before {\n  display: block;\n  content: \"\";\n  width: 100%;\n  height: 4px;\n  position: absolute;\n  background-color: #2f2651;\n}\n.navbar__toggle__block[data-v-6dde423b]::after {\n  bottom: -10px;\n}\n.navbar__toggle__block[data-v-6dde423b]::before {\n  top: -10px;\n}\n.navbar__toggle--active .navbar__toggle__block[data-v-6dde423b] {\n  transition-delay: 0.12s;\n  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  transform: rotate(45deg);\n}\n.navbar__toggle--active .navbar__toggle__block[data-v-6dde423b]::before {\n  top: 0;\n  transition: top 75ms ease, opacity 75ms ease 0.12s;\n  opacity: 0;\n}\n.navbar__toggle--active .navbar__toggle__block[data-v-6dde423b]::after {\n  bottom: 0;\n  transition: bottom 75ms ease, transform 75ms cubic-bezier(0.215, 0.61, 0.355, 1) 0.12s;\n  transform: rotate(-90deg);\n}\n.navbar .mobile-nav[data-v-6dde423b] {\n  display: none;\n}\n.navbar .mobile-nav--open[data-v-6dde423b] {\n  position: fixed;\n  z-index: 9999;\n  top: 0;\n  right: 0;\n  height: 100vh;\n  width: 300px;\n  background-color: #fff;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  text-align: center;\n}\n.navbar .mobile-nav--open li[data-v-6dde423b] {\n  margin: 15px 0;\n}\n.navbar .mobile-nav--open .navbar__toggle[data-v-6dde423b] {\n  position: absolute;\n  top: 20px;\n  right: 20px;\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  border: none;\n}\n@media screen and (min-width: 992px) {\n.navbar .mobile-nav--open[data-v-6dde423b] {\n    flex-direction: row;\n    text-align: left;\n    position: static;\n    width: auto;\n}\n.navbar .mobile-nav--open li[data-v-6dde423b] {\n    margin: 10px;\n}\n}\n\n/* .mainNav {\n  border-bottom: 1px solid #f2f2f2;\n}\n.navM a {\n  font-family: 'Roboto', serif;\n  font-weight: 300;\n  margin: 0px 10px;\n  font-size: 0.9em;\n  color: #333;\n  text-decoration: none;\n}\n.navM a:last-child {\n  margin-right: 0px !important;\n}\n.navM a:hover {\n  color: #3c8;\n}\n.nlogin {\n  background: #3c8;\n  color: #fff !important;\n  padding: 10px 13px;\n  border-radius: 5px;\n  border: 1px solid transparent;\n}\n.nlogin:hover {\n  background: #fff !important;\n  color: #368 !important;\n  border: 1px solid #fefefe;\n}\n.mainNavM {\n  flex-wrap: wrap;\n  align-items: center;\n} */", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".navbar[data-v-6dde423b] {\n  position: fixed;\n  top: 0;\n  width: 100%;\n  max-height: 81px;\n  background-color: #fff;\n  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.1);\n  z-index: 10;\n}\n.navbar__logo[data-v-6dde423b] {\n  position: relative;\n  width: 50px;\n  height: 50px;\n  overflow: hidden;\n}\n.navbar__logo img[data-v-6dde423b] {\n  max-width: 50px;\n}\n.navbar__list[data-v-6dde423b] {\n  list-style-type: none;\n  padding: 0;\n}\n.navbar__list__item[data-v-6dde423b] {\n  margin: 10px;\n  font-weight: 500;\n}\n.navbar__list__item a[data-v-6dde423b] {\n  color: #2f2651;\n}\n.navbar__list__item a[data-v-6dde423b]:hover {\n  color: rgba(47, 38, 81, 0.8);\n}\n.navbar__list__item--btn a[data-v-6dde423b] {\n  background-color: rgba(47, 38, 81, 0.1);\n  padding: 10px 30px;\n  border-radius: 5px;\n  transition: background-color 0.2s ease;\n  display: inline-block;\n}\n.navbar__list__item--btn a[data-v-6dde423b]:hover, .navbar__list__item--btn a[data-v-6dde423b]:focus {\n  background-color: rgba(47, 38, 81, 0.2);\n}\n.navbar__toggle[data-v-6dde423b] {\n  position: relative;\n  display: inline-block;\n  width: 30px;\n  height: 24px;\n  border: none;\n  background-color: transparent;\n  transition-timing-function: linear;\n  transition-duration: 0.15s;\n  transition-property: opacity, filter;\n}\n.navbar__toggle__block[data-v-6dde423b] {\n  width: 100%;\n  height: 4px;\n  background-color: #2f2651;\n  top: 50%;\n  margin-top: -2px;\n  display: block;\n  position: absolute;\n  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  transition-duration: 75ms;\n}\n.navbar__toggle__block[data-v-6dde423b]::after, .navbar__toggle__block[data-v-6dde423b]::before {\n  display: block;\n  content: \"\";\n  width: 100%;\n  height: 4px;\n  position: absolute;\n  background-color: #2f2651;\n}\n.navbar__toggle__block[data-v-6dde423b]::after {\n  bottom: -10px;\n}\n.navbar__toggle__block[data-v-6dde423b]::before {\n  top: -10px;\n}\n.navbar__toggle--active .navbar__toggle__block[data-v-6dde423b] {\n  transition-delay: 0.12s;\n  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  transform: rotate(45deg);\n}\n.navbar__toggle--active .navbar__toggle__block[data-v-6dde423b]::before {\n  top: 0;\n  transition: top 75ms ease, opacity 75ms ease 0.12s;\n  opacity: 0;\n}\n.navbar__toggle--active .navbar__toggle__block[data-v-6dde423b]::after {\n  bottom: 0;\n  transition: bottom 75ms ease, transform 75ms cubic-bezier(0.215, 0.61, 0.355, 1) 0.12s;\n  transform: rotate(-90deg);\n}\n.navbar .mobile-nav[data-v-6dde423b] {\n  display: none;\n}\n.navbar .mobile-nav--open[data-v-6dde423b] {\n  position: fixed;\n  z-index: 11;\n  top: 0;\n  right: 0;\n  height: 100vh;\n  width: 300px;\n  background-color: #fff;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  text-align: center;\n}\n.navbar .mobile-nav--open li[data-v-6dde423b] {\n  margin: 15px 0;\n}\n.navbar .mobile-nav--open .navbar__toggle[data-v-6dde423b] {\n  position: absolute;\n  top: 18px;\n  right: 31px;\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  border: none;\n}\n@media screen and (min-width: 992px) {\n.navbar .mobile-nav--open[data-v-6dde423b] {\n    flex-direction: row;\n    text-align: left;\n    position: static;\n    width: auto;\n}\n.navbar .mobile-nav--open li[data-v-6dde423b] {\n    margin: 10px;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6788,9 +6786,8 @@ __webpack_require__.r(__webpack_exports__);
 // Imports
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "div[data-v-0c7ea46c] {\n  font-family: \"Roboto\", sans-serif;\n}\n.intro_vid[data-v-0c7ea46c] {\n  position: absolute;\n  background-color: #2F2651;\n  width: 25rem;\n  height: 28rem;\n  z-index: 1;\n  border-radius: 20px;\n  right: 15%;\n  top: 25%;\n}\n#alignment[data-v-0c7ea46c] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.custom-section[data-v-0c7ea46c] {\n  width: 99%;\n  padding: 40px 0px;\n  background-color: #efefef;\n  border-radius: 16px;\n}\n@media screen and (width: 991.98px) {\n.custom-section[data-v-0c7ea46c] {\n    flex-direction: column-reverse;\n}\n}\n.custom-section .col-lg-8[data-v-0c7ea46c] {\n  margin-top: 100px;\n}\n.custom-section .col-lg-8 h2[data-v-0c7ea46c] {\n  font-weight: 700px;\n  font-size: 63px;\n  color: #2F2651;\n  margin-bottom: 0;\n  line-height: 1;\n  white-space: nowrap;\n}\n.custom-section .col-lg-8 h3[data-v-0c7ea46c] {\n  font-weight: 300px;\n  font-size: 64px;\n  color: #0c105a;\n  line-height: 1;\n}\n.custom-section .col-lg-8 p[data-v-0c7ea46c] {\n  color: #0d0d0e;\n  font-size: 20px;\n  margin-top: 30px;\n}\n.custom-section .col-lg-8 a[data-v-0c7ea46c] {\n  display: inline-block;\n  padding: 8px 22px;\n  border: 1px solid transparent;\n  margin-top: 60px;\n  text-decoration: none;\n  transition: 5s cubic-bezier(0.785, 0.135, 0.15, 0.86);\n}\n.nav-link[data-v-0c7ea46c] {\n  color: #FFF;\n  font-size: large;\n  padding: 8px 15px;\n  white-space: nowrap;\n  background-color: #2F2651;\n  border-radius: 10px;\n}\n.nav-link[data-v-0c7ea46c]:hover {\n  color: white;\n  background-color: #454aa1;\n}\n.Practice[data-v-0c7ea46c] {\n  color: #000;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".hero[data-v-0c7ea46c] {\n  padding: 30px 0;\n}\n.hero__body[data-v-0c7ea46c] {\n  background-color: #f8f8fa;\n  padding: 30px 10px;\n  border-radius: 16px;\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  color: #2F2651;\n  position: relative;\n  text-align: center;\n}\n@media screen and (min-width: 992px) {\n.hero__body[data-v-0c7ea46c] {\n    text-align: left;\n    height: 100vh;\n    padding: 0 30px;\n    max-height: 500px;\n}\n}\n.hero__body__title[data-v-0c7ea46c] {\n  font-weight: 700;\n  font-size: 2.8rem;\n}\n.hero__body__subtitle[data-v-0c7ea46c] {\n  font-size: 1.1rem;\n  margin: 30px 0;\n}\n.hero__body__cta[data-v-0c7ea46c] {\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.hero__video[data-v-0c7ea46c] {\n  background-color: #2F2651;\n  width: 25rem;\n  max-width: 100%;\n  border-radius: 20px;\n  height: 20rem;\n  margin: 30px auto;\n}\n@media screen and (min-width: 992px) {\n.hero__video[data-v-0c7ea46c] {\n    margin: 0 auto;\n    height: 28rem;\n    transform: translateY(25%);\n}\n}\n\n/* .custom-section {\n  width: 99%;\n  padding: 40px 0px;\n  background-color: #efefef;\n  border-radius: 16px;\n\n  @media screen and (width: 991.98px) {\n    flex-direction: column-reverse;\n  }\n\n  .col-lg-8 {\n    margin-top: 100px;\n    h2 {\n      font-weight: 700px;\n      font-size: 63px;\n      color: #2F2651;\n      margin-bottom: 0;\n      line-height: 1;\n      white-space: nowrap;\n    }\n    h3 {\n      font-weight: 300px;\n      font-size: 64px;\n      color: #0c105a;\n      line-height: 1;\n    }\n    p {\n      color: #0d0d0e;\n      font-size: 20px;\n      margin-top: 30px;\n    }\n    a {\n      display: inline-block;\n      padding: 8px 22px;\n\n      border: 1px solid transparent;\n      margin-top: 60px;\n      text-decoration: none;\n      transition: 5s cubic-bezier(0.785, 0.135, 0.15, 0.86);\n    }\n\n  }\n} */\n.practice[data-v-0c7ea46c] {\n  white-space: nowrap;\n  color: #2F2651;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6814,7 +6811,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".title[data-v-05899fd4] {\n  margin-top: 20px;\n  margin-left: 2.5%;\n}\n.sponsors[data-v-05899fd4] {\n  margin-left: 2.5%;\n  display: flex;\n}\n.custom-section[data-v-05899fd4] {\n  width: 15%;\n  margin: 10px;\n  padding: 15px;\n  background-color: #eeeeef;\n  border-radius: 1rem;\n}\n#alignment[data-v-05899fd4] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".sponsors[data-v-05899fd4] {\n  color: #2F2651;\n}\n.sponsors__title[data-v-05899fd4] {\n  font-weight: 600;\n  font-size: 1.8rem;\n}\n.custom-section[data-v-05899fd4] {\n  width: 15%;\n  margin: 10px;\n  padding: 15px;\n  background-color: #eeeeef;\n  border-radius: 1rem;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -25593,13 +25590,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("nav", { staticClass: "navbar" }, [
-    _c("div", { staticClass: "container align-items-center" }, [
+    _c("div", { staticClass: "container align-items-center mb-0" }, [
       _vm._m(0),
       _vm._v(" "),
       _c(
         "ul",
         {
-          staticClass: "navbar__list d-lg-flex mobile-nav",
+          staticClass: "navbar__list d-lg-flex mobile-nav mb-0",
           class: _vm.showNav ? "mobile-nav--open" : null
         },
         [
@@ -25637,7 +25634,10 @@ var render = function() {
       _vm._v(" "),
       _c(
         "ul",
-        { staticClass: "navbar__list d-none d-lg-flex align-items-lg-center" },
+        {
+          staticClass:
+            "navbar__list d-none d-lg-flex align-items-lg-center mb-0"
+        },
         [
           _c("li", { staticClass: "navbar__list__item" }, [
             _c("a", { attrs: { href: _vm.login } }, [_vm._v("Login")])
@@ -25888,56 +25888,63 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", {}, [
-      _c("br"),
-      _vm._v(" "),
-      _c("div", { staticClass: "m-0 p-0", attrs: { id: "alignment" } }, [
+    return _c("section", { staticClass: "hero" }, [
+      _c("div", { staticClass: "container" }, [
         _c(
           "div",
           {
-            staticClass: "row p-5 pb-3 custom-section d-flex align-items-center"
+            staticClass:
+              "row hero__body d-flex align-items-center justify-content-between mx-auto"
           },
           [
-            _c("div", { staticClass: "col-12 col-lg-8" }, [
-              _c("h2", { staticClass: "page-title" }, [
-                _vm._v("Virtual Laboratory")
+            _c("div", { staticClass: "col-12 col-lg-7" }, [
+              _c("h1", { staticClass: "hero__body__title" }, [
+                _vm._v("Virtual Laboratory (V-Lab)")
               ]),
               _vm._v(" "),
-              _c("p", [
+              _c("p", { staticClass: "hero__body__subtitle" }, [
                 _vm._v(
-                  "A virtual environment for Science and Engineering Practicals"
+                  "\n          A virtual environment for Science and Engineering Practicals\n        "
                 )
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "links" }, [
+              _c("div", { staticClass: "hero__links" }, [
                 _c(
                   "a",
-                  { staticClass: "nav-link", attrs: { href: "/explore" } },
+                  {
+                    staticClass: "btn btn--primary hero__body__cta mr-3",
+                    attrs: { href: "/explore" }
+                  },
                   [_vm._v("Explore V-lab")]
                 ),
                 _vm._v(" "),
                 _c(
                   "a",
-                  { staticClass: "Practice", attrs: { href: "/practice" } },
+                  {
+                    staticClass: "practice my-2 my-sm-0 d-inline-block",
+                    attrs: { href: "/practice" }
+                  },
                   [_vm._v("Practice a Practical")]
                 )
               ]),
               _vm._v(" "),
               _c("br")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12 col-lg-5" }, [
+              _c("div", { staticClass: "hero__video" }, [
+                _c("a", {
+                  staticClass: "venobox play-btn mb-4",
+                  attrs: {
+                    href: "https://www.youtube.com/watch?v=jDDaplaOz7Q",
+                    "data-vbtype": "video",
+                    "data-autoplay": "true"
+                  }
+                })
+              ])
             ])
           ]
         )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "intro_vid" }, [
-        _c("a", {
-          staticClass: "venobox play-btn mb-4",
-          attrs: {
-            href: "https://www.youtube.com/watch?v=jDDaplaOz7Q",
-            "data-vbtype": "video",
-            "data-autoplay": "true"
-          }
-        })
       ])
     ])
   }
@@ -25971,21 +25978,25 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "alignment" }, [
-      _c("div", { staticClass: "title" }, [_c("h3", [_vm._v("Sponsors")])]),
-      _vm._v(" "),
-      _c("div", { staticClass: "sponsors" }, [
-        _c("div", {
-          staticClass: "row custom-section d-flex align-items-center"
-        }),
+    return _c("div", { staticClass: "sponsors" }, [
+      _c("div", { staticClass: "container" }, [
+        _c("h2", { staticClass: "sponsors__title" }, [
+          _vm._v("\n\t\t\t\tSponsors\n\t\t\t")
+        ]),
         _vm._v(" "),
-        _c("div", {
-          staticClass: "row custom-section d-flex align-items-center"
-        }),
-        _vm._v(" "),
-        _c("div", {
-          staticClass: "row custom-section d-flex align-items-center"
-        })
+        _c("div", { staticClass: "sponsors__list row" }, [
+          _c("div", {
+            staticClass: "row custom-section d-flex align-items-center"
+          }),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "row custom-section d-flex align-items-center"
+          }),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "row custom-section d-flex align-items-center"
+          })
+        ])
       ])
     ])
   }
