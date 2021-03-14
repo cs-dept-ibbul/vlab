@@ -1033,6 +1033,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Section"
 });
@@ -1050,12 +1054,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -6805,7 +6803,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".navbar[data-v-6dde423b] {\n  position: fixed;\n  top: 0;\n  width: 100%;\n  max-height: 81px;\n  background-color: #fff;\n}\n.navbar__logo[data-v-6dde423b] {\n  position: relative;\n  width: 50px;\n  height: 50px;\n  overflow: hidden;\n}\n.navbar__logo img[data-v-6dde423b] {\n  max-width: 50px;\n}\n.navbar__list[data-v-6dde423b] {\n  list-style-type: none;\n  padding: 0;\n}\n.navbar__list__item[data-v-6dde423b] {\n  margin: 10px;\n  font-weight: 500;\n}\n.navbar__list__item a[data-v-6dde423b] {\n  color: #2f2651;\n}\n.navbar__list__item a[data-v-6dde423b]:hover {\n  color: rgba(47, 38, 81, 0.8);\n}\n.navbar__list__item--btn a[data-v-6dde423b] {\n  background-color: rgba(47, 38, 81, 0.1);\n  padding: 10px 30px;\n  border-radius: 5px;\n  transition: background-color 0.2s ease;\n  display: inline-block;\n}\n.navbar__list__item--btn a[data-v-6dde423b]:hover, .navbar__list__item--btn a[data-v-6dde423b]:focus {\n  background-color: rgba(47, 38, 81, 0.2);\n}\n.navbar__toggle[data-v-6dde423b] {\n  position: relative;\n  display: inline-block;\n  width: 30px;\n  height: 24px;\n  border: none;\n  background-color: transparent;\n  transition-timing-function: linear;\n  transition-duration: 0.15s;\n  transition-property: opacity, filter;\n}\n.navbar__toggle__block[data-v-6dde423b] {\n  width: 100%;\n  height: 4px;\n  background-color: #2f2651;\n  top: 50%;\n  margin-top: -2px;\n  display: block;\n  position: absolute;\n  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  transition-duration: 75ms;\n}\n.navbar__toggle__block[data-v-6dde423b]::after, .navbar__toggle__block[data-v-6dde423b]::before {\n  display: block;\n  content: \"\";\n  width: 100%;\n  height: 4px;\n  position: absolute;\n  background-color: #2f2651;\n}\n.navbar__toggle__block[data-v-6dde423b]::after {\n  bottom: -10px;\n}\n.navbar__toggle__block[data-v-6dde423b]::before {\n  top: -10px;\n}\n.navbar__toggle--active .navbar__toggle__block[data-v-6dde423b] {\n  transition-delay: 0.12s;\n  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  transform: rotate(45deg);\n}\n.navbar__toggle--active .navbar__toggle__block[data-v-6dde423b]::before {\n  top: 0;\n  transition: top 75ms ease, opacity 75ms ease 0.12s;\n  opacity: 0;\n}\n.navbar__toggle--active .navbar__toggle__block[data-v-6dde423b]::after {\n  bottom: 0;\n  transition: bottom 75ms ease, transform 75ms cubic-bezier(0.215, 0.61, 0.355, 1) 0.12s;\n  transform: rotate(-90deg);\n}\n.navbar .mobile-nav[data-v-6dde423b] {\n  display: none;\n}\n.navbar .mobile-nav--open[data-v-6dde423b] {\n  position: fixed;\n  z-index: 9999;\n  top: 0;\n  right: 0;\n  height: 100vh;\n  width: 300px;\n  background-color: #fff;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  text-align: center;\n}\n.navbar .mobile-nav--open li[data-v-6dde423b] {\n  margin: 15px 0;\n}\n.navbar .mobile-nav--open .navbar__toggle[data-v-6dde423b] {\n  position: absolute;\n  top: 20px;\n  right: 20px;\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  border: none;\n}\n@media screen and (min-width: 992px) {\n.navbar .mobile-nav--open[data-v-6dde423b] {\n    flex-direction: row;\n    text-align: left;\n    position: static;\n    width: auto;\n}\n.navbar .mobile-nav--open li[data-v-6dde423b] {\n    margin: 10px;\n}\n}\n\n/* .mainNav {\n  border-bottom: 1px solid #f2f2f2;\n}\n.navM a {\n  font-family: 'Roboto', serif;\n  font-weight: 300;\n  margin: 0px 10px;\n  font-size: 0.9em;\n  color: #333;\n  text-decoration: none;\n}\n.navM a:last-child {\n  margin-right: 0px !important;\n}\n.navM a:hover {\n  color: #3c8;\n}\n.nlogin {\n  background: #3c8;\n  color: #fff !important;\n  padding: 10px 13px;\n  border-radius: 5px;\n  border: 1px solid transparent;\n}\n.nlogin:hover {\n  background: #fff !important;\n  color: #368 !important;\n  border: 1px solid #fefefe;\n}\n.mainNavM {\n  flex-wrap: wrap;\n  align-items: center;\n} */", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".navbar[data-v-6dde423b] {\n  position: fixed;\n  top: 0;\n  width: 100%;\n  max-height: 81px;\n  background-color: #fff;\n  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.1);\n  z-index: 10;\n}\n.navbar__logo[data-v-6dde423b] {\n  position: relative;\n  width: 50px;\n  height: 50px;\n  overflow: hidden;\n}\n.navbar__logo img[data-v-6dde423b] {\n  max-width: 50px;\n}\n.navbar__list[data-v-6dde423b] {\n  list-style-type: none;\n  padding: 0;\n}\n.navbar__list__item[data-v-6dde423b] {\n  margin: 10px;\n  font-weight: 500;\n}\n.navbar__list__item a[data-v-6dde423b] {\n  color: #2f2651;\n}\n.navbar__list__item a[data-v-6dde423b]:hover {\n  color: rgba(47, 38, 81, 0.8);\n}\n.navbar__list__item--btn a[data-v-6dde423b] {\n  background-color: rgba(47, 38, 81, 0.1);\n  padding: 10px 30px;\n  border-radius: 5px;\n  transition: background-color 0.2s ease;\n  display: inline-block;\n}\n.navbar__list__item--btn a[data-v-6dde423b]:hover, .navbar__list__item--btn a[data-v-6dde423b]:focus {\n  background-color: rgba(47, 38, 81, 0.2);\n}\n.navbar__toggle[data-v-6dde423b] {\n  position: relative;\n  display: inline-block;\n  width: 30px;\n  height: 24px;\n  border: none;\n  background-color: transparent;\n  transition-timing-function: linear;\n  transition-duration: 0.15s;\n  transition-property: opacity, filter;\n}\n.navbar__toggle__block[data-v-6dde423b] {\n  width: 100%;\n  height: 4px;\n  background-color: #2f2651;\n  top: 50%;\n  margin-top: -2px;\n  display: block;\n  position: absolute;\n  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  transition-duration: 75ms;\n}\n.navbar__toggle__block[data-v-6dde423b]::after, .navbar__toggle__block[data-v-6dde423b]::before {\n  display: block;\n  content: \"\";\n  width: 100%;\n  height: 4px;\n  position: absolute;\n  background-color: #2f2651;\n}\n.navbar__toggle__block[data-v-6dde423b]::after {\n  bottom: -10px;\n}\n.navbar__toggle__block[data-v-6dde423b]::before {\n  top: -10px;\n}\n.navbar__toggle--active .navbar__toggle__block[data-v-6dde423b] {\n  transition-delay: 0.12s;\n  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  transform: rotate(45deg);\n}\n.navbar__toggle--active .navbar__toggle__block[data-v-6dde423b]::before {\n  top: 0;\n  transition: top 75ms ease, opacity 75ms ease 0.12s;\n  opacity: 0;\n}\n.navbar__toggle--active .navbar__toggle__block[data-v-6dde423b]::after {\n  bottom: 0;\n  transition: bottom 75ms ease, transform 75ms cubic-bezier(0.215, 0.61, 0.355, 1) 0.12s;\n  transform: rotate(-90deg);\n}\n.navbar .mobile-nav[data-v-6dde423b] {\n  display: none;\n}\n.navbar .mobile-nav--open[data-v-6dde423b] {\n  position: fixed;\n  z-index: 11;\n  top: 0;\n  right: 0;\n  height: 100vh;\n  width: 300px;\n  background-color: #fff;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  text-align: center;\n}\n.navbar .mobile-nav--open li[data-v-6dde423b] {\n  margin: 15px 0;\n}\n.navbar .mobile-nav--open .navbar__toggle[data-v-6dde423b] {\n  position: absolute;\n  top: 18px;\n  right: 31px;\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  border: none;\n}\n@media screen and (min-width: 992px) {\n.navbar .mobile-nav--open[data-v-6dde423b] {\n    flex-direction: row;\n    text-align: left;\n    position: static;\n    width: auto;\n}\n.navbar .mobile-nav--open li[data-v-6dde423b] {\n    margin: 10px;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6852,9 +6850,8 @@ __webpack_require__.r(__webpack_exports__);
 // Imports
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "div[data-v-0c7ea46c] {\n  font-family: \"Roboto\", sans-serif;\n}\n.intro_vid[data-v-0c7ea46c] {\n  position: absolute;\n  background-color: #2F2651;\n  width: 25rem;\n  height: 28rem;\n  z-index: 1;\n  border-radius: 20px;\n  right: 15%;\n  top: 25%;\n}\n#alignment[data-v-0c7ea46c] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.custom-section[data-v-0c7ea46c] {\n  width: 99%;\n  padding: 40px 0px;\n  background-color: #efefef;\n  border-radius: 16px;\n}\n@media screen and (width: 991.98px) {\n.custom-section[data-v-0c7ea46c] {\n    flex-direction: column-reverse;\n}\n}\n.custom-section .col-lg-8[data-v-0c7ea46c] {\n  margin-top: 100px;\n}\n.custom-section .col-lg-8 h2[data-v-0c7ea46c] {\n  font-weight: 700px;\n  font-size: 63px;\n  color: #2F2651;\n  margin-bottom: 0;\n  line-height: 1;\n  white-space: nowrap;\n}\n.custom-section .col-lg-8 h3[data-v-0c7ea46c] {\n  font-weight: 300px;\n  font-size: 64px;\n  color: #0c105a;\n  line-height: 1;\n}\n.custom-section .col-lg-8 p[data-v-0c7ea46c] {\n  color: #0d0d0e;\n  font-size: 20px;\n  margin-top: 30px;\n}\n.custom-section .col-lg-8 a[data-v-0c7ea46c] {\n  display: inline-block;\n  padding: 8px 22px;\n  border: 1px solid transparent;\n  margin-top: 60px;\n  text-decoration: none;\n  transition: 5s cubic-bezier(0.785, 0.135, 0.15, 0.86);\n}\n.nav-link[data-v-0c7ea46c] {\n  color: #FFF;\n  font-size: large;\n  padding: 8px 15px;\n  white-space: nowrap;\n  background-color: #2F2651;\n  border-radius: 10px;\n}\n.nav-link[data-v-0c7ea46c]:hover {\n  color: white;\n  background-color: #454aa1;\n}\n.Practice[data-v-0c7ea46c] {\n  color: #000;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".hero[data-v-0c7ea46c] {\n  padding: 30px 0;\n}\n.hero__body[data-v-0c7ea46c] {\n  background-color: #f8f8fa;\n  padding: 30px 10px;\n  border-radius: 16px;\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  color: #2F2651;\n  position: relative;\n  text-align: center;\n}\n@media screen and (min-width: 992px) {\n.hero__body[data-v-0c7ea46c] {\n    text-align: left;\n    height: 100vh;\n    padding: 0 30px;\n    max-height: 500px;\n}\n}\n.hero__body__title[data-v-0c7ea46c] {\n  font-weight: 700;\n  font-size: 2.8rem;\n}\n.hero__body__subtitle[data-v-0c7ea46c] {\n  font-size: 1.1rem;\n  margin: 30px 0;\n}\n.hero__body__cta[data-v-0c7ea46c] {\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.hero__video[data-v-0c7ea46c] {\n  background-color: #2F2651;\n  width: 25rem;\n  max-width: 100%;\n  border-radius: 20px;\n  height: 20rem;\n  margin: 30px auto;\n}\n@media screen and (min-width: 992px) {\n.hero__video[data-v-0c7ea46c] {\n    margin: 0 auto;\n    height: 28rem;\n    transform: translateY(25%);\n}\n}\n\n/* .custom-section {\n  width: 99%;\n  padding: 40px 0px;\n  background-color: #efefef;\n  border-radius: 16px;\n\n  @media screen and (width: 991.98px) {\n    flex-direction: column-reverse;\n  }\n\n  .col-lg-8 {\n    margin-top: 100px;\n    h2 {\n      font-weight: 700px;\n      font-size: 63px;\n      color: #2F2651;\n      margin-bottom: 0;\n      line-height: 1;\n      white-space: nowrap;\n    }\n    h3 {\n      font-weight: 300px;\n      font-size: 64px;\n      color: #0c105a;\n      line-height: 1;\n    }\n    p {\n      color: #0d0d0e;\n      font-size: 20px;\n      margin-top: 30px;\n    }\n    a {\n      display: inline-block;\n      padding: 8px 22px;\n\n      border: 1px solid transparent;\n      margin-top: 60px;\n      text-decoration: none;\n      transition: 5s cubic-bezier(0.785, 0.135, 0.15, 0.86);\n    }\n\n  }\n} */\n.practice[data-v-0c7ea46c] {\n  white-space: nowrap;\n  color: #2F2651;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6878,7 +6875,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".title[data-v-05899fd4] {\n  margin-top: 20px;\n  margin-left: 2.5%;\n}\n.sponsors[data-v-05899fd4] {\n  margin-left: 2.5%;\n  display: flex;\n}\n.custom-section[data-v-05899fd4] {\n  width: 15%;\n  margin: 10px;\n  padding: 15px;\n  background-color: #eeeeef;\n  border-radius: 1rem;\n}\n#alignment[data-v-05899fd4] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".sponsors[data-v-05899fd4] {\n  color: #2F2651;\n}\n.sponsors__title[data-v-05899fd4] {\n  font-weight: 600;\n  font-size: 1.8rem;\n}\n.custom-section[data-v-05899fd4] {\n  width: 15%;\n  margin: 10px;\n  padding: 15px;\n  background-color: #eeeeef;\n  border-radius: 1rem;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6977,7 +6974,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card-link[data-v-1755cf9a] {\n  color: #2f2651;\n  font-size: 12px;\n}\n.h5[data-v-1755cf9a] {\n  font-size: 10px;\n  color: #000;\n}\n.form-control[data-v-1755cf9a] {\n  border-radius: 0.5rem;\n  width: 40%;\n  float: right;\n  background-color: #eeeeef;\n}\n.col-md-6[data-v-1755cf9a] {\n  padding-left: 35px;\n}\n.btn-light[data-v-1755cf9a] {\n  border-radius: 1rem;\n  background-color: eeeeef;\n}\n.card-text[data-v-1755cf9a] {\n  color: #2f2651;\n  font-weight: bold;\n}\n.card-img-top[data-v-1755cf9a] {\n  border-radius: 1rem;\n}\n.card[data-v-1755cf9a] {\n  padding: 10px;\n  background-color: #eeeeef;\n  margin: 0 0 20px 0;\n}\n\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card-link[data-v-1755cf9a] {\r\n  color: #2f2651;\r\n  font-size: 12px;\n}\n.h5[data-v-1755cf9a] {\r\n  font-size: 10px;\r\n  color: #000;\n}\n.form-control[data-v-1755cf9a] {\r\n  border-radius: 0.5rem;\r\n  width: 40%;\r\n  float: right;\r\n  background-color: #eeeeef;\n}\n.col-md-6[data-v-1755cf9a] {\r\n  padding-left: 35px;\n}\n.btn-light[data-v-1755cf9a] {\r\n  border-radius: 1rem;\r\n  background-color: eeeeef;\n}\n.card-text[data-v-1755cf9a] {\r\n  color: #2f2651;\r\n  font-weight: bold;\n}\n.card-img-top[data-v-1755cf9a] {\r\n  border-radius: 1rem;\n}\n.card[data-v-1755cf9a] {\r\n  padding: 10px;\r\n  background-color: #eeeeef;\r\n  margin: 0 0 20px 0;\n}\r\n\r\n\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7001,7 +6998,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.progress-bar-container{\n    width: 100%;\n    background-color: #959399;\n    display: flex;\n    height: 0.6rem;\n    border-radius: 8px;\n    overflow: hidden;\n    line-height: 0;\n    font-size: 0.75rem;\n}\n.progress-bar-success{\n    background-color: #959399;\n}\n.progress-bar{\n    background-color: #0b0524;\n    z-index: 2;\n}\n.complte-text{\n    background-color: rgb(7, 14, 54);\n    font-size: 1rem;\n}\n.last-activity-container {\n  margin-left: 50px;\n  margin-right: 50px;\n}\n.timeline {\n  margin-top: 10px;\n}\n.text {\n  background-color: #d4d9df;\n  padding: 8px;\n  border-radius: 10px;\n  font-size: 16px;\n}\n.practical-desc {\n  display: flex;\n  justify-content: space-between;\n  width: 52%;\n  font-size: 16px;\n  padding: 8px 0;\n}\n.col-md-10 {\n  display: flex;\n  flex-direction: column;\n  height: 8rem;\n}\n.col-md-2 {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-around;\n}\n.practical-title {\n  font-weight: bolder;\n  padding-top: 10px;\n  text-transform: capitalize;\n}\n.child {\n  background-color: #fff;\n  margin-bottom: 30px;\n  margin-top: 10px;\n  border-radius: 0.5rem;\n  padding: 10px;\n  height: 10rem;\n  display: flex;\n  justify-content: space-between;\n}\nul.timeline {\n  list-style-type: none;\n  position: relative;\n}\nul.timeline:before {\n  content: \" \";\n  background: #d4d9df;\n  display: inline-block;\n  position: absolute;\n  left: 29px;\n  width: 2px;\n  height: 100%;\n  z-index: 400;\n}\nul.timeline > li {\n  margin: 0px 0;\n  padding-left: 20px;\n  margin-bottom: 10px;\n}\nul.timeline > li:before {\n  content: \" \";\n  background: white;\n  display: inline-block;\n  position: absolute;\n  border-radius: 50%;\n  border: 3px solid #0b0524;\n  left: 20px;\n  width: 20px;\n  height: 20px;\n  z-index: 400;\n}\n.vlab-practicals {\n  width: 100%;\n  background-color: #ebeaef;\n  max-height: 700px;\n  border-radius: 2.5rem;\n}\n.instructors {\n  color: #959399;\n  margin-bottom: 0%;\n}\n.view-practicals {\n  width: 95%;\n  background-color: #ebeaef;\n  height: 200px;\n  border-radius: 2rem;\n  margin-top: 55px;\n  display: flex;\n}\n.view-practicals-box {\n  width: 12%;\n  background-color: #adaabb;\n  height: 150px;\n\n  position: absolute;\n  z-index: 1;\n  border-radius: 2.5rem;\n  right: 55%;\n  top: 38%;\n}\n.view-Practical_text {\n  align-self: flex-end;\n  padding-left: 20px;\n}\n.fa {\n  padding-left: 5px;\n}\n.side {\n  display: flex;\n  justify-content: flex-end;\n}\n.expect {\n  width: 55%;\n  background-color: #ebeaef;\n  height: 300px;\n  border-radius: 2rem;\n  margin-top: 55px;\n}\n.what-to-expect-text {\n  padding-left: 20px;\n  padding-top: 20px;\n  font-weight: bold;\n  color: #0b0524;\n}\n.expect-content {\n  width: 90%;\n  overflow-x: hidden;\n  overflow-y: scroll;\n  scrollbar-color: #0b0524 #bebebe;\n  scrollbar-width: thin;\n  max-height: 220px;\n  margin-left: 15px;\n}\n.input-row {\n  margin-top: 20px;\n}\n.md-size {\n  font-size: 16px;\n}\n.progress {\n  width: 100%;\n  background-color: #fff;\n  display: flex;\n}\n.lastactivity {\n  width: 100%;\n  background-color: #fff;\n\n  display: flex;\n}\n.btn-success {\n  background-color: #0b0524;\n  font-size: 20px;\n  border-radius: 0.5rem;\n}\n.last-activity-container {\n  border-radius: 1.5rem;\n  background-color: #ffffff;\n  margin-bottom: 30px;\n  margin-top: 10px;\n  padding: 10px;\n  height: 13rem;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.progress-bar-container{\r\n    width: 100%;\r\n    background-color: #959399;\r\n    display: flex;\r\n    height: 0.6rem;\r\n    border-radius: 8px;\r\n    overflow: hidden;\r\n    line-height: 0;\r\n    font-size: 0.75rem;\n}\n.progress-bar-success{\r\n    background-color: #959399;\n}\n.progress-bar{\r\n    background-color: #0b0524;\r\n    z-index: 2;\n}\n.complte-text{\r\n    background-color: rgb(7, 14, 54);\r\n    font-size: 1rem;\n}\n.last-activity-container {\r\n  margin-left: 50px;\r\n  margin-right: 50px;\n}\n.timeline {\r\n  margin-top: 10px;\n}\n.text {\r\n  background-color: #d4d9df;\r\n  padding: 8px;\r\n  border-radius: 10px;\r\n  font-size: 16px;\n}\n.practical-desc {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  width: 52%;\r\n  font-size: 16px;\r\n  padding: 8px 0;\n}\n.col-md-10 {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: 8rem;\n}\n.col-md-2 {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: space-around;\n}\n.practical-title {\r\n  font-weight: bolder;\r\n  padding-top: 10px;\r\n  text-transform: capitalize;\n}\n.child {\r\n  background-color: #fff;\r\n  margin-bottom: 30px;\r\n  margin-top: 10px;\r\n  border-radius: 0.5rem;\r\n  padding: 10px;\r\n  height: 10rem;\r\n  display: flex;\r\n  justify-content: space-between;\n}\nul.timeline {\r\n  list-style-type: none;\r\n  position: relative;\n}\nul.timeline:before {\r\n  content: \" \";\r\n  background: #d4d9df;\r\n  display: inline-block;\r\n  position: absolute;\r\n  left: 29px;\r\n  width: 2px;\r\n  height: 100%;\r\n  z-index: 400;\n}\nul.timeline > li {\r\n  margin: 0px 0;\r\n  padding-left: 20px;\r\n  margin-bottom: 10px;\n}\nul.timeline > li:before {\r\n  content: \" \";\r\n  background: white;\r\n  display: inline-block;\r\n  position: absolute;\r\n  border-radius: 50%;\r\n  border: 3px solid #0b0524;\r\n  left: 20px;\r\n  width: 20px;\r\n  height: 20px;\r\n  z-index: 400;\n}\n.vlab-practicals {\r\n  width: 100%;\r\n  background-color: #ebeaef;\r\n  max-height: 700px;\r\n  border-radius: 2.5rem;\n}\n.instructors {\r\n  color: #959399;\r\n  margin-bottom: 0%;\n}\n.view-practicals {\r\n  width: 95%;\r\n  background-color: #ebeaef;\r\n  height: 200px;\r\n  border-radius: 2rem;\r\n  margin-top: 55px;\r\n  display: flex;\n}\n.view-practicals-box {\r\n  width: 12%;\r\n  background-color: #adaabb;\r\n  height: 150px;\r\n\r\n  position: absolute;\r\n  z-index: 1;\r\n  border-radius: 2.5rem;\r\n  right: 55%;\r\n  top: 38%;\n}\n.view-Practical_text {\r\n  align-self: flex-end;\r\n  padding-left: 20px;\n}\n.fa {\r\n  padding-left: 5px;\n}\n.side {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.expect {\r\n  width: 55%;\r\n  background-color: #ebeaef;\r\n  height: 300px;\r\n  border-radius: 2rem;\r\n  margin-top: 55px;\n}\n.what-to-expect-text {\r\n  padding-left: 20px;\r\n  padding-top: 20px;\r\n  font-weight: bold;\r\n  color: #0b0524;\n}\n.expect-content {\r\n  width: 90%;\r\n  overflow-x: hidden;\r\n  overflow-y: scroll;\r\n  scrollbar-color: #0b0524 #bebebe;\r\n  scrollbar-width: thin;\r\n  max-height: 220px;\r\n  margin-left: 15px;\n}\n.input-row {\r\n  margin-top: 20px;\n}\n.md-size {\r\n  font-size: 16px;\n}\n.progress {\r\n  width: 100%;\r\n  background-color: #fff;\r\n  display: flex;\n}\n.lastactivity {\r\n  width: 100%;\r\n  background-color: #fff;\r\n\r\n  display: flex;\n}\n.btn-success {\r\n  background-color: #0b0524;\r\n  font-size: 20px;\r\n  border-radius: 0.5rem;\n}\n.last-activity-container {\r\n  border-radius: 1.5rem;\r\n  background-color: #ffffff;\r\n  margin-bottom: 30px;\r\n  margin-top: 10px;\r\n  padding: 10px;\r\n  height: 13rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7125,7 +7122,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.progress-bar-success{\n    background-color: #959399;\n}\n.progress-bar{\n    background-color: #0b0524;\n}\n.complte-text{\n    background-color: rgb(7, 14, 54);\n    font-size: 1rem;\n}\n.last-activity-container {\n  margin-left: 50px;\n  margin-right: 50px;\n}\n.timeline {\n  margin-top: 10px;\n}\n.text {\n  background-color: #d4d9df;\n  padding: 8px;\n  border-radius: 10px;\n  font-size: 16px;\n}\n.practical-desc {\n  display: flex;\n  justify-content: space-between;\n  width: 52%;\n  font-size: 16px;\n  padding: 8px 0;\n}\n.col-md-10 {\n  display: flex;\n  flex-direction: column;\n  height: 8rem;\n}\n.col-md-2 {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-around;\n}\n.practical-title {\n  font-weight: bolder;\n  padding-top: 10px;\n  text-transform: capitalize;\n}\n.child {\n  background-color: #fff;\n  margin-bottom: 30px;\n  margin-top: 10px;\n  border-radius: 0.5rem;\n  padding: 10px;\n  height: 10rem;\n  display: flex;\n  justify-content: space-between;\n}\nul.timeline {\n  list-style-type: none;\n  position: relative;\n}\nul.timeline:before {\n  content: \" \";\n  background: #d4d9df;\n  display: inline-block;\n  position: absolute;\n  left: 29px;\n  width: 2px;\n  height: 100%;\n  z-index: 400;\n}\nul.timeline > li {\n  margin: 0px 0;\n  padding-left: 20px;\n  margin-bottom: 10px;\n}\nul.timeline > li:before {\n  content: \" \";\n  background: white;\n  display: inline-block;\n  position: absolute;\n  border-radius: 50%;\n  border: 3px solid #0b0524;\n  left: 20px;\n  width: 20px;\n  height: 20px;\n  z-index: 400;\n}\n.vlab-practicals {\n  width: 100%;\n  background-color: #ebeaef;\n  max-height: 700px;\n  border-radius: 2.5rem;\n}\n.instructors {\n  color: #959399;\n  margin-bottom: 0%;\n}\n.view-practicals {\n  width: 95%;\n  background-color: #ebeaef;\n  height: 200px;\n  border-radius: 2rem;\n  margin-top: 55px;\n  display: flex;\n}\n.view-practicals-box {\n  width: 12%;\n  background-color: #adaabb;\n  height: 150px;\n\n  position: absolute;\n  z-index: 1;\n  border-radius: 2.5rem;\n  right: 55%;\n  top: 38%;\n}\n.view-Practical_text {\n  align-self: flex-end;\n  padding-left: 20px;\n}\n.fa {\n  padding-left: 5px;\n}\n.side {\n  display: flex;\n  justify-content: flex-end;\n}\n.expect {\n  width: 55%;\n  background-color: #ebeaef;\n  height: 300px;\n  border-radius: 2rem;\n  margin-top: 55px;\n}\n.what-to-expect-text {\n  padding-left: 20px;\n  padding-top: 20px;\n  font-weight: bold;\n  color: #0b0524;\n}\n.expect-content {\n  width: 90%;\n  overflow-x: hidden;\n  overflow-y: scroll;\n  scrollbar-color: #0b0524 #bebebe;\n  scrollbar-width: thin;\n  max-height: 220px;\n  margin-left: 15px;\n}\n.input-row {\n  margin-top: 20px;\n}\n.md-size {\n  font-size: 16px;\n}\n.progress {\n  width: 100%;\n  background-color: #fff;\n  display: flex;\n}\n.lastactivity {\n  width: 100%;\n  background-color: #fff;\n\n  display: flex;\n}\n.btn-success {\n  background-color: #0b0524;\n  font-size: 20px;\n  border-radius: 0.5rem;\n}\n.last-activity-container {\n  border-radius: 1.5rem;\n  background-color: #ffffff;\n  margin-bottom: 30px;\n  margin-top: 10px;\n  padding: 10px;\n  height: 13rem;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.progress-bar-success{\r\n    background-color: #959399;\n}\n.progress-bar{\r\n    background-color: #0b0524;\n}\n.complte-text{\r\n    background-color: rgb(7, 14, 54);\r\n    font-size: 1rem;\n}\n.last-activity-container {\r\n  margin-left: 50px;\r\n  margin-right: 50px;\n}\n.timeline {\r\n  margin-top: 10px;\n}\n.text {\r\n  background-color: #d4d9df;\r\n  padding: 8px;\r\n  border-radius: 10px;\r\n  font-size: 16px;\n}\n.practical-desc {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  width: 52%;\r\n  font-size: 16px;\r\n  padding: 8px 0;\n}\n.col-md-10 {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: 8rem;\n}\n.col-md-2 {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: space-around;\n}\n.practical-title {\r\n  font-weight: bolder;\r\n  padding-top: 10px;\r\n  text-transform: capitalize;\n}\n.child {\r\n  background-color: #fff;\r\n  margin-bottom: 30px;\r\n  margin-top: 10px;\r\n  border-radius: 0.5rem;\r\n  padding: 10px;\r\n  height: 10rem;\r\n  display: flex;\r\n  justify-content: space-between;\n}\nul.timeline {\r\n  list-style-type: none;\r\n  position: relative;\n}\nul.timeline:before {\r\n  content: \" \";\r\n  background: #d4d9df;\r\n  display: inline-block;\r\n  position: absolute;\r\n  left: 29px;\r\n  width: 2px;\r\n  height: 100%;\r\n  z-index: 400;\n}\nul.timeline > li {\r\n  margin: 0px 0;\r\n  padding-left: 20px;\r\n  margin-bottom: 10px;\n}\nul.timeline > li:before {\r\n  content: \" \";\r\n  background: white;\r\n  display: inline-block;\r\n  position: absolute;\r\n  border-radius: 50%;\r\n  border: 3px solid #0b0524;\r\n  left: 20px;\r\n  width: 20px;\r\n  height: 20px;\r\n  z-index: 400;\n}\n.vlab-practicals {\r\n  width: 100%;\r\n  background-color: #ebeaef;\r\n  max-height: 700px;\r\n  border-radius: 2.5rem;\n}\n.instructors {\r\n  color: #959399;\r\n  margin-bottom: 0%;\n}\n.view-practicals {\r\n  width: 95%;\r\n  background-color: #ebeaef;\r\n  height: 200px;\r\n  border-radius: 2rem;\r\n  margin-top: 55px;\r\n  display: flex;\n}\n.view-practicals-box {\r\n  width: 12%;\r\n  background-color: #adaabb;\r\n  height: 150px;\r\n\r\n  position: absolute;\r\n  z-index: 1;\r\n  border-radius: 2.5rem;\r\n  right: 55%;\r\n  top: 38%;\n}\n.view-Practical_text {\r\n  align-self: flex-end;\r\n  padding-left: 20px;\n}\n.fa {\r\n  padding-left: 5px;\n}\n.side {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.expect {\r\n  width: 55%;\r\n  background-color: #ebeaef;\r\n  height: 300px;\r\n  border-radius: 2rem;\r\n  margin-top: 55px;\n}\n.what-to-expect-text {\r\n  padding-left: 20px;\r\n  padding-top: 20px;\r\n  font-weight: bold;\r\n  color: #0b0524;\n}\n.expect-content {\r\n  width: 90%;\r\n  overflow-x: hidden;\r\n  overflow-y: scroll;\r\n  scrollbar-color: #0b0524 #bebebe;\r\n  scrollbar-width: thin;\r\n  max-height: 220px;\r\n  margin-left: 15px;\n}\n.input-row {\r\n  margin-top: 20px;\n}\n.md-size {\r\n  font-size: 16px;\n}\n.progress {\r\n  width: 100%;\r\n  background-color: #fff;\r\n  display: flex;\n}\n.lastactivity {\r\n  width: 100%;\r\n  background-color: #fff;\r\n\r\n  display: flex;\n}\n.btn-success {\r\n  background-color: #0b0524;\r\n  font-size: 20px;\r\n  border-radius: 0.5rem;\n}\n.last-activity-container {\r\n  border-radius: 1.5rem;\r\n  background-color: #ffffff;\r\n  margin-bottom: 30px;\r\n  margin-top: 10px;\r\n  padding: 10px;\r\n  height: 13rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7149,7 +7146,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.contener {\n  margin: 0;\n  display: flex;\n  justify-content: space-between;\n  flex-direction: column;\n  width: 100%;\n}\n.title {\n  padding: 35px 20px 20px 65px;\n}\n.timeline {\n  margin-top: 10px;\n}\n.parentTimeline b {\n    width: 8%;\n}\n.text {\n  background-color: #d4d9df;\n  padding: 8px;\n  border-radius: 10px;\n  font-size: 16px;\n}\n.practical-desc {\n  display: flex;\n  justify-content: space-between;\n  width: 52%;\n  font-size: 16px;\n  padding: 8px 0;\n}\n.col-md-10 {\n  display: flex;\n  flex-direction: column;\n  height: 8rem;\n}\n.col-md-2 {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-around;\n}\n.practical-title {\n  font-weight: bolder;\n  padding-top: 10px;\n  text-transform: capitalize;\n}\n.parentTimeline {\n  list-style-type: none;\n  position: relative;\n  display: flex;\n  padding: 0px 20px 0px 65px;\n}\n.parentTimeline div {\n    width: 100%;\n}\n.parentTimeline > div:before {\n  content: \"\";\n  background: #0b0524;\n  display: inline-block;\n  position: absolute;\n  border-radius: 50%;\n  border: 1px solid #0b0524;\n  left: 161px;\n  width: 20px;\n  height: 20px;\n  z-index: 400;\n}\n.child {\n  background-color: #fff;\n  margin-bottom: 30px;\n  margin-top: 10px;\n  border-radius: 0.5rem;\n  padding: 10px;\n  height: 10rem;\n  display: flex;\n  justify-content: space-between;\n}\nul.timeline {\n  list-style-type: none;\n  position: relative;\n  padding-top: 30px;\n}\nul.timeline:before {\n  content: \" \";\n  background: #d4d9df;\n  display: inline-block;\n  position: absolute;\n  top: 10px;\n  left: 29px;\n  width: 2px;\n  height: 100%;\n  z-index: 400;\n}\nul.timeline > li {\n  margin: 0px 0;\n  padding-left: 20px;\n  margin-bottom: 10px;\n  margin-left: 10px;\n}\nul.timeline > li:before {\n  content: \"\";\n  background: #0b0524;\n  display: inline-block;\n  position: absolute;\n  border-radius: 50%;\n  border: 1px solid #0b0524;\n  left: 22px;\n  width: 15px;\n  height: 15px;\n  z-index: 400;\n}\n.vlab-practicals {\n  width: 100%;\n  background-color: #ebeaef;\n  max-height: 700px;\n  border-radius: 2.5rem;\n  overflow-y: scroll;\n}\n.instructors {\n  color: #959399;\n  margin-bottom: 0%;\n}\n.view-practicals {\n  width: 95%;\n  background-color: #ebeaef;\n  height: 200px;\n  border-radius: 2rem;\n  margin-top: 55px;\n  display: flex;\n}\n.view-practicals-box {\n  width: 12%;\n  background-color: #adaabb;\n  height: 150px;\n\n  position: absolute;\n  z-index: 1;\n  border-radius: 2.5rem;\n  right: 55%;\n  top: 38%;\n}\n.view-Practical_text {\n  align-self: flex-end;\n  padding-left: 20px;\n}\n.fa {\n  padding-left: 5px;\n}\n.side {\n  display: flex;\n  justify-content: flex-end;\n}\n.expect {\n  width: 55%;\n  background-color: #ebeaef;\n  height: 300px;\n  border-radius: 2rem;\n  margin-top: 55px;\n}\n.what-to-expect-text {\n  padding-left: 20px;\n  padding-top: 20px;\n  font-weight: bold;\n  color: #0b0524;\n}\n.expect-content {\n  width: 90%;\n  overflow-x: hidden;\n  overflow-y: scroll;\n  scrollbar-color: #0b0524 #bebebe;\n  scrollbar-width: thin;\n  max-height: 220px;\n  margin-left: 15px;\n}\n.input-row {\n  margin-top: 20px;\n}\n.md-size {\n  font-size: 16px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.contener {\r\n  margin: 0;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n  width: 100%;\n}\n.title {\r\n  padding: 35px 20px 20px 65px;\n}\n.timeline {\r\n  margin-top: 10px;\n}\n.parentTimeline b {\r\n    width: 8%;\n}\n.text {\r\n  background-color: #d4d9df;\r\n  padding: 8px;\r\n  border-radius: 10px;\r\n  font-size: 16px;\n}\n.practical-desc {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  width: 52%;\r\n  font-size: 16px;\r\n  padding: 8px 0;\n}\n.col-md-10 {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: 8rem;\n}\n.col-md-2 {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: space-around;\n}\n.practical-title {\r\n  font-weight: bolder;\r\n  padding-top: 10px;\r\n  text-transform: capitalize;\n}\n.parentTimeline {\r\n  list-style-type: none;\r\n  position: relative;\r\n  display: flex;\r\n  padding: 0px 20px 0px 65px;\n}\n.parentTimeline div {\r\n    width: 100%;\n}\n.parentTimeline > div:before {\r\n  content: \"\";\r\n  background: #0b0524;\r\n  display: inline-block;\r\n  position: absolute;\r\n  border-radius: 50%;\r\n  border: 1px solid #0b0524;\r\n  left: 161px;\r\n  width: 20px;\r\n  height: 20px;\r\n  z-index: 400;\n}\n.child {\r\n  background-color: #fff;\r\n  margin-bottom: 30px;\r\n  margin-top: 10px;\r\n  border-radius: 0.5rem;\r\n  padding: 10px;\r\n  height: 10rem;\r\n  display: flex;\r\n  justify-content: space-between;\n}\nul.timeline {\r\n  list-style-type: none;\r\n  position: relative;\r\n  padding-top: 30px;\n}\nul.timeline:before {\r\n  content: \" \";\r\n  background: #d4d9df;\r\n  display: inline-block;\r\n  position: absolute;\r\n  top: 10px;\r\n  left: 29px;\r\n  width: 2px;\r\n  height: 100%;\r\n  z-index: 400;\n}\nul.timeline > li {\r\n  margin: 0px 0;\r\n  padding-left: 20px;\r\n  margin-bottom: 10px;\r\n  margin-left: 10px;\n}\nul.timeline > li:before {\r\n  content: \"\";\r\n  background: #0b0524;\r\n  display: inline-block;\r\n  position: absolute;\r\n  border-radius: 50%;\r\n  border: 1px solid #0b0524;\r\n  left: 22px;\r\n  width: 15px;\r\n  height: 15px;\r\n  z-index: 400;\n}\n.vlab-practicals {\r\n  width: 100%;\r\n  background-color: #ebeaef;\r\n  max-height: 700px;\r\n  border-radius: 2.5rem;\r\n  overflow-y: scroll;\n}\n.instructors {\r\n  color: #959399;\r\n  margin-bottom: 0%;\n}\n.view-practicals {\r\n  width: 95%;\r\n  background-color: #ebeaef;\r\n  height: 200px;\r\n  border-radius: 2rem;\r\n  margin-top: 55px;\r\n  display: flex;\n}\n.view-practicals-box {\r\n  width: 12%;\r\n  background-color: #adaabb;\r\n  height: 150px;\r\n\r\n  position: absolute;\r\n  z-index: 1;\r\n  border-radius: 2.5rem;\r\n  right: 55%;\r\n  top: 38%;\n}\n.view-Practical_text {\r\n  align-self: flex-end;\r\n  padding-left: 20px;\n}\n.fa {\r\n  padding-left: 5px;\n}\n.side {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.expect {\r\n  width: 55%;\r\n  background-color: #ebeaef;\r\n  height: 300px;\r\n  border-radius: 2rem;\r\n  margin-top: 55px;\n}\n.what-to-expect-text {\r\n  padding-left: 20px;\r\n  padding-top: 20px;\r\n  font-weight: bold;\r\n  color: #0b0524;\n}\n.expect-content {\r\n  width: 90%;\r\n  overflow-x: hidden;\r\n  overflow-y: scroll;\r\n  scrollbar-color: #0b0524 #bebebe;\r\n  scrollbar-width: thin;\r\n  max-height: 220px;\r\n  margin-left: 15px;\n}\n.input-row {\r\n  margin-top: 20px;\n}\n.md-size {\r\n  font-size: 16px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7223,7 +7220,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.timeline[data-v-68ce3688]{\n  margin-top:10px\n}\n.text[data-v-68ce3688]{\n  background-color: #d4d9df; \n  padding: 8px; \n  border-radius: 10px; \n  font-size: 16px;\n}\n.practical-desc[data-v-68ce3688] {\n  display: flex; \n  justify-content: space-between;\n  width: 52%;\n  font-size: 16px;\n  padding: 8px 0;\n}\n.col-md-10[data-v-68ce3688] {\n  display: flex;\n  flex-direction: column;\n  height: 8rem;\n}\n.col-md-2[data-v-68ce3688] {\n  display: flex;\n  flex-direction: column;\n  justify-content:space-around;\n}\n.practical-title[data-v-68ce3688] {\n  font-weight: bolder;\n  padding-top: 10px;\n  text-transform: capitalize;\n}\n.child[data-v-68ce3688] {\n  background-color: #fff;\n  margin-bottom: 30px;\n  margin-top:10px;\n  border-radius: 0.5rem;\n  padding: 10px;\n  height: 10rem;\n  display: flex;\n  justify-content: space-between;\n}\nul.timeline[data-v-68ce3688] {\n  list-style-type: none;\n  position: relative;\n}\nul.timeline[data-v-68ce3688]:before {\n  content: \" \";\n  background: #d4d9df;\n  display: inline-block;\n  position: absolute;\n  left: 29px;\n  width: 2px;\n  height: 100%;\n  z-index: 400;\n}\nul.timeline > li[data-v-68ce3688] {\n  margin: 0px 0;\n  padding-left: 20px;\n  margin-bottom: 10px;\n}\nul.timeline > li[data-v-68ce3688]:before {\n  content: \" \";\n  background: white;\n  display: inline-block;\n  position: absolute;\n  border-radius: 50%;\n  border: 3px solid #191236;\n  left: 20px;\n  width: 20px;\n  height: 20px;\n  z-index: 400;\n}\n.vlab-practicals[data-v-68ce3688] {\n  width: 100%;\n  background-color: #ebeaef;\n  max-height: 700px;\n  border-radius: 2.5rem;\n}\n.instructors[data-v-68ce3688] {\n  color: #959399;\n  margin-bottom: 0%;\n}\n.view-practicals[data-v-68ce3688] {\n  width: 95%;\n  background-color: #ebeaef;\n  height: 200px;\n  border-radius: 2rem;\n  margin-top: 55px;\n  display: flex;\n}\n.view-practicals-box[data-v-68ce3688] {\n  width: 12%;\n  background-color: #adaabb;\n  height: 150px;\n\n  position: absolute;\n  z-index: 1;\n  border-radius: 2.5rem;\n  right: 55%;\n  top: 38%;\n}\n.view-Practical_text[data-v-68ce3688] {\n  align-self: flex-end;\n  padding-left: 20px;\n}\n.fa[data-v-68ce3688] {\n  padding-left: 5px;\n}\n.side[data-v-68ce3688] {\n  display: flex;\n  justify-content: flex-end;\n}\n.expect[data-v-68ce3688] {\n  width: 55%;\n  background-color: #ebeaef;\n  height: 300px;\n  border-radius: 2rem;\n  margin-top: 55px;\n}\n.what-to-expect-text[data-v-68ce3688] {\n  padding-left: 20px;\n  padding-top: 20px;\n  font-weight: bold;\n  color: #191236;\n}\n.expect-content[data-v-68ce3688] {\n  width: 90%;\n  overflow-x: hidden;\n  overflow-y: scroll;\n  scrollbar-color: #191236 #bebebe;\n  scrollbar-width: thin;\n  max-height: 220px;\n  margin-left: 15px;\n}\n.input-row[data-v-68ce3688] {\n  margin-top: 20px;\n}\n.md-size[data-v-68ce3688]{\n  font-size: 16px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.timeline[data-v-68ce3688]{\r\n  margin-top:10px\n}\n.text[data-v-68ce3688]{\r\n  background-color: #d4d9df; \r\n  padding: 8px; \r\n  border-radius: 10px; \r\n  font-size: 16px;\n}\n.practical-desc[data-v-68ce3688] {\r\n  display: flex; \r\n  justify-content: space-between;\r\n  width: 52%;\r\n  font-size: 16px;\r\n  padding: 8px 0;\n}\n.col-md-10[data-v-68ce3688] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: 8rem;\n}\n.col-md-2[data-v-68ce3688] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content:space-around;\n}\n.practical-title[data-v-68ce3688] {\r\n  font-weight: bolder;\r\n  padding-top: 10px;\r\n  text-transform: capitalize;\n}\n.child[data-v-68ce3688] {\r\n  background-color: #fff;\r\n  margin-bottom: 30px;\r\n  margin-top:10px;\r\n  border-radius: 0.5rem;\r\n  padding: 10px;\r\n  height: 10rem;\r\n  display: flex;\r\n  justify-content: space-between;\n}\nul.timeline[data-v-68ce3688] {\r\n  list-style-type: none;\r\n  position: relative;\n}\nul.timeline[data-v-68ce3688]:before {\r\n  content: \" \";\r\n  background: #d4d9df;\r\n  display: inline-block;\r\n  position: absolute;\r\n  left: 29px;\r\n  width: 2px;\r\n  height: 100%;\r\n  z-index: 400;\n}\nul.timeline > li[data-v-68ce3688] {\r\n  margin: 0px 0;\r\n  padding-left: 20px;\r\n  margin-bottom: 10px;\n}\nul.timeline > li[data-v-68ce3688]:before {\r\n  content: \" \";\r\n  background: white;\r\n  display: inline-block;\r\n  position: absolute;\r\n  border-radius: 50%;\r\n  border: 3px solid #191236;\r\n  left: 20px;\r\n  width: 20px;\r\n  height: 20px;\r\n  z-index: 400;\n}\n.vlab-practicals[data-v-68ce3688] {\r\n  width: 100%;\r\n  background-color: #ebeaef;\r\n  max-height: 700px;\r\n  border-radius: 2.5rem;\n}\n.instructors[data-v-68ce3688] {\r\n  color: #959399;\r\n  margin-bottom: 0%;\n}\n.view-practicals[data-v-68ce3688] {\r\n  width: 95%;\r\n  background-color: #ebeaef;\r\n  height: 200px;\r\n  border-radius: 2rem;\r\n  margin-top: 55px;\r\n  display: flex;\n}\n.view-practicals-box[data-v-68ce3688] {\r\n  width: 12%;\r\n  background-color: #adaabb;\r\n  height: 150px;\r\n\r\n  position: absolute;\r\n  z-index: 1;\r\n  border-radius: 2.5rem;\r\n  right: 55%;\r\n  top: 38%;\n}\n.view-Practical_text[data-v-68ce3688] {\r\n  align-self: flex-end;\r\n  padding-left: 20px;\n}\n.fa[data-v-68ce3688] {\r\n  padding-left: 5px;\n}\n.side[data-v-68ce3688] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.expect[data-v-68ce3688] {\r\n  width: 55%;\r\n  background-color: #ebeaef;\r\n  height: 300px;\r\n  border-radius: 2rem;\r\n  margin-top: 55px;\n}\n.what-to-expect-text[data-v-68ce3688] {\r\n  padding-left: 20px;\r\n  padding-top: 20px;\r\n  font-weight: bold;\r\n  color: #191236;\n}\n.expect-content[data-v-68ce3688] {\r\n  width: 90%;\r\n  overflow-x: hidden;\r\n  overflow-y: scroll;\r\n  scrollbar-color: #191236 #bebebe;\r\n  scrollbar-width: thin;\r\n  max-height: 220px;\r\n  margin-left: 15px;\n}\n.input-row[data-v-68ce3688] {\r\n  margin-top: 20px;\n}\n.md-size[data-v-68ce3688]{\r\n  font-size: 16px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7299,7 +7296,7 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);"]);
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\na[data-v-ff21283c]{\n\ttext-decoration: none;\n}\n.widthRed[data-v-ff21283c]{\n\twidth: 60px !important;\n}\n.MenuLContainer[data-v-ff21283c]{\n\tdisplay: flex;\n\tmargin-top:50px;\n}\n.menuBtnToggler[data-v-ff21283c]{\n\tcursor: pointer;\n}\n.slider[data-v-ff21283c] {\n    position: absolute;\n    width: 100px;\n    height: 100px;    \n    transform: translateX(-100%);\n    -webkit-transform: translateX(-100%);\n    z-index: 5;\n}\n.slidein[data-v-ff21283c] {\n    animation: slide-in-data-v-ff21283c 0.5s forwards;\n    -webkit-animation: slide-in-data-v-ff21283c 0.5s forwards;\n}\n.slideout[data-v-ff21283c] {\n    animation: slide-out-data-v-ff21283c 0.5s forwards;\n    -webkit-animation: slide-out-data-v-ff21283c 0.5s forwards;\n}\n@keyframes slide-in-data-v-ff21283c {\n100% { transform: translateX(0%);\n}\n}\n@-webkit-keyframes slide-in-data-v-ff21283c {\n100% { -webkit-transform: translateX(0%);\n}\n}\n@keyframes slide-out-data-v-ff21283c {\n0% { transform: translateX(0%);\n}\n100% { transform: translateX(-300%);\n}\n}\n@-webkit-keyframes slide-out-data-v-ff21283c {\n0% { -webkit-transform: translateX(0%);\n}\n100% { -webkit-transform: translateX(-300%);\n}\n}\n.reduceSize[data-v-ff21283c]{\n\twidth: 0px !important;\n\ttransition: width 0.5s;\n}\n.niconsV[data-v-ff21283c]{\n\t\twidth: 55px; \n\t\tmargin-top: 5px;\n}\n.menuLI[data-v-ff21283c]{\n\t\tcolor:#2F274E;\n\t\tfont-size: 1.4em;\n}\n.menuBtnToggler[data-v-ff21283c]{\n\t\tdisplay: flex;\n\t\tflex-wrap: wrap;\n\t\talign-items:center;\n\t\tcolor:#2F274E;\n\t\tmargin-top:50px;\n\t\tmargin-left: 10px;\n}\n.nChildV[data-v-ff21283c]{\n\t\tfont-weight: 400;\n\t\tfont-size: 0.95em;\n\t\tfont-family: 'Roboto';\t\t\n\t\tdisplay: flex;\n\t\tpadding: 10px 18px;\t\t\t\n\t\tcolor:#2F274E;\n\t\ttext-align: left;\t\t\n\t\talign-items: center;\n\t\tflex-wrap: wrap;\n\t\tmargin:5px 0px;\n\t\tborder-radius: 8px;\n\t\tcursor: pointer;\n}\n.nChildV[data-v-ff21283c]:hover{\n\t\tbackground: #3c9;\n\t\tcolor:#fff;\n}\n.btnActive[data-v-ff21283c]{\n\t\tbackground: rgba(150,200,150,.1) !important;\n\t\tcolor: #3c9 !important;\n}\n.iconV[data-v-ff21283c]{\n\t\tmargin-right: 10px;\n}\n.iconOV[data-v-ff21283c]{\n\t\tfloat: left;\t\t\t\n\t\tpadding: 15px 18px;\n\t\tborder-radius: 8px;\n\t\tdisplay:block;\n\t\twidth: 100%;\n\t\tcursor: pointer;\n\t\tfont-size: 1.1em;\t\n\t\tcolor:#2F274E;\n}\n.iconOV[data-v-ff21283c]:not(:first-child){\n\t\tmargin:2px 0px;\n}\n.iconOV[data-v-ff21283c]:hover{\n\t\tbackground: #3c9;\n\t\tcolor:#fff;\n}\n.nChildV[data-v-ff21283c]:hover{\n\t\tbackground: #3c9;\n\t\tcolor:#fff;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\na[data-v-ff21283c]{\r\n\ttext-decoration: none;\n}\n.widthRed[data-v-ff21283c]{\r\n\twidth: 60px !important;\n}\n.MenuLContainer[data-v-ff21283c]{\r\n\tdisplay: flex;\r\n\tmargin-top:50px;\n}\n.menuBtnToggler[data-v-ff21283c]{\r\n\tcursor: pointer;\n}\n.slider[data-v-ff21283c] {\r\n    position: absolute;\r\n    width: 100px;\r\n    height: 100px;    \r\n    transform: translateX(-100%);\r\n    -webkit-transform: translateX(-100%);\r\n    z-index: 5;\n}\n.slidein[data-v-ff21283c] {\r\n    animation: slide-in-data-v-ff21283c 0.5s forwards;\r\n    -webkit-animation: slide-in-data-v-ff21283c 0.5s forwards;\n}\n.slideout[data-v-ff21283c] {\r\n    animation: slide-out-data-v-ff21283c 0.5s forwards;\r\n    -webkit-animation: slide-out-data-v-ff21283c 0.5s forwards;\n}\n@keyframes slide-in-data-v-ff21283c {\n100% { transform: translateX(0%);\n}\n}\n@-webkit-keyframes slide-in-data-v-ff21283c {\n100% { -webkit-transform: translateX(0%);\n}\n}\n@keyframes slide-out-data-v-ff21283c {\n0% { transform: translateX(0%);\n}\n100% { transform: translateX(-300%);\n}\n}\n@-webkit-keyframes slide-out-data-v-ff21283c {\n0% { -webkit-transform: translateX(0%);\n}\n100% { -webkit-transform: translateX(-300%);\n}\n}\n.reduceSize[data-v-ff21283c]{\r\n\twidth: 0px !important;\r\n\ttransition: width 0.5s;\n}\n.niconsV[data-v-ff21283c]{\r\n\t\twidth: 55px; \r\n\t\tmargin-top: 5px;\n}\n.menuLI[data-v-ff21283c]{\r\n\t\tcolor:#2F274E;\r\n\t\tfont-size: 1.4em;\n}\n.menuBtnToggler[data-v-ff21283c]{\r\n\t\tdisplay: flex;\r\n\t\tflex-wrap: wrap;\r\n\t\talign-items:center;\r\n\t\tcolor:#2F274E;\r\n\t\tmargin-top:50px;\r\n\t\tmargin-left: 10px;\n}\n.nChildV[data-v-ff21283c]{\r\n\t\tfont-weight: 400;\r\n\t\tfont-size: 0.95em;\r\n\t\tfont-family: 'Roboto';\t\t\r\n\t\tdisplay: flex;\r\n\t\tpadding: 10px 18px;\t\t\t\r\n\t\tcolor:#2F274E;\r\n\t\ttext-align: left;\t\t\r\n\t\talign-items: center;\r\n\t\tflex-wrap: wrap;\r\n\t\tmargin:5px 0px;\r\n\t\tborder-radius: 8px;\r\n\t\tcursor: pointer;\n}\n.nChildV[data-v-ff21283c]:hover{\r\n\t\tbackground: #3c9;\r\n\t\tcolor:#fff;\n}\n.btnActive[data-v-ff21283c]{\r\n\t\tbackground: rgba(150,200,150,.1) !important;\r\n\t\tcolor: #3c9 !important;\n}\n.iconV[data-v-ff21283c]{\r\n\t\tmargin-right: 10px;\n}\n.iconOV[data-v-ff21283c]{\r\n\t\tfloat: left;\t\t\t\r\n\t\tpadding: 15px 18px;\r\n\t\tborder-radius: 8px;\r\n\t\tdisplay:block;\r\n\t\twidth: 100%;\r\n\t\tcursor: pointer;\r\n\t\tfont-size: 1.1em;\t\r\n\t\tcolor:#2F274E;\n}\n.iconOV[data-v-ff21283c]:not(:first-child){\r\n\t\tmargin:2px 0px;\n}\n.iconOV[data-v-ff21283c]:hover{\r\n\t\tbackground: #3c9;\r\n\t\tcolor:#fff;\n}\n.nChildV[data-v-ff21283c]:hover{\r\n\t\tbackground: #3c9;\r\n\t\tcolor:#fff;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7407,15 +7404,15 @@ module.exports = function (cssWithMappingToString) {
       }
 
       return content;
-    }).join("");
+    }).join('');
   }; // import a list of modules into the list
   // eslint-disable-next-line func-names
 
 
   list.i = function (modules, mediaQuery, dedupe) {
-    if (typeof modules === "string") {
+    if (typeof modules === 'string') {
       // eslint-disable-next-line no-param-reassign
-      modules = [[null, modules, ""]];
+      modules = [[null, modules, '']];
     }
 
     var alreadyImportedModules = {};
@@ -25657,13 +25654,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("nav", { staticClass: "navbar" }, [
-    _c("div", { staticClass: "container align-items-center" }, [
+    _c("div", { staticClass: "container align-items-center mb-0" }, [
       _vm._m(0),
       _vm._v(" "),
       _c(
         "ul",
         {
-          staticClass: "navbar__list d-lg-flex mobile-nav",
+          staticClass: "navbar__list d-lg-flex mobile-nav mb-0",
           class: _vm.showNav ? "mobile-nav--open" : null
         },
         [
@@ -25701,7 +25698,10 @@ var render = function() {
       _vm._v(" "),
       _c(
         "ul",
-        { staticClass: "navbar__list d-none d-lg-flex align-items-lg-center" },
+        {
+          staticClass:
+            "navbar__list d-none d-lg-flex align-items-lg-center mb-0"
+        },
         [
           _c("li", { staticClass: "navbar__list__item" }, [
             _c("a", { attrs: { href: _vm.login } }, [_vm._v("Login")])
@@ -25952,56 +25952,63 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", {}, [
-      _c("br"),
-      _vm._v(" "),
-      _c("div", { staticClass: "m-0 p-0", attrs: { id: "alignment" } }, [
+    return _c("section", { staticClass: "hero" }, [
+      _c("div", { staticClass: "container" }, [
         _c(
           "div",
           {
-            staticClass: "row p-5 pb-3 custom-section d-flex align-items-center"
+            staticClass:
+              "row hero__body d-flex align-items-center justify-content-between mx-auto"
           },
           [
-            _c("div", { staticClass: "col-12 col-lg-8" }, [
-              _c("h2", { staticClass: "page-title" }, [
-                _vm._v("Virtual Laboratory")
+            _c("div", { staticClass: "col-12 col-lg-7" }, [
+              _c("h1", { staticClass: "hero__body__title" }, [
+                _vm._v("Virtual Laboratory (V-Lab)")
               ]),
               _vm._v(" "),
-              _c("p", [
+              _c("p", { staticClass: "hero__body__subtitle" }, [
                 _vm._v(
-                  "A virtual environment for Science and Engineering Practicals"
+                  "\n          A virtual environment for Science and Engineering Practicals\n        "
                 )
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "links" }, [
+              _c("div", { staticClass: "hero__links" }, [
                 _c(
                   "a",
-                  { staticClass: "nav-link", attrs: { href: "/explore" } },
+                  {
+                    staticClass: "btn btn--primary hero__body__cta mr-3",
+                    attrs: { href: "/explore" }
+                  },
                   [_vm._v("Explore V-lab")]
                 ),
                 _vm._v(" "),
                 _c(
                   "a",
-                  { staticClass: "Practice", attrs: { href: "/practice" } },
+                  {
+                    staticClass: "practice my-2 my-sm-0 d-inline-block",
+                    attrs: { href: "/practice" }
+                  },
                   [_vm._v("Practice a Practical")]
                 )
               ]),
               _vm._v(" "),
               _c("br")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12 col-lg-5" }, [
+              _c("div", { staticClass: "hero__video" }, [
+                _c("a", {
+                  staticClass: "venobox play-btn mb-4",
+                  attrs: {
+                    href: "https://www.youtube.com/watch?v=jDDaplaOz7Q",
+                    "data-vbtype": "video",
+                    "data-autoplay": "true"
+                  }
+                })
+              ])
             ])
           ]
         )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "intro_vid" }, [
-        _c("a", {
-          staticClass: "venobox play-btn mb-4",
-          attrs: {
-            href: "https://www.youtube.com/watch?v=jDDaplaOz7Q",
-            "data-vbtype": "video",
-            "data-autoplay": "true"
-          }
-        })
       ])
     ])
   }
@@ -26035,21 +26042,25 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "alignment" }, [
-      _c("div", { staticClass: "title" }, [_c("h3", [_vm._v("Sponsors")])]),
-      _vm._v(" "),
-      _c("div", { staticClass: "sponsors" }, [
-        _c("div", {
-          staticClass: "row custom-section d-flex align-items-center"
-        }),
+    return _c("div", { staticClass: "sponsors" }, [
+      _c("div", { staticClass: "container" }, [
+        _c("h2", { staticClass: "sponsors__title" }, [
+          _vm._v("\n\t\t\t\tSponsors\n\t\t\t")
+        ]),
         _vm._v(" "),
-        _c("div", {
-          staticClass: "row custom-section d-flex align-items-center"
-        }),
-        _vm._v(" "),
-        _c("div", {
-          staticClass: "row custom-section d-flex align-items-center"
-        })
+        _c("div", { staticClass: "sponsors__list row" }, [
+          _c("div", {
+            staticClass: "row custom-section d-flex align-items-center"
+          }),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "row custom-section d-flex align-items-center"
+          }),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "row custom-section d-flex align-items-center"
+          })
+        ])
       ])
     ])
   }
@@ -27293,7 +27304,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n\texperiment prep\n")])
+  return _c("div", [_vm._v("\r\n\texperiment prep\r\n")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -39619,9 +39630,7 @@ Vue.compile = compileToFunctions;
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-/******/ 	
 /******/ 	// run startup
-/******/ 	var __webpack_exports__ = __webpack_require__.x();
-/******/ 	
+/******/ 	__webpack_require__.x();
 /******/ })()
 ;
