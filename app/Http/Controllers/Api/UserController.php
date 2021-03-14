@@ -61,15 +61,6 @@ class UserController extends Controller
 
     static public function getStudentByMatricNumber(String $matric_number)
     {
-
-        // $validator = Validator::make($request->all(), [
-        //     'matric_number' => 'required',
-        // ]);
-
-        // if ($validator->fails()) {
-        //     return response()->json(['error' => "matric_number field is required"], 400);
-        // }
-
         $student = User::where(['matric_number' => $matric_number])->first();
         if(empty($student)){
             return response()->json(['error' => 'Student not found'], 404);

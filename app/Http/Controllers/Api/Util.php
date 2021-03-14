@@ -3,11 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use phpDocumentor\Reflection\Location;
 
 class Util extends Controller
 {
@@ -35,48 +31,6 @@ class Util extends Controller
 
         return $data;
     }
-
-    // public function importCsv(Request $request)
-    // {
-    //     $file = public_path($request->get('data_url'));
-
-    //     $customerArr = $this->csvToArray($file);
-
-    //     $data = [];
-    //     $exists = [];
-    //     $newStudents = [];
-        
-    //     for ($i = 0; $i < count($customerArr); $i++) {
-            
-    //         $checkDuplicateMatricNumber = User::where(['matric_number' => $customerArr[$i]['matric_number']])->first();
-            
-    //         if($checkDuplicateMatricNumber == null){
-    //             $data[] = [
-    //                 'id' => $this->uuid(),
-    //                 'matric_number' => $customerArr[$i]['matric_number'],
-    //                 'first_name' => $customerArr[$i]['first_name'],
-    //                 'other_names' => $customerArr[$i]['other_names'],
-    //                 'gender' => $customerArr[$i]['gender'],
-    //                 'password' => $customerArr[$i]['password'],
-    //                 'role_id' => $request->get('role_id'),
-    //                 'user_ip_address' => $this->ip(),
-    //             ];
-    //             $newStudents[] = [
-    //                 'matric_number' => $customerArr[$i]['matric_number']
-    //             ];
-    //         } else {
-    //             $exists[] = [
-    //                 'matric_number' => $customerArr[$i]['matric_number']
-    //             ];
-    //         }
-    //     }
-    //     User::insert($data);
-    //     if(!empty($exists)){
-    //         return response()->json(['error' => 'Some student already exist', 'new_students' => $newStudents, 'existing_students' => $exists], 409);
-    //     }
-    //     return 'All student has been uploaded';
-    // }
-
 
     public function ip()
     {
