@@ -358,6 +358,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _vicelabExpEquip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vicelabExpEquip */ "./resources/js/components/vicelabExpEquip.vue");
 //
 //
 //
@@ -397,7 +398,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    vicelabtools: _vicelabExpEquip__WEBPACK_IMPORTED_MODULE_0__.default
+  },
   data: function data() {
     return {
       numC: 0,
@@ -436,7 +447,10 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.toolSizes = JSON.parse(this.toolsizes);
+    if (this.toolState == true) {
+      this.toolSizes = JSON.parse(this.toolsizes);
+    }
+
     this.$eventBus.$on('rightNavtoggleClick', function (data) {
       //this.toggleNavOnHover();
       if (_this.activeRightNav === data.text) {} else {
@@ -451,7 +465,8 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     toolsizes: String,
     url: String,
-    toolState: String
+    toolState: Boolean,
+    vicelab: String
   },
   mounted: function mounted() {
     var $vm = this;
@@ -1548,6 +1563,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1565,9 +1594,11 @@ __webpack_require__.r(__webpack_exports__);
       sectionState: 1,
       title: '',
       ccode: '',
+      imagetoupload: '',
       validateState: false,
       selectedExperiment: [],
-      selectedExperimentName: []
+      selectedExperimentName: [],
+      percentage: 0
     };
   },
   methods: {
@@ -1645,9 +1676,7 @@ __webpack_require__.r(__webpack_exports__);
           $('.requiredv').remove();
           $('#' + id).after('<span class="text-danger requiredv">Required !</span>');
           this.validateState = false;
-          alert(1);
         } else {
-          alert(2);
           this.validateState = true;
         }
       }
@@ -1681,8 +1710,51 @@ __webpack_require__.r(__webpack_exports__);
           this.stagetwop = true;
           this.stagethree = true;
           this.sectionState = 3;
+          this.alldata.push(selectedExperiment);
         }
-      }
+      } else if (this.sectionState === 3) {
+        if (this.imagetoupload != '') {
+          this.stagethree = false;
+          this.stagethreep = true;
+          this.stagefour = true;
+          this.sectionState = 4;
+          this.alldata.push(this.imagetoupload);
+        } else {
+          this.singleValidate('dgbox');
+        }
+      } else if (this.sectionState === 3) {}
+    },
+    dragEnter: function dragEnter(e) {
+      var $nv = this;
+      var holder = document.getElementById('dgbox');
+      holder.classList.add('dragenter');
+      var file = e.dataTransfer.files[0];
+      var reader = new FileReader();
+      $('.progress').css('display', 'block');
+
+      reader.onloadstart = function (event) {
+        $('.progressi').css('display', 'block');
+      };
+
+      reader.onprogress = function (event) {
+        if (event.lengthComputable) {
+          $nv.percentage = event.loaded / event.total * 100;
+          $('.progress-bar').css('width', $nv.percentage + '%');
+        }
+      };
+
+      reader.onloadend = function (event) {
+        $('#imageprev').html('<img id="image_droped" width="200px"  src="' + event.target.result + '">');
+        $nv.imagetoupload = event.target.result;
+      };
+      /*reader.onload = function (event) {
+      }*/
+
+
+      reader.readAsDataURL(file);
+      e.preventDefault();
+    },
+    getDragedInFile: function getDragedInFile() {//$('#fileI').files;				
     }
   },
   props: [],
@@ -2043,6 +2115,845 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/simple-circuit.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/simple-circuit.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var singleCell = " <img  src='/expImages/physics/exp1/cell.png' width='40px'>";
+var ArrConn = [];
+var StoreArrConn = [];
+var noticeb = '';
+var voltValue,
+    ampValue,
+    intactCon = false,
+    maxCell;
+var guidings = true;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  computed: {
+    instructions: function instructions() {
+      var b = this.$store.state.instructions.all.findIndex(function (x) {
+        return x.experiment === '0-0';
+      });
+      return this.$store.state.instructions.all[b];
+    },
+    experimentOne: function experimentOne() {
+      return this.$store.state.exp1;
+    }
+  },
+  created: function created() {
+    var subExp = [2, 'Simple Circuit'];
+    this.expNum = Number(subExp[0]);
+    this.expType = Number(subExp[1]); ///async
+  },
+  data: function data() {
+    return {
+      switchState: false,
+      switchSrc: "/expImages/physics/exp1/switch.png",
+      switchStatebtn: 'close switch',
+      cellToAdd: singleCell,
+      cellCount: 1,
+      vResistor: 2,
+      bcellvalue: 1.5,
+      noticeb: '',
+      resistor: 13,
+      voltValue: 0,
+      ampValue: 0,
+      maxCell: 5,
+      intactCon: false,
+      resulInHtml: '',
+      resulInHtmlF: '',
+      naviconRight: 'mdi-reorder-horizontal',
+      navClickRightState: false,
+      StoreArrConn: [{
+        scope: "red",
+        source: "standard_resistor",
+        target: "varible_resistor"
+      }, {
+        scope: "blue",
+        source: "standard_resistor",
+        target: "varible_resistor"
+      }, {
+        scope: "red",
+        source: "voltmeter",
+        target: "varible_resistor"
+      }, {
+        scope: "blue",
+        source: "voltmeter",
+        target: "varible_resistor"
+      }, {
+        scope: "red",
+        source: "switch",
+        target: "varible_resistor"
+      }, {
+        scope: "blue",
+        source: "ameter",
+        target: "varible_resistor"
+      }, {
+        scope: "red",
+        source: "ameter",
+        target: "Bcell"
+      }, {
+        scope: "blue",
+        source: "Bcell",
+        target: "switch"
+      }],
+      navSlide1: true,
+      navSlide2: false,
+      configBtn: false,
+      EquipBtn: true
+    };
+  },
+  methods: {
+    navBtnFunc1: function navBtnFunc1() {
+      if (this.configBtn == true && this.EquipBtn == false) {} else if (this.configBtn == false) {
+        this.navSlide2 = !this.navSlide2;
+        this.navSlide1 = !this.navSlide1;
+        this.configBtn = !this.configBtn;
+        this.EquipBtn = !this.EquipBtn;
+      }
+    },
+    navBtnFunc2: function navBtnFunc2() {
+      if (this.configBtn == false && this.EquipBtn == true) {} else if (this.EquipBtn == false) {
+        this.navSlide2 = !this.navSlide2;
+        this.navSlide1 = !this.navSlide1;
+        this.configBtn = !this.configBtn;
+        this.EquipBtn = !this.EquipBtn;
+      }
+    },
+    toShowNavfunc: function toShowNavfunc(e) {
+      var x = e.currentTarget;
+      var r = x.getAttribute('rel'); //let parent = x.parentElement
+
+      var allc = document.getElementsByClassName('rightnav');
+      document.getElementsByClassName('right-panel')[0].classList.remove('paneliWidth');
+
+      for (var i = 0; i < allc.length; i++) {
+        allc[i].classList.add('hideC');
+      }
+
+      setTimeout(function () {
+        document.getElementsByClassName('right-panel')[0].classList.add('paneliWidth');
+        document.getElementById(r).classList.remove('hideC');
+      }, 200);
+    },
+    navRightfunc: function navRightfunc() {
+      this.navClickRightState = !this.navClickRightState;
+
+      if (this.navClickRightState) {
+        this.naviconRight = 'mdi-window-close';
+      } else {
+        this.naviconRight = 'mdi-reorder-horizontal';
+      }
+    },
+    clickOutside: function clickOutside() {
+      this.navClickRightState = false;
+      document.getElementsByClassName('right-panel')[0].classList.remove('paneliWidth'); //d3.selectAll('.hideC').style('display','none');
+    },
+    switchStatefunc: function switchStatefunc() {
+      this.switchState = !this.switchState;
+
+      if (this.switchState) {
+        this.switchStatebtn = 'open switch';
+        this.switchSrc = "/expImages/physics/exp1/close_switch.png";
+      } else {
+        this.switchStatebtn = 'close switch';
+        this.switchSrc = "/expImages/physics/exp1/switch.png";
+      }
+    },
+    addCellfunc: function addCellfunc() {
+      this.cellCount++;
+
+      if (this.cellCount > this.maxCell) {
+        alert('maximum cell is ' + this.maxCell);
+        this.cellCount--;
+      } else {
+        this.bcellvalue += 1.5;
+        this.cellToAdd += singleCell;
+      }
+    },
+    removeCellfunc: function removeCellfunc() {
+      this.cellCount--;
+
+      if (this.cellCount == 0) {
+        alert('minimum cell is 1');
+        this.cellCount = 1;
+      } else {
+        this.bcellvalue -= 1.5;
+
+        for (var i = 1; i <= this.cellCount; i++) {
+          if (i == 1) {
+            this.cellToAdd = singleCell;
+          } else {
+            this.cellToAdd += singleCell;
+          }
+        }
+      }
+    },
+    //remove class from equipment on hover 
+    removeClass: function removeClass(e) {
+      var x = e.currentTarget; // console.log(x.className);
+
+      if (x.className.indexOf("needConnection") > 0) {
+        document.getElementById(x.id).classList.remove('needConnection');
+      }
+    }
+  },
+  mounted: function mounted() {
+    var $vm = this;
+    this.$nextTick(function () {
+      var use_StoreArrConn = this.StoreArrConn;
+
+      function DrawGauge(volt, ame) {
+        new RadialGauge({
+          renderTo: 'another-gauge',
+          width: 120,
+          height: 120,
+          units: 'Volts',
+          title: false,
+          value: volt,
+          minValue: 0,
+          maxValue: 35,
+          majorTicks: ['0', '5', '10', '15', '20', '25', '30', '35'],
+          highlights: [{
+            "from": 0,
+            "to": 35,
+            "color": "#A8D3D5"
+          }]
+        }).draw();
+        new RadialGauge({
+          renderTo: 'ameter-gauage',
+          width: 120,
+          height: 120,
+          units: 'A',
+          title: false,
+          value: ame,
+          minValue: 0,
+          maxValue: 20,
+          majorTicks: ['0', '5', '10', '15', '20'],
+          highlightsWidth: 25,
+          colorNeedle: "#3CA7DB",
+          needleType: "arrow",
+          colorPlate: "#ffffff",
+          colorUnits: "#3CA7DB",
+          colorNumbers: "#3CA7DB",
+          highlights: [{
+            "from": 0,
+            "to": 20,
+            "color": "#A8D3D5"
+          }],
+          borderShadowWidth: 0,
+          borders: false,
+          animateOnInit: true,
+          animatedValue: true
+        }).draw();
+      }
+
+      DrawGauge(0, 0);
+
+      function checkConnectionfunc(connA) {
+        var guide = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      }
+
+      function checkConnectionfunc(storedA, connA) {
+        var guide = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+        var count = 0;
+        var sobj = []; // let storedA2 = JSON.parse(JSON.stringify(storedA));
+
+        for (var i = 0; i < storedA.length; i++) {
+          for (var j = 0; j < connA.length; j++) {
+            if (storedA[i].scope == connA[j].scope) {
+              if (storedA[i].source == connA[j].source && storedA[i].target == connA[j].target || storedA[i].source == connA[j].target && storedA[i].target == connA[j].source) {
+                count++;
+                j = connA.length; //remove from original correct connection
+
+                sobj.push(i); // storedA2.splice(i, 1);
+              }
+            }
+          }
+        }
+
+        if (count == storedA.length) {
+          return true;
+        } else {
+          // console.log(storedA2);
+          if (guide == true) {
+            for (var i = 0; i < storedA.length; i++) {
+              if (JSON.stringify(sobj).includes(i)) {} else {
+                document.getElementById(storedA[i].source).classList.add('needConnection');
+                document.getElementById(storedA[i].target).classList.add('needConnection');
+              }
+            }
+          }
+
+          return false;
+        }
+      }
+
+      var R = document.getElementById('standard_resistor');
+
+      (function () {
+        var listDiv = document.getElementById("list"),
+            showConnectionInfo = function showConnectionInfo(s) {
+          listDiv.innerHTML = s;
+          listDiv.style.display = "block";
+          listDiv.style.position = "fixed";
+          listDiv.style.top = "30px";
+          listDiv.style.left = "65%";
+          listDiv.style.width = "350px";
+        },
+            hideConnectionInfo = function hideConnectionInfo() {
+          listDiv.style.display = "none";
+        },
+            connections = [],
+            updateConnections = function updateConnections(conn, remove) {
+          if (!remove) connections.push(conn);else {
+            var idx = -1;
+
+            for (var i = 0; i < connections.length; i++) {
+              if (connections[i] == conn) {
+                idx = i;
+                break;
+              }
+            }
+
+            if (idx != -1) connections.splice(idx, 1);
+          }
+
+          if (connections.length > 0) {
+            var s = "<span id='connNav1' style='font-size:2em; color:#d53; float:right;cursor:pointer' onclick='$(document).ready(function(){$(\"#connTable\").fadeOut(50); $(\"#connNav1\").fadeOut(50); $(\"#connNav2\").show(80);})' >-</span><span style='font-size:2em; color:#d53; float:right;cursor:pointer;display:none;' id='connNav2' onclick='$(document).ready(function(){$(\"#connTable\").fadeIn(50); $(\"#connNav1\").fadeIn(80); $(\"#connNav2\").fadeOut(50);})' >+</span><span style='clear:right;'><strong>Connections</strong></span><br/><br/><table id='connTable'><tr><th>Scope</th><th>Source</th><th>Target</th></tr>";
+            ArrConn = [];
+
+            for (var j = 0; j < connections.length; j++) {
+              ArrConn.push({
+                'scope': connections[j].scope,
+                'source': connections[j].sourceId,
+                'target': connections[j].targetId
+              });
+              s = s + "<tr><td>" + connections[j].scope + "</td>" + "<td>" + connections[j].sourceId + "</td><td>" + connections[j].targetId + "</td></tr>";
+            } /////////////////////////evaluation if connnection //////////////////////////////
+
+
+            var connState = checkConnectionfunc(use_StoreArrConn, ArrConn, guidings); //console.log($vm.switchState);
+
+            if (connState) {
+              //check if key is close
+              if ($vm.switchState) {
+                //alert(1)
+                var TOTAL_R = 1 / $vm.resistor + 1 / $vm.vResistor;
+                $vm.ampValue = $vm.bcellvalue / TOTAL_R;
+                $vm.voltValue = $vm.ampValue * TOTAL_R;
+                intactCon = true;
+                DrawGauge($vm.voltValue, $vm.ampValue);
+                $vm.resulInHtmlF = '<b>volt</b> = ' + $vm.voltValue + '<br><b>Amp</b> = ' + $vm.ampValue; //animateGauges();
+              } else {
+                if (guidings) {
+                  alert('Switch is open');
+                }
+              }
+            } /////////////////////////End evaluation if connnection //////////////////////////////
+            //console.log(ArrConn);
+
+
+            showConnectionInfo(s);
+          } else hideConnectionInfo();
+        };
+
+        $('#switchID').click(function () {
+          /////////////////////////evaluation if connnection //////////////////////////////
+          var connState = checkConnectionfunc(use_StoreArrConn, ArrConn, guidings); //console.log($vm.switchState);
+
+          if (connState) {
+            //check if key is close
+            if ($vm.switchState) {
+              var TOTAL_R = 1 / $vm.resistor + 1 / $vm.vResistor;
+              $vm.ampValue = $vm.bcellvalue / TOTAL_R;
+              $vm.voltValue = $vm.ampValue * TOTAL_R;
+              intactCon = true;
+              DrawGauge($vm.voltValue, $vm.ampValue);
+              $vm.resulInHtmlF = '<b>volt</b> = ' + $vm.voltValue + '<br><b>Amp</b> = ' + $vm.ampValue; //animateGauges();
+            } else {
+              if (guidings) {
+                alert('Switch is open');
+              }
+            }
+          } /////////////////////////End evaluation if connnection //////////////////////////////
+
+        });
+        jsPlumb.ready(function () {
+          var instance = jsPlumb.getInstance({
+            DragOptions: {
+              cursor: 'pointer',
+              zIndex: 2000
+            },
+            PaintStyle: {
+              stroke: '#a66'
+            },
+            EndpointHoverStyle: {
+              fill: "orange"
+            },
+            HoverPaintStyle: {
+              stroke: "orange"
+            },
+            EndpointStyle: {
+              width: 20,
+              height: 16,
+              stroke: '#666'
+            },
+            Endpoint: "Rectangle",
+            Anchors: ["bottomLeft", "bottomRight"],
+            Container: "canvas"
+          }); // suspend drawing and initialise.
+
+          instance.batch(function () {
+            // bind to connection/connectionDetached events, and update the list of connections on screen.
+            instance.bind("connection", function (info, originalEvent) {
+              updateConnections(info.connection);
+            });
+            instance.bind("connectionDetached", function (info, originalEvent) {
+              updateConnections(info.connection, true);
+            });
+            instance.bind("connectionMoved", function (info, originalEvent) {
+              //  only remove here, because a 'connection' event is also fired.
+              // in a future release of jsplumb this extra connection event will not
+              // be fired.
+              updateConnections(info.connection, true);
+            });
+            instance.bind("dblclick", function (info, originalEvent) {
+              updateConnections(info.connection, true);
+            }); // configure some drop options for use by all endpoints.
+
+            var exampleDropOptions = {
+              tolerance: "touch",
+              hoverClass: "dropHover",
+              activeClass: "dragActive"
+            }; //
+            // first example endpoint.  it's a 25x21 rectangle (the size is provided in the 'style' arg to the Endpoint),
+            // and it's both a source and target.  the 'scope' of this Endpoint is 'exampleConnection', meaning any connection
+            // starting from this Endpoint is of type 'exampleConnection' and can only be dropped on an Endpoint target
+            // that declares 'exampleEndpoint' as its drop scope, and also that
+            // only 'exampleConnection' types can be dropped here.
+            //
+            // the connection style for this endpoint is a Bezier curve (we didn't provide one, so we use the default), with a strokeWidth of
+            // 5 pixels, and a gradient.
+            //
+            // there is a 'beforeDrop' interceptor on this endpoint which is used to allow the user to decide whether
+            // or not to allow a particular connection to be established.
+            //
+
+            var exampleColor = "#00f";
+            var exampleEndpoint = {
+              endpoint: "Rectangle",
+              paintStyle: {
+                width: 25,
+                height: 21,
+                fill: exampleColor
+              },
+              isSource: true,
+              reattach: true,
+              scope: "blue",
+              connectorStyle: {
+                gradient: {
+                  stops: [[0, exampleColor], [0.5, "#09098e"], [1, exampleColor]]
+                },
+                strokeWidth: 5,
+                stroke: exampleColor,
+                dashstyle: "2 2"
+              },
+              isTarget: true,
+              beforeDrop: function beforeDrop(params) {
+                return confirm("Connect " + params.sourceId + " to " + params.targetId + "?");
+              },
+              dropOptions: exampleDropOptions
+            }; //
+            // the second example uses a Dot of radius 15 as the endpoint marker, is both a source and target,
+            // and has scope 'exampleConnection2'.
+            //
+
+            var color2 = "#c34";
+            var exampleEndpoint2 = {
+              endpoint: ["Dot", {
+                radius: 6
+              }],
+              paintStyle: {
+                fill: color2
+              },
+              isSource: true,
+              scope: "red",
+              connectorStyle: {
+                stroke: color2,
+                strokeWidth: 2
+              },
+              connector: ["Bezier", {
+                curviness: 63
+              }],
+              maxConnections: 3,
+              isTarget: true,
+              beforeDrop: function beforeDrop(params) {
+                //console.log(params);
+                return true; //confirm("Connect " + params.sourceId + " to " + params.targetId + "?");
+              },
+              dropOptions: exampleDropOptions
+            };
+            var color21 = "#3c4";
+            var exampleEndpoint21 = {
+              endpoint: ["Dot", {
+                radius: 6
+              }],
+              paintStyle: {
+                fill: color21
+              },
+              isSource: true,
+              scope: "blue",
+              connectorStyle: {
+                stroke: color21,
+                strokeWidth: 2
+              },
+              connector: ["Bezier", {
+                curviness: 63
+              }],
+              maxConnections: 3,
+              isTarget: true,
+              beforeDrop: function beforeDrop(params) {
+                //console.log(params);
+                return true; //return confirm("Connect " + params.sourceId + " to " + params.targetId + "?");
+              },
+              dropOptions: exampleDropOptions
+            }; //
+            // the third example uses a Dot of radius 17 as the endpoint marker, is both a source and target, and has scope
+            // 'exampleConnection3'.  it uses a Straight connector, and the Anchor is created here (bottom left corner) and never
+            // overriden, so it appears in the same place on every element.
+            //
+            // this example also demonstrates the beforeDetach interceptor, which allows you to intercept
+            // a connection detach and decide whether or not you wish to allow it to proceed.
+            //
+
+            var example3Color = "rgba(229,219,61,0.5)";
+            var exampleEndpoint3 = {
+              endpoint: ["Dot", {
+                radius: 6
+              }],
+              anchor: "BottomLeft",
+              paintStyle: {
+                fill: example3Color,
+                opacity: 0.5
+              },
+              isSource: true,
+              scope: 'yellow',
+              connectorStyle: {
+                stroke: example3Color,
+                strokeWidth: 4
+              },
+              connector: "Straight",
+              isTarget: true,
+              dropOptions: exampleDropOptions,
+              beforeDetach: function beforeDetach(conn) {
+                return confirm("Detach connection?");
+              },
+              onMaxConnections: function onMaxConnections(info) {//alert("Cannot drop connection " + info.connection.id + " : maxConnections has been reached on Endpoint " + info.endpoint.id);
+              }
+            }; // setup some empty endpoints.  again note the use of the three-arg method to reuse all the parameters except the location
+            // of the anchor (purely because we want to move the anchor around here; you could set it one time and forget about it though.)
+
+            var R_1 = instance.addEndpoint('standard_resistor', {
+              anchor: [0.15, 0.14, 0, 1]
+            }, exampleEndpoint2);
+            var R_2 = instance.addEndpoint('standard_resistor', {
+              anchor: [0.23, 0.14, 0, 1]
+            }, exampleEndpoint21); // setup some DynamicAnchors for use with the blue endpoints
+            // and a function to set as the maxConnections callback.
+
+            var anchors = [[1, 0.2, 1, 0], [0.8, 1, 0, 1], [0, 0.8, -1, 0], [0.2, 0, 0, -1]],
+                maxConnectionsCallback = function maxConnectionsCallback(info) {// alert("Cannot drop connection " + info.connection.id + " : maxConnections has been reached on Endpoint " + info.endpoint.id);
+            }; // you can bind for a maxConnections callback using a standard bind call, but you can also supply 'onMaxConnections' in an Endpoint definition - see exampleEndpoint3 above.
+
+            /*e1.bind("maxConnections", maxConnectionsCallback);*/
+
+
+            var VR_1 = instance.addEndpoint('varible_resistor', {
+              anchor: [0.26, 1.2, 0, 1]
+            }, exampleEndpoint2);
+            var VR_2 = instance.addEndpoint('varible_resistor', {
+              anchor: [0.67, 1, 0, 1]
+            }, exampleEndpoint21);
+            var volt1 = instance.addEndpoint('voltmeter', {
+              anchor: [0.3, 1.3, 0, 1]
+            }, exampleEndpoint2);
+            var volt2 = instance.addEndpoint('voltmeter', {
+              anchor: [0.4, 1.3, 0, 1]
+            }, exampleEndpoint21);
+
+            var _switch = instance.addEndpoint('switch', {
+              anchor: [0.2, 0.37, 0, 1]
+            }, exampleEndpoint2);
+
+            var _switch = instance.addEndpoint('switch', {
+              anchor: [0.35, 0.37, 0, 1]
+            }, exampleEndpoint21);
+
+            var _ameter = instance.addEndpoint('ameter', {
+              anchor: [0.3, 1.3, 0, 1]
+            }, exampleEndpoint2);
+
+            var _ameter = instance.addEndpoint('ameter', {
+              anchor: [0.4, 1.3, 0, 1]
+            }, exampleEndpoint21);
+
+            var _Bcell = instance.addEndpoint('Bcell', {
+              anchor: [0, 0.9, 0, 1]
+            }, exampleEndpoint2);
+
+            var _Bcell = instance.addEndpoint('Bcell', {
+              anchor: [0.1, 0.9, 0, 1]
+            }, exampleEndpoint21);
+
+            function upmouse() {// alert(1);
+            }
+
+            var detachLinks = jsPlumb.getSelector('.detach');
+            instance.on(detachLinks, "click", function (e) {
+              console.log();
+              var rel = this.getAttribute("rel").split('-');
+              instance.deleteConnectionsForElement(this.getAttribute("rel"));
+              jsPlumbUtil.consume(e);
+            });
+            instance.on(document.getElementById("doAsIdo"), "click", function (e) {
+              instance.selectEndpoints({
+                source: dot
+              }).each(function (endpoint) {
+                endpoint.connectorStyle.dashstyle = "2 4";
+                instance.repaint(element);
+              });
+            });
+            instance.on(document.getElementById("clear"), "click", function (e) {
+              instance.detachEveryConnection();
+              showConnectionInfo("");
+              jsPlumbUtil.consume(e);
+            });
+          });
+          instance.draggable($(".drags"), {
+            containment: 'parent',
+            filter: ".ui-resizable-handle"
+          });
+          $("#spillAll").click(function (e) {
+            var x = e.target.checked;
+
+            if (x == true) {
+              $("#varible_resistor").animate({
+                left: 299,
+                top: 358,
+                opacity: 1
+              }, 500);
+              $("#standard_resistor").animate({
+                left: 64,
+                top: 451,
+                opacity: 1
+              }, 500);
+              $("#voltmeter").animate({
+                left: 614,
+                top: 424,
+                opacity: 1
+              }, 500);
+              $("#ameter").animate({
+                left: 649,
+                top: 164,
+                opacity: 1
+              }, 500);
+              $("#switch").animate({
+                left: 0,
+                top: 267,
+                opacity: 1
+              }, 500);
+              $("#Bcell").animate({
+                left: 10,
+                top: 80,
+                opacity: 1
+              }, 500); //jsPlumb.repaint(ui.helper)
+            } else {
+              $("#varible_resistor").animate({
+                left: 0,
+                top: 0,
+                opacity: 1
+              }, 500);
+              $("#standard_resistor").animate({
+                left: 0,
+                top: 0,
+                opacity: 1
+              }, 500);
+              $("#voltmeter").animate({
+                left: 0,
+                top: 0,
+                opacity: 1
+              }, 500);
+              $("#ameter").animate({
+                left: 0,
+                top: 0,
+                opacity: 1
+              }, 500);
+              $("#switch").animate({
+                left: 0,
+                top: 0,
+                opacity: 1
+              }, 500);
+              $("#Bcell").animate({
+                left: 0,
+                top: 0,
+                opacity: 1
+              }, 500); //jsplumb.repaint()
+            }
+
+            setTimeout(function () {
+              instance.repaintEverything();
+            }, 500);
+          });
+          $("#spillAll1").click(function (e) {
+            $("#varible_resistor").animate({
+              left: 340,
+              top: 370,
+              opacity: 1
+            }, 500);
+            $("#standard_resistor").animate({
+              left: 90,
+              top: 450,
+              opacity: 1
+            }, 500);
+            $("#voltmeter").animate({
+              left: 690,
+              top: 440,
+              opacity: 1
+            }, 500);
+            $("#ameter").animate({
+              left: 690,
+              top: 170,
+              opacity: 1
+            }, 500);
+            $("#switch").animate({
+              left: 60,
+              top: 270,
+              opacity: 1
+            }, 500);
+            $("#Bcell").animate({
+              left: 60,
+              top: 90,
+              opacity: 1
+            }, 500); //jsPlumb.repaint(ui.helper)
+
+            setTimeout(function () {
+              instance.repaintEverything();
+            }, 500);
+          });
+          jsPlumb.fire("jsPlumbDemoLoaded", instance);
+        });
+      })();
+    });
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/threadTrends.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/threadTrends.vue?vue&type=script&lang=js& ***!
@@ -2151,6 +3062,2586 @@ created: function () {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabExpEquip.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabExpEquip.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      attrs: false,
+      on: false,
+      sunToolTip: false,
+      navSlide1: true,
+      navSlide2: false,
+      configBtn: false,
+      EquipBtn: true
+    };
+  },
+  methods: {
+    navBtnFunc1: function navBtnFunc1() {
+      if (this.configBtn == true && this.EquipBtn == false) {} else if (this.configBtn == false) {
+        this.navSlide2 = !this.navSlide2;
+        this.navSlide1 = !this.navSlide1;
+        this.configBtn = !this.configBtn;
+        this.EquipBtn = !this.EquipBtn;
+      }
+    },
+    navBtnFunc2: function navBtnFunc2() {
+      if (this.configBtn == false && this.EquipBtn == true) {} else if (this.EquipBtn == false) {
+        this.navSlide2 = !this.navSlide2;
+        this.navSlide1 = !this.navSlide1;
+        this.configBtn = !this.configBtn;
+        this.EquipBtn = !this.EquipBtn;
+      }
+    }
+  },
+  props: ['has', 'ktype', 'function1', 'function2', 'function3', 'latitude', 'lampStrenght', 'exp4func1'],
+  mounted: function mounted() {
+    $(document).ready(function () {});
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp2.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp2.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var ArrConn;
+var experimentOne, resulInHtml;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  computed: {
+    /*      instructions() {
+            let b = this.$exp2vicelab.state.instructions.all.findIndex(x => x.experiment === this.$route.params.type)         
+            return  this.$exp2vicelab.state.instructions.all[b];
+          },
+    */
+    experimentOne: function experimentOne() {
+      return this.$store.state.exp1;
+    }
+  },
+  data: function data() {
+    return {
+      menuName1: "mdi-chevron-right",
+      menuState1: false,
+      menuName2: "mdi-chevron-left",
+      menuState2: false,
+      navdType: 'none',
+      experimentOneResult: [{
+        series: {
+          one: '-',
+          two: '-',
+          three: '-'
+        },
+        parallel: {
+          one: '-',
+          two: '-',
+          three: '-'
+        }
+      }, {
+        series: {
+          one: '-',
+          two: '-',
+          three: '-'
+        },
+        parallel: {
+          one: '-',
+          two: '-',
+          three: '-'
+        }
+      }],
+      resulInHtml: '',
+      resulInHtmlF: '',
+      sunToolTip: false,
+      attrs: false,
+      on: false,
+      expNum: 0,
+      expType: 0,
+      solar_num: 0,
+      solar_num1: 0,
+      amp_num: 0,
+      sun_light: 0,
+      volt_num: 0,
+      navSlide1: true,
+      navSlide2: false,
+      configBtn: false,
+      EquipBtn: true,
+      naviconRight: 'mdi-reorder-horizontal',
+      navClickRightState: false,
+      guidings: false,
+      solarCell_id: [{
+        id: 1,
+        volt: 0
+      }, {
+        id: 2,
+        volt: 0
+      }, {
+        id: 3,
+        volt: 0
+      }, {
+        id: 4,
+        volt: 0
+      }, {
+        id: 5,
+        volt: 0
+      }, {
+        id: 6,
+        volt: 0
+      }, {
+        id: 7,
+        volt: 0
+      }, {
+        id: 8,
+        volt: 0
+      }, {
+        id: 9,
+        volt: 0
+      }, {
+        id: 10,
+        volt: 0
+      }, {
+        id: 11,
+        volt: 0
+      }, {
+        id: 12,
+        volt: 0
+      }, {
+        id: 13,
+        volt: 0
+      }, {
+        id: 14,
+        volt: 0
+      }, {
+        id: 15,
+        volt: 0
+      }, {
+        id: 16,
+        volt: 0
+      }],
+      voltValue: 0,
+      ampValue: 0
+    };
+  },
+  methods: {
+    menuClick1: function menuClick1() {
+      this.menuState1 = !this.menuState1;
+
+      if (this.menuState1 == true) {
+        this.menuName1 = "mdi-chevron-left";
+      } else {
+        this.menuName1 = "mdi-chevron-right";
+      }
+    },
+    menuClick2: function menuClick2() {
+      this.menuState2 = !this.menuState2;
+
+      if (this.menuState2 == true) {
+        this.menuName2 = "mdi-chevron-right";
+      } else {
+        this.menuName2 = "mdi-chevron-left";
+      }
+    },
+    onClickOutside: function onClickOutside() {
+      this.sunToolTip = false;
+    },
+    navBtnFunc1: function navBtnFunc1() {
+      if (this.configBtn == true && this.EquipBtn == false) {} else if (this.configBtn == false) {
+        this.navSlide2 = !this.navSlide2;
+        this.navSlide1 = !this.navSlide1;
+        this.configBtn = !this.configBtn;
+        this.EquipBtn = !this.EquipBtn;
+      }
+    },
+    navBtnFunc2: function navBtnFunc2() {
+      if (this.configBtn == false && this.EquipBtn == true) {} else if (this.EquipBtn == false) {
+        this.navSlide2 = !this.navSlide2;
+        this.navSlide1 = !this.navSlide1;
+        this.configBtn = !this.configBtn;
+        this.EquipBtn = !this.EquipBtn;
+      }
+    },
+    clickOutside: function clickOutside() {
+      this.navClickRightState = false;
+      document.getElementsByClassName('right-panel')[0].classList.remove('paneliWidth'); //d3.selectAll('.hideC').style('display','none');
+    },
+    switchStatefunc: function switchStatefunc() {
+      this.switchState = !this.switchState;
+
+      if (this.switchState) {
+        this.switchStatebtn = 'open switch';
+        this.switchSrc = "/expImages/physics/exp1/close_switch.png";
+      } else {
+        this.switchStatebtn = 'close switch';
+        this.switchSrc = "/expImages/physics/exp1/switch.png";
+      }
+    },
+    addCellfunc: function addCellfunc() {
+      this.cellCount++;
+
+      if (this.cellCount > this.maxCell) {
+        alert('maximum cell is ' + this.maxCell);
+        this.cellCount--;
+      } else {
+        this.bcellvalue += 1.5;
+        this.cellToAdd += singleCell;
+      }
+    },
+    removeCellfunc: function removeCellfunc() {
+      this.cellCount--;
+
+      if (this.cellCount == 0) {
+        alert('minimum cell is 1');
+        this.cellCount = 1;
+      } else {
+        this.bcellvalue -= 1.5;
+
+        for (var i = 1; i <= this.cellCount; i++) {
+          if (i == 1) {
+            this.cellToAdd = singleCell;
+          } else {
+            this.cellToAdd += singleCell;
+          }
+        }
+      }
+    },
+    //remove class from equipment on hover 
+    removeClass: function removeClass(e) {
+      var x = e.currentTarget; // console.log(x.className);
+
+      if (x.className.indexOf("needConnection") > 0) {
+        document.getElementById(x.id).classList.remove('needConnection');
+      }
+    }
+  },
+  created: function created() {
+    //console.log(this.$store.state);
+    var subExp = [2, 'photovolatic'];
+    this.expNum = Number(subExp[0]);
+    this.expType = Number(subExp[1]);
+  },
+  mounted: function mounted() {
+    var $vm = this;
+    this.$nextTick(function () {
+      /*   function resultTable(){
+             
+           for(var ih in $vm.experimentOneResult){
+         
+             if (ih==0){
+               $vm.resulInHtml =" <h6>Series Connection</h6><table class='table table-bordered'><thead><th></th><th>One Solar Cell</th><th>Two Solar Cell</th><th>Three Solar Cell</th></thead><tbody>";
+               $vm.resulInHtml +="<tr><td>Vsc</td>";
+               $vm.resulInHtml +="<td  id='vsigna' class='Bsign'>"+$vm.experimentOneResult[0].series.one+"</td>";
+               $vm.resulInHtml +="<td id='vsignb' class='Bsign'>"+$vm.experimentOneResult[0].series.two+"</td>";
+               $vm.resulInHtml +="<td id='vsignc' class='Bsign'>"+$vm.experimentOneResult[0].series.three+"</td></tr>";
+               $vm.resulInHtml +="<tr><td>Isc</td>";
+               $vm.resulInHtml +="<td id='csigna' class='Bsign'>"+$vm.experimentOneResult[1].series.one+"</td>";
+               $vm.resulInHtml +="<td id='csignb' class='Bsign'>"+$vm.experimentOneResult[1].series.two+"</td>";
+               $vm.resulInHtml +="<td id='csignc' class='Bsign'>"+$vm.experimentOneResult[1].series.three+"</td></tr></tbody></table>";
+             }else{
+               $vm.resulInHtml +=" <h6>parallel Connection</h6><table class='table table-bordered'><thead><th></th><th>One Solar Cell</th><th>Two Solar Cell</th><th>Three Solar Cell</th></thead><tbody>";
+               $vm.resulInHtml +="<tr><td>Vsc</td>";
+               $vm.resulInHtml +="<td id='vsignc' class='Bsign'>"+$vm.experimentOneResult[0].parallel.one+"</td>";
+               $vm.resulInHtml +="<td id='vsignd' class='Bsign'>"+$vm.experimentOneResult[0].parallel.two+"</td>";
+               $vm.resulInHtml +="<td id='vsigne' class='Bsign'>"+$vm.experimentOneResult[0].parallel.three+"</td></tr>";
+               $vm.resulInHtml +="<tr><td>Isc</td>";
+               $vm.resulInHtml +="<td id='csignc' class='Bsign'>"+$vm.experimentOneResult[1].parallel.one+"</td>";
+               $vm.resulInHtml +="<td id='csignd' class='Bsign'>"+$vm.experimentOneResult[1].parallel.two+"</td>";
+               $vm.resulInHtml +="<td id='csigne' class='Bsign'>"+$vm.experimentOneResult[1].parallel.three+"</td></tr></tbody></table>";
+             }
+           }
+           return $vm.resulInHtml;
+           }*/
+      function checkConnectionfunc(exp2vicelabdA, connA) {
+        var guide = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+        var count = 0;
+        var sobj = []; // let exp2vicelabdA2 = JSON.parse(JSON.stringify(exp2vicelabdA));
+
+        for (var i = 0; i < exp2vicelabdA.length; i++) {
+          for (var j = 0; j < connA.length; j++) {
+            if (exp2vicelabdA[i].source == connA[j].source && exp2vicelabdA[i].target == connA[j].target || exp2vicelabdA[i].source == connA[j].target && exp2vicelabdA[i].target == connA[j].source) {
+              count++;
+              j = connA.length; //remove from original correct connection
+
+              sobj.push(i); // exp2vicelabdA2.splice(i, 1);
+            }
+          }
+        }
+
+        if (count == exp2vicelabdA.length) {
+          return true;
+        } else {
+          // console.log(exp2vicelabdA2);
+          if (guide == true) {
+            for (var i = 0; i < exp2vicelabdA.length; i++) {
+              if (JSON.stringify(sobj).includes(i)) {} else {
+                document.getElementById(exp2vicelabdA[i].sid).classList.add('needConnection');
+                document.getElementById(exp2vicelabdA[i].tid).classList.add('needConnection');
+              }
+            }
+          }
+
+          return false;
+        }
+      }
+
+      function solveExpression(Array1, count) {
+        var guid = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+        var m,
+            seriesCount = 0,
+            parallelCount = 0;
+        var confirm,
+            result = [],
+            keeperR,
+            tracker = 0,
+            trackerC = -1,
+            keeperC = ['voltmeterRead', 'ameterRead'],
+            readerIsConnected = 0;
+
+        for (m in Array1) {
+          // check if any of the reader is connected
+          if (keeperC.includes(Array1[m].sid) || keeperC.includes(Array1[m].tid)) {
+            readerIsConnected = 1;
+          } else {
+            //check connection typ
+            if (Array1[m].source != Array1[m].target) {
+              seriesCount++;
+            } else {
+              parallelCount++;
+            }
+          }
+
+          if (tracker == 0) {
+            if (Array1[m].sid == 'voltmeterRead' || Array1[m].sid == 'ameterRead' || Array1[m].tid == 'voltmeterRead' || Array1[m].tid == 'ameterRead') {
+              if (Array1[m].sid == 'voltmeterRead' || Array1[m].tid == 'voltmeterRead') {
+                if (Array1[m].sid == 'voltmeterRead') {
+                  keeperR = Array1[m].sid;
+                  tracker = 1; //to track the first source or target
+                } else {
+                  keeperR = Array1[m].tid;
+                  tracker = 1; //to track the first source or target
+                }
+              } else {
+                if (Array1[m].sid == 'ameterRead') {
+                  keeperR = Array1[m].sid;
+                  tracker = 1; //to track the first source or target
+                } else {
+                  keeperR = Array1[m].tid;
+                  tracker = 1; //to track the first source or target
+                }
+              }
+            }
+          } else {
+            //alert(keeperR +'+'+Array1[m].sid+'+'+Array1[m].tid)
+            if (keeperC.includes(Array1[m].sid) || keeperC.includes(Array1[m].tid)) {
+              if (Array1[m].sid == keeperR || Array1[m].tid == keeperR) {
+                trackerC = 1;
+              } else {
+                trackerC = 0;
+                break;
+              }
+            }
+          }
+        }
+
+        if (readerIsConnected == 1) {
+          if (trackerC == 1) {
+            var readerT, rType;
+
+            if (keeperR == 'ameterRead') {
+              readerT = 'c';
+              rType = 'current';
+            } else {
+              rType = 'voltage';
+              readerT = 'v';
+            }
+
+            if (count == 1) {
+              confirm = checkConnectionfunc($vm.experimentOne['arr1' + readerT + 1], Array1, guid);
+
+              if (confirm) {
+                if ($vm.sun_light == 1) {
+                  result.push(rType, $vm.experimentOne['arr1' + readerT]);
+
+                  if (rType == 'voltage') {
+                    $vm.experimentOneResult[0]['series'].one = $vm.experimentOne['arr1' + readerT];
+                    $vm.experimentOneResult[0]['parallel'].one = $vm.experimentOne['arr1' + readerT];
+                  } else {
+                    $vm.experimentOneResult[1]['series'].one = $vm.experimentOne['arr1' + readerT];
+                    $vm.experimentOneResult[1]['parallel'].one = $vm.experimentOne['arr1' + readerT];
+                  }
+
+                  return result;
+                } else {
+                  return 0; //no sun light 
+                }
+              } else {
+                result = null;
+                return result;
+                /* connection not valid */
+              }
+            } //two solar sell
+            else if (count == 2) {
+                //series connection
+                if (seriesCount != 0 && parallelCount == 0) {
+                  //confirm = checkConnectionfunc($vm.experimentOne.arr2s, Array1, guid)  
+                  confirm = checkConnectionfunc($vm.experimentOne['arr2s' + readerT + 1], Array1, guid);
+
+                  if (confirm) {
+                    if ($vm.sun_light == 1) {
+                      //result.push({'voltage': $vm.experimentOne.arr2sv, 'current':$vm.experimentOne.arr2sc});
+                      result.push(rType, $vm.experimentOne['arr2s' + readerT]); //push result
+
+                      if (rType == 'voltage') {
+                        $vm.experimentOneResult[0]['series'].two = $vm.experimentOne['arr2s' + readerT];
+                      } else {
+                        $vm.experimentOneResult[1]['series'].two = $vm.experimentOne['arr2s' + readerT];
+                      }
+
+                      return result;
+                    } else {
+                      return 0; //no sun light 
+                    }
+                  } else {
+                    result = null;
+                    return result;
+                    /* connection not valid */
+                  }
+                } //parallel connection
+                else if (seriesCount == 0 && parallelCount != 0) {
+                    /*alert(2)             */
+                    confirm = checkConnectionfunc($vm.experimentOne['arr2p' + readerT + 1], Array1, guid);
+
+                    if (confirm) {
+                      if ($vm.sun_light == 1) {
+                        //result.push({'voltage': $vm.experimentOne.arr2pv, 'current':$vm.experimentOne.arr2pc});
+                        result.push(rType, $vm.experimentOne['arr2p' + readerT]); //push result
+
+                        if (rType == 'voltage') {
+                          $vm.experimentOneResult[0]['parallel'].two = $vm.experimentOne['arr2p' + readerT];
+                        } else {
+                          $vm.experimentOneResult[1]['parallel'].two = $vm.experimentOne['arr2p' + readerT];
+                        }
+
+                        return result;
+                      } else {
+                        return 0; //no sun light 
+                      }
+                    } else {
+                      result = null;
+                      return result;
+                      /* connection not valid */
+                    }
+                  }
+              } //three solar cell
+              else if (count == 3) {
+                  //series connection
+                  if (seriesCount != 0 && parallelCount == 0) {
+                    //confirm = checkConnectionfunc($vm.experimentOne.arr3s, Array1, guid)
+                    confirm = checkConnectionfunc($vm.experimentOne['arr3s' + readerT + 1], Array1, guid);
+
+                    if (confirm) {
+                      if ($vm.sun_light == 1) {
+                        // result.push({'voltage': $vm.experimentOne.arr3sv, 'current':$vm.experimentOne.arr3sc});
+                        result.push(rType, $vm.experimentOne['arr3s' + readerT]); //push result
+
+                        if (rType == 'voltage') {
+                          $vm.experimentOneResult[0]['series'].three = $vm.experimentOne['arr3s' + readerT];
+                        } else {
+                          $vm.experimentOneResult[1]['series'].three = $vm.experimentOne['arr3s' + readerT];
+                        }
+
+                        return result;
+                      } else {
+                        return 0; //no sun light 
+                      }
+                    } else {
+                      result = null;
+                      return result;
+                      /* connection not valid */
+                    }
+                  } //parallel connection
+                  else if (seriesCount == 0 && parallelCount != 0) {
+                      //  alert(3)
+                      //confirm = checkConnectionfunc($vm.experimentOne.arr3p, Array1, guid)  
+                      confirm = checkConnectionfunc($vm.experimentOne['arr3p' + readerT + 1], Array1, guid);
+
+                      if (confirm) {
+                        if ($vm.sun_light == 1) {
+                          //result.push({'voltage': $vm.experimentOne.arr3pv, 'current':$vm.experimentOne.arr3pc});
+                          result.push(rType, $vm.experimentOne['arr3p' + readerT]); //push result
+
+                          if (rType == 'voltage') {
+                            $vm.experimentOneResult[0]['parallel'].three = $vm.experimentOne['arr3p' + readerT];
+                          } else {
+                            $vm.experimentOneResult[1]['parallel'].three = $vm.experimentOne['arr3p' + readerT];
+                          }
+
+                          return result;
+                        } else {
+                          return 0; //no sun light 
+                        }
+                      } else {
+                        result = null;
+                        return result;
+                        /* connection not valid */
+                      }
+                    }
+                } else {
+                    return -3; // maximum cell to use is 3 in experiment 1
+                  }
+          } else {
+            document.getElementById('ameterRead').classList.add('needConnection');
+            document.getElementById('voltmeterRead').classList.add('needConnection');
+            return -1; //multi reading not allowed
+          }
+        } else {
+          return -2; // no reader connected
+        }
+      }
+
+      function DrawVolt() {
+        new RadialGauge({
+          renderTo: 'another-gauge',
+          width: 150,
+          height: 150,
+          units: 'Volts',
+          title: false,
+          value: 0,
+          minValue: 0,
+          maxValue: 35,
+          majorTicks: ['0', '5', '10', '15', '20', '25', '30', '35'],
+          highlights: [{
+            "from": 0,
+            "to": 35,
+            "color": "#A8D3D5"
+          }]
+        }).draw();
+      }
+
+      function DrawAmpere() {
+        new RadialGauge({
+          renderTo: 'ameter-gauage',
+          width: 150,
+          height: 150,
+          units: 'A',
+          title: false,
+          value: 0,
+          minValue: 0,
+          maxValue: 20,
+          majorTicks: ['0', '5', '10', '15', '20'],
+          highlightsWidth: 25,
+          colorNeedle: "#3CA7DB",
+          needleType: "arrow",
+          colorPlate: "#fff",
+          colorUnits: "#3CA7DB",
+          colorNumbers: "#3CA7DB",
+          highlights: [{
+            "from": 0,
+            "to": 20,
+            "color": "#A8D3D5"
+          }],
+          borderShadowWidth: 0,
+          borders: false,
+          animateOnInit: true,
+          animatedValue: true
+        }).draw();
+      }
+
+      function DrawGauge() {
+        var type1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+        var type2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+        var volt = arguments.length > 2 ? arguments[2] : undefined;
+        var ame = arguments.length > 3 ? arguments[3] : undefined;
+
+        if (type1 != '') {
+          new RadialGauge({
+            renderTo: 'another-gauge',
+            width: 150,
+            height: 150,
+            units: 'Volts',
+            title: false,
+            value: volt,
+            minValue: 0,
+            maxValue: 35,
+            majorTicks: ['0', '5', '10', '15', '20', '25', '30', '35'],
+            highlights: [{
+              "from": 0,
+              "to": 35,
+              "color": "#A8D3D5"
+            }]
+          }).draw();
+        } else {
+          console.log('empty volt data parameters 312');
+        }
+
+        if (type2 != '') {
+          new RadialGauge({
+            renderTo: 'ameter-gauage',
+            width: 150,
+            height: 150,
+            units: 'A',
+            title: false,
+            value: ame,
+            minValue: 0,
+            maxValue: 20,
+            majorTicks: ['0', '5', '10', '15', '20'],
+            highlightsWidth: 25,
+            colorNeedle: "#3CA7DB",
+            needleType: "arrow",
+            colorPlate: "#fff",
+            colorUnits: "#3CA7DB",
+            colorNumbers: "#3CA7DB",
+            highlights: [{
+              "from": 0,
+              "to": 20,
+              "color": "#A8D3D5"
+            }],
+            borderShadowWidth: 0,
+            borders: false,
+            animateOnInit: true,
+            animatedValue: true
+          }).draw();
+        } else {
+          console.log('empty ameter data parameters');
+        }
+      }
+
+      DrawAmpere($vm.v);
+      DrawVolt();
+
+      (function () {
+        var listDiv = document.getElementById("list"),
+            showConnectionInfo = function showConnectionInfo(s) {
+          listDiv.innerHTML = s;
+          listDiv.style.display = "block";
+          listDiv.style.position = "fixed";
+          listDiv.style.zIndex = "10";
+          listDiv.style.top = "30px";
+          listDiv.style.left = "65%";
+          listDiv.style.width = "350px";
+        },
+            hideConnectionInfo = function hideConnectionInfo() {
+          listDiv.style.display = "none";
+        },
+            connections = [],
+            updateConnections = function updateConnections(conn, remove) {
+          if (!remove) connections.push(conn);else {
+            var idx = -1;
+
+            for (var i = 0; i < connections.length; i++) {
+              if (connections[i] == conn) {
+                idx = i;
+                break;
+              }
+            }
+
+            if (idx != -1) {
+              connections.splice(idx, 1); //ArrConn.splice()
+            }
+
+            ;
+          }
+
+          if (connections.length > 0) {
+            var s = "<span id='connNav1' style='font-size:2em; color:#d53; float:right;cursor:pointer' onclick='$(document).ready(function(){$(\"#connTable\").fadeOut(50); $(\"#connNav1\").fadeOut(50); $(\"#connNav2\").show(80);})' >-</span><span style='font-size:2em; color:#d53; float:right;cursor:pointer;display:none;' id='connNav2' onclick='$(document).ready(function(){$(\"#connTable\").fadeIn(50); $(\"#connNav1\").fadeIn(80); $(\"#connNav2\").fadeOut(50);})' >+</span><span style='clear:right;'><strong>Connections</strong></span><br/><br/><table id='connTable'><tr><th>Scope</th><th>Source</th><th>Target</th></tr>";
+            ArrConn = [];
+            var tid, sid;
+
+            for (var j = 0; j < connections.length; j++) {
+              // console.log(connections);
+              tid = connections[j].targetId;
+              sid = connections[j].sourceId;
+              ArrConn.push({
+                'source': connections[j].sourceId[0] + '_' + connections[j].endpoints[0].type,
+                'target': connections[j].targetId[0] + '_' + connections[j].endpoints[1].type,
+                'tid': tid,
+                'sid': sid
+              }); // console.log(connections[j].endpoints[0].type);
+
+              s = s + "<tr><td>" + connections[j].scope + "</td>" + "<td>" + connections[j].sourceId + "</td><td>" + connections[j].targetId + "</td></tr>";
+            }
+
+            console.log(ArrConn); /////////////////////////evaluation if connnection //////////////////////////////                      
+
+            /* var connState = checkConnectionfunc(use_exp2vicelabArrConn,ArrConn, guidings);
+             //console.log($vm.switchState);
+              if (connState) {
+                  //check if key is close
+                  if ($vm.switchState){
+                      let TOTAL_R =  (1/$vm.resistor) + (1/$vm.vResistor);
+                       $vm.ampValue = $vm.bcellvalue/TOTAL_R;
+                       intactCon = true;
+                      DrawGauge( $vm.voltValue, $vm.ampValue);
+                         //animateGauges();
+                  }else{
+                      if(guidings){
+                          alert('Switch is open');
+                      }
+                  }
+              }*/
+            /////////////////////////End evaluation if connnection //////////////////////////////
+            //console.log(ArrConn);
+
+            showConnectionInfo(s);
+          } else hideConnectionInfo();
+        };
+
+        jsPlumb.ready(function () {
+          var instance = jsPlumb.getInstance({
+            DragOptions: {
+              cursor: 'pointer',
+              zIndex: 2000
+            },
+            PaintStyle: {
+              stroke: '#a66'
+            },
+            EndpointHoverStyle: {
+              fill: "orange"
+            },
+            HoverPaintStyle: {
+              stroke: "orange"
+            },
+            EndpointStyle: {
+              width: 20,
+              height: 16,
+              stroke: '#666'
+            },
+            Endpoint: "Rectangle",
+            Anchors: ["bottomLeft", "bottomRight"],
+            Container: "canvas"
+          }); // suspend drawing and initialise.
+
+          instance.batch(function () {
+            // bind to connection/connectionDetached events, and update the list of connections on screen.
+            instance.bind("connection", function (info, originalEvent) {
+              updateConnections(info.connection);
+            });
+            instance.bind("connectionDetached", function (info, originalEvent) {
+              updateConnections(info.connection, true);
+            });
+            instance.bind("connectionMoved", function (info, originalEvent) {
+              //  only remove here, because a 'connection' event is also fired.
+              // in a future release of jsplumb this extra connection event will not
+              // be fired.
+              updateConnections(info.connection, true);
+            });
+            instance.bind("dblclick", function (info, originalEvent) {
+              updateConnections(info.connection, true);
+            }); // configure some drop options for use by all endpoints.
+
+            var exampleDropOptions = {
+              tolerance: "touch",
+              hoverClass: "dropHover",
+              activeClass: "dragActive"
+            }; //
+            // first example endpoint.  it's a 25x21 rectangle (the size is provided in the 'style' arg to the Endpoint),
+            // and it's both a source and target.  the 'scope' of this Endpoint is 'exampleConnection', meaning any connection
+            // starting from this Endpoint is of type 'exampleConnection' and can only be dropped on an Endpoint target
+            // that declares 'exampleEndpoint' as its drop scope, and also that
+            // only 'exampleConnection' types can be dropped here.
+            //
+            // the connection style for this endpoint is a Bezier curve (we didn't provide one, so we use the default), with a strokeWidth of
+            // 5 pixels, and a gradient.
+            //
+            // there is a 'beforeDrop' interceptor on this endpoint which is used to allow the user to decide whether
+            // or not to allow a particular connection to be established.
+            //
+
+            var exampleColor = "#00f";
+            var exampleEndpoint = {
+              endpoint: "Rectangle",
+              paintStyle: {
+                width: 45,
+                height: 41,
+                fill: exampleColor
+              },
+              isSource: true,
+              reattach: true,
+              scope: "blue",
+              connectorStyle: {
+                gradient: {
+                  stops: [[0, exampleColor], [0.5, "#09098e"], [1, exampleColor]]
+                },
+                strokeWidth: 5,
+                stroke: exampleColor,
+                dashstyle: "2 2"
+              },
+              isTarget: true,
+              beforeDrop: function beforeDrop(params) {
+                return confirm("Connect " + params.sourceId + " to " + params.targetId + "?");
+              },
+              dropOptions: exampleDropOptions
+            }; //
+            // the second example uses a Dot of radius 15 as the endpoint marker, is both a source and target,
+            // and has scope 'exampleConnection2'.
+            //
+
+            var color2 = "red";
+            var exampleEndpoint2 = {
+              endpoint: "Rectangle",
+              paintStyle: {
+                width: 25,
+                height: 25,
+                fill: color2
+              },
+              isSource: true,
+              scope: "connect",
+              connectorStyle: {
+                stroke: color2,
+                strokeWidth: 2
+              },
+              connector: ["Bezier", {
+                curviness: 63
+              }],
+              maxConnections: 3,
+              isTarget: true,
+              uuid: 'positive',
+              overlays: [['Label', {
+                label: '+',
+                location: 50,
+                id: '+ive'
+              }]],
+              labelStyle: {
+                color: 'var(--color)'
+              },
+              beforeDrop: function beforeDrop(params) {
+                //console.log(params);
+                return true; //confirm("Connect " + params.sourceId + " to " + params.targetId + "?");
+              },
+              dropOptions: exampleDropOptions
+            };
+            var color21 = "blue";
+            var exampleEndpoint21 = {
+              endpoint: ["Dot", {
+                radius: 15
+              }],
+              paintStyle: {
+                fill: color21
+              },
+              isSource: true,
+              scope: "connect",
+              connectorStyle: {
+                stroke: color21,
+                strokeWidth: 2
+              },
+              connector: ["Bezier", {
+                curviness: 63
+              }],
+              maxConnections: 3,
+              isTarget: true,
+              uuid: 'negative',
+              overlays: [['Label', {
+                label: '-',
+                location: 50,
+                id: '-ive'
+              }]],
+              beforeDrop: function beforeDrop(params) {
+                //console.log(params);
+                return true; //return confirm("Connect " + params.sourceId + " to " + params.targetId + "?");
+              },
+              dropOptions: exampleDropOptions
+            }; //
+            // the third example uses a Dot of radius 17 as the endpoint marker, is both a source and target, and has scope
+            // 'exampleConnection3'.  it uses a Straight connector, and the Anchor is created here (bottom left corner) and never
+            // overriden, so it appears in the same place on every element.
+            //
+            // this example also demonstrates the beforeDetach interceptor, which allows you to intercept
+            // a connection detach and decide whether or not you wish to allow it to proceed.
+            //
+
+            var example3Color = "rgba(229,219,61,0.5)";
+            var exampleEndpoint3 = {
+              endpoint: ["Dot", {
+                radius: 6
+              }],
+              anchor: "BottomLeft",
+              paintStyle: {
+                fill: example3Color,
+                opacity: 0.5
+              },
+              isSource: true,
+              scope: 'blue',
+              connectorStyle: {
+                stroke: example3Color,
+                strokeWidth: 4
+              },
+              connector: "Straight",
+              isTarget: true,
+              dropOptions: exampleDropOptions,
+              beforeDetach: function beforeDetach(conn) {// return confirm("Detach connection?");
+              },
+              onMaxConnections: function onMaxConnections(info) {//alert("Cannot drop connection " + info.connection.id + " : maxConnections has been reached on Endpoint " + info.endpoint.id);
+              }
+            }; // setup some empty endpoints.  again note the use of the three-arg method to reuse all the parameters except the location
+            // of the anchor (purely because we want to move the anchor around here; you could set it one time and forget about it though.)
+
+            for (var i = 1; i <= 10; i++) {} // setup some DynamicAnchors for use with the blue endpoints
+            // and a function to set as the maxConnections callback.
+
+
+            var anchors = [[1, 0.2, 1, 0], [0.8, 1, 0, 1], [0, 0.8, -1, 0], [0.2, 0, 0, -1]],
+                maxConnectionsCallback = function maxConnectionsCallback(info) {// alert("Cannot drop connection " + info.connection.id + " : maxConnections has been reached on Endpoint " + info.endpoint.id);
+            };
+            /*----------------------------------large screen left nav, unique id was required--------------------------------*/
+
+
+            $('#leftNav').on('click', '.picker', function (e) {
+              var type = e.currentTarget.id;
+
+              if (type == 'scell') {
+                if ($vm.solar_num < 10) {
+                  $vm.solar_num++;
+                  $vm.solar_num1++;
+                  $('#solar_cell' + $vm.solar_num).css('display', 'flex');
+                  instance.addEndpoint('solar_cell' + $vm.solar_num, {
+                    anchor: [0.09, 1.5, 0, 1]
+                  }, exampleEndpoint21);
+                  instance.addEndpoint('solar_cell' + $vm.solar_num, {
+                    anchor: [0.3, 1.5, 0, 1]
+                  }, exampleEndpoint2);
+                } else {
+                  document.location.reload(true);
+                }
+              } else if (type == 'voltmeter') {
+                if ($vm.volt_num < 1) {
+                  $vm.volt_num++;
+                  $('#voltmeterRead').css('display', 'flex');
+                  ;
+                  instance.addEndpoint('voltmeterRead', {
+                    anchor: [0.3, 1.3, 0, 1]
+                  }, exampleEndpoint21);
+                  instance.addEndpoint('voltmeterRead', {
+                    anchor: [0.6, 1.3, 0, 1]
+                  }, exampleEndpoint2);
+                } else {
+                  alert('voltmeter already exist');
+                }
+              } else if (type == 'ameter') {
+                if ($vm.amp_num < 1) {
+                  $vm.amp_num++;
+                  $('#ameterRead').css('display', 'flex');
+                  setTimeout(function () {
+                    instance.addEndpoint('ameterRead', {
+                      anchor: [0.3, 1.3, 0, 1]
+                    }, exampleEndpoint21);
+                    instance.addEndpoint('ameterRead', {
+                      anchor: [0.6, 1.3, 0, 1]
+                    }, exampleEndpoint2);
+                  }, 700);
+                } else {
+                  alert('ameter already exist');
+                }
+              } else if (type == 'sun') {
+                if ($vm.sun_light == 0) {
+                  $vm.sun_light++;
+                  $('#sunLight').show();
+                } else {
+                  alert('light module already added');
+                }
+              }
+            });
+            /*----------------------------------end of large screen left nav bar-----------------------------------------------*/
+
+            /*----------------------------for small screen left nav bar, unique id was required----------------------------------------*/
+
+            $('#leftNav1').on('click', '.picker', function (e) {
+              var type = e.currentTarget.id;
+
+              if (type == 'scell') {
+                if ($vm.solar_num < 10) {
+                  $vm.solar_num++;
+                  $vm.solar_num1++;
+                  $('#solar_cell' + $vm.solar_num).show();
+                  instance.addEndpoint('solar_cell' + $vm.solar_num, {
+                    anchor: [-0.1, 0.94, 0, 1]
+                  }, exampleEndpoint21);
+                  instance.addEndpoint('solar_cell' + $vm.solar_num, {
+                    anchor: [0.5, 0.94, 0, 1]
+                  }, exampleEndpoint2);
+                } else {
+                  document.location.reload(true);
+                }
+              } else if (type == 'voltmeter') {
+                if ($vm.volt_num < 1) {
+                  $vm.volt_num++;
+                  $('#voltmeterRead').show();
+                  instance.addEndpoint('voltmeterRead', {
+                    anchor: [0.3, 1.3, 0, 1]
+                  }, exampleEndpoint21);
+                  instance.addEndpoint('voltmeterRead', {
+                    anchor: [0.6, 1.3, 0, 1]
+                  }, exampleEndpoint2);
+                } else {
+                  alert('voltmeter already exist');
+                }
+              } else if (type == 'ameter') {
+                if ($vm.amp_num < 1) {
+                  $vm.amp_num++;
+                  $('#ameterRead').show();
+                  setTimeout(function () {
+                    instance.addEndpoint('ameterRead', {
+                      anchor: [0.3, 1.3, 0, 1]
+                    }, exampleEndpoint21);
+                    instance.addEndpoint('ameterRead', {
+                      anchor: [0.6, 1.3, 0, 1]
+                    }, exampleEndpoint2);
+                  }, 700);
+                } else {
+                  alert('ameter already exist');
+                }
+              } else if (type == 'sun') {
+                if ($vm.sun_light == 0) {
+                  $vm.sun_light++;
+                  $('#sunLight').show();
+                } else {
+                  alert('light module already added');
+                }
+              }
+            });
+            /*-----------------------------end of small screen left nav bar------------------------------------------------*/
+            //detach links
+
+            var detachLinks = jsPlumb.getSelector('.detach');
+            instance.on(detachLinks, "click", function (e) {
+              var rel = this.getAttribute("rel").split('-');
+              instance.deleteConnectionsForElement(this.getAttribute("rel")); //console.log(this.getAttribute("rel"));
+
+              DrawGauge(1, 1, 0, 0);
+              jsPlumbUtil.consume(e);
+            }); ///////////////////////////////main junction
+            //take reading
+
+            var readMeter = jsPlumb.getSelector('.read');
+            instance.on(readMeter, "click", function (e) {
+              // alert($vm.solar_num)
+              var connState = solveExpression(ArrConn, $vm.solar_num1, true);
+
+              if (connState == null) {
+                alert('invalid connnections');
+              } else if (connState == 0) {
+                alert('add sunLight');
+                $vm.sunToolTip = true;
+              } else if (connState == -1) {
+                alert('multi reading not allowed');
+              } else if (connState == -2) {
+                alert('connect the Reader');
+              } else if (connState == -3) {
+                alert('Experiments one Required only Three solar Cell; please delete');
+              } else {
+                //$vm.resulInHtmlF = resultTable()
+                if (connState[0] == 'current') {
+                  DrawGauge('', 1, 0, 0);
+                  setTimeout(function () {
+                    DrawGauge('', 1, 0, connState[1] + 5);
+                    setTimeout(function () {
+                      DrawGauge('', 1, 0, connState[1]);
+                    }, 200);
+                  }, 200);
+                } else {
+                  //  alert($vm.experimentOneResult[0].series.one)
+                  DrawGauge(1, 1, 0, 0);
+                  setTimeout(function () {
+                    DrawGauge(1, '', connState[1] + 5, 0);
+                    setTimeout(function () {
+                      DrawGauge(1, '', connState[1], 0);
+                    }, 200);
+                  }, 200);
+                }
+              }
+            }); ///////////////////////////////end main junction                    
+            // delete cell
+
+            var deleteCell = jsPlumb.getSelector('.deleteCell');
+            instance.on(deleteCell, "click", function (e) {
+              //readding elelemt becaus jsplumb has remove the element completely
+              var rel = this.getAttribute("rel");
+
+              if (rel.includes('solar_cell')) {
+                instance.remove(rel, false, [false]);
+                $('#mainSheet').append('<div class="equipments drags solarsAll" style="display: none;" id="' + rel + '" @mouseover="removeClass" ><span><img class="ek" src="/expImages/physics/exp1/solar_cell3.jpeg" width="80px"></span><div class="cbtn"><button class="detach" rel="' + rel + '">detach</button><button class="deleteCell" rel="' + rel + '"><span><span>mdi-close</span></span></button></div></div>');
+              } else {
+                $('#' + this.getAttribute("rel")).hide(); //reset sunlight value
+
+                $vm.sun_light = 0;
+                $('sunL'); // alert( $vm.sun_light);    
+              }
+            });
+            /* instance.on(document.getElementById("doAsIdo"), "click", function (e) {
+                     instance.selectEndpoints({ source: dot }).each(function (endpoint) {
+                         endpoint.connectorStyle.dashstyle = "2 4";
+                         instance.repaint(element);
+                     });
+             });
+            */
+
+            instance.on(document.getElementById("resetall"), "click", function (e) {
+              $('.solarsAll').hide();
+              $('.voltmeterRead').hide();
+              $('.ameterRead').hide();
+              $vm.amp_num = 0;
+              $vm.volt_num = 0;
+              $vm.solar_num = 0;
+              $vm.solar_num1 = 0;
+              $vm.sun_light = 0;
+              instance.deleteEveryEndpoint();
+              /* showConnectionInfo("");
+               jsPlumbUtil.consume(e);*/
+            });
+          });
+          instance.draggable($(".drags"), {
+            containment: 'parent',
+            filter: ".ui-resizable-handle"
+          });
+          jsPlumb.fire("jsPlumbDemoLoaded", instance);
+        });
+      })();
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var ArrConn;
+var experimenttwo, resulInHtml, iterationType;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {},
+  computed: {
+    experimenttwo: function experimenttwo() {
+      return this.$store.state.exp2;
+    }
+  },
+  data: function data() {
+    return {
+      menuName1: "mdi-chevron-right",
+      menuState1: false,
+      menuName2: "mdi-chevron-left",
+      menuState2: false,
+      navdType: 'none',
+      experimenttwoResult: {
+        v: {
+          zero: '-',
+          onequater: '-',
+          half: '-',
+          threequater: '-',
+          fullone: '-'
+        },
+        c: {
+          zero: '-',
+          onequater: '-',
+          half: '-',
+          threequater: '-',
+          fullone: '-'
+        },
+        p: {
+          zero: '-',
+          onequater: '-',
+          half: '-',
+          threequater: '-',
+          fullone: '-'
+        }
+      },
+      iterationType: 0,
+      resulInHtml: '',
+      resulInHtmlF: '',
+      sunToolTip: false,
+      attrs: false,
+      on: false,
+      expNum: 0,
+      expType: 0,
+      solar_num: 0,
+      solar_num1: 0,
+      amp_num: 0,
+      sun_light: 0,
+      volt_num: 0,
+      navSlide1: true,
+      navSlide2: false,
+      configBtn: false,
+      EquipBtn: true,
+      naviconRight: 'mdi-reorder-horizontal',
+      navClickRightState: false,
+      guidings: false,
+      solarCell_id: [{
+        id: 1,
+        volt: 0
+      }, {
+        id: 2,
+        volt: 0
+      }, {
+        id: 3,
+        volt: 0
+      }, {
+        id: 4,
+        volt: 0
+      }, {
+        id: 5,
+        volt: 0
+      }, {
+        id: 6,
+        volt: 0
+      }, {
+        id: 7,
+        volt: 0
+      }, {
+        id: 8,
+        volt: 0
+      }, {
+        id: 9,
+        volt: 0
+      }, {
+        id: 10,
+        volt: 0
+      }, {
+        id: 11,
+        volt: 0
+      }, {
+        id: 12,
+        volt: 0
+      }, {
+        id: 13,
+        volt: 0
+      }, {
+        id: 14,
+        volt: 0
+      }, {
+        id: 15,
+        volt: 0
+      }, {
+        id: 16,
+        volt: 0
+      }],
+      voltValue: 0,
+      ampValue: 0
+    };
+  },
+  methods: {
+    menuClick1: function menuClick1() {
+      this.menuState1 = !this.menuState1;
+
+      if (this.menuState1 == true) {
+        this.menuName1 = "mdi-chevron-left";
+      } else {
+        this.menuName1 = "mdi-chevron-right";
+      }
+    },
+    menuClick2: function menuClick2() {
+      this.menuState2 = !this.menuState2;
+
+      if (this.menuState2 == true) {
+        this.menuName2 = "mdi-chevron-right";
+      } else {
+        this.menuName2 = "mdi-chevron-left";
+      }
+    },
+    onClickOutside: function onClickOutside() {
+      this.sunToolTip = false;
+    },
+    navBtnFunc1: function navBtnFunc1() {
+      if (this.configBtn == true && this.EquipBtn == false) {} else if (this.configBtn == false) {
+        this.navSlide2 = !this.navSlide2;
+        this.navSlide1 = !this.navSlide1;
+        this.configBtn = !this.configBtn;
+        this.EquipBtn = !this.EquipBtn;
+      }
+    },
+    navBtnFunc2: function navBtnFunc2() {
+      if (this.configBtn == false && this.EquipBtn == true) {} else if (this.EquipBtn == false) {
+        this.navSlide2 = !this.navSlide2;
+        this.navSlide1 = !this.navSlide1;
+        this.configBtn = !this.configBtn;
+        this.EquipBtn = !this.EquipBtn;
+      }
+    },
+    clickOutside: function clickOutside() {
+      this.navClickRightState = false;
+      document.getElementsByClassName('right-panel')[0].classList.remove('paneliWidth'); //d3.selectAll('.hideC').style('display','none');
+    },
+    switchStatefunc: function switchStatefunc() {
+      this.switchState = !this.switchState;
+
+      if (this.switchState) {
+        this.switchStatebtn = 'open switch';
+        this.switchSrc = "/expImages/physics/exp1/close_switch.png";
+      } else {
+        this.switchStatebtn = 'close switch';
+        this.switchSrc = "/expImages/physics/exp1/switch.png";
+      }
+    },
+    addCellfunc: function addCellfunc() {
+      this.cellCount++;
+
+      if (this.cellCount > this.maxCell) {
+        alert('maximum cell is ' + this.maxCell);
+        this.cellCount--;
+      } else {
+        this.bcellvalue += 1.5;
+        this.cellToAdd += singleCell;
+      }
+    },
+    removeCellfunc: function removeCellfunc() {
+      this.cellCount--;
+
+      if (this.cellCount == 0) {
+        alert('minimum cell is 1');
+        this.cellCount = 1;
+      } else {
+        this.bcellvalue -= 1.5;
+
+        for (var i = 1; i <= this.cellCount; i++) {
+          if (i == 1) {
+            this.cellToAdd = singleCell;
+          } else {
+            this.cellToAdd += singleCell;
+          }
+        }
+      }
+    },
+    //remove class from equipment on hover 
+    removeClass: function removeClass(e) {
+      var x = e.currentTarget; // console.log(x.className);
+
+      if (x.className.indexOf("needConnection") > 0) {
+        document.getElementById(x.id).classList.remove('needConnection');
+      }
+    }
+  },
+  created: function created() {
+    var subExp = [3, 'photovolatic'];
+    this.expNum = Number(subExp[0]);
+    this.expType = Number(subExp[1]);
+  },
+  mounted: function mounted() {
+    var $vm = this;
+    this.$nextTick(function () {
+      function resultTable() {
+        for (var ai in $vm.experimenttwoResult) {
+          if (ai == 'v') {
+            $vm.resulInHtml = " <h6>MEASURED VALUES</h6><table class='table table-bordered' style=''><thead><th></th><th style='word-wrap:wrap;'>0(not covered)</th><th>1/4</th><th>1/2</th><th>3/4</th><th>1</th></thead><tbody>";
+            $vm.resulInHtml += "<tr><th>V<sub>oc</sub></th>";
+            $vm.resulInHtml += "<td id='vsigna' class='Bsign'>" + $vm.experimenttwoResult[ai].zero + "</td>";
+            $vm.resulInHtml += "<td id='vsignb' class='Bsign'>" + $vm.experimenttwoResult[ai].onequater + "</td>";
+            $vm.resulInHtml += "<td id='vsignc' class='Bsign'>" + $vm.experimenttwoResult[ai].half + "</td>";
+            $vm.resulInHtml += "<td id='vsignd' class='Bsign'>" + $vm.experimenttwoResult[ai].threequater + "</td>";
+            $vm.resulInHtml += "<td id='vsigne' class='Bsign'>" + $vm.experimenttwoResult[ai].fullone + "</td>";
+          } else if (ai == 'c') {
+            $vm.resulInHtml += "<tr><th>I<sub>sc</sub></th>";
+            $vm.resulInHtml += "<td id='csigna' class='Bsign'>" + $vm.experimenttwoResult[ai].zero + "</td>";
+            $vm.resulInHtml += "<td id='csignb' class='Bsign'>" + $vm.experimenttwoResult[ai].onequater + "</td>";
+            $vm.resulInHtml += "<td id='csignc' class='Bsign'>" + $vm.experimenttwoResult[ai].half + "</td>";
+            $vm.resulInHtml += "<td id='csignd' class='Bsign'>" + $vm.experimenttwoResult[ai].threequater + "</td>";
+            $vm.resulInHtml += "<td id='csigne' class='Bsign'>" + $vm.experimenttwoResult[ai].fullone + "</td>";
+          } else if (ai == 'p') {
+            var p1 = '-',
+                p2 = '-',
+                p3 = '-',
+                p4 = '-',
+                p5 = '-';
+
+            if ($vm.experimenttwoResult['v'].zero != '-' && $vm.experimenttwoResult['c'].zero != '-') {
+              p1 = $vm.experimenttwoResult['v'].zero * $vm.experimenttwoResult['c'].zero;
+            }
+
+            if ($vm.experimenttwoResult['v'].onequater != '-' && $vm.experimenttwoResult['c'].onequater != '-') {
+              p2 = $vm.experimenttwoResult['v'].onequater * $vm.experimenttwoResult['c'].onequater;
+            }
+
+            if ($vm.experimenttwoResult['v'].half != '-' && $vm.experimenttwoResult['c'].half != '-') {
+              p3 = $vm.experimenttwoResult['v'].half * $vm.experimenttwoResult['c'].half;
+            }
+
+            if ($vm.experimenttwoResult['v'].threequater != '-' && $vm.experimenttwoResult['c'].threequater != '-') {
+              p4 = $vm.experimenttwoResult['v'].threequater * $vm.experimenttwoResult['c'].threequater;
+            }
+
+            if ($vm.experimenttwoResult['v'].fullone != '-' && $vm.experimenttwoResult['c'].fullone != '-') {
+              p5 = $vm.experimenttwoResult['v'].fullone * $vm.experimenttwoResult['c'].fullone;
+            }
+
+            $vm.resulInHtml += "<tr><th>P<code>I*V</code></th>";
+            $vm.resulInHtml += "<td>" + p1 + "</td>";
+            $vm.resulInHtml += "<td>" + p2 + "</td>";
+            $vm.resulInHtml += "<td>" + p3 + "</td>";
+            $vm.resulInHtml += "<td>" + p4 + "</td>";
+            $vm.resulInHtml += "<td>" + p5 + "</td>";
+          }
+        }
+
+        return $vm.resulInHtml;
+      }
+
+      function checkConnectionfunc(storedA, connA) {
+        var guide = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+        var count = 0;
+        var sobj = []; // let storedA2 = JSON.parse(JSON.stringify(storedA));
+
+        for (var i = 0; i < storedA.length; i++) {
+          for (var j = 0; j < connA.length; j++) {
+            if (storedA[i].source == connA[j].source && storedA[i].target == connA[j].target || storedA[i].source == connA[j].target && storedA[i].target == connA[j].source) {
+              count++;
+              j = connA.length; //remove from original correct connection
+
+              sobj.push(i); // storedA2.splice(i, 1);
+            }
+          }
+        }
+
+        if (count == storedA.length) {
+          return true;
+        } else {
+          // console.log(storedA2);
+          if (guide == true) {
+            for (var i = 0; i < storedA.length; i++) {
+              if (JSON.stringify(sobj).includes(i)) {} else {
+                document.getElementById(storedA[i].sid).classList.add('needConnection');
+                document.getElementById(storedA[i].tid).classList.add('needConnection');
+              }
+            }
+          }
+
+          return false;
+        }
+      }
+
+      function solveExpression(Array1, count) {
+        var guid = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+        var m,
+            seriesCount = 0,
+            parallelCount = 0;
+        var confirm,
+            result = [],
+            keeperR,
+            tracker = 0,
+            trackerC = -1,
+            keeperC = ['voltmeterRead', 'ameterRead'],
+            readerIsConnected = 0;
+
+        for (m in Array1) {
+          // check if any of the reader is connected
+          if (keeperC.includes(Array1[m].sid) || keeperC.includes(Array1[m].tid)) {
+            readerIsConnected = 1;
+          } else {
+            //check connection type
+            if (Array1[m].source != Array1[m].target) {
+              seriesCount++;
+            } else {
+              parallelCount++;
+            }
+          }
+
+          if (tracker == 0) {
+            if (Array1[m].sid == 'voltmeterRead' || Array1[m].sid == 'ameterRead' || Array1[m].tid == 'voltmeterRead' || Array1[m].tid == 'ameterRead') {
+              if (Array1[m].sid == 'voltmeterRead' || Array1[m].tid == 'voltmeterRead') {
+                if (Array1[m].sid == 'voltmeterRead') {
+                  keeperR = Array1[m].sid;
+                  tracker = 1; //to track the first source or target
+                } else {
+                  keeperR = Array1[m].tid;
+                  tracker = 1; //to track the first source or target
+                }
+              } else {
+                if (Array1[m].sid == 'ameterRead') {
+                  keeperR = Array1[m].sid;
+                  tracker = 1; //to track the first source or target
+                } else {
+                  keeperR = Array1[m].tid;
+                  tracker = 1; //to track the first source or target
+                }
+              }
+            }
+          } else {
+            //alert(keeperR +'+'+Array1[m].sid+'+'+Array1[m].tid)
+            if (keeperC.includes(Array1[m].sid) || keeperC.includes(Array1[m].tid)) {
+              if (Array1[m].sid == keeperR || Array1[m].tid == keeperR) {
+                trackerC = 1;
+              } else {
+                trackerC = 0;
+                break;
+              }
+            }
+          }
+        }
+
+        if (readerIsConnected == 1) {
+          if (trackerC == 1) {
+            var readerT, rType;
+
+            if (keeperR == 'ameterRead') {
+              readerT = 'c';
+              rType = 'current';
+            } else {
+              rType = 'voltage';
+              readerT = 'v';
+            }
+
+            if (count == 0) {
+              confirm = checkConnectionfunc($vm.experimenttwo['arr1' + readerT + 1], Array1, guid);
+
+              if (confirm) {
+                if ($vm.sun_light == 1) {
+                  result.push(rType, $vm.experimenttwo['arr1' + readerT]);
+
+                  if (rType == 'voltage') {
+                    $vm.experimenttwoResult['v'].zero = $vm.experimenttwo['arr1' + readerT];
+                  } else {
+                    $vm.experimenttwoResult['c'].zero = $vm.experimenttwo['arr1' + readerT];
+                  }
+
+                  return result;
+                } else {
+                  return 0; //no sun light 
+                }
+              } else {
+                result = null;
+                return result;
+                /* connection not valid */
+              }
+            } //quarter covered solar sell
+            else if (count == 'quater') {
+                confirm = checkConnectionfunc($vm.experimenttwo['arr2' + readerT + 1], Array1, guid);
+
+                if (confirm) {
+                  if ($vm.sun_light == 1) {
+                    result.push(rType, $vm.experimenttwo['arr2' + readerT]);
+
+                    if (rType == 'voltage') {
+                      $vm.experimenttwoResult['v'].onequater = $vm.experimenttwo['arr2' + readerT];
+                    } else {
+                      $vm.experimenttwoResult['c'].onequater = $vm.experimenttwo['arr2' + readerT];
+                    }
+
+                    return result;
+                  } else {
+                    return 0; //no sun light 
+                  }
+                } else {
+                  result = null;
+                  return result;
+                  /* connection not valid */
+                }
+              } //half covered solar cell
+              else if (count == 'half') {
+                  confirm = checkConnectionfunc($vm.experimenttwo['arr3' + readerT + 1], Array1, guid);
+
+                  if (confirm) {
+                    if ($vm.sun_light == 1) {
+                      result.push(rType, $vm.experimenttwo['arr3' + readerT]);
+
+                      if (rType == 'voltage') {
+                        $vm.experimenttwoResult['v'].half = $vm.experimenttwo['arr3' + readerT];
+                      } else {
+                        $vm.experimenttwoResult['c'].half = $vm.experimenttwo['arr3' + readerT];
+                      }
+
+                      return result;
+                    } else {
+                      return 0; //no sun light 
+                    }
+                  } else {
+                    result = null;
+                    return result;
+                    /* connection not valid */
+                  }
+                } //three quarter covered solar cell
+                else if (count == 'threeQuater') {
+                    confirm = checkConnectionfunc($vm.experimenttwo['arr4' + readerT + 1], Array1, guid);
+
+                    if (confirm) {
+                      if ($vm.sun_light == 1) {
+                        result.push(rType, $vm.experimenttwo['arr4' + readerT]);
+
+                        if (rType == 'voltage') {
+                          $vm.experimenttwoResult['v'].threequater = $vm.experimenttwo['arr4' + readerT];
+                        } else {
+                          $vm.experimenttwoResult['c'].threequater = $vm.experimenttwo['arr4' + readerT];
+                        }
+
+                        return result;
+                      } else {
+                        return 0; //no sun light 
+                      }
+                    } else {
+                      result = null;
+                      return result;
+                      /* connection not valid */
+                    }
+                  } //fullone covered solar cell
+                  else if (count == 'fullOne') {
+                      confirm = checkConnectionfunc($vm.experimenttwo['arr5' + readerT + 1], Array1, guid);
+
+                      if (confirm) {
+                        if ($vm.sun_light == 1) {
+                          result.push(rType, $vm.experimenttwo['arr5' + readerT]);
+
+                          if (rType == 'voltage') {
+                            $vm.experimenttwoResult['v'].one = $vm.experimenttwo['arr5' + readerT];
+                          } else {
+                            $vm.experimenttwoResult['c'].one = $vm.experimenttwo['arr5' + readerT];
+                          }
+
+                          return result;
+                        } else {
+                          return 0; //no sun light 
+                        }
+                      } else {
+                        result = null;
+                        return result;
+                        /* connection not valid */
+                      }
+                    }
+          } else {
+            document.getElementById('ameterRead').classList.add('needConnection');
+            document.getElementById('voltmeterRead').classList.add('needConnection');
+            return -1; //multi reading not allowed
+          }
+        } else {
+          return -2; // no reader connected
+        }
+      }
+
+      function DrawVolt() {
+        new RadialGauge({
+          renderTo: 'another-gauge',
+          width: 150,
+          height: 150,
+          units: 'Volts',
+          title: false,
+          value: 0,
+          minValue: 0,
+          maxValue: 35,
+          majorTicks: ['0', '5', '10', '15', '20', '25', '30', '35'],
+          highlights: [{
+            "from": 0,
+            "to": 35,
+            "color": "#A8D3D5"
+          }]
+        }).draw();
+      }
+
+      function DrawAmpere() {
+        new RadialGauge({
+          renderTo: 'ameter-gauage',
+          width: 150,
+          height: 150,
+          units: 'A',
+          title: false,
+          value: 0,
+          minValue: 0,
+          maxValue: 20,
+          majorTicks: ['0', '5', '10', '15', '20'],
+          highlightsWidth: 25,
+          colorNeedle: "#3CA7DB",
+          needleType: "arrow",
+          colorPlate: "#fff",
+          colorUnits: "#3CA7DB",
+          colorNumbers: "#3CA7DB",
+          highlights: [{
+            "from": 0,
+            "to": 20,
+            "color": "#A8D3D5"
+          }],
+          borderShadowWidth: 0,
+          borders: false,
+          animateOnInit: true,
+          animatedValue: true
+        }).draw();
+      }
+
+      function DrawGauge() {
+        var type1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+        var type2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+        var volt = arguments.length > 2 ? arguments[2] : undefined;
+        var ame = arguments.length > 3 ? arguments[3] : undefined;
+
+        if (type1 != '') {
+          new RadialGauge({
+            renderTo: 'another-gauge',
+            width: 150,
+            height: 150,
+            units: 'Volts',
+            title: false,
+            value: volt,
+            minValue: 0,
+            maxValue: 35,
+            majorTicks: ['0', '5', '10', '15', '20', '25', '30', '35'],
+            highlights: [{
+              "from": 0,
+              "to": 35,
+              "color": "#A8D3D5"
+            }]
+          }).draw();
+        } else {
+          console.log('empty volt data parameters 312');
+        }
+
+        if (type2 != '') {
+          new RadialGauge({
+            renderTo: 'ameter-gauage',
+            width: 150,
+            height: 150,
+            units: 'A',
+            title: false,
+            value: ame,
+            minValue: 0,
+            maxValue: 20,
+            majorTicks: ['0', '5', '10', '15', '20'],
+            highlightsWidth: 25,
+            colorNeedle: "#3CA7DB",
+            needleType: "arrow",
+            colorPlate: "#fff",
+            colorUnits: "#3CA7DB",
+            colorNumbers: "#3CA7DB",
+            highlights: [{
+              "from": 0,
+              "to": 20,
+              "color": "#A8D3D5"
+            }],
+            borderShadowWidth: 0,
+            borders: false
+            /*,
+            animateOnInit: true,
+            animatedValue: true*/
+
+          }).draw();
+        } else {
+          console.log('empty ameter data parameters');
+        }
+      }
+
+      DrawAmpere($vm.v);
+      DrawVolt();
+
+      (function () {
+        var listDiv = document.getElementById("list"),
+            showConnectionInfo = function showConnectionInfo(s) {
+          listDiv.innerHTML = s;
+          listDiv.style.display = "block";
+          listDiv.style.position = "fixed";
+          listDiv.style.zIndex = "10";
+          listDiv.style.top = "30px";
+          listDiv.style.left = "64%";
+          listDiv.style.width = "350px";
+        },
+            hideConnectionInfo = function hideConnectionInfo() {
+          listDiv.style.display = "none";
+        },
+            connections = [],
+            updateConnections = function updateConnections(conn, remove) {
+          if (!remove) connections.push(conn);else {
+            var idx = -1;
+
+            for (var i = 0; i < connections.length; i++) {
+              if (connections[i] == conn) {
+                idx = i;
+                break;
+              }
+            }
+
+            if (idx != -1) {
+              connections.splice(idx, 1); //ArrConn.splice()
+            }
+
+            ;
+          }
+
+          if (connections.length > 0) {
+            var s = "<span id='connNav1' style='font-size:2em; color:#d53; float:right;cursor:pointer' onclick='$(document).ready(function(){$(\"#connTable\").fadeOut(50); $(\"#connNav1\").fadeOut(50); $(\"#connNav2\").show(80);})' >-</span><span style='font-size:2em; color:#d53; float:right;cursor:pointer;display:none;' id='connNav2' onclick='$(document).ready(function(){$(\"#connTable\").fadeIn(50); $(\"#connNav1\").fadeIn(80); $(\"#connNav2\").fadeOut(50);})' >+</span><span style='clear:right;'><strong>Connections</strong></span><br/><br/><table id='connTable'><tr><th>Scope</th><th>Source</th><th>Target</th></tr>";
+            ArrConn = [];
+            var tid, sid;
+
+            for (var j = 0; j < connections.length; j++) {
+              // console.log(connections);
+              tid = connections[j].targetId;
+              sid = connections[j].sourceId;
+              ArrConn.push({
+                'source': connections[j].sourceId[0] + '_' + connections[j].endpoints[0].type,
+                'target': connections[j].targetId[0] + '_' + connections[j].endpoints[1].type,
+                'tid': tid,
+                'sid': sid
+              }); // console.log(connections[j].endpoints[0].type);
+
+              s = s + "<tr><td>" + connections[j].scope + "</td>" + "<td>" + connections[j].sourceId + "</td><td>" + connections[j].targetId + "</td></tr>";
+            }
+
+            console.log(ArrConn); /////////////////////////evaluation if connnection //////////////////////////////                      
+
+            /* var connState = checkConnectionfunc(use_StoreArrConn,ArrConn, guidings);
+             //console.log($vm.switchState);
+              if (connState) {
+                  //check if key is close
+                  if ($vm.switchState){
+                      let TOTAL_R =  (1/$vm.resistor) + (1/$vm.vResistor);
+                       $vm.ampValue = $vm.bcellvalue/TOTAL_R;
+                       intactCon = true;
+                      DrawGauge( $vm.voltValue, $vm.ampValue);
+                         //animateGauges();
+                  }else{
+                      if(guidings){
+                          alert('Switch is open');
+                      }
+                  }
+              }*/
+            /////////////////////////End evaluation if connnection //////////////////////////////
+            //console.log(ArrConn);
+
+            showConnectionInfo(s);
+          } else hideConnectionInfo();
+        };
+
+        jsPlumb.ready(function () {
+          var instance = jsPlumb.getInstance({
+            DragOptions: {
+              cursor: 'pointer',
+              zIndex: 2000
+            },
+            PaintStyle: {
+              stroke: '#a66'
+            },
+            EndpointHoverStyle: {
+              fill: "orange"
+            },
+            HoverPaintStyle: {
+              stroke: "orange"
+            },
+            EndpointStyle: {
+              width: 20,
+              height: 16,
+              stroke: '#666'
+            },
+            Endpoint: "Rectangle",
+            Anchors: ["bottomLeft", "bottomRight"],
+            Container: "canvas"
+          }); // suspend drawing and initialise.
+
+          instance.batch(function () {
+            // bind to connection/connectionDetached events, and update the list of connections on screen.
+            instance.bind("connection", function (info, originalEvent) {
+              updateConnections(info.connection);
+            });
+            instance.bind("connectionDetached", function (info, originalEvent) {
+              updateConnections(info.connection, true);
+            });
+            instance.bind("connectionMoved", function (info, originalEvent) {
+              //  only remove here, because a 'connection' event is also fired.
+              // in a future release of jsplumb this extra connection event will not
+              // be fired.
+              updateConnections(info.connection, true);
+            });
+            instance.bind("dblclick", function (info, originalEvent) {
+              updateConnections(info.connection, true);
+            }); // configure some drop options for use by all endpoints.
+
+            var exampleDropOptions = {
+              tolerance: "touch",
+              hoverClass: "dropHover",
+              activeClass: "dragActive"
+            }; //
+            // first example endpoint.  it's a 25x21 rectangle (the size is provided in the 'style' arg to the Endpoint),
+            // and it's both a source and target.  the 'scope' of this Endpoint is 'exampleConnection', meaning any connection
+            // starting from this Endpoint is of type 'exampleConnection' and can only be dropped on an Endpoint target
+            // that declares 'exampleEndpoint' as its drop scope, and also that
+            // only 'exampleConnection' types can be dropped here.
+            //
+            // the connection style for this endpoint is a Bezier curve (we didn't provide one, so we use the default), with a strokeWidth of
+            // 5 pixels, and a gradient.
+            //
+            // there is a 'beforeDrop' interceptor on this endpoint which is used to allow the user to decide whether
+            // or not to allow a particular connection to be established.
+            //
+
+            var exampleColor = "#00f";
+            var exampleEndpoint = {
+              endpoint: "Rectangle",
+              paintStyle: {
+                width: 45,
+                height: 41,
+                fill: exampleColor
+              },
+              isSource: true,
+              reattach: true,
+              scope: "blue",
+              connectorStyle: {
+                gradient: {
+                  stops: [[0, exampleColor], [0.5, "#09098e"], [1, exampleColor]]
+                },
+                strokeWidth: 5,
+                stroke: exampleColor,
+                dashstyle: "2 2"
+              },
+              isTarget: true,
+              beforeDrop: function beforeDrop(params) {
+                return confirm("Connect " + params.sourceId + " to " + params.targetId + "?");
+              },
+              dropOptions: exampleDropOptions
+            }; //
+            // the second example uses a Dot of radius 15 as the endpoint marker, is both a source and target,
+            // and has scope 'exampleConnection2'.
+            //
+
+            var color2 = "red";
+            var exampleEndpoint2 = {
+              endpoint: "Rectangle",
+              paintStyle: {
+                width: 25,
+                height: 25,
+                fill: color2
+              },
+              isSource: true,
+              scope: "connect",
+              connectorStyle: {
+                stroke: color2,
+                strokeWidth: 2
+              },
+              connector: ["Bezier", {
+                curviness: 63
+              }],
+              maxConnections: 3,
+              isTarget: true,
+              uuid: 'positive',
+              overlays: [['Label', {
+                label: '+',
+                location: 50,
+                id: '+ive'
+              }]],
+              labelStyle: {
+                color: 'var(--color)'
+              },
+              beforeDrop: function beforeDrop(params) {
+                //console.log(params);
+                return true; //confirm("Connect " + params.sourceId + " to " + params.targetId + "?");
+              },
+              dropOptions: exampleDropOptions
+            };
+            var color21 = "blue";
+            var exampleEndpoint21 = {
+              endpoint: ["Dot", {
+                radius: 15
+              }],
+              paintStyle: {
+                fill: color21
+              },
+              isSource: true,
+              scope: "connect",
+              connectorStyle: {
+                stroke: color21,
+                strokeWidth: 2
+              },
+              connector: ["Bezier", {
+                curviness: 63
+              }],
+              maxConnections: 3,
+              isTarget: true,
+              uuid: 'negative',
+              overlays: [['Label', {
+                label: '-',
+                location: 50,
+                id: '-ive'
+              }]],
+              beforeDrop: function beforeDrop(params) {
+                //console.log(params);
+                return true; //return confirm("Connect " + params.sourceId + " to " + params.targetId + "?");
+              },
+              dropOptions: exampleDropOptions
+            }; //
+            // the third example uses a Dot of radius 17 as the endpoint marker, is both a source and target, and has scope
+            // 'exampleConnection3'.  it uses a Straight connector, and the Anchor is created here (bottom left corner) and never
+            // overriden, so it appears in the same place on every element.
+            //
+            // this example also demonstrates the beforeDetach interceptor, which allows you to intercept
+            // a connection detach and decide whether or not you wish to allow it to proceed.
+            //
+
+            var example3Color = "rgba(229,219,61,0.5)";
+            var exampleEndpoint3 = {
+              endpoint: ["Dot", {
+                radius: 6
+              }],
+              anchor: "BottomLeft",
+              paintStyle: {
+                fill: example3Color,
+                opacity: 0.5
+              },
+              isSource: true,
+              scope: 'blue',
+              connectorStyle: {
+                stroke: example3Color,
+                strokeWidth: 4
+              },
+              connector: "Straight",
+              isTarget: true,
+              dropOptions: exampleDropOptions,
+              beforeDetach: function beforeDetach(conn) {// return confirm("Detach connection?");
+              },
+              onMaxConnections: function onMaxConnections(info) {//alert("Cannot drop connection " + info.connection.id + " : maxConnections has been reached on Endpoint " + info.endpoint.id);
+              }
+            }; // setup some empty endpoints.  again note the use of the three-arg method to reuse all the parameters except the location
+            // of the anchor (purely because we want to move the anchor around here; you could set it one time and forget about it though.)
+
+            for (var i = 1; i <= 10; i++) {} // setup some DynamicAnchors for use with the blue endpoints
+            // and a function to set as the maxConnections callback.
+
+
+            var anchors = [[1, 0.2, 1, 0], [0.8, 1, 0, 1], [0, 0.8, -1, 0], [0.2, 0, 0, -1]],
+                maxConnectionsCallback = function maxConnectionsCallback(info) {// alert("Cannot drop connection " + info.connection.id + " : maxConnections has been reached on Endpoint " + info.endpoint.id);
+            };
+            /*----------------------------------large screen left nav, unique id was required--------------------------------*/
+
+
+            $('#leftNav').on('click', '.picker', function (e) {
+              var type = e.currentTarget.id;
+
+              if (type == 'scell') {
+                if ($vm.solar_num < 1) {
+                  $vm.solar_num++;
+                  $vm.solar_num1++;
+                  $('#solar_cell' + $vm.solar_num).css('display', 'flex');
+                  instance.addEndpoint('solar_cell' + $vm.solar_num, {
+                    anchor: [0.16, 1.8, 0, 1]
+                  }, exampleEndpoint21);
+                  instance.addEndpoint('solar_cell' + $vm.solar_num, {
+                    anchor: [0.4, 1.8, 0, 1]
+                  }, exampleEndpoint2);
+                } else {
+                  alert('only one solar cell allow in this experiment');
+                }
+              } else if (type == 'voltmeter') {
+                if ($vm.volt_num < 1) {
+                  $vm.volt_num++;
+                  $('#voltmeterRead').css('display', 'flex');
+                  instance.addEndpoint('voltmeterRead', {
+                    anchor: [0.3, 1.3, 0, 1]
+                  }, exampleEndpoint21);
+                  instance.addEndpoint('voltmeterRead', {
+                    anchor: [0.6, 1.3, 0, 1]
+                  }, exampleEndpoint2);
+                } else {
+                  alert('voltmeter already exist');
+                }
+              } else if (type == 'ameter') {
+                if ($vm.amp_num < 1) {
+                  $vm.amp_num++;
+                  $('#ameterRead').css('display', 'flex');
+                  setTimeout(function () {
+                    instance.addEndpoint('ameterRead', {
+                      anchor: [0.3, 1.3, 0, 1]
+                    }, exampleEndpoint21);
+                    instance.addEndpoint('ameterRead', {
+                      anchor: [0.6, 1.3, 0, 1]
+                    }, exampleEndpoint2);
+                  }, 700);
+                } else {
+                  alert('ameter already exist');
+                }
+              } else if (type == 'sun') {
+                if ($vm.sun_light == 0) {
+                  $vm.sun_light++;
+                  $('#sunLight').css('display', 'flex');
+                } else {
+                  alert('light module already added');
+                }
+              }
+            });
+            /*----------------------------------end of large screen left nav bar-----------------------------------------------*/
+
+            /*----------------------------for small screen left nav bar, unique id was required----------------------------------------*/
+
+            $('#leftNav1').on('click', '.picker', function (e) {
+              var type = e.currentTarget.id;
+
+              if (type == 'scell') {
+                if ($vm.solar_num < 10) {
+                  $vm.solar_num++;
+                  $vm.solar_num1++;
+                  $('#solar_cell' + $vm.solar_num).show();
+                  instance.addEndpoint('solar_cell' + $vm.solar_num, {
+                    anchor: [-0.1, 0.94, 0, 1]
+                  }, exampleEndpoint21);
+                  instance.addEndpoint('solar_cell' + $vm.solar_num, {
+                    anchor: [0.5, 0.94, 0, 1]
+                  }, exampleEndpoint2);
+                } else {
+                  document.location.reload(true);
+                }
+              } else if (type == 'voltmeter') {
+                if ($vm.volt_num < 1) {
+                  $vm.volt_num++;
+                  $('#voltmeterRead').show();
+                  instance.addEndpoint('voltmeterRead', {
+                    anchor: [0.3, 1.3, 0, 1]
+                  }, exampleEndpoint21);
+                  instance.addEndpoint('voltmeterRead', {
+                    anchor: [0.6, 1.3, 0, 1]
+                  }, exampleEndpoint2);
+                } else {
+                  alert('voltmeter already exist');
+                }
+              } else if (type == 'ameter') {
+                if ($vm.amp_num < 1) {
+                  $vm.amp_num++;
+                  $('#ameterRead').show();
+                  setTimeout(function () {
+                    instance.addEndpoint('ameterRead', {
+                      anchor: [0.3, 1.3, 0, 1]
+                    }, exampleEndpoint21);
+                    instance.addEndpoint('ameterRead', {
+                      anchor: [0.6, 1.3, 0, 1]
+                    }, exampleEndpoint2);
+                  }, 700);
+                } else {
+                  alert('ameter already exist');
+                }
+              } else if (type == 'sun') {
+                if ($vm.sun_light == 0) {
+                  $vm.sun_light++;
+                  $('#sunLight').show();
+                } else {
+                  alert('light module already added');
+                }
+              }
+            });
+            /*-----------------------------end of small screen left nav bar------------------------------------------------*/
+            //detach links
+
+            var detachLinks = jsPlumb.getSelector('.detach');
+            instance.on(detachLinks, "click", function (e) {
+              var rel = this.getAttribute("rel").split('-');
+              instance.deleteConnectionsForElement(this.getAttribute("rel")); //console.log(this.getAttribute("rel"));
+
+              DrawGauge(1, 1, 0, 0);
+              jsPlumbUtil.consume(e);
+            });
+            var shadowRangeBtn = jsPlumb.getSelector('.shadowRange');
+            instance.on(shadowRangeBtn, "click", function (e) {
+              var rel = this.getAttribute("rel");
+
+              if (rel == 'quater') {
+                $vm.iterationType = 'quater';
+                $('.shadowCover').css('height', '50px');
+              } else if (rel == 'half') {
+                $vm.iterationType = 'half';
+                $('.shadowCover').css('height', '100px');
+              } else if (rel == 'threeQuater') {
+                $vm.iterationType = 'threeQuater';
+                $('.shadowCover').css('height', '150px');
+              } else if (rel == 'fullOne') {
+                $vm.iterationType = 'fullOne';
+                $('.shadowCover').css('height', '200px');
+              } else if (rel == 'zero') {
+                $vm.iterationType = 0;
+                $('.shadowCover').css('height', '0px');
+              }
+            }); ///////////////////////////////main junction
+            //take reading
+
+            var readMeter = jsPlumb.getSelector('.read');
+            instance.on(readMeter, "click", function (e) {
+              // alert($vm.solar_num)
+              var connState = solveExpression(ArrConn, $vm.iterationType, true);
+
+              if (connState == null) {
+                alert('invalid connnections');
+              } else if (connState == 0) {
+                alert('add sunLight');
+                $vm.sunToolTip = true;
+              } else if (connState == -1) {
+                alert('multi reading not allowed');
+              } else if (connState == -2) {
+                alert('connect the Reader');
+              } else if (connState == -3) {
+                alert('Experiments one Required only Three solar Cell; please delete');
+              } else {
+                $vm.resulInHtmlF = resultTable();
+
+                if (connState[0] == 'current') {
+                  DrawGauge('', 1, 0, 0);
+                  setTimeout(function () {
+                    DrawGauge('', 1, 0, connState[1] + 5);
+                    setTimeout(function () {
+                      DrawGauge('', 1, 0, connState[1]);
+                    }, 200);
+                  }, 200);
+                  /*sign on current iteration*/
+
+                  if ($vm.iterationType == 0) {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#csigna').addClass('tableRow');
+                    }, 3000);
+                  }
+
+                  if ($vm.iterationType == 'quater') {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#csignb').addClass('tableRow');
+                    }, 3000);
+                  }
+
+                  if ($vm.iterationType == 'half') {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#csignc').addClass('tableRow');
+                    }, 3000);
+                  }
+
+                  if ($vm.iterationType == 'threeQuater') {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#csignd').addClass('tableRow');
+                    }, 3000);
+                  }
+
+                  if ($vm.iterationType == 'fullOne') {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#csigne').addClass('tableRow');
+                    }, 3000);
+                  }
+                  /*end */
+
+                } else {
+                  DrawGauge(1, 1, 0, 0);
+                  setTimeout(function () {
+                    DrawGauge(1, '', connState[1] + 5, 0);
+                    setTimeout(function () {
+                      DrawGauge(1, '', connState[1], 0);
+                    }, 200);
+                  }, 200);
+                  /*sign on current iteration*/
+
+                  if ($vm.iterationType == 0) {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#vsigna').addClass('tableRow');
+                    }, 3000);
+                  }
+
+                  if ($vm.iterationType == 'quater') {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#vsignb').addClass('tableRow');
+                    }, 3000);
+                  }
+
+                  if ($vm.iterationType == 'half') {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#vsignc').addClass('tableRow');
+                    }, 3000);
+                  }
+
+                  if ($vm.iterationType == 'threeQuater') {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#vsignd').addClass('tableRow');
+                    }, 3000);
+                  }
+
+                  if ($vm.iterationType == 'fullOne') {
+                    setTimeout(function () {
+                      $('.Bsign').removeClass('tableRow');
+                      $('#vsigne').addClass('tableRow');
+                    }, 3000);
+                  }
+                  /*end */
+
+                }
+              }
+            }); ///////////////////////////////end main junction                    
+            // delete cell
+
+            var deleteCell = jsPlumb.getSelector('.deleteCell');
+            instance.on(deleteCell, "click", function (e) {
+              //readding elelemt becaus jsplumb has remove the element completely
+              var rel = this.getAttribute("rel");
+
+              if (rel.includes('solar_cell')) {
+                instance.remove(rel, false, [false]);
+                $('#mainSheet').append('<div class="equipments drags solarsAll" style="display: none;" id="' + rel + '" @mouseover="removeClass" ><span><img class="ek" src="/expImages/physics/exp1/solar_cell3.jpeg" width="80px"></span><div class="cbtn"><button class="detach" rel="' + rel + '">detach</button><button class="deleteCell" rel="' + rel + '"><span><span>mdi-close</span></span></button></div></div>');
+                /*
+                 $('#mainSheet').append('<div class="equipments drags solarsAll" style="display: none;" id="'+rel+'" @mouseover="removeClass" ><span><img class="ek" src="/expImages/physics/exp1/solar_cell3.jpeg" width="80px"></span><div class="cbtn"><button class="detach" rel="'+rel+'">detach</button><button class="deleteCell" rel="'+rel+'"><span ></span></button></div></div>');*/
+              } else {
+                $('#' + this.getAttribute("rel")).hide(); //reset sunlight value
+
+                $vm.sun_light = 0;
+                $('sunL'); // alert( $vm.sun_light);    
+              }
+            });
+            /* instance.on(document.getElementById("doAsIdo"), "click", function (e) {
+                     instance.selectEndpoints({ source: dot }).each(function (endpoint) {
+                         endpoint.connectorStyle.dashstyle = "2 4";
+                         instance.repaint(element);
+                     });
+             });
+            */
+
+            instance.on(document.getElementById("resetall"), "click", function (e) {
+              $('.solarsAll').hide();
+              $('.voltmeterRead').hide();
+              $('.ameterRead').hide();
+              $vm.amp_num = 0;
+              $vm.volt_num = 0;
+              $vm.solar_num = 0;
+              $vm.solar_num1 = 0;
+              $vm.sun_light = 0;
+              instance.deleteEveryEndpoint();
+              /* showConnectionInfo("");
+               jsPlumbUtil.consume(e);*/
+            });
+          });
+          instance.draggable($(".drags"), {
+            containment: 'parent',
+            filter: ".ui-resizable-handle"
+          });
+          jsPlumb.fire("jsPlumbDemoLoaded", instance);
+        });
+      })();
+    });
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/welcomevlb.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/welcomevlb.vue?vue&type=script&lang=js& ***!
@@ -2183,13 +5674,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
 /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(bootstrap__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _store_exp1__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store/exp1 */ "./resources/js/store/exp1.js");
+/* harmony import */ var _store_exp2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store/exp2 */ "./resources/js/store/exp2.js");
+
 
  //Main pages
 //import App from './views/app.vue'
 
 /*experiment page component*/
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js"); //vuex
+
+vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vuex__WEBPACK_IMPORTED_MODULE_2__.default);
+/*import storeData from "./store/index";*/
+
+
+
+/*
+const store = new Vuex.Store(
+   storeData
+)*/
+
+var store = new vuex__WEBPACK_IMPORTED_MODULE_2__.default.Store(_store_exp1__WEBPACK_IMPORTED_MODULE_3__.default);
+var store2 = new vuex__WEBPACK_IMPORTED_MODULE_2__.default.Store(_store_exp2__WEBPACK_IMPORTED_MODULE_4__.default);
 /*global event bus and communication*/
 
 vue__WEBPACK_IMPORTED_MODULE_1__.default.prototype.$eventBus = new vue__WEBPACK_IMPORTED_MODULE_1__.default();
@@ -2207,6 +5715,11 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-start', __webpack_require_
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-progress', __webpack_require__(/*! ./components/progressBar.vue */ "./resources/js/components/progressBar.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-thread', __webpack_require__(/*! ./components/threadTrends.vue */ "./resources/js/components/threadTrends.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-createcourse', __webpack_require__(/*! ./components/createCourse.vue */ "./resources/js/components/createCourse.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-vicelabexp2', __webpack_require__(/*! ./components/vicelabexp2.vue */ "./resources/js/components/vicelabexp2.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-vicelabexp3', __webpack_require__(/*! ./components/vicelabexp3.vue */ "./resources/js/components/vicelabexp3.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-simplecircuit', __webpack_require__(/*! ./components/simple-circuit.vue */ "./resources/js/components/simple-circuit.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-vicelabtools', __webpack_require__(/*! ./components/vicelabExpEquip.vue */ "./resources/js/components/vicelabExpEquip.vue").default); //experiment Right Nav bar
+
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-tlb2', __webpack_require__(/*! ./components/title-left-bar.vue */ "./resources/js/components/title-left-bar.vue").default); // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-tlb', __webpack_require__(/*! ./components/title-left-bar.vue */ "./resources/js/components/title-left-bar.vue").default);
@@ -2231,17 +5744,25 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.component('v-coursestab', __webpack_req
 var app = new vue__WEBPACK_IMPORTED_MODULE_1__.default({
   el: '#app',
   bootstrap: (bootstrap__WEBPACK_IMPORTED_MODULE_0___default()),
+  store: store,
+  store2: store2,
+
+  /*expvicelab2,*/
   data: function data() {
     return {
-      poor: false
+      poor: false,
+      exp2vicelab: this.exp2vicelab
     };
   },
   methods: {
     toggleClass: function toggleClass() {
-      this.isLoading = !this.isLoading; //this.classObj = { "color-blue" : true};
+      this.isLoading = !this.isLoading;
     }
-  }
+  },
+  mounted: function mounted() {}
 });
+/*experiment timing filter */
+
 vue__WEBPACK_IMPORTED_MODULE_1__.default.filter('two_digits', function (value) {
   if (value < 0) {
     value = 0;
@@ -2318,6 +5839,515 @@ function updateThumbnail(dropZoneElement, file) {
     thumbnailElement.style.backgroundImage = null;
   }
 }
+
+/***/ }),
+
+/***/ "./resources/js/store/exp1.js":
+/*!************************************!*\
+  !*** ./resources/js/store/exp1.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  state: {
+    exp1: {
+      //###################################One###########################################################  
+      arr1v1: [{
+        source: "v_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }, {
+        source: "v_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }],
+      arr1c1: [{
+        source: "a_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }, {
+        source: "a_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }],
+      arr1v: 11.5,
+      arr1c: 2.65,
+      //###################################Two###########################################################  
+      //two solar cell
+      //parallele
+      arr2pv1: [{
+        source: "s_Dot",
+        target: "s_Dot",
+        tid: "solar_cell2",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell2",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Dot",
+        target: "v_Dot",
+        tid: "voltmeterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "v_Rectangle",
+        tid: "voltmeterRead",
+        sid: "solar_cell1"
+      }],
+      arr2pc1: [{
+        source: "s_Dot",
+        target: "s_Dot",
+        tid: "solar_cell2",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell2",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Dot",
+        target: "a_Dot",
+        tid: "ameterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "a_Rectangle",
+        tid: "ameterRead",
+        sid: "solar_cell1"
+      }],
+      arr2pv: 11.5,
+      arr2pc: 2.65 * 2,
+      //series
+      arr2sv1: [{
+        source: "s_Rectangle",
+        target: "v_Rectangle",
+        tid: "voltmeterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "solar_cell2"
+      }, {
+        source: "s_Dot",
+        target: "v_Dot",
+        tid: "voltmeterRead",
+        sid: "solar_cell2"
+      }],
+      arr2sc1: [{
+        source: "s_Rectangle",
+        target: "a_Rectangle",
+        tid: "ameterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "solar_cell2"
+      }, {
+        source: "s_Dot",
+        target: "a_Dot",
+        tid: "ameterRead",
+        sid: "solar_cell2"
+      }],
+      arr2sv: 6 * 2,
+      arr2sc: 2.65,
+      //###################################Three###########################################################        
+      //three solar cell
+      //parallel
+      arr3pv1: [{
+        source: "s_Dot",
+        target: "v_Dot",
+        tid: "voltmeterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "v_Rectangle",
+        tid: "voltmeterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "solar_cell2"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "solar_cell2"
+      }, {
+        source: "s_Dot",
+        target: "s_Dot",
+        tid: "solar_cell2",
+        sid: "solar_cell3"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell2",
+        sid: "solar_cell3"
+      }],
+      arr3pc1: [{
+        source: "s_Dot",
+        target: "a_Dot",
+        tid: "ameterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "a_Rectangle",
+        tid: "ameterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "solar_cell2"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "solar_cell2"
+      }, {
+        source: "s_Dot",
+        target: "s_Dot",
+        tid: "solar_cell2",
+        sid: "solar_cell3"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell2",
+        sid: "solar_cell3"
+      }],
+      arr3pv: 11.5,
+      arr3pc: 2.65 * 3,
+      //series
+      arr3sv1: [{
+        source: "s_Rectangle",
+        target: "v_Rectangle",
+        tid: "voltmeterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Dot",
+        tid: "solar_cell4",
+        sid: "solar_cell3"
+      }, {
+        source: "s_Dot",
+        target: "v_Dot",
+        tid: "voltmeterRead",
+        sid: "solar_cell3"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "solar_cell4"
+      }],
+      arr3sc1: [{
+        source: "s_Rectangle",
+        target: "a_Rectangle",
+        tid: "ameterRead",
+        sid: "solar_cell1"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Dot",
+        tid: "solar_cell4",
+        sid: "solar_cell3"
+      }, {
+        source: "s_Dot",
+        target: "a_Dot",
+        tid: "ameterRead",
+        sid: "solar_cell3"
+      }, {
+        source: "s_Rectangle",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "solar_cell4"
+      }],
+      arr3sv: 6 * 3,
+      arr3sc: 2.65
+    },
+    exp2: {
+      //###################################zero covered###########################################################  
+      arr1v1: [{
+        source: "v_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }, {
+        source: "v_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }],
+      arr1c1: [{
+        source: "a_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }, {
+        source: "a_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }],
+      arr1v: 12,
+      arr1c: 4.65,
+      //###################################one quater###########################################################  
+      arr2v1: [{
+        source: "v_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }, {
+        source: "v_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }],
+      arr2c1: [{
+        source: "a_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }, {
+        source: "a_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }],
+      arr2v: 9.5,
+      arr2c: 3.44,
+      //###################################half###########################################################    
+      arr3v1: [{
+        source: "v_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }, {
+        source: "v_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }],
+      arr3c1: [{
+        source: "a_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }, {
+        source: "a_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }],
+      arr3v: 7.5,
+      arr3c: 2.32,
+      //###################################three Quater###########################################################    
+      arr4v1: [{
+        source: "v_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }, {
+        source: "v_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }],
+      arr4c1: [{
+        source: "a_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }, {
+        source: "a_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }],
+      arr4v: 5.5,
+      arr4c: 1.16,
+      //###################################full coverered###########################################################    
+      arr5v1: [{
+        source: "v_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }, {
+        source: "v_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "voltmeterRead"
+      }],
+      arr5c1: [{
+        source: "a_Dot",
+        target: "s_Dot",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }, {
+        source: "a_Rectangle",
+        target: "s_Rectangle",
+        tid: "solar_cell1",
+        sid: "ameterRead"
+      }],
+      arr5v: 0,
+      arr5c: 0
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/exp2.js":
+/*!************************************!*\
+  !*** ./resources/js/store/exp2.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  state: {
+    //###################################zero covered###########################################################  
+    arr1v1: [{
+      source: "v_Dot",
+      target: "s_Dot",
+      tid: "solar_cell1",
+      sid: "voltmeterRead"
+    }, {
+      source: "v_Rectangle",
+      target: "s_Rectangle",
+      tid: "solar_cell1",
+      sid: "voltmeterRead"
+    }],
+    arr1c1: [{
+      source: "a_Dot",
+      target: "s_Dot",
+      tid: "solar_cell1",
+      sid: "ameterRead"
+    }, {
+      source: "a_Rectangle",
+      target: "s_Rectangle",
+      tid: "solar_cell1",
+      sid: "ameterRead"
+    }],
+    arr1v: 12,
+    arr1c: 4.65,
+    //###################################one quater###########################################################  
+    arr2v1: [{
+      source: "v_Dot",
+      target: "s_Dot",
+      tid: "solar_cell1",
+      sid: "voltmeterRead"
+    }, {
+      source: "v_Rectangle",
+      target: "s_Rectangle",
+      tid: "solar_cell1",
+      sid: "voltmeterRead"
+    }],
+    arr2c1: [{
+      source: "a_Dot",
+      target: "s_Dot",
+      tid: "solar_cell1",
+      sid: "ameterRead"
+    }, {
+      source: "a_Rectangle",
+      target: "s_Rectangle",
+      tid: "solar_cell1",
+      sid: "ameterRead"
+    }],
+    arr2v: 9.5,
+    arr2c: 3.44,
+    //###################################half###########################################################    
+    arr3v1: [{
+      source: "v_Dot",
+      target: "s_Dot",
+      tid: "solar_cell1",
+      sid: "voltmeterRead"
+    }, {
+      source: "v_Rectangle",
+      target: "s_Rectangle",
+      tid: "solar_cell1",
+      sid: "voltmeterRead"
+    }],
+    arr3c1: [{
+      source: "a_Dot",
+      target: "s_Dot",
+      tid: "solar_cell1",
+      sid: "ameterRead"
+    }, {
+      source: "a_Rectangle",
+      target: "s_Rectangle",
+      tid: "solar_cell1",
+      sid: "ameterRead"
+    }],
+    arr3v: 7.5,
+    arr3c: 2.32,
+    //###################################three Quater###########################################################    
+    arr4v1: [{
+      source: "v_Dot",
+      target: "s_Dot",
+      tid: "solar_cell1",
+      sid: "voltmeterRead"
+    }, {
+      source: "v_Rectangle",
+      target: "s_Rectangle",
+      tid: "solar_cell1",
+      sid: "voltmeterRead"
+    }],
+    arr4c1: [{
+      source: "a_Dot",
+      target: "s_Dot",
+      tid: "solar_cell1",
+      sid: "ameterRead"
+    }, {
+      source: "a_Rectangle",
+      target: "s_Rectangle",
+      tid: "solar_cell1",
+      sid: "ameterRead"
+    }],
+    arr4v: 5.5,
+    arr4c: 1.16,
+    //###################################full coverered###########################################################    
+    arr5v1: [{
+      source: "v_Dot",
+      target: "s_Dot",
+      tid: "solar_cell1",
+      sid: "voltmeterRead"
+    }, {
+      source: "v_Rectangle",
+      target: "s_Rectangle",
+      tid: "solar_cell1",
+      sid: "voltmeterRead"
+    }],
+    arr5c1: [{
+      source: "a_Dot",
+      target: "s_Dot",
+      tid: "solar_cell1",
+      sid: "ameterRead"
+    }, {
+      source: "a_Rectangle",
+      target: "s_Rectangle",
+      tid: "solar_cell1",
+      sid: "ameterRead"
+    }],
+    arr5v: 0,
+    arr5c: 0
+  }
+});
 
 /***/ }),
 
@@ -7023,7 +11053,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n/*@import url(\"https://use.fontawesome.com/releases/v5.13.0/css/all.css\");*/\ndiv[data-v-fc4318ee]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.slidewr[data-v-fc4318ee] {\n    position: absolute;\n    width: 100px;\n    height: 100px;    \n    transform: translateX(-100%);\n    -webkit-transform: translateX(-100%);\n}\n.slidein[data-v-fc4318ee] {\n    animation: slide-in-data-v-fc4318ee 0.5s forwards;\n    -webkit-animation: slide-in-data-v-fc4318ee 0.5s forwards;\n}\n.slideout[data-v-fc4318ee] {\n    animation: slide-out-data-v-fc4318ee 0.5s forwards;\n    -webkit-animation: slide-out-data-v-fc4318ee 0.5s forwards;\n}\n@keyframes slide-in-data-v-fc4318ee {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@-webkit-keyframes slide-in-data-v-fc4318ee {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@keyframes slide-out-data-v-fc4318ee {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.1); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:0;\n}\n}\n@-webkit-keyframes slide-out-data-v-fc4318ee {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.5); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:-10;\n}\n}\n[data-v-fc4318ee]::-webkit-scrollbar {\n  width: 9px; \n  cursor: pointer;\n}\n\n/* Track */\n[data-v-fc4318ee]::-webkit-scrollbar-track {\n\twidth: 50px;\n  border-radius: 5px;\n}\n \n/* Handle */\n[data-v-fc4318ee]::-webkit-scrollbar-thumb {\n  background: #eee; \n  border-radius: 10px;\n  cursor: pointer;\n}\n\n/* Handle on hover */\n[data-v-fc4318ee]::-webkit-scrollbar-thumb:hover {\n  background: #fff; \n  cursor: pointer;\n}\n.box[data-v-fc4318ee]{\n\theight: 35px; \n\t/*background-image:linear-gradient(#2F274E, #34d, #2F274E);*/\n\tbackground: darkblue;\n\tbox-shadow: 0px 0px 10px #fff;\n\tmargin: 35px auto;\n\ttext-align: center;\n\tcolor: #fff;\n\tpadding-top: 5px;\n\tborder-radius: 4px;\n\ttext-shadow: 1px 2px 2px #555;\n\tcursor: pointer !important;\n}\n.boxActive[data-v-fc4318ee]{\n\tbackground: #2F274E;\n}\n.containerR[data-v-fc4318ee]{\n\theight: 537px;\n\tbackground: #40356E;\n\toverflow-x: scroll;\n\tcolor: #fff;\n}\n.fa-align-justify[data-v-fc4318ee]{\n\tpadding: 5px;\n\tborder-radius: 0px 0px 3px 0px;\n\tcursor: pointer;\n\tborder-left: 1px solid #2F274E;\n\tcolor: #fff;\t\n\tbackground:transparent !important;\n}\n.fa-align-justify[data-v-fc4318ee]:hover{\n\tcolor: #2F274E;\n\tbackground:#fff !important;\n}\n.input-search[data-v-fc4318ee]{\n\twidth:100%;\n\theight:37px;\n\tbackground:#2F274E;\n\tpadding:10px;\n\tcolor:#fff;\n\tborder:none;\n}\n.input-alt[data-v-fc4318ee]{\n\twidth:100%;\n\theight:37px;\n\tbackground:#2F274E;\n\tpadding:10px;\n\tcolor:#fff;\n\tborder:none;\n}\n.serachicon[data-v-fc4318ee]{\n\tcolor:#eee;\n\tposition: absolute;\n\tright: 10px; \n\ttop: 10px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/*@import url(\"https://use.fontawesome.com/releases/v5.13.0/css/all.css\");*/\ndiv[data-v-fc4318ee]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.slidewr[data-v-fc4318ee] {\n    position: absolute;\n    width: 100px;\n    height: 100px;    \n    transform: translateX(-100%);\n    -webkit-transform: translateX(-100%);\n}\n.slidein[data-v-fc4318ee] {\n    animation: slide-in-data-v-fc4318ee 0.5s forwards;\n    -webkit-animation: slide-in-data-v-fc4318ee 0.5s forwards;\n}\n.slideout[data-v-fc4318ee] {\n    animation: slide-out-data-v-fc4318ee 0.5s forwards;\n    -webkit-animation: slide-out-data-v-fc4318ee 0.5s forwards;\n}\n@keyframes slide-in-data-v-fc4318ee {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@-webkit-keyframes slide-in-data-v-fc4318ee {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@keyframes slide-out-data-v-fc4318ee {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.1); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:0;\n}\n}\n@-webkit-keyframes slide-out-data-v-fc4318ee {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.5); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:-10;\n}\n}\n[data-v-fc4318ee]::-webkit-scrollbar {\n  width: 9px; \n  cursor: pointer;\n}\n\n/* Track */\n[data-v-fc4318ee]::-webkit-scrollbar-track {\n\twidth: 50px;\n  border-radius: 5px;\n}\n \n/* Handle */\n[data-v-fc4318ee]::-webkit-scrollbar-thumb {\n  background: #eee; \n  border-radius: 10px;\n  cursor: pointer;\n}\n\n/* Handle on hover */\n[data-v-fc4318ee]::-webkit-scrollbar-thumb:hover {\n  background: #fff; \n  cursor: pointer;\n}\n.box[data-v-fc4318ee]{\n\theight: 35px; \n\t/*background-image:linear-gradient(#2F274E, #34d, #2F274E);*/\n\tbackground: darkblue;\n\tbox-shadow: 0px 0px 10px #fff;\n\tmargin: 35px auto;\n\ttext-align: center;\n\tcolor: #fff;\n\tpadding-top: 5px;\n\tborder-radius: 4px;\n\ttext-shadow: 1px 2px 2px #555;\n\tcursor: pointer !important;\n}\n.boxActive[data-v-fc4318ee]{\n\tbackground: #2F274E;\n}\n.containerR[data-v-fc4318ee]{\n\theight: 537px;\n\tbackground: #40356E;\n\toverflow-x: scroll;\n\tcolor: #fff;\n}\n.fa-align-justify[data-v-fc4318ee]{\n\tpadding: 5px;\n\tborder-radius: 0px 0px 3px 0px;\n\tcursor: pointer;\n\tborder-left: 1px solid #2F274E;\n\tcolor: #fff;\t\n\tbackground:transparent !important;\n}\n.fa-align-justify[data-v-fc4318ee]:hover{\n\tcolor: #2F274E;\n\tbackground:#fff !important;\n}\n.input-search[data-v-fc4318ee]{\n\twidth:100%;\n\theight:37px;\n\tbackground:#2F274E;\n\tpadding:10px;\n\tcolor:#fff;\n\tborder:none;\n}\n.input-alt[data-v-fc4318ee]{\n\twidth:100%;\n\theight:37px;\n\tbackground:#2F274E;\n\tpadding:10px;\n\tcolor:#fff;\n\tborder:none;\n\tposition: relative;\n\tz-index: 10;\n}\n.serachicon[data-v-fc4318ee]{\n\tcolor:#eee;\n\tposition: absolute;\n\tright: 10px; \n\ttop: 10px;\n}\n.pr[data-v-fc4318ee]{\n\tposition: relative;\n\tdisplay: block;\n}\n.z-1[data-v-fc4318ee]{\n\tz-index: 1;\n}\n.vhE-2[data-v-fc4318ee]{\n\theight: 87vh;\n\twidth: 100%;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7245,7 +11275,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.close[data-v-c36406fc]{\n\t\tbackground: #ccc !important;\n\t\tborder-radius: 50% !important;\n\t\tpadding: 2px !important;\n}\n.form-control[data-v-c36406fc]:focus{\n\t\toutline: none !important;\n\t\tbox-shadow: none !important;\n\t\tborder: 1px solid #aaa;\n}\n.bb[data-v-c36406fc]{\n\t\tborder-bottom: 1px solid #ccc !important;\n}\n.requiredI[data-v-c36406fc]{\n\t\ttransition: all 1s;\n\t\tcolor: #e45 !important;\n\t\tbackground: white;\n\t\tborder: 1px solid #aaa;\n\t\tbox-shadow: 1px 2px 3px #bbb;\n\t\tborder-radius: 5px;\n\t\tpadding: 4px;\n\t\tdisplay: block;\n\t\tposition: absolute;\n\t\ttop: 10px; /* At the bottom of the tooltip */\n\t  \tleft: 50px;\n\t  \tz-index: 15;\n}\n.requiredI[data-v-c36406fc]:before {\n\t  content: \" \";\n\t  position: relative;\n\t  top: 0%; /* At the bottom of the tooltip */\n\t  left: 50%;\n\t  margin-left: -5px;\n\t  border-width: 5px;\n\t  border-style: solid;\n\t  border-color: black transparent transparent transparent;\n}\n.sysbtn[data-v-c36406fc]{\n\t\t padding: 10px 15px;\n\t\t  font-family: 'Roboto',serif;\n\t\t  font-size: 0.9em;\n\t\t  text-align: center;\n\t\t  text-decoration: none;\n\t\t  border-radius: 6px;\n\t\t  word-break: keep-all;\n\t\t  white-space: nowrap;\n\t\t  border: none;\n\t\t  position: relative;\n}\n.sysbtn[data-v-c36406fc]:active{\n\t\tbox-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);\n  \t\ttop: 1px;\n}\n.sysbtn[data-v-c36406fc]:focus{\n\t\tbox-shadow: inset 0 2px 3px #294,\n}\n.ncircle[data-v-c36406fc]{\n\t\tborder: 2px solid #bbb; \n\t\tborder-radius: 50%;\n\t\twidth: 25px;\n\t\theight: 25px;\n\t\tfont-size: 0.9em;\n\t\tpadding: 2px 0px 0px 6.5px !important;\n\t\ttransition: all 1s;\n}\ndiv[data-v-c36406fc]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.no-break[data-v-c36406fc]{\n\t\twhite-space: nowrap;\n\t\tword-break:keep-all;\n}\n.tline[data-v-c36406fc]{\n\t\theight: 27px; width: 2px; background: #bbb; position: relative; top:26px; left: -13px;\n}\n.syscircle[data-v-c36406fc]{\n\t\twidth: 12px !important;\n\t\theight: 12px !important;\n\t\tborder-radius: 50%;\n\t\tbackground: #00b96b;\n\t\tdisplay: block;\n\t\tmargin: 0px 0px 0px 12px;\n}\n.tactive[data-v-c36406fc]{\n\t\tborder:2px solid #222 !important;\n}\n.tlactive[data-v-c36406fc]{\n\t\tbackground: #222 !important;\n}\n.tsuccess[data-v-c36406fc]{\n\t\tborder: 2.5px solid #4b6 !important;\n\t\tbackground: #4b6 !important;\n\t\tcolor:white;\n\t\tpadding-bottom: 2px;\n}\n.tlsuccess[data-v-c36406fc]{\n\t\tbackground: #4b6 !important;\n}\n.syscircle-o[data-v-c36406fc]{\n\t\twidth: 12px;\n\t\theight: 12px;\n\t\tborder-radius: 50%;\n\t\tborder: 2px solid #999;\n\t\tdisplay: block;\t\n\t\tmargin-left:12px;\n}\n.syscircle-o-l[data-v-c36406fc]{\n\t\twidth: 22px;\n\t\theight: 22px;\n\t\tborder-radius: 50%;\n\t\tborder: 2px solid #999;\n\t\tdisplay: block;\t\n\t\tmargin-left: 5px;\n}\n.fs3[data-v-c36406fc]{\n\t\tfont-size: 1.7em;\n}\n.fs1[data-v-c36406fc]{\n\t\tfont-family: 'Roboto', sans-serif;\n\t\tfont-size: 0.9em;\n\t\tcolor: #888;\n\t\tfont-weight: 300;\n}\n.flex-wrap-center[data-v-c36406fc]{\n\t\tflex-wrap: wrap;\n\t\talign-items: center;\n}\n.w10[data-v-c36406fc]{\n\t\twidth: 60px;\n}\n.timelineX[data-v-c36406fc]{\n\t\tmargin-top: 10px; \n\t\tmargin-bottom: 120px;\n}\n.timelineX-o[data-v-c36406fc]{\n\t\tmargin-top: 10px; \n\t\tmargin-bottom: 120px;\n}\n.timelineSM[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 40px;\n\t\twidth: 2px;\n\t\tbackground: #00b96b;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineSM-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 40px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineX-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 140px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineX[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 132px;\n\t\twidth: 2px;\n\t\tbackground: #00b96b;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 10px;\t\t\n\t\tleft: 5px;\n}\n.timelineX-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 130px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 10px;\t\t\n\t\tleft: 3px;\n}\n.fw8[data-v-c36406fc]{\n\t\tfont-weight: 600;\n\t\tcolor: #222;\n}\n.fw3[data-v-c36406fc]{\n\t\tfont-weight: 600 !important;\n\t\tcolor: #222 !important;\n}\n.fs001[data-v-c36406fc]{\n\t\tfont-size: 0.8em;\n\t\tcolor: #888;\n}\n.fs2[data-v-c36406fc]{\n\t\tfont-size: 1.2em;\n}\n.wrap-center[data-v-c36406fc]{\n\t\t  flex-wrap: wrap;\n      align-items: center;\n}\n.hr[data-v-c36406fc]{\n\t\theight: 1px !important;\n\t\tbackground: #ccc;\n\t\twidth: 100% !important;\n\t\tdisplay: block !important;\n}\n.w35[data-v-c36406fc]{\n\t\twidth: 35% !important;\n}\n.w30[data-v-c36406fc]{\n\t\twidth: 30%;\n}\n.shineA[data-v-c36406fc]{\n\t\ttransition: all 1s;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.close[data-v-c36406fc]{\n\t\tbackground: #ccc !important;\n\t\tborder-radius: 50% !important;\n\t\tpadding: 2px !important;\n}\n.form-control[data-v-c36406fc]:focus{\n\t\toutline: none !important;\n\t\tbox-shadow: none !important;\n\t\tborder: 1px solid #aaa;\n}\n.bb[data-v-c36406fc]{\n\t\tborder-bottom: 1px solid #ccc !important;\n}\n.requiredI[data-v-c36406fc]{\n\t\ttransition: all 1s;\n\t\tcolor: #e45 !important;\n\t\tbackground: white;\n\t\tborder: 1px solid #aaa;\n\t\tbox-shadow: 1px 2px 3px #bbb;\n\t\tborder-radius: 5px;\n\t\tpadding: 4px;\n\t\tdisplay: block;\n\t\tposition: absolute;\n\t\ttop: 10px; /* At the bottom of the tooltip */\n\t  \tleft: 50px;\n\t  \tz-index: 15;\n}\n.requiredI[data-v-c36406fc]:before {\n\t  content: \" \";\n\t  position: relative;\n\t  top: 0%; /* At the bottom of the tooltip */\n\t  left: 50%;\n\t  margin-left: -5px;\n\t  border-width: 5px;\n\t  border-style: solid;\n\t  border-color: black transparent transparent transparent;\n}\n.sysbtn[data-v-c36406fc]{\n\t\t padding: 10px 15px;\n\t\t  font-family: 'Roboto',serif;\n\t\t  font-size: 0.9em;\n\t\t  text-align: center;\n\t\t  text-decoration: none;\n\t\t  border-radius: 6px;\n\t\t  word-break: keep-all;\n\t\t  white-space: nowrap;\n\t\t  border: none;\n\t\t  position: relative;\n}\n.sysbtn[data-v-c36406fc]:active{\n\t\tbox-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);\n  \t\ttop: 1px;\n}\n.sysbtn[data-v-c36406fc]:focus{\n\t\tbox-shadow: inset 0 2px 3px #294,\n}\n.ncircle[data-v-c36406fc]{\n\t\tborder: 2px solid #bbb; \n\t\tborder-radius: 50%;\n\t\twidth: 25px;\n\t\theight: 25px;\n\t\tfont-size: 0.9em;\n\t\tpadding: 2px 0px 0px 6.5px !important;\n\t\ttransition: all 1s;\n}\ndiv[data-v-c36406fc]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.no-break[data-v-c36406fc]{\n\t\twhite-space: nowrap;\n\t\tword-break:keep-all;\n}\n.tline[data-v-c36406fc]{\n\t\theight: 27px; width: 2px; background: #bbb; position: relative; top:26px; left: -13px;\n}\n.syscircle[data-v-c36406fc]{\n\t\twidth: 12px !important;\n\t\theight: 12px !important;\n\t\tborder-radius: 50%;\n\t\tbackground: #00b96b;\n\t\tdisplay: block;\n\t\tmargin: 0px 0px 0px 12px;\n}\n.tactive[data-v-c36406fc]{\n\t\tborder:2px solid #222 !important;\n}\n.tlactive[data-v-c36406fc]{\n\t\tbackground: #222 !important;\n}\n.tsuccess[data-v-c36406fc]{\n\t\tborder: 2.5px solid #4b6 !important;\n\t\tbackground: #4b6 !important;\n\t\tcolor:white;\n\t\tpadding-bottom: 2px;\n}\n.tlsuccess[data-v-c36406fc]{\n\t\tbackground: #4b6 !important;\n}\n.syscircle-o[data-v-c36406fc]{\n\t\twidth: 12px;\n\t\theight: 12px;\n\t\tborder-radius: 50%;\n\t\tborder: 2px solid #999;\n\t\tdisplay: block;\t\n\t\tmargin-left:12px;\n}\n.syscircle-o-l[data-v-c36406fc]{\n\t\twidth: 22px;\n\t\theight: 22px;\n\t\tborder-radius: 50%;\n\t\tborder: 2px solid #999;\n\t\tdisplay: block;\t\n\t\tmargin-left: 5px;\n}\n.fs3[data-v-c36406fc]{\n\t\tfont-size: 1.7em;\n}\n.fs1[data-v-c36406fc]{\n\t\tfont-family: 'Roboto', sans-serif;\n\t\tfont-size: 0.9em;\n\t\tcolor: #888;\n\t\tfont-weight: 300;\n}\n.flex-wrap-center[data-v-c36406fc]{\n\t\tflex-wrap: wrap;\n\t\talign-items: center;\n}\n.w10[data-v-c36406fc]{\n\t\twidth: 60px;\n}\n.timelineX[data-v-c36406fc]{\n\t\tmargin-top: 10px; \n\t\tmargin-bottom: 120px;\n}\n.timelineX-o[data-v-c36406fc]{\n\t\tmargin-top: 10px; \n\t\tmargin-bottom: 120px;\n}\n.timelineSM[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 40px;\n\t\twidth: 2px;\n\t\tbackground: #00b96b;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineSM-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 40px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineX-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 140px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineX[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 132px;\n\t\twidth: 2px;\n\t\tbackground: #00b96b;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 10px;\t\t\n\t\tleft: 5px;\n}\n.timelineX-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 130px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 10px;\t\t\n\t\tleft: 3px;\n}\n.fw8[data-v-c36406fc]{\n\t\tfont-weight: 600;\n\t\tcolor: #222;\n}\n.fw3[data-v-c36406fc]{\n\t\tfont-weight: 600 !important;\n\t\tcolor: #222 !important;\n}\n.fs001[data-v-c36406fc]{\n\t\tfont-size: 0.8em;\n\t\tcolor: #888;\n}\n.fs2[data-v-c36406fc]{\n\t\tfont-size: 1.2em;\n}\n.wrap-center[data-v-c36406fc]{\n\t\t  flex-wrap: wrap;\n      align-items: center;\n}\n.hr[data-v-c36406fc]{\n\t\theight: 1px !important;\n\t\tbackground: #ccc;\n\t\twidth: 100% !important;\n\t\tdisplay: block !important;\n}\n.w35[data-v-c36406fc]{\n\t\twidth: 35% !important;\n}\n.w30[data-v-c36406fc]{\n\t\twidth: 30%;\n}\n.shineA[data-v-c36406fc]{\n\t\ttransition: all 1s;\n}\n.draginto[data-v-c36406fc]{\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\topacity: 0;\n\t\tposition: absolute;\n}\n.dragbox[data-v-c36406fc]{\n\t\tposition: relative;\n\t\tborder: 2px dashed #c0c0cf;\n\t\tborder-radius: 5px;\t\t\n\t\twidth: 100%;\n\t\tpadding: 10px 0px;\n\t\tbackground: #f0f0ff;\n\t\tdisplay:flex;\n\t\tflex-direction: column;\n\t\tjustify-content: center;\n\t\tflex-wrap: wrap;\n\t\talign-items: center;\n}\n.dragenter[data-v-c36406fc]{\n\t\tborder: 2px dashed #c5ddc5 !important;\n\t\tbackground: #f0fff0 !important;\n}\n.progressi[data-v-c36406fc] {\n    background: #eee;\n    border-radius: 13px;    \n    width: 40%;\n    padding: 0px;\n    max-height: 7px;\n    display: block;\n}\n.progress-bar[data-v-c36406fc]{\n    border-radius: 13px;    \n    height: 7px;\n    padding: 0px;\n    margin: 0px;\n    position: relative;\n    width: 0%;\n    transition: all 1s;\n}\n.p-success[data-v-c36406fc]{    \n    background: #00b96b !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7328,6 +11358,30 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\ndiv[data-v-5dcc12aa]{\n\t\tfont-fami
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/simple-circuit.vue?vue&type=style&index=0&id=14b6dad9&scoped=true&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/simple-circuit.vue?vue&type=style&index=0&id=14b6dad9&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.button[data-v-14b6dad9]{\n        padding: 1px !important;\n        width: 5px !important;\n}\n.equipments[data-v-14b6dad9]{\n        display: flex;\n        padding:3px;\n        margin:5px;\n        width: 150px;\n        position: absolute;\n        top: 0px ;\n        left: 0px;\n        height: 120px;\n}\n.main[data-v-14b6dad9]{\n        position: relative;\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n}\n.mainJ[data-v-14b6dad9]{\n        position: relative;        \n        width: 100%;\n        margin: 0px auto;  \n        height: 77vh;    \n        padding: 10px;\n        border-radius: 0px 0px 5px 5px;\n       /* border: 1px solid #ccc; */\n}\nimg.ek[data-v-14b6dad9]{\n        border-right: 1px dashed #ddd;\n}\n#standard_resistor[data-v-14b6dad9]{\n        \n        top: 328px;\n        left:  252px;\n}\n#varible_resistor[data-v-14b6dad9]{\n        \n        left: 488px; \n        top: 206px;\n}\n#voltmeter[data-v-14b6dad9]{\n        \n        left: 719px;\n        top:309px;\n        border-radius: 5px;\n}\n#ameter[data-v-14b6dad9]{\n        \n        padding: 0px;\n        border-radius: 5px;\n        left: 68px;\n        top: 201px;\n}\n#switch[data-v-14b6dad9]{\n   \n        top: 30px;\n        left:361px;\n        padding: 10px;\n        border-radius: 5px;\n}\n#Bcell[data-v-14b6dad9]{\n        \n        top: 13px;\n        left:96px;\n        \n        width: 300px;\n        padding: 10px;\n}\n.needConnection[data-v-14b6dad9]{\n        background: rgba(180,0,0,.1);\n}\n.noticeboard[data-v-14b6dad9]{\n        position: absolute;\n        top: 20px;\n        left: 180px;\n        border-radius: 5px;\n        width: 300px;\n        padding: 15px;\n        font-size: 0.7em !important;\n}\n.noteb[data-v-14b6dad9]{\n        display: inline-block;\n        background: rgba(180,0,0,.1);\n        width: 30px;\n        height: 20px;\n        margin-right: 2px;\n        margin-top: 5px;\n}\n.styledBtn[data-v-14b6dad9]{\n        padding:12px;\n        border-radius: 5px;\n        width:100%;\n        text-align: center;\n        cursor: pointer;\n        margin:6px;\n        color: var(--color-t);\n        background: var(--colorbtn) ;\n        box-sizing: border-box;\n        box-shadow: 1px 2px 3px #ccc;\n        outline: none;\n}\n.styledBtn[data-v-14b6dad9]:hover{\n        background: white;\n        color:#a93;\n        box-shadow:inset 0 0 10px var(--color) !important;\n}\n.styledBtn[data-v-14b6dad9]:focus{\n        background: white;\n        color:#a93;\n        box-shadow:inset 0 0 10px var(--color-t) !important;\n}\n.hideC[data-v-14b6dad9]{\n        display: none !important;\n}\n.cbtn button[data-v-14b6dad9]{\n        display: block;\n        text-transform: capitalize;\n        margin:5px;\n        letter-spacing: 0.6px;\n        font-size: 0.8em;\n        padding: 4px;\n        text-decoration: none;\n        border-radius: 4px;\n        width: 90px !important;\n        background: rgba(25,35,65,.8); \n        box-shadow: inset 1px 3px 6px rgb(25,35,65);\n\n        color:#fff;\n        border: 1px solid transparent;\n        text-align: center;\n}\n.cbtn button[data-v-14b6dad9]:active{\n        box-shadow: inset 1px -3px 6px rgb(25,35,65);\n}\n.config-label[data-v-14b6dad9]{\n        font-size: 0.8em;\n        color:#555;\n}\ninput[type=checkbox][data-v-14b6dad9]{\n        cursor: pointer;\n}\n.vr[data-v-14b6dad9]{\n        top: 90px !important;\n         left:330px !important;\n        /*transition: width 0.9s linear 0s;*/\n        -webkit-animation-name: vresi-data-v-14b6dad9 !important;\n                animation-name: vresi-data-v-14b6dad9 !important;\n        -webkit-animation-duration: 2s;\n                animation-duration: 2s;\n         -webkit-animation-iteration-count: 1;\n                 animation-iteration-count: 1;\n         -webkit-animation-delay: 0s;\n                 animation-delay: 0s;\n        -webkit-animation-timing-function: ease;\n                animation-timing-function: ease;\n}\n@-webkit-keyframes vresi-data-v-14b6dad9{\n0%{\n            top: 0px !important;\n}\n100%{\n            to:90px !important;\n}\n}\n@keyframes vresi-data-v-14b6dad9{\n0%{\n            top: 0px !important;\n}\n100%{\n            to:90px !important;\n}\n}\n.navBtn[data-v-14b6dad9]{\n        padding: 0px;\n        margin: 0px;\n        height: 40px;\n        width: 100%;\n        display: flex;\n}\n.navBtn li[data-v-14b6dad9]{\n        cursor: pointer;\n        box-shadow: 1px 2px 4px #ccc;\n        list-style: none;\n        display: inline-block;\n        padding: 8px 0px 0px 0px;\n         border: 1px solid #6b3;\n        margin: 0px;\n        color:#6b3;\n        background: #fff;\n        text-align: center;\n        width: 50%;\n        margin: 2px;\n\n        height: 40px;\n}\n.navBtn li span[data-v-14b6dad9]{\n        font-size: 0.8em;\n        font-family: arial;\n        font-weight: bold;\n        text-transform: capitalize;\n}\n.navBtn li hr[data-v-14b6dad9]{\n        margin: 8px 0px;\n        padding: 0px;\n        width: 100%;\n        border:1px solid var(--color);\n        box-shadow: 0px 3px 5px #000;\n}\n.navBtnActive[data-v-14b6dad9]{\n        background:  #6b3 !important;        \n        /*box-shadow: 0px 2px 10px inset var(--color-t) !important;*/\n        color: #fff !important;\n        transition : background 1000ms ease;\n}\n.navBtn li:hover hr[data-v-14b6dad9]{\n\n        border:1px solid #555;\n        transition : border 500ms ease-out;\n}\n#list[data-v-14b6dad9]{\n      display: none !important;\n}\n.img-pos[data-v-14b6dad9]{\n  position: absolute;\n  top: 62px; \n  right: 90px; \n  z-index: 0;\n}\n\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/threadTrends.vue?vue&type=style&index=0&id=a654c62a&scoped=true&lang=css&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/threadTrends.vue?vue&type=style&index=0&id=a654c62a&scoped=true&lang=css& ***!
@@ -7347,6 +11401,78 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);"]);
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "\ndiv[data-v-a654c62a]{\n\tfont-family: 'Roboto', sans-serif;\n}\n.syscircle[data-v-a654c62a]{\n\twidth: 12px !important;\n\theight: 12px !important;\n\tborder-radius: 50%;\n\tbackground: #00b96b;\n\tdisplay: block;\n\tmargin: 0px 0px 0px 12px;\n}\n.syscircle-o[data-v-a654c62a]{\n\twidth: 12px;\n\theight: 12px;\n\tborder-radius: 50%;\n\tborder: 2px solid #999;\n\tdisplay: block;\t\n\tmargin-left:12px;\n}\n.syscircle-o-l[data-v-a654c62a]{\n\twidth: 22px;\n\theight: 22px;\n\tborder-radius: 50%;\n\tborder: 2px solid #999;\n\tdisplay: block;\t\n\tmargin-left: 5px;\n}\n.fs3[data-v-a654c62a]{\n\tfont-size: 1.7em;\n}\n.fs1[data-v-a654c62a]{\n\tfont-family: 'Roboto', sans-serif;\n\tfont-size: 0.9em;\n\tcolor: #888;\n\tfont-weight: 300;\n}\n.flex-wrap-center[data-v-a654c62a]{\n\tflex-wrap: wrap;\n\talign-items: center;\n}\n.w10[data-v-a654c62a]{\n\twidth: 60px;\n}\n.timelineX[data-v-a654c62a]{\n\tmargin-top: 10px; \n\tmargin-bottom: 120px;\n}\n.timelineX-o[data-v-a654c62a]{\n\tmargin-top: 10px; \n\tmargin-bottom: 120px;\n}\n.timelineSM[data-v-a654c62a]:before{\n\tcontent: \"\";\n\theight: 40px;\n\twidth: 2px;\n\tbackground: #00b96b;\t\t\n\tdisplay: block;\n\tposition: relative;\n\ttop: 31px;\t\t\n\tleft: 77px;\n}\n.timelineSM-o[data-v-a654c62a]:before{\n\tcontent: \"\";\n\theight: 40px;\n\twidth: 2px;\n\tbackground: #999;\t\t\n\tdisplay: block;\n\tposition: relative;\n\ttop: 31px;\t\t\n\tleft: 77px;\n}\n.timelineX-o[data-v-a654c62a]:before{\n\tcontent: \"\";\n\theight: 140px;\n\twidth: 2px;\n\tbackground: #999;\t\t\n\tdisplay: block;\n\tposition: relative;\n\ttop: 31px;\t\t\n\tleft: 77px;\n}\n.timelineX[data-v-a654c62a]:before{\n\tcontent: \"\";\n\theight: 132px;\n\twidth: 2px;\n\tbackground: #00b96b;\t\t\n\tdisplay: block;\n\tposition: relative;\n\ttop: 10px;\t\t\n\tleft: 5px;\n}\n.timelineX-o[data-v-a654c62a]:before{\n\tcontent: \"\";\n\theight: 130px;\n\twidth: 2px;\n\tbackground: #999;\t\t\n\tdisplay: block;\n\tposition: relative;\n\ttop: 10px;\t\t\n\tleft: 3px;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabExpEquip.vue?vue&type=style&index=0&id=42e4f650&scoped=true&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabExpEquip.vue?vue&type=style&index=0&id=42e4f650&scoped=true&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n[data-v-42e4f650]:root {\n      --color:  rgb(38, 95, 9);\n      --colorbtn: #fff;      \n      --color-t: #6b3;\n      --color-t1:  rgba(255, 255, 255);\n      --color-primary: rgb(255, 255, 255) ;\n      --color-secondary: rgb(255, 255, 255);\n      --bg: rgb(0, 16, 65);\n      --bg-secondary: rgb(0, 25, 165);\n      --border-color: rgb(153, 214, 255);\n}\n.v-btn[data-v-42e4f650]{\n        padding: 1px !important;\n        width: 5px !important;\n}\n.navBtn[data-v-42e4f650]{\n        padding: 0px;\n        margin: 0px;\n        height: 40px;\n        width: 100%;\n        display: flex;\n}\n.navBtn li[data-v-42e4f650]{\n        cursor: pointer;\n        box-shadow: 1px 2px 4px #ccc;\n        list-style: none;\n        display: inline-block;\n        padding: 8px 0px 0px 0px;\n         border: 1px solid #6b3;\n        margin: 0px;\n        color:#6b3;\n        background: #fff;\n        text-align: center;\n        width: 50%;\n        margin: 2px;\n\n        height: 40px;\n}\n.navBtn li span[data-v-42e4f650]{\n        font-size: 0.8em;\n        font-family: arial;\n        font-weight: bold;\n        text-transform: capitalize;\n}\n.navBtn li hr[data-v-42e4f650]{\n        margin: 8px 0px;\n        padding: 0px;\n        width: 100%;\n        border:1px solid var(--color);\n        box-shadow: 0px 3px 5px #000;\n}\n.navBtnActive[data-v-42e4f650]{\n        background:  #6b3 !important;        \n        /*box-shadow: 0px 2px 10px inset var(--color-t) !important;*/\n        color: #fff !important;\n        transition : background 1000ms ease;\n}\n.navBtn li:hover hr[data-v-42e4f650]{\n\n        border:1px solid #555;\n        transition : border 500ms ease-out;\n}\n.component-fade-enter-active[data-v-42e4f650], .component-fade-leave-active[data-v-42e4f650] {\n  transition: 1s ease;\n}\n.component-fade-enter[data-v-42e4f650], .component-fade-leave-to[data-v-42e4f650]\n{\n  transform: translateX(-250px);\n}\n.picker[data-v-42e4f650]{\n        width: 80px;\n        height: 80px;\n        \n        margin: 5px;\n        float: left;\n        border-radius: 3px;        \n        cursor: pointer;\n}\n.picker[data-v-42e4f650]:hover{\n        box-shadow: 1px 2px 2px #ccc;\n}\n.picker1[data-v-42e4f650]{\n        width: 140px;\n        height: 140px;\n        padding: 5px;\n        border-radius: 3px;\n        border: 1px solid #ccc;\n        cursor: pointer;\n}\n.picker1[data-v-42e4f650]:hover{\n        box-shadow: 1px 2px 2px #ccc;\n}\n.show[data-v-42e4f650]{\n    display: block !important;\n}\n.left-panel1[data-v-42e4f650]{  \n        color: var(--color) !important;\n        padding: 20px 0px;\n        margin: 0px auto;\n        background: var(--color-t);\n        width:100%;\n        height: 100%;\n}\n.left-panel[data-v-42e4f650]{ \n        /*box-shadow: 1px 2px 8px #ccc; */\n        border: 1px solid #ccc; \n           box-shadow: 1px 2px 3px #ccc;\n       /* border-radius: 0px 8px 8px 0px; */\n        height: 85%; \n        color: var(--color) !important;\n        padding: 20px;\n        position: absolute;\n        z-index: 100;                     \n        left:5px;\n        top: 48px;\n        width:95%;\n        background: var(--color-t);\n}\n.v-btn[data-v-42e4f650]{\n        padding: 1px !important;\n        width: 5px !important;\n}\n.smLong[data-v-42e4f650]:hover{\n      transform: translateX(-70px);\n}\n.smLong[data-v-42e4f650]{      \n        position: relative;\n        z-index: 104;\n        background: rgba(60,150,40,.4) !important;\n        color: black !important;\n}\n.component-fade-enter-active[data-v-42e4f650], .component-fade-leave-active[data-v-42e4f650] {\n  transition: 1s ease;\n}\n.component-fade-enter[data-v-42e4f650], .component-fade-leave-to[data-v-42e4f650]\n{\n  transform: translateX(-50px);\n}\n.show[data-v-42e4f650]{\n    display: block !important;\n}\n.paneli[data-v-42e4f650]{\n        top:13px;       \n        height: 96vh;\n        position: fixed;\n        z-index: 10;\n        padding: 6px;\n}\n.right-panel[data-v-42e4f650]{\n        display: none;\n        right: 120px;         \n        width: 400px;\n        overflow-y:hidden;\n        -webkit-animation-name: rightP-data-v-42e4f650;\n                animation-name: rightP-data-v-42e4f650;\n        -webkit-animation-duration: 1.5s;\n                animation-duration: 1.5s;\n        -webkit-animation-delay: 0s;\n                animation-delay: 0s;\n        -webkit-animation-iteration-count: 1;\n                animation-iteration-count: 1;\n        -webkit-animation-timing-function: ease;\n                animation-timing-function: ease;\n}\n.right-panel1[data-v-42e4f650]{\n        display: none;\n        right: 120px;         \n        width: 250px;\n        overflow-y:hidden;\n        -webkit-animation-name: rightP-data-v-42e4f650;\n                animation-name: rightP-data-v-42e4f650;\n        -webkit-animation-duration: 1.5s;\n                animation-duration: 1.5s;\n        -webkit-animation-delay: 0s;\n                animation-delay: 0s;\n        -webkit-animation-iteration-count: 1;\n                animation-iteration-count: 1;\n        -webkit-animation-timing-function: ease;\n                animation-timing-function: ease;\n}\n.paneliWidth[data-v-42e4f650]{\n        display: block;\n        right: 120px;\n        /*transition: width 0.9s linear 0s;*/\n        -webkit-animation-name: rightPi-data-v-42e4f650;\n                animation-name: rightPi-data-v-42e4f650;\n         -webkit-animation-duration: 1s;\n                 animation-duration: 1s;\n}\n@-webkit-keyframes rightPi-data-v-42e4f650{\n0%{\n            right: -100px;\n}\n100%{\n            right: 120px ;\n}\n}\n@keyframes rightPi-data-v-42e4f650{\n0%{\n            right: -100px;\n}\n100%{\n            right: 120px ;\n}\n}\n.paneliWidth1[data-v-42e4f650]{\n        display: block;\n        right: 50px;\n        position: fixed;\n        z-index: 102;\n        box-shadow: 1px 3px 3px #ccc !important;\n        border-radius: 15px !important;\n        /*transition: width 0.9s linear 0s;*/\n        -webkit-animation-name: rightPii-data-v-42e4f650;\n                animation-name: rightPii-data-v-42e4f650;\n         -webkit-animation-duration: 1s;\n                 animation-duration: 1s;\n}\n@media screen and (max-width: 959px){\n.styledBtn[data-v-42e4f650]{\n            position: relative !important;\n            right: 23% !important;\n}\n}\n@-webkit-keyframes rightPii-data-v-42e4f650{\n0%{\n            right: -100px;\n}\n100%{\n            right: 50px ;\n}\n}\n@keyframes rightPii-data-v-42e4f650{\n0%{\n            right: -100px;\n}\n100%{\n            right: 50px ;\n}\n}\nol li[data-v-42e4f650]{\n        text-align:justify;\n        font-size: 0.9em;\n}\n@-webkit-keyframes leftP-data-v-42e4f650{\n0%{\n            left: -380px;\n}\n100%{\n            left: -100px;\n}\n}\n@keyframes leftP-data-v-42e4f650{\n0%{\n            left: -380px;\n}\n100%{\n            left: -100px;\n}\n}\n@-webkit-keyframes rightP-data-v-42e4f650{\n0%{\n            right: -100px;\n}\n100%{\n            right: -100px;\n}\n}\n@keyframes rightP-data-v-42e4f650{\n0%{\n            right: -100px;\n}\n100%{\n            right: -100px;\n}\n}\n.styledBtn[data-v-42e4f650]{\n        padding:12px;\n        border-radius: 5px;\n        width:100%;\n        text-align: center;\n        cursor: pointer;\n        margin:6px;\n        color: var(--color-t);\n        background: var(--colorbtn) ;\n        box-sizing: border-box;\n        box-shadow: 1px 2px 3px #ccc;\n        outline: none;\n}\n.styledBtn[data-v-42e4f650]:hover{\n        background: white;\n        color:#a93;\n        box-shadow:inset 0 0 10px var(--color) !important;\n}\n.styledBtn[data-v-42e4f650]:focus{\n        background: white;\n        color:#a93;\n        box-shadow:inset 0 0 10px var(--color-t) !important;\n}\n.hideC[data-v-42e4f650]{\n        display: none !important;\n}\n.cbtn button[data-v-42e4f650]{        \n        text-transform: capitalize;\n        margin:5px;\n        letter-spacing: 0.6px;\n        font-size: 0.8em;\n        padding: 4px;\n        text-decoration: none;\n        border-radius: 4px;\n        width: 90px !important;\n        background: rgba(150,150,150,.02);\n        color:#ba6;\n        box-shadow: 1px 2px 2px #eee;\n        text-align: center;\n}\n.cbtn button[data-v-42e4f650]:hover{\n        background: orange !important;\n        color:white;\n}\n.config-label[data-v-42e4f650]{\n        font-size: 0.8em;\n        color:var(--color);\n}\ninput[type=checkbox][data-v-42e4f650]{\n        cursor: pointer;\n}\n.vr[data-v-42e4f650]{\n        top: 90px !important;\n         left:330px !important;\n        /*transition: width 0.9s linear 0s;*/\n        -webkit-animation-name: vresi-data-v-42e4f650 !important;\n                animation-name: vresi-data-v-42e4f650 !important;\n        -webkit-animation-duration: 2s;\n                animation-duration: 2s;\n         -webkit-animation-iteration-count: 1;\n                 animation-iteration-count: 1;\n         -webkit-animation-delay: 0s;\n                 animation-delay: 0s;\n        -webkit-animation-timing-function: ease;\n                animation-timing-function: ease;\n}\n@-webkit-keyframes vresi-data-v-42e4f650{\n0%{\n            top: 0px !important;\n}\n100%{\n            to:90px !important;\n}\n}\n@keyframes vresi-data-v-42e4f650{\n0%{\n            top: 0px !important;\n}\n100%{\n            to:90px !important;\n}\n}\n.rightnav[data-v-42e4f650]{\n      box-shadow: 1px 2px 8px #ccc; \n        border-radius: 8px 0px 0px 8px;         \n        padding: 16px;\n        background: var(--color-t);\n        width: 250px;\n        height: 100%;\n      font-size: 0.85em;\n      text-align: justify !important;\n}\n.rightnav ol[data-v-42e4f650]{\n      padding: 8px 8px;\n}\n.tooltip[data-v-42e4f650] {\n  position: relative;\n  color: #fff;\n  padding: 0px 12px;\n    text-align: center;\n  height: 80px;\n  margin: 5px;\n  font-size: 15px;\n  border-radius: 100%;\n}\n.tooltip[data-v-42e4f650]:before,\n.tooltip[data-v-42e4f650]:after {\n  position: absolute;\n  content: '';\n  opacity: 0;\n  transition: all 0.4s ease;\n}\n.tooltip[data-v-42e4f650]:before {\n  border-width: 10px 8px 0 8px;\n  border-style: solid;\n  border-color: #c32 transparent transparent transparent;\n  top: 20px;\n  z-index: 3;\n}\n.tooltip[data-v-42e4f650]:after {\n  box-shadow: 1px 2px 8px #ccc;\n  content: attr(data-tooltip);\n  background: rgba(50,50,50,.7);\n  width: 160px;\n  height: 55px;\n  font-size: 13px;\n  font-weight: 300;\n  top: -35px;\n  left: -10px;\n  z-index: 2;\n  padding: 4px;\n  border-radius: 5px;\n  letter-spacing: 1px;\n  transition: background 2s;\n  transform: translateY(20px);\n}\n.tooltip[data-v-42e4f650]::before,\n.tooltip[data-v-42e4f650]::after {\n  opacity: 1;\n  transform: translateY(-2px);\n}\n.leftNav[data-v-42e4f650]{\n   width: 100%;\n  background: var(--color-t);\n   flex-direction: column;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp2.vue?vue&type=style&index=0&id=27304d52&scoped=true&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp2.vue?vue&type=style&index=0&id=27304d52&scoped=true&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n[data-v-27304d52]:root {\n\n      --color:  rgb(38, 95, 9);\n      --colorbtn: #6b3;\n    \n      --color-t:  #fff;\n      --color-t1:  rgba(255, 255, 255);\n      --color-primary: rgb(255, 255, 255) ;\n      --color-secondary: rgb(255, 255, 255);\n      --bg: rgb(0, 16, 65);\n      --bg-secondary: rgb(0, 25, 165);\n      --border-color: rgb(153, 214, 255);\n}\n.tableRow[data-v-27304d52]{\n    background:rgba(200,0,0,.1) !important;\n    border:5px solid red !important;\n    border-radius:5px !important;\n}\n.button[data-v-27304d52]{\n        padding: 1px !important;\n        width: 5px !important;\n}\n.navBtn[data-v-27304d52]{\n        padding: 0px;\n        margin: 0px;\n        height: 40px;\n        width: 100%;\n        display: flex;\n}\n.navBtn li[data-v-27304d52]{\n        cursor: pointer;\n        box-shadow: 1px 2px 4px #ccc;\n        list-style: none;\n        display: inline-block;\n        padding: 8px 0px 0px 0px;\n        margin: 0px;\n        color:var(--color-t);\n        background: var(--colorbtn);\n        text-align: center;\n        width: 50%;\n        margin: 2px;\n\n        height: 40px;\n}\n.navBtn li span[data-v-27304d52]{\n        font-size: 0.8em;\n        font-family: arial;\n        font-weight: bold;\n        text-transform: capitalize;\n}\n.navBtn li hr[data-v-27304d52]{\n        margin: 8px 0px;\n        padding: 0px;\n        width: 100%;\n        border:1px solid var(--color);\n        box-shadow: 0px 3px 5px #000;\n}\n.navBtnActive[data-v-27304d52]{\n        background: var(--color-t) !important;        \n        /*box-shadow: 0px 2px 10px inset var(--color-t) !important;*/\n        color: var(--colorbtn) !important;\n        border: 1px solid var(--colorbtn);\n        transition : background 1000ms ease;\n}\n.navBtn li:hover hr[data-v-27304d52]{\n\n        border:1px solid #555;\n        transition : border 500ms ease-out;\n}\n.component-fade-enter-active[data-v-27304d52], .component-fade-leave-active[data-v-27304d52] {\n  transition: 1s ease;\n}\n.component-fade-enter[data-v-27304d52], .component-fade-leave-to[data-v-27304d52]\n{\n  transform: translateX(-250px);\n}\n.show[data-v-27304d52]{\n    display: block !important;\n}\n.picker[data-v-27304d52]{\n        width: 140px;\n        height: 140px;\n        padding: 5px;\n        border-radius: 3px;\n        border: 1px solid #ccc;\n        cursor: pointer;\n}\n.picker[data-v-27304d52]:hover{\n        box-shadow: 1px 2px 2px #ccc;\n}\n.equipments[data-v-27304d52]{\n        display: flex;\n        padding:3px;\n        margin:5px;\n        width: 200px;\n        z-index: 1;\n        position: absolute;\n        top: 0px ;\n        left: 0px;\n        height: 120px;\n}\n.main[data-v-27304d52]{\n        position: relative;\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n}\n.mainJ[data-v-27304d52]{\n        position: relative;        \n        width: 100%;\n        margin: 0px auto;\n        height: 470px;\n        padding: 10px;\n        border-radius: 0px 0px 5px 5px;\n       /* border: 1px solid #ccc; */\n}\nimg.ek[data-v-27304d52]{\n        border-right: 1px dashed #ddd;\n}\n.needConnection[data-v-27304d52]{\n        background: rgba(180,0,0,.3 );\n}\n.noticeboard[data-v-27304d52]{\n        position: absolute;\n        top: 20px;\n        left: 60px;\n        border-radius: 5px;\n        width: 300px;\n        padding: 15px;\n        font-size: 0.7em !important;\n}\n.noteb[data-v-27304d52]{\n        display: inline-block;\n        background: rgba(180,0,0,.1);\n        width: 30px;\n        height: 20px;\n        margin-right: 2px;\n        margin-top: 5px;\n}\nol li[data-v-27304d52]{\n        text-align:justify;\n        font-size: 0.9em;\n}\n@-webkit-keyframes leftP-data-v-27304d52{\n0%{\n            left: -380px;\n}\n100%{\n            left: -100px;\n}\n}\n@keyframes leftP-data-v-27304d52{\n0%{\n            left: -380px;\n}\n100%{\n            left: -100px;\n}\n}\n@-webkit-keyframes rightP-data-v-27304d52{\n0%{\n            right: -100px;\n}\n100%{\n            right: -100px;\n}\n}\n@keyframes rightP-data-v-27304d52{\n0%{\n            right: -100px;\n}\n100%{\n            right: -100px;\n}\n}\n.styledBtn[data-v-27304d52]{\n        padding:12px;\n        border-radius: 5px;\n        width:100%;\n        text-align: center;\n        cursor: pointer;\n        margin:6px;\n        color: var(--color-t) !important;\n        background: var(--colorbtn) !important;\n        box-sizing: border-box;\n        box-shadow: 1px 2px 3px #ccc;\n        outline: none;\n}\n.styledBtn[data-v-27304d52]:hover{\n        background: white;\n        color:#a93;\n        box-shadow:inset 0 0 10px var(--color) !important;\n}\n.styledBtn[data-v-27304d52]:focus{\n        background: white;\n        color:#a93;\n        box-shadow:inset 0 0 10px var(--color-t) !important;\n}\n.hideC[data-v-27304d52]{\n        display: none !important;\n}\n.cbtn button[data-v-27304d52]{\n        display: block;\n        text-transform: capitalize;\n        margin:5px;\n        letter-spacing: 0.6px;\n        font-size: 0.8em;\n        padding: 4px;\n        text-decoration: none;\n        border-radius: 4px;\n        width: 90px !important;\n        background: rgba(25,35,65,.8); \n        box-shadow: inset 1px 3px 6px rgb(25,35,65);\n\n        color:#fff;\n        border: 1px solid transparent;\n        text-align: center;\n}\n.cbtn button[data-v-27304d52]:active{\n        box-shadow: inset 1px -3px 6px rgb(25,35,65);\n}\n/*    .cbtn button:hover{\n        background: rgba(10,10,10,.5);\n        color:white;\n    }*/\n.config-label[data-v-27304d52]{\n        font-size: 0.8em;\n        color:var(--color);\n}\ninput[type=checkbox][data-v-27304d52]{\n        cursor: pointer;\n}\n.vr[data-v-27304d52]{\n        top: 90px !important;\n         left:330px !important;\n        /*transition: width 0.9s linear 0s;*/\n        -webkit-animation-name: vresi-data-v-27304d52 !important;\n                animation-name: vresi-data-v-27304d52 !important;\n        -webkit-animation-duration: 2s;\n                animation-duration: 2s;\n         -webkit-animation-iteration-count: 1;\n                 animation-iteration-count: 1;\n         -webkit-animation-delay: 0s;\n                 animation-delay: 0s;\n        -webkit-animation-timing-function: ease;\n                animation-timing-function: ease;\n}\n@-webkit-keyframes vresi-data-v-27304d52{\n0%{\n            top: 0px !important;\n}\n100%{\n            to:90px !important;\n}\n}\n@keyframes vresi-data-v-27304d52{\n0%{\n            top: 0px !important;\n}\n100%{\n            to:90px !important;\n}\n}\n.tooltip[data-v-27304d52] {\n  position: relative;\n  color: #fff;\n  padding: 0px 12px;\n    text-align: center;\n  height: 80px;\n  margin: 5px;\n  font-size: 15px;\n  border-radius: 100%;\n}\n.tooltip[data-v-27304d52]:before,\n.tooltip[data-v-27304d52]:after {\n  position: absolute;\n  content: '';\n  opacity: 0;\n  transition: all 0.4s ease;\n}\n.tooltip[data-v-27304d52]:before {\n  border-width: 10px 8px 0 8px;\n  border-style: solid;\n  border-color: #c32 transparent transparent transparent;\n  top: 20px;\n  z-index: 3;\n}\n.tooltip[data-v-27304d52]:after {\n  box-shadow: 1px 2px 8px #ccc;\n  content: attr(data-tooltip);\n  background: rgba(50,50,50,.7);\n  width: 160px;\n  height: 55px;\n  font-size: 13px;\n  font-weight: 300;\n  top: -35px;\n  left: -10px;\n  z-index: 2;\n  padding: 4px;\n  border-radius: 5px;\n  letter-spacing: 1px;\n  transition: background 2s;\n  transform: translateY(20px);\n}\n.tooltip[data-v-27304d52]::before,\n.tooltip[data-v-27304d52]::after {\n  opacity: 1;\n  transform: translateY(-2px);\n}\n#list[data-v-27304d52]{\n      display: none !important;\n}\n.img-pos[data-v-27304d52]{\n  position: absolute;\n  top: 62px; \n  right: 90px; \n  z-index: 2;\n}\n.dp-none[data-v-27304d52]{\n  display: none;\n}\n.forsunligt[data-v-27304d52]{\n  pointer-events:none;\n  z-index: 0;\n  display: none;\n  width: 97% ;\n  box-shadow: none;\n  height: 110%;\n}\n.sunlightDelBtn[data-v-27304d52]{\n  position: relative; right: 50%;pointer-events: auto !important;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n[data-v-273e64d3]:root {\n\n      --color:  rgb(38, 95, 9);\n      --colorbtn: #6b3;\n    \n      --color-t:  #fff;\n      --color-t1:  rgba(255, 255, 255);\n      --color-primary: rgb(255, 255, 255) ;\n      --color-secondary: rgb(255, 255, 255);\n      --bg: rgb(0, 16, 65);\n      --bg-secondary: rgb(0, 25, 165);\n      --border-color: rgb(153, 214, 255);\n}\n.tableRow[data-v-273e64d3]{\n    background:rgba(200,0,0,.1) !important;\n    border:5px solid red !important;\n    border-radius:5px !important;\n}\n.button[data-v-273e64d3]{\n        padding: 1px !important;\n        width: 5px !important;\n}\n.navBtn[data-v-273e64d3]{\n        padding: 0px;\n        margin: 0px;\n        height: 40px;\n        width: 100%;\n        display: flex;\n}\n.navBtn li[data-v-273e64d3]{\n        cursor: pointer;\n        box-shadow: 1px 2px 4px #ccc;\n        list-style: none;\n        display: inline-block;\n        padding: 8px 0px 0px 0px;\n        margin: 0px;\n        color:var(--color-t);\n        background: var(--colorbtn);\n        text-align: center;\n        width: 50%;\n        margin: 2px;\n\n        height: 40px;\n}\n.navBtn li span[data-v-273e64d3]{\n        font-size: 0.8em;\n        font-family: arial;\n        font-weight: bold;\n        text-transform: capitalize;\n}\n.navBtn li hr[data-v-273e64d3]{\n        margin: 8px 0px;\n        padding: 0px;\n        width: 100%;\n        border:1px solid var(--color);\n        box-shadow: 0px 3px 5px #000;\n}\n.navBtnActive[data-v-273e64d3]{\n        background: var(--color-t) !important;        \n        /*box-shadow: 0px 2px 10px inset var(--color-t) !important;*/\n        color: var(--colorbtn) !important;\n        border: 1px solid var(--colorbtn);\n        transition : background 1000ms ease;\n}\n.navBtn li:hover hr[data-v-273e64d3]{\n\n        border:1px solid #555;\n        transition : border 500ms ease-out;\n}\n.component-fade-enter-active[data-v-273e64d3], .component-fade-leave-active[data-v-273e64d3] {\n  transition: 1s ease;\n}\n.component-fade-enter[data-v-273e64d3], .component-fade-leave-to[data-v-273e64d3]\n{\n  transform: translateX(-250px);\n}\n.show[data-v-273e64d3]{\n    display: block !important;\n}\n.picker[data-v-273e64d3]{\n        width: 140px;\n        height: 140px;\n        padding: 5px;\n        border-radius: 3px;\n        border: 1px solid #ccc;\n        cursor: pointer;\n}\n.picker[data-v-273e64d3]:hover{\n        box-shadow: 1px 2px 2px #ccc;\n}\n.equipments[data-v-273e64d3]{\n        display: flex;\n        padding:3px;\n        margin:5px;\n        width: 200px;\n        z-index: 1;\n        position: absolute;\n        top: 0px ;\n        left: 0px;\n        height: 120px;\n}\n.main[data-v-273e64d3]{\n        position: relative;\n        -webkit-user-select: none;\n           -moz-user-select: none;\n            -ms-user-select: none;\n                user-select: none;\n}\n.mainJ[data-v-273e64d3]{\n        position: relative;        \n        width: 100%;\n        margin: 0px auto;\n        height: 470px;\n        padding: 10px;\n        border-radius: 0px 0px 5px 5px;\n       /* border: 1px solid #ccc; */\n}\nimg.ek[data-v-273e64d3]{\n        border-right: 1px dashed #ddd;\n}\n.needConnection[data-v-273e64d3]{\n        background: rgba(180,0,0,.3 );\n}\n.noticeboard[data-v-273e64d3]{\n        position: absolute;\n        top: 20px;\n        left: 60px;\n        border-radius: 5px;\n        width: 300px;\n        padding: 15px;\n        font-size: 0.7em !important;\n}\n.noteb[data-v-273e64d3]{\n        display: inline-block;\n        background: rgba(180,0,0,.1);\n        width: 30px;\n        height: 20px;\n        margin-right: 2px;\n        margin-top: 5px;\n}\nol li[data-v-273e64d3]{\n        text-align:justify;\n        font-size: 0.9em;\n}\n@-webkit-keyframes leftP-data-v-273e64d3{\n0%{\n            left: -380px;\n}\n100%{\n            left: -100px;\n}\n}\n@keyframes leftP-data-v-273e64d3{\n0%{\n            left: -380px;\n}\n100%{\n            left: -100px;\n}\n}\n@-webkit-keyframes rightP-data-v-273e64d3{\n0%{\n            right: -100px;\n}\n100%{\n            right: -100px;\n}\n}\n@keyframes rightP-data-v-273e64d3{\n0%{\n            right: -100px;\n}\n100%{\n            right: -100px;\n}\n}\n.styledBtn[data-v-273e64d3]{\n        padding:12px;\n        border-radius: 5px;\n        width:100%;\n        text-align: center;\n        cursor: pointer;\n        margin:6px;\n        color: var(--color-t) !important;\n        background: var(--colorbtn) !important;\n        box-sizing: border-box;\n        box-shadow: 1px 2px 3px #ccc;\n        outline: none;\n}\n.styledBtn[data-v-273e64d3]:hover{\n        background: white;\n        color:#a93;\n        box-shadow:inset 0 0 10px var(--color) !important;\n}\n.styledBtn[data-v-273e64d3]:focus{\n        background: white;\n        color:#a93;\n        box-shadow:inset 0 0 10px var(--color-t) !important;\n}\n.hideC[data-v-273e64d3]{\n        display: none !important;\n}\n.cbtn button[data-v-273e64d3]{\n        display: block;\n        text-transform: capitalize;\n        margin:5px;\n        letter-spacing: 0.6px;\n        font-size: 0.8em;\n        padding: 4px;\n        text-decoration: none;\n        border-radius: 4px;\n        width: 90px !important;\n        background: rgba(25,35,65,.8); \n        box-shadow: inset 1px 3px 6px rgb(25,35,65);\n\n        color:#fff;\n        border: 1px solid transparent;\n        text-align: center;\n}\n.cbtn button[data-v-273e64d3]:active{\n        box-shadow: inset 1px -3px 6px rgb(25,35,65);\n}\n/*    .cbtn button:hover{\n        background: rgba(10,10,10,.5);\n        color:white;\n    }*/\n.config-label[data-v-273e64d3]{\n        font-size: 0.8em;\n        color:var(--color);\n}\ninput[type=checkbox][data-v-273e64d3]{\n        cursor: pointer;\n}\n.vr[data-v-273e64d3]{\n        top: 90px !important;\n         left:330px !important;\n        /*transition: width 0.9s linear 0s;*/\n        -webkit-animation-name: vresi-data-v-273e64d3 !important;\n                animation-name: vresi-data-v-273e64d3 !important;\n        -webkit-animation-duration: 2s;\n                animation-duration: 2s;\n         -webkit-animation-iteration-count: 1;\n                 animation-iteration-count: 1;\n         -webkit-animation-delay: 0s;\n                 animation-delay: 0s;\n        -webkit-animation-timing-function: ease;\n                animation-timing-function: ease;\n}\n@-webkit-keyframes vresi-data-v-273e64d3{\n0%{\n            top: 0px !important;\n}\n100%{\n            to:90px !important;\n}\n}\n@keyframes vresi-data-v-273e64d3{\n0%{\n            top: 0px !important;\n}\n100%{\n            to:90px !important;\n}\n}\n.tooltip[data-v-273e64d3] {\n  position: relative;\n  color: #fff;\n  padding: 0px 12px;\n    text-align: center;\n  height: 80px;\n  margin: 5px;\n  font-size: 15px;\n  border-radius: 100%;\n}\n.tooltip[data-v-273e64d3]:before,\n.tooltip[data-v-273e64d3]:after {\n  position: absolute;\n  content: '';\n  opacity: 0;\n  transition: all 0.4s ease;\n}\n.tooltip[data-v-273e64d3]:before {\n  border-width: 10px 8px 0 8px;\n  border-style: solid;\n  border-color: #c32 transparent transparent transparent;\n  top: 20px;\n  z-index: 3;\n}\n.tooltip[data-v-273e64d3]:after {\n  box-shadow: 1px 2px 8px #ccc;\n  content: attr(data-tooltip);\n  background: rgba(50,50,50,.7);\n  width: 160px;\n  height: 55px;\n  font-size: 13px;\n  font-weight: 300;\n  top: -35px;\n  left: -10px;\n  z-index: 2;\n  padding: 4px;\n  border-radius: 5px;\n  letter-spacing: 1px;\n  transition: background 2s;\n  transform: translateY(20px);\n}\n.tooltip[data-v-273e64d3]::before,\n.tooltip[data-v-273e64d3]::after {\n  opacity: 1;\n  transform: translateY(-2px);\n}\n.img-pos[data-v-273e64d3]{\n  position: absolute;\n  top: 62px; \n  right: 90px; \n  z-index: 2;\n}\n.dp-none[data-v-273e64d3]{\n  display: none;\n}\n.forsunligt[data-v-273e64d3]{\n  pointer-events:none;\n  z-index: 0;\n  display: none;\n  width: 97% ;\n  box-shadow: none;\n  height: 110%;\n}\n.sunlightDelBtn[data-v-273e64d3]{\n  position: relative; right: 50%;pointer-events: auto !important;\n}\n.shadowCover[data-v-273e64d3]{\n  width: 100px;\n  height: 0px;\n  background: rgba(170,170,170,.5);\n  position: relative;\n  top: -175.5%; \n  border: 3px dashed #8f9 ;\n  transition: height 1s;\n}\n.shadowMain1[data-v-273e64d3]{\n  height: 50px !important;\n}\n.shadowMain2[data-v-273e64d3]{\n  height: 100px !important;\n}\n.shadowMain3[data-v-273e64d3]{\n  height: 150px !important;\n}\n.shadowMain4[data-v-273e64d3]{\n  height: 200px !important;\n}\n#list[data-v-273e64d3]{\n      display: none !important;\n      border: 1px solid #ccc; \n      box-shadow: 2px 3px 10px #fafafa;\n}\n.pointer-auto[data-v-273e64d3]{\n  pointer-events:auto;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7404,15 +11530,15 @@ module.exports = function (cssWithMappingToString) {
       }
 
       return content;
-    }).join('');
+    }).join("");
   }; // import a list of modules into the list
   // eslint-disable-next-line func-names
 
 
   list.i = function (modules, mediaQuery, dedupe) {
-    if (typeof modules === 'string') {
+    if (typeof modules === "string") {
       // eslint-disable-next-line no-param-reassign
-      modules = [[null, modules, '']];
+      modules = [[null, modules, ""]];
     }
 
     var alreadyImportedModules = {};
@@ -21670,6 +25796,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/simple-circuit.vue?vue&type=style&index=0&id=14b6dad9&scoped=true&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/simple-circuit.vue?vue&type=style&index=0&id=14b6dad9&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_simple_circuit_vue_vue_type_style_index_0_id_14b6dad9_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./simple-circuit.vue?vue&type=style&index=0&id=14b6dad9&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/simple-circuit.vue?vue&type=style&index=0&id=14b6dad9&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_simple_circuit_vue_vue_type_style_index_0_id_14b6dad9_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default, options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_simple_circuit_vue_vue_type_style_index_0_id_14b6dad9_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/threadTrends.vue?vue&type=style&index=0&id=a654c62a&scoped=true&lang=css&":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/threadTrends.vue?vue&type=style&index=0&id=a654c62a&scoped=true&lang=css& ***!
@@ -21697,6 +25853,96 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_threadTrends_vue_vue_type_style_index_0_id_a654c62a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabExpEquip.vue?vue&type=style&index=0&id=42e4f650&scoped=true&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabExpEquip.vue?vue&type=style&index=0&id=42e4f650&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabExpEquip_vue_vue_type_style_index_0_id_42e4f650_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./vicelabExpEquip.vue?vue&type=style&index=0&id=42e4f650&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabExpEquip.vue?vue&type=style&index=0&id=42e4f650&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabExpEquip_vue_vue_type_style_index_0_id_42e4f650_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default, options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabExpEquip_vue_vue_type_style_index_0_id_42e4f650_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp2.vue?vue&type=style&index=0&id=27304d52&scoped=true&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp2.vue?vue&type=style&index=0&id=27304d52&scoped=true&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp2_vue_vue_type_style_index_0_id_27304d52_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./vicelabexp2.vue?vue&type=style&index=0&id=27304d52&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp2.vue?vue&type=style&index=0&id=27304d52&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp2_vue_vue_type_style_index_0_id_27304d52_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default, options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp2_vue_vue_type_style_index_0_id_27304d52_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp3_vue_vue_type_style_index_0_id_273e64d3_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp3_vue_vue_type_style_index_0_id_273e64d3_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default, options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp3_vue_vue_type_style_index_0_id_273e64d3_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
 
 /***/ }),
 
@@ -23033,6 +27279,47 @@ component.options.__file = "resources/js/components/progressBar.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/simple-circuit.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/simple-circuit.vue ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _simple_circuit_vue_vue_type_template_id_14b6dad9_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./simple-circuit.vue?vue&type=template&id=14b6dad9&scoped=true& */ "./resources/js/components/simple-circuit.vue?vue&type=template&id=14b6dad9&scoped=true&");
+/* harmony import */ var _simple_circuit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./simple-circuit.vue?vue&type=script&lang=js& */ "./resources/js/components/simple-circuit.vue?vue&type=script&lang=js&");
+/* harmony import */ var _simple_circuit_vue_vue_type_style_index_0_id_14b6dad9_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./simple-circuit.vue?vue&type=style&index=0&id=14b6dad9&scoped=true&lang=css& */ "./resources/js/components/simple-circuit.vue?vue&type=style&index=0&id=14b6dad9&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _simple_circuit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _simple_circuit_vue_vue_type_template_id_14b6dad9_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _simple_circuit_vue_vue_type_template_id_14b6dad9_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "14b6dad9",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/simple-circuit.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/threadTrends.vue":
 /*!**************************************************!*\
   !*** ./resources/js/components/threadTrends.vue ***!
@@ -23112,6 +27399,129 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/components/title-left-bar.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/vicelabExpEquip.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/vicelabExpEquip.vue ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _vicelabExpEquip_vue_vue_type_template_id_42e4f650_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vicelabExpEquip.vue?vue&type=template&id=42e4f650&scoped=true& */ "./resources/js/components/vicelabExpEquip.vue?vue&type=template&id=42e4f650&scoped=true&");
+/* harmony import */ var _vicelabExpEquip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./vicelabExpEquip.vue?vue&type=script&lang=js& */ "./resources/js/components/vicelabExpEquip.vue?vue&type=script&lang=js&");
+/* harmony import */ var _vicelabExpEquip_vue_vue_type_style_index_0_id_42e4f650_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./vicelabExpEquip.vue?vue&type=style&index=0&id=42e4f650&scoped=true&lang=css& */ "./resources/js/components/vicelabExpEquip.vue?vue&type=style&index=0&id=42e4f650&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _vicelabExpEquip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _vicelabExpEquip_vue_vue_type_template_id_42e4f650_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _vicelabExpEquip_vue_vue_type_template_id_42e4f650_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "42e4f650",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/vicelabExpEquip.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/vicelabexp2.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/vicelabexp2.vue ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _vicelabexp2_vue_vue_type_template_id_27304d52_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vicelabexp2.vue?vue&type=template&id=27304d52&scoped=true& */ "./resources/js/components/vicelabexp2.vue?vue&type=template&id=27304d52&scoped=true&");
+/* harmony import */ var _vicelabexp2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./vicelabexp2.vue?vue&type=script&lang=js& */ "./resources/js/components/vicelabexp2.vue?vue&type=script&lang=js&");
+/* harmony import */ var _vicelabexp2_vue_vue_type_style_index_0_id_27304d52_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./vicelabexp2.vue?vue&type=style&index=0&id=27304d52&scoped=true&lang=css& */ "./resources/js/components/vicelabexp2.vue?vue&type=style&index=0&id=27304d52&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _vicelabexp2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _vicelabexp2_vue_vue_type_template_id_27304d52_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _vicelabexp2_vue_vue_type_template_id_27304d52_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "27304d52",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/vicelabexp2.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/vicelabexp3.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/vicelabexp3.vue ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _vicelabexp3_vue_vue_type_template_id_273e64d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vicelabexp3.vue?vue&type=template&id=273e64d3&scoped=true& */ "./resources/js/components/vicelabexp3.vue?vue&type=template&id=273e64d3&scoped=true&");
+/* harmony import */ var _vicelabexp3_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./vicelabexp3.vue?vue&type=script&lang=js& */ "./resources/js/components/vicelabexp3.vue?vue&type=script&lang=js&");
+/* harmony import */ var _vicelabexp3_vue_vue_type_style_index_0_id_273e64d3_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css& */ "./resources/js/components/vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _vicelabexp3_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _vicelabexp3_vue_vue_type_template_id_273e64d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _vicelabexp3_vue_vue_type_template_id_273e64d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "273e64d3",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/vicelabexp3.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -23561,6 +27971,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/simple-circuit.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/simple-circuit.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_simple_circuit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./simple-circuit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/simple-circuit.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_simple_circuit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/threadTrends.vue?vue&type=script&lang=js&":
 /*!***************************************************************************!*\
   !*** ./resources/js/components/threadTrends.vue?vue&type=script&lang=js& ***!
@@ -23594,6 +28020,54 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_title_left_bar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_title_left_bar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_title_left_bar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
+
+/***/ }),
+
+/***/ "./resources/js/components/vicelabExpEquip.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/vicelabExpEquip.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabExpEquip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./vicelabExpEquip.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabExpEquip.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabExpEquip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/components/vicelabexp2.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/vicelabexp2.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./vicelabexp2.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp2.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/components/vicelabexp3.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/vicelabexp3.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp3_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./vicelabexp3.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp3_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -23912,6 +28386,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/simple-circuit.vue?vue&type=style&index=0&id=14b6dad9&scoped=true&lang=css&":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/js/components/simple-circuit.vue?vue&type=style&index=0&id=14b6dad9&scoped=true&lang=css& ***!
+  \*************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_simple_circuit_vue_vue_type_style_index_0_id_14b6dad9_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./simple-circuit.vue?vue&type=style&index=0&id=14b6dad9&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/simple-circuit.vue?vue&type=style&index=0&id=14b6dad9&scoped=true&lang=css&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/threadTrends.vue?vue&type=style&index=0&id=a654c62a&scoped=true&lang=css&":
 /*!***********************************************************************************************************!*\
   !*** ./resources/js/components/threadTrends.vue?vue&type=style&index=0&id=a654c62a&scoped=true&lang=css& ***!
@@ -23921,6 +28408,45 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_threadTrends_vue_vue_type_style_index_0_id_a654c62a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./threadTrends.vue?vue&type=style&index=0&id=a654c62a&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/threadTrends.vue?vue&type=style&index=0&id=a654c62a&scoped=true&lang=css&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/vicelabExpEquip.vue?vue&type=style&index=0&id=42e4f650&scoped=true&lang=css&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/components/vicelabExpEquip.vue?vue&type=style&index=0&id=42e4f650&scoped=true&lang=css& ***!
+  \**************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabExpEquip_vue_vue_type_style_index_0_id_42e4f650_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./vicelabExpEquip.vue?vue&type=style&index=0&id=42e4f650&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabExpEquip.vue?vue&type=style&index=0&id=42e4f650&scoped=true&lang=css&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/vicelabexp2.vue?vue&type=style&index=0&id=27304d52&scoped=true&lang=css&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/components/vicelabexp2.vue?vue&type=style&index=0&id=27304d52&scoped=true&lang=css& ***!
+  \**********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp2_vue_vue_type_style_index_0_id_27304d52_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./vicelabexp2.vue?vue&type=style&index=0&id=27304d52&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp2.vue?vue&type=style&index=0&id=27304d52&scoped=true&lang=css&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/components/vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css& ***!
+  \**********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp3_vue_vue_type_style_index_0_id_273e64d3_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=style&index=0&id=273e64d3&scoped=true&lang=css&");
 
 
 /***/ }),
@@ -24363,6 +28889,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/simple-circuit.vue?vue&type=template&id=14b6dad9&scoped=true&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/simple-circuit.vue?vue&type=template&id=14b6dad9&scoped=true& ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_simple_circuit_vue_vue_type_template_id_14b6dad9_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_simple_circuit_vue_vue_type_template_id_14b6dad9_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_simple_circuit_vue_vue_type_template_id_14b6dad9_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./simple-circuit.vue?vue&type=template&id=14b6dad9&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/simple-circuit.vue?vue&type=template&id=14b6dad9&scoped=true&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/threadTrends.vue?vue&type=template&id=a654c62a&scoped=true&":
 /*!*********************************************************************************************!*\
   !*** ./resources/js/components/threadTrends.vue?vue&type=template&id=a654c62a&scoped=true& ***!
@@ -24393,6 +28936,57 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_title_left_bar_vue_vue_type_template_id_8e19f1a6_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_title_left_bar_vue_vue_type_template_id_8e19f1a6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./title-left-bar.vue?vue&type=template&id=8e19f1a6&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/title-left-bar.vue?vue&type=template&id=8e19f1a6&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/vicelabExpEquip.vue?vue&type=template&id=42e4f650&scoped=true&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/vicelabExpEquip.vue?vue&type=template&id=42e4f650&scoped=true& ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabExpEquip_vue_vue_type_template_id_42e4f650_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabExpEquip_vue_vue_type_template_id_42e4f650_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabExpEquip_vue_vue_type_template_id_42e4f650_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./vicelabExpEquip.vue?vue&type=template&id=42e4f650&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabExpEquip.vue?vue&type=template&id=42e4f650&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/vicelabexp2.vue?vue&type=template&id=27304d52&scoped=true&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/vicelabexp2.vue?vue&type=template&id=27304d52&scoped=true& ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp2_vue_vue_type_template_id_27304d52_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp2_vue_vue_type_template_id_27304d52_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp2_vue_vue_type_template_id_27304d52_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./vicelabexp2.vue?vue&type=template&id=27304d52&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp2.vue?vue&type=template&id=27304d52&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/vicelabexp3.vue?vue&type=template&id=273e64d3&scoped=true&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/vicelabexp3.vue?vue&type=template&id=273e64d3&scoped=true& ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp3_vue_vue_type_template_id_273e64d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp3_vue_vue_type_template_id_273e64d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_vicelabexp3_vue_vue_type_template_id_273e64d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./vicelabexp3.vue?vue&type=template&id=273e64d3&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=template&id=273e64d3&scoped=true&");
 
 
 /***/ }),
@@ -24942,36 +29536,52 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "rightNavigation" } }, [
+  return _c("div", { staticClass: "vhE-2", attrs: { id: "rightNavigation" } }, [
     _c(
       "div",
-      { staticClass: "containerR", attrs: { id: "tools" } },
+      {
+        staticClass: "containerR",
+        staticStyle: { height: "100%" },
+        attrs: { id: "tools" }
+      },
       [
         _c("div", { staticClass: "input-alt" }),
         _vm._v(" "),
-        _c("span", {
-          staticClass: "fa fa-align-justify bg-white rightnavexpander"
-        }),
-        _vm._v(" "),
-        _vm._l(_vm.toolSizes, function(tool) {
-          return _c(
-            "div",
-            {
-              key: tool,
-              staticClass: "box",
-              style: { width: tool + "px" },
-              on: {
-                click: function($event) {
-                  _vm.addactivate
-                  _vm.changeApparatus(tool)
-                }
-              }
-            },
-            [_vm._v("\n            \t\tSize\n        \t")]
-          )
-        })
-      ],
-      2
+        _vm.vicelab == 1
+          ? _c(
+              "span",
+              { staticClass: "pr z-1" },
+              [_c("vicelabtools", { attrs: { has: "1" } })],
+              1
+            )
+          : _c(
+              "span",
+              [
+                _c("span", {
+                  staticClass: "fa fa-align-justify bg-white rightnavexpander"
+                }),
+                _vm._v(" "),
+                _vm._l(_vm.toolSizes, function(tool) {
+                  return _c(
+                    "div",
+                    {
+                      key: tool,
+                      staticClass: "box",
+                      style: { width: tool + "px" },
+                      on: {
+                        click: function($event) {
+                          _vm.addactivate
+                          _vm.changeApparatus(tool)
+                        }
+                      }
+                    },
+                    [_vm._v("\n\t            \t\tSize\n\t        \t")]
+                  )
+                })
+              ],
+              2
+            )
+      ]
     ),
     _vm._v(" "),
     _vm._m(0),
@@ -24993,21 +29603,23 @@ var render = function() {
         }),
         _vm._v(" "),
         _vm._l(_vm.toolSizes, function(tool) {
-          return _c(
-            "div",
-            {
-              key: tool,
-              staticClass: "box",
-              style: { width: tool + "px" },
-              on: {
-                click: function($event) {
-                  _vm.addactivate
-                  _vm.changeApparatus(tool)
-                }
-              }
-            },
-            [_vm._v("\n            \t\tSize\n        \t")]
-          )
+          return _vm.toolState == true
+            ? _c(
+                "div",
+                {
+                  key: tool,
+                  staticClass: "box",
+                  style: { width: tool + "px" },
+                  on: {
+                    click: function($event) {
+                      _vm.addactivate
+                      _vm.changeApparatus(tool)
+                    }
+                  }
+                },
+                [_vm._v("\n            \t\tSize\n        \t")]
+              )
+            : _vm._e()
         })
       ],
       2
@@ -26411,7 +31023,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "m-0 p-0" }, [
     _c("div", { staticClass: "row bg-light m-0 px-2 pt-4" }, [
-      _c("div", { staticClass: "col-lg-3 col-md-5 col-sm-12 m-0 " }, [
+      _c("div", { staticClass: "col-lg-4 col-md-5 col-sm-12 m-0 " }, [
         _c("p", { staticClass: "fs2 fw8 font" }, [_vm._v("Create Course")]),
         _vm._v(" "),
         _c("div", { staticClass: "w-100 bg-white r2 px-4 py-4 shadow-sm" }, [
@@ -26496,7 +31108,7 @@ var render = function() {
         "div",
         {
           staticClass: "col-lg-8 col-md-7 col-sm-12 pt-3",
-          staticStyle: { height: "550px" }
+          staticStyle: { height: "76vh" }
         },
         [
           _c("div", { staticClass: "py-4 px-4 mt-3 r2 bg-white shadow-sm" }, [
@@ -26631,6 +31243,54 @@ var render = function() {
                     ])
                   ]
                 )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.sectionState == 3
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "m-0 p-0 shineA",
+                    attrs: { id: "uploadResources" }
+                  },
+                  [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "fw8 fs1 font",
+                        staticStyle: { color: "#777" }
+                      },
+                      [_vm._v("Add Resources")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "dragbox",
+                        attrs: { id: "dgbox" },
+                        on: {
+                          dragenter: function($event) {
+                            $event.preventDefault()
+                          },
+                          dragover: function($event) {
+                            $event.preventDefault()
+                          },
+                          drop: _vm.dragEnter
+                        }
+                      },
+                      [
+                        _c("input", {
+                          staticClass: "draginto",
+                          attrs: { type: "file", name: "files[]", id: "fileI" },
+                          on: { change: _vm.getDragedInFile }
+                        }),
+                        _vm._v(" "),
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _vm._m(2)
+                      ]
+                    )
+                  ]
+                )
               : _vm._e()
           ]),
           _vm._v(
@@ -26697,6 +31357,38 @@ var staticRenderFns = [
         _c("span", { staticClass: "w30" }, [_vm._v("Added Experiment")]),
         _vm._v(" "),
         _c("div", { staticClass: "hr w35" })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { attrs: { id: "imageprev" } }, [
+      _c("span", { staticClass: "fa fa-cloud-upload fs3 text-dark" }),
+      _c("br"),
+      _vm._v(" "),
+      _c("label", { staticClass: "fw3" }, [
+        _vm._v("Upload Additional resources")
+      ]),
+      _vm._v(" "),
+      _c("p", { staticStyle: { color: "#bbb", "font-size": "0.8em" } }, [
+        _vm._v("Format: .jpeg, .jpg, or .png only")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "progressi mt-4", staticStyle: { width: "50%" } },
+      [
+        _c("div", {
+          staticClass: "p-success progress-bar",
+          attrs: { id: "progressBar" }
+        })
       ]
     )
   }
@@ -27203,6 +31895,379 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/simple-circuit.vue?vue&type=template&id=14b6dad9&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/simple-circuit.vue?vue&type=template&id=14b6dad9&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { "data-demo-id": "draggableConnectors" } }, [
+    _c("div", { staticClass: "main row" }, [
+      _c("div", { staticClass: "w-100" }, [
+        _c("img", {
+          staticClass: "img-pos",
+          attrs: { src: "/expImages/physics/exp1/diagram.png", width: "200px" }
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "mainJ drag-drop scrollbar w-100",
+            attrs: { id: "mainSheet", d: "canvas" }
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass: "equipments drags",
+                attrs: { id: "switch" },
+                on: { mouseover: _vm.removeClass }
+              },
+              [
+                _c("span", [
+                  _c("img", {
+                    staticClass: "ek",
+                    attrs: { src: _vm.switchSrc, width: "", height: "70px" }
+                  }),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(
+                    "\n                        Switch \n                        "
+                  ),
+                  _c("label")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "cbtn" }, [
+                  _c(
+                    "button",
+                    { staticClass: "detach", attrs: { rel: "switch" } },
+                    [_vm._v("detach")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      attrs: { id: "switchID" },
+                      on: { click: _vm.switchStatefunc }
+                    },
+                    [_vm._v(_vm._s(_vm.switchStatebtn))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "detach",
+                      attrs: { rel: "standard_resistor" }
+                    },
+                    [_vm._v("detach")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticStyle: { display: "none" },
+                    attrs: {
+                      type: "number",
+                      value: "switchState",
+                      id: "switchState"
+                    }
+                  })
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "equipments drags",
+                attrs: { id: "standard_resistor" },
+                on: { mouseover: _vm.removeClass }
+              },
+              [_vm._m(0), _vm._v(" "), _vm._m(1)]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "equipments drags",
+                attrs: { id: "varible_resistor" },
+                on: { mouseover: _vm.removeClass }
+              },
+              [
+                _c(
+                  "span",
+                  [
+                    _c("center", [
+                      _c("h4", { staticStyle: { "margin-bottom": "-40px" } }, [
+                        _vm._v(_vm._s(_vm.vResistor) + "Ω")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("img", {
+                      staticClass: "ek",
+                      attrs: {
+                        src: "/expImages/physics/exp1/rethostate.png",
+                        width: "100px"
+                      }
+                    }),
+                    _vm._v(
+                      "\n                        Resistant Box\n                      "
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "cbtn" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "detach",
+                      attrs: { rel: "varible_resistor" }
+                    },
+                    [_vm._v("detach")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.vResistor += 0.5
+                        }
+                      }
+                    },
+                    [_vm._v("add")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.vResistor -= 0.5
+                        }
+                      }
+                    },
+                    [_vm._v("reduce")]
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "equipments drags",
+                attrs: { id: "voltmeter" },
+                on: { mouseover: _vm.removeClass }
+              },
+              [
+                _c("span", [
+                  _c(
+                    "canvas",
+                    { attrs: { id: "another-gauge" } },
+                    [
+                      _c("center", [
+                        _c("h4", [_vm._v(_vm._s(_vm.voltValue) + "V")])
+                      ]),
+                      _vm._v(" "),
+                      _c("img", {
+                        staticClass: "ek",
+                        attrs: {
+                          src: "/expImages/physics/exp1/voltmeter1.png",
+                          width: "900px"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(
+                    "\n                        Voltmeter\n                      "
+                  )
+                ]),
+                _vm._v(" "),
+                _vm._m(2)
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "equipments drags",
+                attrs: { id: "ameter" },
+                on: { mouseover: _vm.removeClass }
+              },
+              [
+                _c("span", [
+                  _c(
+                    "canvas",
+                    { attrs: { id: "ameter-gauage" } },
+                    [
+                      _c("center", [
+                        _c("h4", [_vm._v(_vm._s(_vm.ampValue) + "A")])
+                      ]),
+                      _vm._v(" "),
+                      _c("img", {
+                        staticClass: "ek",
+                        attrs: {
+                          src: "/expImages/physics/exp1/ameter.png",
+                          width: "60px"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(
+                    "\n                        Ameter\n                      "
+                  )
+                ]),
+                _vm._v(" "),
+                _vm._m(3)
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "equipments drags ",
+                attrs: { id: "Bcell" },
+                on: { mouseover: _vm.removeClass }
+              },
+              [
+                _c(
+                  "span",
+                  {
+                    staticClass: "mr-3 pr-2",
+                    staticStyle: { "border-right": "1px dashed #ddd" }
+                  },
+                  [
+                    _c("center", [
+                      _c("h4", [_vm._v(_vm._s(_vm.bcellvalue) + "v")])
+                    ]),
+                    _vm._v(" "),
+                    _c("span", {
+                      domProps: { innerHTML: _vm._s(_vm.cellToAdd) }
+                    }),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v("\n                      Cell\n                  ")
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "cbtn" }, [
+                  _c(
+                    "button",
+                    { staticClass: "detach", attrs: { rel: "Bcell" } },
+                    [_vm._v("detach")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticStyle: { cursor: "pointer !important" },
+                      on: { click: _vm.addCellfunc }
+                    },
+                    [_vm._v("add")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticStyle: { cursor: "pointer !important" },
+                      on: { click: _vm.removeCellfunc }
+                    },
+                    [_vm._v("remove")]
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", {
+              staticStyle: {
+                border: "1px solid #eee",
+                "box-shadow": "2px 3px 10px #fafafa"
+              },
+              attrs: { id: "list" }
+            })
+          ]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [
+      _c("div", { attrs: { id: "standard_resistor1" } }),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "standard_resistor2" } }),
+      _vm._v(" "),
+      _c("img", {
+        staticClass: "ek",
+        attrs: {
+          src: "/expImages/physics/exp1/standard_resistor.jpg",
+          width: "60px"
+        }
+      }),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(
+        "\n                        standard resistor \n                        "
+      ),
+      _c("label")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cbtn" }, [
+      _c(
+        "button",
+        { staticClass: "detach", attrs: { rel: "standard_resistor" } },
+        [_vm._v("detach")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cbtn" }, [
+      _c("button", { staticClass: "detach", attrs: { rel: "voltmeter" } }, [
+        _vm._v("detach")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cbtn" }, [
+      _c("button", { staticClass: "detach", attrs: { rel: "ameter" } }, [
+        _vm._v("detach")
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/threadTrends.vue?vue&type=template&id=a654c62a&scoped=true&":
 /*!************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/threadTrends.vue?vue&type=template&id=a654c62a&scoped=true& ***!
@@ -27307,6 +32372,784 @@ var render = function() {
   return _c("div", [_vm._v("\r\n\texperiment prep\r\n")])
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabExpEquip.vue?vue&type=template&id=42e4f650&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabExpEquip.vue?vue&type=template&id=42e4f650&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: " d-md-flex p-0", attrs: { id: "leftNav" } }, [
+      _vm.navSlide1
+        ? _c(
+            "div",
+            {
+              staticClass: "left-panel1 scrollbar mt-2 px-2",
+              class: { show: _vm.navSlide1 }
+            },
+            [
+              _c("h4", { staticClass: "text-center text-white" }, [
+                _vm._v("Equipments")
+              ]),
+              _vm._v(" "),
+              _c("center", [
+                _c("span", { staticStyle: { "font-size": "0.9em" } }, [
+                  _vm._v("click to select an equipment")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("div", { staticClass: "m-0 p-0" }, [
+                _c(
+                  "img",
+                  _vm._g(
+                    _vm._b(
+                      {
+                        staticClass: "picker",
+                        attrs: {
+                          "data-toggle": "tooltip",
+                          title: "Solar Cell",
+                          "data-placement": "top",
+                          src: "/expImages/physics/exp1/solar_cell3.jpeg",
+                          id: "scell"
+                        },
+                        on: { click: function($event) {} }
+                      },
+                      "img",
+                      _vm.attrs,
+                      false
+                    ),
+                    _vm.on
+                  )
+                ),
+                _vm._v(" "),
+                _c(
+                  "img",
+                  _vm._g(
+                    _vm._b(
+                      {
+                        staticClass: "picker",
+                        attrs: {
+                          "data-toggle": "tooltip",
+                          title: "Voltmeter",
+                          "data-placement": "bottom",
+                          src: "/expImages/physics/exp1/voltmeter1.png",
+                          id: "voltmeter"
+                        },
+                        on: { click: function($event) {} }
+                      },
+                      "img",
+                      _vm.attrs,
+                      false
+                    ),
+                    _vm.on
+                  )
+                ),
+                _vm._v(" "),
+                _c(
+                  "img",
+                  _vm._g(
+                    _vm._b(
+                      {
+                        staticClass: "picker",
+                        attrs: {
+                          "data-toggle": "tooltip",
+                          title: "Ameter",
+                          "data-placement": "bottom",
+                          src: "/expImages/physics/exp1/ameter.png",
+                          id: "ameter"
+                        },
+                        on: { click: function($event) {} }
+                      },
+                      "img",
+                      _vm.attrs,
+                      false
+                    ),
+                    _vm.on
+                  )
+                ),
+                _vm._v(" "),
+                _c(
+                  "img",
+                  _vm._g(
+                    _vm._b(
+                      {
+                        staticClass: "picker",
+                        attrs: {
+                          "data-toggle": "tooltip",
+                          title: "sun light",
+                          "data-placement": "bottom",
+                          src: "/expImages/physics/exp1/lightModulNav.jpg",
+                          width: "100px",
+                          height: "100px",
+                          id: "sun"
+                        },
+                        on: {
+                          click: function($event) {
+                            _vm.sunToolTip = !_vm.sunToolTip
+                          }
+                        }
+                      },
+                      "img",
+                      _vm.attrs,
+                      false
+                    ),
+                    _vm.on
+                  )
+                )
+              ])
+            ],
+            1
+          )
+        : _vm._e()
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp2.vue?vue&type=template&id=27304d52&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp2.vue?vue&type=template&id=27304d52&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "w-100", attrs: { "data-demo-id": "draggableConnectors" } },
+    [
+      _c("div", { staticClass: "main row" }, [
+        _vm.guidings
+          ? _c("div", { staticClass: "noticeboard" }, [_vm._m(0)])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-100" }, [
+          _c("img", {
+            staticClass: "img-pos",
+            attrs: { src: "/expImages/physics/exp1/1-0.png", width: "200px" }
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "mainJ drag-drop scrollbar w-100",
+              attrs: { id: "mainSheet" }
+            },
+            [
+              _vm._l(_vm.solarCell_id, function(id) {
+                return _c(
+                  "div",
+                  {
+                    key: id.id,
+                    staticClass: "equipments drags solarsAll dp-none",
+                    attrs: { id: "solar_cell" + id.id },
+                    on: { mouseover: _vm.removeClass }
+                  },
+                  [
+                    _vm._m(1, true),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "cbtn" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "detach",
+                          attrs: { rel: "solar_cell" + id.id }
+                        },
+                        [_vm._v("detach")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "deleteCell",
+                          attrs: { rel: "solar_cell" + id.id },
+                          on: {
+                            click: function($event) {
+                              _vm.solar_num1--
+                            }
+                          }
+                        },
+                        [_vm._m(2, true)]
+                      )
+                    ])
+                  ]
+                )
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "equipments drags dp-none",
+                  attrs: { id: "ameterRead" },
+                  on: { mouseover: _vm.removeClass }
+                },
+                [
+                  _c("span", [
+                    _c(
+                      "canvas",
+                      { attrs: { id: "ameter-gauage" } },
+                      [
+                        _c("center", [
+                          _c("h2", [_vm._v(_vm._s(_vm.ampValue) + "A")])
+                        ]),
+                        _vm._v(" "),
+                        _c("img", {
+                          staticClass: "ek",
+                          attrs: {
+                            src: "/expImages/physics/exp1/ameter.png",
+                            width: "110px"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v("\n                    Ameter\n                  ")
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(3)
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "equipments drags dp-none",
+                  attrs: { id: "voltmeterRead" },
+                  on: { mouseover: _vm.removeClass }
+                },
+                [
+                  _c("span", [
+                    _c(
+                      "canvas",
+                      { attrs: { id: "another-gauge" } },
+                      [
+                        _c("center", [
+                          _c("h2", [_vm._v(_vm._s(_vm.voltValue) + "V")])
+                        ]),
+                        _vm._v(" "),
+                        _c("img", {
+                          staticClass: "ek",
+                          attrs: {
+                            src: "/expImages/physics/exp1/voltmeter1.png",
+                            width: "120px"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(
+                      "\n                    Voltmeter\n                  "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(4)
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "picker equipments drags forsunligt dp-none",
+                  attrs: { id: "sunLight" }
+                },
+                [
+                  _c(
+                    "img",
+                    _vm._g(
+                      _vm._b(
+                        {
+                          attrs: {
+                            src: "/expImages/physics/exp1/lightModul.jpg",
+                            width: "80%",
+                            height: "80%"
+                          },
+                          on: { click: function($event) {} }
+                        },
+                        "img",
+                        _vm.attrs,
+                        false
+                      ),
+                      _vm.on
+                    )
+                  ),
+                  _vm._v(" "),
+                  _vm._m(5)
+                ]
+              )
+            ],
+            2
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", {
+        staticStyle: {
+          border: "1px solid #ccc",
+          "box-shadow": "2px 3px 10px #fafafa"
+        },
+        attrs: { id: "list" }
+      })
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _c("span", { staticClass: "noteb" }),
+      _vm._v(" "),
+      _c("i", [_vm._v("Invalid/Required Connection")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [
+      _c("img", {
+        staticClass: "ek",
+        attrs: {
+          src: "/expImages/physics/exp1/solar_cell3.jpeg",
+          width: "80px"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [_c("span", { staticClass: "fa fa-remove" })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cbtn" }, [
+      _c("button", { staticClass: "detach", attrs: { rel: "ameterRead" } }, [
+        _vm._v("detach")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "read switchbtn", attrs: { rel: "voltmeterRead" } },
+        [_vm._v("Read")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cbtn" }, [
+      _c("button", { staticClass: "detach", attrs: { rel: "voltmeterRead" } }, [
+        _vm._v("detach")
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "read", attrs: { rel: "voltmeterRead" } }, [
+        _vm._v("Read")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cbtn" }, [
+      _c(
+        "button",
+        {
+          staticClass: "deleteCell sunlightDelBtn",
+          attrs: { rel: "sunLight" }
+        },
+        [
+          _c("span", {
+            staticClass: "fa fa-remove",
+            staticStyle: { color: "#ba6" }
+          })
+        ]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=template&id=273e64d3&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/vicelabexp3.vue?vue&type=template&id=273e64d3&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { "data-demo-id": "draggableConnectors" } }, [
+    _c("div", { staticClass: "main row" }, [
+      _vm.guidings
+        ? _c("div", { staticClass: "noticeboard" }, [_vm._m(0)])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "w-100" }, [
+        _c("img", {
+          staticClass: "img-pos",
+          attrs: { src: "/expImages/physics/exp1/1-0.png", width: "200px" }
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "mainJ drag-drop scrollbar w-100",
+            attrs: { id: "mainSheet" }
+          },
+          [
+            _vm._l(_vm.solarCell_id, function(id) {
+              return _c(
+                "div",
+                {
+                  key: id.id,
+                  staticClass: "equipments drags  dp-none pointer-auto",
+                  attrs: { id: "solar_cell" + id.id },
+                  on: { mouseover: _vm.removeClass }
+                },
+                [
+                  _vm._m(1, true),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "cbtn" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "detach pointer-auto",
+                        attrs: { rel: "solar_cell" + id.id }
+                      },
+                      [_vm._v("detach")]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(2, true),
+                    _vm._v(" "),
+                    _vm._m(3, true),
+                    _vm._v(" "),
+                    _vm._m(4, true),
+                    _vm._v(" "),
+                    _vm._m(5, true),
+                    _vm._v(" "),
+                    _vm._m(6, true),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "deleteCell dp-none pointer-auto",
+                        attrs: { rel: "solar_cell" + id.id },
+                        on: {
+                          click: function($event) {
+                            _vm.solar_num1--
+                          }
+                        }
+                      },
+                      [
+                        _c("span", {
+                          staticClass: "fa fa-remove",
+                          staticStyle: { color: "#ba6" }
+                        })
+                      ]
+                    )
+                  ])
+                ]
+              )
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "equipments drags dp-none",
+                attrs: { id: "ameterRead" },
+                on: { mouseover: _vm.removeClass }
+              },
+              [
+                _c("span", [
+                  _c(
+                    "canvas",
+                    { attrs: { id: "ameter-gauage" } },
+                    [
+                      _c("center", [
+                        _c("h2", [_vm._v(_vm._s(_vm.ampValue) + "A")])
+                      ]),
+                      _vm._v(" "),
+                      _c("img", {
+                        staticClass: "ek",
+                        attrs: {
+                          src: "/expImages/physics/exp1/ameter.png",
+                          width: "110px"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v("\n                    Ameter\n                  ")
+                ]),
+                _vm._v(" "),
+                _vm._m(7)
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "equipments drags dp-none",
+                attrs: { id: "voltmeterRead" },
+                on: { mouseover: _vm.removeClass }
+              },
+              [
+                _c("span", [
+                  _c(
+                    "canvas",
+                    { attrs: { id: "another-gauge" } },
+                    [
+                      _c("center", [
+                        _c("h2", [_vm._v(_vm._s(_vm.voltValue) + "V")])
+                      ]),
+                      _vm._v(" "),
+                      _c("img", {
+                        staticClass: "ek",
+                        attrs: {
+                          src: "/expImages/physics/exp1/voltmeter1.png",
+                          width: "120px"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v("\n                    Voltmeter\n                  ")
+                ]),
+                _vm._v(" "),
+                _vm._m(8)
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "picker equipments drags dp-none pointer-auto forsunligt",
+                attrs: { id: "sunLight" }
+              },
+              [
+                _c(
+                  "img",
+                  _vm._g(
+                    _vm._b(
+                      {
+                        attrs: {
+                          src: "/expImages/physics/exp1/lightModul.jpg",
+                          width: "100%"
+                        },
+                        on: { click: function($event) {} }
+                      },
+                      "img",
+                      _vm.attrs,
+                      false
+                    ),
+                    _vm.on
+                  )
+                ),
+                _vm._v(" "),
+                _vm._m(9)
+              ]
+            )
+          ],
+          2
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "list" } })
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _c("span", { staticClass: "noteb" }),
+      _vm._v(" "),
+      _c("i", [_vm._v("Invalid/Required Connection")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [
+      _c("img", {
+        staticClass: "ek pointer-auto",
+        attrs: {
+          src: "/expImages/physics/exp1/solar_cell3.jpeg",
+          width: "100px",
+          height: "200px"
+        }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "shadowCover" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "shadowRange pointer-auto",
+        attrs: { rel: "zero", id: "zero" }
+      },
+      [_c("var", [_vm._v("0")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "shadowRange pointer-auto",
+        attrs: { rel: "quater", id: "quater" }
+      },
+      [_c("var", [_vm._v("1/4")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "shadowRange pointer-auto",
+        attrs: { rel: "half", id: "hlaf" }
+      },
+      [_c("var", [_vm._v("1/2")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "shadowRange pointer-auto",
+        attrs: { rel: "threeQuater", id: "quater" }
+      },
+      [_c("var", [_vm._v("3/4")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "shadowRange pointer-auto",
+        attrs: { rel: "fullOne", id: "quater" }
+      },
+      [_c("var", [_vm._v("1")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cbtn" }, [
+      _c("button", { staticClass: "detach", attrs: { rel: "ameterRead" } }, [
+        _vm._v("detach")
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "read", attrs: { rel: "voltmeterRead" } }, [
+        _vm._v("Read")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cbtn" }, [
+      _c("button", { staticClass: "detach", attrs: { rel: "voltmeterRead" } }, [
+        _vm._v("detach")
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "read", attrs: { rel: "voltmeterRead" } }, [
+        _vm._v("Read")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cbtn" }, [
+      _c(
+        "button",
+        {
+          staticClass: "deleteCell sunlightDelBtn",
+          attrs: { rel: "sunLight" }
+        },
+        [
+          _c("span", {
+            staticClass: "fa fa-remove",
+            staticStyle: { color: "#ba6" }
+          })
+        ]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -39453,6 +45296,1272 @@ Vue.compile = compileToFunctions;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Vue);
 
 
+/***/ }),
+
+/***/ "./node_modules/vuex/dist/vuex.esm.js":
+/*!********************************************!*\
+  !*** ./node_modules/vuex/dist/vuex.esm.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "Store": () => (/* binding */ Store),
+/* harmony export */   "createLogger": () => (/* binding */ createLogger),
+/* harmony export */   "createNamespacedHelpers": () => (/* binding */ createNamespacedHelpers),
+/* harmony export */   "install": () => (/* binding */ install),
+/* harmony export */   "mapActions": () => (/* binding */ mapActions),
+/* harmony export */   "mapGetters": () => (/* binding */ mapGetters),
+/* harmony export */   "mapMutations": () => (/* binding */ mapMutations),
+/* harmony export */   "mapState": () => (/* binding */ mapState)
+/* harmony export */ });
+/*!
+ * vuex v3.6.2
+ * (c) 2021 Evan You
+ * @license MIT
+ */
+function applyMixin (Vue) {
+  var version = Number(Vue.version.split('.')[0]);
+
+  if (version >= 2) {
+    Vue.mixin({ beforeCreate: vuexInit });
+  } else {
+    // override init and inject vuex init procedure
+    // for 1.x backwards compatibility.
+    var _init = Vue.prototype._init;
+    Vue.prototype._init = function (options) {
+      if ( options === void 0 ) options = {};
+
+      options.init = options.init
+        ? [vuexInit].concat(options.init)
+        : vuexInit;
+      _init.call(this, options);
+    };
+  }
+
+  /**
+   * Vuex init hook, injected into each instances init hooks list.
+   */
+
+  function vuexInit () {
+    var options = this.$options;
+    // store injection
+    if (options.store) {
+      this.$store = typeof options.store === 'function'
+        ? options.store()
+        : options.store;
+    } else if (options.parent && options.parent.$store) {
+      this.$store = options.parent.$store;
+    }
+  }
+}
+
+var target = typeof window !== 'undefined'
+  ? window
+  : typeof __webpack_require__.g !== 'undefined'
+    ? __webpack_require__.g
+    : {};
+var devtoolHook = target.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+
+function devtoolPlugin (store) {
+  if (!devtoolHook) { return }
+
+  store._devtoolHook = devtoolHook;
+
+  devtoolHook.emit('vuex:init', store);
+
+  devtoolHook.on('vuex:travel-to-state', function (targetState) {
+    store.replaceState(targetState);
+  });
+
+  store.subscribe(function (mutation, state) {
+    devtoolHook.emit('vuex:mutation', mutation, state);
+  }, { prepend: true });
+
+  store.subscribeAction(function (action, state) {
+    devtoolHook.emit('vuex:action', action, state);
+  }, { prepend: true });
+}
+
+/**
+ * Get the first item that pass the test
+ * by second argument function
+ *
+ * @param {Array} list
+ * @param {Function} f
+ * @return {*}
+ */
+function find (list, f) {
+  return list.filter(f)[0]
+}
+
+/**
+ * Deep copy the given object considering circular structure.
+ * This function caches all nested objects and its copies.
+ * If it detects circular structure, use cached copy to avoid infinite loop.
+ *
+ * @param {*} obj
+ * @param {Array<Object>} cache
+ * @return {*}
+ */
+function deepCopy (obj, cache) {
+  if ( cache === void 0 ) cache = [];
+
+  // just return if obj is immutable value
+  if (obj === null || typeof obj !== 'object') {
+    return obj
+  }
+
+  // if obj is hit, it is in circular structure
+  var hit = find(cache, function (c) { return c.original === obj; });
+  if (hit) {
+    return hit.copy
+  }
+
+  var copy = Array.isArray(obj) ? [] : {};
+  // put the copy into cache at first
+  // because we want to refer it in recursive deepCopy
+  cache.push({
+    original: obj,
+    copy: copy
+  });
+
+  Object.keys(obj).forEach(function (key) {
+    copy[key] = deepCopy(obj[key], cache);
+  });
+
+  return copy
+}
+
+/**
+ * forEach for object
+ */
+function forEachValue (obj, fn) {
+  Object.keys(obj).forEach(function (key) { return fn(obj[key], key); });
+}
+
+function isObject (obj) {
+  return obj !== null && typeof obj === 'object'
+}
+
+function isPromise (val) {
+  return val && typeof val.then === 'function'
+}
+
+function assert (condition, msg) {
+  if (!condition) { throw new Error(("[vuex] " + msg)) }
+}
+
+function partial (fn, arg) {
+  return function () {
+    return fn(arg)
+  }
+}
+
+// Base data struct for store's module, package with some attribute and method
+var Module = function Module (rawModule, runtime) {
+  this.runtime = runtime;
+  // Store some children item
+  this._children = Object.create(null);
+  // Store the origin module object which passed by programmer
+  this._rawModule = rawModule;
+  var rawState = rawModule.state;
+
+  // Store the origin module's state
+  this.state = (typeof rawState === 'function' ? rawState() : rawState) || {};
+};
+
+var prototypeAccessors = { namespaced: { configurable: true } };
+
+prototypeAccessors.namespaced.get = function () {
+  return !!this._rawModule.namespaced
+};
+
+Module.prototype.addChild = function addChild (key, module) {
+  this._children[key] = module;
+};
+
+Module.prototype.removeChild = function removeChild (key) {
+  delete this._children[key];
+};
+
+Module.prototype.getChild = function getChild (key) {
+  return this._children[key]
+};
+
+Module.prototype.hasChild = function hasChild (key) {
+  return key in this._children
+};
+
+Module.prototype.update = function update (rawModule) {
+  this._rawModule.namespaced = rawModule.namespaced;
+  if (rawModule.actions) {
+    this._rawModule.actions = rawModule.actions;
+  }
+  if (rawModule.mutations) {
+    this._rawModule.mutations = rawModule.mutations;
+  }
+  if (rawModule.getters) {
+    this._rawModule.getters = rawModule.getters;
+  }
+};
+
+Module.prototype.forEachChild = function forEachChild (fn) {
+  forEachValue(this._children, fn);
+};
+
+Module.prototype.forEachGetter = function forEachGetter (fn) {
+  if (this._rawModule.getters) {
+    forEachValue(this._rawModule.getters, fn);
+  }
+};
+
+Module.prototype.forEachAction = function forEachAction (fn) {
+  if (this._rawModule.actions) {
+    forEachValue(this._rawModule.actions, fn);
+  }
+};
+
+Module.prototype.forEachMutation = function forEachMutation (fn) {
+  if (this._rawModule.mutations) {
+    forEachValue(this._rawModule.mutations, fn);
+  }
+};
+
+Object.defineProperties( Module.prototype, prototypeAccessors );
+
+var ModuleCollection = function ModuleCollection (rawRootModule) {
+  // register root module (Vuex.Store options)
+  this.register([], rawRootModule, false);
+};
+
+ModuleCollection.prototype.get = function get (path) {
+  return path.reduce(function (module, key) {
+    return module.getChild(key)
+  }, this.root)
+};
+
+ModuleCollection.prototype.getNamespace = function getNamespace (path) {
+  var module = this.root;
+  return path.reduce(function (namespace, key) {
+    module = module.getChild(key);
+    return namespace + (module.namespaced ? key + '/' : '')
+  }, '')
+};
+
+ModuleCollection.prototype.update = function update$1 (rawRootModule) {
+  update([], this.root, rawRootModule);
+};
+
+ModuleCollection.prototype.register = function register (path, rawModule, runtime) {
+    var this$1 = this;
+    if ( runtime === void 0 ) runtime = true;
+
+  if ((true)) {
+    assertRawModule(path, rawModule);
+  }
+
+  var newModule = new Module(rawModule, runtime);
+  if (path.length === 0) {
+    this.root = newModule;
+  } else {
+    var parent = this.get(path.slice(0, -1));
+    parent.addChild(path[path.length - 1], newModule);
+  }
+
+  // register nested modules
+  if (rawModule.modules) {
+    forEachValue(rawModule.modules, function (rawChildModule, key) {
+      this$1.register(path.concat(key), rawChildModule, runtime);
+    });
+  }
+};
+
+ModuleCollection.prototype.unregister = function unregister (path) {
+  var parent = this.get(path.slice(0, -1));
+  var key = path[path.length - 1];
+  var child = parent.getChild(key);
+
+  if (!child) {
+    if ((true)) {
+      console.warn(
+        "[vuex] trying to unregister module '" + key + "', which is " +
+        "not registered"
+      );
+    }
+    return
+  }
+
+  if (!child.runtime) {
+    return
+  }
+
+  parent.removeChild(key);
+};
+
+ModuleCollection.prototype.isRegistered = function isRegistered (path) {
+  var parent = this.get(path.slice(0, -1));
+  var key = path[path.length - 1];
+
+  if (parent) {
+    return parent.hasChild(key)
+  }
+
+  return false
+};
+
+function update (path, targetModule, newModule) {
+  if ((true)) {
+    assertRawModule(path, newModule);
+  }
+
+  // update target module
+  targetModule.update(newModule);
+
+  // update nested modules
+  if (newModule.modules) {
+    for (var key in newModule.modules) {
+      if (!targetModule.getChild(key)) {
+        if ((true)) {
+          console.warn(
+            "[vuex] trying to add a new module '" + key + "' on hot reloading, " +
+            'manual reload is needed'
+          );
+        }
+        return
+      }
+      update(
+        path.concat(key),
+        targetModule.getChild(key),
+        newModule.modules[key]
+      );
+    }
+  }
+}
+
+var functionAssert = {
+  assert: function (value) { return typeof value === 'function'; },
+  expected: 'function'
+};
+
+var objectAssert = {
+  assert: function (value) { return typeof value === 'function' ||
+    (typeof value === 'object' && typeof value.handler === 'function'); },
+  expected: 'function or object with "handler" function'
+};
+
+var assertTypes = {
+  getters: functionAssert,
+  mutations: functionAssert,
+  actions: objectAssert
+};
+
+function assertRawModule (path, rawModule) {
+  Object.keys(assertTypes).forEach(function (key) {
+    if (!rawModule[key]) { return }
+
+    var assertOptions = assertTypes[key];
+
+    forEachValue(rawModule[key], function (value, type) {
+      assert(
+        assertOptions.assert(value),
+        makeAssertionMessage(path, key, type, value, assertOptions.expected)
+      );
+    });
+  });
+}
+
+function makeAssertionMessage (path, key, type, value, expected) {
+  var buf = key + " should be " + expected + " but \"" + key + "." + type + "\"";
+  if (path.length > 0) {
+    buf += " in module \"" + (path.join('.')) + "\"";
+  }
+  buf += " is " + (JSON.stringify(value)) + ".";
+  return buf
+}
+
+var Vue; // bind on install
+
+var Store = function Store (options) {
+  var this$1 = this;
+  if ( options === void 0 ) options = {};
+
+  // Auto install if it is not done yet and `window` has `Vue`.
+  // To allow users to avoid auto-installation in some cases,
+  // this code should be placed here. See #731
+  if (!Vue && typeof window !== 'undefined' && window.Vue) {
+    install(window.Vue);
+  }
+
+  if ((true)) {
+    assert(Vue, "must call Vue.use(Vuex) before creating a store instance.");
+    assert(typeof Promise !== 'undefined', "vuex requires a Promise polyfill in this browser.");
+    assert(this instanceof Store, "store must be called with the new operator.");
+  }
+
+  var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
+  var strict = options.strict; if ( strict === void 0 ) strict = false;
+
+  // store internal state
+  this._committing = false;
+  this._actions = Object.create(null);
+  this._actionSubscribers = [];
+  this._mutations = Object.create(null);
+  this._wrappedGetters = Object.create(null);
+  this._modules = new ModuleCollection(options);
+  this._modulesNamespaceMap = Object.create(null);
+  this._subscribers = [];
+  this._watcherVM = new Vue();
+  this._makeLocalGettersCache = Object.create(null);
+
+  // bind commit and dispatch to self
+  var store = this;
+  var ref = this;
+  var dispatch = ref.dispatch;
+  var commit = ref.commit;
+  this.dispatch = function boundDispatch (type, payload) {
+    return dispatch.call(store, type, payload)
+  };
+  this.commit = function boundCommit (type, payload, options) {
+    return commit.call(store, type, payload, options)
+  };
+
+  // strict mode
+  this.strict = strict;
+
+  var state = this._modules.root.state;
+
+  // init root module.
+  // this also recursively registers all sub-modules
+  // and collects all module getters inside this._wrappedGetters
+  installModule(this, state, [], this._modules.root);
+
+  // initialize the store vm, which is responsible for the reactivity
+  // (also registers _wrappedGetters as computed properties)
+  resetStoreVM(this, state);
+
+  // apply plugins
+  plugins.forEach(function (plugin) { return plugin(this$1); });
+
+  var useDevtools = options.devtools !== undefined ? options.devtools : Vue.config.devtools;
+  if (useDevtools) {
+    devtoolPlugin(this);
+  }
+};
+
+var prototypeAccessors$1 = { state: { configurable: true } };
+
+prototypeAccessors$1.state.get = function () {
+  return this._vm._data.$$state
+};
+
+prototypeAccessors$1.state.set = function (v) {
+  if ((true)) {
+    assert(false, "use store.replaceState() to explicit replace store state.");
+  }
+};
+
+Store.prototype.commit = function commit (_type, _payload, _options) {
+    var this$1 = this;
+
+  // check object-style commit
+  var ref = unifyObjectStyle(_type, _payload, _options);
+    var type = ref.type;
+    var payload = ref.payload;
+    var options = ref.options;
+
+  var mutation = { type: type, payload: payload };
+  var entry = this._mutations[type];
+  if (!entry) {
+    if ((true)) {
+      console.error(("[vuex] unknown mutation type: " + type));
+    }
+    return
+  }
+  this._withCommit(function () {
+    entry.forEach(function commitIterator (handler) {
+      handler(payload);
+    });
+  });
+
+  this._subscribers
+    .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+    .forEach(function (sub) { return sub(mutation, this$1.state); });
+
+  if (
+    ( true) &&
+    options && options.silent
+  ) {
+    console.warn(
+      "[vuex] mutation type: " + type + ". Silent option has been removed. " +
+      'Use the filter functionality in the vue-devtools'
+    );
+  }
+};
+
+Store.prototype.dispatch = function dispatch (_type, _payload) {
+    var this$1 = this;
+
+  // check object-style dispatch
+  var ref = unifyObjectStyle(_type, _payload);
+    var type = ref.type;
+    var payload = ref.payload;
+
+  var action = { type: type, payload: payload };
+  var entry = this._actions[type];
+  if (!entry) {
+    if ((true)) {
+      console.error(("[vuex] unknown action type: " + type));
+    }
+    return
+  }
+
+  try {
+    this._actionSubscribers
+      .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+      .filter(function (sub) { return sub.before; })
+      .forEach(function (sub) { return sub.before(action, this$1.state); });
+  } catch (e) {
+    if ((true)) {
+      console.warn("[vuex] error in before action subscribers: ");
+      console.error(e);
+    }
+  }
+
+  var result = entry.length > 1
+    ? Promise.all(entry.map(function (handler) { return handler(payload); }))
+    : entry[0](payload);
+
+  return new Promise(function (resolve, reject) {
+    result.then(function (res) {
+      try {
+        this$1._actionSubscribers
+          .filter(function (sub) { return sub.after; })
+          .forEach(function (sub) { return sub.after(action, this$1.state); });
+      } catch (e) {
+        if ((true)) {
+          console.warn("[vuex] error in after action subscribers: ");
+          console.error(e);
+        }
+      }
+      resolve(res);
+    }, function (error) {
+      try {
+        this$1._actionSubscribers
+          .filter(function (sub) { return sub.error; })
+          .forEach(function (sub) { return sub.error(action, this$1.state, error); });
+      } catch (e) {
+        if ((true)) {
+          console.warn("[vuex] error in error action subscribers: ");
+          console.error(e);
+        }
+      }
+      reject(error);
+    });
+  })
+};
+
+Store.prototype.subscribe = function subscribe (fn, options) {
+  return genericSubscribe(fn, this._subscribers, options)
+};
+
+Store.prototype.subscribeAction = function subscribeAction (fn, options) {
+  var subs = typeof fn === 'function' ? { before: fn } : fn;
+  return genericSubscribe(subs, this._actionSubscribers, options)
+};
+
+Store.prototype.watch = function watch (getter, cb, options) {
+    var this$1 = this;
+
+  if ((true)) {
+    assert(typeof getter === 'function', "store.watch only accepts a function.");
+  }
+  return this._watcherVM.$watch(function () { return getter(this$1.state, this$1.getters); }, cb, options)
+};
+
+Store.prototype.replaceState = function replaceState (state) {
+    var this$1 = this;
+
+  this._withCommit(function () {
+    this$1._vm._data.$$state = state;
+  });
+};
+
+Store.prototype.registerModule = function registerModule (path, rawModule, options) {
+    if ( options === void 0 ) options = {};
+
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+    assert(path.length > 0, 'cannot register the root module by using registerModule.');
+  }
+
+  this._modules.register(path, rawModule);
+  installModule(this, this.state, path, this._modules.get(path), options.preserveState);
+  // reset store to update getters...
+  resetStoreVM(this, this.state);
+};
+
+Store.prototype.unregisterModule = function unregisterModule (path) {
+    var this$1 = this;
+
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+  }
+
+  this._modules.unregister(path);
+  this._withCommit(function () {
+    var parentState = getNestedState(this$1.state, path.slice(0, -1));
+    Vue.delete(parentState, path[path.length - 1]);
+  });
+  resetStore(this);
+};
+
+Store.prototype.hasModule = function hasModule (path) {
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+  }
+
+  return this._modules.isRegistered(path)
+};
+
+Store.prototype.hotUpdate = function hotUpdate (newOptions) {
+  this._modules.update(newOptions);
+  resetStore(this, true);
+};
+
+Store.prototype._withCommit = function _withCommit (fn) {
+  var committing = this._committing;
+  this._committing = true;
+  fn();
+  this._committing = committing;
+};
+
+Object.defineProperties( Store.prototype, prototypeAccessors$1 );
+
+function genericSubscribe (fn, subs, options) {
+  if (subs.indexOf(fn) < 0) {
+    options && options.prepend
+      ? subs.unshift(fn)
+      : subs.push(fn);
+  }
+  return function () {
+    var i = subs.indexOf(fn);
+    if (i > -1) {
+      subs.splice(i, 1);
+    }
+  }
+}
+
+function resetStore (store, hot) {
+  store._actions = Object.create(null);
+  store._mutations = Object.create(null);
+  store._wrappedGetters = Object.create(null);
+  store._modulesNamespaceMap = Object.create(null);
+  var state = store.state;
+  // init all modules
+  installModule(store, state, [], store._modules.root, true);
+  // reset vm
+  resetStoreVM(store, state, hot);
+}
+
+function resetStoreVM (store, state, hot) {
+  var oldVm = store._vm;
+
+  // bind store public getters
+  store.getters = {};
+  // reset local getters cache
+  store._makeLocalGettersCache = Object.create(null);
+  var wrappedGetters = store._wrappedGetters;
+  var computed = {};
+  forEachValue(wrappedGetters, function (fn, key) {
+    // use computed to leverage its lazy-caching mechanism
+    // direct inline function use will lead to closure preserving oldVm.
+    // using partial to return function with only arguments preserved in closure environment.
+    computed[key] = partial(fn, store);
+    Object.defineProperty(store.getters, key, {
+      get: function () { return store._vm[key]; },
+      enumerable: true // for local getters
+    });
+  });
+
+  // use a Vue instance to store the state tree
+  // suppress warnings just in case the user has added
+  // some funky global mixins
+  var silent = Vue.config.silent;
+  Vue.config.silent = true;
+  store._vm = new Vue({
+    data: {
+      $$state: state
+    },
+    computed: computed
+  });
+  Vue.config.silent = silent;
+
+  // enable strict mode for new vm
+  if (store.strict) {
+    enableStrictMode(store);
+  }
+
+  if (oldVm) {
+    if (hot) {
+      // dispatch changes in all subscribed watchers
+      // to force getter re-evaluation for hot reloading.
+      store._withCommit(function () {
+        oldVm._data.$$state = null;
+      });
+    }
+    Vue.nextTick(function () { return oldVm.$destroy(); });
+  }
+}
+
+function installModule (store, rootState, path, module, hot) {
+  var isRoot = !path.length;
+  var namespace = store._modules.getNamespace(path);
+
+  // register in namespace map
+  if (module.namespaced) {
+    if (store._modulesNamespaceMap[namespace] && ("development" !== 'production')) {
+      console.error(("[vuex] duplicate namespace " + namespace + " for the namespaced module " + (path.join('/'))));
+    }
+    store._modulesNamespaceMap[namespace] = module;
+  }
+
+  // set state
+  if (!isRoot && !hot) {
+    var parentState = getNestedState(rootState, path.slice(0, -1));
+    var moduleName = path[path.length - 1];
+    store._withCommit(function () {
+      if ((true)) {
+        if (moduleName in parentState) {
+          console.warn(
+            ("[vuex] state field \"" + moduleName + "\" was overridden by a module with the same name at \"" + (path.join('.')) + "\"")
+          );
+        }
+      }
+      Vue.set(parentState, moduleName, module.state);
+    });
+  }
+
+  var local = module.context = makeLocalContext(store, namespace, path);
+
+  module.forEachMutation(function (mutation, key) {
+    var namespacedType = namespace + key;
+    registerMutation(store, namespacedType, mutation, local);
+  });
+
+  module.forEachAction(function (action, key) {
+    var type = action.root ? key : namespace + key;
+    var handler = action.handler || action;
+    registerAction(store, type, handler, local);
+  });
+
+  module.forEachGetter(function (getter, key) {
+    var namespacedType = namespace + key;
+    registerGetter(store, namespacedType, getter, local);
+  });
+
+  module.forEachChild(function (child, key) {
+    installModule(store, rootState, path.concat(key), child, hot);
+  });
+}
+
+/**
+ * make localized dispatch, commit, getters and state
+ * if there is no namespace, just use root ones
+ */
+function makeLocalContext (store, namespace, path) {
+  var noNamespace = namespace === '';
+
+  var local = {
+    dispatch: noNamespace ? store.dispatch : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+        if (( true) && !store._actions[type]) {
+          console.error(("[vuex] unknown local action type: " + (args.type) + ", global type: " + type));
+          return
+        }
+      }
+
+      return store.dispatch(type, payload)
+    },
+
+    commit: noNamespace ? store.commit : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+        if (( true) && !store._mutations[type]) {
+          console.error(("[vuex] unknown local mutation type: " + (args.type) + ", global type: " + type));
+          return
+        }
+      }
+
+      store.commit(type, payload, options);
+    }
+  };
+
+  // getters and state object must be gotten lazily
+  // because they will be changed by vm update
+  Object.defineProperties(local, {
+    getters: {
+      get: noNamespace
+        ? function () { return store.getters; }
+        : function () { return makeLocalGetters(store, namespace); }
+    },
+    state: {
+      get: function () { return getNestedState(store.state, path); }
+    }
+  });
+
+  return local
+}
+
+function makeLocalGetters (store, namespace) {
+  if (!store._makeLocalGettersCache[namespace]) {
+    var gettersProxy = {};
+    var splitPos = namespace.length;
+    Object.keys(store.getters).forEach(function (type) {
+      // skip if the target getter is not match this namespace
+      if (type.slice(0, splitPos) !== namespace) { return }
+
+      // extract local getter type
+      var localType = type.slice(splitPos);
+
+      // Add a port to the getters proxy.
+      // Define as getter property because
+      // we do not want to evaluate the getters in this time.
+      Object.defineProperty(gettersProxy, localType, {
+        get: function () { return store.getters[type]; },
+        enumerable: true
+      });
+    });
+    store._makeLocalGettersCache[namespace] = gettersProxy;
+  }
+
+  return store._makeLocalGettersCache[namespace]
+}
+
+function registerMutation (store, type, handler, local) {
+  var entry = store._mutations[type] || (store._mutations[type] = []);
+  entry.push(function wrappedMutationHandler (payload) {
+    handler.call(store, local.state, payload);
+  });
+}
+
+function registerAction (store, type, handler, local) {
+  var entry = store._actions[type] || (store._actions[type] = []);
+  entry.push(function wrappedActionHandler (payload) {
+    var res = handler.call(store, {
+      dispatch: local.dispatch,
+      commit: local.commit,
+      getters: local.getters,
+      state: local.state,
+      rootGetters: store.getters,
+      rootState: store.state
+    }, payload);
+    if (!isPromise(res)) {
+      res = Promise.resolve(res);
+    }
+    if (store._devtoolHook) {
+      return res.catch(function (err) {
+        store._devtoolHook.emit('vuex:error', err);
+        throw err
+      })
+    } else {
+      return res
+    }
+  });
+}
+
+function registerGetter (store, type, rawGetter, local) {
+  if (store._wrappedGetters[type]) {
+    if ((true)) {
+      console.error(("[vuex] duplicate getter key: " + type));
+    }
+    return
+  }
+  store._wrappedGetters[type] = function wrappedGetter (store) {
+    return rawGetter(
+      local.state, // local state
+      local.getters, // local getters
+      store.state, // root state
+      store.getters // root getters
+    )
+  };
+}
+
+function enableStrictMode (store) {
+  store._vm.$watch(function () { return this._data.$$state }, function () {
+    if ((true)) {
+      assert(store._committing, "do not mutate vuex store state outside mutation handlers.");
+    }
+  }, { deep: true, sync: true });
+}
+
+function getNestedState (state, path) {
+  return path.reduce(function (state, key) { return state[key]; }, state)
+}
+
+function unifyObjectStyle (type, payload, options) {
+  if (isObject(type) && type.type) {
+    options = payload;
+    payload = type;
+    type = type.type;
+  }
+
+  if ((true)) {
+    assert(typeof type === 'string', ("expects string as the type, but found " + (typeof type) + "."));
+  }
+
+  return { type: type, payload: payload, options: options }
+}
+
+function install (_Vue) {
+  if (Vue && _Vue === Vue) {
+    if ((true)) {
+      console.error(
+        '[vuex] already installed. Vue.use(Vuex) should be called only once.'
+      );
+    }
+    return
+  }
+  Vue = _Vue;
+  applyMixin(Vue);
+}
+
+/**
+ * Reduce the code which written in Vue.js for getting the state.
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} states # Object's item can be a function which accept state and getters for param, you can do something for state and getters in it.
+ * @param {Object}
+ */
+var mapState = normalizeNamespace(function (namespace, states) {
+  var res = {};
+  if (( true) && !isValidMap(states)) {
+    console.error('[vuex] mapState: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(states).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedState () {
+      var state = this.$store.state;
+      var getters = this.$store.getters;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapState', namespace);
+        if (!module) {
+          return
+        }
+        state = module.context.state;
+        getters = module.context.getters;
+      }
+      return typeof val === 'function'
+        ? val.call(this, state, getters)
+        : state[val]
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for committing the mutation
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept another params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @return {Object}
+ */
+var mapMutations = normalizeNamespace(function (namespace, mutations) {
+  var res = {};
+  if (( true) && !isValidMap(mutations)) {
+    console.error('[vuex] mapMutations: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(mutations).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedMutation () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      // Get the commit method from store
+      var commit = this.$store.commit;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapMutations', namespace);
+        if (!module) {
+          return
+        }
+        commit = module.context.commit;
+      }
+      return typeof val === 'function'
+        ? val.apply(this, [commit].concat(args))
+        : commit.apply(this.$store, [val].concat(args))
+    };
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for getting the getters
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} getters
+ * @return {Object}
+ */
+var mapGetters = normalizeNamespace(function (namespace, getters) {
+  var res = {};
+  if (( true) && !isValidMap(getters)) {
+    console.error('[vuex] mapGetters: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(getters).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    // The namespace has been mutated by normalizeNamespace
+    val = namespace + val;
+    res[key] = function mappedGetter () {
+      if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
+        return
+      }
+      if (( true) && !(val in this.$store.getters)) {
+        console.error(("[vuex] unknown getter: " + val));
+        return
+      }
+      return this.$store.getters[val]
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for dispatch the action
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} actions # Object's item can be a function which accept `dispatch` function as the first param, it can accept anthor params. You can dispatch action and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @return {Object}
+ */
+var mapActions = normalizeNamespace(function (namespace, actions) {
+  var res = {};
+  if (( true) && !isValidMap(actions)) {
+    console.error('[vuex] mapActions: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(actions).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedAction () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      // get dispatch function from store
+      var dispatch = this.$store.dispatch;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapActions', namespace);
+        if (!module) {
+          return
+        }
+        dispatch = module.context.dispatch;
+      }
+      return typeof val === 'function'
+        ? val.apply(this, [dispatch].concat(args))
+        : dispatch.apply(this.$store, [val].concat(args))
+    };
+  });
+  return res
+});
+
+/**
+ * Rebinding namespace param for mapXXX function in special scoped, and return them by simple object
+ * @param {String} namespace
+ * @return {Object}
+ */
+var createNamespacedHelpers = function (namespace) { return ({
+  mapState: mapState.bind(null, namespace),
+  mapGetters: mapGetters.bind(null, namespace),
+  mapMutations: mapMutations.bind(null, namespace),
+  mapActions: mapActions.bind(null, namespace)
+}); };
+
+/**
+ * Normalize the map
+ * normalizeMap([1, 2, 3]) => [ { key: 1, val: 1 }, { key: 2, val: 2 }, { key: 3, val: 3 } ]
+ * normalizeMap({a: 1, b: 2, c: 3}) => [ { key: 'a', val: 1 }, { key: 'b', val: 2 }, { key: 'c', val: 3 } ]
+ * @param {Array|Object} map
+ * @return {Object}
+ */
+function normalizeMap (map) {
+  if (!isValidMap(map)) {
+    return []
+  }
+  return Array.isArray(map)
+    ? map.map(function (key) { return ({ key: key, val: key }); })
+    : Object.keys(map).map(function (key) { return ({ key: key, val: map[key] }); })
+}
+
+/**
+ * Validate whether given map is valid or not
+ * @param {*} map
+ * @return {Boolean}
+ */
+function isValidMap (map) {
+  return Array.isArray(map) || isObject(map)
+}
+
+/**
+ * Return a function expect two param contains namespace and map. it will normalize the namespace and then the param's function will handle the new namespace and the map.
+ * @param {Function} fn
+ * @return {Function}
+ */
+function normalizeNamespace (fn) {
+  return function (namespace, map) {
+    if (typeof namespace !== 'string') {
+      map = namespace;
+      namespace = '';
+    } else if (namespace.charAt(namespace.length - 1) !== '/') {
+      namespace += '/';
+    }
+    return fn(namespace, map)
+  }
+}
+
+/**
+ * Search a special module from store by namespace. if module not exist, print error message.
+ * @param {Object} store
+ * @param {String} helper
+ * @param {String} namespace
+ * @return {Object}
+ */
+function getModuleByNamespace (store, helper, namespace) {
+  var module = store._modulesNamespaceMap[namespace];
+  if (( true) && !module) {
+    console.error(("[vuex] module namespace not found in " + helper + "(): " + namespace));
+  }
+  return module
+}
+
+// Credits: borrowed code from fcomb/redux-logger
+
+function createLogger (ref) {
+  if ( ref === void 0 ) ref = {};
+  var collapsed = ref.collapsed; if ( collapsed === void 0 ) collapsed = true;
+  var filter = ref.filter; if ( filter === void 0 ) filter = function (mutation, stateBefore, stateAfter) { return true; };
+  var transformer = ref.transformer; if ( transformer === void 0 ) transformer = function (state) { return state; };
+  var mutationTransformer = ref.mutationTransformer; if ( mutationTransformer === void 0 ) mutationTransformer = function (mut) { return mut; };
+  var actionFilter = ref.actionFilter; if ( actionFilter === void 0 ) actionFilter = function (action, state) { return true; };
+  var actionTransformer = ref.actionTransformer; if ( actionTransformer === void 0 ) actionTransformer = function (act) { return act; };
+  var logMutations = ref.logMutations; if ( logMutations === void 0 ) logMutations = true;
+  var logActions = ref.logActions; if ( logActions === void 0 ) logActions = true;
+  var logger = ref.logger; if ( logger === void 0 ) logger = console;
+
+  return function (store) {
+    var prevState = deepCopy(store.state);
+
+    if (typeof logger === 'undefined') {
+      return
+    }
+
+    if (logMutations) {
+      store.subscribe(function (mutation, state) {
+        var nextState = deepCopy(state);
+
+        if (filter(mutation, prevState, nextState)) {
+          var formattedTime = getFormattedTime();
+          var formattedMutation = mutationTransformer(mutation);
+          var message = "mutation " + (mutation.type) + formattedTime;
+
+          startMessage(logger, message, collapsed);
+          logger.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState));
+          logger.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation);
+          logger.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState));
+          endMessage(logger);
+        }
+
+        prevState = nextState;
+      });
+    }
+
+    if (logActions) {
+      store.subscribeAction(function (action, state) {
+        if (actionFilter(action, state)) {
+          var formattedTime = getFormattedTime();
+          var formattedAction = actionTransformer(action);
+          var message = "action " + (action.type) + formattedTime;
+
+          startMessage(logger, message, collapsed);
+          logger.log('%c action', 'color: #03A9F4; font-weight: bold', formattedAction);
+          endMessage(logger);
+        }
+      });
+    }
+  }
+}
+
+function startMessage (logger, message, collapsed) {
+  var startMessage = collapsed
+    ? logger.groupCollapsed
+    : logger.group;
+
+  // render
+  try {
+    startMessage.call(logger, message);
+  } catch (e) {
+    logger.log(message);
+  }
+}
+
+function endMessage (logger) {
+  try {
+    logger.groupEnd();
+  } catch (e) {
+    logger.log('—— log end ——');
+  }
+}
+
+function getFormattedTime () {
+  var time = new Date();
+  return (" @ " + (pad(time.getHours(), 2)) + ":" + (pad(time.getMinutes(), 2)) + ":" + (pad(time.getSeconds(), 2)) + "." + (pad(time.getMilliseconds(), 3)))
+}
+
+function repeat (str, times) {
+  return (new Array(times + 1)).join(str)
+}
+
+function pad (num, maxLength) {
+  return repeat('0', maxLength - num.toString().length) + num
+}
+
+var index = {
+  Store: Store,
+  install: install,
+  version: '3.6.2',
+  mapState: mapState,
+  mapMutations: mapMutations,
+  mapGetters: mapGetters,
+  mapActions: mapActions,
+  createNamespacedHelpers: createNamespacedHelpers,
+  createLogger: createLogger
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (index);
+
+
+
 /***/ })
 
 /******/ 	});
@@ -39630,7 +46739,9 @@ Vue.compile = compileToFunctions;
 /******/ 	})();
 /******/ 	
 /************************************************************************/
+/******/ 	
 /******/ 	// run startup
-/******/ 	__webpack_require__.x();
+/******/ 	var __webpack_exports__ = __webpack_require__.x();
+/******/ 	
 /******/ })()
 ;

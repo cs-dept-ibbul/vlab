@@ -76,8 +76,17 @@ main {
   border: 1px solid #eee;
   cursor: text !important;
 }
-@media screen and (max-width: 896px) {
-  .input-search2 {
+.vh-100{
+  min-height: 100vh;
+}
+.vh-1{
+  min-height: 13vh;
+}
+.vh-87{
+  min-height: 87vh;
+}
+@media screen and  (max-width:896px){
+  .input-search2{
     width: 160px !important;
   }
   .input-search3 {
@@ -232,9 +241,18 @@ main {
   flex-wrap: wrap;
   align-items: center;
 }
-@media screen and (min-width: 644px) {
-  .lg-flex {
-    display: flex;
+.flex-wrap{
+      flex-wrap: wrap;
+      align-items: center;
+}
+.exp-cont-view{
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 87vh;
+}
+@media screen and (min-width: 644px){
+  .lg-flex{
+      display: flex;
   }
   .lg-flex-wrap {
     flex-wrap: wrap;
@@ -285,13 +303,20 @@ main {
 .fs9 {
   font-size: 2em;
 }
-
-@media screen and (max-width: 644px) {
-  .sm-justify-center {
-    justify-content: center;
-  }
-  .pd-sm-2 {
-    padding: 5px !important;
+#mainExp{
+  width: 88%;
+  overflow-x: scroll;
+}
+.systabActive{
+ border-bottom: 2px solid #00b96b !important; 
+ color: #00b96b !important;
+}
+@media screen and (max-width: 644px){
+    .sm-justify-center{
+      justify-content: center;
+    }
+    .pd-sm-2{
+    padding: 5px !important;    
   }
 }
 @media screen and (max-width: 950px){
@@ -713,10 +738,16 @@ main {
 .exprightNav {
   position: absolute;
   right: 0px;
-  top: 85px !important;
+  top: 13vh ;
   width: 200px;
-  transition: width 1s;
+  transition: width 1s;  
+
 }
+.bottom-0{
+bottom: 0;  
+}
+
+
 
 * {
   box-sizing: border-box;

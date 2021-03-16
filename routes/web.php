@@ -34,7 +34,16 @@ Route::get('/course-experiments', 'App\Http\Controllers\adminCourseExperiments@i
 
 
 
+ 
+Route::get('/photovoltaic-2','App\Http\Controllers\experimentController@vicelabexp2')->name('vicelab-exp2');
+Route::get('/simple-circuit','App\Http\Controllers\experimentController@simpleCircuit')->name('simple-circuit');
+Route::get('/simpleCircuit', function ()
+{
+	return view('experiment.simpleCircuit');
+})->name('simpleCircuit');
 
+
+Route::get('/photovoltaic-3','App\Http\Controllers\experimentController@vicelabexp3')->name('photovoltaic-3');
 Route::get('/simple-pendulum','App\Http\Controllers\experimentController@simplePendulum')->name('simple-pendulum');
 
 Route::get('/simplependulumEquipment', function ()

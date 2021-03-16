@@ -1,7 +1,8 @@
 
 
-import Vue from 'vue'
+import Vue from 'vue'   
 import bootstrap from "bootstrap";
+import Vuex from 'vuex'
 
 //Main pages
 //import App from './views/app.vue'
@@ -9,6 +10,17 @@ import bootstrap from "bootstrap";
 /*experiment page component*/
  window.Vue = require('vue');
 
+//vuex
+Vue.use(Vuex)
+/*import storeData from "./store/index";*/
+import expvicelab2 from "./store/exp1";
+import expvicelab3 from "./store/exp2";
+/*
+const store = new Vuex.Store(
+   storeData
+)*/
+const store = new Vuex.Store(   expvicelab2 )
+const store2 = new Vuex.Store(   expvicelab3 )
 /*global event bus and communication*/
 Vue.prototype.$eventBus = new Vue(); 
 
@@ -23,6 +35,11 @@ Vue.component('v-start', require('./components/StartExperimentBtn.vue').default)
 Vue.component('v-progress', require('./components/progressBar.vue').default);
 Vue.component('v-thread', require('./components/threadTrends.vue').default);
 Vue.component('v-createcourse', require('./components/createCourse.vue').default);
+Vue.component('v-vicelabexp2', require('./components/vicelabexp2.vue').default);
+Vue.component('v-vicelabexp3', require('./components/vicelabexp3.vue').default);
+Vue.component('v-simplecircuit', require('./components/simple-circuit.vue').default);
+Vue.component('v-vicelabtools', require('./components/vicelabExpEquip.vue').default); //experiment Right Nav bar
+
 
 
 Vue.component('v-tlb2', require('./components/title-left-bar.vue').default);
@@ -55,18 +72,25 @@ Vue.component('v-coursestab', require('./components/CoursesTab.vue').default);
  const app = new Vue({
    el: '#app',
    bootstrap,
+   store,
+   store2,
+   /*expvicelab2,*/
    	 data:function() {
 	    	return{
-	    	 poor:false
+	    	 poor:false,
+         exp2vicelab: this.exp2vicelab
 	    	}
         },
     methods:{
             toggleClass(){            	
-                this.isLoading=!this.isLoading;
-                //this.classObj = { "color-blue" : true};
+                this.isLoading=!this.isLoading;                
             }
-        }
+        },
+          mounted(){            
+    }
  });
+
+ /*experiment timing filter */
 Vue.filter('two_digits', (value) => {
   if (value < 0) {
   	value = 0;
