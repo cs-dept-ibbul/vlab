@@ -27,6 +27,7 @@ class UserController extends Controller
         $data = [];
         $exists = [];
         $newStudents = [];
+        $password = 123456;
         
         for ($i = 0; $i < count($customerArr); $i++) {
             
@@ -39,7 +40,7 @@ class UserController extends Controller
                     'first_name' => $customerArr[$i]['first_name'],
                     'other_names' => $customerArr[$i]['other_names'],
                     'gender' => $customerArr[$i]['gender'],
-                    'password' => $customerArr[$i]['password'],
+                    'password' => $password,
                     'role_id' => $request->get('role_id'),
                     'user_ip_address' => $this->ip(),
                 ];

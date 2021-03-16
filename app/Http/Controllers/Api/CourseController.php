@@ -34,6 +34,7 @@ class CourseController extends Controller
         $faculty_id = $request->get('faculty_id');
         $title = $request->get('title');
         $code = $request->get('code');
+        $code = $request->get('description');
         $status = $request->get('status') ?? 'Active';
 
         $course->id = $id;

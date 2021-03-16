@@ -1,4 +1,4 @@
-first_name,other_names,matric_number,gender,password
-Habib,Endurance,U16/FNS/MTH/1012,male,123456
-Tajudeen, Jimoh,U16/FNS/MTH/1017,male,123456
-Ahmed, Azeez,U16/FNS/MTH/1014,male,123456
+first_name,other_names,matric_number,gender
+Habib,Endurance,U16/FNS/MTH/1012,male
+Tajudeen, Jimoh,U16/FNS/MTH/1017,male
+Ahmed, Azeez,U16/FNS/MTH/1014,male

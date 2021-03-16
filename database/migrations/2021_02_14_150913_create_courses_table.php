@@ -19,6 +19,7 @@ class CreateCoursesTable extends Migration
             $table->string('faculty_id');
             $table->string('title');
             $table->string('code');
+            $table->string('description');
             $table->enum('status', ['Active', 'Inactive']);
             $table->rememberToken();
             $table->timestamps();
