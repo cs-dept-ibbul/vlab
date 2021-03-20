@@ -740,10 +740,7 @@ main {
   right: 0px;
   top: 13vh ;
   width: 200px;
-<<<<<<< HEAD
 
-=======
->>>>>>> b4040f68c7e435f52740b04556d99d4d7a8dcdb1
   transition: width 1s;  
 
 }
@@ -751,12 +748,8 @@ main {
 bottom: 0;  
 }
 
-<<<<<<< HEAD
-=======
-
 
 * {
->>>>>>> b4040f68c7e435f52740b04556d99d4d7a8dcdb1
   box-sizing: border-box;
 }
 
