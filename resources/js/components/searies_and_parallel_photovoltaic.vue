@@ -74,8 +74,8 @@
                   <!-- sunligh  --> 
 
                   <div class="picker equipments drags forsunligt dp-none" style="" id="sunLight" >
-                    
-                  <img   src="/expImages/physics/exp1/lightModul.jpg" v-bind="attrs" v-on="on" @click='' width="80%" height="80%">
+                    <span style='font-size:6em;color:orange;'>&#9728;</span>
+                  <!-- <img   src="/expImages/physics/exp1/lightModul.jpg" v-bind="attrs" v-on="on" @click='' width="80%" height="80%"> -->
                   <div class="cbtn">
                     <button class="deleteCell sunlightDelBtn" rel="sunLight" style="" ><span style="color: #ba6;" class="fa fa-remove"></span></button>                    
                   </div>

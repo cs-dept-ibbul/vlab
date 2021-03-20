@@ -76,6 +76,7 @@ main {
   border: 1px solid #eee;
   cursor: text !important;
 }
+
 .vh-100{
   min-height: 100vh;
 }
@@ -237,10 +238,7 @@ main {
 /* .font2 {
   font-family: 'Source Sans Pro', sans-serif !important;
 } */
-.flex-wrap {
-  flex-wrap: wrap;
-  align-items: center;
-}
+
 .flex-wrap{
       flex-wrap: wrap;
       align-items: center;
@@ -253,6 +251,7 @@ main {
 @media screen and (min-width: 644px){
   .lg-flex{
       display: flex;
+
   }
   .lg-flex-wrap {
     flex-wrap: wrap;
@@ -303,6 +302,7 @@ main {
 .fs9 {
   font-size: 2em;
 }
+
 #mainExp{
   width: 88%;
   overflow-x: scroll;
@@ -740,13 +740,13 @@ main {
   right: 0px;
   top: 13vh ;
   width: 200px;
+
   transition: width 1s;  
 
 }
 .bottom-0{
 bottom: 0;  
 }
-
 
 
 * {

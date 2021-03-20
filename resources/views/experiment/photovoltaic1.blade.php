@@ -20,7 +20,7 @@ $started = 0; //this will be from database
 
    <div class="w-100 vh-100 position-relative">
          <!-- top nav bar -->
-         <v-topnave class="vh-1"  equipmentname="ViceLab Experiment 3" experimentnum='Solar Power Dependency'></v-topnave>
+         <v-topnave class="vh-1"  equipmentname="Photovoltaic Experiment 1" experimentnum='Series & Parallel Connection'></v-topnave>
          <!-- end to nav bar -->
 
          <!-- content -->
@@ -34,13 +34,13 @@ $started = 0; //this will be from database
        			<!-- experiment  -->
    			    <div id="mainExp">
                <v-ribbon></v-ribbon>
-               <v-vicelabexp3 style="display: none;" id="experimentSheet"></v-vicelabexp3>
+               <v-photovoltaic1 style="display: none;" id="experimentSheet"></v-photovoltaic1>
                <v-start hourdata="1" munitedata="30" starteddata="{{$started}}" ></v-start>               
    			    </div>
    			    <!-- end experiment -->
 
-            <div  class="zero-space vh-2 exprightNav" id="rightNav">               
-               <v-rightnav toolsizes="false" url="{{route('vicelab-exp2')}}" vicelab=1 ></v-rightnav>
+            <div  class="zero-space exprightNav" id="rightNav">               
+               <v-rightnav class="vh-2" toolsizes="false" url="{{route('photovoltaic1')}}" vicelab=1 ></v-rightnav>
             </div>
 
        			<!-- experiment footer -->
@@ -48,6 +48,7 @@ $started = 0; //this will be from database
        		   <v-expfooter></v-expfooter>
        			</div>
        			<!-- end experiment footer -->
+
    		</div>
    </div>
 
