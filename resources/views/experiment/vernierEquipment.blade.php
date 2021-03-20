@@ -1052,9 +1052,6 @@ var _stringProperties = {};
     return out;  // > CustomCode.ddvalue:19
   }  // > CustomCode.ddvalue:20
 
-  //https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Using_full_screen_mode  // > CustomCode.Lib Page:1
-  // does not work for iOS   // > CustomCode.Lib Page:2
-  /*jslint browser:true */  // > CustomCode.Lib Page:3
   function toggleFullScreen() {  // > CustomCode.Lib Page:4
     if (!document.fullscreenElement &&    // alternative standard method  // > CustomCode.Lib Page:5
         !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods  // > CustomCode.Lib Page:6
@@ -1080,68 +1077,6 @@ var _stringProperties = {};
     }  // > CustomCode.Lib Page:26
   }  // > CustomCode.Lib Page:27
 
-  /*  // > CustomCode.tail_n_depth illustration:1
-  Position of xytail = x, y1/2 = 0, ymax*0.7/2 = 0, ((range/2)*0.7)/2 = 0, 35  // > CustomCode.tail_n_depth illustration:2
-  Initial Coordinates for xytail:   // > CustomCode.tail_n_depth illustration:3
-  xytail[0] = [xmax,0] = range, 0 = 200, 0  // > CustomCode.tail_n_depth illustration:4
-  xytail[1] = [xmax,size/2] = range, (range/20)/2 = 200, 5  // > CustomCode.tail_n_depth illustration:5
-  xytail[2] = [xmax-size*2,size/2] = range-((range/20) *2), (range/20)/2 = 180, 5  // > CustomCode.tail_n_depth illustration:6
-  xytail[3] = [xmax-size*2,size] = range-((range/20) *2), (range/20) = 180, 10  // > CustomCode.tail_n_depth illustration:7
-  xytail[4] = [-size*16,size] = -(range/20)*16, (range/20) = -160, 10  // > CustomCode.tail_n_depth illustration:8
-  xytail[5] = [-size*16,0] = -(range/20)*16 = -160, 0  // > CustomCode.tail_n_depth illustration:9
-  Position of oxytail = 0,0  // > CustomCode.tail_n_depth illustration:10
-  Initial Coordinates for oxytail:   // > CustomCode.tail_n_depth illustration:11
-  oxytail[0] = [xmax,y1/2-h2*2] = range, (ymax*0.7)/2 - (size*1.2)*2  = 200, 35-24 = 200, 9  // > CustomCode.tail_n_depth illustration:12
-  oxytail[1] = [xmax,y1/2-h2] = range,  (ymax*0.7)/2 - (size*1.2) = 200, 35 - 12 = 200, 23  // > CustomCode.tail_n_depth illustration:13
-  oxytail[2] = [xmax+td,y1/2-h2] = range+(xmax/2*Math.random()),  (ymax*0.7)/2 - (size*1.2) = range+(range/2*Math.random()), 35 - 12 = 300, 23  // > CustomCode.tail_n_depth illustration:14
-  oxytail[3] = [xmax+td,y1/2+h2] = range+(xmax/2*Math.random()), (ymax*0.7)/2 + (size*1.2)  = range+(range/2*Math.random()), 35+12 = 300, 47  // > CustomCode.tail_n_depth illustration:15
-  oxytail[4] = [xmax,y1/2+h2] = range,(ymax*0.7)/2 + (size*1.2)  = 200, 35+12 = 200, 47  // > CustomCode.tail_n_depth illustration:16
-  oxytail[5] = [xmax,y1/2+h2*2] = range, (ymax*0.7)/2 + (size*1.2)*2  = 200, 35+24  = 200, 59  // > CustomCode.tail_n_depth illustration:17
-  oxytail[6] = [xmax+td+size,y1/2+h2*2] = range+(xmax/2*Math.random())+(range/20),  (ymax*0.7)/2 + (size*1.2)*2  = range+(range/2*Math.random())+10, 35+24= 310,59  // > CustomCode.tail_n_depth illustration:18
-  oxytail[7] = [xmax+td+size,y1/2-h2*2] = range+(xmax/2*Math.random())+(range/20), (ymax*0.7)/2 - (size*1.2)*2  = range+(range/2*Math.random())+10, 35-24= 310, 9  // > CustomCode.tail_n_depth illustration:19
-  td = xmax+((size+30)*Math.random())  // > CustomCode.tail_n_depth illustration:20
-            // > CustomCode.tail_n_depth illustration:21
-  59                                             5--------------td+size---------6  // > CustomCode.tail_n_depth illustration:22
-                                                 |                              |  // > CustomCode.tail_n_depth illustration:23
-  47                                             4-------td = <100 --------3    |  // > CustomCode.tail_n_depth illustration:24
-  10+35    4------------------------------3                                |    |                                          // > CustomCode.tail_n_depth illustration:25
-           |                              |                                |    |   // > CustomCode.tail_n_depth illustration:26
-  5+35     |            xytail            2------1                         |    |   // > CustomCode.tail_n_depth illustration:27
-           |                                     |                         |    |   // > CustomCode.tail_n_depth illustration:28
-  0+35     5-------------------------------------0                         |    |  // > CustomCode.tail_n_depth illustration:29
-  23                                             1-------------------------2    |  // > CustomCode.tail_n_depth illustration:30
-                                                 |            oxytail           |  // > CustomCode.tail_n_depth illustration:31
-  9                                              0------------------------------7  // > CustomCode.tail_n_depth illustration:32
-         -160           0              180      200                       300  310  // > CustomCode.tail_n_depth illustration:33
-                    initial x                   xmax  // > CustomCode.tail_n_depth illustration:34
-                          // > CustomCode.tail_n_depth illustration:35
-  Limits of td is 0 to xmax + xmax  // > CustomCode.tail_n_depth illustration:36
-  Initial value of td = (xmax/2)*Math.random = less than 100  // > CustomCode.tail_n_depth illustration:37
-  xy7  // > CustomCode.tail_n_depth illustration:38
-  [xmax,y1],  // > CustomCode.tail_n_depth illustration:39
-  [x2+size*1.5,y1]  // > CustomCode.tail_n_depth illustration:40
-  [x2+size/2,y1+5*size2]  // > CustomCode.tail_n_depth illustration:41
-  [x2,y1+6*size2],  // > CustomCode.tail_n_depth illustration:42
-  [x2,y1+size/2],  // > CustomCode.tail_n_depth illustration:43
-  [x2+size/2,y1+size/2],  // > CustomCode.tail_n_depth illustration:44
-  [x2+size/2,y1],  // > CustomCode.tail_n_depth illustration:45
-  [x2,y1],  // > CustomCode.tail_n_depth illustration:46
-  [x1,y1],  // > CustomCode.tail_n_depth illustration:47
-  [x1,y3/2],  // > CustomCode.tail_n_depth illustration:48
-  [x2-size,y3+size/2],  // > CustomCode.tail_n_depth illustration:49
-  [x2,y3],[x2,y2-size],  // > CustomCode.tail_n_depth illustration:50
-  [x2-size/2,y2-size],  // > CustomCode.tail_n_depth illustration:51
-  [x2-size/2,y2],  // > CustomCode.tail_n_depth illustration:52
-  [x2,y2],  // > CustomCode.tail_n_depth illustration:53
-  [xmax,y2]]  // > CustomCode.tail_n_depth illustration:54
-  xy6  // > CustomCode.tail_n_depth illustration:55
-  [[x2,y2],  // > CustomCode.tail_n_depth illustration:56
-  [x2,y3],  // > CustomCode.tail_n_depth illustration:57
-  [x2+size,y3+size2],  // > CustomCode.tail_n_depth illustration:58
-  [x2+3*size,y3/1.7],  // > CustomCode.tail_n_depth illustration:59
-  [x2+L,y3/1.7],  // > CustomCode.tail_n_depth illustration:60
-  [x2+L,y2]]  // > CustomCode.tail_n_depth illustration:61
-  */  // > CustomCode.tail_n_depth illustration:62
 
   //code reference: http://davidwalsh.name/detect-android  // > CustomCode.checkAndroid:1
   function checkAndroid () {  // > CustomCode.checkAndroid:2
@@ -1149,10 +1084,6 @@ var _stringProperties = {};
     return ua.indexOf("android") > -1; //&& ua.indexOf("mobile");  // > CustomCode.checkAndroid:4
   }  // > CustomCode.checkAndroid:5
 
-  // code to be copied to EJSS source code under Custom and used in drawingPanel3D and plottingPanel2D  // > CustomCode.changeOrentiaition:1
-  // address the problem is height difference is iOS app , epub, and Firefox  // > CustomCode.changeOrentiaition:2
-  // user need to change only k and kepub  // > CustomCode.changeOrentiaition:3
-  // copy %changeOrientation()% into the Height Field of drawingPanel3D and plottingPanel2D  // > CustomCode.changeOrentiaition:4
   function changeOrientation() {  // > CustomCode.changeOrentiaition:5
      // > CustomCode.changeOrentiaition:6
   var k =1 ; // k control height 1 is for full screen, 0.9 shorten etc  // > CustomCode.changeOrentiaition:7
@@ -1655,42 +1586,22 @@ var _stringProperties = {};
      xp=xm2[vs]; // this is the way to determine position of lower scale pointer  // > FixedRelations.answer:38
     }  // > FixedRelations.answer:39
     if(vs>51)vs=0; // vs greater 51 than reset to 0 becuase 50 tickers  // > FixedRelations.answer:40
-    //hints working  // > FixedRelations.answer:41
-    //xpt is magenta hint  // > FixedRelations.answer:42
-     //xpt=xm[Math.floor(out+error * unit)]; // new codes by lookang in javascript to work for hints without show/answer  // > FixedRelations.answer:43
-     //xpt=xm[parseInt(out+error * unit)];  // > FixedRelations.answer:44
+ 
      xpt=xm[parseInt(answer+error * unit)];  // > FixedRelations.answer:45
       text2 = dvalue(vs*unit,unit);  // > FixedRelations.answer:46
     //  text2cm = dvalue(vs*unit/10,unit);  // > FixedRelations.answer:47
       text2cm = (dvalue(vs*unit,unit)/10).toFixed(2);  // > FixedRelations.answer:48
     if(show){  // > FixedRelations.answer:49
       l_unit2=l_unit;   // > FixedRelations.answer:50
-       // > FixedRelations.answer:51
-      //pointer  // > FixedRelations.answer:52
-     // vss = parseInt((x / dxm + error * unit + 2.0e-2)); // introduce to point to include zero error and debug need + 1.0e-2 for cases where there may be error is calculation  // > FixedRelations.answer:53
-       // > FixedRelations.answer:54
-     //   vss = parseInt((x / dxm + error * unit )); // introduce to point to include zero error and debug need + 1.0e-2 for cases where there may be error is calculation  // > FixedRelations.answer:55
+     
       vss = parseInt((x / dxm + error * unit ));  // > FixedRelations.answer:56
-      //vss = (int)(x/dxm); // old code without zero error  // > FixedRelations.answer:57
-     // if (vss > -1 && vss < nm) vssidarray = vss;  // > FixedRelations.answer:58
-     // else vssidarray = 0; // or other valid values.  // > FixedRelations.answer:59
-    //  xpt=xm[vss]; // x point  // > FixedRelations.answer:60
-    //   xpt=xm[Math.floor(out+error * unit)]; // new codes by lookang in javascript  // > FixedRelations.answer:61
-     // xpt=xm[vssidarray];   // > FixedRelations.answer:62
-     // if (!cmshow){  // > FixedRelations.answer:63
-     // text2 = dvalue(vs*unit,unit);  // > FixedRelations.answer:64
-    //  text2cm = dvalue(vs*unit/10,unit);  // > FixedRelations.answer:65
-    //  text2cm = (dvalue(vs*unit,unit)/10).toFixed(2);  // > FixedRelations.answer:66
-    //}  // > FixedRelations.answer:67
-    //else if (cmshow){  // > FixedRelations.answer:68
-     // text2 = dvalue(vs*unit/10,unit);  // > FixedRelations.answer:69
-     // }  // > FixedRelations.answer:70
+      
     if (cmshow==false){  // > FixedRelations.answer:71
     // l_x="d=" + _view._format(dvalue(parseInt(x/dxm+error * unit),unit),"0.00")+ "+" +_view._format(vs*unit,"0.00")+ "-(" + _view._format(dvalue(+error*unit,unit),"0.00")+ ") = " +_view._format(dvalue(x/dxm,unit),"0.00")+"mm";  // > FixedRelations.answer:72
     l_x="d=" + _view._format(Math.floor(answer+error*unit),"0.0")+ "+" +_view._format(vs*unit,"0.00")+ "-(" + _view._format(dvalue(+error*unit,unit),"0.00")+ ") = " +_view._format(dvalue(x/dxm,unit),"0.00")+"mm";  // > FixedRelations.answer:73
     }  // > FixedRelations.answer:74
     else if (cmshow=true){  // > FixedRelations.answer:75
-    //  l_x="d=" + _view._format(dvalue(parseInt(x/dxm+error * unit),unit)/10,"0.00")+ "+" +_view._format(vs*unit/10,"0.00")+ "-(" + _view._format(dvalue(+error*unit,unit)/10,"0.00")+ ") = " +_view._format(dvalue(x/dxm,unit)/10,"0.00")+"cm";  // > FixedRelations.answer:76
+   
     if (testMode){      
       l_x="d=" + _view._format(Math.floor(answer+error*unit)/10,"0.0")+ "+" +_view._format(vs*unit/10,"0.00")+ "-(" + _view._format(dvalue(+error*unit,unit)/10,"0.00")+ ") = " +_view._format(dvalue(x/dxm,unit)/10,"0.00")+"cm";  // > FixedRelations.answer:77
     }
@@ -1769,10 +1680,7 @@ var _stringProperties = {};
 
   _model.addToFixedRelations(function() {
     if (!__pagesEnabled["magnify"]) return;
-    //xmin = (xmin-0)*zoom;  // > FixedRelations.magnify:1
-    //xmax = (xmax-0)*zoom;  // > FixedRelations.magnify:2
-    //ymin = (ymin-0)*zoom;  // > FixedRelations.magnify:3
-    //ymax =  (ymax-0)*zoom;  // > FixedRelations.magnify:4
+
     if (showmagnify ===true) // to make magnify enable only after show ==true  // > FixedRelations.magnify:5
     {  // > FixedRelations.magnify:6
       //xmagnify=xp;  // > FixedRelations.magnify:7
@@ -2842,21 +2750,6 @@ var _stringProperties = {};
    error =1; 
      }
    
-  //_initialize(); // need this for zero error correctly shown
-  /*
-  if(parent.cordova) { // check it is running in Android
-         parent.TTS.speak(option, function () {
-              // success
-          }, function (reason) {
-              // error
-          });
-      }
-      else {
-    var msg = new SpeechSynthesisUtterance(option);
-  window.speechSynthesis.speak(msg);
-  }
-  */
-  //_initialize();
 
 }); // HtmlView Page setting action 'OnChange' for element 'comboBox'
           _view.comboBox.linkProperty("Font",  function() { return font; }, function(_v) { font = _v; } ); // HtmlView Page linking property 'Font' for element 'comboBox'
@@ -2879,10 +2772,7 @@ var _stringProperties = {};
     dycst=0.;
     nmode=2;
     L=10*dxm+size; // control length of veriner
-    // added by wee for left right button
-    // increment = 0.25718*2;// take 257.16 divide 50 mm divide 10
-    // increment = dxm/10 ;
-    // l_unit="0.1mm";
+
     unit=0.1;
     increment = dxm/(1/unit);
     cmshow=true;
@@ -3106,22 +2996,7 @@ var _stringProperties = {};
      else if(option=="z err=1") {
    error =1; 
      }
-   
-  //_initialize(); // need this for zero error correctly shown
-  /*
-  if(parent.cordova) { // check it is running in Android
-         parent.TTS.speak(option, function () {
-              // success
-          }, function (reason) {
-              // error
-          });
-      }
-      else {
-    var msg = new SpeechSynthesisUtterance(option);
-  window.speechSynthesis.speak(msg);
-  }
-  */
-  //_initialize();
+  
 
 }); // HtmlView Page setting action 'OnChange' for element 'comboBox2'
           _view.comboBox2.linkProperty("Font",  function() { return font; }, function(_v) { font = _v; } ); // HtmlView Page linking property 'Font' for element 'comboBox2'
@@ -3205,10 +3080,7 @@ var _stringProperties = {};
     dycst=1.;
     nmode=2;
     L=20*dxm+size;
-    // added by wee for left right button
-    // increment = 0.25718;// take 257.16 divide 50 mm divide 20
-    //  increment = dxm/20 ;
-    // l_unit="0.05mm";
+   
     unit=0.05;
     increment = dxm/(1/unit);
     cmshow=false;
@@ -3219,10 +3091,7 @@ var _stringProperties = {};
     dycst=0.;
     nmode=2;
     L=20*dxm+size;
-    // added by wee for left right button
-    // increment = 0.25718*2;// take 257.16 divide 50 mm divide 10
-    // increment = dxm/10 ;
-    // l_unit="0.1mm";
+
     unit=0.1;
     increment = dxm/(1/unit);
     cmshow=false;
@@ -3234,10 +3103,7 @@ var _stringProperties = {};
     dycst=0.;
     nmode=2;
     L=10*dxm+size; // control length of veriner
-    // added by wee for left right button
-    // increment = 0.25718*2;// take 257.16 divide 50 mm divide 10
-    // increment = dxm/10 ;
-    // l_unit="0.1mm";
+
     unit=0.1;
     increment = dxm/(1/unit);
     cmshow=false;
@@ -3393,20 +3259,7 @@ var _stringProperties = {};
      }
    
   _initialize(); // need this for zero error correctly shown
-  /*
-  if(parent.cordova) { // check it is running in Android
-         parent.TTS.speak(option, function () {
-              // success
-          }, function (reason) {
-              // error
-          });
-      }
-      else {
-    var msg = new SpeechSynthesisUtterance(option);
-  window.speechSynthesis.speak(msg);
-  }
-  */
-  //_initialize();
+
 
 }); // HtmlView Page setting action 'OnChange' for element 'comboBox3'
           _view.comboBox3.linkProperty("Font",  function() { return font; }, function(_v) { font = _v; } ); // HtmlView Page linking property 'Font' for element 'comboBox3'
@@ -4121,8 +3974,7 @@ function AAPTVernierCaliper_View_0 (_topFrame) {
       ;
 
     _view._addElement(EJSS_INTERFACE.panel,"text", _view._topFrame) // EJsS HtmlView.HtmlView Page: declaration of element 'text'
-      .setProperty("CSS",{   "position" : "absolute",   "top" : "100%",    "margin-left":"0px",    "left":"0%" }) // EJsS HtmlView.HtmlView Page: setting property 'CSS' for element 'text'
-      //.setProperty("Html","<h2>General Description</h2> <p>This JavaScript App simulates the Vernier Caliper. The simulation shows the instrument setup with a rectangular object .</p> <p>The Vernier calipers model has  an object (Blue) for the internal jaws to measure width of an object with slider to control width of the object and simple drag action to control position of object.</p> <p>An object (Green) for external jaws to measure internal diameter of a cylinder for example with slider to control dimensions of the cylinder.</p> <p>An test tube (Pink) for depth measurement vai the depth probe</p> <h2>Visual Elements</h2> <ul> <li>Outside jaws: used to measure external diameter or width of an object (Blue)          </li> <li>Inside jaws: used to measure internal diameter of an object  </li> <li>Depth probe: used to measure depths of an object or a hole ( not shown in this model) . </li> <li>Main scale: gives measurements in mm. </li> <li>Vernier gives measurements up to one decimal places in mm </li> <li>Retainer: used to block movable part to allow the easy transferring a measurement ( not shown in this model) </li> <li> fine  control buttons for learners to manipulate the model with single incremental precision control </li> <li>Vernier gives measurements up to one decimal places in mm </li> </ul> <h2>Controls</h2> <ul> <li>ComboBox 1: Sets the type of caliper scales.</li> <li>ComboBox 2: Show and hide hints, answers, common objects etc </li> <li>ComboBox 3: Sets the zero error </li> <li>play button to run the caliper to move automatically.</li> <li>reset button to bring simulation back to original (default) setting.</li> <li>?= click to toggle between combobox or input field.</li> <li>combobox/inputfield to ease selecting answers like 0.00 and key in numbers.</li> <li>cm/mm text click to toggle between the 2 units, centimeter and millimeter</li> <li>double click on the screen to go full screen, especially useful on mobile browsers</li> <li>drag on the screen reposition, especially useful on mobile browsers</li> <li>pinch in/out to zoom in/out, especially useful on observing the vernier scale readings</li> <li>menu to show or hide the control panel</li> </ul>") // EJsS HtmlView.HtmlView Page: setting property 'Html' for element 'text'
+      .setProperty("CSS",{   "position" : "absolute",   "top" : "100%",    "margin-left":"0px",    "left":"0%" }) // EJsS 
       ;
 
   };

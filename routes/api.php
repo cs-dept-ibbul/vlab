@@ -2,8 +2,12 @@
 
 use App\Http\Controllers\Api\ExperimentController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Api\SchoolController;
+use App\Http\Controllers\Api\Util;
+use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +34,11 @@ Route::group(['middleware' => 'api',
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
 
+    Route::group(['prefix' => 'users'
+    ], function() {
+        Route::post('import_students', [UserController::class, 'importStudents']);
+    });
+
     Route::group(['prefix' => 'schools'
     ], function() {
         Route::post('create', [SchoolController::class, 'create']);
@@ -49,6 +58,20 @@ Route::group(['middleware' => 'api',
         Route::post('create', [ExperimentController::class, 'create']);
         Route::post('experiment', [ExperimentController::class, 'getExperiment']);
         Route::get('experiments', [ExperimentController::class, 'getAllExperiment']);
+    });
+
+    Route::group(['prefix' => 'courses'
+    ], function() {
+        Route::post('create', [CourseController::class, 'create']);
+        Route::post('course', [CourseController::class, 'getCourse']);
+        Route::get('courses', [CourseController::class, 'getAllCourses']);
+
+        Route::post('add_course_resources', [CourseController::class, 'addCourseResources']);
+        Route::post('assign_course_instructor', [CourseController::class, 'assignCourseInstructor']);
+        Route::post('assign_course_experiment', [CourseController::class, 'assignCourseExperiment']);
+        Route::post('add_student_course', [CourseController::class, 'addStudentCourse']);
+        Route::post('bulkCourseAssign', [CourseController::class, 'bulkCourseAssign']);
+
     });
 
 });

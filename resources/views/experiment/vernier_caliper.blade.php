@@ -20,13 +20,7 @@ $started = 0; //this will be from database
     experimentSheet = document.getElementById('experimentSheet');
     experimentSheet.src= url;
    }
-/*   setTimeout(function() {
-      document.getElementById('rightNav').style.display='block';
-   }, 50);*/
-/*   function changeSize(value) {
-      url = '{{route('micrometerEquipment').'?size='}}'+value
-      experimentSheet.src= url;
-   }*/
+
 </script>
      
 @endsection
