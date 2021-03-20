@@ -90,21 +90,65 @@
 							</div>
 	            		</div>
 	            	</div>
+
+	            	<div id="addInstructors" v-if="sectionState==4" class="m-0 p-0 shineA">  
+	            		<p class="fw8 fs1 font" style="color: #777;">Add Resources</p>   
+	            		<div class="d-flex">
+    					<select @keyup="normalize" class="form-control vI" id="selectedInstructor">
+    						<option></option>
+    						<option value="1">Mr. name Caliper</option>
+    						<option value="3">Mrs. Screw Guage</option>
+    						<option value="2">Dr. Simple Pendulum</option>
+    					</select>
+    					<button class=" ml-2 sysbtn p-success text-white" @click="addIBox">Add</button>
+        				</div>
+        				<br><br>
+        				<div class="d-flex flex-wrap-center justify-content-between w-100">
+        					<div class="hr w35"></div>
+        					<span class="w30">Added Instructor</span>
+        					<div class="hr w35"></div>
+        				</div>
+        				<br>
+	        			<div id="addIBox" class="r1" style="height: 200px;">        					
+        				</div>
+	            	</div>
+	            	<div id="reviews" v-if="sectionState==5" class="m-0 p-0 shineA">  
+	            		<div v-for="(aitem,i) in alldata">
+	            			<div v-if="i==0" class="m-0">
+		            			<div class="fw8">Course Detailed</div>
+			            		<span v-for="(edatavalue,j) in aitem">
+		            				<p class="clight mb-1 fs001" >{{j}}</p>
+		            				<p class="mt-0" >{{edatavalue}}</p>
+			            		</span>	            				
+	            			</div>
+	            			<div v-if="i==1" class="m-0">
+		            			<div class="fw8">Selected Experiment</div>
+			            		<span v-for="(edatavalue,j) in aitem.names">		            				
+		            				<p class="my-1" >{{edatavalue}}</p>
+			            		</span>	            				
+	            			</div>
+	            			<div v-if="i==2" class="m-0">
+		            			<div class="fw8">image to Upload</div>
+		            			<div>
+		            				<img width="200px" :src="aitem.image">
+		            			</div>				
+	            			</div>	            			
+	            		</div>
+	            	</div>
             	</div>
-            	
-            	{{alldata}}         
-            	{{selectedExperiment}}
+            
             </div> 
    		</div>
         <div class="row bg-white m-0">
             <div class="col-lg-8 col-md-7 col-sm-12">
             </div>
             <div class="col-lg-2 col-md-3 col-sm-12 mx-auto py-2 d-flex">
-            	<button v-if="sectionState >1" class="btn p-success text-white py-2 px-3 mr-3" @click="nextSection" ><span class="fa fa-arrow-left"></span> Previous </button>
+            	<button v-if="sectionState >1" class="btn p-success text-white py-2 px-3 mr-3" @click="prevSection" ><span class="fa fa-arrow-left"></span> Previous </button>
             	<button class="btn p-success text-white py-2 px-3" @click="nextSection" > Continue <span class="fa fa-arrow-right"></span></button>
             </div>
             <div class="col-lg-2 col-md-1 col-sm-12 mx-auto">
             </div>
+            <!--  -->
         </div>
 	</div>
 </template>
@@ -114,6 +158,7 @@
 
 	 data:function() {
 	    	return{
+	    	 count:0,
 	    	 alldata:[],
 	    	 stageone:true,
 	    	 stageonep:false,
@@ -132,6 +177,8 @@
 	    	 validateState:false,
 	    	 selectedExperiment:[],
 	    	 selectedExperimentName:[],
+	    	 selectedInstructor:[],
+	    	 selectedInstructorName:[],
 	    	 percentage:0
 	    	}
         },
@@ -142,7 +189,117 @@
 			   this.$eventBus.$emit('toggleClick',{text:this.navState});
 			    //this.newTodoText = ''
 			},
-			
+			checkstage(state){
+				if (state === 1) {					
+					this.stageone= false;
+				    
+				    this.stageonep = false;
+				    
+				    this.stagetwo = false;						    			    
+
+			    	this.stagetwop = false;			    	
+
+			    	this.stagethree = false;
+
+			    	this.stagethreep = false;
+
+			    	this.stagefour = false;
+
+				}
+				if (state === 2) {
+					this.stageone= false;
+
+				    this.stageonep = true;
+
+				    this.stagetwo = true;						    			    
+
+			    	this.stagetwop = false;			    	
+
+			    	this.stagethree= false;
+
+			    	this.stagethreep = false;
+
+			    	this.stagefour = false;
+				}
+
+				if (state === 3) {
+			    	this.stageone= false;
+
+				    this.stageonep = true;
+
+				    this.stagetwo = false;						    			    
+
+			    	this.stagetwop = true;			    	
+
+			    	this.stagethree= true;
+
+			    	this.stagethreep = false;
+
+			    	this.stagefour = false;
+				}
+				if (state === 4) {
+			    	this.stageone= false;
+
+				    this.stageonep = true;
+
+				    this.stagetwo = false;						    			    
+
+			    	this.stagetwop = true;			    	
+
+			    	this.stagethree= false;
+
+			    	this.stagethreep = true;
+
+			    	this.stagefour = true;
+				}
+				if (state === 5) {
+			    	this.stageone= false;
+
+				    this.stageonep = true;
+
+				    this.stagetwo = false;						    			    
+
+			    	this.stagetwop = true;			    	
+
+			    	this.stagethree= false;
+
+			    	this.stagethreep = true;
+
+			    	this.stagefour = true;
+			    	this.stagefour = false;
+				}
+			},
+			prevSection:function(){
+				this.sectionState--;
+				let $nv = this;
+				if (this.sectionState ===1) {					
+					setTimeout(function() {
+					$('#ctitle').val($nv.alldata[0]['Title']);
+					$('#ccode').val($nv.alldata[0]['Course_code']);
+					$('#cdescription').val($nv.alldata[0]['Course_description']);					
+					}, 200);				
+					this.checkstage(1);
+				}
+				if (this.sectionState === 2 ) {					
+					setTimeout(function() {
+					$nv.reiterateSelectedExp();
+					}, 200);
+					this.checkstage(2);					
+				}
+				if (this.sectionState === 3) {					
+					setTimeout(function() {
+				 		$('#imageprev').html('<img id="image_droped" width="200px"  src="'+$nv.imagetoupload+'">');		
+					}, 200);
+					this.checkstage(3);					
+
+				}
+				if (this.sectionState===4) {					
+					setTimeout(function() {
+						$nv.reiterateSelectedInstructor();
+					}, 200);
+					this.checkstage(4);					
+				}
+			},
 			addEBox:function(){
 				let obj = $('#selectExperiment');
 				let evalue = Number(obj.val());
@@ -159,7 +316,7 @@
 					 let indexof = this.selectedExperiment.indexOf(evalue);
 						$('#addEBox').append("<div class='d-flex justify-content-between flex-wrap-center' style='font-size:0.9em;' id='"+this.selectedExperiment.indexOf(evalue)+"'><p class='py-2 pl-3 my-0'><b >Experiment "+(Number(this.selectedExperiment.indexOf(evalue))+1)+'</b>:<span class="ml-5"></span> '+selExpName+"</p> <span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+indexof+"' >&times</span></div><hr>")
 					}else{
-						$('#ar000').remove();
+					   $('#ar000').remove();
 					   $('#addEBox').after('<span class="text-danger requiredv" id="ar000">already exist!</span>');				
 					}
 					
@@ -173,7 +330,39 @@
 				for (let i = 0; i < this.selectedExperiment.length; i++) {
 					$('#addEBox').append("<div class='d-flex justify-content-between flex-wrap-center' style='font-size:0.9em;' id='"+i+"'><p class='py-2 pl-3 my-0'><b >Experiment "+(i+1)+'</b>:<span class="ml-5"></span> '+this.selectedExperimentName[i]+"</p> <span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+i+"' >&times</span></div><hr>")	
 					}
+			},	
+			addIBox:function(){
+				let obj = $('#selectedInstructor');
+				let evalue = Number(obj.val());
+				this.validateState =false;
+
+				if($('#selectedInstructor option:selected').text()!=""){
+					this.validateState =true;
+					let selExpName = $('#selectedInstructor option:selected').text();
+					if(!this.selectedInstructor.includes(evalue)){
+					  this.selectedInstructor.push(evalue);
+					  this.selectedInstructorName.push(selExpName);
+					  let $vm = this;
+					///alert(this.selectedInstructor.includes(evalue));
+					 let indexof = 'inst'+this.selectedInstructor.indexOf(evalue);
+						$('#addIBox').append("<div class='d-flex justify-content-between flex-wrap-center' style='font-size:0.9em;' id='inst"+this.selectedInstructor.indexOf(evalue)+"'><p class='py-2 pl-3 my-0'>"+'<span class="ml-5"></span> '+selExpName+"</p> <span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp1' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+indexof+"' >&times</span></div><hr>")
+					}else{
+						$('#ar001').remove();
+					   $('#addIBox').after('<span class="text-danger requiredv" id="ar001">already exist!</span>');				
+					}
+					
+				}else{
+					obj.after('<span class="text-danger requiredv">Required !</span>');	
+					obj.css('border','1px solid #e45');
+				}			
 			},
+			reiterateSelectedInstructor(){
+				$('#addIBox').html("");
+				for (let i = 0; i < this.selectedInstructor.length; i++) {
+					$('#addIBox').append("<div class='d-flex justify-content-between flex-wrap-center' style='font-size:0.9em;' id='"+i+"'><p class='py-2 pl-3 my-0'><b >Experiment "+(i+1)+'</b>:<span class="ml-5"></span> '+this.selectedInstructorName[i]+"</p> <span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp1' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+i+"' >&times</span></div><hr>")	
+					}
+			},
+			
 			singleValidate: function(id){
 				$('#'+id).css('border','1px solid #e45');
 				$('.requiredv').remove();
@@ -218,41 +407,89 @@
 				$('.requiredv').remove();
 			},
 			nextSection: function(){
+				let $nv = this;
 				if (this.sectionState === 1){	
 					this.validateI('cdetail');
 					
 					if(this.validateState === true){
-						this.ctitle = $('#ctitle').val();
-						this.alldata.push({title: $('#ctitle').val(),ccode:$('#ccode').val(),cdescription:$('#cdescription').val()});
+						this.ctitle = $('#ctitle').val();						
+						this.alldata.push( {
+										Title: $('#ctitle').val(),
+										Course_code:$('#ccode').val(),
+										Course_description:$('#cdescription').val()
+										});						
 						this.sectionState = 2;						
 						this.stageone= false;
 				    	this.stageonep = true;
 				    	this.stagetwo = true;
 					}
+					setTimeout(function() {
+						if ($nv.selectedExperiment.length != 0) {
+							$nv.reiterateSelectedExp();
+						}
+					}, 200);
 				
 				}else if (this.sectionState === 2){
+					
+
 					if (this.selectedExperiment.length == 0){
 					 this.singleValidate('addEBox');
 					}else{
 						this.stagetwo= false;
 				    	this.stagetwop = true;
 				    	this.stagethree = true;
-				    	this.sectionState = 3;
-				    	this.alldata.push(selectedExperiment)
+				    	this.sectionState = 3;				    	
+				    	this.alldata.push({
+				    		'id': this.selectedExperiment,
+				    		'names': this.selectedExperimentName
+				    	});
 					}
 
+					setTimeout(function() {
+						if ($nv.imagetoupload != '') {
+				 			$('#imageprev').html('<img id="image_droped" width="200px"  src="'+$nv.imagetoupload+'">');		
+						}
+					}, 200);
 				}else if (this.sectionState === 3){
+
+
 					if (this.imagetoupload != '') {
 						this.stagethree= false;
 				    	this.stagethreep = true;
 				    	this.stagefour = true;
-				    	this.sectionState = 4;
-				    	this.alldata.push(this.imagetoupload);
+				    	this.sectionState = 4;				    	
+				    	this.alldata.push({
+				    		image: this.imagetoupload
+				    	});
 					}else{
 						this.singleValidate('dgbox');
 					}
-				}else if (this.sectionState === 3){
+
+					setTimeout(function() {
+						if ($nv.selectedInstructor.length > 0) {}
+							$nv.reiterateSelectedInstructor();
+					}, 200);
+				}else if (this.sectionState === 4){
+					if (this.selectedInstructor.length == 0){
+					 this.singleValidate('addIBox');
+					}else{
+						this.stagefour= false;
+				    	this.stagefourp = true;
+				    	//this.stage = true;
+				    	this.sectionState = 5;				    	
+				    	this.alldata.push({
+				    		'id': this.selectedInstructor,
+				    		'names': this.selectedInstructorName
+				    	});
+					}
+					this.alldata = JSON.parse(JSON.stringify(this.alldata));
+					this.alldata[0] = JSON.parse(JSON.stringify(this.alldata[0]));
+					this.alldata[1] = JSON.parse(JSON.stringify(this.alldata[1]));
+					this.alldata[2] = JSON.parse(JSON.stringify(this.alldata[2]));
+					this.alldata[3] = JSON.parse(JSON.stringify(this.alldata[3]));
+				 	$('#imageprev').html('<img id="image_droped" width="200px"  src="'+$nv.imagetoupload+'">');		
 					
+
 				}
 			},
 			dragEnter(e){			
@@ -296,12 +533,14 @@
          		$(document).on('click', '.rmexp', function() {					
 					$vm.selectedExperiment.splice($(this).attr('rel'),1);
 					$vm.selectedExperimentName.splice($(this).attr('rel'),1);
-         			$vm.reiterateSelectedExp();
-         			/*
-					$('#'+$(this).attr('rel')).remove();					
-					*/
-	         		
+         			$vm.reiterateSelectedExp();         			
 				});
+				$(document).on('click', '.rmexp1', function() {					
+					$vm.selectedInstructor.splice($(this).attr('rel'),1);
+					$vm.selectedInstructorName.splice($(this).attr('rel'),1);
+         			$vm.reiterateSelectedInstructor();         			
+				});
+				
 			
 		  });
 
@@ -579,5 +818,11 @@
 }
 .p-success{    
     background: #00b96b !important;  
+}
+.clight{
+	color: #777;
+}
+.fs001{
+	font-size: 0.86em;
 }
 </style>

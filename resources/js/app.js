@@ -35,8 +35,8 @@ Vue.component('v-start', require('./components/StartExperimentBtn.vue').default)
 Vue.component('v-progress', require('./components/progressBar.vue').default);
 Vue.component('v-thread', require('./components/threadTrends.vue').default);
 Vue.component('v-createcourse', require('./components/createCourse.vue').default);
-Vue.component('v-vicelabexp2', require('./components/vicelabexp2.vue').default);
-Vue.component('v-vicelabexp3', require('./components/vicelabexp3.vue').default);
+Vue.component('v-photovoltaic1', require('./components/searies_and_parallel_photovoltaic.vue').default);
+Vue.component('v-photovoltaic2', require('./components/shade_level_photovoltaic.vue').default);
 Vue.component('v-simplecircuit', require('./components/simple-circuit.vue').default);
 Vue.component('v-vicelabtools', require('./components/vicelabExpEquip.vue').default); //experiment Right Nav bar
 
