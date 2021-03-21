@@ -29,4 +29,7 @@ class experimentController extends Controller
     public function simpleCircuit(){
         return view('experiment/simple_circuit');        
     }
+    public function resistor(){
+        return view('experiment/resistor_color_code');
+    }
 }

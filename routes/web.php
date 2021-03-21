@@ -70,7 +70,14 @@ Route::get('/UserDashboard', 'App\Http\Controllers\ViewUserDashboard@index');
 
 Route::get('/my-Practical', 'App\Http\Controllers\ViewMyPracticalController@index');
 
+/*Resistors color code this might change late to Electricity circuit construction */
+Route::get('/resistor-color-code','App\Http\Controllers\experimentController@resistor')->name('resistors');
 
+Route::get('/resistorExperiment', function ()
+{
+	return view('experiment.resistorExperiment');
+})->name('resistorExperiment');
 
+/*end resistors color code*/
 
 	

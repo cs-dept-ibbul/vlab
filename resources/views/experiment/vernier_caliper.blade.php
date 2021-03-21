@@ -51,7 +51,7 @@ $started = 0; //this will be from database
             </div>
             <!-- end experiment -->
             <div  class="zero-space exprightNav" id="rightNav">               
-               <v-rightnav toolState='true' toolsizes="<?php echo json_encode($toolSizes); ?>" url="{{route('vernierEquipment').'?size='}}"></v-rightnav>
+               <v-rightnav :toolstate=true :othertools=true :toolsizes="{{json_encode($toolSizes)}}" url="{{route('vernierEquipment').'?size='}}" ></v-rightnav>        
             </div>
             <!-- experiment footer -->
             <div class="position-absolute bottom-0 w-100">

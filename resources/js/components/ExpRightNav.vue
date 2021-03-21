@@ -3,17 +3,20 @@
 		<div class="containerR" id="tools" style="height:100%;">	
 			
 		   	<div class="input-alt"></div>	
-		   	<span v-if="vicelab==1" class="pr z-1" >		 
+		   	<span v-if="vicelab==true" class="pr z-1" >		 
 		   	 	<vicelabtools has='1'  ></vicelabtools>
 		   	</span>	   
-		   	<span v-else>
-		   		
+		   	<span v-if="electricitytools==true">	
+			   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>		   		
+		   		<electricity></electricity>	   		
+		   	</span>
+		   	<span v-if="othertools==true">		   		
 			   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>
-	            <div v-for="tool in toolSizes"  :key="tool" @click="addactivate;changeApparatus(tool)"  v-bind:style="{width:tool+'px'}" class="box">
+	            <div v-for="tool in toolsizes"  :key="tool" @click="addactivate;changeApparatus(tool)"  v-bind:style="{width:tool+'px'}" class="box">
 	            		Size
 	        	</div>                  
 		   	</span>
-		<!-- <span v-if="toolState==true">
+		<!-- <span v-if="toolstate==true">
 		</span>		
 		<span v-else>			
 		</span> -->
@@ -34,20 +37,21 @@
 		   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>			
 		   <h1>Help</h1>				                
 		</div>
-		<div class="containerR" style="display: none;" id="unkl">	
-		<!--    	 <input type="text" name="search" class="input-search input-dark" ><span class="fa fa-search serachicon "></span> -->           
+		<!-- <div class="containerR" style="display: none;" id="unkl">			
 		   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>
-            <div v-if="toolState==true" v-for="tool in toolSizes"  :key="tool" @click="addactivate;changeApparatus(tool)"  v-bind:style="{width:tool+'px'}" class="box">
+            <div v-if="toolstate==true" v-for="tool in toolsizes"  :key="tool" @click="addactivate;changeApparatus(tool)"  v-bind:style="{width:tool+'px'}" class="box">
             		Size
         	</div> 			                
-		</div>
+		</div> -->
 	</div>
 </template>
 <script>
 	import vicelabtools from './vicelabExpEquip';
+	import electricity from './electricityEquipment';
 	export default{
 	components:{
 		vicelabtools,
+		electricity,
 	},
 	 data:function() {
 		    return{
@@ -56,8 +60,9 @@
 		    	resour:false,
 		    	show:false,
             	hide:true,
-            	control:false,           
-            	toolSizes:[],
+            	control:false,     
+            	toolsizesArr:[],             	            
+            	toolnstate:false,
             	rightNavState:false,
             	activeRightNav:'tools'		            
 		   	}
@@ -92,12 +97,11 @@
         	},
 
         },	
-        
-        created: function () {        	
-        	if (this.toolState==true) {
-        		
-		  this.toolSizes = JSON.parse(this.toolsizes);
-        	}
+        computed: {
+    		// a computed getter		  
+		  },
+        created: function () {      
+
 		  this.$eventBus.$on('rightNavtoggleClick', data => {		  	
 		  	//this.toggleNavOnHover();
 		  	if(this.activeRightNav === data.text){		  		
@@ -116,12 +120,15 @@
 		},
 
         props:{
-            toolsizes: String,
+            toolsizes: Array,
             url:String,
-            toolState:Boolean,
-            vicelab:String
+            toolstate:Boolean,
+            vicelab:Boolean,
+            othertools:Boolean,
+            electricitytools:Boolean
         },        
         mounted(){
+        	//console.log(this.toolsizes);
         var $vm = this;	               	
         	$('.box').click(function(){
         		$('.box').removeClass('boxActive');

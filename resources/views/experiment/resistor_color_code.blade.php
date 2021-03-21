@@ -3,33 +3,16 @@ $tools = 5;
 $toolSizes = [80,54,69,70,90];
 $ct = 1;
 $started = 0; //this will be from database
-$true = true;
-$false = false;
+
 ?>
 @extends('layouts/main')
 
 
 @section('head')
-<script>
-   var toolSizes = <?php echo json_encode($toolSizes); ?>;
-
-   //localStorage.setItem('objectSize',{{$toolSizes[0]}});
-   var experimentSheet;
-   var url = '{{route('micrometerEquipment').'?size='.$toolSizes[0] }} ' //localStorage.getItem('objectSize');
-   
-   window.onload = function(){
-    experimentSheet = document.getElementById('experimentSheet');
-    experimentSheet.src= url;
-   }
-/*   setTimeout(function() {
-      document.getElementById('rightNav').style.display='block';
-   }, 50);*/
-/*   function changeSize(value) {
-      url = '{{route('micrometerEquipment').'?size='}}'+value
-      experimentSheet.src= url;
-   }*/
-</script>
-     
+   <script>
+      var toolSizes = <?php echo json_encode($toolSizes); ?>;
+   </script>
+   @include('layouts.electricity_scripts')
 @endsection
 @section('content-body')
 <div class="d-flex">   
@@ -40,7 +23,7 @@ $false = false;
 
    <div class="w-100 vh-100 position-relative">
          <!-- top nav bar -->
-         <v-topnave class="vh-1" equipmentname="Micrometer Screw Guage" experimentnum='Experiment I'></v-topnave>
+         <v-topnave class="vh-1" equipmentname="Electricity" experimentnum='Resistor Color Code'></v-topnave>
          <!-- end to nav bar -->
 
          <!-- content -->
@@ -54,13 +37,14 @@ $false = false;
             <!-- experiment  -->
             <div  id="mainExp">
                <v-ribbon></v-ribbon>
-                <iframe width="100%" height="480px"  frameborder="0" style="display: none;" src="" id="experimentSheet"></iframe>
-             
+               <div class="w-100" style="height: 480px;display: none;position: relative;" id="experimentSheet">
+                                 
+               </div>             
                <v-start hourdata="1" munitedata="30" starteddata="{{$started}}" ></v-start>
             </div>
             <!-- end experiment -->
             <div  class="zero-space exprightNav" id="rightNav">               
-               <v-rightnav :toolstate=true :othertools=true :toolsizes="{{json_encode($toolSizes)}}" url="{{route('micrometerEquipment').'?size='}}" ></v-rightnav>
+               <v-rightnav :toolState=false :electricitytools=true  url="{{route('micrometerEquipment').'?size='}}"></v-rightnav>
             </div>
             <!-- experiment footer -->
             <div class="position-absolute bottom-0 w-100">
@@ -74,5 +58,4 @@ $false = false;
 </div>
 @endsection
 @section('scripts_section')
-
 @endsection

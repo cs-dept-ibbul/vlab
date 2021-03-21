@@ -39,8 +39,8 @@ $started = 0; //this will be from database
    			    </div>
    			    <!-- end experiment -->
 
-            <div  class="zero-space exprightNav" id="rightNav">               
-               <v-rightnav class="vh-2" toolsizes="false" url="{{route('photovoltaic1')}}" vicelab=1 ></v-rightnav>
+            <div  class="zero-space exprightNav" id="rightNav">       
+               <v-rightnav class="vh-2" :toolsizes=false :vicelab=true   url="{{route('photovoltaic1')}}" ></v-rightnav>
             </div>
 
        			<!-- experiment footer -->
