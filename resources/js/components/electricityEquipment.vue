@@ -20,7 +20,7 @@
 export default {
     
 
-
+ 
    data:function() {
         return{         
             addedreaderCounter:0,

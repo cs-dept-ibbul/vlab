@@ -86,10 +86,9 @@ export default {
         arr3sc: 2.65
 
     },
-    exp2:{
-        
+  exp2:{
 
-//###################################zero covered###########################################################  
+    //###################################zero covered###########################################################  
       arr1v1:[
             {source: "v_Dot", target: "s_Dot", tid: "solar_cell1", sid: "voltmeterRead"},
             {source: "v_Rectangle", target: "s_Rectangle", tid: "solar_cell1", sid: "voltmeterRead"}
@@ -102,7 +101,7 @@ export default {
        ],
       arr1v: 12,
       arr1c: 4.65,
-//###################################one quater###########################################################  
+    //###################################one quater###########################################################  
       arr2v1:[
             {source: "v_Dot", target: "s_Dot", tid: "solar_cell1", sid: "voltmeterRead"},
             {source: "v_Rectangle", target: "s_Rectangle", tid: "solar_cell1", sid: "voltmeterRead"}
@@ -115,8 +114,8 @@ export default {
        ],
       arr2v: 9.5,
       arr2c: 3.44,      
-//###################################half###########################################################    
-    arr3v1:[
+      //###################################half###########################################################    
+      arr3v1:[
             {source: "v_Dot", target: "s_Dot", tid: "solar_cell1", sid: "voltmeterRead"},
             {source: "v_Rectangle", target: "s_Rectangle", tid: "solar_cell1", sid: "voltmeterRead"}
 
@@ -128,8 +127,8 @@ export default {
        ],
       arr3v: 7.5,
       arr3c: 2.32,      
-  //###################################three Quater###########################################################    
-    arr4v1:[
+      //###################################three Quater###########################################################    
+      arr4v1:[
             {source: "v_Dot", target: "s_Dot", tid: "solar_cell1", sid: "voltmeterRead"},
             {source: "v_Rectangle", target: "s_Rectangle", tid: "solar_cell1", sid: "voltmeterRead"}
 
@@ -142,7 +141,7 @@ export default {
       arr4v: 5.5,
       arr4c: 1.16,     
       //###################################full coverered###########################################################    
-    arr5v1:[
+      arr5v1:[
             {source: "v_Dot", target: "s_Dot", tid: "solar_cell1", sid: "voltmeterRead"},
             {source: "v_Rectangle", target: "s_Rectangle", tid: "solar_cell1", sid: "voltmeterRead"}
 
@@ -155,7 +154,16 @@ export default {
       arr5v: 0,
       arr5c: 0,              
   
-    }
+    },
+    loggedIn:{},
+    
+  },
+
+
+   mutations: {
+      updateUser(state, a) {
+        state.loggedIn = a; 
+      }
   }
 }
 

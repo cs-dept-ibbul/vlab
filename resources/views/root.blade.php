@@ -1,6 +1,8 @@
 @extends('layouts/main')
 @section('content-body')
     <div class="content">
+		<v-userauth></v-userauth>
+
         <v-navb home="{{route('home')}}" explore="{{route('explore')}}" login="{{route('login')}}"></v-navb>
         <main>
             <v-t></v-t>

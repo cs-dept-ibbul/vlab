@@ -3,7 +3,9 @@
 import Vue from 'vue'   
 import bootstrap from "bootstrap";
 import Vuex from 'vuex'
-
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+import plugin from "./plugin/plugin";
 //Main pages
 //import App from './views/app.vue'
 
@@ -12,15 +14,21 @@ import Vuex from 'vuex'
 
 //vuex
 Vue.use(Vuex)
+//axios
+Vue.use(VueAxios, axios);
 /*import storeData from "./store/index";*/
-import expvicelab2 from "./store/exp1";
-import expvicelab3 from "./store/exp2";
+
+Vue.use(plugin);
+
+import storedata from "./store/exp1";
+//import expvicelab3 from "./store/exp2";
 /*
 const store = new Vuex.Store(
    storeData
 )*/
-const store = new Vuex.Store(   expvicelab2 )
-const store2 = new Vuex.Store(   expvicelab3 )
+const store = new Vuex.Store(   storedata )
+/*const store2 = new Vuex.Store(   expvicelab3 )*/
+
 /*global event bus and communication*/
 Vue.prototype.$eventBus = new Vue(); 
 
@@ -66,6 +74,9 @@ Vue.component('v-enrolledpracticals', require('./components/EnrolledPractical.vu
 
 Vue.component('v-coursestab', require('./components/CoursesTab.vue').default);
 Vue.component('v-electricityscript', require('./components/electricityScript.vue').default);
+Vue.component('v-loginscript', require('./components/loginScript.vue').default);
+Vue.component('v-userauth', require('./components/userAuthentication.vue').default);
+Vue.component('v-logout', require('./components/logout.vue').default);
 
 
 
@@ -73,9 +84,8 @@ Vue.component('v-electricityscript', require('./components/electricityScript.vue
  const app = new Vue({
    el: '#app',
    bootstrap,
-   store,
-   store2,
-   /*expvicelab2,*/
+   store,   
+   userType:0,   
    	 data:function() {
 	    	return{
 	    	 poor:false,
@@ -175,3 +185,8 @@ function updateThumbnail(dropZoneElement, file) {
     thumbnailElement.style.backgroundImage = null;
   }
 }
+function launch_toast(){
+      var x = document.getElementById("toast")
+      x.className = "show";
+      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+  }

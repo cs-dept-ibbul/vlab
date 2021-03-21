@@ -48,7 +48,7 @@
 				<a :href="settings"  class="nChildV" v-bind:class="{btnActive:settingsA}">
 					<span class="iconV fa fa-gear"></span><div class="labelV">Settings</div>
 				</a>					
-				<a :href="logout"  class="nChildV">
+				<a @click="logout"  class="nChildV">
 					<span class="iconV fa fa-arrow-circle-left"></span><div class="labelV">Logout</div>
 				</a>
 				

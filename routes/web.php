@@ -15,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/login', 'App\Http\Controllers\loginController@index')->name('login');
+Route::post('/proccess-login', 'App\Http\Controllers\loginController@process_login');
 Route::get('/', 'App\Http\Controllers\PagesController@index')->name('home');
 Route::get('/explore', 'App\Http\Controllers\ExploreController@index')->name('explore');
+
 Route::get('/my-courses', 'App\Http\Controllers\StudentCourses@index')->name('courses');
 Route::get('/my-course-review/{id?}', 'App\Http\Controllers\StudentCourses@review')->name('my-course-review')->where('id', '[0-9]+');;
 Route::get('/view-Students-dashboard', 'App\Http\Controllers\adminViewStudentsdashboard@index')->name('view-Students-dashboard');

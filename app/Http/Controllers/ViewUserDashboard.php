@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 class ViewUserDashboard extends Controller
 {
     public function index(){
-        return view('UserDashboard');
+    	$user = session('info')->data->user;    
+        return view('UserDashboard', compact(['user']));
     }
 
 }

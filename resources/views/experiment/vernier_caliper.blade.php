@@ -26,6 +26,8 @@ $started = 0; //this will be from database
 @endsection
 @section('content-body')
 <div class="d-flex">   
+  <v-userauth></v-userauth>
+  
     <v-msidebar class='vh-100'></v-msidebar>   
    <!-- end main side bar -->
 

@@ -33,7 +33,8 @@ $false = false;
 @endsection
 @section('content-body')
 <div class="d-flex">   
-
+   <v-userauth></v-userauth>
+      
    <!-- main side bar -->
    <v-msidebar  class='vh-100'></v-msidebar>   
    <!-- end main side bar -->
