@@ -12,9 +12,22 @@
    @include('layouts.head')
 </head>
 <body>
-    <div class="sysloader" id="system-loader">
+   <!-- loader elements -->
+
+    <!--onclick progress loader  -->
+    <div class="sysloader p-loader-bg-transparent p-display-none" id="system-loader">
       <div class="lds-dual-ring"></div>
     </div>
+    <!-- end onclick  progress loader-->
+    <!--  -->
+    <!-- page loader -->
+    <div class="sysloader p-loader-bg-dark p-display-flex" id="system-loader2">
+      <div class="lds-dual-ring"></div>
+    </div>
+    <!-- end page loader -->
+
+  <!--end loader element  -->
+
     <div class="container-fluid p-0" id="app" style="padding-right: 0;">
        @yield('content-body')
     </div>

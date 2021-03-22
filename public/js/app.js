@@ -8175,6 +8175,9 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_4__.default({
       this.isLoading = !this.isLoading;
     }
   },
+  beforeCreated: function beforeCreated() {
+    document.getElementsByTagName('');
+  },
   mounted: function mounted() {}
 });
 /*experiment timing filter */
@@ -8263,6 +8266,12 @@ function launch_toast() {
     x.className = x.className.replace("show", "");
   }, 5000);
 }
+
+$(document).ready(function () {
+  setTimeout(function () {
+    $('#system-loader2').hide();
+  }, 5000);
+});
 
 /***/ }),
 
