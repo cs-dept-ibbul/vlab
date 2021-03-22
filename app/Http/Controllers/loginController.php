@@ -26,10 +26,10 @@ class loginController extends Controller
         return redirect('/UserDashboard');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        \Auth::logout();
-
+        //\Auth::logout();
+        $request->session()->flush();
         return redirect()->route('login');
     }
 }

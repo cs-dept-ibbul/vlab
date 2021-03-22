@@ -21,9 +21,9 @@
 			let $vm = this;
 
 			//register all routes by categories
-			var adminRoutes = ['create-course','view-created-course','course-resources','course-experiments','view-Students-dashboard'];
-			var userRoutes =[ 'my-practicals','my-courses','simpleCircuit','simple-pendulum','simplependulumEquipment','vernierEquipment','vernier-caliper','micrometer','micrometerEquipment','resistor-color-code','resistorExperiment'];
-			var guestRoutes = ['login','explore',''];
+			var adminRoutes = ['create-course'];
+			var userRoutes =[ 'view-created-course','course-resources','course-experiments','my-practicals','my-courses','simpleCircuit','simple-pendulum','simplependulumEquipment','vernierEquipment','vernier-caliper','micrometer','micrometerEquipment','resistor-color-code','resistorExperiment','my-course-review'];
+			var guestRoutes = ['login','explore','view-Students-dashboard'];
 
 			//filter
 			function baseName(str){
@@ -36,6 +36,7 @@
 			  		n = str.slice(0,str.indexOf("?"));
 			  	}
 			  	return n;
+
 			}
 
 			let pathname = baseName(window.location.pathname); 			 
@@ -45,6 +46,7 @@
 						
 			if (localStorage.getItem("LoggedUser") === null) {	
 				if (!guestRoutes.includes(pathname)) {
+					alert(49)
 					window.location.replace('/login');							
 		        }	   
 			}
@@ -55,16 +57,20 @@
 			if(userLoggedInOld.user.role_id){
 				var roleOld = userLoggedInOld.user.role_id;
 			}else{
+				alert(60)
 				window.location.replace('/login');				
-			}			
+			}		
+
 			if(roleOld == 0){
 				//guest restricted to admin and user
 				if(adminRoutes.includes(pathname) || userRoutes.includes(pathname)){
+					alert(67)
 					window.location.replace('/login');
 				}
 			}else if (roleOld ==1){				
 				//user restricted to admin
 				if(adminRoutes.includes(pathname)){
+					alert(73)
 					window.location.replace('/login');
 				}
 			}
@@ -83,11 +89,15 @@
 		            $vm.axios.post('api/me',Auth_, { headers: headers }).then(function(response, status, request) {  
 		            	if (pathname=='login') {
 							window.location.replace('/');
+							alert(92)
+
 		            	}
 		            }, function(e) {		  
 		            	localStorage.removeItem("LoggedUser");
 		            	if (!guestRoutes.includes(pathname)) {
-							window.location.replace('/login');							
+							window.location.replace('/login');		
+							alert(99)
+
 		            	}	            
 		            });
 

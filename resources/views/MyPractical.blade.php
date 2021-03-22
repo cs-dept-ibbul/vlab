@@ -1,7 +1,7 @@
 @extends('layouts/main')
 @section('content-body')
     <div class="dashboad-content">
-	<v-userauth></v-userauth>
+	<!-- <v-userauth></v-userauth> -->
     	
         <v-msidebar> </v-msidebar>
         <div class="dashboard-content">

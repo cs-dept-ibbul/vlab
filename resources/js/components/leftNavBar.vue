@@ -10,6 +10,9 @@
 				<a :href="home"  v-bind:class="{btnActive:homeA}">
 					<span class="iconOV fa fa-home btnActive" title="Home"></span>					
 				</a>
+				<a :href="dashboard"  v-bind:class="{btnActive:dashboardA}">
+					<span class="iconOV fa fa-dashboard" title="Dashboard"></span>					
+				</a>
 				<a :href="explore"  v-bind:class="{btnActive:exploreA}">
 					<span class="iconOV fa fa-spinner" title="Explore"></span>					
 				</a>
@@ -25,13 +28,16 @@
 				<a :href="settings" v-bind:class="{btnActive:settingsA}">
 					<span class="iconOV fa fa-gear" title="Settings"></span>					
 				</a>
-				<a :href="logout" >
+				<a @click="logout" >
 					<span class="iconOV fa fa-arrow-circle-left" style="margin-top: ;" title="Logout"></span>
 				</a>
 			</div>
 			<div v-bind:class="{slidein:show1, slideout:hide1}" style="position: relative; margin-left: 20px; margin-right:20px;height: " >
 				<a :href="home" class="nChildV" v-bind:class="{btnActive:homeA}">
 					<span class="iconV fa fa-home "></span><div class="labelV">Home</div>
+				</a>	
+				<a :href="dashboard" class="nChildV"  v-bind:class="{btnActive:dashboardA}">
+					<span class="iconV fa fa-dashboard"></span><div class="labelV">Dashboard</div>
 				</a>	
 				<a :href="explore" class="nChildV"  v-bind:class="{btnActive:exploreA}">
 					<span class="iconV fa fa-spinner"></span><div class="labelV">Explore</div>
@@ -42,16 +48,15 @@
 				<a :href="mycourse" v-else class="nChildV" v-bind:class="{btnActive:mycourseA}">
 					<span class="iconV fa fa-toggle-on"></span><div class="labelV">My Courses</div>
 				</a>
-				<a :href="discussion"  class="nChildV" v-bind:class="{btnActive:discussionA}">
+				<a :href="'#'"  class="nChildV" v-bind:class="{btnActive:discussionA}">
 					<span class="iconV fa fa-comment"></span><div class="labelV">Discussion</div>
 				</a>	
 				<a :href="settings"  class="nChildV" v-bind:class="{btnActive:settingsA}">
 					<span class="iconV fa fa-gear"></span><div class="labelV">Settings</div>
 				</a>					
-				<a @click="logout"  class="nChildV">
+				<a @click="logout" :href="'#'"  class="nChildV">				
 					<span class="iconV fa fa-arrow-circle-left"></span><div class="labelV">Logout</div>
-				</a>
-				
+				</a>				
 			</div>
 		</div>
 	</div>
@@ -71,7 +76,8 @@
             coursesA:false,
             discussionA:false,
             settingsA:false,
-            mycourseA:false
+            mycourseA:false,
+            dashboardA:false
 		    	}
         },
         methods:{
@@ -97,6 +103,9 @@
         	if (this.active=='home'){
         		this.homeA = true;
         	}
+        	if (this.active=='dashboard'){
+        		this.dashboardA = true;
+        	}
         	if (this.active=='explore'){
         		this.exploreA = true;
         	}
@@ -117,7 +126,7 @@
 		beforeDestroy: function () {
 		  this.eventBus.$off('toggleSysNav', this.toggleNavOnHover)		  
 		},
-        props:['home','explore','mycourse','courses','discussion','settings', 'logout', 'active', 'incourse']
+        props:['home','dashboard','explore','mycourse','courses','discussion','settings', 'logout', 'active', 'incourse']
 	};
 
 /*
@@ -191,6 +200,11 @@ a{
 		margin-top: 5px;
 		
 	}
+	.niconsV >a:last-child{
+		position: absolute;
+		top: 62vh;
+		left: 10px;
+	}
 	.menuLI{
 		color:#2F274E;
 		font-size: 1.4em;
@@ -218,9 +232,10 @@ a{
 		cursor: pointer;
 
 	}
-	.nChildV:hover{
-		background: #3c9;
-		color:#fff;
+	.nChildV:last-child{
+		position: absolute;
+		top: 72vh;
+		left: 10px;
 	}
 	.btnActive{
 		background: rgba(150,200,150,.1) !important;
@@ -251,5 +266,9 @@ a{
 	.nChildV:hover{
 		background: #3c9;
 		color:#fff;
+	}
+	.nChildv:hover  .labelV{
+		color: #fff;
+		border: 1px solid red;
 	}
 </style>

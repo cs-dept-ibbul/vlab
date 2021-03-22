@@ -1,7 +1,7 @@
 @extends('layouts/main-login')
 @section('content-body')
     <div class="content row m-0 p-0">
-	<v-userauth></v-userauth>
+	<!-- <v-userauth></v-userauth> -->
     	
     	<div class="col-lg-12 m-0 p-0">
     		<div class="pull-right p-3">

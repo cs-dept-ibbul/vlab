@@ -18,13 +18,13 @@ class experimentController extends Controller
     {
     	return view('experiment/simple_pendulum');
     }
-    public function photovoltaic1()
+    public function circuitconnection1()
     {
-        return view('experiment/photovoltaic1');
+        return view('experiment/circuitconnection1');
     }
-    public function photovoltaic2()
+    public function circuitconnection2()
     {
-        return view('experiment/photovoltaic2');
+        return view('experiment/circuitconnection2');
     }
     public function simpleCircuit(){
         return view('experiment/simple_circuit');        

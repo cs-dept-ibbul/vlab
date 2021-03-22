@@ -15,9 +15,9 @@ $started = 0; //this will be from database
 @endsection
 @section('content-body')
 <div class="d-flex">  
-  <v-userauth></v-userauth>
+  <!-- <v-userauth></v-userauth> -->
+   <v-msidebar class='vh-100' home="{{route('home')}}" explore="{{route('explore')}}" settings="{{route('home')}}" mycourse="{{route('my-course-review')}}" courses="{{route('courses')}}" incourse="1" active="courses"  ></v-msidebar>   
  
-	 <v-msidebar class='vh-100'></v-msidebar>   
    <!-- end main side bar -->
 
    <div class="w-100 vh-100 position-relative">
@@ -36,13 +36,13 @@ $started = 0; //this will be from database
        			<!-- experiment  -->
    			    <div id="mainExp">
                <v-ribbon></v-ribbon>
-               <v-photovoltaic2 style="display: none;" id="experimentSheet"></v-photovoltaic2>
+               <v-circuitconnection2 style="display: none;" id="experimentSheet"></v-circuitconnection2>
                <v-start hourdata="1" munitedata="30" starteddata="{{$started}}" ></v-start>               
    			    </div>
    			    <!-- end experiment -->
 
             <div  class="zero-space vh-2 exprightNav" id="rightNav">                             
-               <v-rightnav class="vh-2" :toolsizes=false :vicelab=true   url="{{route('photovoltaic2')}}" ></v-rightnav>
+               <v-rightnav class="vh-2" :toolsizes=false :circuitconnectiontools=true   url="{{route('circuitconnection2')}}" ></v-rightnav>
 
             </div>
 

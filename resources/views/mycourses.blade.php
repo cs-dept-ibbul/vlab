@@ -25,7 +25,7 @@
 @endsection
 @section('content-body')
 <div style="display: flex;">   
-	<v-userauth></v-userauth>
+	<!-- <v-userauth></v-userauth> -->
    <!-- main side bar -->
    <v-msidebar home="{{route('home')}}" explore="{{route('explore')}}" settings="{{route('home')}}" mycourse="{{route('my-course-review')}}" courses="{{route('courses')}}" incourse="1" active="courses"  ></v-msidebar>   
    <!-- end main side bar -->

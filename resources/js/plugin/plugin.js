@@ -14,9 +14,8 @@ export default {
 				try{
                     this.axios.post('api/logout',Auth_, {headers:headers}).then(function(response, status, request) {  
                   		
-		             localStorage.removeItem("LoggedUser");  
-		             location.reload()                                  
-                            
+		             localStorage.removeItem("LoggedUser");  		             
+                     window.location.href   = "/logout"  
                      }, function() {
                      	launch_toast();
 						$('#system-loader').css('display','none');

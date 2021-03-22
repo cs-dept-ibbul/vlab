@@ -43,10 +43,10 @@ Vue.component('v-start', require('./components/StartExperimentBtn.vue').default)
 Vue.component('v-progress', require('./components/progressBar.vue').default);
 Vue.component('v-thread', require('./components/threadTrends.vue').default);
 Vue.component('v-createcourse', require('./components/createCourse.vue').default);
-Vue.component('v-photovoltaic1', require('./components/searies_and_parallel_photovoltaic.vue').default);
-Vue.component('v-photovoltaic2', require('./components/shade_level_photovoltaic.vue').default);
+Vue.component('v-circuitconnection1', require('./components/searies_and_parallel_p.vue').default);
+Vue.component('v-circuitconnection2', require('./components/shade_level_p.vue').default);
 Vue.component('v-simplecircuit', require('./components/simple-circuit.vue').default);
-Vue.component('v-vicelabtools', require('./components/vicelabExpEquip.vue').default); //experiment Right Nav bar
+Vue.component('v-circuitconnectiontools', require('./components/circuitconnectiontools.vue').default); //experiment Right Nav bar
 
 
 
@@ -75,8 +75,6 @@ Vue.component('v-enrolledpracticals', require('./components/EnrolledPractical.vu
 Vue.component('v-coursestab', require('./components/CoursesTab.vue').default);
 Vue.component('v-electricityscript', require('./components/electricityScript.vue').default);
 Vue.component('v-loginscript', require('./components/loginScript.vue').default);
-Vue.component('v-userauth', require('./components/userAuthentication.vue').default);
-Vue.component('v-logout', require('./components/logout.vue').default);
 
 
 
@@ -89,7 +87,7 @@ Vue.component('v-logout', require('./components/logout.vue').default);
    	 data:function() {
 	    	return{
 	    	 poor:false,
-         exp2vicelab: this.exp2vicelab
+         //exp2vicelab: this.exp2vicelab
 	    	}
         },
     methods:{
@@ -196,5 +194,5 @@ function launch_toast(){
   $(document).ready(function(){
     setTimeout(function() {
         $('#system-loader2').hide();
-    }, 5000);
+    }, 50);
   })

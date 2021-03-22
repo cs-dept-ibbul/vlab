@@ -31,6 +31,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .hero {
   padding: 30px 0;
   &__body {
@@ -44,7 +45,7 @@ export default {
 
     @media screen and (min-width: 992px) {
       text-align: left;
-      height: 100vh;
+      height: 350px;
       padding: 0 30px;
       max-height: 500px;
     }
@@ -67,15 +68,14 @@ export default {
   }
   &__video {
     background-color: #2F2651;
-    width: 25rem;
-    max-width: 100%;
+    width: 250px;
     border-radius: 20px;
-    height: 20rem;
+    height: 300px;
     margin: 30px auto;
 
     @media screen and (min-width: 992px) {
       margin: 0 auto;
-      height: 28rem;
+      height: 300px;
       transform: translateY(25%);
     }
   }

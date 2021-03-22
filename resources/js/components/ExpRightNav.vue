@@ -3,8 +3,8 @@
 		<div class="containerR" id="tools" style="height:100%;">	
 			
 		   	<div class="input-alt"></div>	
-		   	<span v-if="vicelab==true" class="pr z-1" >		 
-		   	 	<vicelabtools has='1'  ></vicelabtools>
+		   	<span v-if="circuitconnectiontools==true" class="pr z-1" >		 
+		   	 	<circuitconnectiontools has='1'  ></circuitconnectiontools>
 		   	</span>	   
 		   	<span v-if="electricitytools==true">	
 			   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>		   		
@@ -46,11 +46,11 @@
 	</div>
 </template>
 <script>
-	import vicelabtools from './vicelabExpEquip';
+	import circuitconnectiontools from './circuitconnectiontools';
 	import electricity from './electricityEquipment';
 	export default{
 	components:{
-		vicelabtools,
+		circuitconnectiontools,
 		electricity,
 	},
 	 data:function() {
@@ -123,7 +123,7 @@
             toolsizes: Array,
             url:String,
             toolstate:Boolean,
-            vicelab:Boolean,
+            circuitconnectiontools:Boolean,
             othertools:Boolean,
             electricitytools:Boolean
         },        
