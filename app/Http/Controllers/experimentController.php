@@ -20,11 +20,11 @@ class experimentController extends Controller
     }
     public function circuitconnection1()
     {
-        return view('experiment/circuitconnection1');
+        return view('experiment/circuitconnection_1');
     }
     public function circuitconnection2()
     {
-        return view('experiment/circuitconnection2');
+        return view('experiment/circuitconnection_2');
     }
     public function simpleCircuit(){
         return view('experiment/simple_circuit');        

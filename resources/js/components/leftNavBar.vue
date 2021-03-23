@@ -126,7 +126,7 @@
 		beforeDestroy: function () {
 		  this.eventBus.$off('toggleSysNav', this.toggleNavOnHover)		  
 		},
-        props:['home','dashboard','explore','mycourse','courses','discussion','settings', 'logout', 'active', 'incourse']
+        props:['home','dashboard','explore','mycourse','courses','discussion','settings', 'active', 'incourse']
 	};
 
 /*

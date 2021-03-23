@@ -75,6 +75,8 @@ Vue.component('v-enrolledpracticals', require('./components/EnrolledPractical.vu
 Vue.component('v-coursestab', require('./components/CoursesTab.vue').default);
 Vue.component('v-electricityscript', require('./components/electricityScript.vue').default);
 Vue.component('v-loginscript', require('./components/loginScript.vue').default);
+Vue.component('v-userauth', require('./components/userAuthentication.vue').default);
+
 
 
 
@@ -186,13 +188,9 @@ function updateThumbnail(dropZoneElement, file) {
     thumbnailElement.style.backgroundImage = null;
   }
 }
-function launch_toast(){
-      var x = document.getElementById("toast")
-      x.className = "show";
-      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
-  }
+
   $(document).ready(function(){
     setTimeout(function() {
         $('#system-loader2').hide();
     }, 50);
-  })
+  }) 

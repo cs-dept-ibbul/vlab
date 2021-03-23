@@ -1163,53 +1163,49 @@ body {
   }
 }
 #toast {
-    visibility: hidden;
-    max-width: 50px;
-    height: 50px;
-    /*margin-left: -125px;*/
-    margin: auto;
-    background-color: #333;
+
+  display: none;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 230px;    
+    padding: 5px;    
+    margin: 0px auto;    
     color: #fff;
     text-align: center;
     border-radius: 2px;
-
+    transition: transform 0.6s;
+   transform: translateX(0%);
+   opacity: 0;
     position: fixed;
-    z-index: 1;
-    left: 0;right:0;
+    z-index: 110;
+    
+    right:0;
+    left: 0;
     bottom: 30px;
     font-size: 17px;
     white-space: nowrap;
 }
 #toast #img{
-  width: 50px;
-  height: 50px;
-    
-    float: left;
-    
-    padding-top: 16px;
-    padding-bottom: 16px;
-    
-    box-sizing: border-box;
-
-    
-    background-color: #111;
-    color: #fff;
+  width: 30px;  
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  float: left;          
+  box-sizing: border-box;        
+  margin: 0px 5px;
 }
-#toast #desc{
-
-    
-    color: #fff;
-   
-    padding: 16px;
-    
+#toast #toastdesc{    
     overflow: hidden;
-  white-space: nowrap;
+    margin: 0px;
+    white-space: nowrap;
 }
 
 #toast.show {
-    visibility: visible;
-    -webkit-animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, shrink 0.5s 2s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, shrink 0.5s 4s, fadeout 0.5s 4.5s;
+    display: flex;
+    /*-webkit-animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, fadeout 0.5s 2.5s;*/
+    animation: fadein 0.5s,stay 0.1s 4s, fadeout 0.5s 1s;
+  
 }
 
 @-webkit-keyframes fadein {
@@ -1222,25 +1218,14 @@ body {
     to {bottom: 30px; opacity: 1;}
 }
 
-@-webkit-keyframes expand {
-    from {min-width: 50px} 
-    to {min-width: 350px}
-}
-
-@keyframes expand {
-    from {min-width: 50px}
-    to {min-width: 350px}
-}
 @-webkit-keyframes stay {
-    from {min-width: 350px} 
-    to {min-width: 350px}
+  
 }
 
 @keyframes stay {
-    from {min-width: 350px}
-    to {min-width: 350px}
+  
 }
-@-webkit-keyframes shrink {
+/*@-webkit-keyframes shrink {
     from {min-width: 350px;} 
     to {min-width: 50px;}
 }
@@ -1248,14 +1233,4 @@ body {
 @keyframes shrink {
     from {min-width: 350px;} 
     to {min-width: 50px;}
-}
-
-@-webkit-keyframes fadeout {
-    from {bottom: 30px; opacity: 1;} 
-    to {bottom: 60px; opacity: 0;}
-}
-
-@keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 60px; opacity: 0;}
-}
+}*/
