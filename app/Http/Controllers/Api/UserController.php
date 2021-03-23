@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Api\Util;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -22,45 +23,82 @@ class UserController extends Controller
             return response()->json(['error' => "data_url field is required"], 400);
         }
 
-        $customerArr = Util::csvToArray($file);
+        $students = Util::csvToArray($file);
 
         $data = [];
         $exists = [];
         $newStudents = [];
-        $password = 123456;
+        $password = md5(123456);
         
-        for ($i = 0; $i < count($customerArr); $i++) {
-            
-            $checkDuplicateMatricNumber = User::where(['matric_number' => $customerArr[$i]['matric_number']])->first();
+        foreach ($students as $student) {
+
+            $checkDuplicateMatricNumber = User::where(['matric_number' => $student['matric_number']])->first();
             
             if($checkDuplicateMatricNumber == null){
                 $data[] = [
                     'id' => $this->uuid(),
-                    'matric_number' => $customerArr[$i]['matric_number'],
-                    'first_name' => $customerArr[$i]['first_name'],
-                    'other_names' => $customerArr[$i]['other_names'],
-                    'gender' => $customerArr[$i]['gender'],
+                    'matric_number' => $student['matric_number'],
+                    'first_name' => $student['first_name'],
+                    'other_names' => $student['other_names'],
+                    'gender' => $student['gender'],
                     'password' => $password,
                     'role_id' => $request->get('role_id'),
                     'user_ip_address' => $this->ip(),
                 ];
                 $newStudents[] = [
-                    'matric_number' => $customerArr[$i]['matric_number']
+                    'matric_number' => $student['matric_number']
                 ];
             } else {
                 $exists[] = [
-                    'matric_number' => $customerArr[$i]['matric_number']
+                    'matric_number' => $student['matric_number']
                 ];
             }
+
         }
+
         User::insert($data);
+        
         if(!empty($exists)){
             return response()->json(['error' => 'Some student already exist', 'new_students' => $newStudents, 'existing_students' => $exists], 409);
         }
         return response()->json(['success' => true], 200);
     }
 
-    static public function getStudentByMatricNumber(String $matric_number)
+    public function updatePassword(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required',
+            'new_password' => 'required',
+        ]);
+        
+        if ($validator->fails()) {
+            return response()->json(['error' => "All fields is required"], 400);
+        }
+
+        if (strcmp(md5($request->get('old_password')), Auth::user()->password)) {
+            return response()->json(['errors' => ['current'=> ['Current password does not match']]], 422);
+        }
+
+        if(strcmp($request->get('old_password'), $request->get('new_password')) == 0){
+            return response()->json(['errors' => ['current'=> ['New Password cannot be same as your current password']]], 422);
+        }
+        
+        $user = Auth::user();
+        $user->password = md5($request->get('new_password'));
+        $user->using_default_password = '0';
+        if($user->save()){
+            return response()->json(['success' => true], 200);
+        }
+    }
+    
+    public function getStudentByMatricNumber(Request $request)
+    {
+        $matric_number = $request->get('matric_number');
+        $student = $this->studentByMatricNumber($matric_number);
+        return $student;
+    }
+    
+    static public function studentByMatricNumber(String $matric_number)
     {
         $student = User::where(['matric_number' => $matric_number])->first();
         if(empty($student)){
@@ -68,5 +106,6 @@ class UserController extends Controller
         }
         return $student;
     }
+
 
 }

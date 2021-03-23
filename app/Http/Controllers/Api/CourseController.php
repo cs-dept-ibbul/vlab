@@ -114,42 +114,32 @@ class CourseController extends Controller
 
     public function bulkCourseAssign(Request $request)
     {
-        $file = public_path($request->get('data_url'));
-
-        $validator = Validator::make($request->all(), [
-            'data_url' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => "data_url field is required"], 400);
-        }
-        $customerArr = Util::csvToArray($file);
-
-        for ($i = 0; $i < count($customerArr); $i++) {
-            $userId = UserController::getStudentByMatricNumber($customerArr[$i]['matric_number'])['id'];
-           $this->addStudentCourse($request, $userId);
-        }
-    }
-
-    public function addStudentCourse(Request $request, String $user_id)
-    {
         $validator = Validator::make($request->all(), [
             'course_id' => 'required',
-            // 'user_id' => 'required',
             'school_id' => 'required',
             'faculty_id' => 'required',
+            'data_url' => 'required',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['error' => "All fields are required"], 400);
         }
 
-        // $user_id = $request->get('user_id');
+        $file = public_path($request->get('data_url'));
         $course_id = $request->get('course_id');
         $school_id = $request->get('school_id');
         $faculty_id = $request->get('faculty_id');
 
+        $students = Util::csvToArray($file);
+        
+        foreach ($students as $student) {
+            $userId = UserController::studentByMatricNumber($student['matric_number'])['id'];
+           $this->addStudentCourse($userId, $course_id,$school_id, $faculty_id);
+        }
+    }
 
+    public function addStudentCourse($user_id, $course_id,$school_id, $faculty_id)
+    {
         $userCourses = new CourseStudents();
         $userCourses->id = Util::uuid();
         $userCourses->course_id = $course_id;
