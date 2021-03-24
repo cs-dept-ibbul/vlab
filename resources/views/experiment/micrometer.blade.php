@@ -3,7 +3,8 @@ $tools = 5;
 $toolSizes = [80,54,69,70,90];
 $ct = 1;
 $started = 0; //this will be from database
-
+$true = true;
+$false = false;
 ?>
 @extends('layouts/main')
 
@@ -32,7 +33,8 @@ $started = 0; //this will be from database
 @endsection
 @section('content-body')
 <div class="d-flex">   
-
+   <!-- <v-userauth></v-userauth> -->
+      
    <!-- main side bar -->
    <v-msidebar  class='vh-100'></v-msidebar>   
    <!-- end main side bar -->
@@ -59,7 +61,7 @@ $started = 0; //this will be from database
             </div>
             <!-- end experiment -->
             <div  class="zero-space exprightNav" id="rightNav">               
-               <v-rightnav toolState='true' toolsizes="<?php echo json_encode($toolSizes); ?>" url="{{route('micrometerEquipment').'?size='}}"></v-rightnav>
+               <v-rightnav :toolstate=true :othertools=true :toolsizes="{{json_encode($toolSizes)}}" url="{{route('micrometerEquipment').'?size='}}" ></v-rightnav>
             </div>
             <!-- experiment footer -->
             <div class="position-absolute bottom-0 w-100">

@@ -60,7 +60,13 @@
          	}
 				
          },
-         props:['evalue','avalue']
+         props:['evalue','avalue'],
+         mounted(){
+         	let $vm = this;
+         	this.$nextTick(function(){
+         	
+         	})
+         }
 
         	
 	}

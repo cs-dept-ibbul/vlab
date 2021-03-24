@@ -27,6 +27,7 @@ $experimentNum = "Experiment I";
 @endsection
 @section('content-body')
 <div class="d-flex">   
+   <v-userauth></v-userauth>
 
    <!-- main side bar -->
    <v-msidebar  class='vh-100'></v-msidebar>   
@@ -53,8 +54,8 @@ $experimentNum = "Experiment I";
                <v-start hourdata="1" munitedata="30" starteddata="{{$started}}" ></v-start>
             </div>
             <!-- end experiment -->
-            <div  class="zero-space exprightNav" id="rightNav">               
-               <v-rightnav toolState='false' toolsizes="[]" url="{{route('simplependulumEquipment').'?size='}}"></v-rightnav>
+            <div  class="zero-space exprightNav" id="rightNav">       
+               <v-rightnav class="vh-2" :toolsizes="{}" :toolsizes=false    url="{{route('simplependulumEquipment').'?size='}}" ></v-rightnav>            
             </div>
             <!-- experiment footer -->
             <div class="position-absolute bottom-0 w-100">

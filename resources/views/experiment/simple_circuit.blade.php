@@ -26,6 +26,8 @@ $started = 0; //this will be from database
 
 @section('content-body')
 <div class="d-flex">   
+  <!-- <v-userauth></v-userauth> -->
+  
 	 <v-msidebar class='vh-100'></v-msidebar>   
    <!-- end main side bar -->
 
@@ -52,7 +54,7 @@ $started = 0; //this will be from database
    			    <!-- end experiment -->
 
             <div  class="zero-space exprightNav" id="rightNav">               
-               <v-rightnav class="vh-2" toolsizes="false" url="{{route('vicelab-exp2')}}"  ></v-rightnav>
+               <v-rightnav class="vh-2" toolsizes="false" url="{{route('simple-circuit')}}"  ></v-rightnav>
             </div>
 
        			<!-- experiment footer -->

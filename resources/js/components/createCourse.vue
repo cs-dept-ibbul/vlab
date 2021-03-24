@@ -56,10 +56,8 @@
 		            				<p class="fs001 my-1">Select Experiment</p>
 		            				<div class="d-flex">
 		            					<select @keyup="normalize" class="form-control vI" id="selectExperiment">
-		            						<option></option>
-		            						<option value="1">Vernier Caliper</option>
-		            						<option value="3">Micrometer Screw Guage</option>
-		            						<option value="2">Simple Pendulum</option>
+		            						<option ></option>
+		            						<option v-for="experiment in experiments" :value="experiment.id">{{experiment.name}}</option>
 		            					</select>
 		            					<button class=" ml-2 sysbtn p-success text-white" @click="addEBox">Add</button>
 		            				</div>
@@ -78,8 +76,8 @@
 	            	</div>
 	            	<div id="uploadResources" v-if="sectionState==3" class="m-0 p-0 shineA">  
 	            		<p class="fw8 fs1 font" style="color: #777;">Add Resources</p>   
-	            		<div class="dragbox" id="dgbox" @dragenter.prevent @dragover.prevent @drop="dragEnter">
-	            			<input @change="getDragedInFile" type="file" name="files[]" class="draginto" id="fileI">            					            		
+	            		<div class="dragbox" id="dgbox" @click="dragrelease=false" @dragenter.prevent @dragover.prevent @drop="dragEnter">
+	            			<input @change="getDragedInFile"  type="file" name="files[]" class="draginto" id="fileI">            					            		
 	            			<span id="imageprev">	            				
 		            			<span class="fa fa-cloud-upload fs3 text-dark"></span><br>
 		            			<label class="fw3">Upload Additional resources</label>
@@ -142,11 +140,11 @@
         <div class="row bg-white m-0">
             <div class="col-lg-8 col-md-7 col-sm-12">
             </div>
-            <div class="col-lg-2 col-md-3 col-sm-12 mx-auto py-2 d-flex">
+            <div class="col-lg-4 col-md-3 col-sm-12 mx-auto py-2 d-flex">            	
             	<button v-if="sectionState >1" class="btn p-success text-white py-2 px-3 mr-3" @click="prevSection" ><span class="fa fa-arrow-left"></span> Previous </button>
             	<button class="btn p-success text-white py-2 px-3" @click="nextSection" > Continue <span class="fa fa-arrow-right"></span></button>
             </div>
-            <div class="col-lg-2 col-md-1 col-sm-12 mx-auto">
+            <div class="col-md-1 col-sm-12 mx-auto">
             </div>
             <!--  -->
         </div>
@@ -179,7 +177,9 @@
 	    	 selectedExperimentName:[],
 	    	 selectedInstructor:[],
 	    	 selectedInstructorName:[],
-	    	 percentage:0
+	    	 percentage:0,
+	    	 experiments:[],
+	    	 dragrelease:false
 	    	}
         },
         methods:{
@@ -493,10 +493,12 @@
 				}
 			},
 			dragEnter(e){			
+				this.dragrelease = true;
 				let $nv = this;	
 				let holder = document.getElementById('dgbox');
 				holder.classList.add('dragenter');
-				   let file = e.dataTransfer.files[0];
+			    let file = e.dataTransfer.files[0];
+
 				   let reader = new FileReader();
 				$('.progress').css('display','block');
 
@@ -517,19 +519,50 @@
 				    }*/
 				    reader.readAsDataURL(file);				
 				 	e.preventDefault();
+
 			},
-			getDragedInFile: function(){
-				 //$('#fileI').files;				
+			getDragedInFile: function(e){					
+				if (this.dragrelease==false) {
+						let $nv = this;	
+					let holder = document.getElementById('dgbox');
+					holder.classList.add('dragenter');
+				    let file;
+					file = e.target.files[0];
+
+					   let reader = new FileReader();
+					$('.progress').css('display','block');
+
+					   reader.onloadstart = function(event) {
+						    $('.progressi').css('display','block');
+						};
+						reader.onprogress = function(event) {						
+						   if (event.lengthComputable) {
+	         					$nv.percentage  = (event.loaded/event.total)* 100;					    
+	         					$('.progress-bar').css('width', $nv.percentage+'%');         					
+						    }
+						};
+						reader.onloadend = function(event) {
+					 		$('#imageprev').html('<img id="image_droped" width="200px"  src="'+event.target.result+'">');		
+					 		$nv.imagetoupload = event.target.result;					    
+						};
+					    /*reader.onload = function (event) {
+					    }*/
+					    reader.readAsDataURL(file);				
+					 	e.preventDefault();
+
+				}
 			}
         },	
 
         
          props: [],
          mounted: function () {
+         	let $vm = this;
+			   	
+
 		  this.$nextTick(function () {
 		    // Code that will run only after the
 		    // entire view has been rendered
-         	var $vm = this;
          		$(document).on('click', '.rmexp', function() {					
 					$vm.selectedExperiment.splice($(this).attr('rel'),1);
 					$vm.selectedExperimentName.splice($(this).attr('rel'),1);
@@ -541,6 +574,37 @@
          			$vm.reiterateSelectedInstructor();         			
 				});
 				
+				/*fetch experiment*/
+			   try{
+			   	console.log(3);
+		            $vm.axios.get('api/experiments/experiments','', { headers: $vm.axiosHeader }).then(function(response, status, request) { 			   	
+
+		            	 $vm.experiments = response.data;
+		            	//console.log($vm.experiments);			   	
+		              
+		            }, function(e) {		  
+		              vt.error($vm.errorSessionMessage,{
+						  title: undefined,
+						  position: "bottom-right",
+						  duration: 10000,
+						  closable: true,
+						  focusable: true,
+						  callback: undefined
+						});
+		            	//console.log($vm.axiosHeader)
+		            });
+
+		        }catch(err){
+		           vt.error($vm.errorNetworkMessage,{
+						  title: undefined,
+						  position: "bottom-right",
+						  duration: 10000,
+						  closable: true,
+						  focusable: true,
+						  callback: undefined
+						});
+		          console.log(err)//show network error notification
+		        }
 			
 		  });
 

@@ -31,7 +31,9 @@
         },	
         
          props: ['username','title'],
-         mounted(){	         	
+         mounted(){	        
+
+         	this.username =  JSON.parse(localStorage.getItem('LoggedUser')).user.first_name; 	
          },
          events :{
          	'toggleClick':'toggleClick'

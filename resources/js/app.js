@@ -3,7 +3,9 @@
 import Vue from 'vue'   
 import bootstrap from "bootstrap";
 import Vuex from 'vuex'
-
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+import plugin from "./plugin/plugin";
 //Main pages
 //import App from './views/app.vue'
 
@@ -12,15 +14,21 @@ import Vuex from 'vuex'
 
 //vuex
 Vue.use(Vuex)
+//axios
+Vue.use(VueAxios, axios);
 /*import storeData from "./store/index";*/
-import expvicelab2 from "./store/exp1";
-import expvicelab3 from "./store/exp2";
+
+Vue.use(plugin);
+
+import storedata from "./store/exp1";
+//import expvicelab3 from "./store/exp2";
 /*
 const store = new Vuex.Store(
    storeData
 )*/
-const store = new Vuex.Store(   expvicelab2 )
-const store2 = new Vuex.Store(   expvicelab3 )
+const store = new Vuex.Store(   storedata )
+/*const store2 = new Vuex.Store(   expvicelab3 )*/
+
 /*global event bus and communication*/
 Vue.prototype.$eventBus = new Vue(); 
 
@@ -35,10 +43,10 @@ Vue.component('v-start', require('./components/StartExperimentBtn.vue').default)
 Vue.component('v-progress', require('./components/progressBar.vue').default);
 Vue.component('v-thread', require('./components/threadTrends.vue').default);
 Vue.component('v-createcourse', require('./components/createCourse.vue').default);
-Vue.component('v-photovoltaic1', require('./components/searies_and_parallel_photovoltaic.vue').default);
-Vue.component('v-photovoltaic2', require('./components/shade_level_photovoltaic.vue').default);
+Vue.component('v-circuitconnection1', require('./components/searies_and_parallel_p.vue').default);
+Vue.component('v-circuitconnection2', require('./components/shade_level_p.vue').default);
 Vue.component('v-simplecircuit', require('./components/simple-circuit.vue').default);
-Vue.component('v-vicelabtools', require('./components/vicelabExpEquip.vue').default); //experiment Right Nav bar
+Vue.component('v-circuitconnectiontools', require('./components/circuitconnectiontools.vue').default); //experiment Right Nav bar
 
 
 
@@ -65,6 +73,10 @@ Vue.component('v-practicaltimeline', require('./components/PracticalTimeLine.vue
 Vue.component('v-enrolledpracticals', require('./components/EnrolledPractical.vue').default);
 
 Vue.component('v-coursestab', require('./components/CoursesTab.vue').default);
+Vue.component('v-electricityscript', require('./components/electricityScript.vue').default);
+Vue.component('v-loginscript', require('./components/loginScript.vue').default);
+Vue.component('v-userauth', require('./components/userAuthentication.vue').default);
+
 
 
 
@@ -72,19 +84,21 @@ Vue.component('v-coursestab', require('./components/CoursesTab.vue').default);
  const app = new Vue({
    el: '#app',
    bootstrap,
-   store,
-   store2,
-   /*expvicelab2,*/
+   store,   
+   userType:0,   
    	 data:function() {
 	    	return{
 	    	 poor:false,
-         exp2vicelab: this.exp2vicelab
+         //exp2vicelab: this.exp2vicelab
 	    	}
         },
     methods:{
             toggleClass(){            	
                 this.isLoading=!this.isLoading;                
             }
+        },
+        beforeCreated(){
+            document.getElementsByTagName('')
         },
           mounted(){            
     }
@@ -174,3 +188,9 @@ function updateThumbnail(dropZoneElement, file) {
     thumbnailElement.style.backgroundImage = null;
   }
 }
+
+  $(document).ready(function(){
+    setTimeout(function() {
+        $('#system-loader2').hide();
+    }, 50);
+  }) 
