@@ -62,11 +62,11 @@
 		            					<button class=" ml-2 sysbtn p-success text-white" @click="addEBox">Add</button>
 		            				</div>
 		            				<br><br>
-		            				<div class="d-flex flex-wrap-center justify-content-between w-100">
-		            					<div class="hr w35"></div>
-		            					<span class="w30">Added Experiment</span>
-		            					<div class="hr w35"></div>
-		            				</div>
+		            					<div class="d-flex  justify-content-between w-100">
+				        					<div class="hr w-100"></div>
+				        					<div class="w-100 text-center mb-2" style="margin-top:-10px;">Added Experiment</div>
+				        					<div class="hr w-100"></div>
+				        				</div>		            				
 		            				<br>
 		            				<div id="addEBox" class="r1" style="height: 200px;">
 		            					
@@ -78,10 +78,10 @@
 	            		<p class="fw8 fs1 font" style="color: #777;">Add Resources</p>   
 	            		<div class="dragbox" id="dgbox" @click="dragrelease=false" @dragenter.prevent @dragover.prevent @drop="dragEnter">
 	            			<input @change="getDragedInFile"  type="file" name="files[]" class="draginto" id="fileI">            					            		
-	            			<span id="imageprev">	            				
-		            			<span class="fa fa-cloud-upload fs3 text-dark"></span><br>
-		            			<label class="fw3">Upload Additional resources</label>
-		            			<p class="" style="color: #bbb;font-size: 0.8em;">Format: .jpeg, .jpg, or .png only</p>
+	            			<span id="imageprev py-5 d-block">	            				
+		            			<span class="fa fa-cloud-upload fs3 text-dark text-center d-block"></span>
+		            			<label class="fw3 text-center d-block">Upload Additional resources</label>
+		            			<p class="text-center" style="color: #bbb;font-size: 0.8em;">Format: .jpeg, .jpg, or .png only</p>
 	            			</span>
 	            			<div class ="progressi mt-4" style="width: 50%;">			
 								<div id="progressBar" class="p-success progress-bar"></div>
@@ -101,10 +101,10 @@
     					<button class=" ml-2 sysbtn p-success text-white" @click="addIBox">Add</button>
         				</div>
         				<br><br>
-        				<div class="d-flex flex-wrap-center justify-content-between w-100">
-        					<div class="hr w35"></div>
-        					<span class="w30">Added Instructor</span>
-        					<div class="hr w35"></div>
+        				<div class="d-flex  justify-content-between w-100">
+        					<div class="hr w-100"></div>
+        					<div class="w-100 text-center" style="margin-top:-10px;">Added Instructor</div>
+        					<div class="hr w-100"></div>
         				</div>
         				<br>
 	        			<div id="addIBox" class="r1" style="height: 200px;">        					
@@ -482,15 +482,68 @@
 				    		'names': this.selectedInstructorName
 				    	});
 					}
-					this.alldata = JSON.parse(JSON.stringify(this.alldata));
-					this.alldata[0] = JSON.parse(JSON.stringify(this.alldata[0]));
-					this.alldata[1] = JSON.parse(JSON.stringify(this.alldata[1]));
-					this.alldata[2] = JSON.parse(JSON.stringify(this.alldata[2]));
-					this.alldata[3] = JSON.parse(JSON.stringify(this.alldata[3]));
+					
 				 	$('#imageprev').html('<img id="image_droped" width="200px"  src="'+$nv.imagetoupload+'">');		
 					
 
+				}else if(this.sectionState === 5){
+						/*fetch experiment*/
+					let $vm = this;
+				   try{
+				   		const formData = new FormData();				   	
+				   	formData.append('title',this.alldata[0].Title);
+				   	formData.append('code',this.alldata[0].Course_code);
+				   	formData.append('description',this.alldata[0].Course_description);
+				   	formData.append('experiment_id',this.alldata[1].id);
+				   	formData.append('instructor_id',this.alldata[1].id);
+				   	formData.append('resource_url',this.alldata[2].image);
+
+				   		$('#system-loader').css('display','flex');
+
+			            $vm.axios.post('api/courses/create',formData, {headers: {'Content-Type': 'multipart/form-data','Authorization':$vm.userLoggedInOld}}).then(function(response, status, request) { 		
+				   			$('#system-loader').css('display','none');
+
+			            	console.log(response);			   	
+			               vt.success($vm.createdMessage,{
+							  title: undefined,
+							  position: "bottom-right",
+							  duration: 10000,
+							  closable: true,
+							  focusable: true,
+							  callback: undefined
+							});
+			            }, function(e) {		  
+					   		$('#system-loader').css('display','none');
+
+			              vt.error($vm.errorSessionMessage,{
+							  title: undefined,
+							  position: "bottom-right",
+							  duration: 10000,
+							  closable: true,
+							  focusable: true,
+							  callback: undefined
+							});
+			            	console.log(e);			   	
+
+			            	//console.log($vm.axiosHeader)
+			            });
+
+			        }catch(err){
+				   		$('#system-loader').css('display','none');
+
+			           vt.error($vm.errorNetworkMessage,{
+							  title: undefined,
+							  position: "bottom-right",
+							  duration: 10000,
+							  closable: true,
+							  focusable: true,
+							  callback: undefined
+							});
+			          console.log(err)//show network error notification
+			        }
+			
 				}
+
 			},
 			dragEnter(e){			
 				this.dragrelease = true;
@@ -733,7 +786,7 @@
 		margin-left: 5px;
 	}
 	.fs3{
-		font-size: 1.7em;
+		font-size: 2em;
 	}
 	.fs1{
 		font-family: 'Roboto', sans-serif;
@@ -888,5 +941,7 @@
 }
 .fs001{
 	font-size: 0.86em;
+}
+#imageprev{	
 }
 </style>

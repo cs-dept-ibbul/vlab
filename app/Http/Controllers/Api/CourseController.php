@@ -9,51 +9,113 @@ use App\Models\CourseExperiment;
 use App\Models\CourseInstructor;
 use App\Models\CourseResources;
 use App\Models\CourseStudents;
+use App\Models\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Auth;
 
 class CourseController extends Controller
 {
     public function create(Request $request)
     {
-        $course = new Course();
-
-        $validator = Validator::make($request->all(), [
-            'school_id' => 'required',
-            'faculty_id' => 'required',
+        //return dd($request->all());
+        $validator = Validator::make($request->all(), [                        
             'title' => 'required',
             'code' => 'required',
+            'resource_url' => 'required',
+            'experiment_id' => 'required',
+            'instructor_id' => 'required',
         ]);
-
+        $school_id = School::first();        
         if ($validator->fails()) {
             return response()->json(['error' => "All fields are required"], 400);
         }
 
-        $id = Util::uuid();
-        $school_id = $request->get('school_id');
-        $faculty_id = $request->get('faculty_id');
+
+        $course_uuid = Util::uuid();        
+        $faculty_id = 1;//please get the faculty id of the logged in user
         $title = $request->get('title');
         $code = $request->get('code');
         $description = $request->get('description');
         $status = $request->get('status') ?? 'Active';
 
-        $course->id = $id;
-        $course->school_id = $school_id;
-        $course->faculty_id = $faculty_id;
-        $course->title = $title;
-        $course->code = $code;
-        $course->description = $description;
-        $course->status = $status;
+        
+        $checkCourse = Course::where(['code' => $code])->first()->id;
 
-        $checkCourse = Course::where(['code' => $code])->first();
         if (empty($checkCourse)) {
-            if ($course->save()) {
-                return response()->json(['success' => true], 200);
+ 
+            
+            $course = array(
+            'id'          => $course_uuid,
+            'school_id'   => $school_id,
+            'faculty_id'  => $faculty_id,
+            'title'       => $title,
+            'code'        => $code,
+            'description' => $description,
+            'status'      => $status,
+            );
+            /*creating course resources*/
+            
+            $resource_uuid = Util::uuid();
+            $resourceUrl = $request->get('resource_url');
+
+            /*upload image*/
+            list($type, $img_data)  = explode(';', $resourceUrl);
+            list(, $img_data)  = explode(',', $img_data);
+            $decode_img = base64_decode($img_data);
+            $path = public_path().'/images/resources/';
+            if (!is_dir($path)){
+                File::makeDirectory($path,$mode =0777, true, true);
             }
-            return response()->json(['success' => false], 401);
+            $filename = $path.'img_'.$course_uuid.'.png';
+            if ($decode_img !== false) {                
+                file_put_contents($filename, $decode_img);                            
+            }else{
+                return response()->json(['error'=>'invalid image type'], 409);
+            }
+
+            /*resource data*/
+            $resource = array(
+                'id'         => $resource_uuid,
+                'course_id'  => $course_uuid,
+                'resourceUrl'=> $filename,
+            );
+
+            /*add experiment to a course*/            
+            $experimentIds = explode(',', $request->get('experiment_id'));           
+            $experiments = array();
+            for($x =0; $x < sizeof($experimentIds); $x++){
+               array_push($experiments, array(
+                'id'            => Util::uuid(),
+                'course_id'     => $course_uuid,
+                'experiment_id' => $experimentIds[$x],
+               ));
+            };
+            
+            /*add instructors to a course*/            
+            $instructorIds = explode(',', $request->get('instructor_id'));           
+            $instructors = array();
+            for($x =0; $x < sizeof($instructorIds); $x++){
+               array_push($instructors, array(
+                'id'            => Util::uuid(),
+                'course_id'     => $course_uuid,
+                'instructor_id' => $experimentIds[$x],
+               ));
+            };
+ 
+            DB::transaction(function () use($course,$resource, $experiments, $instructors) {
+                Course::insert($course);
+                CourseResources::insert($resource);
+                CourseExperiment::insert($experiments);
+                CourseInstructor::insert($instructors);
+            },5);            
+            return response()->json(['success' => true], 200);            
         }
         return response()->json(['error' => 'This course already exist'], 409);
     }
+
 
     public function getAllCourses()
     {

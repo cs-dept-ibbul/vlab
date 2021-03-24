@@ -7,7 +7,9 @@ export default {
       		axiosHeader:"",
       		errorNetworkMessage:"network error",
       		errorSessionMessage:"Session Expired",
-      		successLoginMessage:"logged in successfuly"
+      		successLoginMessage:"logged in successfuly",
+      		createdMessage:"created successfuly"
+
       	}
       },
       methods:{
