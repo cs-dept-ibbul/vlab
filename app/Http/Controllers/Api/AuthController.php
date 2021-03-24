@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 use function PHPUnit\Framework\isEmpty;
@@ -33,20 +34,30 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "All fields are required"], 400);
+        }
+
         $credentials = [
-            'email' => $request->get('email'),
+            'username' => $request->get('username'),
             'password' => md5($request->get('password')),
         ];
         
-         $user = User::where($credentials)->first();
+        $user = User::where($credentials)->first();
 
         if(!empty($user)){
+            $usingDefaultPassword = $user->using_default_password;
             if ($token = auth()->login($user)) {
-                return $this->respondWithToken($token);
+                return $this->respondWithToken($token, $usingDefaultPassword);
             }
         }
 
-        return response()->json(['error' => 'Unauthorized'], 401);
+        return response()->json(['error' => 'Invalid Credentials'], 401);
     }
 
     /**
@@ -94,7 +105,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => $this->me()->original,
+            'user' => $this->me()->original
         ]);
     }
 }

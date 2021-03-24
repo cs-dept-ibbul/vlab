@@ -22,7 +22,9 @@ class CreateUsersTable extends Migration
             $table->string('role_id');
             $table->string('email')->unique();
             $table->string('matric_number');
+            $table->string('username');
             $table->string('password');
+            $table->string('using_default_password');
             $table->string('user_ip_address');
             $table->text('token');
             $table->enum('status', ['Active', 'Inactive']);
