@@ -38,6 +38,7 @@ class UserController extends Controller
                 $data[] = [
                     'id' => $this->uuid(),
                     'matric_number' => $student['matric_number'],
+                    'username' => $student['matric_number'],
                     'first_name' => $student['first_name'],
                     'other_names' => $student['other_names'],
                     'gender' => $student['gender'],
