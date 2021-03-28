@@ -57,6 +57,7 @@ Route::group([
             Route::post('create', [FacultyController::class, 'create']);
             Route::post('faculty', [FacultyController::class, 'getFaculty']);
             Route::get('faculties', [FacultyController::class, 'getAllFaculties']);
+            Route::get('fac', [FacultyController::class, 'facultiesWithCourses']);
         });
 
         Route::group([

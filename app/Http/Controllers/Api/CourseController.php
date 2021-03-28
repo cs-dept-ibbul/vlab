@@ -131,14 +131,17 @@ class CourseController extends Controller
         $faculty_id = $request->get('faculty_id');
 
         $students = Util::csvToArray($file);
-        
+
         foreach ($students as $student) {
             $userId = UserController::studentByMatricNumber($student['matric_number'])['id'];
-           $this->addStudentCourse($userId, $course_id,$school_id, $faculty_id);
+            //Todo: Handle exception where student does not exist.
+            if ($userId != null) {
+                $this->addStudentCourse($userId, $course_id, $school_id, $faculty_id);
+            }
         }
     }
 
-    public function addStudentCourse($user_id, $course_id,$school_id, $faculty_id)
+    public function addStudentCourse($user_id, $course_id, $school_id, $faculty_id)
     {
         $userCourses = new CourseStudents();
         $userCourses->id = Util::uuid();
