@@ -61,7 +61,7 @@ class CourseController extends Controller
             $resource_uuid = Util::uuid();
             $resourceUrl = $request->get('resource_url');
 
-            /*upload image*/
+            /*
             list($type, $img_data)  = explode(';', $resourceUrl);
             list(, $img_data)  = explode(',', $img_data);
             $decode_img = base64_decode($img_data);
@@ -75,12 +75,12 @@ class CourseController extends Controller
             }else{
                 return response()->json(['error'=>'invalid image type'], 409);
             }
-
+            */
             /*resource data*/
             $resource = array(
                 'id'         => $resource_uuid,
                 'course_id'  => $course_uuid,
-                'resourceUrl'=> $filename,
+                'resourceUrl'=> $resourceUrl,
             );
 
             /*add experiment to a course*/            
