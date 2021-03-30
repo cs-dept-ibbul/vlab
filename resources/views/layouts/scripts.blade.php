@@ -2,5 +2,7 @@
 <script src="{{ asset('js/datatable.js')}}"></script>
 <script src="{{ asset('js/toastjs.min.js')}}"></script>
 <script src="{{ asset('venobox/venobox.min.js')}}"></script>
+<script src="{{ asset('experiments/electricity/watch.js')}}"></script>
+
 
 <script src="{{ mix('js/app.js') }}">

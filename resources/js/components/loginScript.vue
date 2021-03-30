@@ -70,13 +70,16 @@
                            /* var formContents = jQuery("#login-form").serialize();
                             */           
                             $('#login-msg').css('display','flex');
+                            $('#login-err2').hide();
+                            $('#login-err').hide();                               
                             try{
                                 $vm.axios.post('api/login', {email:$vm.username, password:$vm.password}).then(function(response, status, request) {  
                               
                                     localStorage.setItem('LoggedUser',JSON.stringify(response.data));
                                     
                                     /*update store*/
-                              //      $vm.$store.commit('updateUser',response);
+                              //     
+                               $vm.$store.dispatch('updateUser',response);
 
                                     $('#response-data').val(JSON.stringify(response));
                                     $('#auto-redirect').submit();

@@ -86,14 +86,14 @@ Vue.component('v-userauth', require('./components/userAuthentication.vue').defau
    bootstrap,
    store,   
    userType:0,   
-   	 data:function() {
-	    	return{
-	    	 poor:false,
+     data:function() {
+        return{
+         poor:false,
          //exp2vicelab: this.exp2vicelab
-	    	}
+        }
         },
     methods:{
-            toggleClass(){            	
+            toggleClass(){              
                 this.isLoading=!this.isLoading;                
             }
         },
@@ -107,7 +107,7 @@ Vue.component('v-userauth', require('./components/userAuthentication.vue').defau
  /*experiment timing filter */
 Vue.filter('two_digits', (value) => {
   if (value < 0) {
-  	value = 0;
+    value = 0;
     return '00';
   }
   if (value.toString().length <= 1) {

@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar py-3">
+  <nav class="navbar py-3" :style="'width:'+currentWidth+'%;'" >
     <div class="container align-items-center mb-0">
       <div class="navbar__logo">
         <img src="/vlab.png"  width="100" class="mt-2" alt="vlab-logo" />
@@ -120,7 +120,7 @@ export default {
   width: 100%;
   max-height: 81px;
   background-color: #fff;
-  box-shadow: 0 4px 7px rgba($color: #000, $alpha: .1);
+  box-shadow: 6px 4px 3px rgba($color: #000, $alpha: .1);
   z-index: 10;
 
   &__logo {

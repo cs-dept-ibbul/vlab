@@ -8,7 +8,8 @@ export default {
       		errorNetworkMessage:"network error",
       		errorSessionMessage:"Session Expired",
       		successLoginMessage:"logged in successfuly",
-      		createdMessage:"created successfuly"
+      		createdMessage:"created successfuly",
+      		currentWidth:100
 
       	}
       },
@@ -52,38 +53,19 @@ export default {
 					'Authorization':Auth_
 			};
       },
-      beforeCreate(){
-      	/*	let userLoggedInOld = "";
-      		if(typeof localStorage.getItem('LoggedUser') != undefined){
-      			console.log(localStorage.getItem('LoggedUser'))
-      			userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
-      		}else{
-		        localStorage.removeItem("LoggedUser");
-      		}
+      mounted: function(){
 
-				let Auth_ = 'Bearer '+userLoggedInOld;
-				let headers ={
-					'Content-Type':'application/json',
-					'Authorization':Auth_
-				};
-				let $vk = this;*/
-		/*	setInterval(function(){				
-				try{
-		            $vk.axios.post('api/me',Auth_, { headers: headers }).then(function(response, status, request) {  		            
-		            }, function(e) {		  
-		            	localStorage.removeItem("LoggedUser");
-		            });
-
-		        }catch(err){
-		          console.log(err)//show network error notification
-		        }
-			}, 1000);*/
-			//end watch logged in 
-
-
-
-
-		}
+      	let $vm = this;
+      	this.$nextTick(function(){
+      		let windowWidth =	$(document).width();
+      		setInterval(function(){
+	      		if ($('.scroll-y').innerWidth()) {
+	        	 	$vm.currentWidth = (($('.scroll-y').width()/windowWidth)* 100)+2;
+	      		}        	 	
+      		},5);
+      		
+        })
+      }     		 
     });
   }
 };

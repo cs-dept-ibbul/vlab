@@ -3447,6 +3447,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -3545,28 +3578,28 @@ __webpack_require__.r(__webpack_exports__);
           $('#ctitle').val($nv.alldata[0]['Title']);
           $('#ccode').val($nv.alldata[0]['Course_code']);
           $('#cdescription').val($nv.alldata[0]['Course_description']);
-        }, 200);
+        }, 50);
         this.checkstage(1);
       }
 
       if (this.sectionState === 2) {
         setTimeout(function () {
           $nv.reiterateSelectedExp();
-        }, 200);
+        }, 50);
         this.checkstage(2);
       }
 
       if (this.sectionState === 3) {
         setTimeout(function () {
           $('#imageprev').html('<img id="image_droped" width="200px"  src="' + $nv.imagetoupload + '">');
-        }, 200);
+        }, 50);
         this.checkstage(3);
       }
 
       if (this.sectionState === 4) {
         setTimeout(function () {
           $nv.reiterateSelectedInstructor();
-        }, 200);
+        }, 50);
         this.checkstage(4);
       }
     },
@@ -3585,7 +3618,7 @@ __webpack_require__.r(__webpack_exports__);
           var $vm = this; ///alert(this.selectedExperiment.includes(evalue));
 
           var indexof = this.selectedExperiment.indexOf(evalue);
-          $('#addEBox').append("<div class='d-flex justify-content-between flex-wrap-center' style='font-size:0.9em;' id='" + this.selectedExperiment.indexOf(evalue) + "'><p class='py-2 pl-3 my-0'><b >Experiment " + (Number(this.selectedExperiment.indexOf(evalue)) + 1) + '</b>:<span class="ml-5"></span> ' + selExpName + "</p> <span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='" + indexof + "' >&times</span></div><hr>");
+          $('#addEBox').append("<tr><td class='d-flex justify-content-between flex-wrap-center ' style='font-size:0.9em;cursor:pointer;' id='" + this.selectedExperiment.indexOf(evalue) + "'><p><b >Experiment " + (Number(this.selectedExperiment.indexOf(evalue)) + 1) + '</b>:<span class="ml-5"></span> ' + selExpName + "</p><span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='" + indexof + "' >&times</span></td></tr>");
         } else {
           $('#ar000').remove();
           $('#addEBox').after('<span class="text-danger requiredv" id="ar000">already exist!</span>');
@@ -3599,7 +3632,7 @@ __webpack_require__.r(__webpack_exports__);
       $('#addEBox').html("");
 
       for (var i = 0; i < this.selectedExperiment.length; i++) {
-        $('#addEBox').append("<div class='d-flex justify-content-between flex-wrap-center' style='font-size:0.9em;' id='" + i + "'><p class='py-2 pl-3 my-0'><b >Experiment " + (i + 1) + '</b>:<span class="ml-5"></span> ' + this.selectedExperimentName[i] + "</p> <span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='" + i + "' >&times</span></div><hr>");
+        $('#addEBox').append("<tr><td class='d-flex justify-content-between flex-wrap-center ' style='font-size:0.9em;cursor:pointer;' id='" + i + "'><p><b >Experiment " + (i + 1) + '</b>:<span class="ml-5"></span> ' + this.selectedExperimentName[i] + "</p><span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='" + i + "' >&times</span></td></tr>");
       }
     },
     addIBox: function addIBox() {
@@ -3617,7 +3650,7 @@ __webpack_require__.r(__webpack_exports__);
           var $vm = this; ///alert(this.selectedInstructor.includes(evalue));
 
           var indexof = 'inst' + this.selectedInstructor.indexOf(evalue);
-          $('#addIBox').append("<div class='d-flex justify-content-between flex-wrap-center' style='font-size:0.9em;' id='inst" + this.selectedInstructor.indexOf(evalue) + "'><p class='py-2 pl-3 my-0'>" + '<span class="ml-5"></span> ' + selExpName + "</p> <span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp1' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='" + indexof + "' >&times</span></div><hr>");
+          $('#addIBox').append("<tr><td class='d-flex justify-content-between flex-wrap-center ' style='font-size:0.9em;cursor:pointer;' id='inst" + this.selectedInstructor.indexOf(evalue) + "'><p><b >Experiment " + selExpName + "</p><span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp1' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='" + indexof + "' >&times</span></td></tr>");
         } else {
           $('#ar001').remove();
           $('#addIBox').after('<span class="text-danger requiredv" id="ar001">already exist!</span>');
@@ -3631,7 +3664,7 @@ __webpack_require__.r(__webpack_exports__);
       $('#addIBox').html("");
 
       for (var i = 0; i < this.selectedInstructor.length; i++) {
-        $('#addIBox').append("<div class='d-flex justify-content-between flex-wrap-center' style='font-size:0.9em;' id='" + i + "'><p class='py-2 pl-3 my-0'><b >Experiment " + (i + 1) + '</b>:<span class="ml-5"></span> ' + this.selectedInstructorName[i] + "</p> <span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp1' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='" + i + "' >&times</span></div><hr>");
+        $('#addIBox').append("<tr><td class='d-flex justify-content-between flex-wrap-center ' style='font-size:0.9em;cursor:pointer;' id='inst" + i + "'><p class='py-2 pl-3 my-0'><b >Experiment " + (i + 1) + '</b>:<span class="ml-5"></span> ' + this.selectedInstructorName[i] + "</p><span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp1' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='" + i + "' >&times</span></td></tr>");
       }
     },
     singleValidate: function singleValidate(id) {
@@ -3687,11 +3720,11 @@ __webpack_require__.r(__webpack_exports__);
 
         if (this.validateState === true) {
           this.ctitle = $('#ctitle').val();
-          this.alldata.push({
+          this.alldata[0] = {
             Title: $('#ctitle').val(),
             Course_code: $('#ccode').val(),
             Course_description: $('#cdescription').val()
-          });
+          };
           this.sectionState = 2;
           this.stageone = false;
           this.stageonep = true;
@@ -3711,10 +3744,10 @@ __webpack_require__.r(__webpack_exports__);
           this.stagetwop = true;
           this.stagethree = true;
           this.sectionState = 3;
-          this.alldata.push({
+          this.alldata[1] = {
             'id': this.selectedExperiment,
             'names': this.selectedExperimentName
-          });
+          };
         }
 
         setTimeout(function () {
@@ -3728,9 +3761,9 @@ __webpack_require__.r(__webpack_exports__);
           this.stagethreep = true;
           this.stagefour = true;
           this.sectionState = 4;
-          this.alldata.push({
+          this.alldata[3] = {
             image: this.imagetoupload
-          });
+          };
         } else {
           this.singleValidate('dgbox');
         }
@@ -3748,13 +3781,13 @@ __webpack_require__.r(__webpack_exports__);
           this.stagefourp = true; //this.stage = true;
 
           this.sectionState = 5;
-          this.alldata.push({
+          this.alldata[2] = {
             'id': this.selectedInstructor,
             'names': this.selectedInstructorName
-          });
+          };
         }
 
-        $('#imageprev').html('<img id="image_droped" width="200px"  src="' + $nv.imagetoupload + '">');
+        $('#imageprev').html('<img id="image_droped" width="200px"  src="' + $nv.imagetoupload + '">'); //console.log(this.alldata);
       } else if (this.sectionState === 5) {
         /*fetch experiment*/
         var $vm = this;
@@ -3765,14 +3798,11 @@ __webpack_require__.r(__webpack_exports__);
           formData.append('code', this.alldata[0].Course_code);
           formData.append('description', this.alldata[0].Course_description);
           formData.append('experiment_id', this.alldata[1].id);
-          formData.append('instructor_id', this.alldata[1].id);
-          formData.append('resource_url', this.alldata[2].image);
+          formData.append('instructor_id', this.alldata[2].id);
+          formData.append('resource_url', this.alldata[3].image);
           $('#system-loader').css('display', 'flex');
           $vm.axios.post('api/courses/create', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              'Authorization': $vm.userLoggedInOld
-            }
+            headers: $vm.axiosHeader
           }).then(function (response, status, request) {
             $('#system-loader').css('display', 'none');
             console.log(response);
@@ -3786,15 +3816,20 @@ __webpack_require__.r(__webpack_exports__);
             });
           }, function (e) {
             $('#system-loader').css('display', 'none');
-            vt.error($vm.errorSessionMessage, {
+            var errMsg = $vm.errorSessionMessage;
+
+            if (e.response.status == 409) {
+              errMsg = e.response.data.error;
+            }
+
+            vt.error(errMsg, {
               title: undefined,
               position: "bottom-right",
               duration: 10000,
               closable: true,
               focusable: true,
               callback: undefined
-            });
-            console.log(e); //console.log($vm.axiosHeader)
+            }); //console.log($vm.axiosHeader)
           });
         } catch (err) {
           $('#system-loader').css('display', 'none');
@@ -3894,12 +3929,12 @@ __webpack_require__.r(__webpack_exports__);
       /*fetch experiment*/
 
       try {
-        console.log(3);
         $vm.axios.get('api/experiments/experiments', '', {
           headers: $vm.axiosHeader
         }).then(function (response, status, request) {
           $vm.experiments = response.data; //console.log($vm.experiments);			   	
         }, function (e) {
+          console.log(e);
           vt.error($vm.errorSessionMessage, {
             title: undefined,
             position: "bottom-right",
@@ -3907,7 +3942,7 @@ __webpack_require__.r(__webpack_exports__);
             closable: true,
             focusable: true,
             callback: undefined
-          }); //console.log($vm.axiosHeader)
+          });
         });
       } catch (err) {
         vt.error($vm.errorNetworkMessage, {
@@ -4244,6 +4279,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -4470,6 +4506,8 @@ __webpack_require__.r(__webpack_exports__);
           /* var formContents = jQuery("#login-form").serialize();
            */
           $('#login-msg').css('display', 'flex');
+          $('#login-err2').hide();
+          $('#login-err').hide();
 
           try {
             $vm.axios.post('api/login', {
@@ -4478,8 +4516,9 @@ __webpack_require__.r(__webpack_exports__);
             }).then(function (response, status, request) {
               localStorage.setItem('LoggedUser', JSON.stringify(response.data));
               /*update store*/
-              //      $vm.$store.commit('updateUser',response);
+              //     
 
+              $vm.$store.dispatch('updateUser', response);
               $('#response-data').val(JSON.stringify(response));
               $('#auto-redirect').submit();
               $('#login-msg').css('display', 'none');
@@ -8312,7 +8351,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           errorNetworkMessage: "network error",
           errorSessionMessage: "Session Expired",
           successLoginMessage: "logged in successfuly",
-          createdMessage: "created successfuly"
+          createdMessage: "created successfuly",
+          currentWidth: 100
         };
       },
       methods: {
@@ -8357,32 +8397,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           'Authorization': Auth_
         };
       },
-      beforeCreate: function beforeCreate() {
-        /*	let userLoggedInOld = "";
-        	if(typeof localStorage.getItem('LoggedUser') != undefined){
-        		console.log(localStorage.getItem('LoggedUser'))
-        		userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
-        	}else{
-           localStorage.removeItem("LoggedUser");
-        	}
-        let Auth_ = 'Bearer '+userLoggedInOld;
-        let headers ={
-        'Content-Type':'application/json',
-        'Authorization':Auth_
-        };
-        let $vk = this;*/
-
-        /*	setInterval(function(){				
-        		try{
-                    $vk.axios.post('api/me',Auth_, { headers: headers }).then(function(response, status, request) {  		            
-                    }, function(e) {		  
-                    	localStorage.removeItem("LoggedUser");
-                    });
-        		        }catch(err){
-                  console.log(err)//show network error notification
-                }
-        	}, 1000);*/
-        //end watch logged in 
+      mounted: function mounted() {
+        var $vm = this;
+        this.$nextTick(function () {
+          var windowWidth = $(document).width();
+          setInterval(function () {
+            if ($('.scroll-y').innerWidth()) {
+              $vm.currentWidth = $('.scroll-y').width() / windowWidth * 100 + 2;
+            }
+          }, 5);
+        });
       }
     });
   }
@@ -8750,13 +8774,21 @@ __webpack_require__.r(__webpack_exports__);
       }],
       arr5v: 0,
       arr5c: 0
-    },
-    loggedIn: {}
-  },
-  mutations: {
-    updateUser: function updateUser(state, a) {
-      state.loggedIn = a;
     }
+  },
+  loggedIn: null,
+  mutations: {
+    updateUser: function updateUser(state, user) {
+      state.loggedIn = user;
+    }
+  },
+  actions: {
+    setUser: function setUser(_ref, user) {
+      var commit = _ref.commit;
+      commit('updateUser', user);
+    }
+  },
+  getters: {//currentUser: state.loggedIn
   }
 });
 
@@ -13244,7 +13276,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".forLogout[data-v-6dde423b] {\n  position: absolute;\n  left: -15px;\n  top: 0px;\n  border: 1px solid #ccc;\n  border-radius: 5px;\n  padding: 10px;\n  background: #fff;\n  width: 100px;\n  text-align: center;\n  transition: 1s top;\n  display: none;\n}\n@-webkit-keyframes fdown-data-v-6dde423b {\n100% {\n    transform: scale(1);\n    opacity: 1;\n    top: 35px;\n}\n}\n@keyframes fdown-data-v-6dde423b {\n100% {\n    transform: scale(1);\n    opacity: 1;\n    top: 35px;\n}\n}\n.extra[data-v-6dde423b] {\n  display: block;\n  animation: fdown-data-v-6dde423b 0.2s forwards;\n  -webkit-animation: fdown-data-v-6dde423b 0.2s forwards;\n}\n.sys-acc[data-v-6dde423b] {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n  cursor: pointer;\n  position: relative;\n}\n.navbar[data-v-6dde423b] {\n  position: fixed;\n  top: 0;\n  width: 100%;\n  max-height: 81px;\n  background-color: #fff;\n  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.1);\n  z-index: 10;\n}\n.navbar__logo[data-v-6dde423b] {\n  position: relative;\n  width: 50px;\n  height: 50px;\n  overflow: hidden;\n}\n.navbar__logo img[data-v-6dde423b] {\n  max-width: 50px;\n}\n.navbar__list[data-v-6dde423b] {\n  list-style-type: none;\n  padding: 0;\n}\n.navbar__list__item[data-v-6dde423b] {\n  margin: 10px;\n  font-weight: 500;\n}\n.navbar__list__item a[data-v-6dde423b] {\n  color: #2f2651;\n}\n.navbar__list__item a[data-v-6dde423b]:hover {\n  color: rgba(47, 38, 81, 0.8);\n}\n.navbar__list__item--btn a[data-v-6dde423b] {\n  background-color: rgba(47, 38, 81, 0.1);\n  padding: 10px 30px;\n  border-radius: 5px;\n  transition: background-color 0.2s ease;\n  display: inline-block;\n}\n.navbar__list__item--btn a[data-v-6dde423b]:hover, .navbar__list__item--btn a[data-v-6dde423b]:focus {\n  background-color: rgba(47, 38, 81, 0.2);\n}\n.navbar__toggle[data-v-6dde423b] {\n  position: relative;\n  display: inline-block;\n  width: 30px;\n  height: 24px;\n  border: none;\n  background-color: transparent;\n  transition-timing-function: linear;\n  transition-duration: 0.15s;\n  transition-property: opacity, filter;\n}\n.navbar__toggle__block[data-v-6dde423b] {\n  width: 100%;\n  height: 4px;\n  background-color: #2f2651;\n  top: 50%;\n  margin-top: -2px;\n  display: block;\n  position: absolute;\n  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  transition-duration: 75ms;\n}\n.navbar__toggle__block[data-v-6dde423b]::after, .navbar__toggle__block[data-v-6dde423b]::before {\n  display: block;\n  content: \"\";\n  width: 100%;\n  height: 4px;\n  position: absolute;\n  background-color: #2f2651;\n}\n.navbar__toggle__block[data-v-6dde423b]::after {\n  bottom: -10px;\n}\n.navbar__toggle__block[data-v-6dde423b]::before {\n  top: -10px;\n}\n.navbar__toggle--active .navbar__toggle__block[data-v-6dde423b] {\n  transition-delay: 0.12s;\n  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  transform: rotate(45deg);\n}\n.navbar__toggle--active .navbar__toggle__block[data-v-6dde423b]::before {\n  top: 0;\n  transition: top 75ms ease, opacity 75ms ease 0.12s;\n  opacity: 0;\n}\n.navbar__toggle--active .navbar__toggle__block[data-v-6dde423b]::after {\n  bottom: 0;\n  transition: bottom 75ms ease, transform 75ms cubic-bezier(0.215, 0.61, 0.355, 1) 0.12s;\n  transform: rotate(-90deg);\n}\n.navbar .mobile-nav[data-v-6dde423b] {\n  display: none;\n}\n.navbar .mobile-nav--open[data-v-6dde423b] {\n  position: fixed;\n  z-index: 11;\n  top: 0;\n  right: 0;\n  height: 100vh;\n  width: 300px;\n  background-color: #fff;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  text-align: center;\n}\n.navbar .mobile-nav--open li[data-v-6dde423b] {\n  margin: 15px 0;\n}\n.navbar .mobile-nav--open .navbar__toggle[data-v-6dde423b] {\n  position: absolute;\n  top: 18px;\n  right: 31px;\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  border: none;\n}\n@media screen and (min-width: 992px) {\n.navbar .mobile-nav--open[data-v-6dde423b] {\n    flex-direction: row;\n    text-align: left;\n    position: static;\n    width: auto;\n}\n.navbar .mobile-nav--open li[data-v-6dde423b] {\n    margin: 10px;\n}\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".forLogout[data-v-6dde423b] {\n  position: absolute;\n  left: -15px;\n  top: 0px;\n  border: 1px solid #ccc;\n  border-radius: 5px;\n  padding: 10px;\n  background: #fff;\n  width: 100px;\n  text-align: center;\n  transition: 1s top;\n  display: none;\n}\n@-webkit-keyframes fdown-data-v-6dde423b {\n100% {\n    transform: scale(1);\n    opacity: 1;\n    top: 35px;\n}\n}\n@keyframes fdown-data-v-6dde423b {\n100% {\n    transform: scale(1);\n    opacity: 1;\n    top: 35px;\n}\n}\n.extra[data-v-6dde423b] {\n  display: block;\n  animation: fdown-data-v-6dde423b 0.2s forwards;\n  -webkit-animation: fdown-data-v-6dde423b 0.2s forwards;\n}\n.sys-acc[data-v-6dde423b] {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n  cursor: pointer;\n  position: relative;\n}\n.navbar[data-v-6dde423b] {\n  position: fixed;\n  top: 0;\n  width: 100%;\n  max-height: 81px;\n  background-color: #fff;\n  box-shadow: 6px 4px 3px rgba(0, 0, 0, 0.1);\n  z-index: 10;\n}\n.navbar__logo[data-v-6dde423b] {\n  position: relative;\n  width: 50px;\n  height: 50px;\n  overflow: hidden;\n}\n.navbar__logo img[data-v-6dde423b] {\n  max-width: 50px;\n}\n.navbar__list[data-v-6dde423b] {\n  list-style-type: none;\n  padding: 0;\n}\n.navbar__list__item[data-v-6dde423b] {\n  margin: 10px;\n  font-weight: 500;\n}\n.navbar__list__item a[data-v-6dde423b] {\n  color: #2f2651;\n}\n.navbar__list__item a[data-v-6dde423b]:hover {\n  color: rgba(47, 38, 81, 0.8);\n}\n.navbar__list__item--btn a[data-v-6dde423b] {\n  background-color: rgba(47, 38, 81, 0.1);\n  padding: 10px 30px;\n  border-radius: 5px;\n  transition: background-color 0.2s ease;\n  display: inline-block;\n}\n.navbar__list__item--btn a[data-v-6dde423b]:hover, .navbar__list__item--btn a[data-v-6dde423b]:focus {\n  background-color: rgba(47, 38, 81, 0.2);\n}\n.navbar__toggle[data-v-6dde423b] {\n  position: relative;\n  display: inline-block;\n  width: 30px;\n  height: 24px;\n  border: none;\n  background-color: transparent;\n  transition-timing-function: linear;\n  transition-duration: 0.15s;\n  transition-property: opacity, filter;\n}\n.navbar__toggle__block[data-v-6dde423b] {\n  width: 100%;\n  height: 4px;\n  background-color: #2f2651;\n  top: 50%;\n  margin-top: -2px;\n  display: block;\n  position: absolute;\n  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);\n  transition-duration: 75ms;\n}\n.navbar__toggle__block[data-v-6dde423b]::after, .navbar__toggle__block[data-v-6dde423b]::before {\n  display: block;\n  content: \"\";\n  width: 100%;\n  height: 4px;\n  position: absolute;\n  background-color: #2f2651;\n}\n.navbar__toggle__block[data-v-6dde423b]::after {\n  bottom: -10px;\n}\n.navbar__toggle__block[data-v-6dde423b]::before {\n  top: -10px;\n}\n.navbar__toggle--active .navbar__toggle__block[data-v-6dde423b] {\n  transition-delay: 0.12s;\n  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  transform: rotate(45deg);\n}\n.navbar__toggle--active .navbar__toggle__block[data-v-6dde423b]::before {\n  top: 0;\n  transition: top 75ms ease, opacity 75ms ease 0.12s;\n  opacity: 0;\n}\n.navbar__toggle--active .navbar__toggle__block[data-v-6dde423b]::after {\n  bottom: 0;\n  transition: bottom 75ms ease, transform 75ms cubic-bezier(0.215, 0.61, 0.355, 1) 0.12s;\n  transform: rotate(-90deg);\n}\n.navbar .mobile-nav[data-v-6dde423b] {\n  display: none;\n}\n.navbar .mobile-nav--open[data-v-6dde423b] {\n  position: fixed;\n  z-index: 11;\n  top: 0;\n  right: 0;\n  height: 100vh;\n  width: 300px;\n  background-color: #fff;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  text-align: center;\n}\n.navbar .mobile-nav--open li[data-v-6dde423b] {\n  margin: 15px 0;\n}\n.navbar .mobile-nav--open .navbar__toggle[data-v-6dde423b] {\n  position: absolute;\n  top: 18px;\n  right: 31px;\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  border: none;\n}\n@media screen and (min-width: 992px) {\n.navbar .mobile-nav--open[data-v-6dde423b] {\n    flex-direction: row;\n    text-align: left;\n    position: static;\n    width: auto;\n}\n.navbar .mobile-nav--open li[data-v-6dde423b] {\n    margin: 10px;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -13686,7 +13718,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.close[data-v-c36406fc]{\n\t\tbackground: #ccc !important;\n\t\tborder-radius: 50% !important;\n\t\tpadding: 2px !important;\n}\n.form-control[data-v-c36406fc]:focus{\n\t\toutline: none !important;\n\t\tbox-shadow: none !important;\n\t\tborder: 1px solid #aaa;\n}\n.bb[data-v-c36406fc]{\n\t\tborder-bottom: 1px solid #ccc !important;\n}\n.requiredI[data-v-c36406fc]{\n\t\ttransition: all 1s;\n\t\tcolor: #e45 !important;\n\t\tbackground: white;\n\t\tborder: 1px solid #aaa;\n\t\tbox-shadow: 1px 2px 3px #bbb;\n\t\tborder-radius: 5px;\n\t\tpadding: 4px;\n\t\tdisplay: block;\n\t\tposition: absolute;\n\t\ttop: 10px; /* At the bottom of the tooltip */\n\t  \tleft: 50px;\n\t  \tz-index: 15;\n}\n.requiredI[data-v-c36406fc]:before {\n\t  content: \" \";\n\t  position: relative;\n\t  top: 0%; /* At the bottom of the tooltip */\n\t  left: 50%;\n\t  margin-left: -5px;\n\t  border-width: 5px;\n\t  border-style: solid;\n\t  border-color: black transparent transparent transparent;\n}\n.sysbtn[data-v-c36406fc]{\n\t\t padding: 10px 15px;\n\t\t  font-family: 'Roboto',serif;\n\t\t  font-size: 0.9em;\n\t\t  text-align: center;\n\t\t  text-decoration: none;\n\t\t  border-radius: 6px;\n\t\t  word-break: keep-all;\n\t\t  white-space: nowrap;\n\t\t  border: none;\n\t\t  position: relative;\n}\n.sysbtn[data-v-c36406fc]:active{\n\t\tbox-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);\n  \t\ttop: 1px;\n}\n.sysbtn[data-v-c36406fc]:focus{\n\t\tbox-shadow: inset 0 2px 3px #294,\n}\n.ncircle[data-v-c36406fc]{\n\t\tborder: 2px solid #bbb; \n\t\tborder-radius: 50%;\n\t\twidth: 25px;\n\t\theight: 25px;\n\t\tfont-size: 0.9em;\n\t\tpadding: 2px 0px 0px 6.5px !important;\n\t\ttransition: all 1s;\n}\ndiv[data-v-c36406fc]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.no-break[data-v-c36406fc]{\n\t\twhite-space: nowrap;\n\t\tword-break:keep-all;\n}\n.tline[data-v-c36406fc]{\n\t\theight: 27px; width: 2px; background: #bbb; position: relative; top:26px; left: -13px;\n}\n.syscircle[data-v-c36406fc]{\n\t\twidth: 12px !important;\n\t\theight: 12px !important;\n\t\tborder-radius: 50%;\n\t\tbackground: #00b96b;\n\t\tdisplay: block;\n\t\tmargin: 0px 0px 0px 12px;\n}\n.tactive[data-v-c36406fc]{\n\t\tborder:2px solid #222 !important;\n}\n.tlactive[data-v-c36406fc]{\n\t\tbackground: #222 !important;\n}\n.tsuccess[data-v-c36406fc]{\n\t\tborder: 2.5px solid #4b6 !important;\n\t\tbackground: #4b6 !important;\n\t\tcolor:white;\n\t\tpadding-bottom: 2px;\n}\n.tlsuccess[data-v-c36406fc]{\n\t\tbackground: #4b6 !important;\n}\n.syscircle-o[data-v-c36406fc]{\n\t\twidth: 12px;\n\t\theight: 12px;\n\t\tborder-radius: 50%;\n\t\tborder: 2px solid #999;\n\t\tdisplay: block;\t\n\t\tmargin-left:12px;\n}\n.syscircle-o-l[data-v-c36406fc]{\n\t\twidth: 22px;\n\t\theight: 22px;\n\t\tborder-radius: 50%;\n\t\tborder: 2px solid #999;\n\t\tdisplay: block;\t\n\t\tmargin-left: 5px;\n}\n.fs3[data-v-c36406fc]{\n\t\tfont-size: 2em;\n}\n.fs1[data-v-c36406fc]{\n\t\tfont-family: 'Roboto', sans-serif;\n\t\tfont-size: 0.9em;\n\t\tcolor: #888;\n\t\tfont-weight: 300;\n}\n.flex-wrap-center[data-v-c36406fc]{\n\t\tflex-wrap: wrap;\n\t\talign-items: center;\n}\n.w10[data-v-c36406fc]{\n\t\twidth: 60px;\n}\n.timelineX[data-v-c36406fc]{\n\t\tmargin-top: 10px; \n\t\tmargin-bottom: 120px;\n}\n.timelineX-o[data-v-c36406fc]{\n\t\tmargin-top: 10px; \n\t\tmargin-bottom: 120px;\n}\n.timelineSM[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 40px;\n\t\twidth: 2px;\n\t\tbackground: #00b96b;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineSM-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 40px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineX-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 140px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineX[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 132px;\n\t\twidth: 2px;\n\t\tbackground: #00b96b;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 10px;\t\t\n\t\tleft: 5px;\n}\n.timelineX-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 130px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 10px;\t\t\n\t\tleft: 3px;\n}\n.fw8[data-v-c36406fc]{\n\t\tfont-weight: 600;\n\t\tcolor: #222;\n}\n.fw3[data-v-c36406fc]{\n\t\tfont-weight: 600 !important;\n\t\tcolor: #222 !important;\n}\n.fs001[data-v-c36406fc]{\n\t\tfont-size: 0.8em;\n\t\tcolor: #888;\n}\n.fs2[data-v-c36406fc]{\n\t\tfont-size: 1.2em;\n}\n.wrap-center[data-v-c36406fc]{\n\t\t  flex-wrap: wrap;\n      align-items: center;\n}\n.hr[data-v-c36406fc]{\n\t\theight: 1px !important;\n\t\tbackground: #ccc;\n\t\twidth: 100% !important;\n\t\tdisplay: block !important;\n}\n.w35[data-v-c36406fc]{\n\t\twidth: 35% !important;\n}\n.w30[data-v-c36406fc]{\n\t\twidth: 30%;\n}\n.shineA[data-v-c36406fc]{\n\t\ttransition: all 1s;\n}\n.draginto[data-v-c36406fc]{\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\topacity: 0;\n\t\tposition: absolute;\n}\n.dragbox[data-v-c36406fc]{\n\t\tposition: relative;\n\t\tborder: 2px dashed #c0c0cf;\n\t\tborder-radius: 5px;\t\t\n\t\twidth: 100%;\n\t\tpadding: 10px 0px;\n\t\tbackground: #f0f0ff;\n\t\tdisplay:flex;\n\t\tflex-direction: column;\n\t\tjustify-content: center;\n\t\tflex-wrap: wrap;\n\t\talign-items: center;\n}\n.dragenter[data-v-c36406fc]{\n\t\tborder: 2px dashed #c5ddc5 !important;\n\t\tbackground: #f0fff0 !important;\n}\n.progressi[data-v-c36406fc] {\n    background: #eee;\n    border-radius: 13px;    \n    width: 40%;\n    padding: 0px;\n    max-height: 7px;\n    display: block;\n}\n.progress-bar[data-v-c36406fc]{\n    border-radius: 13px;    \n    height: 7px;\n    padding: 0px;\n    margin: 0px;\n    position: relative;\n    width: 0%;\n    transition: all 1s;\n}\n.p-success[data-v-c36406fc]{    \n    background: #00b96b !important;\n}\n.clight[data-v-c36406fc]{\n\tcolor: #777;\n}\n.fs001[data-v-c36406fc]{\n\tfont-size: 0.86em;\n}\n#imageprev[data-v-c36406fc]{\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.close[data-v-c36406fc]{\n\t\tbackground: #ccc !important;\n\t\tborder-radius: 50% !important;\n\t\tpadding: 2px !important;\n}\n.form-control[data-v-c36406fc]:focus{\n\t\toutline: none !important;\n\t\tbox-shadow: none !important;\n\t\tborder: 1px solid #aaa;\n}\n.bb[data-v-c36406fc]{\n\t\tborder-bottom: 1px solid #ccc !important;\n}\n.requiredI[data-v-c36406fc]{\n\t\ttransition: all 1s;\n\t\tcolor: #e45 !important;\n\t\tbackground: white;\n\t\tborder: 1px solid #aaa;\n\t\tbox-shadow: 1px 2px 3px #bbb;\n\t\tborder-radius: 5px;\n\t\tpadding: 4px;\n\t\tdisplay: block;\n\t\tposition: absolute;\n\t\ttop: 10px; /* At the bottom of the tooltip */\n\t  \tleft: 50px;\n\t  \tz-index: 15;\n}\n.requiredI[data-v-c36406fc]:before {\n\t  content: \" \";\n\t  position: relative;\n\t  top: 0%; /* At the bottom of the tooltip */\n\t  left: 50%;\n\t  margin-left: -5px;\n\t  border-width: 5px;\n\t  border-style: solid;\n\t  border-color: black transparent transparent transparent;\n}\n.sysbtn[data-v-c36406fc]{\n\t\t padding: 10px 15px;\n\t\t  font-family: 'Roboto',serif;\n\t\t  font-size: 0.9em;\n\t\t  text-align: center;\n\t\t  text-decoration: none;\n\t\t  border-radius: 6px;\n\t\t  word-break: keep-all;\n\t\t  white-space: nowrap;\n\t\t  border: none;\n\t\t  position: relative;\n}\n.sysbtn[data-v-c36406fc]:active{\n\t\tbox-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);\n  \t\ttop: 1px;\n}\n.sysbtn[data-v-c36406fc]:focus{\n\t\tbox-shadow: inset 0 2px 3px #294,\n}\n.ncircle[data-v-c36406fc]{\n\t\tborder: 2px solid #bbb; \n\t\tborder-radius: 50%;\n\t\twidth: 25px;\n\t\theight: 25px;\n\t\tfont-size: 0.9em;\n\t\tpadding: 2px 0px 0px 6.5px !important;\n\t\ttransition: all 1s;\n}\ndiv[data-v-c36406fc]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.no-break[data-v-c36406fc]{\n\t\twhite-space: nowrap;\n\t\tword-break:keep-all;\n}\n.tline[data-v-c36406fc]{\n\t\theight: 27px; width: 2px; background: #bbb; position: relative; top:26px; left: -13px;\n}\n.syscircle[data-v-c36406fc]{\n\t\twidth: 12px !important;\n\t\theight: 12px !important;\n\t\tborder-radius: 50%;\n\t\tbackground: #00b96b;\n\t\tdisplay: block;\n\t\tmargin: 0px 0px 0px 12px;\n}\n.tactive[data-v-c36406fc]{\n\t\tborder:2px solid #222 !important;\n}\n.tlactive[data-v-c36406fc]{\n\t\tbackground: #222 !important;\n}\n.tsuccess[data-v-c36406fc]{\n\t\tborder: 2.5px solid #4b6 !important;\n\t\tbackground: #4b6 !important;\n\t\tcolor:white;\n\t\tpadding-bottom: 2px;\n}\n.tlsuccess[data-v-c36406fc]{\n\t\tbackground: #4b6 !important;\n}\n.syscircle-o[data-v-c36406fc]{\n\t\twidth: 12px;\n\t\theight: 12px;\n\t\tborder-radius: 50%;\n\t\tborder: 2px solid #999;\n\t\tdisplay: block;\t\n\t\tmargin-left:12px;\n}\n.syscircle-o-l[data-v-c36406fc]{\n\t\twidth: 22px;\n\t\theight: 22px;\n\t\tborder-radius: 50%;\n\t\tborder: 2px solid #999;\n\t\tdisplay: block;\t\n\t\tmargin-left: 5px;\n}\n.fs3[data-v-c36406fc]{\n\t\tfont-size: 2em;\n}\n.fs1[data-v-c36406fc]{\n\t\tfont-family: 'Roboto', sans-serif;\n\t\tfont-size: 0.9em;\n\t\tcolor: #888;\n\t\tfont-weight: 300;\n}\n.flex-wrap-center[data-v-c36406fc]{\n\t\tflex-wrap: wrap;\n\t\talign-items: center;\n}\n.w10[data-v-c36406fc]{\n\t\twidth: 60px;\n}\n.timelineX[data-v-c36406fc]{\n\t\tmargin-top: 10px; \n\t\tmargin-bottom: 120px;\n}\n.timelineX-o[data-v-c36406fc]{\n\t\tmargin-top: 10px; \n\t\tmargin-bottom: 120px;\n}\n.timelineSM[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 40px;\n\t\twidth: 2px;\n\t\tbackground: #00b96b;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineSM-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 40px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineX-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 140px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 31px;\t\t\n\t\tleft: 77px;\n}\n.timelineX[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 132px;\n\t\twidth: 2px;\n\t\tbackground: #00b96b;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 10px;\t\t\n\t\tleft: 5px;\n}\n.timelineX-o[data-v-c36406fc]:before{\n\t\tcontent: \"\";\n\t\theight: 130px;\n\t\twidth: 2px;\n\t\tbackground: #999;\t\t\n\t\tdisplay: block;\n\t\tposition: relative;\n\t\ttop: 10px;\t\t\n\t\tleft: 3px;\n}\n.fw8[data-v-c36406fc]{\n\t\tfont-weight: 600;\n\t\tcolor: #222;\n}\n.fw3[data-v-c36406fc]{\n\t\tfont-weight: 600 !important;\n\t\tcolor: #222 !important;\n}\n.fs001[data-v-c36406fc]{\n\t\tfont-size: 0.8em;\n\t\tcolor: #888;\n}\n.fs2[data-v-c36406fc]{\n\t\tfont-size: 1.2em;\n}\n.wrap-center[data-v-c36406fc]{\n\t\t  flex-wrap: wrap;\n      align-items: center;\n}\n.hr[data-v-c36406fc]{\n\t\theight: 1px !important;\n\t\tbackground: #ccc;\n\t\twidth: 100% !important;\n\t\tdisplay: block !important;\n}\n.w35[data-v-c36406fc]{\n\t\twidth: 35% !important;\n}\n.w30[data-v-c36406fc]{\n\t\twidth: 30%;\n}\n.shineA[data-v-c36406fc]{\n\t\ttransition: all 1s;\n}\n.draginto[data-v-c36406fc]{\n\t\twidth: 100%;\n\t\theight: 100%;\n\t\topacity: 0;\n\t\tposition: absolute;\n}\n.dragbox[data-v-c36406fc]{\n\t\tposition: relative;\n\t\tborder: 2px dashed #c0c0cf;\n\t\tborder-radius: 5px;\t\t\n\t\twidth: 100%;\n\t\tpadding: 10px 0px;\n\t\tbackground: #f0f0ff;\n\t\tdisplay:flex;\n\t\tflex-direction: column;\n\t\tjustify-content: center;\n\t\tflex-wrap: wrap;\n\t\talign-items: center;\n}\n.dragenter[data-v-c36406fc]{\n\t\tborder: 2px dashed #c5ddc5 !important;\n\t\tbackground: #f0fff0 !important;\n}\n.progressi[data-v-c36406fc] {\n    background: #eee;\n    border-radius: 13px;    \n    width: 40%;\n    padding: 0px;\n    max-height: 7px;\n    display: block;\n}\n.progress-bar[data-v-c36406fc]{\n    border-radius: 13px;    \n    height: 7px;\n    padding: 0px;\n    margin: 0px;\n    position: relative;\n    width: 0%;\n    transition: all 1s;\n}\n.p-success[data-v-c36406fc]{    \n    background: #00b96b !important;\n}\n.clight[data-v-c36406fc]{\n\tcolor: #777;\n}\n.fs001[data-v-c36406fc]{\n\tfont-size: 0.86em;\n}\n#imageprev[data-v-c36406fc]{\n}\ntable tr td[data-v-c36406fc]{\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -33082,165 +33114,169 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("nav", { staticClass: "navbar py-3" }, [
-    _c("div", { staticClass: "container align-items-center mb-0" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "ul",
-        {
-          staticClass: "navbar__list d-lg-flex mobile-nav mb-0",
-          class: _vm.showNav ? "mobile-nav--open" : null
-        },
-        [
-          _c(
-            "button",
-            {
-              staticClass: "navbar__toggle d-inline-block d-lg-none",
-              class: _vm.showNav ? "navbar__toggle--active" : null,
-              on: { click: _vm.toggleNav }
-            },
-            [_c("div", { staticClass: "navbar__toggle__block" })]
-          ),
-          _vm._v(" "),
-          _c("li", { staticClass: "navbar__list__item" }, [
-            _c("a", { attrs: { href: _vm.home } }, [_vm._v("Home")])
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "navbar__list__item" }, [
-            _c("a", { attrs: { href: _vm.explore } }, [_vm._v("Explore")])
-          ]),
-          _vm._v(" "),
-          _vm._m(1),
-          _vm._v(" "),
-          _vm._m(2),
-          _vm._v(" "),
-          _vm.username == ""
-            ? _c("div", { staticClass: "d-inline-block d-lg-none" }, [
-                _c("li", { staticClass: "navbar__list__item" }, [
+  return _c(
+    "nav",
+    { staticClass: "navbar py-3", style: "width:" + _vm.currentWidth + "%;" },
+    [
+      _c("div", { staticClass: "container align-items-center mb-0" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "ul",
+          {
+            staticClass: "navbar__list d-lg-flex mobile-nav mb-0",
+            class: _vm.showNav ? "mobile-nav--open" : null
+          },
+          [
+            _c(
+              "button",
+              {
+                staticClass: "navbar__toggle d-inline-block d-lg-none",
+                class: _vm.showNav ? "navbar__toggle--active" : null,
+                on: { click: _vm.toggleNav }
+              },
+              [_c("div", { staticClass: "navbar__toggle__block" })]
+            ),
+            _vm._v(" "),
+            _c("li", { staticClass: "navbar__list__item" }, [
+              _c("a", { attrs: { href: _vm.home } }, [_vm._v("Home")])
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "navbar__list__item" }, [
+              _c("a", { attrs: { href: _vm.explore } }, [_vm._v("Explore")])
+            ]),
+            _vm._v(" "),
+            _vm._m(1),
+            _vm._v(" "),
+            _vm._m(2),
+            _vm._v(" "),
+            _vm.username == ""
+              ? _c("div", { staticClass: "d-inline-block d-lg-none" }, [
+                  _c("li", { staticClass: "navbar__list__item" }, [
+                    _c("a", { attrs: { href: _vm.login } }, [_vm._v("Login")])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(3)
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.username != ""
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "d-inline-block d-lg-none sys-acc",
+                    on: {
+                      click: function($event) {
+                        _vm.forLogout = !_vm.forLogout
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { staticClass: "fa fa-user mr-2" }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticStyle: {
+                          "font-size": "0.9em",
+                          "font-weight": "300"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.username))]
+                    ),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "fa fa-chevron-down ml-2" }),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "forLogout",
+                        class: { extra: _vm.forLogout },
+                        on: { click: _vm.logout }
+                      },
+                      [_vm._v("Logout")]
+                    )
+                  ]
+                )
+              : _vm._e()
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "ul",
+          {
+            staticClass:
+              "navbar__list d-none d-lg-flex align-items-lg-center mb-0"
+          },
+          [
+            _vm.username == ""
+              ? _c("li", { staticClass: "navbar__list__item" }, [
                   _c("a", { attrs: { href: _vm.login } }, [_vm._v("Login")])
-                ]),
-                _vm._v(" "),
-                _vm._m(3)
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.username != ""
-            ? _c(
-                "div",
-                {
-                  staticClass: "d-inline-block d-lg-none sys-acc",
-                  on: {
-                    click: function($event) {
-                      _vm.forLogout = !_vm.forLogout
-                    }
-                  }
-                },
-                [
-                  _c("span", { staticClass: "fa fa-user mr-2" }),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      staticStyle: {
-                        "font-size": "0.9em",
-                        "font-weight": "300"
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.username == ""
+              ? _c(
+                  "li",
+                  { staticClass: "navbar__list__item navbar__list__item--btn" },
+                  [_c("a", { attrs: { href: "#" } }, [_vm._v("Signup")])]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.username != ""
+              ? _c(
+                  "li",
+                  {
+                    staticClass: "sys-acc",
+                    on: {
+                      click: function($event) {
+                        _vm.forLogout = !_vm.forLogout
                       }
-                    },
-                    [_vm._v(_vm._s(_vm.username))]
-                  ),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "fa fa-chevron-down ml-2" }),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "forLogout",
-                      class: { extra: _vm.forLogout },
-                      on: { click: _vm.logout }
-                    },
-                    [_vm._v("Logout")]
-                  )
-                ]
-              )
-            : _vm._e()
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "ul",
-        {
-          staticClass:
-            "navbar__list d-none d-lg-flex align-items-lg-center mb-0"
-        },
-        [
-          _vm.username == ""
-            ? _c("li", { staticClass: "navbar__list__item" }, [
-                _c("a", { attrs: { href: _vm.login } }, [_vm._v("Login")])
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.username == ""
-            ? _c(
-                "li",
-                { staticClass: "navbar__list__item navbar__list__item--btn" },
-                [_c("a", { attrs: { href: "#" } }, [_vm._v("Signup")])]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.username != ""
-            ? _c(
-                "li",
-                {
-                  staticClass: "sys-acc",
-                  on: {
-                    click: function($event) {
-                      _vm.forLogout = !_vm.forLogout
                     }
-                  }
-                },
-                [
-                  _c("span", { staticClass: "fa fa-user mr-2" }),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      staticStyle: {
-                        "font-size": "0.9em",
-                        "font-weight": "300"
-                      }
-                    },
-                    [_vm._v(_vm._s(_vm.username))]
-                  ),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "fa fa-chevron-down ml-2" }),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "forLogout",
-                      class: { extra: _vm.forLogout },
-                      on: { click: _vm.logout }
-                    },
-                    [_vm._v("Logout")]
-                  )
-                ]
-              )
-            : _vm._e()
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "navbar__toggle d-inline-block d-lg-none",
-          class: _vm.showNav ? "navbar__toggle--active" : null,
-          on: { click: _vm.toggleNav }
-        },
-        [_c("div", { staticClass: "navbar__toggle__block" })]
-      )
-    ])
-  ])
+                  },
+                  [
+                    _c("span", { staticClass: "fa fa-user mr-2" }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticStyle: {
+                          "font-size": "0.9em",
+                          "font-weight": "300"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.username))]
+                    ),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "fa fa-chevron-down ml-2" }),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "forLogout",
+                        class: { extra: _vm.forLogout },
+                        on: { click: _vm.logout }
+                      },
+                      [_vm._v("Logout")]
+                    )
+                  ]
+                )
+              : _vm._e()
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "navbar__toggle d-inline-block d-lg-none",
+            class: _vm.showNav ? "navbar__toggle--active" : null,
+            on: { click: _vm.toggleNav }
+          },
+          [_c("div", { staticClass: "navbar__toggle__block" })]
+        )
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -34187,7 +34223,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "col-lg-12 col-md-12 mt-3" }, [
                         _c("p", { staticClass: "fs001 my-1" }, [
-                          _vm._v("Course Code")
+                          _vm._v("Course Description")
                         ]),
                         _vm._v(" "),
                         _c("textarea", {
@@ -34219,7 +34255,7 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-lg-8 col-md-6 m-0" }, [
+                      _c("div", { staticClass: "col-lg-12 col-md-12 m-0" }, [
                         _c("p", { staticClass: "fs001 my-1" }, [
                           _vm._v("Select Experiment")
                         ]),
@@ -34263,11 +34299,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("br"),
                         _vm._v(" "),
-                        _c("div", {
-                          staticClass: "r1",
-                          staticStyle: { height: "200px" },
-                          attrs: { id: "addEBox" }
-                        })
+                        _vm._m(1)
                       ])
                     ])
                   ]
@@ -34316,9 +34348,9 @@ var render = function() {
                           on: { change: _vm.getDragedInFile }
                         }),
                         _vm._v(" "),
-                        _vm._m(1),
+                        _vm._m(2),
                         _vm._v(" "),
-                        _vm._m(2)
+                        _vm._m(3)
                       ]
                     )
                   ]
@@ -34380,15 +34412,11 @@ var render = function() {
                     _c("br"),
                     _c("br"),
                     _vm._v(" "),
-                    _vm._m(3),
+                    _vm._m(4),
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
-                    _c("div", {
-                      staticClass: "r1",
-                      staticStyle: { height: "200px" },
-                      attrs: { id: "addIBox" }
-                    })
+                    _vm._m(5)
                   ]
                 )
               : _vm._e(),
@@ -34396,58 +34424,115 @@ var render = function() {
             _vm.sectionState == 5
               ? _c(
                   "div",
-                  { staticClass: "m-0 p-0 shineA", attrs: { id: "reviews" } },
+                  {
+                    staticClass: "m-0 p-0 shineA",
+                    staticStyle: { "overflow-y": "scroll" },
+                    attrs: { id: "reviews" }
+                  },
                   _vm._l(_vm.alldata, function(aitem, i) {
                     return _c("div", [
                       i == 0
-                        ? _c(
-                            "div",
-                            { staticClass: "m-0" },
-                            [
-                              _c("div", { staticClass: "fw8" }, [
-                                _vm._v("Course Detailed")
-                              ]),
-                              _vm._v(" "),
-                              _vm._l(aitem, function(edatavalue, j) {
-                                return _c("span", [
-                                  _c(
-                                    "p",
-                                    { staticClass: "clight mb-1 fs001" },
-                                    [_vm._v(_vm._s(j))]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("p", { staticClass: "mt-0" }, [
-                                    _vm._v(_vm._s(edatavalue))
-                                  ])
-                                ])
-                              })
-                            ],
-                            2
-                          )
+                        ? _c("div", { staticClass: "m-0" }, [
+                            _c("div", { staticClass: "fw8" }, [
+                              _vm._v("Course Detailed")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "table",
+                              {
+                                staticClass: "table table-striped table-hover"
+                              },
+                              [
+                                _vm._m(6, true),
+                                _vm._v(" "),
+                                _c(
+                                  "tbody",
+                                  [
+                                    _c("td"),
+                                    _vm._l(aitem, function(edatavalue, j) {
+                                      return _c("td", { staticClass: "p-1" }, [
+                                        _vm._v(
+                                          "\n\t\t\t\t\t            \t\t\t\t" +
+                                            _vm._s(edatavalue) +
+                                            "\n\t\t\t\t\t\t            \t\t"
+                                        )
+                                      ])
+                                    })
+                                  ],
+                                  2
+                                )
+                              ]
+                            )
+                          ])
                         : _vm._e(),
                       _vm._v(" "),
                       i == 1
                         ? _c(
                             "div",
-                            { staticClass: "m-0" },
+                            {
+                              staticClass: "col-lg-6 col-md-6 my-2 mx-0 px-0 "
+                            },
                             [
-                              _c("div", { staticClass: "fw8" }, [
+                              _c("div", { staticClass: "fw8 m-0" }, [
                                 _vm._v("Selected Experiment")
                               ]),
                               _vm._v(" "),
-                              _vm._l(aitem.names, function(edatavalue, j) {
-                                return _c("span", [
-                                  _c("p", { staticClass: "my-1" }, [
-                                    _vm._v(_vm._s(edatavalue))
+                              _c(
+                                "div",
+                                { staticClass: "p-2 border m-0" },
+                                _vm._l(aitem.names, function(
+                                  edatavalue,
+                                  j,
+                                  inde
+                                ) {
+                                  return _c("p", [
+                                    _c("b", [_vm._v(_vm._s(inde) + ".")]),
+                                    _vm._v(
+                                      " " +
+                                        _vm._s(edatavalue) +
+                                        "\n\t\t\t\t\t            \t\t"
+                                    )
                                   ])
-                                ])
-                              })
-                            ],
-                            2
+                                }),
+                                0
+                              )
+                            ]
                           )
                         : _vm._e(),
                       _vm._v(" "),
                       i == 2
+                        ? _c(
+                            "div",
+                            { staticClass: " col-lg-5 col-md-5 mx-0 px-0 " },
+                            [
+                              _c("div", { staticClass: "fw8 m-0" }, [
+                                _vm._v("Selected Instructor")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "p-2 border m-0" },
+                                _vm._l(aitem.names, function(
+                                  edatavalue,
+                                  j,
+                                  inde
+                                ) {
+                                  return _c("p", [
+                                    _c("b", [_vm._v(_vm._s(inde) + ".")]),
+                                    _vm._v(
+                                      " " +
+                                        _vm._s(edatavalue) +
+                                        "\n\t\t\t\t\t            \t\t"
+                                    )
+                                  ])
+                                }),
+                                0
+                              )
+                            ]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      i == 3
                         ? _c("div", { staticClass: "m-0" }, [
                             _c("div", { staticClass: "fw8" }, [
                               _vm._v("image to Upload")
@@ -34533,6 +34618,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c(
+      "table",
+      {
+        staticClass: "table table-striped table-hover",
+        staticStyle: { "min-height": "200px" }
+      },
+      [_c("tbody", { attrs: { id: "addEBox" } })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("span", { attrs: { id: "imageprev py-5 d-block" } }, [
       _c("span", {
         staticClass: "fa fa-cloud-upload fs3 text-dark text-center d-block"
@@ -34584,6 +34682,39 @@ var staticRenderFns = [
       ),
       _vm._v(" "),
       _c("div", { staticClass: "hr w-100" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "table",
+      {
+        staticClass: "table table-striped table-hover",
+        staticStyle: { "min-height": "200px" }
+      },
+      [_c("tbody", { attrs: { id: "addIBox" } })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "bg-dark" }, [
+      _c("th", { staticClass: "p-1 text-white bg-dark" }),
+      _vm._v(" "),
+      _c("th", { staticClass: "p-1 text-white bg-dark text-left" }, [
+        _vm._v("Title")
+      ]),
+      _vm._v(" "),
+      _c("th", { staticClass: "p-1 text-white bg-dark text-left" }, [
+        _vm._v("Course Code")
+      ]),
+      _vm._v(" "),
+      _c("th", { staticClass: "p-1 text-white bg-dark text-left" }, [
+        _vm._v("Course Description")
+      ])
     ])
   }
 ]
