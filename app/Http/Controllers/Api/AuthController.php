@@ -35,7 +35,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'required',
+            'email' => 'required',
             'password' => 'required',
         ]);
 
@@ -44,7 +44,7 @@ class AuthController extends Controller
         }
 
         $credentials = [
-            'username' => $request->get('username'),
+            'email' => $request->get('email'),
             'password' => md5($request->get('password')),
         ];
         

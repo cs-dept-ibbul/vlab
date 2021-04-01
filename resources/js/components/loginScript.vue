@@ -72,23 +72,32 @@
                             $('#login-msg').css('display','flex');
                             $('#login-err2').hide();
                             $('#login-err').hide();                               
-                            try{
-                                $vm.axios.post('api/login', {email:$vm.username, password:$vm.password}).then(function(response, status, request) {  
-                              
-                                    localStorage.setItem('LoggedUser',JSON.stringify(response.data));
-                                    
-                                    /*update store*/
-                              //     
-                               $vm.$store.dispatch('updateUser',response);
+                            try{                                
+                                $vm.axios.post('api/login', {email:$vm.username, password:$vm.password}).then(function(response, status, request) {        
+                                        console.log(response.status)                              
+                                        if (response.status === 200) {                                        
+                                           localStorage.setItem('LoggedUser',JSON.stringify(response.data));
+                                            
+                                            /*update store*/                            
+                                           $vm.$store.dispatch('updateUser',response);
 
-                                    $('#response-data').val(JSON.stringify(response));
-                                    $('#auto-redirect').submit();
-                                    $('#login-msg').css('display','none');                                    
-                                        
-                                 }, function() {
-                                    $('#login-msg').css('display','none');                                    
-                                    $('#login-err').show();
-                                });                                
+                                            $('#response-data').val(JSON.stringify(response));
+                                            $('#auto-redirect').submit();
+                                            $('#login-msg').css('display','none');                                    
+                                                
+                                        }else{
+                                        $('#login-msg').css('display','none');                                    
+                                            $('#login-err').show();                                        
+                                        }
+                                    }, function(e) {        
+                                         if(e.response.status === 401 ){
+                                            $('#login-msg').css('display','none');                                    
+                                            $('#login-err').show();  
+                                         }else{
+                                            $('#login-msg').css('display','none');
+                                            $('#login-err2').show();                                                
+                                         }                                                                   
+                                    })                             
                             }catch(err){
                                 $('#login-msg').css('display','none');
                                 $('#login-err2').show();

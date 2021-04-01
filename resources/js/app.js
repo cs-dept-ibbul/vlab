@@ -32,6 +32,7 @@ const store = new Vuex.Store(   storedata )
 /*global event bus and communication*/
 Vue.prototype.$eventBus = new Vue(); 
 
+Vue.component('v-asidebar', require('./components/adminLeftNavBar.vue').default);//admin system side bar
 Vue.component('v-msidebar', require('./components/leftNavBar.vue').default);//main system side bar
 Vue.component('v-topnave', require('./components/experimentTopNav.vue').default);
 Vue.component('v-systopnave', require('./components/SysTopNav.vue').default);

@@ -4,7 +4,7 @@
 			<!-- <span @click="toggleExperimentGuider" style="font-size: 1.4em;cursor: pointer;" class="fa fa-align-justify mr-3"></span> -->
 			<span  style="font-size: 1.4em;cursor: pointer;" class="fa fa-align-justify mr-3"></span>
 			<span style="font-weight: 500;font-size: 1em;">{{title}}</span>
-		</div>
+		</div>		
 		<div style="display: flex;flex-wrap: wrap;align-items: center;">
 			<span class="fa fa-user mr-2"></span>
 			<span style="font-size: 0.9em; font-weight: 300;">{{username}}</span>
