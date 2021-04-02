@@ -13,13 +13,13 @@
 ?>
 @extends('layouts/main')
 @section('head')
-<script src="{{ asset('js/jquery-1.11.3.min.js')}}"></script>
+
 <script>
 	 $(document).ready(function(){
 	 	var filterDataKey='', filterDataValue='';
 	 	var $md;
 	 	$('#filter').keyup(function(){	 		
-	 		window.scrollTo({top:600,left:0, behavior:'smooth'});
+	 		//$('.scroll-y').scrollTo({top:600,left:0, behavior:'smooth'});
 	 		filterDataKey = $(this).val();
 	 		$('.fholder').each(function(){
 	 			$md = $(this);
@@ -53,8 +53,10 @@
 
     <div class="w-100 m-0 p-0">
         {{-- <img src="{{asset('images/course_image.png')}}"> --}}
-        <v-navb home="{{route('home')}}" explore="{{route('explore')}}" login="{{route('login')}}"></v-navb>
+
+        <v-navb class="vh-15" home="{{route('home')}}" explore="{{route('explore')}}" login="{{route('login')}}"></v-navb>
         	<br><br><br><br>
+        <div class="vh-85 scroll-y">
         <div class="w-100 row px-6 mx-0">
         	<div class="col-lg-6 col-md-12 col-sm-12 p-0">        	
         		
@@ -113,7 +115,7 @@
 						<span class="ml-2 fa fa-long-arrow-up pl-3 fw2" style="border-left: 1px solid #ccc;"></span>
 					</div>
 				</div>			
-       		 </div>
+       		</div>
        		 <!-- courses container -->
         	<div class="p-secondary r2 m-0 p-4 hm300 mb-5">
         	<p id="noMatch" style="display: none;" class=" text-dark text-center fw4 font">No course matches</p>
@@ -215,10 +217,9 @@
 					</p>
 				</div>
 				<!-- end experiment box -->
-
-
 	     	</div>  
 	     </div>
-	 </div>
+	 	</div>
+	 	</div>
     </div>
 @endsection

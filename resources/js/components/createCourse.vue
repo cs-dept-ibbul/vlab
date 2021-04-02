@@ -44,7 +44,7 @@
 	            				<input type="text"  @keyup="normalize" class="form-control vI" id="ccode">
 	            			</div>
 	            			<div class="col-lg-12 col-md-12 mt-3">
-	            				<p class="fs001 my-1">Course Code</p>            				
+	            				<p class="fs001 my-1">Course Description</p>            				
 	            				<textarea @keyup="normalize" class="form-control vI" rows="6" id="cdescription"></textarea>
 	            			</div>
 	            		</div>
@@ -52,7 +52,7 @@
 	            	<div id="addExperiment" v-if="sectionState==2" class="m-0 p-0 shineA">     
 	            			<p class="fw8 fs1 font" style="color: #777;">Add Experiment</p>
 	            			<div class="row">            			
-		            			<div class="col-lg-8 col-md-6 m-0">
+		            			<div class="col-lg-12 col-md-12 m-0">
 		            				<p class="fs001 my-1">Select Experiment</p>
 		            				<div class="d-flex">
 		            					<select @keyup="normalize" class="form-control vI" id="selectExperiment">
@@ -68,9 +68,14 @@
 				        					<div class="hr w-100"></div>
 				        				</div>		            				
 		            				<br>
-		            				<div id="addEBox" class="r1" style="height: 200px;">
+		            				<table style="min-height: 200px;"  class="table table-striped table-hover">
+		            					<tbody id="addEBox">
+		            						
+		            					</tbody>		            					
+		            				</table><!-- 
+		            				<div id="addEBox" class="" style="height: 200px;">
 		            					
-		            				</div>
+		            				</div> -->
 		            			</div>
 	            			</div>       			
 	            	</div>
@@ -107,25 +112,53 @@
         					<div class="hr w-100"></div>
         				</div>
         				<br>
+        				<table style="min-height: 200px;"  class="table table-striped table-hover">
+        					<tbody id="addIBox">
+        						
+        					</tbody>		            					
+        				</table>
+		            	<!-- 
 	        			<div id="addIBox" class="r1" style="height: 200px;">        					
-        				</div>
+        				</div> -->
 	            	</div>
-	            	<div id="reviews" v-if="sectionState==5" class="m-0 p-0 shineA">  
+	            	<div id="reviews" v-if="sectionState==5" class="m-0 p-0 shineA" style="overflow-y: scroll;">  
 	            		<div v-for="(aitem,i) in alldata">
 	            			<div v-if="i==0" class="m-0">
 		            			<div class="fw8">Course Detailed</div>
-			            		<span v-for="(edatavalue,j) in aitem">
-		            				<p class="clight mb-1 fs001" >{{j}}</p>
-		            				<p class="mt-0" >{{edatavalue}}</p>
-			            		</span>	            				
+		            			<table class="table table-striped table-hover">
+		            				<thead class="bg-dark">
+		            					<th class="p-1 text-white bg-dark"></th>
+		            					<th class="p-1 text-white bg-dark text-left">Title</th>
+		            					<th class="p-1 text-white bg-dark text-left">Course Code</th>
+		            					<th class="p-1 text-white bg-dark text-left">Course Description</th>
+		            				</thead>
+		            				<tbody>
+		            					<td>		            						
+						            		<td v-for="(edatavalue,j) in aitem" class="p-1">
+					            				{{edatavalue}}
+						            		</td>	            						            				
+		            					</td>
+		            				</tbody>
+		            			</table>
 	            			</div>
-	            			<div v-if="i==1" class="m-0">
-		            			<div class="fw8">Selected Experiment</div>
-			            		<span v-for="(edatavalue,j) in aitem.names">		            				
-		            				<p class="my-1" >{{edatavalue}}</p>
-			            		</span>	            				
-	            			</div>
-	            			<div v-if="i==2" class="m-0">
+	            			         				
+		            			<div v-if="i==1" class="col-lg-6 col-md-6 my-2 mx-0 px-0 ">
+			            			<div class="fw8 m-0">Selected Experiment</div>
+			            			<div class="p-2 border m-0">			            				
+					            		<p v-for="(edatavalue,j, inde) in aitem.names">		            				
+				            				<b>{{inde}}.</b> {{edatavalue}}
+					            		</p>	            				
+			            			</div>
+		            			</div>
+		            			<div v-if="i==2" class=" col-lg-5 col-md-5 mx-0 px-0 ">
+			            			<div class="fw8 m-0">Selected Instructor</div>
+			            			<div class="p-2 border m-0">			            				
+					            		<p v-for="(edatavalue,j, inde) in aitem.names">		            				
+				            				<b>{{inde}}.</b> {{edatavalue}}
+					            		</p>	            				
+			            			</div>
+		            			</div>	            	
+	            			<div v-if="i==3" class="m-0">
 		            			<div class="fw8">image to Upload</div>
 		            			<div>
 		            				<img width="200px" :src="aitem.image">
@@ -277,26 +310,26 @@
 					$('#ctitle').val($nv.alldata[0]['Title']);
 					$('#ccode').val($nv.alldata[0]['Course_code']);
 					$('#cdescription').val($nv.alldata[0]['Course_description']);					
-					}, 200);				
+					}, 50);				
 					this.checkstage(1);
 				}
 				if (this.sectionState === 2 ) {					
 					setTimeout(function() {
 					$nv.reiterateSelectedExp();
-					}, 200);
+					},50);
 					this.checkstage(2);					
 				}
 				if (this.sectionState === 3) {					
 					setTimeout(function() {
 				 		$('#imageprev').html('<img id="image_droped" width="200px"  src="'+$nv.imagetoupload+'">');		
-					}, 200);
+					}, 50);
 					this.checkstage(3);					
 
 				}
 				if (this.sectionState===4) {					
 					setTimeout(function() {
 						$nv.reiterateSelectedInstructor();
-					}, 200);
+					}, 50);
 					this.checkstage(4);					
 				}
 			},
@@ -314,7 +347,7 @@
 					  let $vm = this;
 					///alert(this.selectedExperiment.includes(evalue));
 					 let indexof = this.selectedExperiment.indexOf(evalue);
-						$('#addEBox').append("<div class='d-flex justify-content-between flex-wrap-center' style='font-size:0.9em;' id='"+this.selectedExperiment.indexOf(evalue)+"'><p class='py-2 pl-3 my-0'><b >Experiment "+(Number(this.selectedExperiment.indexOf(evalue))+1)+'</b>:<span class="ml-5"></span> '+selExpName+"</p> <span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+indexof+"' >&times</span></div><hr>")
+						$('#addEBox').append("<tr><td class='d-flex justify-content-between flex-wrap-center ' style='font-size:0.9em;cursor:pointer;' id='"+this.selectedExperiment.indexOf(evalue)+"'><p><b >Experiment "+(Number(this.selectedExperiment.indexOf(evalue))+1)+'</b>:<span class="ml-5"></span> '+selExpName+"</p><span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+indexof+"' >&times</span></td></tr>");
 					}else{
 					   $('#ar000').remove();
 					   $('#addEBox').after('<span class="text-danger requiredv" id="ar000">already exist!</span>');				
@@ -328,7 +361,7 @@
 			reiterateSelectedExp(){
 				$('#addEBox').html("");
 				for (let i = 0; i < this.selectedExperiment.length; i++) {
-					$('#addEBox').append("<div class='d-flex justify-content-between flex-wrap-center' style='font-size:0.9em;' id='"+i+"'><p class='py-2 pl-3 my-0'><b >Experiment "+(i+1)+'</b>:<span class="ml-5"></span> '+this.selectedExperimentName[i]+"</p> <span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+i+"' >&times</span></div><hr>")	
+					$('#addEBox').append("<tr><td class='d-flex justify-content-between flex-wrap-center ' style='font-size:0.9em;cursor:pointer;' id='"+i+"'><p><b >Experiment "+(i+1)+'</b>:<span class="ml-5"></span> '+this.selectedExperimentName[i]+"</p><span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+i+"' >&times</span></td></tr>")	
 					}
 			},	
 			addIBox:function(){
@@ -345,7 +378,7 @@
 					  let $vm = this;
 					///alert(this.selectedInstructor.includes(evalue));
 					 let indexof = 'inst'+this.selectedInstructor.indexOf(evalue);
-						$('#addIBox').append("<div class='d-flex justify-content-between flex-wrap-center' style='font-size:0.9em;' id='inst"+this.selectedInstructor.indexOf(evalue)+"'><p class='py-2 pl-3 my-0'>"+'<span class="ml-5"></span> '+selExpName+"</p> <span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp1' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+indexof+"' >&times</span></div><hr>")
+						$('#addIBox').append("<tr><td class='d-flex justify-content-between flex-wrap-center ' style='font-size:0.9em;cursor:pointer;' id='inst"+this.selectedInstructor.indexOf(evalue)+"'><p><b >Experiment "+selExpName+"</p><span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp1' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+indexof+"' >&times</span></td></tr>")
 					}else{
 						$('#ar001').remove();
 					   $('#addIBox').after('<span class="text-danger requiredv" id="ar001">already exist!</span>');				
@@ -359,7 +392,7 @@
 			reiterateSelectedInstructor(){
 				$('#addIBox').html("");
 				for (let i = 0; i < this.selectedInstructor.length; i++) {
-					$('#addIBox').append("<div class='d-flex justify-content-between flex-wrap-center' style='font-size:0.9em;' id='"+i+"'><p class='py-2 pl-3 my-0'><b >Experiment "+(i+1)+'</b>:<span class="ml-5"></span> '+this.selectedInstructorName[i]+"</p> <span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp1' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+i+"' >&times</span></div><hr>")	
+					$('#addIBox').append("<tr><td class='d-flex justify-content-between flex-wrap-center ' style='font-size:0.9em;cursor:pointer;' id='inst"+i+"'><p class='py-2 pl-3 my-0'><b >Experiment "+(i+1)+'</b>:<span class="ml-5"></span> '+this.selectedInstructorName[i]+"</p><span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp1' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+i+"' >&times</span></td></tr>")	
 					}
 			},
 			
@@ -412,12 +445,12 @@
 					this.validateI('cdetail');
 					
 					if(this.validateState === true){
-						this.ctitle = $('#ctitle').val();						
-						this.alldata.push( {
-										Title: $('#ctitle').val(),
-										Course_code:$('#ccode').val(),
-										Course_description:$('#cdescription').val()
-										});						
+						this.ctitle = $('#ctitle').val();										
+						this.alldata[0] = {
+							Title: $('#ctitle').val(),
+							Course_code:$('#ccode').val(),
+							Course_description:$('#cdescription').val()
+						};						
 						this.sectionState = 2;						
 						this.stageone= false;
 				    	this.stageonep = true;
@@ -439,10 +472,10 @@
 				    	this.stagetwop = true;
 				    	this.stagethree = true;
 				    	this.sectionState = 3;				    	
-				    	this.alldata.push({
+				    	this.alldata[1]= {
 				    		'id': this.selectedExperiment,
 				    		'names': this.selectedExperimentName
-				    	});
+				    	};
 					}
 
 					setTimeout(function() {
@@ -458,9 +491,9 @@
 				    	this.stagethreep = true;
 				    	this.stagefour = true;
 				    	this.sectionState = 4;				    	
-				    	this.alldata.push({
+				    	this.alldata[3] = {
 				    		image: this.imagetoupload
-				    	});
+				    	};
 					}else{
 						this.singleValidate('dgbox');
 					}
@@ -477,30 +510,30 @@
 				    	this.stagefourp = true;
 				    	//this.stage = true;
 				    	this.sectionState = 5;				    	
-				    	this.alldata.push({
+				    	this.alldata[2] = {
 				    		'id': this.selectedInstructor,
 				    		'names': this.selectedInstructorName
-				    	});
+				    	};
 					}
 					
 				 	$('#imageprev').html('<img id="image_droped" width="200px"  src="'+$nv.imagetoupload+'">');		
-					
+					//console.log(this.alldata);
 
 				}else if(this.sectionState === 5){
 						/*fetch experiment*/
 					let $vm = this;
 				   try{
 				   		const formData = new FormData();				   	
-				   	formData.append('title',this.alldata[0].Title);
-				   	formData.append('code',this.alldata[0].Course_code);
-				   	formData.append('description',this.alldata[0].Course_description);
-				   	formData.append('experiment_id',this.alldata[1].id);
-				   	formData.append('instructor_id',this.alldata[1].id);
-				   	formData.append('resource_url',this.alldata[2].image);
+					   	formData.append('title',this.alldata[0].Title);
+					   	formData.append('code',this.alldata[0].Course_code);
+					   	formData.append('description',this.alldata[0].Course_description);
+					   	formData.append('experiment_id',this.alldata[1].id);
+					   	formData.append('instructor_id',this.alldata[2].id);
+					   	formData.append('resource_url',this.alldata[3].image);
 
 				   		$('#system-loader').css('display','flex');
 
-			            $vm.axios.post('api/courses/create',formData, {headers: {'Content-Type': 'multipart/form-data','Authorization':$vm.userLoggedInOld}}).then(function(response, status, request) { 		
+			            $vm.axios.post('api/courses/create',formData, {headers: $vm.axiosHeader}).then(function(response, status, request) { 		
 				   			$('#system-loader').css('display','none');
 
 			            	console.log(response);			   	
@@ -514,16 +547,18 @@
 							});
 			            }, function(e) {		  
 					   		$('#system-loader').css('display','none');
-
-			              vt.error($vm.errorSessionMessage,{
+					   		let errMsg = $vm.errorSessionMessage;					   		
+					   	    if (e.response.status == 409) {					   	    	
+					   	    	errMsg = e.response.data.error;
+					   	    }
+			              vt.error(errMsg,{
 							  title: undefined,
 							  position: "bottom-right",
 							  duration: 10000,
 							  closable: true,
 							  focusable: true,
 							  callback: undefined
-							});
-			            	console.log(e);			   	
+							});			            		   
 
 			            	//console.log($vm.axiosHeader)
 			            });
@@ -629,13 +664,14 @@
 				
 				/*fetch experiment*/
 			   try{
-			   	console.log(3);
+			   	
 		            $vm.axios.get('api/experiments/experiments','', { headers: $vm.axiosHeader }).then(function(response, status, request) { 			   	
 
 		            	 $vm.experiments = response.data;
 		            	//console.log($vm.experiments);			   	
 		              
-		            }, function(e) {		  
+		            }, function(e) {	
+		            console.log(e);
 		              vt.error($vm.errorSessionMessage,{
 						  title: undefined,
 						  position: "bottom-right",
@@ -644,7 +680,7 @@
 						  focusable: true,
 						  callback: undefined
 						});
-		            	//console.log($vm.axiosHeader)
+		            
 		            });
 
 		        }catch(err){
@@ -943,5 +979,7 @@
 	font-size: 0.86em;
 }
 #imageprev{	
+}
+table tr td{
 }
 </style>

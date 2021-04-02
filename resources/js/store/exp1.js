@@ -155,15 +155,23 @@ export default {
       arr5c: 0,              
   
     },
-    loggedIn:{},
     
   },
+  loggedIn:null,
 
 
    mutations: {
-      updateUser(state, a) {
-        state.loggedIn = a; 
+      updateUser(state, user) {
+        state.loggedIn = user; 
       }
+  },
+  actions:{
+    setUser({commit}, user){
+        commit('updateUser', user)
+    }
+  },
+  getters:{
+    //currentUser: state.loggedIn
   }
 }
 

@@ -21,7 +21,6 @@ class CourseController extends Controller
 {
     public function create(Request $request)
     {
-        //return dd($request->all());
         $validator = Validator::make($request->all(), [                        
             'title' => 'required',
             'code' => 'required',
@@ -29,7 +28,7 @@ class CourseController extends Controller
             'experiment_id' => 'required',
             'instructor_id' => 'required',
         ]);
-        $school_id = School::first();        
+        $school_id = School::first()->id;                
         if ($validator->fails()) {
             return response()->json(['error' => "All fields are required"], 400);
         }
@@ -41,12 +40,11 @@ class CourseController extends Controller
         $code = $request->get('code');
         $description = $request->get('description');
         $status = $request->get('status') ?? 'Active';
-
         
-        $checkCourse = Course::where(['code' => $code])->first()->id;
+        //return response()->json(['error' => Course::where(['code'=>$code])->first()], 200);
+        $checkCourse = Course::where(['code'=>$code])->first();
 
-        if (empty($checkCourse)) {
- 
+        if (empty($checkCourse) || is_null($checkCourse)) {
             
             $course = array(
             'id'          => $course_uuid,

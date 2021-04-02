@@ -1,12 +1,11 @@
 <?php
-
 use App\Http\Controllers\Api\ExperimentController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Api\SchoolController;
 use App\Http\Controllers\Api\Util;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\UserController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;

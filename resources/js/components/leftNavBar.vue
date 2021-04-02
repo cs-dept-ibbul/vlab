@@ -1,4 +1,5 @@
 <template>
+
 	<div>
 		<div class="menuBtnToggler" id="togglerV"  @click="toggleMenu" style="cursor: pointer; background: #fff">
 			<span class="fa fa-square mr-2" style="font-size: 2em;"></span>
@@ -81,7 +82,7 @@
 		    	}
         },
         methods:{
-            toggleMenu(e){          
+            toggleMenu(e){                      	
                 this.show=!this.show;    
                 if (this.show){
             		document.getElementById('togglerV').classList.add('widthRed');  	            

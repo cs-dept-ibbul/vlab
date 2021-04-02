@@ -4,7 +4,7 @@
 <!--   <v-userauth></v-userauth> -->
   
 	<!-- main side bar -->
-   <v-msidebar home="{{route('home')}}" explore="{{route('explore')}}" settings="{{route('home')}}" mycourse="{{route('my-course-review')}}" courses="{{route('courses')}}" incourse="1" active="courses"  ></v-msidebar>   
+   <v-asidebar home="{{route('home')}}" explore="{{route('explore')}}" settings="{{route('home')}}" faculty="" createcourse="{{route('create-courses')}}" incourse="1" active="course" activesub="createcourse"  ></v-asidebar>   
 	
 	<!-- end main side bar -->
 

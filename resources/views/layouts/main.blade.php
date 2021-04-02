@@ -32,7 +32,7 @@
        @yield('content-body')
     </div>
 
-      <div id="toast" class="alert alert-danger"><div id="img"><img src="\err.png" width="100%"></div><div id="toastdesc" class="text-danger">Network Error</div></div>
+    <div id="toast" class="alert alert-danger"><div id="img"><img src="\err.png" width="100%"></div><div id="toastdesc" class="text-danger">Network Error</div></div>
     @include('layouts.scripts')
       
    @yield('scripts_section')
