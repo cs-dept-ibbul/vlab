@@ -11,6 +11,7 @@ use App\Models\CourseResources;
 use App\Models\CourseStudents;
 use App\Models\School;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -278,6 +279,22 @@ class CourseController extends Controller
         if ($resource->save()) {
             return response()->json(['success' => true], 200);
         }
-        return response()->json(['success' => false], 400);
+        return response()->json(['error' => false], 400);
+    }
+
+    public function getStudentEnrolledCourses()
+    {
+        $user = Auth::user();
+        $userId = $user->id;
+        $enrolledCourses = CourseStudents::where('user_id', $userId)->get();
+        $data = [];
+        foreach ($enrolledCourses as $enrolledCourse) {
+            $courseId = $enrolledCourse->course_id;
+            $courseObject = Course::where('id', $courseId)->withCount('course_experiment')->get();
+            if (sizeof($courseObject) > 0) {
+                $data[] = ['course' => $courseObject];
+            }
+        }
+        return response()->json(['enrolledCourses' => $data], 200);
     }
 }

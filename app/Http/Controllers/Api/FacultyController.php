@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Faculty;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -78,5 +79,11 @@ class FacultyController extends Controller
         } else {
             return response()->json(['error' => 'Faculty not found'], 404);
         }
+    }
+
+    public function getFacultyWithCourseAndStudentCount()
+    {
+        $faculties = Faculty::withCount('courses')->withCount('students')->get();
+        return response()->json(['faculties' => $faculties], 200);
     }
 }
