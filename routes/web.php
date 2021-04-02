@@ -22,11 +22,11 @@ Route::get('/logout', 'App\Http\Controllers\loginController@logout')->name('logo
 
 //AMDIN
 Route::middleware(['adminauth'])->group(function(){
-	Route::get('/view-created-course', 'App\Http\Controllers\Viewcreatedcourse@index')->name('view-created-course');
 });
 
 
 Route::middleware(['userauth'])->group(function(){
+	Route::get('/view-created-course', 'App\Http\Controllers\Viewcreatedcourse@index')->name('view-created-course');
 	Route::get('/create-course', 'App\Http\Controllers\CreateCourse@index')->name('create-courses');
 
 	Route::get('/my-courses', 'App\Http\Controllers\StudentCourses@index')->name('courses');
