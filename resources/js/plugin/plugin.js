@@ -40,7 +40,8 @@ export default {
       		x.addClass("show");
       		setTimeout(function(){x.removeClass("show"); }, 5000);
   		},
-  		flogout(){
+  		frontendLogout(){
+		    localStorage.removeItem("LoggedUser");
   			location.href = "/logout";
   		},
   		axiosGet: async(url) => {
