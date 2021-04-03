@@ -56,7 +56,8 @@ Route::group([
             Route::post('create', [FacultyController::class, 'create']);
             Route::post('faculty', [FacultyController::class, 'getFaculty']);
             Route::get('faculties', [FacultyController::class, 'getAllFaculties']);
-            Route::get('fac', [FacultyController::class, 'facultiesWithCourses']);
+            Route::get('faculty_courses', [FacultyController::class, 'facultiesWithCourses']);
+            Route::get('faculty_course_student', [FacultyController::class, 'getFacultyWithCourseAndStudentCount']);
         });
 
         Route::group([
@@ -79,6 +80,7 @@ Route::group([
             Route::post('assign_course_experiment', [CourseController::class, 'assignCourseExperiment']);
             Route::post('add_student_course', [CourseController::class, 'addStudentCourse']);
             Route::post('bulk_course_assign', [CourseController::class, 'bulkCourseAssign']);
+            Route::get('enrolledCourses', [CourseController::class, 'getStudentEnrolledCourses']);
         });
     });
 });

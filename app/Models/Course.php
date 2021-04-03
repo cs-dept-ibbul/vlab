@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     use HasFactory;
-    // protected $table = 'courses';
+    public function course_experiment()
+    {
+        return $this->hasMany(CourseExperiment::class);
+    }
 }
 
 class CourseResources extends Model
