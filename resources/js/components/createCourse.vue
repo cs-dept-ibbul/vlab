@@ -535,17 +535,40 @@
 
 			            $vm.axios.post('api/courses/create',formData, {headers: $vm.axiosHeader}).then(function(response, status, request) { 		
 				   			$('#system-loader').css('display','none');
+				   			if(response.status == 200){
 
-			            	console.log(response);			   	
-			               vt.success($vm.createdMessage,{
-							  title: undefined,
-							  position: "bottom-right",
-							  duration: 10000,
-							  closable: true,
-							  focusable: true,
-							  callback: undefined
-							});
+				   				Swal.fire({
+								  title: $vm.createdMessage,
+								  text:'tell us where to go',
+								  icon:'success',
+								  showDenyButton: true,
+								  showCancelButton: true,
+								  confirmButtonText: `view created courses`,
+								  denyButtonText: `Ok, refresh the page`,
+								}).then((result) => {
+								  
+								  if (result.isConfirmed) {
+								    location.href = "/view-created-course";
+								  } else if (result.isDenied) {
+								    location.reload();
+								  }
+								})
+				   			}else if(response.status == 401){
+				   				Swal.fire({
+								  title: $vm.errorSessionMessage,								  
+								  icon:'success',
+								  showDenyButton: true,								  
+								  confirmButtonText: `Ok`,								  
+								}).then((result) => {								  
+								  if (result.isConfirmed) {
+								    location.reload();
+								  } else if (result.isDenied) {								    
+								  }
+								})
+				   			}
+			            	//console.log(response);			   				           
 			            }, function(e) {		  
+			            	console.log(e.status)
 					   		$('#system-loader').css('display','none');
 					   		let errMsg = $vm.errorSessionMessage;					   		
 					   	    if (e.response.status == 409) {					   	    	
@@ -665,14 +688,26 @@
 				/*fetch experiment*/
 			   try{
 			   	
-		            $vm.axios.get('api/experiments/experiments','', { headers: $vm.axiosHeader }).then(function(response, status, request) { 			   	
-
-		            	 $vm.experiments = response.data;
+		            $vm.axios.get('api/experiments/experiments',{ headers: $vm.axiosHeader }).then(function(response, status, request) { 			   	
+		            	if(response.status == 200){
+			            	 $vm.experiments = response.data;				   				
+				   		}else if(response.status == 401){
+			   				Swal.fire({
+							  title: $vm.errorSessionMessage,								  
+							  icon:'success',
+							  showDenyButton: true,								  
+							  confirmButtonText: `Ok`,								  
+							}).then((result) => {								  
+							  if (result.isConfirmed) {
+							    location.reload();
+							  } else if (result.isDenied) {								    
+							  }
+							})
+				   		}
 		            	//console.log($vm.experiments);			   	
 		              
-		            }, function(e) {	
-		            console.log(e);
-		              vt.error($vm.errorSessionMessage,{
+		            }, function(e) {			            
+		              vt.error($vm.errorNetworkMessage,{
 						  title: undefined,
 						  position: "bottom-right",
 						  duration: 10000,
@@ -684,7 +719,7 @@
 		            });
 
 		        }catch(err){
-		           vt.error($vm.errorNetworkMessage,{
+		          /* vt.error($vm.errorNetworkMessage,{
 						  title: undefined,
 						  position: "bottom-right",
 						  duration: 10000,
@@ -692,7 +727,7 @@
 						  focusable: true,
 						  callback: undefined
 						});
-		          console.log(err)//show network error notification
+		          console.log(err)//show network error notification*/
 		        }
 			
 		  });
