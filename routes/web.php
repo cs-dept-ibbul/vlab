@@ -27,11 +27,13 @@ Route::middleware(['adminauth'])->group(function(){
 
 Route::middleware(['userauth'])->group(function(){
 	Route::get('/view-created-course', 'App\Http\Controllers\Viewcreatedcourse@index')->name('view-created-course');
-	Route::get('/create-course', 'App\Http\Controllers\CreateCourse@index')->name('create-courses');
+	Route::get('/create-course', 'App\Http\Controllers\CreateCourseController@index')->name('create-courses');
+	Route::get('/manage-faculty', 'App\Http\Controllers\ManageFacultyController@index')->name('manage-faculty');
 
 	Route::get('/my-courses', 'App\Http\Controllers\StudentCourses@index')->name('courses');
 	Route::get('/my-course-review/{id?}', 'App\Http\ControllersS\tudentCourses@review')->name('my-course-review')->where('id', '[0-9]+');
 	Route::get('/view-Students-dashboard', 'App\Http\Controllers\adminViewStudentsdashboard@index')->name('view-Students-dashboard');
+	Route::get('/view-student', 'App\Http\Controllers\InstructorController@viewstudent')->name('view-student');
 
 	//{name?}
 

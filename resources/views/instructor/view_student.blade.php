@@ -3,44 +3,20 @@
 <div style="display: flex;">   
     <v-userauth></v-userauth>
     
-	<!-- main side bar -->
-   <v-msidebar home="{{route('home')}}" explore="{{route('explore')}}" settings="{{route('home')}}" mycourse="{{route('my-course-review')}}" courses="{{route('courses')}}" incourse="1" active="courses"  ></v-msidebar>   
-	<!-- end main side bar -->
+    <!-- main side bar -->
+     <v-isidebar home="{{route('home')}}" dashboard="" explore="{{route('explore')}}" settings="{{route('home')}}" setexperiment="" viewexperiment="" student="{{route('view-student')}}"   active="student" activesub="student"></v-isidebar>   
+    <!-- end main side bar -->
 
-   <div class="expr-dashboard-container" style="background-color:#eee;">
-   		<!-- top nav bar -->
+   <div class="expr-dashboard-container  p-secondary ">
+        <!-- top nav bar -->
         <v-systopnave title="Students" username='said'></v-systopnave>   
-   		<!-- end to nav bar -->
+        <!-- end to nav bar -->
 
-   		<!-- content -->
+        <!-- content -->
            <div class="px-5">
             <a class="btn py-3 px-4 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 0.6rem;margin-right:22px" data-toggle="modal" data-target="#staticBackdrop">Add Student <span class="text-white fa fa-chevron-down"></span></a>
            </div>
-   		<div style="display: flex;" class="px-5 mt-5">
-   			
-            <div class="row mt-4">
-                <div class="col-lg-4 col-md-6 col-sm-12 p-3">
-                    <div class="shadow-sm pl-0 py-3 mb-5" style="background-color:white;border-radius: 1rem;width:32%;height:190px;">
-                    <div class="d-flex p-0 flex-wrap" style=" justify-content: space-between;">
-                        <div class="p-0"><img src="images/user-graduate-solid.svg" style="width:85%;"/></div>
-                        <div>
-                            <p class="fs2 fw8 mb-3" style="font: normal normal bold 20px/27px Avenir Next;color:#1E0B67;font-size:50px;">154</p>
-                            <p class="mt-0" style="color:#1E0B67;font-size:20px;">Students</p>
-                            <div>
-                                <span class="fa fa-cube" style="font-size: 1.5em;color:#FF8200"></span>
-                                <span style="font-size: 1.5em;color:#FF8200">PHY 107</span>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="fa fa-plus p-2 r2 mr-3" style="font-size: 2em;background-color:#FFDBB5;color:#FF8200"></span>
-                        </div>
-                    </div>
-                    </div>
-    
-                </div>        
-               
-            <div>
-   		</div>
+        <v-viewstudent class="scroll-y vh-70"></v-viewstudent>
    </div>
  
 

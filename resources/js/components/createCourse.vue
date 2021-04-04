@@ -561,7 +561,7 @@
 								  confirmButtonText: `Ok`,								  
 								}).then((result) => {								  
 								  if (result.isConfirmed) {
-								    location.reload();
+								    $vm.frontendLogout();
 								  } else if (result.isDenied) {								    
 								  }
 								})
@@ -699,7 +699,7 @@
 							  confirmButtonText: `Ok`,								  
 							}).then((result) => {								  
 							  if (result.isConfirmed) {
-							    location.reload();
+							    $vm.frontendLogout();
 							  } else if (result.isDenied) {								    
 							  }
 							})
