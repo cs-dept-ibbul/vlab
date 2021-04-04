@@ -11,7 +11,7 @@ import plugin from "./plugin/plugin";
 
 /*experiment page component*/
  window.Vue = require('vue');
-
+/*Vue.prototype.$http = axios*/
 //vuex
 Vue.use(Vuex)
 //axios
@@ -50,8 +50,12 @@ Vue.component('v-simplecircuit', require('./components/simple-circuit.vue').defa
 Vue.component('v-circuitconnectiontools', require('./components/circuitconnectiontools.vue').default); //experiment Right Nav bar
 
 
+/*admin component*/
+Vue.component('v-viewcreatedcourse', require('./components/viewCreatedCourse.vue').default); 
+/*end admin component*/
 
 Vue.component('v-tlb2', require('./components/title-left-bar.vue').default);
+
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('v-tlb', require('./components/title-left-bar.vue').default);
 Vue.component('v-navb', require('./components/Navbar.vue').default);

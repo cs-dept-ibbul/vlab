@@ -4,16 +4,15 @@
 <!--   <v-userauth></v-userauth> -->
   
 	<!-- main side bar -->
-   <v-asidebar home="{{route('home')}}" explore="{{route('explore')}}" settings="{{route('home')}}" faculty="" createcourse="{{route('create-courses')}}" incourse="1" active="course" activesub="createcourse"  ></v-asidebar>   
+   <v-asidebar home="{{route('home')}}" dashboard="" explore="{{route('explore')}}" settings="{{route('home')}}" createfaculty="" editfaculty="" createcourse="{{route('create-courses')}}" editcourse="{{route('view-created-course')}}" createuser="" user=""  active="course" activesub="createcourse"></v-asidebar>   
 	
-	<!-- end main side bar -->
-
+  <!-- end main side bar -->
    <div style="width: 100%;">
    		<!-- top nav bar -->
      <v-systopnave title="My Courses" username='said'></v-systopnave>        		
    		<!-- end to nav bar -->
 
-   		<!-- content -->
+   	  <!-- content -->
    		<v-createcourse></v-createcourse>
    </div>
 
