@@ -70,7 +70,7 @@
 					      text: 'other cancel and restart',s
 					      html: `<b>Faculty:</b> ${answers.faculty_name},<br> <b>Abbr:</b> ${answers.faculty_code}`,
 					      confirmButtonText:'Process',					      
-					      cancelButtonText:'Cancle',					      
+					      cancelButtonText:'Cancel',					      
 					      showCancelButton:true,					      
 					      showLoaderOnConfirm: true,
 					       preConfirm: (login) => {						    
