@@ -54,6 +54,8 @@ Vue.component('v-circuitconnectiontools', require('./components/circuitconnectio
 /*admin component*/
 Vue.component('v-viewcreatedcourse', require('./components/viewCreatedCourse.vue').default); 
 Vue.component('v-faculty', require('./components/faculty.vue').default); 
+Vue.component('v-department', require('./components/department.vue').default); 
+Vue.component('v-addexperiment', require('./components/addExperiment.vue').default); 
 /*end admin component*/
 
 Vue.component('v-tlb2', require('./components/title-left-bar.vue').default);

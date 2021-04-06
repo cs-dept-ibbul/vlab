@@ -17,24 +17,7 @@
 				<a :href="explore"   v-bind:class="{btnActive:checkActive('explore')}">
 					<span class="iconOV fa fa-spinner"></span>
 				</a>				
-				<!-- manage experiment -->
-				<ul class="listCoverV" >
-					<li class="listMenuVBtn nChildV"  v-bind:class="{btnActive:checkActive('experiment')}">
-						<span class="iconOV fa fa-institution"></span>
-					</li>
-					<ul class="listMenuV">
-						<li>
-							<a :href="setexperiment"  v-bind:class="{btnActiveSub:checkActiveSub('setexperiment')}">
-								<span class="iconOV fa fa-circle"></span><div class="labelV">set experiment</div>
-							</a>
-						</li>
-						<li>
-							<a :href="viewexperiment"  v-bind:class="{btnActiveSub:checkActiveSub('viewexperiment')}">
-								<span class="iconOV fa fa-circle"></span><div class="labelV">view experiment</div>
-							</a>
-						</li>
-					</ul>
-				</ul>				
+							
 				<!-- manage student -->
 				<!-- <ul class="listCoverV">
 					<li class="listMenuVBtn nChildV"  v-bind:class="{btnActive:checkActive('student')}">
@@ -74,25 +57,7 @@
 				<a :href="explore" class="nChildV"  v-bind:class="{btnActive:checkActive('explore')}">
 					<span class="iconV fa fa-spinner"></span><div class="labelV">Explore</div>
 				</a>	
-			
-				<!-- manage Experiment -->
-				<ul >
-					<li class="listMenuBtn nChildV"  v-bind:class="{btnActive:checkActive('experiment')}">
-						<span class="iconV fa fa-institution"></span><div class="labelV">Manage Expr.</div>
-					</li>
-					<ul class="listMenu">
-						<li>
-							<a :href="setexperiment" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('setexperiment')}">
-								<span class="iconV fa fa-circle"></span><div class="labelV">Set Experiment</div>
-							</a>
-						</li>
-						<li>
-							<a :href="viewexperiment" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('viewexperiment')}">
-								<span class="iconV fa fa-circle"></span><div class="labelV">View Experiment</div>
-							</a>
-						</li>
-					</ul>
-				</ul>				
+									
 				<!-- manage Stduent -->
 				<!--
 				<ul >
@@ -177,7 +142,7 @@
 		beforeDestroy: function () {
 		  this.eventBus.$off('toggleSysNav', this.toggleNavOnHover)		  
 		},
-        props:['home','dashboard','setexperiment','viewexperiment','viewstudent','studentdashboard','explore','experiment','student','settings', 'active','activesub'],
+        props:['home','dashboard','viewstudent','studentdashboard','explore','experiment','student','settings', 'active','activesub'],
         mounted(){
         	
         	/*btn slider*/

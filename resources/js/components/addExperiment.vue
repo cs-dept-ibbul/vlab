@@ -22,7 +22,7 @@
 						</div>
 						<div class="d-flex flex-wrap-center mb-4 ">	
 							<span class="ncircle"  v-bind:class="{tactive:stagefour,tsuccess:stagefourp}">4</span>							
-							<div class="fs1 w10 no-break ml-3">Add Instruction</div>
+							<div class="fs1 w10 no-break ml-3">Submit</div>
 						</div>
 				</div>
             			   	
@@ -57,7 +57,7 @@
 		            				<p class="fs001 my-1">Experiment Diagram</p>		            				
 		            				<div class="w-100  p-0" style="position: relative;">
 		            					<span class="d-flex w-100 cursor-1">		            						
-			            					<span class="form-control fw2 font w-60 r-right-none no-border-right" id="imageName" >.jpg, .png</span>
+			            					<span class="form-control fw2 font w-60 r-right-none p-text-secondary no-border-right" id="imageName" >.jpg, .png</span>
 			            					<span class="form-control  fw2 font w-40 r-left-none p-text-success">Upload File</span>
 		            					</span>
 		            					<input @change="getDragedInFile"  type="file" style="position: absolute;top: 0; left: 0;" name="files" class="draginto form-control" id="fileI">
@@ -70,15 +70,15 @@
 	            			</div>
 	            			<div class="col-lg-12 col-md-12 mt-3">
 	            				<p class="fs001 my-1">Theory</p>            				
-	            				<textarea @keyup="normalize" class="form-control vI" rows="4" id="theroy"></textarea>
+	            				<textarea @keyup="normalize" class="form-control vI" rows="4" id="theory"></textarea>
 	            			</div>
 	            			<div class="col-lg-12 col-md-12 mt-3">
 	            				<p class="fs001 my-1">Aparatus</p>            				
 	            				<textarea @keyup="normalize" class="form-control " rows="4" id="aparatus"></textarea>
 	            			</div>
 	            			<div class="col-lg-12 col-md-12 mt-3">
-	            				<p class="fs001 my-1">Requirment</p>            				
-	            				<textarea @keyup="normalize" class="form-control " rows="4" id="requirment"></textarea>
+	            				<p class="fs001 my-1">procedure</p>            				
+	            				<textarea @keyup="normalize" class="form-control " rows="4" id="procedure"></textarea>
 	            			</div>
 	            			<div class="col-lg-12 col-md-12 mt-3">
 	            				<p class="fs001 my-1">Exercise</p>            				
@@ -125,7 +125,7 @@
 	            			<div class="row">            			
 		            			<div class="col-lg-12 col-md-12 m-0">
 		            				<span>		            					
-			            				<span class="fs1 fw5 p-text-success">Practice Mode:</span><input value="practice" class="configV" type="radio" name="config">
+			            				<span class="fs1 fw5 p-text-success ">Practice Mode:</span><input value="practice" class="configV" type="radio" name="config">
 			            				<span class="fs1 fw5 p-text-success">Test Mode:</span> <input value="test" class="configV" type="radio" name="config">
 		            				</span>
 		            			</div>
@@ -133,7 +133,9 @@
 	            	</div>	            
 
 	            	<div id="addInstructors" v-if="sectionState==4" class="m-0 p-0 shineA">  
-	            		<p class="fw8 fs1 font" style="color: #777;">Add Instructor</p>   
+	            		<h3 class="text-center fw8 font mt-5 p-text-success">All Process Completed</h3>
+	            		<h5 class="text-center fw5 font p-text-success">use the previous button to review or click on submit !</h5>
+	            	<!-- 	<p class="fw8 fs1 font" style="color: #777;">Add Instructor</p>   
 	            		<div class="d-flex">
     					<select @keyup="normalize" class="form-control vI" id="selectedInstructor">
     						<option></option>
@@ -154,7 +156,7 @@
         					<tbody id="addIBox">
         						
         					</tbody>		            					
-        				</table>
+        				</table> -->
 		            	<!-- 
 	        			<div id="addIBox" class="r1" style="height: 200px;">        					
         				</div> -->
@@ -213,7 +215,9 @@
             </div>
             <div class="col-lg-4 col-md-3 col-sm-12 mx-auto py-2 d-flex">            	
             	<button v-if="sectionState >1" class="btn p-success text-white py-2 px-3 mr-3" @click="prevSection" ><span class="fa fa-arrow-left"></span> Previous </button>
-            	<button class="btn p-success text-white py-2 px-3" @click="nextSection" > Continue <span class="fa fa-arrow-right"></span></button>
+            	<button v-if="sectionState != 4" class="btn p-success text-white py-2 px-3" @click="nextSection" > Continue <span class="fa fa-arrow-right"></span></button>
+            	<button v-if="sectionState == 4" class="btn p-success text-white py-2 px-3" @click="submitProcess" > Submit <span class="fa fa-arrow-right"></span></button>
+
             </div>
             <div class="col-md-1 col-sm-12 mx-auto">
             </div>
@@ -360,7 +364,7 @@
 					$('#imageName').val($nv.alldata[0]['diagram_url']);					
 					$('#theory').val($nv.alldata[0]['theory']);					
 					$('#aparatus').val($nv.alldata[0]['aparatus']);					
-					$('#requirment').val($nv.alldata[0]['requirment']);					
+					$('#procedure').val($nv.alldata[0]['procedure']);					
 					$('#resources').val($nv.alldata[0]['resources']);										
 					$('#exercise').find('.ql-editor').append($nv.alldata[0]['exercise']);					
 					}, 50);				
@@ -532,7 +536,7 @@
 							aparatus:$('#aparatus').val(),
 							exercise:$('#exercise').find('.ql-editor').html(),
 							resources:$('#resources').val(),
-							requirment:$('#requirment').val(),
+							procedure:$('#procedure').val(),
 						};												
 						this.sectionState = 2;						
 						this.stageone= false;
@@ -555,9 +559,8 @@
 				    	this.stagetwop = true;
 				    	this.stagethree = true;
 				    	this.sectionState = 3;				    	
-				    	this.alldata[1]= {
-				    		'id': this.selectedExperiment,
-				    		'names': this.selectedExperimentName
+				    	this.alldata[1]= {				    		
+				    		'experiment_url': this.selectedExperiment
 				    	};
 					}
 					let $nv = this;
@@ -581,32 +584,36 @@
 				    	this.sectionState = 4;	
 					}
 
-				}else if (this.sectionState === 4){
-					if (this.selectedInstructor.length == 0){
+				}
+			},
+			submitProcess: function(){
+					let $vm = this;
+
+					/*if (this.selectedInstructor.length == 0){
 					 this.singleValidate('addIBox');
-					}else{
-						/*this.stagefour= false;
-				    	this.stagefourp = true;
-				    	//this.stage = true;*/
-				    	this.sectionState = 5;				    	
+					 return 0;
+					}else{									    	    
 				    	this.alldata[3] = {
 				    		'id': this.selectedInstructor,
 				    		'names': this.selectedInstructorName
 				    	};
-					}									 
-					//console.log(this.alldata);
+					}*/								
 
-				}else if(this.sectionState === 5){
-						/*fetch experiment*/
-					let $vm = this;
 				   try{
+
 				   		const formData = new FormData();				   	
-					   	formData.append('title',this.alldata[0].Title);
-					   	formData.append('code',this.alldata[0].Course_code);
-					   	formData.append('description',this.alldata[0].Course_description);
-					   	formData.append('experiment_id',this.alldata[1].id);
-					   	formData.append('instructor_id',this.alldata[2].id);
-					   	formData.append('resource_url',this.alldata[3].image);
+					   	formData.append('title',this.alldata[0].title);
+					   	formData.append('experiment_number',this.alldata[0].experiment_number);
+					   	formData.append('video_url',this.alldata[0].video_url);
+					   	formData.append('theory',this.alldata[0].theory);
+					   	formData.append('aim',this.alldata[0].aim);
+					   	formData.append('resources',this.alldata[0].resources);
+					   	formData.append('exercise',this.alldata[0].exercise);
+					   	formData.append('exercise',this.alldata[0].exercise);
+					   	formData.append('aparatus',this.alldata[0].aparatus);
+					   	formData.append('procedure',this.alldata[0].procedure);
+					   	formData.append('experiment_url',this.alldata[1].experiment_url);
+					   	formData.append('config',this.alldata[2].config);
 
 				   		$('#system-loader').css('display','flex');
 
@@ -647,19 +654,28 @@
 			            }, function(e) {		  
 			            	//console.log(e.status)
 					   		$('#system-loader').css('display','none');
-					   		let errMsg = $vm.errorSessionMessage;					   		
-					   	    if (e.response.status == 409) {					   	    	
-					   	    	errMsg = e.response.data.error;
-					   	    }
-			              vt.error(errMsg,{
-							  title: undefined,
-							  position: "bottom-right",
-							  duration: 10000,
-							  closable: true,
-							  focusable: true,
-							  callback: undefined
-							});			            		   
-
+			            	if(e.response.status === 401 ){
+			            		Swal.fire({
+			            			title:$vm.errorSessionMessage,
+			            			icon: 'warning'
+			            		}).then((result)=>{
+			            			if (result) {
+                                		location.href = "/logout";
+			            			}
+			            		})
+                            }else{
+						   		let errMsg = $vm.errorSessionMessage;					   		
+						   		Swal.fire({
+						   			title: 'something went wrong',
+						   			text: 'try again',
+						   			icon: 'error'
+						   		})
+						   	    /*if (e.response.status == 409){					   	    	
+						   	    	errMsg = e.response.data.error;
+						   	    }*/
+                                                                         
+                             }        
+			            
 			            	//console.log($vm.axiosHeader)
 			            });
 
@@ -676,9 +692,6 @@
 							});
 			          console.log(err)//show network error notification
 			        }
-			
-				}
-
 			},
 	/*		dragEnter(e){			
 				this.dragrelease = true;
