@@ -70,7 +70,7 @@
 					      text: 'other cancel and restart',
 					      html: `<b>Faculty:</b> ${answers.faculty_name},<br> <b>Abbr:</b> ${answers.faculty_code}`,
 					      confirmButtonText:'Process',					      
-					      cancelButtonText:'Cancel',					      
+					      cancelButtonText:'Cancle',					      
 					      showCancelButton:true,					      
 					      showLoaderOnConfirm: true,
 					       preConfirm: (login) => {						    
@@ -87,6 +87,8 @@
 								        Swal.showValidationMessage(
 								          `Failed: Faculty Already Exist`
 								        )						      		
+							      	}else if(error.response.status == 401){
+							      		location.reload();
 							      	}else{
 							      		Swal.showValidationMessage(
 								          `Failed: Something went wrong`

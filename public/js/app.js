@@ -4501,9 +4501,167 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/faculty.vue?vue&type=script&lang=js& ***!
   \**************************************************************************************************************************************************************************************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\Users\\USER\\Desktop\\vlab-2\\resources\\js\\components\\faculty.vue: Unexpected token, expected \",\" (71:11)\n\n\u001b[0m \u001b[90m 69 |\u001b[39m \t\t\t\t\t      title\u001b[33m:\u001b[39m \u001b[32m'click on proceed'\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 70 |\u001b[39m \t\t\t\t\t      text\u001b[33m:\u001b[39m \u001b[32m'other cancel and restart'\u001b[39m\u001b[33m,\u001b[39ms\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 71 |\u001b[39m \t\t\t\t\t      html\u001b[33m:\u001b[39m \u001b[32m`<b>Faculty:</b> ${answers.faculty_name},<br> <b>Abbr:</b> ${answers.faculty_code}`\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t\t\t\t\t      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 72 |\u001b[39m \t\t\t\t\t      confirmButtonText\u001b[33m:\u001b[39m\u001b[32m'Process'\u001b[39m\u001b[33m,\u001b[39m\t\t\t\t\t      \u001b[0m\n\u001b[0m \u001b[90m 73 |\u001b[39m \t\t\t\t\t      cancelButtonText\u001b[33m:\u001b[39m\u001b[32m'Cancle'\u001b[39m\u001b[33m,\u001b[39m\t\t\t\t\t      \u001b[0m\n\u001b[0m \u001b[90m 74 |\u001b[39m \t\t\t\t\t      showCancelButton\u001b[33m:\u001b[39m\u001b[36mtrue\u001b[39m\u001b[33m,\u001b[39m\t\t\t\t\t      \u001b[0m\n    at Parser._raise (C:\\Users\\USER\\Desktop\\vlab-2\\node_modules\\@babel\\parser\\lib\\index.js:776:17)\n    at Parser.raiseWithData (C:\\Users\\USER\\Desktop\\vlab-2\\node_modules\\@babel\\parser\\lib\\index.js:769:17)\n    at Parser.raise (C:\\Users\\USER\\Desktop\\vlab-2\\node_modules\\@babel\\parser\\lib\\index.js:737:17)\n    at Parser.unexpected (C:\\Users\\USER\\Desktop\\vlab-2\\node_modules\\@babel\\parser\\lib\\index.js:9264:16)\n    at Parser.expect (C:\\Users\\USER\\Desktop\\vlab-2\\node_modules\\@babel\\parser\\lib\\index.js:9250:28)\n    at Parser.parseObjectLike (C:\\Users\\USER\\Desktop\\vlab-2\\node_modules\\@babel\\parser\\lib\\index.js:11102:14)\n    at Parser.parseExprAtom (C:\\Users\\USER\\Desktop\\vlab-2\\node_modules\\@babel\\parser\\lib\\index.js:10670:23)\n    at Parser.parseExprSubscripts (C:\\Users\\USER\\Desktop\\vlab-2\\node_modules\\@babel\\parser\\lib\\index.js:10329:23)\n    at Parser.parseUpdate (C:\\Users\\USER\\Desktop\\vlab-2\\node_modules\\@babel\\parser\\lib\\index.js:10309:21)\n    at Parser.parseMaybeUnary (C:\\Users\\USER\\Desktop\\vlab-2\\node_modules\\@babel\\parser\\lib\\index.js:10287:23)\n    at Parser.parseExprOps (C:\\Users\\USER\\Desktop\\vlab-2\\node_modules\\@babel\\parser\\lib\\index.js:10152:23)\n    at Parser.parseMaybeConditional (C:\\Users\\USER\\Desktop\\vlab-2\\node_modules\\@babel\\parser\\lib\\index.js:10126:23)\n    at Parser.parseMaybeAssign (C:\\Users\\USER\\Desktop\\vlab-2\\node_modules\\@babel\\parser\\lib\\index.js:10089:21)\n    at C:\\Users\\USER\\Desktop\\vlab-2\\node_modules\\@babel\\parser\\lib\\index.js:10056:39\n    at Parser.allowInAnd (C:\\Users\\USER\\Desktop\\vlab-2\\node_modules\\@babel\\parser\\lib\\index.js:11728:12)\n    at Parser.parseMaybeAssignAllowIn (C:\\Users\\USER\\Desktop\\vlab-2\\node_modules\\@babel\\parser\\lib\\index.js:10056:17)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      createdFaculty: null,
+      tableLoaded: false
+    };
+  },
+  methods: {
+    editfaculty: function editfaculty(obj) {
+      Swal.fire('edit');
+    },
+    deletefaculty: function deletefaculty(id) {
+      Swal.fire('delete');
+    },
+    createFaculty: function createFaculty() {
+      var $vm = this;
+      Swal.mixin({
+        input: 'text',
+        confirmButtonText: 'Next &rarr;',
+        showCancelButton: true,
+        progressSteps: ['1', '2']
+      }).queue([{
+        title: 'Faculty Name',
+        text: ''
+      }, {
+        title: 'Faculty Abbrevation',
+        text: 'this must be unique'
+      }]).then(function (result) {
+        if (result.value) {
+          var answers = {
+            faculty_name: result.value[0],
+            faculty_code: result.value[1]
+          };
+          Swal.fire({
+            title: 'click on proceed',
+            text: 'other cancel and restart',
+            html: "<b>Faculty:</b> ".concat(answers.faculty_name, ",<br> <b>Abbr:</b> ").concat(answers.faculty_code),
+            confirmButtonText: 'Process',
+            cancelButtonText: 'Cancel',
+            showCancelButton: true,
+            showLoaderOnConfirm: true,
+            preConfirm: function preConfirm(login) {
+              return $vm.axios.post('api/faculties/create', $vm.createFormData(answers), {
+                headers: $vm.axiosHeader
+              }).then(function (response) {
+                if (!response.data.sucess) {
+                  throw new Error(response.statusText);
+                }
+
+                return response.json();
+              })["catch"](function (error) {
+                if (error.response) {
+                  if (error.response.status == 409) {
+                    Swal.showValidationMessage("Failed: Faculty Already Exist");
+                  } else {
+                    Swal.showValidationMessage("Failed: Something went wrong");
+                  }
+                }
+              });
+            },
+            allowOutsideClick: function allowOutsideClick() {
+              return !Swal.isLoading();
+            }
+          }).then(function (result) {
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: "Created Successfully",
+                icon: 'success',
+                confirmButtonText: 'Ok'
+              }).then(function (result) {
+                location.reload();
+              });
+            }
+          });
+        }
+      });
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this.axiosGet('api/faculties/faculties');
+
+            case 2:
+              _this.createdFaculty = _context.sent;
+              //console.log(this.createdFaculty)
+              _this.tableLoaded = true;
+              /*initialize datatable */
+
+              setTimeout(function () {
+                $('#facultytable').DataTable({
+                  pageLength: 5
+                });
+              }, 200);
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  mounted: function mounted() {
+    this.$nextTick(function () {});
+  }
+});
 
 /***/ }),
 
