@@ -62,10 +62,14 @@ class CourseController extends Controller
     {
         $courseId = $request->get('course_id');
         $course = Course::find($courseId);
-        $course->status = 'Inactive';
-        $save = $course->save();
-        if ($save) {
-            return response()->json(['success' => true], 200);
+        if($course){
+            $course->status = 'Inactive';
+            $save = $course->save();
+            if ($save) {
+                return response()->json(['success' => true], 200);
+            }
+        } else {
+            return response()->json(['error' => 'No course with this id'], 200);
         }
         return response()->json(['error' => 'something went wrong'], 400);
     }
@@ -82,22 +86,26 @@ class CourseController extends Controller
 
         $courseId = $request->get('course_id');
         $course = Course::find($courseId);
-
-        $request->get('school_id') != null ? $course->school_id = $request->get('school_id') : null;
-        $request->get('faculty_id') != null ? $course->faculty_id = $request->get('faculty_id') : null;
-        $request->get('title') != null ? $course->title = $request->get('title') : null;
-        $request->get('code') != null ? $course->code = $request->get('code') : null;
-        $request->get('description') != null ? $course->description = $request->get('description') : null;
-
-        if(empty($request->get('school_id')) && empty($request->get('faculty_id')) && empty($request->get('title')) && empty($request->get('code'))){
-            return response()->json(['error' => 'All filed is null'], 200);
+        if($course){
+            $request->get('school_id') != null ? $course->school_id = $request->get('school_id') : null;
+            $request->get('faculty_id') != null ? $course->faculty_id = $request->get('faculty_id') : null;
+            $request->get('title') != null ? $course->title = $request->get('title') : null;
+            $request->get('code') != null ? $course->code = $request->get('code') : null;
+            $request->get('description') != null ? $course->description = $request->get('description') : null;
+    
+            if(empty($request->get('school_id')) && empty($request->get('faculty_id')) && empty($request->get('title')) && empty($request->get('code'))){
+                return response()->json(['error' => 'All filed is null'], 200);
+            } else {
+                $save = $course->save();
+            }
+    
+            if ($save) {
+                return response()->json(['success' => true], 200);
+            }
         } else {
-            $save = $course->save();
+            return response()->json(['error' => 'No course with this id'], 200);
         }
 
-        if ($save) {
-            return response()->json(['success' => true], 200);
-        }
         return response()->json(['success' => false], 200);
     }
 
