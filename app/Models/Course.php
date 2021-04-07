@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     use HasFactory;
+
+    public function newQuery($excludeDeleted = true) {
+        return parent::newQuery($excludeDeleted)
+            ->where('status', '=', 'Active');
+    }
+    
     public function course_experiment()
     {
         return $this->hasMany(CourseExperiment::class);
