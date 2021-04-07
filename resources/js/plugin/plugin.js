@@ -16,6 +16,23 @@ export default {
       	}
       },
       methods:{
+
+		VueSweetAlert2:function(component,propsData)
+		{
+		    swal.fire({
+		        html: '<div id="VueSweetAlert2" class="text-left"></div>',
+		        showConfirmButton: false,
+		        width: '97%',
+		        onBeforeOpen: () => {
+		            let ComponentClass = Vue.extend(Vue.component(component));
+		            let instance = new ComponentClass({
+		                propsData: propsData,
+		            });
+		            instance.$mount();
+		            document.getElementById('VueSweetAlert2').appendChild(instance.$el);
+		        }
+		    });
+		},
       	createFormData: function(data){      		
 		    const formData = new FormData();
 		    Object.keys(data).forEach(key => formData.append(key, data[key]));

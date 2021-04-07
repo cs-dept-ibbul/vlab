@@ -56,6 +56,8 @@ Vue.component('v-viewcreatedcourse', require('./components/viewCreatedCourse.vue
 Vue.component('v-faculty', require('./components/faculty.vue').default); 
 Vue.component('v-department', require('./components/department.vue').default); 
 Vue.component('v-addexperiment', require('./components/addExperiment.vue').default); 
+Vue.component('v-viewcreatedexperiment', require('./components/viewCreatedExperiment.vue').default); 
+
 /*end admin component*/
 
 Vue.component('v-tlb2', require('./components/title-left-bar.vue').default);

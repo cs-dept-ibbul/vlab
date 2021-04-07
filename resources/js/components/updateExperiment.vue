@@ -3,10 +3,7 @@
 		
 	<div class="row bg-light m-0 px-2 pt-4">
             <div class="col-lg-4 col-md-5 col-sm-12 m-0 ">
-            	<p class="fs2 fw8 font">
-            		<span v-if="!update">Add Experiment</span>
-            		<span v-if="update">Update Experiment</span>
-            	</p>
+            	<p class="fs2 fw8 font">Add Experiment</p>
             	<div  class="w-100 bg-white r2 px-4 py-4 shadow-sm"><!-- loop weekly -->
 						<div class="d-flex flex-wrap-center mb-4" >
 							<span class="ncircle" v-bind:class="{tactive:stageone,tsuccess:stageonep}" >1</span>
@@ -220,10 +217,9 @@
             	<button v-if="sectionState >1" class="btn p-success text-white py-2 px-3 mr-3" @click="prevSection" ><span class="fa fa-arrow-left"></span> Previous </button>
             	<button v-if="sectionState != 4" class="btn p-success text-white py-2 px-3" @click="nextSection" > Continue <span class="fa fa-arrow-right"></span></button>
             	<button v-if="sectionState == 4" class="btn p-success text-white py-2 px-3" @click="submitProcess" >
-            		<span v-if="!update">Submit</span>
-            		<span v-if="update">Update</span> 
-            		<span class="fa fa-arrow-right"></span>
-            	</button>
+            	 	<span v-if="!update">Submit </span>
+            	 	<span v-if="update">Update</span>
+            	 <span class="fa fa-cloud"></span></button>
 
             </div>
             <div class="col-md-1 col-sm-12 mx-auto">
@@ -238,7 +234,8 @@
 
 	 data:function() {
 	    	return{
-	    	 count:0,	    	
+	    	 count:0,
+	    	 alldata:[],
 	    	 stageone:true,
 	    	 stageonep:false,
 	    	 stagetwo:false,
@@ -267,7 +264,7 @@
 	    	 ],
 	    	 dragrelease:false,
 	    	 quill:null,
-	    	 configMode:''
+	    	 configMode:'',	    	 
 	    	}
         },
         methods:{
@@ -758,7 +755,7 @@
         },	
 
         
-        props: {
+         props: {
          	update:{
          		type:Boolean, 
          		default: function(){
@@ -766,40 +763,12 @@
          		}
          	},
          	alldata:{
-         		type:Array, 
+         		type:Object, 
          		default: function(){
-         			return [];
-         		},         		
-         	},
-         	experiment_id:{
-	     		type:Number,
-	     		default: function(){
-	     			return 0;
-	     		}	     	
-	     	}
+         			return null;
+         		}
+         	}
          },
-          created(){
-			if (this.update) {
-
-				$(document).ready(function(){
-					$('#etitle').val(this.alldata[0]['title']);
-					$('#enumber').val(this.alldata[0]['experiment_number']);
-					$('#elink').val(this.alldata[0]['video_url']);
-					$('#aim').val(this.alldata[0]['aim']);
-					$('#theory').val(this.alldata[0]['theory']);
-					$('#aparatus').val(this.alldata[0]['aparatus']);
-					$('#exercise').find('.ql-editor').append(this.alldata[0]['exercise']);
-					$('#resources').val(this.alldata[0]['resources']);
-					$('#procedure').val(this.alldata[0]['procedure']);
-				});		
-
-				this.selectedExperiment = this.alldata[1].experiment_url;					
-
-				this.configMode = this.alldata[2].config;				
-				
-
-			}
-		},
          mounted: function () {
          	let $vm = this;
 			 this.quill_init();

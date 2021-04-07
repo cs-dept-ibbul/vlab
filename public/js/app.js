@@ -3456,11 +3456,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       count: 0,
-      alldata: [],
       stageone: true,
       stageonep: false,
       stagetwo: false,
@@ -3965,7 +3971,43 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
-  props: [],
+  props: {
+    update: {
+      type: Boolean,
+      "default": function _default() {
+        return false;
+      }
+    },
+    alldata: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
+    },
+    experiment_id: {
+      type: Number,
+      "default": function _default() {
+        return 0;
+      }
+    }
+  },
+  created: function created() {
+    if (this.update) {
+      $(document).ready(function () {
+        $('#etitle').val(this.alldata[0]['title']);
+        $('#enumber').val(this.alldata[0]['experiment_number']);
+        $('#elink').val(this.alldata[0]['video_url']);
+        $('#aim').val(this.alldata[0]['aim']);
+        $('#theory').val(this.alldata[0]['theory']);
+        $('#aparatus').val(this.alldata[0]['aparatus']);
+        $('#exercise').find('.ql-editor').append(this.alldata[0]['exercise']);
+        $('#resources').val(this.alldata[0]['resources']);
+        $('#procedure').val(this.alldata[0]['procedure']);
+      });
+      this.selectedExperiment = this.alldata[1].experiment_url;
+      this.configMode = this.alldata[2].config;
+    }
+  },
   mounted: function mounted() {
     var $vm = this;
     this.quill_init();
@@ -4369,6 +4411,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
 //
 //
 //
@@ -4559,7 +4613,6 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       count: 0,
-      alldata: [],
       stageone: true,
       stageonep: false,
       stagetwo: false,
@@ -4650,9 +4703,9 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.sectionState === 1) {
         setTimeout(function () {
-          $('#ctitle').val($nv.alldata[0]['Title']);
-          $('#ccode').val($nv.alldata[0]['Course_code']);
-          $('#cdescription').val($nv.alldata[0]['Course_description']);
+          $('#ctitle').val($nv.alldata[0]['title']);
+          $('#ccode').val($nv.alldata[0]['course_code']);
+          $('#cdescription').val($nv.alldata[0]['description']);
         }, 50);
         this.checkstage(1);
       }
@@ -4796,9 +4849,9 @@ __webpack_require__.r(__webpack_exports__);
         if (this.validateState === true) {
           this.ctitle = $('#ctitle').val();
           this.alldata[0] = {
-            Title: $('#ctitle').val(),
-            Course_code: $('#ccode').val(),
-            Course_description: $('#cdescription').val()
+            title: $('#ctitle').val(),
+            course_code: $('#ccode').val(),
+            description: $('#cdescription').val()
           };
           this.sectionState = 2;
           this.stageone = false;
@@ -4863,83 +4916,82 @@ __webpack_require__.r(__webpack_exports__);
         }
 
         $('#imageprev').html('<img id="image_droped" width="200px"  src="' + $nv.imagetoupload + '">'); //console.log(this.alldata);
-      } else if (this.sectionState === 5) {
-        /*fetch experiment*/
-        var $vm = this;
+      }
+    },
+    submitProcess: function submitProcess() {
+      var $vm = this;
 
-        try {
-          var formData = new FormData();
-          formData.append('title', this.alldata[0].Title);
-          formData.append('code', this.alldata[0].Course_code);
-          formData.append('description', this.alldata[0].Course_description);
-          formData.append('experiment_id', this.alldata[1].id);
-          formData.append('instructor_id', this.alldata[2].id);
-          formData.append('resource_url', this.alldata[3].image);
-          $('#system-loader').css('display', 'flex');
-          $vm.axios.post('api/courses/create', formData, {
-            headers: $vm.axiosHeader
-          }).then(function (response, status, request) {
-            $('#system-loader').css('display', 'none');
-
-            if (response.status == 200) {
-              Swal.fire({
-                title: $vm.createdMessage,
-                text: 'tell us where to go',
-                icon: 'success',
-                showDenyButton: true,
-                showCancelButton: true,
-                confirmButtonText: "view created courses",
-                denyButtonText: "Ok, refresh the page"
-              }).then(function (result) {
-                if (result.isConfirmed) {
-                  location.href = "/view-created-course";
-                } else if (result.isDenied) {
-                  location.reload();
-                }
-              });
-            } else if (response.status == 401) {
-              Swal.fire({
-                title: $vm.errorSessionMessage,
-                icon: 'success',
-                showDenyButton: true,
-                confirmButtonText: "Ok"
-              }).then(function (result) {
-                if (result.isConfirmed) {
-                  $vm.frontendLogout();
-                } else if (result.isDenied) {}
-              });
-            } //console.log(response);			   				           
-
-          }, function (e) {
-            console.log(e.status);
-            $('#system-loader').css('display', 'none');
-            var errMsg = $vm.errorSessionMessage;
-
-            if (e.response.status == 409) {
-              errMsg = e.response.data.error;
-            }
-
-            vt.error(errMsg, {
-              title: undefined,
-              position: "bottom-right",
-              duration: 10000,
-              closable: true,
-              focusable: true,
-              callback: undefined
-            }); //console.log($vm.axiosHeader)
-          });
-        } catch (err) {
+      try {
+        var formData = new FormData();
+        formData.append('title', this.alldata[0].title);
+        formData.append('code', this.alldata[0].course_code);
+        formData.append('description', this.alldata[0].description);
+        formData.append('experiment_id', this.alldata[1].id);
+        formData.append('instructor_id', this.alldata[2].id);
+        formData.append('resource_url', this.alldata[3].image);
+        $('#system-loader').css('display', 'flex');
+        $vm.axios.post('api/courses/create', formData, {
+          headers: $vm.axiosHeader
+        }).then(function (response, status, request) {
           $('#system-loader').css('display', 'none');
-          vt.error($vm.errorNetworkMessage, {
+
+          if (response.status == 200) {
+            Swal.fire({
+              title: $vm.createdMessage,
+              text: 'tell us where to go',
+              icon: 'success',
+              showDenyButton: true,
+              showCancelButton: true,
+              confirmButtonText: "view created courses",
+              denyButtonText: "Ok, refresh the page"
+            }).then(function (result) {
+              if (result.isConfirmed) {
+                location.href = "/view-created-course";
+              } else if (result.isDenied) {
+                location.reload();
+              }
+            });
+          } else if (response.status == 401) {
+            Swal.fire({
+              title: $vm.errorSessionMessage,
+              icon: 'success',
+              showDenyButton: true,
+              confirmButtonText: "Ok"
+            }).then(function (result) {
+              if (result.isConfirmed) {
+                $vm.frontendLogout();
+              } else if (result.isDenied) {}
+            });
+          } //console.log(response);			   				           
+
+        }, function (e) {
+          //console.log(e.status)
+          $('#system-loader').css('display', 'none');
+          var errMsg = $vm.errorSessionMessage;
+
+          if (e.response.status == 409) {
+            errMsg = e.response.data.error;
+          }
+
+          vt.error(errMsg, {
             title: undefined,
             position: "bottom-right",
             duration: 10000,
             closable: true,
             focusable: true,
             callback: undefined
-          });
-          console.log(err); //show network error notification
-        }
+          }); //console.log($vm.axiosHeader)
+        });
+      } catch (err) {
+        $('#system-loader').css('display', 'none');
+        vt.error($vm.errorNetworkMessage, {
+          title: undefined,
+          position: "bottom-right",
+          duration: 10000,
+          closable: true,
+          focusable: true,
+          callback: undefined
+        }); //console.log(err)//show network error notification
       }
     },
     dragEnter: function dragEnter(e) {
@@ -5007,7 +5059,26 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
-  props: [],
+  props: {
+    update: {
+      type: Boolean,
+      "default": function _default() {
+        return false;
+      }
+    },
+    alldata: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
+    },
+    coures_id: {
+      type: Number,
+      "default": function _default() {
+        return 0;
+      }
+    }
+  },
   mounted: function mounted() {
     var $vm = this;
     this.$nextTick(function () {
@@ -5025,47 +5096,103 @@ __webpack_require__.r(__webpack_exports__);
       });
       /*fetch experiment*/
 
-      try {
-        $vm.axios.get('api/experiments/experiments', {
-          headers: $vm.axiosHeader
-        }).then(function (response, status, request) {
-          if (response.status == 200) {
-            $vm.experiments = response.data;
-          } else if (response.status == 401) {
-            Swal.fire({
-              title: $vm.errorSessionMessage,
-              icon: 'success',
-              showDenyButton: true,
-              confirmButtonText: "Ok"
-            }).then(function (result) {
-              if (result.isConfirmed) {
-                $vm.frontendLogout();
-              } else if (result.isDenied) {}
-            });
-          } //console.log($vm.experiments);			   	
-
-        }, function (e) {
-          vt.error($vm.errorNetworkMessage, {
-            title: undefined,
-            position: "bottom-right",
-            duration: 10000,
-            closable: true,
-            focusable: true,
-            callback: undefined
-          });
-        });
-      } catch (err) {
-        /* vt.error($vm.errorNetworkMessage,{
+      /*try{
+      	
+              $vm.axios.get('api/experiments/experiments',{ headers: $vm.axiosHeader }).then(function(response, status, request) { 			   	
+              	if(response.status == 200){
+               	 $vm.experiments = response.data;				   				
+       		}else if(response.status == 401){
+      				Swal.fire({
+      	  title: $vm.errorSessionMessage,								  
+      	  icon:'success',
+      	  showDenyButton: true,								  
+      	  confirmButtonText: `Ok`,								  
+      	}).then((result) => {								  
+      	  if (result.isConfirmed) {
+      	    $vm.frontendLogout();
+      	  } else if (result.isDenied) {								    
+      	  }
+      	})
+       		}
+              	//console.log($vm.experiments);			   	
+                
+              }, function(e) {			            
+                vt.error($vm.errorNetworkMessage,{
         title: undefined,
         position: "bottom-right",
         duration: 10000,
         closable: true,
         focusable: true,
         callback: undefined
-        });
-        console.log(err)//show network error notification*/
-      }
+      });
+              
+              });
+           }catch(err){*/
+
+      /* vt.error($vm.errorNetworkMessage,{
+      title: undefined,
+      position: "bottom-right",
+      duration: 10000,
+      closable: true,
+      focusable: true,
+      callback: undefined
+      });
+      console.log(err)//show network error notification*/
+      // }
     });
+  },
+  created: function created() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var i, _i;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (_this.update) {
+                $(document).ready(function () {
+                  $('#ctitle').val(this.alldata[0]['title']);
+                  $('#ccode').val(this.alldata[0]['course_code']);
+                  $('#cdescription').val(this.alldata[0]['description']);
+                });
+
+                for (i = 0; i < _this.alldata[1].id; i++) {
+                  _this.selectedExperiment[i] = _this.alldata[1].id[i];
+                  _this.selectedExperimentName[i] = _this.alldata[1].names[i];
+                }
+
+                for (_i = 0; _i < _this.alldata[2].id; _i++) {
+                  _this.selectedInstructor[_i] = _this.alldata[2].id[_i];
+                  _this.selectedInstructorName[_i] = _this.alldata[2].names[_i];
+                }
+
+                _this.imagetoupload = _this.alldata[3].image;
+              }
+
+              _context.next = 3;
+              return _this.axiosGet('api/experiments/experiments');
+
+            case 3:
+              _this.experiments = _context.sent;
+              //console.log(this.createdexperiments)
+              _this.tableLoaded = true;
+              /*initialize datatable */
+
+              setTimeout(function () {
+                $('#experimenttable').DataTable({
+                  pageLength: 5
+                });
+              }, 200);
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   },
   events: {
     'toggleClick': 'toggleClick'
@@ -5130,7 +5257,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       createddepartment: null,
-      tableLoaded: false
+      tableLoaded: false,
+      facultiesHTML: null,
+      faculties: null
     };
   },
   methods: {
@@ -5140,29 +5269,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     deletedepartment: function deletedepartment(id) {
       Swal.fire('delete');
     },
+    singleValidate: function singleValidate(id) {
+      $('#' + id).css('border', '1px solid #e45');
+      $('.requiredv').remove();
+      $('#' + id).after('<span class="text-danger requiredv">Required !</span>');
+    },
     createdepartment: function createdepartment() {
       var $vm = this;
-      Swal.mixin({
-        input: 'text',
-        confirmButtonText: 'Next &rarr;',
-        showCancelButton: true,
-        progressSteps: ['1', '2']
-      }).queue([{
-        title: 'department Name',
-        text: ''
-      }, {
-        title: 'department Abbrevation',
-        text: 'this must be unique'
-      }]).then(function (result) {
+      Swal.fire({
+        title: 'Create Department',
+        html: "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>" + this.facultiesHTML + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1">' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Abbr</legend>" + '<input id="swal-input2" class="swal2-input mt-1">',
+        focusConfirm: false,
+        preConfirm: function preConfirm() {
+          var faculty = document.getElementById('swal-input0').value,
+              facultyName,
+              departmentName = document.getElementById('swal-input1').value,
+              departmentAbbr = document.getElementById('swal-input2').value;
+          facultyName = document.getElementById('swal-input0').options;
+          facultyName = facultyName[facultyName.selectedIndex].text;
+
+          if (faculty == "" || departmentName == "" || departmentAbbr == "") {
+            Swal.showValidationMessage('All fields are required');
+          }
+
+          return [faculty, departmentName, departmentAbbr, facultyName];
+        }
+      }).then(function (result) {
         if (result.value) {
           var answers = {
-            department_name: result.value[0],
-            department_code: result.value[1]
+            faculty_id: result.value[0],
+            department_name: result.value[1],
+            department_code: result.value[2]
           };
           Swal.fire({
             title: 'click on proceed',
             text: 'other cancel and restart',
-            html: "<b>department:</b> ".concat(answers.department_name, ",<br> <b>Abbr:</b> ").concat(answers.department_code),
+            html: "<table class='table text-left'>\n\t\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t\t      \t\t\t<td width='30%'><b>Faculty :</b></td>\n\t\t\t\t\t\t      \t\t\t<td width='70%'>".concat(result.value[3], "</td>\n\t\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t\t      \t\t\t<td width='30%'><b>department:</b></td>\n\t\t\t\t\t\t      \t\t\t<td width='70%'> ").concat(answers.department_name, ",</td>\n\t\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t\t      \t\t \t<td width='30%'><b>Abbr:</b></td>\n\t\t\t\t\t\t      \t\t \t<td width='70%'> ").concat(answers.department_code, " </td>\n\t\t\t\t\t\t      \t\t <tr>\n\t\t\t\t\t      \t\t</table>"),
             confirmButtonText: 'Process',
             cancelButtonText: 'Cancle',
             showCancelButton: true,
@@ -5204,6 +5346,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           });
         }
       });
+      /*	var $vm = this;
+      	Swal.mixin({
+      	  input: 'text',
+      	  confirmButtonText: 'Next &rarr;',
+      	  showCancelButton: true,
+      	  progressSteps: ['1', '2']
+      	}).queue([
+      	  {
+      	    title: 'department Name',
+      	    text: ''
+      	  },
+      	  {
+      	    title: 'department Abbrevation',
+      	    text: 'this must be unique'
+      	  }					  
+      	]).then((result) => {
+      	  
+      	})*/
     }
   },
   created: function created() {
@@ -5215,9 +5375,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _this.axiosGet('api/faculties/departments');
+              return _this.axiosGet('api/faculties/faculties');
 
             case 2:
+              _this.faculties = _context.sent;
+              _this.facultiesHTML = "<select id='swal-input0' class='swal2-input mt-1'>";
+
+              _this.faculties.forEach(function (item, idex) {
+                _this.facultiesHTML += "<option value='" + item.id + "'>" + item.code + "</option>";
+              });
+
+              _this.facultiesHTML += "</select>";
+              _context.next = 8;
+              return _this.axiosGet('api/faculties/departments');
+
+            case 8:
               _this.createddepartment = _context.sent;
               //console.log(this.createddepartment)
               _this.tableLoaded = true;
@@ -5229,7 +5401,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
               }, 200);
 
-            case 5:
+            case 11:
             case "end":
               return _context.stop();
           }
@@ -9813,8 +9985,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
-    editCourse: function editCourse(obj) {
-      Swal.fire('edit');
+    //<createcourse update='${true}' alldata='${[]}'></createcourse>
+    editCourse: function editCourse(obj, id) {
+      this.VueSweetAlert2('v-createcourse', {
+        update: true,
+        alldata: [],
+        course_id: 2 //id
+
+      });
+      /*Swal.fire({
+        title: 'Update course',
+        html:`<v-createcourse id='forvuecomponent'></v-createcourse>`,
+        focusConfirm: false,				
+        preConfirm: () => {
+        	let faculty = document.getElementById('swal-input0').value,
+        	 facultyName , departmentName = document.getElementById('swal-input1').value,
+            departmentAbbr = document.getElementById('swal-input2').value;
+            facultyName = document.getElementById('swal-input0').options;
+        	  facultyName = facultyName[facultyName.selectedIndex].text
+        	if ( faculty == "" || departmentName == "" || departmentAbbr == "") {					     
+               Swal.showValidationMessage('All fields are required');
+        	}
+          return [
+            faculty,
+            departmentName,
+            departmentAbbr,
+            facultyName,
+          ]
+        } 
+      }).then((result)=>{
+      	});*/
     },
     deleteCourse: function deleteCourse(id) {
       Swal.fire('delete');
@@ -9852,6 +10052,125 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }))();
   },
   mounted: function mounted() {
+    this.$nextTick(function () {});
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewCreatedExperiment.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewCreatedExperiment.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _addExperiment_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./addExperiment.vue */ "./resources/js/components/addExperiment.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    addexperiment: _addExperiment_vue__WEBPACK_IMPORTED_MODULE_1__.default
+  },
+  data: function data() {
+    return {
+      createdexperiments: null,
+      tableLoaded: false
+    };
+  },
+  methods: {
+    editexperiment: function editexperiment(obj) {
+      this.VueSweetAlert2('v-addexperiment', {
+        update: true,
+        alldata: [],
+        //obj
+        experiment_id: 2 //id
+
+      });
+    },
+    deleteexperiment: function deleteexperiment(id) {
+      Swal.fire('delete');
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this.axiosGet('api/experiments/experiments');
+
+            case 2:
+              _this.createdexperiments = _context.sent;
+              //console.log(this.createdexperiments)
+              _this.tableLoaded = true;
+              /*initialize datatable */
+
+              setTimeout(function () {
+                $('#experimenttable').DataTable({
+                  pageLength: 5
+                });
+              }, 200);
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  mounted: function mounted() {
+    //this.editexperiment();		
     this.$nextTick(function () {});
   }
 });
@@ -10189,6 +10508,7 @@ vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-viewcreatedcourse', __webp
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-faculty', __webpack_require__(/*! ./components/faculty.vue */ "./resources/js/components/faculty.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-department', __webpack_require__(/*! ./components/department.vue */ "./resources/js/components/department.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-addexperiment', __webpack_require__(/*! ./components/addExperiment.vue */ "./resources/js/components/addExperiment.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-viewcreatedexperiment', __webpack_require__(/*! ./components/viewCreatedExperiment.vue */ "./resources/js/components/viewCreatedExperiment.vue").default);
 /*end admin component*/
 
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-tlb2', __webpack_require__(/*! ./components/title-left-bar.vue */ "./resources/js/components/title-left-bar.vue").default); // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
@@ -10365,6 +10685,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         };
       },
       methods: {
+        VueSweetAlert2: function VueSweetAlert2(component, propsData) {
+          swal.fire({
+            html: '<div id="VueSweetAlert2" class="text-left"></div>',
+            showConfirmButton: false,
+            width: '97%',
+            onBeforeOpen: function onBeforeOpen() {
+              var ComponentClass = Vue.extend(Vue.component(component));
+              var instance = new ComponentClass({
+                propsData: propsData
+              });
+              instance.$mount();
+              document.getElementById('VueSweetAlert2').appendChild(instance.$el);
+            }
+          });
+        },
         createFormData: function createFormData(data) {
           var formData = new FormData();
           Object.keys(data).forEach(function (key) {
@@ -33627,6 +33962,45 @@ component.options.__file = "resources/js/components/viewCreatedCourse.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/viewCreatedExperiment.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/viewCreatedExperiment.vue ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _viewCreatedExperiment_vue_vue_type_template_id_330aa7a5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./viewCreatedExperiment.vue?vue&type=template&id=330aa7a5& */ "./resources/js/components/viewCreatedExperiment.vue?vue&type=template&id=330aa7a5&");
+/* harmony import */ var _viewCreatedExperiment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./viewCreatedExperiment.vue?vue&type=script&lang=js& */ "./resources/js/components/viewCreatedExperiment.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _viewCreatedExperiment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _viewCreatedExperiment_vue_vue_type_template_id_330aa7a5___WEBPACK_IMPORTED_MODULE_0__.render,
+  _viewCreatedExperiment_vue_vue_type_template_id_330aa7a5___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/viewCreatedExperiment.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/viewStudent.vue":
 /*!*************************************************!*\
   !*** ./resources/js/components/viewStudent.vue ***!
@@ -34354,6 +34728,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_viewCreatedCourse_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./viewCreatedCourse.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewCreatedCourse.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_viewCreatedCourse_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/components/viewCreatedExperiment.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/viewCreatedExperiment.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_viewCreatedExperiment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./viewCreatedExperiment.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewCreatedExperiment.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_viewCreatedExperiment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -35494,6 +35884,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_viewCreatedCourse_vue_vue_type_template_id_98b2967a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_viewCreatedCourse_vue_vue_type_template_id_98b2967a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./viewCreatedCourse.vue?vue&type=template&id=98b2967a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewCreatedCourse.vue?vue&type=template&id=98b2967a&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/viewCreatedExperiment.vue?vue&type=template&id=330aa7a5&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/viewCreatedExperiment.vue?vue&type=template&id=330aa7a5& ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_viewCreatedExperiment_vue_vue_type_template_id_330aa7a5___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_viewCreatedExperiment_vue_vue_type_template_id_330aa7a5___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_viewCreatedExperiment_vue_vue_type_template_id_330aa7a5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./viewCreatedExperiment.vue?vue&type=template&id=330aa7a5& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewCreatedExperiment.vue?vue&type=template&id=330aa7a5&");
 
 
 /***/ }),
@@ -37599,7 +38006,11 @@ var render = function() {
   return _c("div", { staticClass: "m-0 p-0" }, [
     _c("div", { staticClass: "row bg-light m-0 px-2 pt-4" }, [
       _c("div", { staticClass: "col-lg-4 col-md-5 col-sm-12 m-0 " }, [
-        _c("p", { staticClass: "fs2 fw8 font" }, [_vm._v("Add Experiment")]),
+        _c("p", { staticClass: "fs2 fw8 font" }, [
+          !_vm.update ? _c("span", [_vm._v("Add Experiment")]) : _vm._e(),
+          _vm._v(" "),
+          _vm.update ? _c("span", [_vm._v("Update Experiment")]) : _vm._e()
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "w-100 bg-white r2 px-4 py-4 shadow-sm" }, [
           _c("div", { staticClass: "d-flex flex-wrap-center mb-4" }, [
@@ -38027,7 +38438,10 @@ var render = function() {
                   on: { click: _vm.submitProcess }
                 },
                 [
-                  _vm._v(" Submit "),
+                  !_vm.update ? _c("span", [_vm._v("Submit")]) : _vm._e(),
+                  _vm._v(" "),
+                  _vm.update ? _c("span", [_vm._v("Update")]) : _vm._e(),
+                  _vm._v(" "),
                   _c("span", { staticClass: "fa fa-arrow-right" })
                 ]
               )
@@ -38168,551 +38582,536 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "vh-100",
-      class: { scrollableV: _vm.hide1, scrollableV: _vm.show1 }
-    },
-    [
-      _c(
-        "div",
-        {
-          staticClass: "menuBtnToggler bg-white cursor-1 ",
-          attrs: { id: "togglerV" },
-          on: { click: _vm.toggleMenu }
-        },
-        [
-          _c("span", {
-            staticClass: "fa fa-square mr-2 position-fixed",
-            staticStyle: { "font-size": "2em" }
-          }),
-          _vm._v(" "),
-          _c(
-            "b",
-            {
-              staticClass: "menuLI ml-5",
-              class: { slidein: _vm.show1, slideout: _vm.hide1 }
-            },
-            [_vm._v("V-LAB")]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "MenuLContainer bg-white",
-          class: { reduceSize: _vm.show },
-          staticStyle: { width: "230px" }
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass: "niconsV slider",
-              class: { slidein: _vm.show, slideout: _vm.hide }
-            },
-            [
+  return _c("div", { staticClass: "vh-100" }, [
+    _c(
+      "div",
+      {
+        staticClass: "menuBtnToggler bg-white cursor-1 ",
+        attrs: { id: "togglerV" },
+        on: { click: _vm.toggleMenu }
+      },
+      [
+        _c("span", {
+          staticClass: "fa fa-square mr-2 position-fixed",
+          staticStyle: { "font-size": "2em" }
+        }),
+        _vm._v(" "),
+        _c(
+          "b",
+          {
+            staticClass: "menuLI ml-5",
+            class: { slidein: _vm.show1, slideout: _vm.hide1 }
+          },
+          [_vm._v("V-LAB")]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "MenuLContainer bg-white",
+        class: { reduceSize: _vm.show },
+        staticStyle: { width: "230px" }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "niconsV slider",
+            class: { slidein: _vm.show, slideout: _vm.hide }
+          },
+          [
+            _c(
+              "a",
+              {
+                class: { btnActive: _vm.checkActive("home") },
+                attrs: { href: _vm.home }
+              },
+              [_c("span", { staticClass: "iconOV  fa fa-home " })]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                class: { btnActive: _vm.checkActive("dashboard") },
+                attrs: { href: _vm.dashboard }
+              },
+              [_c("span", { staticClass: "iconOV  fa fa-dashboard" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                class: { btnActive: _vm.checkActive("explore") },
+                attrs: { href: _vm.explore }
+              },
+              [_c("span", { staticClass: "iconOV  fa fa-spinner" })]
+            ),
+            _vm._v(" "),
+            _c("ul", { staticClass: "listCoverV" }, [
               _c(
-                "a",
+                "li",
                 {
-                  class: { btnActive: _vm.checkActive("home") },
-                  attrs: { href: _vm.home }
+                  staticClass: "listMenuVBtn nChildV",
+                  class: { btnActive: _vm.checkActive("course") }
                 },
-                [_c("span", { staticClass: "iconOV  fa fa-home " })]
+                [_c("span", { staticClass: "iconOV  fa fa-book" })]
               ),
               _vm._v(" "),
-              _c(
-                "a",
-                {
-                  class: { btnActive: _vm.checkActive("dashboard") },
-                  attrs: { href: _vm.dashboard }
-                },
-                [_c("span", { staticClass: "iconOV  fa fa-dashboard" })]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  class: { btnActive: _vm.checkActive("explore") },
-                  attrs: { href: _vm.explore }
-                },
-                [_c("span", { staticClass: "iconOV  fa fa-spinner" })]
-              ),
-              _vm._v(" "),
-              _c("ul", { staticClass: "listCoverV" }, [
-                _c(
-                  "li",
-                  {
-                    staticClass: "listMenuVBtn nChildV",
-                    class: { btnActive: _vm.checkActive("course") }
-                  },
-                  [_c("span", { staticClass: "iconOV  fa fa-book" })]
-                ),
+              _c("ul", { staticClass: "listMenuV" }, [
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "text-white",
+                      class: {
+                        btnActiveSub: _vm.checkActiveSub("createcourse")
+                      },
+                      attrs: { href: _vm.createcourse }
+                    },
+                    [
+                      _c("span", {
+                        staticClass: "iconOV text-white fa fa-circle"
+                      }),
+                      _c("div", { staticClass: "labelV" }, [
+                        _vm._v("Create Course")
+                      ])
+                    ]
+                  )
+                ]),
                 _vm._v(" "),
-                _c("ul", { staticClass: "listMenuV" }, [
-                  _c("li", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "text-white",
-                        class: {
-                          btnActiveSub: _vm.checkActiveSub("createcourse")
-                        },
-                        attrs: { href: _vm.createcourse }
-                      },
-                      [
-                        _c("span", {
-                          staticClass: "iconOV text-white fa fa-circle"
-                        }),
-                        _c("div", { staticClass: "labelV" }, [
-                          _vm._v("Create Course")
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "text-white",
-                        class: {
-                          btnActiveSub: _vm.checkActiveSub("editcourse")
-                        },
-                        attrs: { href: _vm.editcourse }
-                      },
-                      [
-                        _c("span", {
-                          staticClass: "iconOV text-white fa fa-circle"
-                        }),
-                        _c("div", { staticClass: "labelV" }, [
-                          _vm._v("Edit/Del Course")
-                        ])
-                      ]
-                    )
-                  ])
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "text-white",
+                      class: { btnActiveSub: _vm.checkActiveSub("editcourse") },
+                      attrs: { href: _vm.editcourse }
+                    },
+                    [
+                      _c("span", {
+                        staticClass: "iconOV text-white fa fa-circle"
+                      }),
+                      _c("div", { staticClass: "labelV" }, [
+                        _vm._v("Edit/Del Course")
+                      ])
+                    ]
+                  )
                 ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  class: { btnActive: _vm.checkActive("department") },
-                  attrs: { href: _vm.department }
-                },
-                [_c("span", { staticClass: "iconOV fa fa-department" })]
-              ),
-              _vm._v(" "),
-              _c("ul", { staticClass: "listCoverV" }, [
-                _c(
-                  "li",
-                  {
-                    staticClass: "listMenuVBtn nChildV",
-                    class: { btnActive: _vm.checkActive("experiment") }
-                  },
-                  [_c("span", { staticClass: "iconOV  fa fa-cube" })]
-                ),
-                _vm._v(" "),
-                _c("ul", { staticClass: "listMenuV" }, [
-                  _c("li", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "text-white",
-                        class: {
-                          btnActiveSub: _vm.checkActiveSub("addexperiment")
-                        },
-                        attrs: { href: _vm.addexperiment }
-                      },
-                      [
-                        _c("span", {
-                          staticClass: "iconOV text-white fa fa-circle"
-                        }),
-                        _c("div", { staticClass: "labelV" }, [
-                          _vm._v("Add Experi.")
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "text-white",
-                        class: {
-                          btnActiveSub: _vm.checkActiveSub("viewexperiment")
-                        },
-                        attrs: { href: _vm.viewexperiment }
-                      },
-                      [
-                        _c("span", {
-                          staticClass: "iconOV text-white fa fa-circle"
-                        }),
-                        _c("div", { staticClass: "labelV" }, [
-                          _vm._v("View Experi.")
-                        ])
-                      ]
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  class: { btnActive: _vm.checkActive("faculty") },
-                  attrs: { href: _vm.faculty }
-                },
-                [_c("span", { staticClass: "iconOV fa fa-institution" })]
-              ),
-              _vm._v(" "),
-              _c("ul", { staticClass: "listCoverV" }, [
-                _c(
-                  "li",
-                  {
-                    staticClass: "listMenuVBtn nChildV",
-                    class: { btnActive: _vm.checkActive("user") }
-                  },
-                  [_c("span", { staticClass: "iconOV fa fa-users" })]
-                ),
-                _vm._v(" "),
-                _c("ul", { staticClass: "listMenuV" }, [
-                  _c("li", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "text-white",
-                        class: {
-                          btnActiveSub: _vm.checkActiveSub("createuser")
-                        },
-                        attrs: { href: _vm.edituser }
-                      },
-                      [
-                        _c("span", {
-                          staticClass: "iconOV text-white fa fa-circle"
-                        }),
-                        _c("div", { staticClass: "labelV" }, [
-                          _vm._v("Create user")
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "text-white",
-                        class: { btnActiveSub: _vm.checkActiveSub("edituser") },
-                        attrs: { href: _vm.createuser }
-                      },
-                      [
-                        _c("span", {
-                          staticClass: "iconOV text-white fa fa-circle"
-                        }),
-                        _c("div", { staticClass: "labelV" }, [
-                          _vm._v("Edit/Del user")
-                        ])
-                      ]
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  class: { btnActive: _vm.checkActive("settings") },
-                  attrs: { href: _vm.settings }
-                },
-                [_c("span", { staticClass: "iconOV fa fa-gear" })]
-              ),
-              _vm._v(" "),
-              _c("a", { attrs: { href: "#" }, on: { click: _vm.logout } }, [
-                _c("span", { staticClass: "iconOV fa fa-arrow-circle-left" })
               ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              class: { slidein: _vm.show1, slideout: _vm.hide1 },
-              staticStyle: {
-                position: "relative",
-                "margin-left": "10px",
-                "margin-right": "20px",
-                height: ""
-              }
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                class: { btnActive: _vm.checkActive("department") },
+                attrs: { href: _vm.department }
+              },
+              [_c("span", { staticClass: "iconOV fa fa-department" })]
+            ),
+            _vm._v(" "),
+            _c("ul", { staticClass: "listCoverV" }, [
+              _c(
+                "li",
+                {
+                  staticClass: "listMenuVBtn nChildV",
+                  class: { btnActive: _vm.checkActive("experiment") }
+                },
+                [_c("span", { staticClass: "iconOV  fa fa-cube" })]
+              ),
+              _vm._v(" "),
+              _c("ul", { staticClass: "listMenuV" }, [
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "text-white",
+                      class: {
+                        btnActiveSub: _vm.checkActiveSub("addexperiment")
+                      },
+                      attrs: { href: _vm.addexperiment }
+                    },
+                    [
+                      _c("span", {
+                        staticClass: "iconOV text-white fa fa-circle"
+                      }),
+                      _c("div", { staticClass: "labelV" }, [
+                        _vm._v("Add Experi.")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "text-white",
+                      class: {
+                        btnActiveSub: _vm.checkActiveSub("viewexperiment")
+                      },
+                      attrs: { href: _vm.viewexperiment }
+                    },
+                    [
+                      _c("span", {
+                        staticClass: "iconOV text-white fa fa-circle"
+                      }),
+                      _c("div", { staticClass: "labelV" }, [
+                        _vm._v("View Experi.")
+                      ])
+                    ]
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                class: { btnActive: _vm.checkActive("faculty") },
+                attrs: { href: _vm.faculty }
+              },
+              [_c("span", { staticClass: "iconOV fa fa-institution" })]
+            ),
+            _vm._v(" "),
+            _c("ul", { staticClass: "listCoverV" }, [
+              _c(
+                "li",
+                {
+                  staticClass: "listMenuVBtn nChildV",
+                  class: { btnActive: _vm.checkActive("user") }
+                },
+                [_c("span", { staticClass: "iconOV fa fa-users" })]
+              ),
+              _vm._v(" "),
+              _c("ul", { staticClass: "listMenuV" }, [
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "text-white",
+                      class: { btnActiveSub: _vm.checkActiveSub("createuser") },
+                      attrs: { href: _vm.edituser }
+                    },
+                    [
+                      _c("span", {
+                        staticClass: "iconOV text-white fa fa-circle"
+                      }),
+                      _c("div", { staticClass: "labelV" }, [
+                        _vm._v("Create user")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "text-white",
+                      class: { btnActiveSub: _vm.checkActiveSub("edituser") },
+                      attrs: { href: _vm.createuser }
+                    },
+                    [
+                      _c("span", {
+                        staticClass: "iconOV text-white fa fa-circle"
+                      }),
+                      _c("div", { staticClass: "labelV" }, [
+                        _vm._v("Edit/Del user")
+                      ])
+                    ]
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                class: { btnActive: _vm.checkActive("settings") },
+                attrs: { href: _vm.settings }
+              },
+              [_c("span", { staticClass: "iconOV fa fa-gear" })]
+            ),
+            _vm._v(" "),
+            _c("a", { attrs: { href: "#" }, on: { click: _vm.logout } }, [
+              _c("span", { staticClass: "iconOV fa fa-arrow-circle-left" })
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            class: {
+              slidein: _vm.show1,
+              slideout: _vm.hide1,
+              scrollableV: _vm.hide1,
+              scrollableV: _vm.show1
             },
-            [
+            staticStyle: {
+              position: "relative",
+              "margin-left": "10px",
+              "margin-right": "20px",
+              height: "75vh",
+              "padding-right": "10px"
+            }
+          },
+          [
+            _c(
+              "a",
+              {
+                staticClass: "nChildV",
+                class: { btnActive: _vm.checkActive("home") },
+                attrs: { href: _vm.home }
+              },
+              [
+                _c("span", { staticClass: "iconV fa fa-home " }),
+                _c("div", { staticClass: "labelV" }, [_vm._v("Home")])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "nChildV",
+                class: { btnActive: _vm.checkActive("dashboard") },
+                attrs: { href: _vm.dashboard }
+              },
+              [
+                _c("span", { staticClass: "iconV fa fa-dashboard" }),
+                _c("div", { staticClass: "labelV" }, [_vm._v("Dashboard")])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "nChildV",
+                class: { btnActive: _vm.checkActive("explore") },
+                attrs: { href: _vm.explore }
+              },
+              [
+                _c("span", { staticClass: "iconV fa fa-spinner" }),
+                _c("div", { staticClass: "labelV" }, [_vm._v("Explore")])
+              ]
+            ),
+            _vm._v(" "),
+            _c("ul", [
               _c(
-                "a",
+                "li",
                 {
-                  staticClass: "nChildV",
-                  class: { btnActive: _vm.checkActive("home") },
-                  attrs: { href: _vm.home }
+                  staticClass: "listMenuBtn nChildV",
+                  class: { btnActive: _vm.checkActive("course") }
                 },
                 [
-                  _c("span", { staticClass: "iconV fa fa-home " }),
-                  _c("div", { staticClass: "labelV" }, [_vm._v("Home")])
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "nChildV",
-                  class: { btnActive: _vm.checkActive("dashboard") },
-                  attrs: { href: _vm.dashboard }
-                },
-                [
-                  _c("span", { staticClass: "iconV fa fa-dashboard" }),
-                  _c("div", { staticClass: "labelV" }, [_vm._v("Dashboard")])
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "nChildV",
-                  class: { btnActive: _vm.checkActive("explore") },
-                  attrs: { href: _vm.explore }
-                },
-                [
-                  _c("span", { staticClass: "iconV fa fa-spinner" }),
-                  _c("div", { staticClass: "labelV" }, [_vm._v("Explore")])
-                ]
-              ),
-              _vm._v(" "),
-              _c("ul", [
-                _c(
-                  "li",
-                  {
-                    staticClass: "listMenuBtn nChildV",
-                    class: { btnActive: _vm.checkActive("course") }
-                  },
-                  [
-                    _c("span", { staticClass: "iconV fa fa-book" }),
-                    _c("div", { staticClass: "labelV" }, [
-                      _vm._v("Manage Course")
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("ul", { staticClass: "listMenu" }, [
-                  _c("li", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "nChildV ",
-                        class: {
-                          btnActiveSub: _vm.checkActiveSub("createcourse")
-                        },
-                        attrs: { href: _vm.createcourse }
-                      },
-                      [
-                        _c("span", { staticClass: "iconV fa fa-circle" }),
-                        _c("div", { staticClass: "labelV" }, [
-                          _vm._v("Create Course")
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "nChildV",
-                        class: {
-                          btnActiveSub: _vm.checkActiveSub("editcourse")
-                        },
-                        attrs: { href: _vm.editcourse }
-                      },
-                      [
-                        _c("span", { staticClass: "iconV fa fa-circle" }),
-                        _c("div", { staticClass: "labelV" }, [
-                          _vm._v("Edit/Del Course")
-                        ])
-                      ]
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "nChildV",
-                  class: { btnActive: _vm.checkActive("department") },
-                  attrs: { href: _vm.department }
-                },
-                [
-                  _c("span", { staticClass: "iconV fa fa-institution" }),
-                  _c("div", { staticClass: "labelV" }, [_vm._v("Manage Dept.")])
-                ]
-              ),
-              _vm._v(" "),
-              _c("ul", [
-                _c(
-                  "li",
-                  {
-                    staticClass: "listMenuBtn nChildV",
-                    class: { btnActive: _vm.checkActive("experiment") }
-                  },
-                  [
-                    _c("span", { staticClass: "iconV fa fa-cube" }),
-                    _c("div", { staticClass: "labelV" }, [
-                      _vm._v("Manage Expr.")
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("ul", { staticClass: "listMenu" }, [
-                  _c("li", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "nChildV",
-                        class: {
-                          btnActiveSub: _vm.checkActiveSub("addexperiment")
-                        },
-                        attrs: { href: _vm.addexperiment }
-                      },
-                      [
-                        _c("span", { staticClass: "iconV fa fa-circle" }),
-                        _c("div", { staticClass: "labelV" }, [
-                          _vm._v("Add Experiment")
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "nChildV",
-                        class: {
-                          btnActiveSub: _vm.checkActiveSub("viewexperiment")
-                        },
-                        attrs: { href: _vm.viewexperiment }
-                      },
-                      [
-                        _c("span", { staticClass: "iconV fa fa-circle" }),
-                        _c("div", { staticClass: "labelV" }, [
-                          _vm._v("View Experiment")
-                        ])
-                      ]
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "nChildV",
-                  class: { btnActive: _vm.checkActive("faculty") },
-                  attrs: { href: _vm.faculty }
-                },
-                [
-                  _c("span", { staticClass: "iconV fa fa-institution" }),
+                  _c("span", { staticClass: "iconV fa fa-book" }),
                   _c("div", { staticClass: "labelV" }, [
-                    _vm._v("Manage Faculty")
+                    _vm._v("Manage Course")
                   ])
                 ]
               ),
               _vm._v(" "),
-              _c("ul", [
-                _c(
-                  "li",
-                  {
-                    staticClass: "listMenuBtn nChildV",
-                    class: { btnActive: _vm.checkActive("user") }
-                  },
-                  [
-                    _c("span", { staticClass: "iconV fa fa-users" }),
-                    _c("div", { staticClass: "labelV" }, [
-                      _vm._v("Manage Users")
-                    ])
-                  ]
-                ),
+              _c("ul", { staticClass: "listMenu" }, [
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nChildV ",
+                      class: {
+                        btnActiveSub: _vm.checkActiveSub("createcourse")
+                      },
+                      attrs: { href: _vm.createcourse }
+                    },
+                    [
+                      _c("span", { staticClass: "iconV fa fa-circle" }),
+                      _c("div", { staticClass: "labelV" }, [
+                        _vm._v("Create Course")
+                      ])
+                    ]
+                  )
+                ]),
                 _vm._v(" "),
-                _c("ul", { staticClass: "listMenu" }, [
-                  _c("li", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "nChildV",
-                        class: { btnActiveSub: _vm.checkActiveSub("edituser") },
-                        attrs: { href: _vm.edituser }
-                      },
-                      [
-                        _c("span", { staticClass: "iconV fa fa-circle" }),
-                        _c("div", { staticClass: "labelV" }, [
-                          _vm._v("Create user")
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "nChildV",
-                        class: {
-                          btnActiveSub: _vm.checkActiveSub("createuser")
-                        },
-                        attrs: { href: _vm.createuser }
-                      },
-                      [
-                        _c("span", { staticClass: "iconV fa fa-circle" }),
-                        _c("div", { staticClass: "labelV" }, [
-                          _vm._v("Edit/Del user")
-                        ])
-                      ]
-                    )
-                  ])
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nChildV",
+                      class: { btnActiveSub: _vm.checkActiveSub("editcourse") },
+                      attrs: { href: _vm.editcourse }
+                    },
+                    [
+                      _c("span", { staticClass: "iconV fa fa-circle" }),
+                      _c("div", { staticClass: "labelV" }, [
+                        _vm._v("Edit/Del Course")
+                      ])
+                    ]
+                  )
                 ])
-              ]),
-              _vm._v(" "),
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "nChildV",
+                class: { btnActive: _vm.checkActive("department") },
+                attrs: { href: _vm.department }
+              },
+              [
+                _c("span", { staticClass: "iconV fa fa-institution" }),
+                _c("div", { staticClass: "labelV" }, [_vm._v("Manage Dept.")])
+              ]
+            ),
+            _vm._v(" "),
+            _c("ul", [
               _c(
-                "a",
+                "li",
                 {
-                  staticClass: "nChildV",
-                  class: { btnActive: _vm.checkActive("settings") },
-                  attrs: { href: _vm.settings }
+                  staticClass: "listMenuBtn nChildV",
+                  class: { btnActive: _vm.checkActive("experiment") }
                 },
                 [
-                  _c("span", { staticClass: "iconV fa fa-gear" }),
-                  _c("div", { staticClass: "labelV" }, [_vm._v("Settings")])
+                  _c("span", { staticClass: "iconV fa fa-cube" }),
+                  _c("div", { staticClass: "labelV" }, [_vm._v("Manage Expr.")])
                 ]
               ),
               _vm._v(" "),
+              _c("ul", { staticClass: "listMenu" }, [
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nChildV",
+                      class: {
+                        btnActiveSub: _vm.checkActiveSub("addexperiment")
+                      },
+                      attrs: { href: _vm.addexperiment }
+                    },
+                    [
+                      _c("span", { staticClass: "iconV fa fa-circle" }),
+                      _c("div", { staticClass: "labelV" }, [
+                        _vm._v("Add Experiment")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nChildV",
+                      class: {
+                        btnActiveSub: _vm.checkActiveSub("viewexperiment")
+                      },
+                      attrs: { href: _vm.viewexperiment }
+                    },
+                    [
+                      _c("span", { staticClass: "iconV fa fa-circle" }),
+                      _c("div", { staticClass: "labelV" }, [
+                        _vm._v("View Experiment")
+                      ])
+                    ]
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "nChildV",
+                class: { btnActive: _vm.checkActive("faculty") },
+                attrs: { href: _vm.faculty }
+              },
+              [
+                _c("span", { staticClass: "iconV fa fa-institution" }),
+                _c("div", { staticClass: "labelV" }, [_vm._v("Manage Faculty")])
+              ]
+            ),
+            _vm._v(" "),
+            _c("ul", [
               _c(
-                "a",
+                "li",
                 {
-                  staticClass: "nChildV",
-                  attrs: { href: "#" },
-                  on: { click: _vm.logout }
+                  staticClass: "listMenuBtn nChildV",
+                  class: { btnActive: _vm.checkActive("user") }
                 },
                 [
-                  _c("span", { staticClass: "iconV fa fa-arrow-circle-left" }),
-                  _c("div", { staticClass: "labelV" }, [_vm._v("Logout")])
+                  _c("span", { staticClass: "iconV fa fa-users" }),
+                  _c("div", { staticClass: "labelV" }, [_vm._v("Manage Users")])
                 ]
-              )
-            ]
-          )
-        ]
-      )
-    ]
-  )
+              ),
+              _vm._v(" "),
+              _c("ul", { staticClass: "listMenu" }, [
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nChildV",
+                      class: { btnActiveSub: _vm.checkActiveSub("edituser") },
+                      attrs: { href: _vm.edituser }
+                    },
+                    [
+                      _c("span", { staticClass: "iconV fa fa-circle" }),
+                      _c("div", { staticClass: "labelV" }, [
+                        _vm._v("Create user")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nChildV",
+                      class: { btnActiveSub: _vm.checkActiveSub("createuser") },
+                      attrs: { href: _vm.createuser }
+                    },
+                    [
+                      _c("span", { staticClass: "iconV fa fa-circle" }),
+                      _c("div", { staticClass: "labelV" }, [
+                        _vm._v("Edit/Del user")
+                      ])
+                    ]
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "nChildV",
+                class: { btnActive: _vm.checkActive("settings") },
+                attrs: { href: _vm.settings }
+              },
+              [
+                _c("span", { staticClass: "iconV fa fa-gear" }),
+                _c("div", { staticClass: "labelV" }, [_vm._v("Settings")])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "nChildV",
+                attrs: { href: "#" },
+                on: { click: _vm.logout }
+              },
+              [
+                _c("span", { staticClass: "iconV fa fa-arrow-circle-left" }),
+                _c("div", { staticClass: "labelV" }, [_vm._v("Logout")])
+              ]
+            )
+          ]
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -38890,8 +39289,12 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "m-0 p-0" }, [
     _c("div", { staticClass: "row bg-light m-0 px-2 pt-4" }, [
-      _c("div", { staticClass: "col-lg-4 col-md-5 col-sm-12 m-0 " }, [
-        _c("p", { staticClass: "fs2 fw8 font" }, [_vm._v("Create Course")]),
+      _c("div", { staticClass: "col-lg-4 col-md-5 col-sm-12 col-xs-12 m-0 " }, [
+        _c("p", { staticClass: "fs2 fw8 font" }, [
+          !_vm.update ? _c("span", [_vm._v("Create Course")]) : _vm._e(),
+          _vm._v(" "),
+          _vm.update ? _c("span", [_vm._v("Update Course")]) : _vm._e()
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "w-100 bg-white r2 px-4 py-4 shadow-sm" }, [
           _c("div", { staticClass: "d-flex flex-wrap-center mb-4" }, [
@@ -38974,7 +39377,7 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "col-lg-8 col-md-7 col-sm-12 pt-3",
+          staticClass: "col-lg-8 col-md-7 col-sm-12 col-xs-12 pt-3",
           staticStyle: { height: "76vh" }
         },
         [
@@ -39224,8 +39627,8 @@ var render = function() {
               ? _c(
                   "div",
                   {
-                    staticClass: "m-0 p-0 shineA",
-                    staticStyle: { "overflow-y": "scroll" },
+                    staticClass: "m-0 p-0 px-2 shineA",
+                    staticStyle: { "overflow-y": "scroll", height: "55vh" },
                     attrs: { id: "reviews" }
                   },
                   _vm._l(_vm.alldata, function(aitem, i) {
@@ -39238,27 +39641,56 @@ var render = function() {
                             _vm._v(" "),
                             _c(
                               "table",
-                              {
-                                staticClass: "table table-striped table-hover"
-                              },
+                              { staticClass: "table table-bordered" },
                               [
-                                _vm._m(6, true),
-                                _vm._v(" "),
                                 _c(
                                   "tbody",
-                                  [
-                                    _c("td"),
-                                    _vm._l(aitem, function(edatavalue, j) {
-                                      return _c("td", { staticClass: "p-1" }, [
-                                        _vm._v(
-                                          "\n\t\t\t\t\t            \t\t\t\t" +
-                                            _vm._s(edatavalue) +
-                                            "\n\t\t\t\t\t\t            \t\t"
-                                        )
-                                      ])
-                                    })
-                                  ],
-                                  2
+                                  _vm._l(aitem, function(edatavalue, j, k) {
+                                    return _c("tr", { staticClass: "p-1" }, [
+                                      k == 0
+                                        ? _c(
+                                            "td",
+                                            {
+                                              staticClass: "text-left",
+                                              attrs: { width: "40%" }
+                                            },
+                                            [_vm._v("Title")]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      k == 1
+                                        ? _c(
+                                            "td",
+                                            {
+                                              staticClass: "text-left",
+                                              attrs: { width: "40%" }
+                                            },
+                                            [_vm._v("Course Code")]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      k == 2
+                                        ? _c(
+                                            "td",
+                                            {
+                                              staticClass: "text-left",
+                                              attrs: { width: "40%" }
+                                            },
+                                            [_vm._v("Course Description")]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        {
+                                          staticClass: "text-left",
+                                          attrs: { width: "60%" }
+                                        },
+                                        [_vm._v(" " + _vm._s(edatavalue))]
+                                      )
+                                    ])
+                                  }),
+                                  0
                                 )
                               ]
                             )
@@ -39278,7 +39710,7 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "div",
-                                { staticClass: "p-2 border m-0" },
+                                { staticClass: "p-2  m-0" },
                                 _vm._l(aitem.names, function(
                                   edatavalue,
                                   j,
@@ -39310,7 +39742,7 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "div",
-                                { staticClass: "p-2 border m-0" },
+                                { staticClass: "p-2  m-0" },
                                 _vm._l(aitem.names, function(
                                   edatavalue,
                                   j,
@@ -39332,7 +39764,7 @@ var render = function() {
                         : _vm._e(),
                       _vm._v(" "),
                       i == 3
-                        ? _c("div", { staticClass: "m-0" }, [
+                        ? _c("div", { staticClass: "m-0 mt-2" }, [
                             _c("div", { staticClass: "fw8" }, [
                               _vm._v("image to Upload")
                             ]),
@@ -39375,17 +39807,36 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn p-success text-white py-2 px-3",
-              on: { click: _vm.nextSection }
-            },
-            [
-              _vm._v(" Continue "),
-              _c("span", { staticClass: "fa fa-arrow-right" })
-            ]
-          )
+          _vm.sectionState < 5
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn p-success text-white py-2 px-3",
+                  on: { click: _vm.nextSection }
+                },
+                [
+                  _vm._v(" Continue "),
+                  _c("span", { staticClass: "fa fa-arrow-right" })
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.sectionState == 5
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn p-success text-white py-2 px-3",
+                  on: { click: _vm.submitProcess }
+                },
+                [
+                  !_vm.update ? _c("span", [_vm._v("Submit")]) : _vm._e(),
+                  _vm._v(" "),
+                  _vm.update ? _c("span", [_vm._v("Update")]) : _vm._e(),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "fa fa-arrow-right" })
+                ]
+              )
+            : _vm._e()
         ]
       ),
       _vm._v(" "),
@@ -39495,26 +39946,6 @@ var staticRenderFns = [
       },
       [_c("tbody", { attrs: { id: "addIBox" } })]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "bg-dark" }, [
-      _c("th", { staticClass: "p-1 text-white bg-dark" }),
-      _vm._v(" "),
-      _c("th", { staticClass: "p-1 text-white bg-dark text-left" }, [
-        _vm._v("Title")
-      ]),
-      _vm._v(" "),
-      _c("th", { staticClass: "p-1 text-white bg-dark text-left" }, [
-        _vm._v("Course Code")
-      ]),
-      _vm._v(" "),
-      _c("th", { staticClass: "p-1 text-white bg-dark text-left" }, [
-        _vm._v("Course Description")
-      ])
-    ])
   }
 ]
 render._withStripped = true
@@ -41875,6 +42306,97 @@ var staticRenderFns = [
         _c("input", { attrs: { type: "checkbox" } }),
         _vm._v(" "),
         _c("span", { staticClass: "checkmark" })
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewCreatedExperiment.vue?vue&type=template&id=330aa7a5&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewCreatedExperiment.vue?vue&type=template&id=330aa7a5& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "table",
+      { staticClass: "table table-hover", attrs: { id: "experimenttable" } },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _vm.tableLoaded
+          ? _c(
+              "tbody",
+              _vm._l(_vm.createdexperiments, function(experiment, index) {
+                return _c("tr", { key: experiment.id }, [
+                  _c(
+                    "td",
+                    { attrs: { width: "25%", title: experiment.title } },
+                    [
+                      _vm._v(
+                        _vm._s(experiment.name) +
+                          " " +
+                          _vm._s(experiment.experiment_number)
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("td", { attrs: { width: "10%" } }, [
+                    _c("span", {
+                      staticClass: "ml-2 fa fa-edit pl-3  fs01 cursor-1",
+                      staticStyle: { "border-left": "1px solid #ccc" },
+                      on: {
+                        click: function($event) {
+                          return _vm.editexperiment(
+                            _vm.createdexperiments[index]
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", {
+                      staticClass: "ml-2 fa fa-trash pl-3  fs01 cursor-1",
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteexperiment(experiment.id)
+                        }
+                      }
+                    })
+                  ])
+                ])
+              }),
+              0
+            )
+          : _vm._e()
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", { attrs: { id: "cheadV" } }, [
+        _c("th", { attrs: { width: "25%" } }, [_vm._v("Experiment Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { width: "10%" } }, [_vm._v("Actions")])
       ])
     ])
   }

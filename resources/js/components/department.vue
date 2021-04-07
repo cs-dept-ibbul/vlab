@@ -36,7 +36,9 @@
 		data(){
 			return{
 				createddepartment:null,
-				tableLoaded:false
+				tableLoaded:false,
+				facultiesHTML: null,
+				faculties: null,
 			}
 		},
 		methods: {
@@ -46,29 +48,59 @@
 				deletedepartment: function(id){
 					Swal.fire('delete');					
 				},
-				createdepartment: function(){
-					var $vm = this;
-					Swal.mixin({
-					  input: 'text',
-					  confirmButtonText: 'Next &rarr;',
-					  showCancelButton: true,
-					  progressSteps: ['1', '2']
-					}).queue([
-					  {
-					    title: 'department Name',
-					    text: ''
-					  },
-					  {
-					    title: 'department Abbrevation',
-					    text: 'this must be unique'
-					  }					  
-					]).then((result) => {
-					  if (result.value) {
-					    const answers = {department_name:result.value[0], department_code:result.value[1]}
+				singleValidate: function(id){
+				$('#'+id).css('border','1px solid #e45');
+				$('.requiredv').remove();
+				$('#'+id).after('<span class="text-danger requiredv">Required !</span>')
+				},
+				createdepartment: function(){					
+					let $vm = this;		
+					Swal.fire({
+					  title: 'Create Department',
+					  html:
+					  	"<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>"+
+					  	this.facultiesHTML+				
+					  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Name</legend>"+					  		   
+					    '<input id="swal-input1" class="swal2-input mt-1">' +
+					  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Abbr</legend>"+					  		   				    
+					    '<input id="swal-input2" class="swal2-input mt-1">',
+					  focusConfirm: false,
+					  preConfirm: () => {
+					  	let faculty = document.getElementById('swal-input0').value,
+					  	 facultyName , departmentName = document.getElementById('swal-input1').value,
+					      departmentAbbr = document.getElementById('swal-input2').value;
+					      facultyName = document.getElementById('swal-input0').options;
+					  	  facultyName = facultyName[facultyName.selectedIndex].text
+					  	if ( faculty == "" || departmentName == "" || departmentAbbr == "") {					     
+					         Swal.showValidationMessage('All fields are required');
+					  	}
+					    return [
+					      faculty,
+					      departmentName,
+					      departmentAbbr,
+					      facultyName,
+					    ]
+					  } 
+					}).then((result)=>{
+						if (result.value) {
+					    const answers = {faculty_id:result.value[0], department_name:result.value[1], department_code:result.value[2]}
 					    Swal.fire({
 					      title: 'click on proceed',
 					      text: 'other cancel and restart',
-					      html: `<b>department:</b> ${answers.department_name},<br> <b>Abbr:</b> ${answers.department_code}`,
+					      html: `<table class='table text-left'>
+						      		<tr>
+						      			<td width='30%'><b>Faculty :</b></td>
+						      			<td width='70%'>${result.value[3]}</td>
+						      		</tr>
+						      		<tr>
+						      			<td width='30%'><b>department:</b></td>
+						      			<td width='70%'> ${answers.department_name},</td>
+						      		</tr>
+						      		<tr>
+						      		 	<td width='30%'><b>Abbr:</b></td>
+						      		 	<td width='70%'> ${answers.department_code} </td>
+						      		 <tr>
+					      		</table>`,
 					      confirmButtonText:'Process',					      
 					      cancelButtonText:'Cancle',					      
 					      showCancelButton:true,					      
@@ -111,10 +143,34 @@
 					    })
 					  }
 					})
+				/*	var $vm = this;
+					Swal.mixin({
+					  input: 'text',
+					  confirmButtonText: 'Next &rarr;',
+					  showCancelButton: true,
+					  progressSteps: ['1', '2']
+					}).queue([
+					  {
+					    title: 'department Name',
+					    text: ''
+					  },
+					  {
+					    title: 'department Abbrevation',
+					    text: 'this must be unique'
+					  }					  
+					]).then((result) => {
+					  
+					})*/
 				}
 		},
 		async created(){
 
+			this.faculties =  await this.axiosGet('api/faculties/faculties');
+			this.facultiesHTML = "<select id='swal-input0' class='swal2-input mt-1'>"
+			this.faculties.forEach((item, idex)=>{
+				this.facultiesHTML += "<option value='"+item.id+"'>"+ item.code +"</option>";
+			})
+			this.facultiesHTML += "</select>"			
 		    this.createddepartment  = await this.axiosGet('api/faculties/departments');
 		    //console.log(this.createddepartment)
 		    this.tableLoaded = true;

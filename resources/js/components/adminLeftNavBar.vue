@@ -1,6 +1,6 @@
 <template>
 
-	<div class="vh-100" v-bind:class="{scrollableV:hide1, scrollableV:show1}">
+	<div class="vh-100">
 		<div class="menuBtnToggler bg-white cursor-1 " id="togglerV"  @click="toggleMenu">
 			<span class="fa fa-square mr-2 position-fixed" style="font-size: 2em;"></span>
 			<b class="menuLI ml-5" v-bind:class="{slidein:show1, slideout:hide1}">V-LAB</b>
@@ -104,7 +104,7 @@
 					<span class="iconOV fa fa-arrow-circle-left"></span>
 				</a>	
 			</div>
-			<div v-bind:class="{slidein:show1, slideout:hide1}" style="position: relative; margin-left: 10px; margin-right:20px;height: " >
+			<div v-bind:class="{slidein:show1, slideout:hide1, scrollableV:hide1, scrollableV:show1}" style="position: relative; margin-left: 10px; margin-right:20px;height:75vh; padding-right: 10px;" >
 				<a :href="home" class="nChildV" v-bind:class="{btnActive:checkActive('home')}">
 					<span class="iconV fa fa-home "></span><div class="labelV">Home</div>
 				</a>	

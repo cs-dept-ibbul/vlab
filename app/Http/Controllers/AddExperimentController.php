@@ -11,4 +11,10 @@ class AddExperimentController extends Controller
     {
     	return view('admin.add_experiment');
     }
+
+    public function createdexperiment(){
+
+    	return view('admin.viewcreatedexperiment');
+
+    }
 }

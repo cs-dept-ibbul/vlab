@@ -2,8 +2,11 @@
 	<div class="m-0 p-0">
 		
 	<div class="row bg-light m-0 px-2 pt-4">
-            <div class="col-lg-4 col-md-5 col-sm-12 m-0 ">
-            	<p class="fs2 fw8 font">Create Course</p>
+            <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 m-0 ">
+            	<p class="fs2 fw8 font">
+            		<span v-if="!update">Create Course</span>
+            		<span v-if="update">Update Course</span>
+            	</p>
             	<div  class="w-100 bg-white r2 px-4 py-4 shadow-sm"><!-- loop weekly -->
 						<div class="d-flex flex-wrap-center mb-4" >
 							<span class="ncircle" v-bind:class="{tactive:stageone,tsuccess:stageonep}" >1</span>
@@ -28,7 +31,7 @@
             			   	
             </div>
             	
-            <div class="col-lg-8 col-md-7 col-sm-12 pt-3" style="height: 76vh;">
+            <div class="col-lg-8 col-md-7 col-sm-12 col-xs-12 pt-3" style="height: 76vh;">
             	<!-- course detatil -->            	
             	<div  class="py-4 px-4 mt-3 r2 bg-white shadow-sm" style="">
             		<div id="cdetail" v-if="sectionState==1" class="m-0 p-0">            			
@@ -121,30 +124,25 @@
 	        			<div id="addIBox" class="r1" style="height: 200px;">        					
         				</div> -->
 	            	</div>
-	            	<div id="reviews" v-if="sectionState==5" class="m-0 p-0 shineA" style="overflow-y: scroll;">  
+	            	<div id="reviews" v-if="sectionState==5" class="m-0 p-0 px-2 shineA" style="overflow-y: scroll;height: 55vh; ">  
 	            		<div v-for="(aitem,i) in alldata">
 	            			<div v-if="i==0" class="m-0">
 		            			<div class="fw8">Course Detailed</div>
-		            			<table class="table table-striped table-hover">
-		            				<thead class="bg-dark">
-		            					<th class="p-1 text-white bg-dark"></th>
-		            					<th class="p-1 text-white bg-dark text-left">Title</th>
-		            					<th class="p-1 text-white bg-dark text-left">Course Code</th>
-		            					<th class="p-1 text-white bg-dark text-left">Course Description</th>
-		            				</thead>
-		            				<tbody>
-		            					<td>		            						
-						            		<td v-for="(edatavalue,j) in aitem" class="p-1">
-					            				{{edatavalue}}
-						            		</td>	            						            				
-		            					</td>
+		            			<table class="table table-bordered">		            				
+		            				<tbody>		            							            					
+					            		<tr v-for="(edatavalue,j,k) in aitem" class="p-1">
+	            							<td v-if="k==0" class="text-left" width="40%">Title</td>
+	            							<td v-if="k==1" class="text-left" width="40%">Course Code</td>
+	            							<td v-if="k==2" class="text-left" width="40%">Course Description</td>
+				            				<td width="60%" class="text-left"> {{ edatavalue }}</td>
+					            		</tr>	            						            			
 		            				</tbody>
 		            			</table>
 	            			</div>
 	            			         				
 		            			<div v-if="i==1" class="col-lg-6 col-md-6 my-2 mx-0 px-0 ">
 			            			<div class="fw8 m-0">Selected Experiment</div>
-			            			<div class="p-2 border m-0">			            				
+			            			<div class="p-2  m-0">			            				
 					            		<p v-for="(edatavalue,j, inde) in aitem.names">		            				
 				            				<b>{{inde}}.</b> {{edatavalue}}
 					            		</p>	            				
@@ -152,13 +150,13 @@
 		            			</div>
 		            			<div v-if="i==2" class=" col-lg-5 col-md-5 mx-0 px-0 ">
 			            			<div class="fw8 m-0">Selected Instructor</div>
-			            			<div class="p-2 border m-0">			            				
+			            			<div class="p-2  m-0">			            				
 					            		<p v-for="(edatavalue,j, inde) in aitem.names">		            				
 				            				<b>{{inde}}.</b> {{edatavalue}}
 					            		</p>	            				
 			            			</div>
 		            			</div>	            	
-	            			<div v-if="i==3" class="m-0">
+	            			<div v-if="i==3" class="m-0 mt-2">
 		            			<div class="fw8">image to Upload</div>
 		            			<div>
 		            				<img width="200px" :src="aitem.image">
@@ -174,8 +172,14 @@
             <div class="col-lg-8 col-md-7 col-sm-12">
             </div>
             <div class="col-lg-4 col-md-3 col-sm-12 mx-auto py-2 d-flex">            	
-            	<button v-if="sectionState >1" class="btn p-success text-white py-2 px-3 mr-3" @click="prevSection" ><span class="fa fa-arrow-left"></span> Previous </button>
-            	<button class="btn p-success text-white py-2 px-3" @click="nextSection" > Continue <span class="fa fa-arrow-right"></span></button>
+            	<button v-if="sectionState >1" class="btn p-success text-white py-2 px-3 mr-3" @click="prevSection" ><span class="fa fa-arrow-left"></span> Previous </button>            	
+            	<button v-if="sectionState < 5" class="btn p-success text-white py-2 px-3" @click="nextSection" > Continue <span class="fa fa-arrow-right"></span></button>
+            	<button v-if="sectionState == 5" class="btn p-success text-white py-2 px-3" @click="submitProcess" > 
+            		<span v-if="!update">Submit</span>
+            		<span v-if="update">Update</span> 
+            		<span class="fa fa-arrow-right"></span>
+            		
+            	</button>
             </div>
             <div class="col-md-1 col-sm-12 mx-auto">
             </div>
@@ -189,8 +193,7 @@
 
 	 data:function() {
 	    	return{
-	    	 count:0,
-	    	 alldata:[],
+	    	 count:0,	    	 
 	    	 stageone:true,
 	    	 stageonep:false,
 	    	 stagetwo:false,
@@ -307,9 +310,9 @@
 				let $nv = this;
 				if (this.sectionState ===1) {					
 					setTimeout(function() {
-					$('#ctitle').val($nv.alldata[0]['Title']);
-					$('#ccode').val($nv.alldata[0]['Course_code']);
-					$('#cdescription').val($nv.alldata[0]['Course_description']);					
+					$('#ctitle').val($nv.alldata[0]['title']);
+					$('#ccode').val($nv.alldata[0]['course_code']);
+					$('#cdescription').val($nv.alldata[0]['description']);					
 					}, 50);				
 					this.checkstage(1);
 				}
@@ -447,9 +450,9 @@
 					if(this.validateState === true){
 						this.ctitle = $('#ctitle').val();										
 						this.alldata[0] = {
-							Title: $('#ctitle').val(),
-							Course_code:$('#ccode').val(),
-							Course_description:$('#cdescription').val()
+							title: $('#ctitle').val(),
+							course_code:$('#ccode').val(),
+							description:$('#cdescription').val()
 						};						
 						this.sectionState = 2;						
 						this.stageone= false;
@@ -519,14 +522,15 @@
 				 	$('#imageprev').html('<img id="image_droped" width="200px"  src="'+$nv.imagetoupload+'">');		
 					//console.log(this.alldata);
 
-				}else if(this.sectionState === 5){
-						/*fetch experiment*/
-					let $vm = this;
+				}
+			},
+			submitProcess:function(){
+				let $vm = this;
 				   try{
 				   		const formData = new FormData();				   	
-					   	formData.append('title',this.alldata[0].Title);
-					   	formData.append('code',this.alldata[0].Course_code);
-					   	formData.append('description',this.alldata[0].Course_description);
+					   	formData.append('title',this.alldata[0].title);
+					   	formData.append('code',this.alldata[0].course_code);
+					   	formData.append('description',this.alldata[0].description);
 					   	formData.append('experiment_id',this.alldata[1].id);
 					   	formData.append('instructor_id',this.alldata[2].id);
 					   	formData.append('resource_url',this.alldata[3].image);
@@ -568,7 +572,7 @@
 				   			}
 			            	//console.log(response);			   				           
 			            }, function(e) {		  
-			            	console.log(e.status)
+			            	//console.log(e.status)
 					   		$('#system-loader').css('display','none');
 					   		let errMsg = $vm.errorSessionMessage;					   		
 					   	    if (e.response.status == 409) {					   	    	
@@ -597,12 +601,10 @@
 							  focusable: true,
 							  callback: undefined
 							});
-			          console.log(err)//show network error notification
+			          //console.log(err)//show network error notification
 			        }
 			
-				}
-
-			},
+			    },
 			dragEnter(e){			
 				this.dragrelease = true;
 				let $nv = this;	
@@ -666,7 +668,26 @@
         },	
 
         
-         props: [],
+       props: {
+	     	update:{
+	     		type:Boolean, 
+	     		default: function(){
+	     			return false;
+	     		}
+	     	},
+	     	alldata:{
+	     		type:Array, 
+	     		default: function(){
+	     			return [];
+	     		}
+	     	},
+	     	coures_id:{
+	     		type:Number,
+	     		default: function(){
+	     			return 0;
+	     		}	     	
+	     	}
+     	},
          mounted: function () {
          	let $vm = this;
 			   	
@@ -686,7 +707,7 @@
 				});
 				
 				/*fetch experiment*/
-			   try{
+			   /*try{
 			   	
 		            $vm.axios.get('api/experiments/experiments',{ headers: $vm.axiosHeader }).then(function(response, status, request) { 			   	
 		            	if(response.status == 200){
@@ -718,7 +739,7 @@
 		            
 		            });
 
-		        }catch(err){
+		        }catch(err){*/
 		          /* vt.error($vm.errorNetworkMessage,{
 						  title: undefined,
 						  position: "bottom-right",
@@ -728,11 +749,45 @@
 						  callback: undefined
 						});
 		          console.log(err)//show network error notification*/
-		        }
+		       // }
 			
 		  });
 
 
+		},
+		async created(){
+			if (this.update) {
+
+				$(document).ready(function(){
+					$('#ctitle').val(this.alldata[0]['title']);
+					$('#ccode').val(this.alldata[0]['course_code']);
+					$('#cdescription').val(this.alldata[0]['description']);					
+				});		
+
+				for(let i =0; i < this.alldata[1].id; i++ ){
+					this.selectedExperiment[i] = this.alldata[1].id[i];
+					this.selectedExperimentName[i] = this.alldata[1].names[i];
+				}
+				for(let i =0; i < this.alldata[2].id; i++ ){
+					this.selectedInstructor[i] = this.alldata[2].id[i];
+					this.selectedInstructorName[i] = this.alldata[2].names[i];
+				}
+
+				this.imagetoupload = this.alldata[3].image;
+				
+
+			}
+
+		    this.experiments  = await this.axiosGet('api/experiments/experiments');
+		    //console.log(this.createdexperiments)
+		    this.tableLoaded = true;
+		    
+		    /*initialize datatable */
+             setTimeout(function() {
+             	 $('#experimenttable').DataTable({
+			    	pageLength : 5,
+			    });
+             }, 200);
 		},
          events :{
          	'toggleClick':'toggleClick'
