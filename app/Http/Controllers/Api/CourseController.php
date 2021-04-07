@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+use function PHPUnit\Framework\isNull;
+
 class CourseController extends Controller
 {
     public function create(Request $request)
@@ -54,6 +56,49 @@ class CourseController extends Controller
             return response()->json(['success' => false], 401);
         }
         return response()->json(['error' => 'This course already exist'], 409);
+    }
+
+    public function deleteCourse(Request $request)
+    {
+        $courseId = $request->get('course_id');
+        $course = Course::find($courseId);
+        $course->status = 'Inactive';
+        $save = $course->save();
+        if ($save) {
+            return response()->json(['success' => true], 200);
+        }
+        return response()->json(['error' => 'something went wrong'], 400);
+    }
+
+    public function updateCourse(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'course_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "course_id field is required"], 400);
+        }
+
+        $courseId = $request->get('course_id');
+        $course = Course::find($courseId);
+
+        $request->get('school_id') != null ? $course->school_id = $request->get('school_id') : null;
+        $request->get('faculty_id') != null ? $course->faculty_id = $request->get('faculty_id') : null;
+        $request->get('title') != null ? $course->title = $request->get('title') : null;
+        $request->get('code') != null ? $course->code = $request->get('code') : null;
+        $request->get('description') != null ? $course->description = $request->get('description') : null;
+
+        if(empty($request->get('school_id')) && empty($request->get('faculty_id')) && empty($request->get('title')) && empty($request->get('code'))){
+            return response()->json(['error' => 'All filed is null'], 200);
+        } else {
+            $save = $course->save();
+        }
+
+        if ($save) {
+            return response()->json(['success' => true], 200);
+        }
+        return response()->json(['success' => false], 200);
     }
 
     public function getAllCourses()
@@ -234,5 +279,18 @@ class CourseController extends Controller
             }
         }
         return response()->json(['enrolledCourses' => $data], 200);
+    }
+
+    public function allIsNull(Array $arrays)
+    {
+        $allIsNull = false;
+        foreach ($arrays as $value) {
+
+            if(empty($value)){
+                $allIsNull = true;
+            }
+
+        }
+        return $allIsNull;
     }
 }
