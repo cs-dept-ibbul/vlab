@@ -1,12 +1,12 @@
 <template>
 
 	<div>
-		<div class="menuBtnToggler" id="togglerV"  @click="toggleMenu" style="cursor: pointer; background: #fff">
+		<div class="menuBtnToggler bg-white cursor-1" id="togglerV"  @click="toggleMenu">
 			<span class="fa fa-square mr-2" style="font-size: 2em;"></span>
 			<b class="menuLI" v-bind:class="{slidein:show1, slideout:hide1}">V-LAB</b>
 		</div>
 
-		<div style="width: 230px;background: #fff; margin: 0px auto;" class="MenuLContainer"  v-bind:class="{reduceSize:show}">			
+		<div style="width: 230px;" class="MenuLContainer bg-white"  v-bind:class="{reduceSize:show}">			
 			<div v-bind:class="{slidein:show, slideout:hide}" class="niconsV slider" >
 					<a :href="home"  v-bind:class="{btnActive:checkActive('home')}">
 					<span class="iconOV fa fa-home "></span>
@@ -36,7 +36,10 @@
 					</ul>
 				</ul>	
 				<!-- manage faculty -->
-				<ul class="listCoverV" >
+				<a :href="faculty"   v-bind:class="{btnActive:checkActive('faculty')}">
+					<span class="iconOV fa fa-institution"></span>
+				</a>	
+				<!-- <ul class="listCoverV" >
 					<li class="listMenuVBtn nChildV"  v-bind:class="{btnActive:checkActive('faculty')}">
 						<span class="iconOV fa fa-institution"></span>
 					</li>
@@ -52,7 +55,7 @@
 							</a>
 						</li>
 					</ul>
-				</ul>				
+				</ul>				 -->
 				<!-- manage user -->
 				<ul class="listCoverV">
 					<li class="listMenuVBtn nChildV"  v-bind:class="{btnActive:checkActive('user')}">
@@ -108,7 +111,10 @@
 					</ul>
 				</ul>	
 				<!-- manage faculty -->
-				<ul >
+				<a :href="faculty" class="nChildV"  v-bind:class="{btnActive:checkActive('faculty')}">
+					<span class="iconV fa fa-institution"></span><div class="labelV">Manage Faculty</div>
+				</a>	
+				<!-- <ul >
 					<li class="listMenuBtn nChildV"  v-bind:class="{btnActive:checkActive('faculty')}">
 						<span class="iconV fa fa-institution"></span><div class="labelV">Manage Faculty</div>
 					</li>
@@ -124,7 +130,7 @@
 							</a>
 						</li>
 					</ul>
-				</ul>				
+				</ul>				 -->
 				<!-- manage user -->
 				<ul >
 					<li class="listMenuBtn nChildV"  v-bind:class="{btnActive:checkActive('user')}">
@@ -132,12 +138,12 @@
 					</li>
 					<ul class="listMenu">
 						<li>
-							<a :href="edituser" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('createuser')}">
+							<a :href="edituser" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('edituser')}">
 								<span class="iconV fa fa-circle"></span><div class="labelV">Create user</div>
 							</a>
 						</li>
 						<li>
-							<a :href="createuser" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('edituser')}">
+							<a :href="createuser" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('createuser')}">
 								<span class="iconV fa fa-circle"></span><div class="labelV">Edit/Del user</div>
 							</a>
 						</li>
@@ -203,7 +209,7 @@
 		beforeDestroy: function () {
 		  this.eventBus.$off('toggleSysNav', this.toggleNavOnHover)		  
 		},
-        props:['home','dashboard','createcourse','editcourse','createfaculty','editfaculty','createuser','edituser','explore','faculty','courses','user','settings', 'active','activesub', 'incourse'],
+        props:['home','dashboard','createcourse','editcourse','createuser','edituser','explore','faculty','courses','user','settings', 'active','activesub', 'incourse'],
         mounted(){
         	
         	/*btn slider*/

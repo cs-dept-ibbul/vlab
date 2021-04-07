@@ -16,6 +16,11 @@ export default {
       	}
       },
       methods:{
+      	createFormData: function(data){      		
+		    const formData = new FormData();
+		    Object.keys(data).forEach(key => formData.append(key, data[key]));
+		    return formData;
+      	},
   		logout: function(){
 		
 				$('#system-loader').css('display','flex');
@@ -62,7 +67,7 @@ export default {
 						}).then((result) => {
 							  /* Read more about isConfirmed, isDenied below */
 							  if (result.isConfirmed) {
-							    location.roload();
+							    location.reload();
 							  } else if (result.isDenied) {
 							    Swal.fire('please reload the page', '', 'info')
 							  }

@@ -3,22 +3,22 @@
 		
 	<div class="row bg-light m-0 px-2 pt-4">
             <div class="col-lg-4 col-md-5 col-sm-12 m-0 ">
-            	<p class="fs2 fw8 font">Create Course</p>
+            	<p class="fs2 fw8 font">Add Experiment</p>
             	<div  class="w-100 bg-white r2 px-4 py-4 shadow-sm"><!-- loop weekly -->
 						<div class="d-flex flex-wrap-center mb-4" >
 							<span class="ncircle" v-bind:class="{tactive:stageone,tsuccess:stageonep}" >1</span>
 							<span class="tline" v-bind:class="{tlactive:stageone,tlsuccess:stageonep}"></span>
-							<div class="fs1 w10 no-break ml-3">Course Details </div>						
+							<div class="fs1 w10 no-break ml-3">Experiment Details </div>						
 						</div>
 						<div class="d-flex flex-wrap-center mb-4 ">	
 							<span class="ncircle" v-bind:class="{tactive:stagetwo,tsuccess:stagetwop}">2</span>
 							<span class="tline" v-bind:class="{tlactive:stagetwo,tlsuccess:stagetwop}"></span>
-							<div class="fs1 w10 no-break ml-3">Add Experiment</div>							
+							<div class="fs1 w10 no-break ml-3">Experiment Box</div>							
 						</div>
 						<div class="d-flex flex-wrap-center mb-4 ">	
 							<span class="ncircle"  v-bind:class="{tactive:stagethree,tsuccess:stagethreep}">3</span>
 							<span class="tline" v-bind:class="{tlactive:stagethree,tlsuccess:stagethreep}"></span>
-							<div class="fs1 w10 no-break ml-3">Add Resources</div>
+							<div class="fs1 w10 no-break ml-3">Config.</div>
 						</div>
 						<div class="d-flex flex-wrap-center mb-4 ">	
 							<span class="ncircle"  v-bind:class="{tactive:stagefour,tsuccess:stagefourp}">4</span>							
@@ -30,22 +30,63 @@
             	
             <div class="col-lg-8 col-md-7 col-sm-12 pt-3" style="height: 76vh;">
             	<!-- course detatil -->            	
-            	<div  class="py-4 px-4 mt-3 r2 bg-white shadow-sm" style="">
-            		<div id="cdetail" v-if="sectionState==1" class="m-0 p-0">            			
-	            		<p class="fw8 fs1 font" style="color: #777;">Course Details</p>
+            	<div  class="py-4 px-4 mt-3 r2 bg-white shadow-sm vh-70 scroll-y " style="">
+            		<div id="edetail" v-if="sectionState==1" class="m-0 p-0">            			
+	            		<p class="fw8 fs1 font" style="color: #777;">Details</p>
 	            		<div class="row">            			
-	            			<div class="col-lg-8 col-md-6 m-0">
-	            				<p class="fs001 my-1">Course Title</p>
-	            				<input type="text" @keyup="normalize" class="form-control vI" id="ctitle">
+	            			<div class="col-lg-6 col-md-6 m-0">
+	            				<div class="px-1">	            					
+		            				<p class="fs001 my-1">Experiment Title *</p>
+		            				<input type="text" @keyup="normalize" class="form-control vI" id="etitle">
+	            				</div>
 	            			</div>
-	            			<div class="col-lg-1 col-md-1 m-0 px-0"></div>
-	            			<div class="col-lg-3 col-md-5 m-0">
-	            				<p class="fs001 my-1">Course Code</p>
-	            				<input type="text"  @keyup="normalize" class="form-control vI" id="ccode">
+	            			<div class="col-lg-6 col-md-6 m-0">
+	            				<div class="px-1" >	            					
+		            				<p class="fs001 my-1">Experiment Number * <span class="fs01 fw5" style="color: #888;">I, II, III ...</span></p>		            				
+		            				<input type="text" @keyup="normalize" class="form-control vI" id="enumber">
+	            				</div>
+	            			</div>
+	            			<div class="col-lg-6 col-md-6 m-0">
+	            				<div class="px-1">	            					
+		            				<p class="fs001 my-1">Experiment Video <span class="fs01 fw5" style="color: #888;">video url/link</span></p>		            				
+		            				<input type="text" @keyup="normalize" class="form-control " id="elink">
+	            				</div>
+	            			</div>	      
+	            			<div class="col-lg-6 col-md-6 m-0">
+	            				<div class="px-1">	            					
+		            				<p class="fs001 my-1">Experiment Diagram</p>		            				
+		            				<div class="w-100  p-0" style="position: relative;">
+		            					<span class="d-flex w-100 cursor-1">		            						
+			            					<span class="form-control fw2 font w-60 r-right-none no-border-right" id="imageName" >.jpg, .png</span>
+			            					<span class="form-control  fw2 font w-40 r-left-none p-text-success">Upload File</span>
+		            					</span>
+		            					<input @change="getDragedInFile"  type="file" style="position: absolute;top: 0; left: 0;" name="files" class="draginto form-control" id="fileI">
+		            				</div>
+	            				</div>
+	            			</div>	      
+	            			<div class="col-lg-12 col-md-12 mt-3">
+	            				<p class="fs001 my-1">Aim</p>            				
+	            				<textarea @keyup="normalize" class="form-control vI" rows="4" id="aim"></textarea>
 	            			</div>
 	            			<div class="col-lg-12 col-md-12 mt-3">
-	            				<p class="fs001 my-1">Course Description</p>            				
-	            				<textarea @keyup="normalize" class="form-control vI" rows="6" id="cdescription"></textarea>
+	            				<p class="fs001 my-1">Theory</p>            				
+	            				<textarea @keyup="normalize" class="form-control vI" rows="4" id="theroy"></textarea>
+	            			</div>
+	            			<div class="col-lg-12 col-md-12 mt-3">
+	            				<p class="fs001 my-1">Aparatus</p>            				
+	            				<textarea @keyup="normalize" class="form-control " rows="4" id="aparatus"></textarea>
+	            			</div>
+	            			<div class="col-lg-12 col-md-12 mt-3">
+	            				<p class="fs001 my-1">Requirment</p>            				
+	            				<textarea @keyup="normalize" class="form-control " rows="4" id="requirment"></textarea>
+	            			</div>
+	            			<div class="col-lg-12 col-md-12 mt-3">
+	            				<p class="fs001 my-1">Exercise</p>            				
+	            				<div @keyup="normalize" class="form-control editor-container" style="height: 250px;" id="exercise"></div>
+	            			</div>
+	            			<div class="col-lg-12 col-md-12 mt-3">
+	            				<p class="fs001 my-1">Resourses</p>            				
+	            				<textarea @keyup="normalize" class="form-control" rows="6" id="resources"></textarea>
 	            			</div>
 	            		</div>
 	            	</div>
@@ -57,7 +98,7 @@
 		            				<div class="d-flex">
 		            					<select @keyup="normalize" class="form-control vI" id="selectExperiment">
 		            						<option ></option>
-		            						<option v-for="experiment in experiments" :value="experiment.id">{{experiment.name}}</option>
+		            						<option v-for="experiment in experiments" :value="experiment.value">{{experiment.name}}</option>
 		            					</select>
 		            					<button class=" ml-2 sysbtn p-success text-white" @click="addEBox">Add</button>
 		            				</div>
@@ -79,23 +120,20 @@
 		            			</div>
 	            			</div>       			
 	            	</div>
-	            	<div id="uploadResources" v-if="sectionState==3" class="m-0 p-0 shineA">  
-	            		<p class="fw8 fs1 font" style="color: #777;">Add Resources</p>   
-	            		<div class="dragbox" id="dgbox" @click="dragrelease=false" @dragenter.prevent @dragover.prevent @drop="dragEnter">
-	            			<input @change="getDragedInFile"  type="file" name="files[]" class="draginto" id="fileI">            					            		
-	            			<span id="imageprev py-5 d-block">	            				
-		            			<span class="fa fa-cloud-upload fs3 text-dark text-center d-block"></span>
-		            			<label class="fw3 text-center d-block">Upload Additional resources</label>
-		            			<p class="text-center" style="color: #bbb;font-size: 0.8em;">Format: .jpeg, .jpg, or .png only</p>
-	            			</span>
-	            			<div class ="progressi mt-4" style="width: 50%;">			
-								<div id="progressBar" class="p-success progress-bar"></div>
-							</div>
-	            		</div>
-	            	</div>
+	            	<div id="experimentConfig" v-if="sectionState==3" class="m-0 p-0 shineA">     
+	            			<p class="fw8 fs1 font" style="color: #777;">Configuration</p>
+	            			<div class="row">            			
+		            			<div class="col-lg-12 col-md-12 m-0">
+		            				<span>		            					
+			            				<span class="fs1 fw5 p-text-success">Practice Mode:</span><input value="practice" class="configV" type="radio" name="config">
+			            				<span class="fs1 fw5 p-text-success">Test Mode:</span> <input value="test" class="configV" type="radio" name="config">
+		            				</span>
+		            			</div>
+	            			</div>       			
+	            	</div>	            
 
 	            	<div id="addInstructors" v-if="sectionState==4" class="m-0 p-0 shineA">  
-	            		<p class="fw8 fs1 font" style="color: #777;">Add Resources</p>   
+	            		<p class="fw8 fs1 font" style="color: #777;">Add Instructor</p>   
 	            		<div class="d-flex">
     					<select @keyup="normalize" class="form-control vI" id="selectedInstructor">
     						<option></option>
@@ -121,16 +159,16 @@
 	        			<div id="addIBox" class="r1" style="height: 200px;">        					
         				</div> -->
 	            	</div>
-	            	<div id="reviews" v-if="sectionState==5" class="m-0 p-0 shineA" style="overflow-y: scroll;">  
+	            <!-- 	<div id="reviews" v-if="sectionState==5" class="m-0 p-0 shineA" style="overflow-y: scroll;">  
 	            		<div v-for="(aitem,i) in alldata">
 	            			<div v-if="i==0" class="m-0">
 		            			<div class="fw8">Course Detailed</div>
 		            			<table class="table table-striped table-hover">
 		            				<thead class="bg-dark">
 		            					<th class="p-1 text-white bg-dark"></th>
-		            					<th class="p-1 text-white bg-dark text-left">Title</th>
-		            					<th class="p-1 text-white bg-dark text-left">Course Code</th>
-		            					<th class="p-1 text-white bg-dark text-left">Course Description</th>
+		            					<th class="p-1 text-white bg-dark text-left">Title/No.</th>
+		            					<th class="p-1 text-white bg-dark text-left">video url</th>
+		            					<th class="p-1 text-white bg-dark text-left">diagram</th>
 		            				</thead>
 		            				<tbody>
 		            					<td>		            						
@@ -165,7 +203,7 @@
 		            			</div>				
 	            			</div>	            			
 	            		</div>
-	            	</div>
+	            	</div> -->
             	</div>
             
             </div> 
@@ -211,8 +249,15 @@
 	    	 selectedInstructor:[],
 	    	 selectedInstructorName:[],
 	    	 percentage:0,
-	    	 experiments:[],
-	    	 dragrelease:false
+	    	 experiments:[
+	    	 	{name:'vernier caliper',value:'vernier_caliper'},
+	    	 	{name:'Micrometer Screw Guage',value:'micrometer'},
+	    	 	{name:'Simple Pendulum',value:'simple_pendulum'},
+	    	 	{name:'Resistor Color Code',value:'resistor_color_code'},
+	    	 ],
+	    	 dragrelease:false,
+	    	 quill:null,
+	    	 configMode:''
 	    	}
         },
         methods:{
@@ -307,9 +352,17 @@
 				let $nv = this;
 				if (this.sectionState ===1) {					
 					setTimeout(function() {
-					$('#ctitle').val($nv.alldata[0]['Title']);
-					$('#ccode').val($nv.alldata[0]['Course_code']);
-					$('#cdescription').val($nv.alldata[0]['Course_description']);					
+					$nv.quill_init();
+					$('#etitle').val($nv.alldata[0]['title']);
+					$('#enumber').val($nv.alldata[0]['experiment_number']);
+					$('#aim').val($nv.alldata[0]['aim']);					
+					$('#elink').val($nv.alldata[0]['video_url']);					
+					$('#imageName').val($nv.alldata[0]['diagram_url']);					
+					$('#theory').val($nv.alldata[0]['theory']);					
+					$('#aparatus').val($nv.alldata[0]['aparatus']);					
+					$('#requirment').val($nv.alldata[0]['requirment']);					
+					$('#resources').val($nv.alldata[0]['resources']);										
+					$('#exercise').find('.ql-editor').append($nv.alldata[0]['exercise']);					
 					}, 50);				
 					this.checkstage(1);
 				}
@@ -321,7 +374,7 @@
 				}
 				if (this.sectionState === 3) {					
 					setTimeout(function() {
-				 		$('#imageprev').html('<img id="image_droped" width="200px"  src="'+$nv.imagetoupload+'">');		
+				 		$('input[name=config][value='+$nv.configMode+']').attr('checked','checked');		
 					}, 50);
 					this.checkstage(3);					
 
@@ -333,27 +386,51 @@
 					this.checkstage(4);					
 				}
 			},
-			addEBox:function(){
-				let obj = $('#selectExperiment');
-				let evalue = Number(obj.val());
+			quill_init: function(){
+				 this.quill = new Quill('.editor-container', {
+				    modules: {
+				    formula: true,
+				    toolbar: [
+						['bold', 'italic', 'underline', 'strike'],
+						['link'],
+						['blockquote'],
+						[{ 'list': 'ordered'}, { 'list': 'bullet' }],
+				  		[{ 'script': 'sub'}, { 'script': 'super' }], 
+						['align', { 'align': 'center' }, { 'align': 'right' }, { 'align': 'justify' }],
+						['formula']
+					]
+				  },
+				  placeholder: 'editor...',
+				  theme: 'snow'  // or 'bubble'
+				});
+			  var enableMathQuillFormulaAuthoring = mathquill4quill();
+			  enableMathQuillFormulaAuthoring(this.quill);
+			},
+			addEBox:function(){			
+				let evalue = $('#selectExperiment').val();
 				this.validateState =false;
 
 				if($('#selectExperiment option:selected').text()!=""){
 					this.validateState =true;
 					let selExpName = $('#selectExperiment option:selected').text();
-					if(!this.selectedExperiment.includes(evalue)){
-					  this.selectedExperiment.push(evalue);
-					  this.selectedExperimentName.push(selExpName);
-					  let $vm = this;
-					///alert(this.selectedExperiment.includes(evalue));
-					 let indexof = this.selectedExperiment.indexOf(evalue);
-						$('#addEBox').append("<tr><td class='d-flex justify-content-between flex-wrap-center ' style='font-size:0.9em;cursor:pointer;' id='"+this.selectedExperiment.indexOf(evalue)+"'><p><b >Experiment "+(Number(this.selectedExperiment.indexOf(evalue))+1)+'</b>:<span class="ml-5"></span> '+selExpName+"</p><span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+indexof+"' >&times</span></td></tr>");
+					if(!this.selectedExperiment.includes(evalue)){						
+						if (this.selectedExperiment.length > 0) {
+							Swal.fire('only one Experiment Expected');							
+						}else{							
+						   this.selectedExperiment.push(evalue);
+						   this.selectedExperimentName.push(selExpName);
+						   let $vm = this;
+						   ///alert(this.selectedExperiment.includes(evalue));
+						   let indexof = this.selectedExperiment.indexOf(evalue);
+							$('#addEBox').append("<tr><td class='d-flex justify-content-between flex-wrap-center ' style='font-size:0.9em;cursor:pointer;' id='"+this.selectedExperiment.indexOf(evalue)+"'><p><b >Experiment "+(Number(this.selectedExperiment.indexOf(evalue))+1)+'</b>:<span class="ml-5"></span> '+selExpName+"</p><span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+indexof+"' >&times</span></td></tr>");
+						}
 					}else{
 					   $('#ar000').remove();
 					   $('#addEBox').after('<span class="text-danger requiredv" id="ar000">already exist!</span>');				
 					}
 					
 				}else{
+					$('.requiredv').remove();
 					obj.after('<span class="text-danger requiredv">Required !</span>');	
 					obj.css('border','1px solid #e45');
 				}			
@@ -442,15 +519,21 @@
 			nextSection: function(){
 				let $nv = this;
 				if (this.sectionState === 1){	
-					this.validateI('cdetail');
+					this.validateI('edetail');
 					
 					if(this.validateState === true){
-						this.ctitle = $('#ctitle').val();										
+													
 						this.alldata[0] = {
-							Title: $('#ctitle').val(),
-							Course_code:$('#ccode').val(),
-							Course_description:$('#cdescription').val()
-						};						
+							title: $('#etitle').val(),
+							experiment_number:$('#enumber').val(),
+							video_url:$('#elink').val(),
+							aim:$('#aim').val(),
+							theory:$('#theory').val(),
+							aparatus:$('#aparatus').val(),
+							exercise:$('#exercise').find('.ql-editor').html(),
+							resources:$('#resources').val(),
+							requirment:$('#requirment').val(),
+						};												
 						this.sectionState = 2;						
 						this.stageone= false;
 				    	this.stageonep = true;
@@ -477,46 +560,40 @@
 				    		'names': this.selectedExperimentName
 				    	};
 					}
-
+					let $nv = this;
 					setTimeout(function() {
-						if ($nv.imagetoupload != '') {
-				 			$('#imageprev').html('<img id="image_droped" width="200px"  src="'+$nv.imagetoupload+'">');		
+						if ($nv.configMode != "") {
+				 			$('input[name=config][value='+$nv.configMode+']').attr('checked','checked');		
 						}
-					}, 200);
+					}, 50);
 				}else if (this.sectionState === 3){
-
-
-					if (this.imagetoupload != '') {
-						this.stagethree= false;
+					this.configMode = $('input[name=config]:checked').val();
+					if(this.configMode == ""){
+						$('.requiredv').remove();
+						$('.configV').parent().after('<span class="text-danger requiredv">Required !</span>')
+					}else{
+						this.alldata[2] = {
+							'config' : this.configMode
+						};
+				    	this.stagethree = false;
 				    	this.stagethreep = true;
 				    	this.stagefour = true;
-				    	this.sectionState = 4;				    	
-				    	this.alldata[3] = {
-				    		image: this.imagetoupload
-				    	};
-					}else{
-						this.singleValidate('dgbox');
+				    	this.sectionState = 4;	
 					}
 
-					setTimeout(function() {
-						if ($nv.selectedInstructor.length > 0) {}
-							$nv.reiterateSelectedInstructor();
-					}, 200);
 				}else if (this.sectionState === 4){
 					if (this.selectedInstructor.length == 0){
 					 this.singleValidate('addIBox');
 					}else{
-						this.stagefour= false;
+						/*this.stagefour= false;
 				    	this.stagefourp = true;
-				    	//this.stage = true;
+				    	//this.stage = true;*/
 				    	this.sectionState = 5;				    	
-				    	this.alldata[2] = {
+				    	this.alldata[3] = {
 				    		'id': this.selectedInstructor,
 				    		'names': this.selectedInstructorName
 				    	};
-					}
-					
-				 	$('#imageprev').html('<img id="image_droped" width="200px"  src="'+$nv.imagetoupload+'">');		
+					}									 
 					//console.log(this.alldata);
 
 				}else if(this.sectionState === 5){
@@ -533,7 +610,7 @@
 
 				   		$('#system-loader').css('display','flex');
 
-			            $vm.axios.post('api/courses/create',formData, {headers: $vm.axiosHeader}).then(function(response, status, request) { 		
+			            $vm.axios.post('api/experiments/create',formData, {headers: $vm.axiosHeader}).then(function(response, status, request) { 		
 				   			$('#system-loader').css('display','none');
 				   			if(response.status == 200){
 
@@ -568,7 +645,7 @@
 				   			}
 			            	//console.log(response);			   				           
 			            }, function(e) {		  
-			            	console.log(e.status)
+			            	//console.log(e.status)
 					   		$('#system-loader').css('display','none');
 					   		let errMsg = $vm.errorSessionMessage;					   		
 					   	    if (e.response.status == 409) {					   	    	
@@ -603,7 +680,7 @@
 				}
 
 			},
-			dragEnter(e){			
+	/*		dragEnter(e){			
 				this.dragrelease = true;
 				let $nv = this;	
 				let holder = document.getElementById('dgbox');
@@ -625,21 +702,17 @@
 					reader.onloadend = function(event) {
 				 		$('#imageprev').html('<img id="image_droped" width="200px"  src="'+event.target.result+'">');		
 				 		$nv.imagetoupload = event.target.result;					    
-					};
-				    /*reader.onload = function (event) {
-				    }*/
+					};				
 				    reader.readAsDataURL(file);				
 				 	e.preventDefault();
 
-			},
+			},*/
 			getDragedInFile: function(e){					
 				if (this.dragrelease==false) {
-						let $nv = this;	
-					let holder = document.getElementById('dgbox');
-					holder.classList.add('dragenter');
-				    let file;
-					file = e.target.files[0];
-
+				    let $nv = this;						
+				    let file, filename;
+					file = e.target.files[0];					
+					filename = file.name;
 					   let reader = new FileReader();
 					$('.progress').css('display','block');
 
@@ -653,7 +726,7 @@
 						    }
 						};
 						reader.onloadend = function(event) {
-					 		$('#imageprev').html('<img id="image_droped" width="200px"  src="'+event.target.result+'">');		
+					 		$('#imageName').html(filename);							 		
 					 		$nv.imagetoupload = event.target.result;					    
 						};
 					    /*reader.onload = function (event) {
@@ -669,15 +742,15 @@
          props: [],
          mounted: function () {
          	let $vm = this;
-			   	
+			 this.quill_init();
 
 		  this.$nextTick(function () {
 		    // Code that will run only after the
 		    // entire view has been rendered
          		$(document).on('click', '.rmexp', function() {					
-					$vm.selectedExperiment.splice($(this).attr('rel'),1);
-					$vm.selectedExperimentName.splice($(this).attr('rel'),1);
-         			$vm.reiterateSelectedExp();         			
+					$vm.selectedExperiment = [];
+					$vm.selectedExperimentName = [];
+         			$('#'+ $(this).attr('rel')).parent().remove();    			
 				});
 				$(document).on('click', '.rmexp1', function() {					
 					$vm.selectedInstructor.splice($(this).attr('rel'),1);
@@ -685,50 +758,7 @@
          			$vm.reiterateSelectedInstructor();         			
 				});
 				
-				/*fetch experiment*/
-			   try{
-			   	
-		            $vm.axios.get('api/experiments/experiments',{ headers: $vm.axiosHeader }).then(function(response, status, request) { 			   	
-		            	if(response.status == 200){
-			            	 $vm.experiments = response.data;				   				
-				   		}else if(response.status == 401){
-			   				Swal.fire({
-							  title: $vm.errorSessionMessage,								  
-							  icon:'success',
-							  showDenyButton: true,								  
-							  confirmButtonText: `Ok`,								  
-							}).then((result) => {								  
-							  if (result.isConfirmed) {
-							    $vm.frontendLogout();
-							  } else if (result.isDenied) {								    
-							  }
-							})
-				   		}
-		            	//console.log($vm.experiments);			   	
-		              
-		            }, function(e) {			            
-		              vt.error($vm.errorNetworkMessage,{
-						  title: undefined,
-						  position: "bottom-right",
-						  duration: 10000,
-						  closable: true,
-						  focusable: true,
-						  callback: undefined
-						});
-		            
-		            });
-
-		        }catch(err){
-		          /* vt.error($vm.errorNetworkMessage,{
-						  title: undefined,
-						  position: "bottom-right",
-						  duration: 10000,
-						  closable: true,
-						  focusable: true,
-						  callback: undefined
-						});
-		          console.log(err)//show network error notification*/
-		        }
+			
 			
 		  });
 

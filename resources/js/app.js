@@ -31,8 +31,9 @@ const store = new Vuex.Store(   storedata )
 
 /*global event bus and communication*/
 Vue.prototype.$eventBus = new Vue(); 
-
+ 
 Vue.component('v-asidebar', require('./components/adminLeftNavBar.vue').default);//admin system side bar
+Vue.component('v-isidebar', require('./components/instructorLeftNavBar.vue').default);//instructor system side bar
 Vue.component('v-msidebar', require('./components/leftNavBar.vue').default);//main system side bar
 Vue.component('v-topnave', require('./components/experimentTopNav.vue').default);
 Vue.component('v-systopnave', require('./components/SysTopNav.vue').default);
@@ -52,6 +53,7 @@ Vue.component('v-circuitconnectiontools', require('./components/circuitconnectio
 
 /*admin component*/
 Vue.component('v-viewcreatedcourse', require('./components/viewCreatedCourse.vue').default); 
+Vue.component('v-faculty', require('./components/faculty.vue').default); 
 /*end admin component*/
 
 Vue.component('v-tlb2', require('./components/title-left-bar.vue').default);
@@ -74,6 +76,7 @@ Vue.component('v-dashb', require('./components/UserDashboard.vue').default);
 Vue.component('v-topnav', require('./components/TopNav.vue').default);
 Vue.component('v-lactivity', require('./components/Lastactivity.vue').default);
 Vue.component('v-practicaltimeline', require('./components/PracticalTimeLine.vue').default);
+Vue.component('v-viewstudent', require('./components/viewStudent.vue').default);
 
 Vue.component('v-enrolledpracticals', require('./components/EnrolledPractical.vue').default);
 
