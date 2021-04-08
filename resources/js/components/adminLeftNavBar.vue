@@ -1,40 +1,62 @@
 <template>
 
-	<div>
-		<div class="menuBtnToggler bg-white cursor-1" id="togglerV"  @click="toggleMenu">
-			<span class="fa fa-square mr-2" style="font-size: 2em;"></span>
-			<b class="menuLI" v-bind:class="{slidein:show1, slideout:hide1}">V-LAB</b>
+	<div class="vh-100">
+		<div class="menuBtnToggler bg-white cursor-1 " id="togglerV"  @click="toggleMenu">
+			<span class="fa fa-square mr-2 position-fixed" style="font-size: 2em;"></span>
+			<b class="menuLI ml-5" v-bind:class="{slidein:show1, slideout:hide1}">V-LAB</b>
 		</div>
 
 		<div style="width: 230px;" class="MenuLContainer bg-white"  v-bind:class="{reduceSize:show}">			
 			<div v-bind:class="{slidein:show, slideout:hide}" class="niconsV slider" >
 					<a :href="home"  v-bind:class="{btnActive:checkActive('home')}">
-					<span class="iconOV fa fa-home "></span>
+					<span class="iconOV  fa fa-home "></span>
 				</a>	
 				<a :href="dashboard"   v-bind:class="{btnActive:checkActive('dashboard')}">
-					<span class="iconOV fa fa-dashboard"></span>
+					<span class="iconOV  fa fa-dashboard"></span>
 				</a>	
 				<a :href="explore"   v-bind:class="{btnActive:checkActive('explore')}">
-					<span class="iconOV fa fa-spinner"></span>
+					<span class="iconOV  fa fa-spinner"></span>
 				</a>	
 				<!-- manage course -->
 				<ul class="listCoverV" >
 					<li class="listMenuVBtn nChildV"  v-bind:class="{btnActive:checkActive('course')}">
-						<span class="iconOV fa fa-book"></span>
+						<span class="iconOV  fa fa-book"></span>
 					</li>
 					<ul class="listMenuV">
 						<li>
-							<a :href="createcourse" class=" " v-bind:class="{btnActiveSub:checkActiveSub('createcourse')}">
-								<span class="iconOV fa fa-circle"></span><div class="labelV">Create Course</div>
+							<a :href="createcourse" class="text-white" v-bind:class="{btnActiveSub:checkActiveSub('createcourse')}">
+								<span class="iconOV text-white fa fa-circle"></span><div class="labelV">Create Course</div>
 							</a>
 						</li>
 						<li>
-							<a :href="editcourse"  v-bind:class="{btnActiveSub:checkActiveSub('editcourse')}">
-								<span class="iconOV fa fa-circle"></span><div class="labelV">Edit/Del Course</div>
+							<a :href="editcourse"  class="text-white" v-bind:class="{btnActiveSub:checkActiveSub('editcourse')}">
+								<span class="iconOV text-white fa fa-circle"></span><div class="labelV">Edit/Del Course</div>
 							</a>
 						</li>
 					</ul>
 				</ul>	
+				<!-- manage faculty -->
+				<a :href="department"   v-bind:class="{btnActive:checkActive('department')}">
+					<span class="iconOV fa fa-department"></span>
+				</a>	
+				<!-- manage experiment -->
+				<ul class="listCoverV" >
+					<li class="listMenuVBtn nChildV"  v-bind:class="{btnActive:checkActive('experiment')}">
+						<span class="iconOV  fa fa-cube"></span>
+					</li>
+					<ul class="listMenuV">
+						<li>
+							<a :href="addexperiment" class="text-white"  v-bind:class="{btnActiveSub:checkActiveSub('addexperiment')}">
+								<span class="iconOV text-white fa fa-circle"></span><div class="labelV">Add Experi.</div>
+							</a>
+						</li>
+						<li>
+							<a :href="viewexperiment" class="text-white" v-bind:class="{btnActiveSub:checkActiveSub('viewexperiment')}">
+								<span class="iconOV text-white fa fa-circle"></span><div class="labelV">View Experi.</div>
+							</a>
+						</li>
+					</ul>
+				</ul>
 				<!-- manage faculty -->
 				<a :href="faculty"   v-bind:class="{btnActive:checkActive('faculty')}">
 					<span class="iconOV fa fa-institution"></span>
@@ -46,12 +68,12 @@
 					<ul class="listMenuV">
 						<li>
 							<a :href="createfaculty"  v-bind:class="{btnActiveSub:checkActiveSub('createfaculty')}">
-								<span class="iconOV fa fa-circle"></span><div class="labelV">Create faculty</div>
+								<span class="iconOV text-white fa fa-circle"></span><div class="labelV">Create faculty</div>
 							</a>
 						</li>
 						<li>
 							<a :href="editfaculty"  v-bind:class="{btnActiveSub:checkActiveSub('editfaculty')}">
-								<span class="iconOV fa fa-circle"></span><div class="labelV">Edit/Del Faculty</div>
+								<span class="iconOV text-white fa fa-circle"></span><div class="labelV">Edit/Del Faculty</div>
 							</a>
 						</li>
 					</ul>
@@ -63,13 +85,13 @@
 					</li>
 					<ul class="listMenuV">
 						<li>
-							<a :href="edituser"  v-bind:class="{btnActiveSub:checkActiveSub('createuser')}">
-								<span class="iconOV fa fa-circle"></span><div class="labelV">Create user</div>
+							<a :href="edituser" class="text-white"  v-bind:class="{btnActiveSub:checkActiveSub('createuser')}">
+								<span class="iconOV text-white fa fa-circle"></span><div class="labelV">Create user</div>
 							</a>
 						</li>
 						<li>
-							<a :href="createuser"  v-bind:class="{btnActiveSub:checkActiveSub('edituser')}">
-								<span class="iconOV fa fa-circle"></span><div class="labelV">Edit/Del user</div>
+							<a :href="createuser" class="text-white"  v-bind:class="{btnActiveSub:checkActiveSub('edituser')}">
+								<span class="iconOV text-white fa fa-circle"></span><div class="labelV">Edit/Del user</div>
 							</a>
 						</li>
 					</ul>
@@ -82,7 +104,7 @@
 					<span class="iconOV fa fa-arrow-circle-left"></span>
 				</a>	
 			</div>
-			<div v-bind:class="{slidein:show1, slideout:hide1}" style="position: relative; margin-left: 20px; margin-right:20px;height: " >
+			<div v-bind:class="{slidein:show1, slideout:hide1, scrollableV:hide1, scrollableV:show1}" style="position: relative; margin-left: 10px; margin-right:20px;height:75vh; padding-right: 10px;" >
 				<a :href="home" class="nChildV" v-bind:class="{btnActive:checkActive('home')}">
 					<span class="iconV fa fa-home "></span><div class="labelV">Home</div>
 				</a>	
@@ -106,6 +128,28 @@
 						<li>
 							<a :href="editcourse" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('editcourse')}">
 								<span class="iconV fa fa-circle"></span><div class="labelV">Edit/Del Course</div>
+							</a>
+						</li>
+					</ul>
+				</ul>	
+				<!-- manage department -->
+				<a :href="department" class="nChildV"  v-bind:class="{btnActive:checkActive('department')}">
+					<span class="iconV fa fa-institution"></span><div class="labelV">Manage Dept.</div>
+				</a>	
+				<!-- manage Experiment -->
+				<ul >
+					<li class="listMenuBtn nChildV"  v-bind:class="{btnActive:checkActive('experiment')}">
+						<span class="iconV fa fa-cube"></span><div class="labelV">Manage Expr.</div>
+					</li>
+					<ul class="listMenu">
+						<li>
+							<a :href="addexperiment" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('addexperiment')}">
+								<span class="iconV fa fa-circle"></span><div class="labelV">Add Experiment</div>
+							</a>
+						</li>
+						<li>
+							<a :href="viewexperiment" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('viewexperiment')}">
+								<span class="iconV fa fa-circle"></span><div class="labelV">View Experiment</div>
 							</a>
 						</li>
 					</ul>
@@ -209,7 +253,8 @@
 		beforeDestroy: function () {
 		  this.eventBus.$off('toggleSysNav', this.toggleNavOnHover)		  
 		},
-        props:['home','dashboard','createcourse','editcourse','createuser','edituser','explore','faculty','courses','user','settings', 'active','activesub', 'incourse'],
+        props:['home','dashboard','department','viewexperiment','addexperiment','createcourse','editcourse','createuser','edituser','explore','faculty','courses','user','settings', 'active','activesub', 'incourse'],
+
         mounted(){
         	
         	/*btn slider*/
@@ -243,7 +288,7 @@ ul li{
 }
 ul{
 	padding: 0px;
-	margin: 0px;
+	margin: 0px;	
 }
 .listMenuBtn,.listMenuVBtn{
 	display: flex;
@@ -384,6 +429,9 @@ a{
 		border-radius: 8px;
 		cursor: pointer;
 	}
+	ul.listMenu li a.nChildV{
+		padding: 10px 8px;					
+	}
 	.listMenuVBtn.nChildV{
 		padding: 10px 1px;					
 	}
@@ -433,5 +481,9 @@ a{
 	.nChildv:hover  .labelV{
 		color: #fff;
 		border: 1px solid red;
+	}
+	.scrollableV{
+		overflow-x: hidden;
+		overflow-y: scroll;
 	}
 </style>

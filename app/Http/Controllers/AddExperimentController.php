@@ -9,6 +9,12 @@ class AddExperimentController extends Controller
     //
     public function index()
     {
-    	return view('instructor.add_experiment');
+    	return view('admin.add_experiment');
+    }
+
+    public function createdexperiment(){
+
+    	return view('admin.viewcreatedexperiment');
+
     }
 }

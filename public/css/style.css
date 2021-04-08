@@ -185,6 +185,12 @@ main {
 .p-text-warning{
   color: #FF8200;
 }
+span.p-text-success,.p-text-success{
+  color: #00b96b;
+}
+span.p-text-secondary,.p-text-secondary{
+  color: #bbb;
+}
 .p-dark{
   background: #20154e !important;
 }
@@ -806,6 +812,12 @@ button:focus{
 .w-90{
   width: 90%;
 }
+span.w-40, .w-40{
+  width: 40%;
+}
+span.w-60, .w-60{
+  width: 60%;
+}
 .width50 {
   width: 500px !important;
   right: 0 !important;
@@ -872,6 +884,17 @@ body {
   top: 15px;
   border-radius: 50%;
   z-index: 1;
+}
+span.r-right-none,.r-right-none{
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+span.r-left-none,.r-left-none{
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+span.no-border-right,.no-border-right{
+  border-right: none;
 }
 
 /* Place the container to the left */

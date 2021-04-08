@@ -40,7 +40,9 @@
 </template>
 
 <script>
+
 	export default{
+	
 		data(){
 			return{
 				createdCourses:null,
@@ -48,8 +50,37 @@
 			}
 		},
 		methods: {
-				editCourse:function(obj){
-					Swal.fire('edit');
+
+			 	//<createcourse update='${true}' alldata='${[]}'></createcourse>
+				editCourse:function(obj,id){
+					this.VueSweetAlert2('v-createcourse',{
+						update:true,
+						alldata: [],
+						course_id:2 //id
+					})
+					/*Swal.fire({
+					  title: 'Update course',
+					  html:`<v-createcourse id='forvuecomponent'></v-createcourse>`,
+					  focusConfirm: false,				
+					  preConfirm: () => {
+					  	let faculty = document.getElementById('swal-input0').value,
+					  	 facultyName , departmentName = document.getElementById('swal-input1').value,
+					      departmentAbbr = document.getElementById('swal-input2').value;
+					      facultyName = document.getElementById('swal-input0').options;
+					  	  facultyName = facultyName[facultyName.selectedIndex].text
+					  	if ( faculty == "" || departmentName == "" || departmentAbbr == "") {					     
+					         Swal.showValidationMessage('All fields are required');
+					  	}
+					    return [
+					      faculty,
+					      departmentName,
+					      departmentAbbr,
+					      facultyName,
+					    ]
+					  } 
+					}).then((result)=>{
+
+					});*/
 				},
 				deleteCourse: function(id){
 					Swal.fire('delete');					
@@ -60,7 +91,7 @@
 		    this.createdCourses  = await this.axiosGet('api/courses/courses');
 		    //console.log(this.createdCourses)
 		    this.tableLoaded = true;
-		    
+
 		    /*initialize datatable */
              setTimeout(function() {
              	 $('#coursetable').DataTable({
