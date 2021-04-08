@@ -10,7 +10,7 @@
 
    <div class="expr-dashboard-container" style="background-color:#eee;">
    		<!-- top nav bar -->
-        <v-systopnave title="Manage Faculty" username='said'></v-systopnave>   
+        <v-systopnave title="Manage Department" username='said'></v-systopnave>   
    		<!-- end to nav bar -->
 
    		<!-- content -->

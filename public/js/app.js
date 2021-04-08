@@ -5259,12 +5259,149 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       createddepartment: null,
       tableLoaded: false,
       facultiesHTML: null,
-      faculties: null
+      faculties: null,
+      watchfacultyHtml: {
+        value: null
+      }
     };
   },
   methods: {
+    swal_form: function swal_form() {
+      var update = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      var obj = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+        faculty_id: 1,
+        department_id: 2,
+        name: 'computer science',
+        code: 'csc'
+      };
+      $('#system-loader').css('display', 'flex');
+      var formcount = 0;
+      var $vm = this,
+          html = '';
+      var topic = "Create Department";
+
+      if (update) {
+        topic = "Update Department";
+        this.axiosGetFacultyHtml(update, obj.faculty_id); // fetch faculties and set selected base on update parameter if ture
+      } else {
+        this.axiosGetFacultyHtml(update); // fetch faculties
+      }
+
+      watch(this.watchfacultyHtml, 'value', function () {
+        if (update) {
+          //this.axiosGetFacultyHtml(update,obj.faculty_id);					
+          html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>" + $vm.facultiesHTML + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" value="' + obj.name + '" >' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Abbr</legend>" + '<input id="swal-input2" class="swal2-input mt-1" value="' + obj.code + '">';
+        } else {
+          html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>" + $vm.facultiesHTML + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" >' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Abbr</legend>" + '<input id="swal-input2" class="swal2-input mt-1">';
+        }
+
+        $('#system-loader').hide();
+        Swal.fire({
+          title: topic,
+          html: html,
+          focusConfirm: false,
+          preConfirm: function preConfirm() {
+            var faculty = document.getElementById('swal-input0').value,
+                facultyName,
+                departmentName = document.getElementById('swal-input1').value,
+                departmentAbbr = document.getElementById('swal-input2').value;
+            facultyName = document.getElementById('swal-input0').options;
+            facultyName = facultyName[facultyName.selectedIndex].text;
+
+            if (faculty == "" || departmentName == "" || departmentAbbr == "") {
+              Swal.showValidationMessage('All fields are required');
+            }
+
+            return [faculty, departmentName, departmentAbbr, facultyName];
+          }
+        }).then(function (result) {
+          if (result.value) {
+            var answers = {
+              faculty_id: result.value[0],
+              department_name: result.value[1],
+              department_code: result.value[2]
+            };
+            Swal.fire({
+              title: 'click on proceed',
+              text: 'other cancel and restart',
+              html: "<table class='table text-left'>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>Faculty :</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'>".concat(result.value[3], "</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>department:</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'> ").concat(answers.department_name, ",</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t \t<td width='30%'><b>Abbr:</b></td>\n\t\t\t\t\t      \t\t \t<td width='70%'> ").concat(answers.department_code, " </td>\n\t\t\t\t\t      \t\t <tr>\n\t\t\t\t      \t\t</table>"),
+              confirmButtonText: 'Process',
+              cancelButtonText: 'Cancle',
+              showCancelButton: true,
+              showLoaderOnConfirm: true,
+              preConfirm: function preConfirm(login) {
+                if (update) {
+                  var formData = {
+                    department_id: obj.department_id
+                  };
+                  return $vm.axios.post('api/departments/upadte', formData, {
+                    headers: $vm.axiosHeader
+                  }).then(function (response) {
+                    if (!response.data.sucess) {
+                      throw new Error(response.statusText);
+                    }
+
+                    return response.json();
+                  })["catch"](function (error) {
+                    if (error.response) {
+                      if (error.response.status == 409) {
+                        Swal.showValidationMessage("Failed: department Already Exist");
+                      } else if (error.response.status == 401) {
+                        location.reload();
+                      } else {
+                        Swal.showValidationMessage("Failed: Something went wrong");
+                      }
+                    }
+                  });
+                } else {
+                  return $vm.axios.post('api/departments/create', $vm.createFormData(answers), {
+                    headers: $vm.axiosHeader
+                  }).then(function (response) {
+                    if (!response.data.sucess) {
+                      throw new Error(response.statusText);
+                    }
+
+                    return response.json();
+                  })["catch"](function (error) {
+                    if (error.response) {
+                      if (error.response.status == 409) {
+                        Swal.showValidationMessage("Failed: department Already Exist");
+                      } else if (error.response.status == 401) {
+                        location.reload();
+                      } else {
+                        Swal.showValidationMessage("Failed: Something went wrong");
+                      }
+                    }
+                  });
+                }
+              },
+              allowOutsideClick: function allowOutsideClick() {
+                return !Swal.isLoading();
+              }
+            }).then(function (result) {
+              var title = 'created successfully';
+
+              if (update) {
+                title = 'updated successfully';
+              }
+
+              if (result.isConfirmed) {
+                Swal.fire({
+                  title: title,
+                  icon: 'success',
+                  confirmButtonText: 'Ok'
+                }).then(function (result) {
+                  location.reload();
+                });
+              }
+            });
+          }
+        });
+        formcount++;
+      }); //let $vm = this;	
+    },
     editdepartment: function editdepartment(obj) {
-      Swal.fire('edit');
+      this.swal_form(true);
     },
     deletedepartment: function deletedepartment(id) {
       Swal.fire('delete');
@@ -5275,124 +5412,79 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       $('#' + id).after('<span class="text-danger requiredv">Required !</span>');
     },
     createdepartment: function createdepartment() {
-      var $vm = this;
-      Swal.fire({
-        title: 'Create Department',
-        html: "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>" + this.facultiesHTML + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1">' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Abbr</legend>" + '<input id="swal-input2" class="swal2-input mt-1">',
-        focusConfirm: false,
-        preConfirm: function preConfirm() {
-          var faculty = document.getElementById('swal-input0').value,
-              facultyName,
-              departmentName = document.getElementById('swal-input1').value,
-              departmentAbbr = document.getElementById('swal-input2').value;
-          facultyName = document.getElementById('swal-input0').options;
-          facultyName = facultyName[facultyName.selectedIndex].text;
+      this.swal_form(false, null);
+    },
+    axiosGetFacultyHtml: function axiosGetFacultyHtml(update, faculty_id) {
+      var _this = this;
 
-          if (faculty == "" || departmentName == "" || departmentAbbr == "") {
-            Swal.showValidationMessage('All fields are required');
-          }
-
-          return [faculty, departmentName, departmentAbbr, facultyName];
-        }
-      }).then(function (result) {
-        if (result.value) {
-          var answers = {
-            faculty_id: result.value[0],
-            department_name: result.value[1],
-            department_code: result.value[2]
-          };
-          Swal.fire({
-            title: 'click on proceed',
-            text: 'other cancel and restart',
-            html: "<table class='table text-left'>\n\t\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t\t      \t\t\t<td width='30%'><b>Faculty :</b></td>\n\t\t\t\t\t\t      \t\t\t<td width='70%'>".concat(result.value[3], "</td>\n\t\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t\t      \t\t\t<td width='30%'><b>department:</b></td>\n\t\t\t\t\t\t      \t\t\t<td width='70%'> ").concat(answers.department_name, ",</td>\n\t\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t\t      \t\t \t<td width='30%'><b>Abbr:</b></td>\n\t\t\t\t\t\t      \t\t \t<td width='70%'> ").concat(answers.department_code, " </td>\n\t\t\t\t\t\t      \t\t <tr>\n\t\t\t\t\t      \t\t</table>"),
-            confirmButtonText: 'Process',
-            cancelButtonText: 'Cancle',
-            showCancelButton: true,
-            showLoaderOnConfirm: true,
-            preConfirm: function preConfirm(login) {
-              return $vm.axios.post('api/departments/create', $vm.createFormData(answers), {
-                headers: $vm.axiosHeader
-              }).then(function (response) {
-                if (!response.data.sucess) {
-                  throw new Error(response.statusText);
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(_this.faculties === null)) {
+                  _context.next = 4;
+                  break;
                 }
 
-                return response.json();
-              })["catch"](function (error) {
-                if (error.response) {
-                  if (error.response.status == 409) {
-                    Swal.showValidationMessage("Failed: department Already Exist");
-                  } else if (error.response.status == 401) {
-                    location.reload();
+                _context.next = 3;
+                return _this.axiosGet('api/faculties/faculties');
+
+              case 3:
+                _this.faculties = _context.sent;
+
+              case 4:
+                //method 2 
+                //does not require page reload 
+                //ajax request is made every time
+                //it might slow down operation
+
+                /*this.faculties =  await this.axiosGet('api/faculties/faculties');*/
+                _this.facultiesHTML = "<select id='swal-input0' class='swal2-input mt-1'>";
+
+                _this.faculties.forEach(function (item, idex) {
+                  if (update) {
+                    _this.facultiesHTML += "<option value='" + item.id + "'";
+
+                    if (item.id == faculty_id) {
+                      _this.facultiesHTML += "selected=selected";
+                    }
+
+                    _this.facultiesHTML += ">" + item.code + "</option>";
                   } else {
-                    Swal.showValidationMessage("Failed: Something went wrong");
+                    _this.facultiesHTML += "<option value='" + item.id + "'>" + item.code + "</option>";
                   }
-                }
-              });
-            },
-            allowOutsideClick: function allowOutsideClick() {
-              return !Swal.isLoading();
+                });
+
+                _this.facultiesHTML += "</select>"; //console.log(facultiesHTML);
+                //console.log(this.facultiesHTML);
+
+                _this.watchfacultyHtml.value = Math.random(1, 1000); //console.log(this.watchfacultyHtml.value)
+
+              case 8:
+              case "end":
+                return _context.stop();
             }
-          }).then(function (result) {
-            if (result.isConfirmed) {
-              Swal.fire({
-                title: "Created Successfully",
-                icon: 'success',
-                confirmButtonText: 'Ok'
-              }).then(function (result) {
-                location.reload();
-              });
-            }
-          });
-        }
-      });
-      /*	var $vm = this;
-      	Swal.mixin({
-      	  input: 'text',
-      	  confirmButtonText: 'Next &rarr;',
-      	  showCancelButton: true,
-      	  progressSteps: ['1', '2']
-      	}).queue([
-      	  {
-      	    title: 'department Name',
-      	    text: ''
-      	  },
-      	  {
-      	    title: 'department Abbrevation',
-      	    text: 'this must be unique'
-      	  }					  
-      	]).then((result) => {
-      	  
-      	})*/
+          }
+        }, _callee);
+      }))();
     }
   },
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
-              _context.next = 2;
-              return _this.axiosGet('api/faculties/faculties');
+              _context2.next = 2;
+              return _this2.axiosGet('api/faculties/departments');
 
             case 2:
-              _this.faculties = _context.sent;
-              _this.facultiesHTML = "<select id='swal-input0' class='swal2-input mt-1'>";
-
-              _this.faculties.forEach(function (item, idex) {
-                _this.facultiesHTML += "<option value='" + item.id + "'>" + item.code + "</option>";
-              });
-
-              _this.facultiesHTML += "</select>";
-              _context.next = 8;
-              return _this.axiosGet('api/faculties/departments');
-
-            case 8:
-              _this.createddepartment = _context.sent;
+              _this2.createddepartment = _context2.sent;
               //console.log(this.createddepartment)
-              _this.tableLoaded = true;
+              _this2.tableLoaded = true;
               /*initialize datatable */
 
               setTimeout(function () {
@@ -5401,12 +5493,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
               }, 200);
 
-            case 11:
+            case 5:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee);
+      }, _callee2);
     }))();
   },
   mounted: function mounted() {
@@ -39991,7 +40083,11 @@ var render = function() {
     _c("div", { staticClass: "notification-table " }, [
       _c(
         "table",
-        { staticClass: "table table-hover", attrs: { id: "departmenttable" } },
+        {
+          staticClass: "table table-hover",
+          attrs: { id: "departmenttable" },
+          on: { click: _vm.editdepartment }
+        },
         [
           _vm._m(0),
           _vm._v(" "),
@@ -40002,7 +40098,7 @@ var render = function() {
                   return _c("tr", { key: index }, [
                     _c(
                       "td",
-                      { attrs: { width: "40%", title: department.title } },
+                      { attrs: { width: "30%", title: department.title } },
                       [_vm._v(_vm._s(department.name))]
                     ),
                     _vm._v(" "),
@@ -40010,15 +40106,15 @@ var render = function() {
                       _vm._v(_vm._s(department.code))
                     ]),
                     _vm._v(" "),
+                    _c("td", { attrs: { width: "20%" } }, [
+                      _vm._v(_vm._s(department.faculty_code))
+                    ]),
+                    _vm._v(" "),
                     _c("td", { attrs: { width: "15%" } }, [
                       _vm._v(_vm._s(department.updated_at))
                     ]),
                     _vm._v(" "),
-                    _c("td", { attrs: { width: "5%" } }, [
-                      _vm._v(_vm._s(department.status))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { attrs: { width: "10%" } }, [
+                    _c("td", { attrs: { width: "15%" } }, [
                       _c("span", {
                         staticClass: "ml-2 fa fa-edit pl-3  fs01 cursor-1",
                         staticStyle: { "border-left": "1px solid #ccc" },
@@ -40057,15 +40153,15 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", { attrs: { id: "cheadV" } }, [
-        _c("th", { attrs: { width: "40%" } }, [_vm._v("department name")]),
+        _c("th", { attrs: { width: "30%" } }, [_vm._v("department name")]),
         _vm._v(" "),
         _c("th", { attrs: { width: "20%" } }, [_vm._v("department abbr.")]),
         _vm._v(" "),
+        _c("th", { attrs: { width: "20%" } }, [_vm._v("Faculty")]),
+        _vm._v(" "),
         _c("th", { attrs: { width: "15%" } }, [_vm._v("date created")]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "5%" } }, [_vm._v("status")]),
-        _vm._v(" "),
-        _c("th", { attrs: { width: "20%" } }, [_vm._v("Action")])
+        _c("th", { attrs: { width: "15%" } }, [_vm._v("Action")])
       ])
     ])
   }
