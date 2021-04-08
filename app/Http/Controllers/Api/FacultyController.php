@@ -18,7 +18,7 @@ class FacultyController extends Controller
         $id = Util::uuid();
         $facultyName = $request->get('faculty_name');
         $facultyCode = $request->get('faculty_code');
-        $schoolID = $request->get('school_id');
+        $schoolID = Auth::user()->school_id;
         $status = $request->get('status') ?? 'Active';
         $faculty = new Faculty();
         $faculty->id = $id;
@@ -75,14 +75,12 @@ class FacultyController extends Controller
 
         $facultyName = $request->get('faculty_name');
         $facultyCode = $request->get('faculty_code');
-        $schoolID = $request->get('school_id');
 
         $facultyId = $request->get('faculty_id');
         $faculty = Faculty::find($facultyId);
         if($faculty){
             $facultyName != null ? $faculty->name = $facultyName : null;
             $facultyCode != null ? $faculty->faculty_code = $facultyCode : null;
-            $schoolID != null ? $faculty->school_id = $schoolID : null;
     
             if(empty($facultyName) && empty($facultyCode) && empty($schoolID)){
                 return response()->json(['message' => 'Nothing to update'], 200);
@@ -94,10 +92,10 @@ class FacultyController extends Controller
                 return response()->json(['success' => true], 200);
             }
         } else {
-            return response()->json(['error' => 'No faculty with this id'], 200);
+            return response()->json(['error' => 'No faculty with this id'], 400);
         }
 
-        return response()->json(['success' => false], 200);
+        return response()->json(['success' => false], 401);
     }
 
     public function getAllFaculties()

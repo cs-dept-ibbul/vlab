@@ -17,13 +17,16 @@ use function PHPUnit\Framework\isNull;
 
 class CourseController extends Controller
 {
+    private $currentUser = Auth::user();
+    private $schoolId = $this->currentUser->school_id;
+    private $facultyId = $this->currentUser->faculty_id;
+    private $userId = $this->currentUser->id;
+
     public function create(Request $request)
     {
         $course = new Course();
 
         $validator = Validator::make($request->all(), [
-            'school_id' => 'required',
-            'faculty_id' => 'required',
             'title' => 'required',
             'code' => 'required',
         ]);
@@ -33,16 +36,14 @@ class CourseController extends Controller
         }
 
         $id = Util::uuid();
-        $school_id = $request->get('school_id');
-        $faculty_id = $request->get('faculty_id');
         $title = $request->get('title');
         $code = $request->get('code');
         $description = $request->get('description');
         $status = $request->get('status') ?? 'Active';
 
         $course->id = $id;
-        $course->school_id = $school_id;
-        $course->faculty_id = $faculty_id;
+        $course->school_id = $this->schoolId;
+        $course->faculty_id = $this->facultyId;
         $course->title = $title;
         $course->code = $code;
         $course->description = $description;
@@ -87,23 +88,21 @@ class CourseController extends Controller
         $courseId = $request->get('course_id');
         $course = Course::find($courseId);
         if($course){
-            $request->get('school_id') != null ? $course->school_id = $request->get('school_id') : null;
-            $request->get('faculty_id') != null ? $course->faculty_id = $request->get('faculty_id') : null;
             $request->get('title') != null ? $course->title = $request->get('title') : null;
             $request->get('code') != null ? $course->code = $request->get('code') : null;
             $request->get('description') != null ? $course->description = $request->get('description') : null;
     
-            if(empty($request->get('school_id')) && empty($request->get('faculty_id')) && empty($request->get('title')) && empty($request->get('code'))){
-                return response()->json(['error' => 'All filed is null'], 200);
+            if(empty($request->get('title')) && empty($request->get('code'))){
+                return response()->json(['error' => 'All field is null'], 400);
             } else {
                 $save = $course->save();
             }
     
             if ($save) {
-                return response()->json(['success' => true], 200);
+                return response()->json(['success' => true], 401);
             }
         } else {
-            return response()->json(['error' => 'No course with this id'], 200);
+            return response()->json(['error' => 'No course with this id'], 404);
         }
 
         return response()->json(['success' => false], 200);
@@ -170,8 +169,6 @@ class CourseController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'course_id' => 'required',
-            'school_id' => 'required',
-            'faculty_id' => 'required',
             'data_url' => 'required',
         ]);
 
@@ -181,8 +178,6 @@ class CourseController extends Controller
 
         $file = public_path($request->get('data_url'));
         $course_id = $request->get('course_id');
-        $school_id = $request->get('school_id');
-        $faculty_id = $request->get('faculty_id');
 
         $students = Util::csvToArray($file);
 
@@ -190,19 +185,19 @@ class CourseController extends Controller
             $userId = UserController::studentByMatricNumber($student['matric_number'])['id'];
             //Todo: Handle exception where student does not exist.
             if ($userId != null) {
-                $this->addStudentCourse($userId, $course_id, $school_id, $faculty_id);
+                $this->addStudentCourse($userId, $course_id);
             }
         }
     }
 
-    public function addStudentCourse($user_id, $course_id, $school_id, $faculty_id)
+    public function addStudentCourse($user_id, $course_id)
     {
         $userCourses = new CourseStudents();
         $userCourses->id = Util::uuid();
         $userCourses->course_id = $course_id;
         $userCourses->user_id = $user_id;
-        $userCourses->school_id = $school_id;
-        $userCourses->faculty_id = $faculty_id;
+        $userCourses->school_id = $this->schoolId;
+        $userCourses->faculty_id = $this->facultyId;
 
         $checkStudentCourse = CourseStudents::where(['course_id' => $course_id, 'user_id' => $user_id,])->first();
 
@@ -275,9 +270,7 @@ class CourseController extends Controller
 
     public function getStudentEnrolledCourses()
     {
-        $user = Auth::user();
-        $userId = $user->id;
-        $enrolledCourses = CourseStudents::where('user_id', $userId)->get();
+        $enrolledCourses = CourseStudents::where('user_id', $this->userId)->get();
         $data = [];
         foreach ($enrolledCourses as $enrolledCourse) {
             $courseId = $enrolledCourse->course_id;
