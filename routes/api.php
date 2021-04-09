@@ -54,6 +54,8 @@ Route::group([
             'prefix' => 'faculties'
         ], function () {
             Route::post('create', [FacultyController::class, 'create']);
+            Route::post('update', [FacultyController::class, 'updateFaculty']);
+            Route::post('delete', [FacultyController::class, 'deleteFaculty']);
             Route::post('faculty', [FacultyController::class, 'getFaculty']);
             Route::get('faculties', [FacultyController::class, 'getAllFaculties']);
             Route::get('faculty_courses', [FacultyController::class, 'facultiesWithCourses']);
@@ -72,6 +74,8 @@ Route::group([
             'prefix' => 'courses'
         ], function () {
             Route::post('create', [CourseController::class, 'create']);
+            Route::post('update', [CourseController::class, 'updateCourse']);
+            Route::post('delete', [CourseController::class, 'deleteCourse']);
             Route::post('course', [CourseController::class, 'getCourse']);
             Route::get('courses', [CourseController::class, 'getAllCourses']);
 
