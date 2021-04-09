@@ -9,9 +9,13 @@ use App\Models\CourseExperiment;
 use App\Models\CourseInstructor;
 use App\Models\CourseResources;
 use App\Models\CourseStudents;
+use App\Models\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Auth;
 
 use function PHPUnit\Framework\isNull;
 
@@ -24,16 +28,21 @@ class CourseController extends Controller
 
     public function create(Request $request)
     {
+
         $course = new Course();
 
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'code' => 'required',
+            'resource_url' => 'required',
+            'experiment_id' => 'required',
+            'instructor_id' => 'required',
         ]);
-
+        $school_id = School::first()->id;                
         if ($validator->fails()) {
             return response()->json(['error' => "All fields are required"], 400);
         }
+
 
         $id = Util::uuid();
         $title = $request->get('title');
@@ -53,11 +62,49 @@ class CourseController extends Controller
         if (empty($checkCourse)) {
             if ($course->save()) {
                 return response()->json(['success' => true], 200);
+
             }
-            return response()->json(['success' => false], 401);
+            */
+            /*resource data*/
+            $resource = array(
+                'id'         => $resource_uuid,
+                'course_id'  => $course_uuid,
+                'resourceUrl'=> $resourceUrl,
+            );
+
+            /*add experiment to a course*/            
+            $experimentIds = explode(',', $request->get('experiment_id'));           
+            $experiments = array();
+            for($x =0; $x < sizeof($experimentIds); $x++){
+               array_push($experiments, array(
+                'id'            => Util::uuid(),
+                'course_id'     => $course_uuid,
+                'experiment_id' => $experimentIds[$x],
+               ));
+            };
+            
+            /*add instructors to a course*/            
+            $instructorIds = explode(',', $request->get('instructor_id'));           
+            $instructors = array();
+            for($x =0; $x < sizeof($instructorIds); $x++){
+               array_push($instructors, array(
+                'id'            => Util::uuid(),
+                'course_id'     => $course_uuid,
+                'instructor_id' => $experimentIds[$x],
+               ));
+            };
+ 
+            DB::transaction(function () use($course,$resource, $experiments, $instructors) {
+                Course::insert($course);
+                CourseResources::insert($resource);
+                CourseExperiment::insert($experiments);
+                CourseInstructor::insert($instructors);
+            },5);            
+            return response()->json(['success' => true], 200);            
         }
         return response()->json(['error' => 'This course already exist'], 409);
     }
+
 
     public function deleteCourse(Request $request)
     {
@@ -107,6 +154,7 @@ class CourseController extends Controller
 
         return response()->json(['success' => false], 200);
     }
+
 
     public function getAllCourses()
     {

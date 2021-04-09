@@ -1,13 +1,22 @@
 <template>
-	<div style="" id="rightNavigation">
-		<div class="containerR" id="tools">	
+	<div class="vhE-2" id="rightNavigation">
+		<div class="containerR" id="tools" style="height:100%;">	
 			
-		   	<div class="input-alt"></div>		   
-		   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>
-            <div v-for="tool in toolSizes"  :key="tool" @click="addactivate;changeApparatus(tool)"  v-bind:style="{width:tool+'px'}" class="box">
-            		Size
-        	</div>                  
-		<!-- <span v-if="toolState==true">
+		   	<div class="input-alt"></div>	
+		   	<span v-if="circuitconnectiontools==true" class="pr z-1" >		 
+		   	 	<circuitconnectiontools has='1'  ></circuitconnectiontools>
+		   	</span>	   
+		   	<span v-if="electricitytools==true">	
+			   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>		   		
+		   		<electricity></electricity>	   		
+		   	</span>
+		   	<span v-if="othertools==true">		   		
+			   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>
+	            <div v-for="tool in toolsizes"  :key="tool" @click="addactivate;changeApparatus(tool)"  v-bind:style="{width:tool+'px'}" class="box">
+	            		Size
+	        	</div>                  
+		   	</span>
+		<!-- <span v-if="toolstate==true">
 		</span>		
 		<span v-else>			
 		</span> -->
@@ -28,18 +37,22 @@
 		   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>			
 		   <h1>Help</h1>				                
 		</div>
-		<div class="containerR" style="display: none;" id="unkl">	
-		<!--    	 <input type="text" name="search" class="input-search input-dark" ><span class="fa fa-search serachicon "></span> -->           
+		<!-- <div class="containerR" style="display: none;" id="unkl">			
 		   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>
-            <div v-for="tool in toolSizes"  :key="tool" @click="addactivate;changeApparatus(tool)"  v-bind:style="{width:tool+'px'}" class="box">
+            <div v-if="toolstate==true" v-for="tool in toolsizes"  :key="tool" @click="addactivate;changeApparatus(tool)"  v-bind:style="{width:tool+'px'}" class="box">
             		Size
         	</div> 			                
-		</div>
+		</div> -->
 	</div>
 </template>
 <script>
+	import circuitconnectiontools from './circuitconnectiontools';
+	import electricity from './electricityEquipment';
 	export default{
-
+	components:{
+		circuitconnectiontools,
+		electricity,
+	},
 	 data:function() {
 		    return{
 		    	numC:0,
@@ -47,8 +60,9 @@
 		    	resour:false,
 		    	show:false,
             	hide:true,
-            	control:false,           
-            	toolSizes:[],
+            	control:false,     
+            	toolsizesArr:[],             	            
+            	toolnstate:false,
             	rightNavState:false,
             	activeRightNav:'tools'		            
 		   	}
@@ -83,9 +97,11 @@
         	},
 
         },	
-        
-        created: function () {
-		  this.toolSizes = JSON.parse(this.toolsizes);
+        computed: {
+    		// a computed getter		  
+		  },
+        created: function () {      
+
 		  this.$eventBus.$on('rightNavtoggleClick', data => {		  	
 		  	//this.toggleNavOnHover();
 		  	if(this.activeRightNav === data.text){		  		
@@ -104,11 +120,15 @@
 		},
 
         props:{
-            toolsizes: String,
+            toolsizes: Array,
             url:String,
-            toolState:String
+            toolstate:Boolean,
+            circuitconnectiontools:Boolean,
+            othertools:Boolean,
+            electricitytools:Boolean
         },        
         mounted(){
+        	//console.log(this.toolsizes);
         var $vm = this;	               	
         	$('.box').click(function(){
         		$('.box').removeClass('boxActive');
@@ -255,11 +275,24 @@
 	padding:10px;
 	color:#fff;
 	border:none;
+	position: relative;
+	z-index: 10;
 }
 .serachicon{
 	color:#eee;
 	position: absolute;
 	right: 10px; 
 	top: 10px;
+}
+.pr{
+	position: relative;
+	display: block;
+	} 
+.z-1{
+	z-index: 1;
+}
+.vhE-2{
+	height: 87vh;
+	width: 100%;
 }
 </style>

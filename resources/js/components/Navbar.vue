@@ -1,11 +1,11 @@
 <template>
-  <nav class="navbar">
-    <div class="container align-items-center">
+  <nav class="navbar py-3" :style="'width:'+currentWidth+'%;'" >
+    <div class="container align-items-center mb-0">
       <div class="navbar__logo">
-        <img src="https://picsum.photos/200/300" alt="" />
+        <img src="/vlab.png"  width="100" class="mt-2" alt="vlab-logo" />
       </div>
       <ul
-        class="navbar__list d-lg-flex mobile-nav"
+        class="navbar__list d-lg-flex mobile-nav mb-0"
         :class="showNav ? 'mobile-nav--open' : null"
       >
         <button
@@ -19,18 +19,30 @@
         <li class="navbar__list__item"><a :href="explore">Explore</a></li>
         <li class="navbar__list__item"><a href="#">Articles</a></li>
         <li class="navbar__list__item"><a href="#">Videos</a></li>
-        <div class="d-inline-block d-lg-none">
+        <div v-if="username == ''" class="d-inline-block d-lg-none">
           <li class="navbar__list__item"><a :href="login">Login</a></li>
           <li class="navbar__list__item navbar__list__item--btn">
             <a href="#">Signup</a>
           </li>
         </div>
+        <div class="d-inline-block d-lg-none sys-acc" @click="forLogout =!forLogout"  v-if="username != '' ">
+            <span class="fa fa-user mr-2"></span>
+            <span style="font-size: 0.9em; font-weight: 300;">{{username}}</span>
+            <span class="fa fa-chevron-down ml-2"></span>
+            <a @click="logout" class="forLogout" v-bind:class="{extra:forLogout}">Logout</a>            
+          </div>
       </ul>
-      <ul class="navbar__list d-none d-lg-flex align-items-lg-center">
-        <li class="navbar__list__item"><a :href="login">Login</a></li>
-        <li class="navbar__list__item navbar__list__item--btn">
+      <ul class="navbar__list d-none d-lg-flex align-items-lg-center mb-0">
+        <li v-if="username == ''"  class="navbar__list__item"><a :href="login">Login</a></li>
+        <li v-if="username == ''" class="navbar__list__item navbar__list__item--btn">
           <a href="#">Signup</a>
         </li>
+          <li class="sys-acc" @click="forLogout =!forLogout" v-if="username != '' " >
+            <span class="fa fa-user mr-2"></span>
+            <span style="font-size: 0.9em; font-weight: 300;">{{username}}</span>
+            <span class="fa fa-chevron-down ml-2"></span>
+            <a @click="logout" class="forLogout" v-bind:class="{extra:forLogout}">Logout</a>
+          </li>
       </ul>
       <button
         class="navbar__toggle d-inline-block d-lg-none"
@@ -43,26 +55,73 @@
   </nav>
 </template>
 <script>
+
 export default {
   name: 'Navbar',
   props: ['home', 'explore', 'login'],
   data: () => ({
     showNav: false,
+    username:'',
+    forLogout:false,
   }),
+  created(){
+      if(JSON.parse(localStorage.getItem('LoggedUser')) == undefined ){
+        this.username ='';
+      }else{
+        this.username =  JSON.parse(localStorage.getItem('LoggedUser')).user.first_name;          
+      }
+  },
   methods: {
     toggleNav() {
       this.showNav = !this.showNav;
     },
+    sysAcc(){
+
+    }
   },
 };
 </script>
 <style lang="scss" scoped>
+  .forLogout{
+    position: absolute;
+    left: -15px;
+    top: 0px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background: #fff;
+    width: 100px;
+    text-align: center;
+    transition: 1s top;
+    display: none;
+  }
+
+@keyframes fdown {
+  
+    100% { transform:scale(1.0); opacity:1.0; top:35px}
+
+}
+
+  .extra{
+    display: block;
+    animation: fdown 0.2s forwards;
+    -webkit-animation: fdown 0.2s forwards;
+    
+    
+  }
+  .sys-acc{
+    display: flex;flex-wrap: wrap;align-items: center;
+    cursor: pointer;
+    position: relative;
+  }
 .navbar {
   position: fixed;
   top: 0;
   width: 100%;
   max-height: 81px;
   background-color: #fff;
+  box-shadow: 6px 4px 3px rgba($color: #000, $alpha: .1);
+  z-index: 10;
 
   &__logo {
     position: relative;
@@ -170,7 +229,7 @@ export default {
 
     &--open {
       position: fixed;
-      z-index: 9999;
+      z-index: 11;
       top: 0;
       right: 0;
       height: 100vh;
@@ -188,8 +247,8 @@ export default {
 
       .navbar__toggle {
         position: absolute;
-        top: 20px;
-        right: 20px;
+        top: 18px;
+        right: 31px;
         width: 30px;
         height: 30px;
         border-radius: 50%;
@@ -209,40 +268,6 @@ export default {
     }
   }
 }
-
-/* .mainNav {
-  border-bottom: 1px solid #f2f2f2;
-}
-.navM a {
-  font-family: 'Roboto', serif;
-  font-weight: 300;
-  margin: 0px 10px;
-  font-size: 0.9em;
-  color: #333;
-  text-decoration: none;
-}
-.navM a:last-child {
-  margin-right: 0px !important;
-}
-.navM a:hover {
-  color: #3c8;
-}
-.nlogin {
-  background: #3c8;
-  color: #fff !important;
-  padding: 10px 13px;
-  border-radius: 5px;
-  border: 1px solid transparent;
-}
-.nlogin:hover {
-  background: #fff !important;
-  color: #368 !important;
-  border: 1px solid #fefefe;
-}
-.mainNavM {
-  flex-wrap: wrap;
-  align-items: center;
-} */
 </style>
 
     

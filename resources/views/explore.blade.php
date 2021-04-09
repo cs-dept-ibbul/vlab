@@ -14,6 +14,8 @@
     <div class="w-100 m-0 p-0 explore">
         <v-navb home="{{route('home')}}" explore="{{route('explore')}}" login="{{route('login')}}"></v-navb>
         <br>
+        <br>
+        <br>
         <h1 class="my-5 text-center explore__header">Explore Available V-lab Courses</h1>
         <div class="w-100 bg-white px-6" style="box-shadow: 1px 6px 5px rgba(100,100,100,.1);position: relative;z-index: 2;">
         	<div class="font2 fw4  systab systab--active ">Course Category</div>

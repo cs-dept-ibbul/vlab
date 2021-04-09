@@ -2,8 +2,11 @@
 	<div class="m-0 p-0">
 		
 	<div class="row bg-light m-0 px-2 pt-4">
-            <div class="col-lg-3 col-md-5 col-sm-12 m-0 ">
-            	<p class="fs2 fw8 font">Create Course</p>
+            <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 m-0 ">
+            	<p class="fs2 fw8 font">
+            		<span v-if="!update">Create Course</span>
+            		<span v-if="update">Update Course</span>
+            	</p>
             	<div  class="w-100 bg-white r2 px-4 py-4 shadow-sm"><!-- loop weekly -->
 						<div class="d-flex flex-wrap-center mb-4" >
 							<span class="ncircle" v-bind:class="{tactive:stageone,tsuccess:stageonep}" >1</span>
@@ -28,7 +31,7 @@
             			   	
             </div>
             	
-            <div class="col-lg-8 col-md-7 col-sm-12 pt-3" style="height: 550px;">
+            <div class="col-lg-8 col-md-7 col-sm-12 col-xs-12 pt-3" style="height: 76vh;">
             	<!-- course detatil -->            	
             	<div  class="py-4 px-4 mt-3 r2 bg-white shadow-sm" style="">
             		<div id="cdetail" v-if="sectionState==1" class="m-0 p-0">            			
@@ -44,7 +47,7 @@
 	            				<input type="text"  @keyup="normalize" class="form-control vI" id="ccode">
 	            			</div>
 	            			<div class="col-lg-12 col-md-12 mt-3">
-	            				<p class="fs001 my-1">Course Code</p>            				
+	            				<p class="fs001 my-1">Course Description</p>            				
 	            				<textarea @keyup="normalize" class="form-control vI" rows="6" id="cdescription"></textarea>
 	            			</div>
 	            		</div>
@@ -52,45 +55,135 @@
 	            	<div id="addExperiment" v-if="sectionState==2" class="m-0 p-0 shineA">     
 	            			<p class="fw8 fs1 font" style="color: #777;">Add Experiment</p>
 	            			<div class="row">            			
-		            			<div class="col-lg-8 col-md-6 m-0">
+		            			<div class="col-lg-12 col-md-12 m-0">
 		            				<p class="fs001 my-1">Select Experiment</p>
 		            				<div class="d-flex">
 		            					<select @keyup="normalize" class="form-control vI" id="selectExperiment">
-		            						<option></option>
-		            						<option value="1">Vernier Caliper</option>
-		            						<option value="3">Micrometer Screw Guage</option>
-		            						<option value="2">Simple Pendulum</option>
+		            						<option ></option>
+		            						<option v-for="experiment in experiments" :value="experiment.id">{{experiment.name}}</option>
 		            					</select>
 		            					<button class=" ml-2 sysbtn p-success text-white" @click="addEBox">Add</button>
 		            				</div>
 		            				<br><br>
-		            				<div class="d-flex flex-wrap-center justify-content-between w-100">
-		            					<div class="hr w35"></div>
-		            					<span class="w30">Added Experiment</span>
-		            					<div class="hr w35"></div>
-		            				</div>
+		            					<div class="d-flex  justify-content-between w-100">
+				        					<div class="hr w-100"></div>
+				        					<div class="w-100 text-center mb-2" style="margin-top:-10px;">Added Experiment</div>
+				        					<div class="hr w-100"></div>
+				        				</div>		            				
 		            				<br>
-		            				<div id="addEBox" class="r1" style="height: 200px;">
+		            				<table style="min-height: 200px;"  class="table table-striped table-hover">
+		            					<tbody id="addEBox">
+		            						
+		            					</tbody>		            					
+		            				</table><!-- 
+		            				<div id="addEBox" class="" style="height: 200px;">
 		            					
-		            				</div>
+		            				</div> -->
 		            			</div>
 	            			</div>       			
 	            	</div>
+	            	<div id="uploadResources" v-if="sectionState==3" class="m-0 p-0 shineA">  
+	            		<p class="fw8 fs1 font" style="color: #777;">Add Resources</p>   
+	            		<div class="dragbox" id="dgbox" @click="dragrelease=false" @dragenter.prevent @dragover.prevent @drop="dragEnter">
+	            			<input @change="getDragedInFile"  type="file" name="files[]" class="draginto" id="fileI">            					            		
+	            			<span id="imageprev py-5 d-block">	            				
+		            			<span class="fa fa-cloud-upload fs3 text-dark text-center d-block"></span>
+		            			<label class="fw3 text-center d-block">Upload Additional resources</label>
+		            			<p class="text-center" style="color: #bbb;font-size: 0.8em;">Format: .jpeg, .jpg, or .png only</p>
+	            			</span>
+	            			<div class ="progressi mt-4" style="width: 50%;">			
+								<div id="progressBar" class="p-success progress-bar"></div>
+							</div>
+	            		</div>
+	            	</div>
+
+	            	<div id="addInstructors" v-if="sectionState==4" class="m-0 p-0 shineA">  
+	            		<p class="fw8 fs1 font" style="color: #777;">Add Resources</p>   
+	            		<div class="d-flex">
+    					<select @keyup="normalize" class="form-control vI" id="selectedInstructor">
+    						<option></option>
+    						<option value="1">Mr. name Caliper</option>
+    						<option value="3">Mrs. Screw Guage</option>
+    						<option value="2">Dr. Simple Pendulum</option>
+    					</select>
+    					<button class=" ml-2 sysbtn p-success text-white" @click="addIBox">Add</button>
+        				</div>
+        				<br><br>
+        				<div class="d-flex  justify-content-between w-100">
+        					<div class="hr w-100"></div>
+        					<div class="w-100 text-center" style="margin-top:-10px;">Added Instructor</div>
+        					<div class="hr w-100"></div>
+        				</div>
+        				<br>
+        				<table style="min-height: 200px;"  class="table table-striped table-hover">
+        					<tbody id="addIBox">
+        						
+        					</tbody>		            					
+        				</table>
+		            	<!-- 
+	        			<div id="addIBox" class="r1" style="height: 200px;">        					
+        				</div> -->
+	            	</div>
+	            	<div id="reviews" v-if="sectionState==5" class="m-0 p-0 px-2 shineA" style="overflow-y: scroll;height: 55vh; ">  
+	            		<div v-for="(aitem,i) in alldata">
+	            			<div v-if="i==0" class="m-0">
+		            			<div class="fw8">Course Detailed</div>
+		            			<table class="table table-bordered">		            				
+		            				<tbody>		            							            					
+					            		<tr v-for="(edatavalue,j,k) in aitem" class="p-1">
+	            							<td v-if="k==0" class="text-left" width="40%">Title</td>
+	            							<td v-if="k==1" class="text-left" width="40%">Course Code</td>
+	            							<td v-if="k==2" class="text-left" width="40%">Course Description</td>
+				            				<td width="60%" class="text-left"> {{ edatavalue }}</td>
+					            		</tr>	            						            			
+		            				</tbody>
+		            			</table>
+	            			</div>
+	            			         				
+		            			<div v-if="i==1" class="col-lg-6 col-md-6 my-2 mx-0 px-0 ">
+			            			<div class="fw8 m-0">Selected Experiment</div>
+			            			<div class="p-2  m-0">			            				
+					            		<p v-for="(edatavalue,j, inde) in aitem.names">		            				
+				            				<b>{{inde}}.</b> {{edatavalue}}
+					            		</p>	            				
+			            			</div>
+		            			</div>
+		            			<div v-if="i==2" class=" col-lg-5 col-md-5 mx-0 px-0 ">
+			            			<div class="fw8 m-0">Selected Instructor</div>
+			            			<div class="p-2  m-0">			            				
+					            		<p v-for="(edatavalue,j, inde) in aitem.names">		            				
+				            				<b>{{inde}}.</b> {{edatavalue}}
+					            		</p>	            				
+			            			</div>
+		            			</div>	            	
+	            			<div v-if="i==3" class="m-0 mt-2">
+		            			<div class="fw8">image to Upload</div>
+		            			<div>
+		            				<img width="200px" :src="aitem.image">
+		            			</div>				
+	            			</div>	            			
+	            		</div>
+	            	</div>
             	</div>
-            	
-            	{{alldata}}         
-            	{{selectedExperiment}}
+            
             </div> 
    		</div>
         <div class="row bg-white m-0">
             <div class="col-lg-8 col-md-7 col-sm-12">
             </div>
-            <div class="col-lg-2 col-md-3 col-sm-12 mx-auto py-2 d-flex">
-            	<button v-if="sectionState >1" class="btn p-success text-white py-2 px-3 mr-3" @click="nextSection" ><span class="fa fa-arrow-left"></span> Previous </button>
-            	<button class="btn p-success text-white py-2 px-3" @click="nextSection" > Continue <span class="fa fa-arrow-right"></span></button>
+            <div class="col-lg-4 col-md-3 col-sm-12 mx-auto py-2 d-flex">            	
+            	<button v-if="sectionState >1" class="btn p-success text-white py-2 px-3 mr-3" @click="prevSection" ><span class="fa fa-arrow-left"></span> Previous </button>            	
+            	<button v-if="sectionState < 5" class="btn p-success text-white py-2 px-3" @click="nextSection" > Continue <span class="fa fa-arrow-right"></span></button>
+            	<button v-if="sectionState == 5" class="btn p-success text-white py-2 px-3" @click="submitProcess" > 
+            		<span v-if="!update">Submit</span>
+            		<span v-if="update">Update</span> 
+            		<span class="fa fa-arrow-right"></span>
+            		
+            	</button>
             </div>
-            <div class="col-lg-2 col-md-1 col-sm-12 mx-auto">
+            <div class="col-md-1 col-sm-12 mx-auto">
             </div>
+            <!--  -->
         </div>
 	</div>
 </template>
@@ -100,7 +193,7 @@
 
 	 data:function() {
 	    	return{
-	    	 alldata:[],
+	    	 count:0,	    	 
 	    	 stageone:true,
 	    	 stageonep:false,
 	    	 stagetwo:false,
@@ -114,9 +207,15 @@
 	    	 sectionState: 1,
 	    	 title:'',
 	    	 ccode:'',
+	    	 imagetoupload:'',
 	    	 validateState:false,
 	    	 selectedExperiment:[],
-	    	 selectedExperimentName:[]
+	    	 selectedExperimentName:[],
+	    	 selectedInstructor:[],
+	    	 selectedInstructorName:[],
+	    	 percentage:0,
+	    	 experiments:[],
+	    	 dragrelease:false
 	    	}
         },
         methods:{
@@ -126,7 +225,117 @@
 			   this.$eventBus.$emit('toggleClick',{text:this.navState});
 			    //this.newTodoText = ''
 			},
-			
+			checkstage(state){
+				if (state === 1) {					
+					this.stageone= false;
+				    
+				    this.stageonep = false;
+				    
+				    this.stagetwo = false;						    			    
+
+			    	this.stagetwop = false;			    	
+
+			    	this.stagethree = false;
+
+			    	this.stagethreep = false;
+
+			    	this.stagefour = false;
+
+				}
+				if (state === 2) {
+					this.stageone= false;
+
+				    this.stageonep = true;
+
+				    this.stagetwo = true;						    			    
+
+			    	this.stagetwop = false;			    	
+
+			    	this.stagethree= false;
+
+			    	this.stagethreep = false;
+
+			    	this.stagefour = false;
+				}
+
+				if (state === 3) {
+			    	this.stageone= false;
+
+				    this.stageonep = true;
+
+				    this.stagetwo = false;						    			    
+
+			    	this.stagetwop = true;			    	
+
+			    	this.stagethree= true;
+
+			    	this.stagethreep = false;
+
+			    	this.stagefour = false;
+				}
+				if (state === 4) {
+			    	this.stageone= false;
+
+				    this.stageonep = true;
+
+				    this.stagetwo = false;						    			    
+
+			    	this.stagetwop = true;			    	
+
+			    	this.stagethree= false;
+
+			    	this.stagethreep = true;
+
+			    	this.stagefour = true;
+				}
+				if (state === 5) {
+			    	this.stageone= false;
+
+				    this.stageonep = true;
+
+				    this.stagetwo = false;						    			    
+
+			    	this.stagetwop = true;			    	
+
+			    	this.stagethree= false;
+
+			    	this.stagethreep = true;
+
+			    	this.stagefour = true;
+			    	this.stagefour = false;
+				}
+			},
+			prevSection:function(){
+				this.sectionState--;
+				let $nv = this;
+				if (this.sectionState ===1) {					
+					setTimeout(function() {
+					$('#ctitle').val($nv.alldata[0]['title']);
+					$('#ccode').val($nv.alldata[0]['course_code']);
+					$('#cdescription').val($nv.alldata[0]['description']);					
+					}, 50);				
+					this.checkstage(1);
+				}
+				if (this.sectionState === 2 ) {					
+					setTimeout(function() {
+					$nv.reiterateSelectedExp();
+					},50);
+					this.checkstage(2);					
+				}
+				if (this.sectionState === 3) {					
+					setTimeout(function() {
+				 		$('#imageprev').html('<img id="image_droped" width="200px"  src="'+$nv.imagetoupload+'">');		
+					}, 50);
+					this.checkstage(3);					
+
+				}
+				if (this.sectionState===4) {					
+					setTimeout(function() {
+						$nv.reiterateSelectedInstructor();
+					}, 50);
+					this.checkstage(4);					
+				}
+			},
 			addEBox:function(){
 				let obj = $('#selectExperiment');
 				let evalue = Number(obj.val());
@@ -141,9 +350,9 @@
 					  let $vm = this;
 					///alert(this.selectedExperiment.includes(evalue));
 					 let indexof = this.selectedExperiment.indexOf(evalue);
-						$('#addEBox').append("<div class='d-flex justify-content-between flex-wrap-center' style='font-size:0.9em;' id='"+this.selectedExperiment.indexOf(evalue)+"'><p class='py-2 pl-3 my-0'><b >Experiment "+(Number(this.selectedExperiment.indexOf(evalue))+1)+'</b>:<span class="ml-5"></span> '+selExpName+"</p> <span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+indexof+"' >&times</span></div><hr>")
+						$('#addEBox').append("<tr><td class='d-flex justify-content-between flex-wrap-center ' style='font-size:0.9em;cursor:pointer;' id='"+this.selectedExperiment.indexOf(evalue)+"'><p><b >Experiment "+(Number(this.selectedExperiment.indexOf(evalue))+1)+'</b>:<span class="ml-5"></span> '+selExpName+"</p><span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+indexof+"' >&times</span></td></tr>");
 					}else{
-						$('#ar000').remove();
+					   $('#ar000').remove();
 					   $('#addEBox').after('<span class="text-danger requiredv" id="ar000">already exist!</span>');				
 					}
 					
@@ -155,9 +364,41 @@
 			reiterateSelectedExp(){
 				$('#addEBox').html("");
 				for (let i = 0; i < this.selectedExperiment.length; i++) {
-					$('#addEBox').append("<div class='d-flex justify-content-between flex-wrap-center' style='font-size:0.9em;' id='"+i+"'><p class='py-2 pl-3 my-0'><b >Experiment "+(i+1)+'</b>:<span class="ml-5"></span> '+this.selectedExperimentName[i]+"</p> <span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+i+"' >&times</span></div><hr>")	
+					$('#addEBox').append("<tr><td class='d-flex justify-content-between flex-wrap-center ' style='font-size:0.9em;cursor:pointer;' id='"+i+"'><p><b >Experiment "+(i+1)+'</b>:<span class="ml-5"></span> '+this.selectedExperimentName[i]+"</p><span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+i+"' >&times</span></td></tr>")	
+					}
+			},	
+			addIBox:function(){
+				let obj = $('#selectedInstructor');
+				let evalue = Number(obj.val());
+				this.validateState =false;
+
+				if($('#selectedInstructor option:selected').text()!=""){
+					this.validateState =true;
+					let selExpName = $('#selectedInstructor option:selected').text();
+					if(!this.selectedInstructor.includes(evalue)){
+					  this.selectedInstructor.push(evalue);
+					  this.selectedInstructorName.push(selExpName);
+					  let $vm = this;
+					///alert(this.selectedInstructor.includes(evalue));
+					 let indexof = 'inst'+this.selectedInstructor.indexOf(evalue);
+						$('#addIBox').append("<tr><td class='d-flex justify-content-between flex-wrap-center ' style='font-size:0.9em;cursor:pointer;' id='inst"+this.selectedInstructor.indexOf(evalue)+"'><p><b >Experiment "+selExpName+"</p><span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp1' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+indexof+"' >&times</span></td></tr>")
+					}else{
+						$('#ar001').remove();
+					   $('#addIBox').after('<span class="text-danger requiredv" id="ar001">already exist!</span>');				
+					}
+					
+				}else{
+					obj.after('<span class="text-danger requiredv">Required !</span>');	
+					obj.css('border','1px solid #e45');
+				}			
+			},
+			reiterateSelectedInstructor(){
+				$('#addIBox').html("");
+				for (let i = 0; i < this.selectedInstructor.length; i++) {
+					$('#addIBox').append("<tr><td class='d-flex justify-content-between flex-wrap-center ' style='font-size:0.9em;cursor:pointer;' id='inst"+i+"'><p class='py-2 pl-3 my-0'><b >Experiment "+(i+1)+'</b>:<span class="ml-5"></span> '+this.selectedInstructorName[i]+"</p><span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp1' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+i+"' >&times</span></td></tr>")	
 					}
 			},
+			
 			singleValidate: function(id){
 				$('#'+id).css('border','1px solid #e45');
 				$('.requiredv').remove();
@@ -189,11 +430,8 @@
 						$('#'+id).css('border','1px solid #e45');
 						$('.requiredv').remove();
 						$('#'+id).after('<span class="text-danger requiredv">Required !</span>');						
-						this.validateState = false;
-						alert(1)
-					}else{
-						alert(2)
-
+						this.validateState = false;						
+					}else{						
 						this.validateState = true;	
 					}
 				}
@@ -205,48 +443,351 @@
 				$('.requiredv').remove();
 			},
 			nextSection: function(){
+				let $nv = this;
 				if (this.sectionState === 1){	
 					this.validateI('cdetail');
 					
 					if(this.validateState === true){
-						this.ctitle = $('#ctitle').val();
-						this.alldata.push({title: $('#ctitle').val(),ccode:$('#ccode').val(),cdescription:$('#cdescription').val()});
+						this.ctitle = $('#ctitle').val();										
+						this.alldata[0] = {
+							title: $('#ctitle').val(),
+							course_code:$('#ccode').val(),
+							description:$('#cdescription').val()
+						};						
 						this.sectionState = 2;						
 						this.stageone= false;
 				    	this.stageonep = true;
 				    	this.stagetwo = true;
 					}
+					setTimeout(function() {
+						if ($nv.selectedExperiment.length != 0) {
+							$nv.reiterateSelectedExp();
+						}
+					}, 200);
 				
 				}else if (this.sectionState === 2){
+					
+
 					if (this.selectedExperiment.length == 0){
 					 this.singleValidate('addEBox');
 					}else{
 						this.stagetwo= false;
 				    	this.stagetwop = true;
 				    	this.stagethree = true;
-				    	this.sectionState = 3;
+				    	this.sectionState = 3;				    	
+				    	this.alldata[1]= {
+				    		'id': this.selectedExperiment,
+				    		'names': this.selectedExperimentName
+				    	};
 					}
+
+					setTimeout(function() {
+						if ($nv.imagetoupload != '') {
+				 			$('#imageprev').html('<img id="image_droped" width="200px"  src="'+$nv.imagetoupload+'">');		
+						}
+					}, 200);
+				}else if (this.sectionState === 3){
+
+
+					if (this.imagetoupload != '') {
+						this.stagethree= false;
+				    	this.stagethreep = true;
+				    	this.stagefour = true;
+				    	this.sectionState = 4;				    	
+				    	this.alldata[3] = {
+				    		image: this.imagetoupload
+				    	};
+					}else{
+						this.singleValidate('dgbox');
+					}
+
+					setTimeout(function() {
+						if ($nv.selectedInstructor.length > 0) {}
+							$nv.reiterateSelectedInstructor();
+					}, 200);
+				}else if (this.sectionState === 4){
+					if (this.selectedInstructor.length == 0){
+					 this.singleValidate('addIBox');
+					}else{
+						this.stagefour= false;
+				    	this.stagefourp = true;
+				    	//this.stage = true;
+				    	this.sectionState = 5;				    	
+				    	this.alldata[2] = {
+				    		'id': this.selectedInstructor,
+				    		'names': this.selectedInstructorName
+				    	};
+					}
+					
+				 	$('#imageprev').html('<img id="image_droped" width="200px"  src="'+$nv.imagetoupload+'">');		
+					//console.log(this.alldata);
+
+				}
+			},
+			submitProcess:function(){
+				let $vm = this;
+				   try{
+				   		const formData = new FormData();				   	
+					   	formData.append('title',this.alldata[0].title);
+					   	formData.append('code',this.alldata[0].course_code);
+					   	formData.append('description',this.alldata[0].description);
+					   	formData.append('experiment_id',this.alldata[1].id);
+					   	formData.append('instructor_id',this.alldata[2].id);
+					   	formData.append('resource_url',this.alldata[3].image);
+
+				   		$('#system-loader').css('display','flex');
+
+			            $vm.axios.post('api/courses/create',formData, {headers: $vm.axiosHeader}).then(function(response, status, request) { 		
+				   			$('#system-loader').css('display','none');
+				   			if(response.status == 200){
+
+				   				Swal.fire({
+								  title: $vm.createdMessage,
+								  text:'tell us where to go',
+								  icon:'success',
+								  showDenyButton: true,
+								  showCancelButton: true,
+								  confirmButtonText: `view created courses`,
+								  denyButtonText: `Ok, refresh the page`,
+								}).then((result) => {
+								  
+								  if (result.isConfirmed) {
+								    location.href = "/view-created-course";
+								  } else if (result.isDenied) {
+								    location.reload();
+								  }
+								})
+				   			}else if(response.status == 401){
+				   				Swal.fire({
+								  title: $vm.errorSessionMessage,								  
+								  icon:'success',
+								  showDenyButton: true,								  
+								  confirmButtonText: `Ok`,								  
+								}).then((result) => {								  
+								  if (result.isConfirmed) {
+								    $vm.frontendLogout();
+								  } else if (result.isDenied) {								    
+								  }
+								})
+				   			}
+			            	//console.log(response);			   				           
+			            }, function(e) {		  
+			            	//console.log(e.status)
+					   		$('#system-loader').css('display','none');
+					   		let errMsg = $vm.errorSessionMessage;					   		
+					   	    if (e.response.status == 409) {					   	    	
+					   	    	errMsg = e.response.data.error;
+					   	    }
+			              vt.error(errMsg,{
+							  title: undefined,
+							  position: "bottom-right",
+							  duration: 10000,
+							  closable: true,
+							  focusable: true,
+							  callback: undefined
+							});			            		   
+
+			            	//console.log($vm.axiosHeader)
+			            });
+
+			        }catch(err){
+				   		$('#system-loader').css('display','none');
+
+			           vt.error($vm.errorNetworkMessage,{
+							  title: undefined,
+							  position: "bottom-right",
+							  duration: 10000,
+							  closable: true,
+							  focusable: true,
+							  callback: undefined
+							});
+			          //console.log(err)//show network error notification
+			        }
+			
+			    },
+			dragEnter(e){			
+				this.dragrelease = true;
+				let $nv = this;	
+				let holder = document.getElementById('dgbox');
+				holder.classList.add('dragenter');
+			    let file = e.dataTransfer.files[0];
+
+				   let reader = new FileReader();
+				$('.progress').css('display','block');
+
+				   reader.onloadstart = function(event) {
+					    $('.progressi').css('display','block');
+					};
+					reader.onprogress = function(event) {						
+					   if (event.lengthComputable) {
+         					$nv.percentage  = (event.loaded/event.total)* 100;					    
+         					$('.progress-bar').css('width', $nv.percentage+'%');         					
+					    }
+					};
+					reader.onloadend = function(event) {
+				 		$('#imageprev').html('<img id="image_droped" width="200px"  src="'+event.target.result+'">');		
+				 		$nv.imagetoupload = event.target.result;					    
+					};
+				    /*reader.onload = function (event) {
+				    }*/
+				    reader.readAsDataURL(file);				
+				 	e.preventDefault();
+
+			},
+			getDragedInFile: function(e){					
+				if (this.dragrelease==false) {
+						let $nv = this;	
+					let holder = document.getElementById('dgbox');
+					holder.classList.add('dragenter');
+				    let file;
+					file = e.target.files[0];
+
+					   let reader = new FileReader();
+					$('.progress').css('display','block');
+
+					   reader.onloadstart = function(event) {
+						    $('.progressi').css('display','block');
+						};
+						reader.onprogress = function(event) {						
+						   if (event.lengthComputable) {
+	         					$nv.percentage  = (event.loaded/event.total)* 100;					    
+	         					$('.progress-bar').css('width', $nv.percentage+'%');         					
+						    }
+						};
+						reader.onloadend = function(event) {
+					 		$('#imageprev').html('<img id="image_droped" width="200px"  src="'+event.target.result+'">');		
+					 		$nv.imagetoupload = event.target.result;					    
+						};
+					    /*reader.onload = function (event) {
+					    }*/
+					    reader.readAsDataURL(file);				
+					 	e.preventDefault();
 
 				}
 			}
         },	
 
         
-         props: [],
+       props: {
+	     	update:{
+	     		type:Boolean, 
+	     		default: function(){
+	     			return false;
+	     		}
+	     	},
+	     	alldata:{
+	     		type:Array, 
+	     		default: function(){
+	     			return [];
+	     		}
+	     	},
+	     	coures_id:{
+	     		type:Number,
+	     		default: function(){
+	     			return 0;
+	     		}	     	
+	     	}
+     	},
          mounted: function () {
+         	let $vm = this;
+			   	
+
 		  this.$nextTick(function () {
 		    // Code that will run only after the
 		    // entire view has been rendered
-         	var $vm = this;
          		$(document).on('click', '.rmexp', function() {					
 					$vm.selectedExperiment.splice($(this).attr('rel'),1);
 					$vm.selectedExperimentName.splice($(this).attr('rel'),1);
-         			$vm.reiterateSelectedExp();
-         			/*
-					$('#'+$(this).attr('rel')).remove();					
-					*/
+         			$vm.reiterateSelectedExp();         			
 				});
-		  })
+				$(document).on('click', '.rmexp1', function() {					
+					$vm.selectedInstructor.splice($(this).attr('rel'),1);
+					$vm.selectedInstructorName.splice($(this).attr('rel'),1);
+         			$vm.reiterateSelectedInstructor();         			
+				});
+				
+				/*fetch experiment*/
+			   /*try{
+			   	
+		            $vm.axios.get('api/experiments/experiments',{ headers: $vm.axiosHeader }).then(function(response, status, request) { 			   	
+		            	if(response.status == 200){
+			            	 $vm.experiments = response.data;				   				
+				   		}else if(response.status == 401){
+			   				Swal.fire({
+							  title: $vm.errorSessionMessage,								  
+							  icon:'success',
+							  showDenyButton: true,								  
+							  confirmButtonText: `Ok`,								  
+							}).then((result) => {								  
+							  if (result.isConfirmed) {
+							    $vm.frontendLogout();
+							  } else if (result.isDenied) {								    
+							  }
+							})
+				   		}
+		            	//console.log($vm.experiments);			   	
+		              
+		            }, function(e) {			            
+		              vt.error($vm.errorNetworkMessage,{
+						  title: undefined,
+						  position: "bottom-right",
+						  duration: 10000,
+						  closable: true,
+						  focusable: true,
+						  callback: undefined
+						});
+		            
+		            });
+
+		        }catch(err){*/
+		          /* vt.error($vm.errorNetworkMessage,{
+						  title: undefined,
+						  position: "bottom-right",
+						  duration: 10000,
+						  closable: true,
+						  focusable: true,
+						  callback: undefined
+						});
+		          console.log(err)//show network error notification*/
+		       // }
+			
+		  });
+
+
+		},
+		async created(){
+			if (this.update) {
+
+				$(document).ready(function(){
+					$('#ctitle').val(this.alldata[0]['title']);
+					$('#ccode').val(this.alldata[0]['course_code']);
+					$('#cdescription').val(this.alldata[0]['description']);					
+				});		
+
+				for(let i =0; i < this.alldata[1].id; i++ ){
+					this.selectedExperiment[i] = this.alldata[1].id[i];
+					this.selectedExperimentName[i] = this.alldata[1].names[i];
+				}
+				for(let i =0; i < this.alldata[2].id; i++ ){
+					this.selectedInstructor[i] = this.alldata[2].id[i];
+					this.selectedInstructorName[i] = this.alldata[2].names[i];
+				}
+
+				this.imagetoupload = this.alldata[3].image;
+				
+
+			}
+
+		    this.experiments  = await this.axiosGet('api/experiments/experiments');
+		    //console.log(this.createdexperiments)
+		    this.tableLoaded = true;
+		    
+		    /*initialize datatable */
+             setTimeout(function() {
+             	 $('#experimenttable').DataTable({
+			    	pageLength : 5,
+			    });
+             }, 200);
 		},
          events :{
          	'toggleClick':'toggleClick'
@@ -371,7 +912,7 @@
 		margin-left: 5px;
 	}
 	.fs3{
-		font-size: 1.7em;
+		font-size: 2em;
 	}
 	.fs1{
 		font-family: 'Roboto', sans-serif;
@@ -478,4 +1019,57 @@
 	.shineA{
 		transition: all 1s;
 	}
+	.draginto{
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		position: absolute;
+	}
+	.dragbox{
+		position: relative;
+		border: 2px dashed #c0c0cf;
+		border-radius: 5px;		
+		width: 100%;
+		padding: 10px 0px;
+		background: #f0f0ff;
+		display:flex;
+		flex-direction: column;
+		justify-content: center;
+		flex-wrap: wrap;
+		align-items: center;
+	}
+	.dragenter{
+		border: 2px dashed #c5ddc5 !important;
+		background: #f0fff0 !important;
+	}
+	.progressi {
+    background: #eee;
+    border-radius: 13px;    
+    width: 40%;
+    padding: 0px;
+    max-height: 7px;
+    display: block;
+	}
+	.progress-bar{
+    border-radius: 13px;    
+    height: 7px;
+    padding: 0px;
+    margin: 0px;
+    position: relative;
+    width: 0%;
+    transition: all 1s;
+}
+.p-success{    
+    background: #00b96b !important;  
+}
+.clight{
+	color: #777;
+}
+.fs001{
+	font-size: 0.86em;
+}
+#imageprev{	
+}
+table tr td{
+}
 </style>
