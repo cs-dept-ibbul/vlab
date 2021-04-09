@@ -1086,9 +1086,7 @@ var _stringProperties = {};
     _model.setStepsPerDisplay(1);
   });
 
-  //https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Using_full_screen_mode  // > CustomCode.Lib Page:1
-  // does not work for iOS   // > CustomCode.Lib Page:2
-  /*jslint browser:true */  // > CustomCode.Lib Page:3
+
   function toggleFullScreen() {  // > CustomCode.Lib Page:4
     if (!document.fullscreenElement &&    // alternative standard method  // > CustomCode.Lib Page:5
         !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods  // > CustomCode.Lib Page:6
@@ -1142,8 +1140,6 @@ var _stringProperties = {};
       }  // > CustomCode.Adsmob:26
    }  // > CustomCode.Adsmob:27
 
-  // copy this custom function  // > CustomCode.Speech:1
-  // in iOS need to add speech to the play button as On iOS the API works but must be triggered by a user action callback, like a response to a tap event, to provide a better experience to users and avoid unexpected sounds out of your phone  // > CustomCode.Speech:2
   function speech (option) {  // > CustomCode.Speech:3
   // allow code to run in Student Learning Space   // > CustomCode.Speech:4
   var isCordova = (!!this.parent.cordova || !!window.cordova);  // > CustomCode.Speech:5
@@ -1152,29 +1148,14 @@ var _stringProperties = {};
   	parent.TTS.speak({text:option,locale:'en-US'});  // > CustomCode.Speech:8
   } else {  // > CustomCode.Speech:9
       var msg = new SpeechSynthesisUtterance(option);  // > CustomCode.Speech:10
-      //https://stackoverflow.com/questions/43983845/speechsynthesis-api-for-chinese-firefox  // > CustomCode.Speech:11
-      // Set the text.  // > CustomCode.Speech:12
-    	//msg.text = option;   // > CustomCode.Speech:13
-    	//https://forums.developer.apple.com/message/323564#323564  // > CustomCode.Speech:14
-    	// comment out the next 2 lines for english  // > CustomCode.Speech:15
-      //msg.voice = speechSynthesis.getVoices().filter(function(voice) { return voice.name == 'Ting-Ting'; })[0];  // > CustomCode.Speech:16
+    
       msg.lang = 'en-US'; // need for android?  // > CustomCode.Speech:17
-      //https://flaviocopes.com/speech-synthesis-api/  // > CustomCode.Speech:18
-      //debug  // > CustomCode.Speech:19
-      //console.log(`Voices #: ${speechSynthesis.getVoices().length}`)  // > CustomCode.Speech:20
-      //speechSynthesis.getVoices().forEach(voice => {  // > CustomCode.Speech:21
-      // console.log(voice.name, voice.lang)  // > CustomCode.Speech:22
-      //})  // > CustomCode.Speech:23
-      //debug  // > CustomCode.Speech:24
-      // Queue this utterance.  // > CustomCode.Speech:25
+     
       window.speechSynthesis.speak(msg);  // > CustomCode.Speech:26
     }  // > CustomCode.Speech:27
   }  // > CustomCode.Speech:28
 
-  // code to be copied to EJSS source code under Custom and used in drawingPanel3D and plottingPanel2D  // > CustomCode.changeOrientation:1
-  // address the problem is height difference is iOS app , epub, and Firefox  // > CustomCode.changeOrientation:2
-  // user need to change only k and kepub  // > CustomCode.changeOrientation:3
-  // copy %changeOrientation()% into the Height Field of drawingPanel3D and plottingPanel2D  // > CustomCode.changeOrientation:4
+ 
   function changeOrientation() {  // > CustomCode.changeOrientation:5
      // > CustomCode.changeOrientation:6
   var k =1; // k control height 1 is for full screen, 0.9 shorten etc  // > CustomCode.changeOrientation:7
@@ -1208,9 +1189,7 @@ var _stringProperties = {};
       else if (_isEPub){ // does not seems to work  // > CustomCode.changeOrientation:35
         //   return Math.max(window.screen.width,window.screen.height)*0.9;  // > CustomCode.changeOrientation:36
         return window.innerHeight*kepub;  //0.1 for app and 0.1 for nonfullscreenapp    // > CustomCode.changeOrientation:37
-        // return window.screen.height;  // > CustomCode.changeOrientation:38
-        //  return window.innerHeight;  // > CustomCode.changeOrientation:39
-        // return document.documentElement.clientHeight;  // > CustomCode.changeOrientation:40
+   
       }  // > CustomCode.changeOrientation:41
        // > CustomCode.changeOrientation:42
       else {  // > CustomCode.changeOrientation:43
@@ -1224,16 +1203,12 @@ var _stringProperties = {};
      // > CustomCode.changeOrientation:51
       if (iOSapp){ // App  // > CustomCode.changeOrientation:52
         return window.screen.width*kapple;    // > CustomCode.changeOrientation:53
-        // return window.screen.height;  // > CustomCode.changeOrientation:54
-        //  return window.innerHeight;  // > CustomCode.changeOrientation:55
-        //  return document.documentElement.clientHeight;  // > CustomCode.changeOrientation:56
+        
       }  // > CustomCode.changeOrientation:57
       else if (_isEPub){ // does not seems to work  // > CustomCode.changeOrientation:58
         //   return Math.max(window.screen.width,window.screen.height)*0.9;  // > CustomCode.changeOrientation:59
         return window.innerHeight*kepub;  //0.1 for app and 0.1 for nonfullscreenapp    // > CustomCode.changeOrientation:60
-        // return window.screen.height;  // > CustomCode.changeOrientation:61
-        //  return window.innerHeight;  // > CustomCode.changeOrientation:62
-        // return document.documentElement.clientHeight;  // > CustomCode.changeOrientation:63
+     
       }  // > CustomCode.changeOrientation:64
        // > CustomCode.changeOrientation:65
       else {  // > CustomCode.changeOrientation:66
@@ -1247,12 +1222,7 @@ var _stringProperties = {};
        if (Firefox){  // > CustomCode.changeOrientation:74
         return window.innerHeight*k;// number as of 20180831 Firefox does not support vh yet so need a separate line to handle  // > CustomCode.changeOrientation:75
         }  // > CustomCode.changeOrientation:76
-     //   else if (iOS&&(window.orientation==0)||(window.orientation==180)){  // > CustomCode.changeOrientation:77
-     //   return  window.screen.height*k;// number as of 20180831 Firefox does not support vh yet so need a separate line to handle  // > CustomCode.changeOrientation:78
-     //   }  // > CustomCode.changeOrientation:79
-      //  else if (iOS&&(window.orientation==90)||(window.orientation==-90)){  // > CustomCode.changeOrientation:80
-     //   return  window.screen.width*k;// number as of 20180831 Firefox does not support vh yet so need a separate line to handle  // > CustomCode.changeOrientation:81
-     //   }  // > CustomCode.changeOrientation:82
+ 
         else {  // > CustomCode.changeOrientation:83
         //alert();  // > CustomCode.changeOrientation:84
         // return 100*k+"%"; // work on fullscreen works in EJSS6.0beta  // > CustomCode.changeOrientation:85
@@ -1376,11 +1346,7 @@ var _stringProperties = {};
     firsttime2=false;
     if (!__pagesEnabled["alert"]) return;
     if (firsttime2==true){  // > Initialization.alert:1
-    //alert("drag the green (Spindle or Ratchet) \n to measure length");  // > Initialization.alert:2
-     //EJSS_INTERFACE.BoxPanel.showOkDialog("drag the (Spindle or Ratchet) to measure length");  // > Initialization.alert:3
-     //alert("a");  // > Initialization.alert:4
-     //_tools.showOkDialog("drag the (Spindle or Ratchet) to measure length");  // > Initialization.alert:5
-    //document.getElementById(".myBoxPanelOk").style.top = "0px";  // > Initialization.alert:6
+  
     firsttime2=false;  // > Initialization.alert:7
     }  // > Initialization.alert:8
   });
@@ -1402,8 +1368,7 @@ var _stringProperties = {};
        direction=1; //reverse after hitting object  // > Evolution.Evol Page:13
         // > Evolution.Evol Page:14
       }    // > Evolution.Evol Page:15
-    //d=Math.max(0,d);  // > Evolution.Evol Page:16
-    //d=Math.min(160,d);  // > Evolution.Evol Page:17
+    
     if(y<=size2) { // object has moved y in jaws  // > Evolution.Evol Page:18
       d=Math.max(d,w2);  // > Evolution.Evol Page:19
         // > Evolution.Evol Page:20
@@ -1411,13 +1376,9 @@ var _stringProperties = {};
       if (d <= w2&&y<=size2){  // > Evolution.Evol Page:22
      _pause();  // > Evolution.Evol Page:23
      direction=-1; //reverse after hitting object  // > Evolution.Evol Page:24
-   //  alerttext="micrometer is paused, try to select the answer, \n or key in directly via the input field?";  // > Evolution.Evol Page:25
-     //alert(alerttext);  // > Evolution.Evol Page:26
-      //EJSS_INTERFACE.BoxPanel.showOkDialog(alerttext);  // > Evolution.Evol Page:27
-     //direction=-direction; //reverse after hitting object  // > Evolution.Evol Page:28
+  
         _view.inputfield.getStyle().setDisplay("inline-flex");  // > Evolution.Evol Page:29
-    //changeOrientation(0.5);  // > Evolution.Evol Page:30
-    //kheight=0.90;  // > Evolution.Evol Page:31
+   
         }  // > Evolution.Evol Page:32
     L=L0-d;  // > Evolution.Evol Page:33
   });
@@ -1564,17 +1525,7 @@ var _stringProperties = {};
                      //   }  // > FixedRelations.check:24
     showAnswerFlag=false; // set back to false  // > FixedRelations.check:25
     speech(K1fcorrect);  // > FixedRelations.check:26
-    /*  // > FixedRelations.check:27
-    if(parent.cordova) { // check it is running in Android  // > FixedRelations.check:28
-            parent.TTS.speak(K1fcorrect, function () {            // > FixedRelations.check:29
-            }, function (reason) {            // > FixedRelations.check:30
-            });  // > FixedRelations.check:31
-        }  // > FixedRelations.check:32
-        else {  // > FixedRelations.check:33
-        var msg = new SpeechSynthesisUtterance(K1fcorrect);  // > FixedRelations.check:34
-    window.speechSynthesis.speak(msg);  // > FixedRelations.check:35
-          }  // > FixedRelations.check:36
-    */  // > FixedRelations.check:37
+   
     }  // > FixedRelations.check:38
   });
 
@@ -1610,14 +1561,6 @@ var _stringProperties = {};
     return _viewsInfo;
   } // end of _getViews
 
-/*
-  function _getViews() {
-    var _viewsInfo = [];
-    var _counter = 0;
-    _viewsInfo[_counter++] = { name : "HtmlView Page", width : 800, height : 600 };
-    return _viewsInfo;
-  } // end of _getViews
-*/
   function _selectView(_viewNumber) {
     _view = null;
     _view = new Micrometer02_View(_topFrame,_viewNumber,_libraryPath,_codebasePath);
@@ -1653,10 +1596,7 @@ var _stringProperties = {};
 
 }); // HtmlView Page setting action 'OnDrag' for element 'plottingPanel'
           _view.plottingPanel.setAction("OnZoom", function(_data,_info) {
-  //_view.plottingPanel.setProperty("MinimumX",Math.max(_view.plottingPanel.getProperty("MinimumX"),-80));
-  //_view.plottingPanel.setProperty("MaximumX",Math.min(_view.plottingPanel.getProperty("MaximumX"),80));
-  //_view.plottingPanel.setProperty("MinimumY",Math.max(_view.plottingPanel.getProperty("MinimumY"),-1.6));
-  //_view.plottingPanel.setProperty("MaximumY",Math.min(_view.plottingPanel.getProperty("MaximumY"),1.6));
+  
   _view.plottingPanel.setZoomLimits([200,600]);
 
 }); // HtmlView Page setting action 'OnZoom' for element 'plottingPanel'
@@ -1847,54 +1787,7 @@ var _stringProperties = {};
   L=L0-d; // move the darkgreen
   }
   test = 0;
-  /*
-  dragemetrue=true;
-  if(y<size2 && d<w2)d=w2;
-  L=L0-d;
-  xzero=xi+d;
-  zero=0.;
-  id=parseInt(d/dx*50);
-  tc=0;
-  for(var i=0;i<n3;i++){
-   iy=id+i-10+error;
-   if(iy<0)iy+=50;
-   iy=iy%50;
-   c=ci+dc*i;
-   hy[i]=R*Math.sin(c);
-   
-   hythread[i] = 1.2*R*Math.sin(c); // draw thread at higher y to fill the green dial broad part
-   hythreadrachet[i] = 0.5*R*Math.sin(c);// draw thread at lower y to fill the rachet part
-   
-   if(iy%5===0){
-     
-    
-    if(iy%10==0){
-      hdx[i]=1.5*size; // if iy%10==0 draw a 1.5*size line
-    hdy[i] = c*7; // seems to work to create fake3D circular view
-    }
-    
-    else {
-      hdx[i]=size; // if iy%5==0 draw a size line
-  //  hdy[i] = 2*Math.sin(c*3);
-  hdy[i] = c*7/2;
-    }
-    
-   if(tc<5){
-    yt[tc]=hy[i];
-    txty[tc]=iy+"";
-    tc++;
-   }
-   
-   }
-   
-   else {
-   hdx[i]=size2; // the rest draw a size2 line
-  // hdy[i] = Math.sin(c*3); // small delta up and down
-    hdy[i] = c*7/4;
-    hdxthread[i]=-5*size2; // lines to make thread same and draw -5*size2 direction
-  }
-  }
-  */
+  
   var ds=d;
   var vs = (ds-d)/dt;
   if (vs<0) direction=1;
@@ -1933,54 +1826,7 @@ var _stringProperties = {};
   L=L0-d; // move the darkgreen
   }
   test = 0;
-  /*
-  dragemetrue=true;
-  if(y<size2 && d<w2)d=w2;
-  L=L0-d;
-  xzero=xi+d;
-  zero=0.;
-  id=parseInt(d/dx*50);
-  tc=0;
-  for(var i=0;i<n3;i++){
-   iy=id+i-10+error;
-   if(iy<0)iy+=50;
-   iy=iy%50;
-   c=ci+dc*i;
-   hy[i]=R*Math.sin(c);
-   
-   hythread[i] = 1.2*R*Math.sin(c); // draw thread at higher y to fill the green dial broad part
-   hythreadrachet[i] = 0.5*R*Math.sin(c);// draw thread at lower y to fill the rachet part
-   
-   if(iy%5===0){
-     
-    
-    if(iy%10==0){
-      hdx[i]=1.5*size; // if iy%10==0 draw a 1.5*size line
-    hdy[i] = c*7; // seems to work to create fake3D circular view
-    }
-    
-    else {
-      hdx[i]=size; // if iy%5==0 draw a size line
-  //  hdy[i] = 2*Math.sin(c*3);
-  hdy[i] = c*7/2;
-    }
-    
-   if(tc<5){
-    yt[tc]=hy[i];
-    txty[tc]=iy+"";
-    tc++;
-   }
-   
-   }
-   
-   else {
-   hdx[i]=size2; // the rest draw a size2 line
-  // hdy[i] = Math.sin(c*3); // small delta up and down
-    hdy[i] = c*7/4;
-    hdxthread[i]=-5*size2; // lines to make thread same and draw -5*size2 direction
-  }
-  }
-  */;
+;
 
 }); // HtmlView Page setting action 'OnDrag' for element 'SVG23'
           _view.SVGwhiteboard_to_bend_with.linkProperty("SizeX",  function() { return 5.5*h; } ); // HtmlView Page linking property 'SizeX' for element 'SVGwhiteboard_to_bend_with'
@@ -2188,23 +2034,7 @@ var _stringProperties = {};
           _view.mytext.linkProperty("Font",  function() { return font; }, function(_v) { font = _v; } ); // HtmlView Page linking property 'Font' for element 'mytext'
           _view.dragdot.linkProperty("X",  function() { return d; }, function(_v) { d = _v; } ); // HtmlView Page linking property 'X' for element 'dragdot'
           _view.dragdot.setAction("OnDrag", function(_data,_info) {
-  //dragemetrue=true;
-  //d = ddragme - xi-1.5*h;
-  /*
-  if(y<size2 && d<w2){ //hit object left
-    d=w2;
-  //ddragme = xi+w2+1.5*h;
-  }
-  else if(-w*2+1.5*size2-1>=-0.75*size-L){ //hit left end 1 added arbitrary to prevent sticking
-  //ddragme = xi+0+1.5*h;
-  d=  0;
-  }
-  else if (d>=w*1.8){
-    d =w*1.8;
-  //  ddragme = xi+w*1.8+1.5*h;
-    }
-    */
-  //L=L0-d;
+
 
 }); // HtmlView Page setting action 'OnDrag' for element 'dragdot'
           _view.collate.setAction("OffClick", function(_data,_info) {
@@ -2217,9 +2047,7 @@ var _stringProperties = {};
   _view.inputfield.getStyle().setDisplay("inline-flex");
   //changeOrientation(0.5);
   kheight=0.90;
-  //_view.plottingPanel.getGraphics().setHeight(changeOrientation(0.85));
-  //_view.plottingPanel.propertyChanged("Height","100%");
-  //_view._update();
+
 
 }); // HtmlView Page setting action 'OnClick' for element 'collate'
           _view.comboBox3.linkProperty("Options",  function() { return ["on/off","hint off","hint show","answer show","answer2 show","answer off","lock","un lock"]; } ); // HtmlView Page linking property 'Options' for element 'comboBox3'
@@ -2357,22 +2185,6 @@ var _stringProperties = {};
      else if(option=="z_err=1") {
    error =1; 
      }
-  //if (!_isMobile){
-    /*
-    if(parent.cordova) { // check it is running in Android
-  //var option1 = _view.comboBox.getProperty("SelectedOptions");
-         parent.TTS.speak(option, function () {
-              // success
-          }, function (reason) {
-              // error
-          });
-      }
-      else {
-    var msg = new SpeechSynthesisUtterance(option);
-  window.speechSynthesis.speak(msg);
-  }
-  */
-  //}
 
 }); // HtmlView Page setting action 'OnChange' for element 'comboBox3'
           _view.comboBox3.linkProperty("Font",  function() { return font; }, function(_v) { font = _v; } ); // HtmlView Page linking property 'Font' for element 'comboBox3'
@@ -3247,22 +3059,18 @@ function Micrometer02_View_0 (_topFrame) {
       ;
 
     _view._addElement(EJSS_INTERFACE.panel,"text3", _view.fullscreen) // EJsS HtmlView.HtmlView Page: declaration of element 'text3'
-      .setProperty("CSS",{   "position" : "absolute",   "top" : "100%",    "margin-left":"0px",    "left":"0%" }) // EJsS HtmlView.HtmlView Page: setting property 'CSS' for element 'text3'
-      //.setProperty("Html","<h2>General Description</h2> <p>This JavaScript App simulates the Micrometer. The simulation shows the instrument setup with a rectangular object .</p> <p>The Micrometer model has  an object (Green) for the internal jaws to measure width of an object with  simple drag action to control position and size of object.</p> <h2>Visual Elements</h2> <ul> <li>Frame: The C-shaped body that holds the anvil and barrel in constant relation to each other. It is thick because it needs to minimize expansion, and contraction, which would distort the measurement. The frame is heavy and consequently has a high thermal mass, to prevent substantial heating up by the holding hand/fingers. has a text 0.01 mm for smallest division of instrument has a text 2 rounds = 100 = 1.00 mm to allow association to actual micrometer          </li> <li>Anvil: The shiny part that the spindle moves toward, and that the sample rests against.  </li> <li>Sleeve / barrel / stock: The stationary round part with the linear scale on it. Sometimes vernier markings. . </li> <li>Lock nut / lock-ring / thimble lock: The knurled part (or lever) that one can tighten to hold the spindle stationary, such as when momentarily holding a measurement. </li> <li>Screw: (not seen) The heart of the micrometer It is inside the barrel. </li> <li>Spindle: The shiny cylindrical part that the thimble causes to move toward the anvil. </li> <li>Thimble: The part that ones thumb turns. Graduated markings.</li> <li>Ratchet: Device on end of handle that limits applied pressure by slipping at a calibrated torque..</li> <li> fine  control arrows for learners to manipulate the model with single incremental precision control </li> <li>Micrometer gives measurements up to two decimal places in mm </li> </ul> <h2>Controls</h2> <ul> <li>ComboBox 1: Show and hide hints, answers, lock/unlock micrometer etc </li> <li>ComboBox 2: Sets the zero error </li> <li>play button to run the micrometer to move automatically.</li> <li>reset button to bring simulation back to original (default) setting.</li> <li>?= click to toggle between combobox or input field.</li> <li>combobox/inputfield to ease selecting answers like 0.00 and key in numbers.</li> <li>double click on the screen to go full screen, especially useful on mobile browsers</li> <li>drag on the screen reposition, especially useful on mobile browsers</li> <li>pinch in/out to zoom in/out, especially useful on observing the micrometer scale readings</li> <li>menu to show or hide the control panel</li> </ul>") // EJsS HtmlView.HtmlView Page: setting property 'Html' for element 'text3'
-      ;
+      .setProperty("CSS",{   "position" : "absolute",   "top" : "100%",    "margin-left":"0px",    "left":"0%" });
 
   };
 
   return _view;
 }
 
-
-//--><!]]></script>
+</script>
   </head>
   <body>
     <div class="lds-ripple" id="exploader"><div></div><div></div></div>
     <div role="button" id="_topFrame" style="text-align:center; width: 100%;position: relative;"></div>
-   <!--    <div id="metadata" class="metadata"></div> -->
        
     <script type="text/javascript"><!--//--><![CDATA[//><!--
       var _model;

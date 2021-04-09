@@ -1,6 +1,8 @@
 @extends('../layouts/main')
 @section('content-body')
 <div style="display: flex;">   
+    <v-userauth></v-userauth>
+    
 	<!-- main side bar -->
    <v-msidebar home="{{route('home')}}" explore="{{route('explore')}}" settings="{{route('home')}}" mycourse="{{route('my-course-review')}}" courses="{{route('courses')}}" incourse="1" active="courses"  ></v-msidebar>   
 	<!-- end main side bar -->
@@ -16,9 +18,9 @@
            </div>
    		<div style="display: flex;" class="px-5 mt-5">
    			
-            <div class="row w-100 mt-4" style="justify-content: space-between">
-
-                <div class="shadow-sm pl-0 py-3 mb-5" style="background-color:white;border-radius: 1rem;width:32%;height:190px;">
+            <div class="row mt-4">
+                <div class="col-lg-4 col-md-6 col-sm-12 p-3">
+                    <div class="shadow-sm pl-0 py-3 mb-5" style="background-color:white;border-radius: 1rem;width:32%;height:190px;">
                     <div class="d-flex p-0 flex-wrap" style=" justify-content: space-between;">
                         <div class="p-0"><img src="images/user-graduate-solid.svg" style="width:85%;"/></div>
                         <div>
@@ -33,95 +35,9 @@
                             <span class="fa fa-plus p-2 r2 mr-3" style="font-size: 2em;background-color:#FFDBB5;color:#FF8200"></span>
                         </div>
                     </div>
-                </div>
-
-
-                <div class="shadow-sm pl-0 py-3 mb-5" style="background-color:white;border-radius: 1rem;width:32%;height:190px;">
-                    <div class="d-flex p-0 flex-wrap" style=" justify-content: space-between;">
-                        <div class="p-0"><img src="images/user-graduate-solid.svg" style="width:85%;"/></div>
-                        <div>
-                            <p class="fs2 fw8 mb-3" style="font: normal normal bold 20px/27px Avenir Next;color:#1E0B67;font-size:50px;">46</p>
-                            <p class="mt-0" style="color:#1E0B67;font-size:20px;">Students</p>
-                            <div>
-                                <span class="fa fa-cube" style="font-size: 1.5em;color:#FF8200"></span>
-                                <span style="font-size: 1.5em;color:#FF8200">PHY 126</span>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="fa fa-plus p-2 r1 mr-3" style="font-size: 2em;background-color:#FFDBB5;color:#FF8200"></span>
-                        </div>
                     </div>
-                </div>
-
-                <div class="shadow-sm pl-0 py-3 mb-5" style="background-color:white;border-radius: 1rem;width:32%;height:190px;">
-                    <div class="d-flex p-0 flex-wrap" style=" justify-content: space-between;">
-                        <div class="p-0"><img src="images/user-graduate-solid.svg" style="width:85%;"/></div>
-                        <div>
-                            <p class="fs2 fw8 mb-3" style="font: normal normal bold 20px/27px Avenir Next;color:#1E0B67;font-size:50px;">21</p>
-                            <p class="mt-0" style="color:#1E0B67;font-size:20px;">Students</p>
-                            <div>
-                                <span class="fa fa-cube" style="font-size: 1.5em;color:#FF8200"></span>
-                                <span style="font-size: 1.5em;color:#FF8200">PHY 201</span>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="fa fa-plus p-2 r1 mr-3" style="font-size: 2em;background-color:#FFDBB5;color:#FF8200"></span>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="shadow-sm pl-0 py-3 mb-5" style="background-color:white;border-radius: 1rem;width:32%;height:190px;">
-                    <div class="d-flex p-0 flex-wrap" style=" justify-content: space-between;">
-                        <div class="p-0"><img src="images/user-graduate-solid.svg" style="width:85%;"/></div>
-                        <div>
-                            <p class="fs2 fw8 mb-3" style="font: normal normal bold 20px/27px Avenir Next;color:#1E0B67;font-size:50px;">14</p>
-                            <p class="mt-0" style="color:#1E0B67;font-size:20px;">Students</p>
-                            <div>
-                                <span class="fa fa-cube" style="font-size: 1.5em;color:#FF8200"></span>
-                                <span style="font-size: 1.5em;color:#FF8200">CHM 111</span>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="fa fa-plus p-2 r1 mr-3" style="font-size: 2em;background-color:#FFDBB5;color:#FF8200"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="shadow-sm pl-0 py-3 mb-5" style="background-color:white;border-radius: 1rem;width:32%;height:190px;">
-                    <div class="d-flex p-0 flex-wrap" style=" justify-content: space-between;">
-                        <div class="p-0"><img src="images/user-graduate-solid.svg" style="width:85%;"/></div>
-                        <div>
-                            <p class="fs2 fw8 mb-3" style="font: normal normal bold 20px/27px Avenir Next;color:#1E0B67;font-size:50px;">16</p>
-                            <p class="mt-0" style="color:#1E0B67;font-size:20px;">Students</p>
-                            <div>
-                                <span class="fa fa-cube" style="font-size: 1.5em;color:#FF8200"></span>
-                                <span style="font-size: 1.5em;color:#FF8200">ECE 311</span>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="fa fa-plus p-2 r1 mr-3" style="font-size: 2em;background-color:#FFDBB5;color:#FF8200"></span>
-                        </div>
-                    </div>
-                </div>
-               
-
-                <div class="shadow-sm pl-0 py-3 mb-5" style="background-color:white;border-radius: 1rem;width:32%;height:190px;">
-                    <div class="d-flex p-0 flex-wrap" style=" justify-content: space-between;">
-                        <div class="p-0"><img src="images/user-graduate-solid.svg" style="width:85%;"/></div>
-                        <div>
-                            <p class="fs2 fw8 mb-3" style="font: normal normal bold 20px/27px Avenir Next;color:#1E0B67;font-size:50px;">09</p>
-                            <p class="mt-0" style="color:#1E0B67;font-size:20px;">Students</p>
-                            <div>
-                                <span class="fa fa-cube" style="font-size: 1.5em;color:#FF8200"></span>
-                                <span style="font-size: 1.5em;color:#FF8200">CPT 213</span>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="fa fa-plus p-2 r1 mr-3" style="font-size: 2em;background-color:#FFDBB5;color:#FF8200"></span>
-                        </div>
-                    </div>
-                </div>
+    
+                </div>        
                
             <div>
    		</div>

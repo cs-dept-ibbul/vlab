@@ -1,23 +1,27 @@
 <template>
-  <div class=""><br>
-    <div id="alignment" class="m-0 p-0">
-      <div class="row p-5 pb-3 custom-section d-flex align-items-center">
-        <div class="col-12 col-lg-8">
-          <h2 class="page-title">Virtual Laboratory</h2>
-          <p>A virtual environment for Science and Engineering Practicals</p>
-          <div class="links">
-            <a href="/explore" class="nav-link">Explore V-lab</a>
-            <a href="/practice" class="Practice">Practice a Practical</a>
+  <section class="hero">
+    <div class="container">
+      <div class="row hero__body d-flex align-items-center justify-content-between mx-auto">
+        <div class="col-12 col-lg-7">
+          <h1 class="hero__body__title">Virtual Laboratory (V-Lab)</h1>
+          <p class="hero__body__subtitle">
+            A virtual environment for Science and Engineering Practicals
+          </p>
+          <div class="hero__links">
+            <a href="/explore" class="btn btn--primary hero__body__cta mr-3">Explore V-lab</a>
+            <a href="/practice" class="practice my-2 my-sm-0 d-inline-block">Practice a Practical</a>
           </div>
           <br>
+        </div>
+        <div class="col-12 col-lg-5">
+          <div class="hero__video">
+            <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="intro_vid">
-      <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
-    </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -27,30 +31,58 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
-div{
-  font-family: 'Roboto', sans-serif;
-}
-.intro_vid {
-  position: absolute;
-  background-color: #2F2651;
-  width: 25rem;
-  height: 28rem;
-  z-index: 1;
-  border-radius: 20px;
-  right: 15%;
-  top: 25%;
-}
 
-#alignment {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+.hero {
+  padding: 30px 0;
+  &__body {
+    background-color: #f8f8fa;
+    padding: 30px 10px;
+    border-radius: 16px;
+    height: fit-content;
+    color: #2F2651;
+    position: relative;
+    text-align: center;
+
+    @media screen and (min-width: 992px) {
+      text-align: left;
+      height: 350px;
+      padding: 0 30px;
+      max-height: 500px;
+    }
+
+    &__title {
+      font-weight: 700;
+      font-size: 2.8rem;
+    }
+
+    &__subtitle {
+      font-size: 1.1rem;
+      margin: 30px 0;
+    }
+
+    &__cta {
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+
+  }
+  &__video {
+    background-color: #2F2651;
+    width: 250px;
+    border-radius: 20px;
+    height: 300px;
+    margin: 30px auto;
+
+    @media screen and (min-width: 992px) {
+      margin: 0 auto;
+      height: 300px;
+      transform: translateY(25%);
+    }
+  }
 }
 
 //section
-.custom-section {
+/* .custom-section {
   width: 99%;
   padding: 40px 0px;
   background-color: #efefef;
@@ -92,23 +124,11 @@ div{
     }
 
   }
-}
-.nav-link{
-			color:#FFF;
-      font-size: large;
-			padding:8px 15px;
-			white-space:nowrap;
-			background-color: #2F2651;
-      border-radius: 10px;
-      
-			&:hover{
-				color:rgb(255, 255, 255);
-				background-color: #454aa1;
-			}
-    }
-  .Practice{
+} */
 
-    color:#000;
-  }
+.practice {
+  white-space: nowrap;
+  color: #2F2651;
+}
   
 </style>
