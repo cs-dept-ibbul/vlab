@@ -13,14 +13,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-use function PHPUnit\Framework\isNull;
-
 class CourseController extends Controller
 {
-    private $currentUser = Auth::user();
-    private $schoolId = $this->currentUser->school_id;
-    private $facultyId = $this->currentUser->faculty_id;
-    private $userId = $this->currentUser->id;
+    private $currentUser;
+    private $schoolId;
+    private $facultyId;
+    private $userId;
+
+    public function __construct()
+    {
+        if(Auth::check()){
+            $this->currentUser = Auth::user();
+            $this->schoolId = $this->currentUser->school_id;
+            $this->facultyId = $this->currentUser->faculty_id;
+            $this->userId = $this->currentUser->id;
+        }
+    }
 
     public function create(Request $request)
     {
@@ -54,7 +62,7 @@ class CourseController extends Controller
             if ($course->save()) {
                 return response()->json(['success' => true], 200);
             }
-            return response()->json(['success' => false], 401);
+            return response()->json(['success' => false], 400);
         }
         return response()->json(['error' => 'This course already exist'], 409);
     }
@@ -70,7 +78,7 @@ class CourseController extends Controller
                 return response()->json(['success' => true], 200);
             }
         } else {
-            return response()->json(['error' => 'No course with this id'], 200);
+            return response()->json(['error' => 'No course with this id'], 404);
         }
         return response()->json(['error' => 'something went wrong'], 400);
     }
@@ -99,18 +107,18 @@ class CourseController extends Controller
             }
     
             if ($save) {
-                return response()->json(['success' => true], 401);
+                return response()->json(['success' => true], 200);
             }
         } else {
             return response()->json(['error' => 'No course with this id'], 404);
         }
 
-        return response()->json(['success' => false], 200);
+        return response()->json(['success' => false], 400);
     }
 
     public function getAllCourses()
     {
-        $course = Course::all();
+        $course = Course::with('school')->with('faculty')->get();
         return response()->json($course, 200);
     }
 
@@ -125,7 +133,7 @@ class CourseController extends Controller
         }
 
         $courseId = $request->get('course_id');
-        $course = Course::where(['id' => $courseId])->first();
+        $course = Course::with('school')->with('faculty')->find($courseId);
 
         if (!empty($course)) {
             return response()->json($course, 200);
