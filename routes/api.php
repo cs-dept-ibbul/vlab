@@ -5,7 +5,9 @@ use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Api\SchoolController;
 use App\Http\Controllers\Api\Util;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\DepartmentController;
 use App\Http\Controllers\Api\UserController;
+use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -60,6 +62,16 @@ Route::group([
             Route::get('faculties', [FacultyController::class, 'getAllFaculties']);
             Route::get('faculty_courses', [FacultyController::class, 'facultiesWithCourses']);
             Route::get('faculty_course_student', [FacultyController::class, 'getFacultyWithCourseAndStudentCount']);
+        });
+
+        Route::group([
+            'prefix' => 'departments'
+        ], function () {
+            Route::post('create', [DepartmentController::class, 'create']);
+            Route::post('delete', [DepartmentController::class, 'deleteDepartment']);
+            Route::post('update', [DepartmentController::class, 'updateDepartment']);
+            Route::post('department', [DepartmentController::class, 'getDepartment']);
+            Route::get('departments', [DepartmentController::class, 'getAllDepartments']);
         });
 
         Route::group([

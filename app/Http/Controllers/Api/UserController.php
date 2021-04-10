@@ -10,6 +10,23 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+
+    private $currentUser;
+    private $schoolId;
+    private $facultyId;
+    private $departmentId;
+    private $userId;
+
+    public function __construct()
+    {
+        if (Auth::check()) {
+            $this->currentUser = Auth::user();
+            $this->schoolId = $this->currentUser->school_id;
+            $this->facultyId = $this->currentUser->faculty_id;
+            $this->departmentId = $this->currentUser->department_id;
+            $this->userId = $this->currentUser->id;
+        }
+    }
     
     public function importStudents(Request $request)
     {
@@ -29,6 +46,7 @@ class UserController extends Controller
         $exists = [];
         $newStudents = [];
         $password = md5(123456);
+        $roleId = '3e836670-a9d5-4c78-bfb8-0bdcda27263c';
         
         foreach ($students as $student) {
 
@@ -43,7 +61,10 @@ class UserController extends Controller
                     'other_names' => $student['other_names'],
                     'gender' => $student['gender'],
                     'password' => $password,
-                    'role_id' => $request->get('role_id'),
+                    'role_id' => $roleId,
+                    'school_id' => $this->schoolId,
+                    'faculty_id' => $this->facultyId,
+                    'department_id' => $this->departmentId,
                     'user_ip_address' => $this->ip(),
                 ];
                 $newStudents[] = [
