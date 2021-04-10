@@ -15,10 +15,10 @@ class Course extends Model
         'updated_at',
     ];
 
-    public function newQuery($excludeDeleted = true) {
-        return parent::newQuery($excludeDeleted)
-            ->where('status', '=', 'Active');
-    }
+    // public function newQuery($excludeDeleted = true) {
+    //     return parent::newQuery($excludeDeleted)
+    //         ->where('status', '=', 'Active');
+    // }
     
     public function course_experiment()
     {
@@ -33,6 +33,11 @@ class Course extends Model
     public function faculty()
     {
         return $this->belongsTo(Faculty::class);
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany(User::class, 'user_courses');
     }
 }
 
@@ -55,6 +60,11 @@ class CourseInstructor extends Model
 class CourseStudents extends Model
 {
     use HasFactory;
+
+    public function students()
+    {
+        return $this->hasMany(User::class, 'id');
+    }
     protected $table = 'user_courses';
     protected $fillable = [
         'course_id',

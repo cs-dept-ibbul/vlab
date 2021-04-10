@@ -31,9 +31,9 @@ class FacultyController extends Controller
         $checkSchool = Faculty::where(['name' => $facultyName])->first();
         if (empty($checkSchool)) {
             if ($faculty->save()) {
-                return response()->json(['success' => true], 200);
+                return response()->json(['success' => true], 201);
             }
-            return response()->json(['success' => false], 200);
+            return response()->json(['success' => false], 400);
         }
         return response()->json(['error' => 'This faculty already exist'], 409);
     }
@@ -58,7 +58,7 @@ class FacultyController extends Controller
                 return response()->json(['success' => true], 200);
             }
         } else {
-            return response()->json(['error' => 'No faculty with this id'], 200);
+            return response()->json(['error' => 'No faculty with this id'], 404);
         }
         return response()->json(['error' => 'something went wrong'], 400);
     }
@@ -92,10 +92,10 @@ class FacultyController extends Controller
                 return response()->json(['success' => true], 200);
             }
         } else {
-            return response()->json(['error' => 'No faculty with this id'], 400);
+            return response()->json(['error' => 'No faculty with this id'], 404);
         }
 
-        return response()->json(['success' => false], 401);
+        return response()->json(['success' => false], 400);
     }
 
     public function getAllFaculties()
