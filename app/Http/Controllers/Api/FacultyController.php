@@ -18,7 +18,7 @@ class FacultyController extends Controller
         $id = Util::uuid();
         $facultyName = $request->get('faculty_name');
         $facultyCode = $request->get('faculty_code');
-        $schoolID = $request->get('school_id');
+        $schoolID = Auth::user()->school_id;
         $status = $request->get('status') ?? 'Active';
         $faculty = new Faculty();
         $faculty->id = $id;
@@ -36,6 +36,66 @@ class FacultyController extends Controller
             return response()->json(['success' => false], 200);
         }
         return response()->json(['error' => 'This faculty already exist'], 409);
+    }
+
+    public function deleteFaculty(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'faculty_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "faculty_id field is required"], 400);
+        }
+
+        $facultyId = $request->get('faculty_id');
+        $faculty = Faculty::find($facultyId);
+        if($faculty){
+            $faculty->status = 'Inactive';
+            $save = $faculty->save();
+            if ($save) {
+                return response()->json(['success' => true], 200);
+            }
+        } else {
+            return response()->json(['error' => 'No faculty with this id'], 200);
+        }
+        return response()->json(['error' => 'something went wrong'], 400);
+    }
+
+    public function updateFaculty(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'faculty_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "faculty_id field is required"], 400);
+        }
+
+        $facultyName = $request->get('faculty_name');
+        $facultyCode = $request->get('faculty_code');
+
+        $facultyId = $request->get('faculty_id');
+        $faculty = Faculty::find($facultyId);
+        if($faculty){
+            $facultyName != null ? $faculty->name = $facultyName : null;
+            $facultyCode != null ? $faculty->faculty_code = $facultyCode : null;
+    
+            if(empty($facultyName) && empty($facultyCode) && empty($schoolID)){
+                return response()->json(['message' => 'Nothing to update'], 200);
+            } else {
+                $save = $faculty->save();
+            }
+    
+            if ($save) {
+                return response()->json(['success' => true], 200);
+            }
+        } else {
+            return response()->json(['error' => 'No faculty with this id'], 400);
+        }
+
+        return response()->json(['success' => false], 401);
     }
 
     public function getAllFaculties()

@@ -13,6 +13,11 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
 
+    public function newQuery($excludeDeleted = true) {
+        return parent::newQuery($excludeDeleted)
+            ->where('status', '=', 'Active');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
