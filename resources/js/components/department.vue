@@ -95,7 +95,7 @@
 					  } 
 					}).then((result)=>{
 						if (result.value) {
-					    const answers = {faculty_id:result.value[0], department_name:result.value[1], department_code:result.value[2]}
+					    const answers = {faculty_id:result.value[0], name:result.value[1], code:result.value[2]}
 					    Swal.fire({
 					      title: 'click on proceed',
 					      text: 'other cancel and restart',
@@ -106,11 +106,11 @@
 						      		</tr>
 						      		<tr>
 						      			<td width='30%'><b>department:</b></td>
-						      			<td width='70%'> ${answers.department_name},</td>
+						      			<td width='70%'> ${answers.name},</td>
 						      		</tr>
 						      		<tr>
 						      		 	<td width='30%'><b>Abbr:</b></td>
-						      		 	<td width='70%'> ${answers.department_code} </td>
+						      		 	<td width='70%'> ${answers.code} </td>
 						      		 <tr>
 					      		</table>`,
 					      confirmButtonText:'Process',					      

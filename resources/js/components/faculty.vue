@@ -21,7 +21,7 @@
 			            <td width="15%">{{faculty.updated_at}}</td>	            
 			            <td width="5%">{{faculty.status}}</td>	            
 			            <td width="10%">
-			            	<span class="ml-2 fa fa-edit pl-3  fs01 cursor-1" @click="editfaculty(createdFaculty[index])" style="border-left: 1px solid #ccc;"></span>
+			            	<span class="ml-2 fa fa-edit pl-3  fs01 cursor-1" @click="editfaculty(faculty)" style="border-left: 1px solid #ccc;"></span>
 			            	<span class="ml-2 fa fa-trash pl-3  fs01 cursor-1" @click="deletefaculty(faculty.id)"></span>
 			            </td>
 			        </tr>
@@ -45,7 +45,7 @@
 				let formcount = 0;
 				let $vm = this, html='';
 				let topic = "Create Faculty";
-				
+				console.log(obj);
 				//watch(this.watchfacultyHtml, 'value', function(){
 				if(update){			
 					topic = 'Update Faculty';
@@ -99,8 +99,11 @@
 				      showLoaderOnConfirm: true,
 				       preConfirm: (login) => {			
 				        if (update){
-				        	let formData = {Faculty_id:obj.Faculty_id};
-				        	return $vm.axios.post('api/faculties/upadte',formData,{headers:$vm.axiosHeader})
+				        	const formData = new FormData();
+				        	formData.append("faculty_id",obj.id);
+				        	formData.append("name",result.value[0]);
+				        	formData.append("code",result.value[1]);				        	 
+				        	return $vm.axios.post('api/faculties/update',formData,{headers:$vm.axiosHeader})
 					      	.then(response => {						      	
 						        if (!response.data.sucess) {
 						          throw new Error(response.statusText)
@@ -108,6 +111,7 @@
 						        return response.json()
 					      	})
 					      	.catch(error => {
+
 						      	if (error.response) {
 							      	if (error.response.status == 409) {
 								        Swal.showValidationMessage(
@@ -172,7 +176,7 @@
 			//let $vm = this;				
 			},
 			editfaculty:function(obj){
-				console.log(obj);
+
 					this.swal_form(true,obj);
 			},
 			deletefaculty: function(id){

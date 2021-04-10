@@ -40,62 +40,154 @@
 				tableLoaded:false,
 				facultiesHTML: null,
 				faculties: null,
-				watchfacultyHtml:{value:null}
+				departments:null,
+				watchfacultyHtml:{value:null},
+				uploadlist:[],
+				listTrHtml:""
 			}
 		},
 		methods: {
-			
+		  ProcessExcel:function(data) {
+		        //Read the Excel File data.
+
+		        var workbook = XLSX.read(data, {
+		            type: 'binary'
+		        }),
+		        dataARR =[];
+		 
+		        //Fetch the name of First Sheet.
+		        var firstSheet = workbook.SheetNames[0];
+		 
+		        //Read all rows from First Sheet into an JSON array.
+		        var excelRows = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[firstSheet]);
+		      	//column 1 == matric number else skipped
+		      	//column 2 == first name // important
+		      	//column 3 == other name // important
+		      	//column 4 == email // important
+		      	//column 6 == gender ///important 
+		      	//column 5 == phonenumber 
+
+		 		for(i in excelRows){
+		 			dataARR[i] = [];
+		 			c =-1;
+		 			if (i == 0) {
+		 				/*if (excelRows[i][0].toLowerCase() != "matric number" || excelRows[i][1].toLowerCase() != "first name" || excelRows[i][3].toLowerCase() != "last name" || excelRows[i][4].toLowerCase() != "email" || excelRows[i][4].toLowerCase() != "gender" || excelRows[i][3].toLowerCase() != "phone number") {}*/
+		 			}else{
+		 				dataARR[i]={
+			 				matric_number: excelRows[i][0],	 			
+			 				first_name:    excelRows[i][1],	 			
+			 				other_names:   excelRows[i][2],	 			
+			 				email:         excelRows[i][3],	 			
+			 				gender:         excelRows[i][4],	 					 					
+			 				phone:         excelRows[i][4],	 					 					
+		 				}
+		 				if (dataARR[i].matric_number == "") {
+		 					return {sucess:false, message:'matric number is required on row'+ i} // matric number is required 
+		 				}
+		 				if (dataARR[i].first_name == "") {
+		 					return {sucess:false, message:'first name is required on row'+ i} // matric number is required 
+		 				}
+		 				if (dataARR[i].other_names == "") {
+		 					return {sucess:false, message:'other name is required on row'+ i} // matric number is required 
+		 				}
+		 				if (dataARR[i].email == "") {
+		 					return {sucess:false, message:'first name is required on row'+ i} // matric number is required 
+		 				}
+
+		 			}		 			
+		 		}
+
+		 		return {sucess:true,message:dataARR};
+		 	},
 			createuser:function(){
-				this.VueSweetAlert2('v-userform', {type:'user'});
+				this.VueSweetAlert2('v-userform', {
+					type:'user',
+					faculties: this.faculties,
+					departments: this.departments
+				});
 			},
-			swal_form: function(update = false, obj={faculty_id:1, user_id:2, name:'computer science', code: 'csc'}){	
-				$('#system-loader').css('display','flex');
-				let formcount = 0;
-				let $vm = this, html='';
-				let topic = "Create user";
-				if(update){
-				    topic = "Update user";
-					this.axiosGetFacultyHtml(update,obj.faculty_id); // fetch faculties and set selected base on update parameter if ture
-				}else{
-					this.axiosGetFacultyHtml(update); // fetch faculties
-				}
-				watch(this.watchfacultyHtml, 'value', function(){
-					if(update){
+			swal_form: function(obj){	
+				
+				let $vm = this, html='';					    
+				//this.axiosGetFacultyHtml(false,obj.faculty_id); // fetch faculties and set selected base on update parameter if ture
+				
 
 					//this.axiosGetFacultyHtml(update,obj.faculty_id);					
 					html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>"+
-					  	$vm.facultiesHTML+				
-					  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>user Name</legend>"+					  		   
-					    '<input id="swal-input1" class="swal2-input mt-1" value="'+obj.name+'" >' +
-					  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>user Abbr</legend>"+					  		   				    
-					    '<input id="swal-input2" class="swal2-input mt-1" value="'+obj.code+'">';
-					}else{
-						html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>"+
-					  	$vm.facultiesHTML+				
-					  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>user Name</legend>"+					  		   
-					    '<input id="swal-input1" class="swal2-input mt-1" >' +
-					  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>user Abbr</legend>"+					  		   				    
-					    '<input id="swal-input2" class="swal2-input mt-1">';	
-					}										
+					  	$vm.facultiesHTML+		
+					  	"<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Department</legend>"+
+					  	$vm.departmentsHTML+									  	
+					  	"<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Role</legend>"+
+					  	"<select class='swal2-input' id='role_id'>"+
+					  	"<option value='admin'>admin</option>"+				
+					  	"<option value='instructor'>instructor</option>"+
+					  	"<option value='student'>student</option>"+									  	
+					  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Select csv file</legend>"+					     
+					    '<input id="swal-file1" type="file" class="mt-1 mx-auto"  >' ;	
+
+					
 					$('#system-loader').hide();						
 					Swal.fire({
-					  title: topic,
+					  title: "Upload bulk user",
 					  html:html,
 					  focusConfirm: false,
 					  preConfirm: () => {
-					  	let faculty = document.getElementById('swal-input0').value,
-					  	 facultyName , userName = document.getElementById('swal-input1').value,
-					      userAbbr = document.getElementById('swal-input2').value;
-					      facultyName = document.getElementById('swal-input0').options;
-					  	  facultyName = facultyName[facultyName.selectedIndex].text
-					  	if ( faculty == "" || userName == "" || userAbbr == "") {					     
+					  	let faculty = document.getElementById('faculty_id').value,
+					  		department = document.getElementById('department_id').value,
+					  	 	//Validate whether File is valid Excel file.
+        					 fileUpload = document.getElementById("swal-file1"),
+        					 regex = /^([a-zA-Z0-9\s_\\.\-:])+(.xls|.xlsx|.csv)$/;
+        					  if (regex.test(fileUpload.value.toLowerCase())) {
+					          	if (typeof (FileReader) != "undefined") {
+					                var reader = new FileReader();
+					 
+					                //For Browsers other than IE.
+					                if (reader.readAsBinaryString) {
+					                    reader.onload = function (e) {
+					                       $vm.uploadlist = ProcessExcel(e.target.result);
+					                    };
+					                    reader.readAsBinaryString(fileUpload.files[0]);
+					                } else {
+					                    //For IE Browser.
+					                    reader.onload = function (e) {
+					                        var data = "";
+					                        var bytes = new Uint8Array(e.target.result);
+					                        for (var i = 0; i < bytes.byteLength; i++) {
+					                            data += String.fromCharCode(bytes[i]);
+					                        }
+					                      $vm.uploadlist =  ProcessExcel(data);
+
+					                    };
+					                    reader.readAsArrayBuffer(fileUpload.files[0]);
+					                }
+					                if (!$vm.uploadlist.sucess){
+					                	Swal.showValidationMessage($vm.uploadlist.message);
+					                }
+					            } else {
+					                Swal.showValidationMessage("This browser does not support HTML5.");
+					            }
+					        } else {
+					           Swal.showValidationMessage('Error: please select a valid file (.xls,. xlsx or .csv file)');
+					        }
+
+					  	if ( faculty == "" || department == "") {					     
 					         Swal.showValidationMessage('All fields are required');
 					  	}
+					  	for (var i = 0; i < $vm.uploadlist.message.length; i++) {
+					  		$vm.listTrHtml += "<tr>";
+					  		$vm.listTrHtml += "<td>"+$vm.uploadlist.message[i].matric_number+"</td>"
+					  		$vm.listTrHtml += "<td>"+$vm.uploadlist.message[i].first_name+"</td>"
+					  		$vm.listTrHtml += "<td>"+$vm.uploadlist.message[i].other_names+"</td>"
+					  		$vm.listTrHtml += "<td>"+$vm.uploadlist.message[i].email+"</td>"
+					  		$vm.listTrHtml += "<td>"+$vm.uploadlist.message[i].gender+"</td>"
+					  		$vm.listTrHtml += "<td>"+$vm.uploadlist.message[i].phone+"</td>"
+					  		$vm.listTrHtml += "</tr>";
+					     }
 					    return [
 					      faculty,
-					      userName,
-					      userAbbr,
-					      facultyName,
+					      department,
+					      $vm.uploadlist.message
+					      
 					    ]
 					  } 
 					}).then((result)=>{
@@ -104,28 +196,16 @@
 					    Swal.fire({
 					      title: 'click on proceed',
 					      text: 'other cancel and restart',
-					      html: `<table class='table text-left'>
-						      		<tr>
-						      			<td width='30%'><b>Faculty :</b></td>
-						      			<td width='70%'>${result.value[3]}</td>
-						      		</tr>
-						      		<tr>
-						      			<td width='30%'><b>user:</b></td>
-						      			<td width='70%'> ${answers.user_name},</td>
-						      		</tr>
-						      		<tr>
-						      		 	<td width='30%'><b>Abbr:</b></td>
-						      		 	<td width='70%'> ${answers.user_code} </td>
-						      		 <tr>
-					      		</table>`,
+					      html: "<table class='table text-left'>"+
+					      		"<tr><td>Matric Number</td><td>First Name</td><td>Last Name</td><td>email</td><td>gender</td><td>phone</td></tr>"+$vm.listTrHtml+"</table>",
 					      confirmButtonText:'Process',					      
 					      cancelButtonText:'Cancle',					      
 					      showCancelButton:true,					      
 					      showLoaderOnConfirm: true,
 					       preConfirm: (login) => {			
-					        if (update){
+					        
 					        	let formData = {user_id:obj.user_id};
-					        	return $vm.axios.post('api/users/upadte',formData,{headers:$vm.axiosHeader})
+					        	return $vm.axios.post('api/users/import_students',{bulk_users:$vm.uploadlist.message, department_id:result.value[1],faculty_id:result.value[0], role_id:result.value[2]},{headers:$vm.axiosHeader})
 						      	.then(response => {						      	
 							        if (!response.data.sucess) {
 							          throw new Error(response.statusText)
@@ -146,31 +226,7 @@
 									        )						      		
 								      	}
 							      	}
-						      	})
-					        }else{
-					        	return $vm.axios.post('api/users/create',$vm.createFormData(answers),{headers:$vm.axiosHeader})
-						      	.then(response => {						      	
-							        if (!response.data.sucess) {
-							          throw new Error(response.statusText)
-							        }						   
-							        return response.json()
-						      	})
-						      	.catch(error => {
-							      	if (error.response) {
-								      	if (error.response.status == 409) {
-									        Swal.showValidationMessage(
-									          `Failed: user Already Exist`
-									        )						      		
-								      	}else if(error.response.status == 401){
-								      		location.reload();
-								      	}else{
-								      		Swal.showValidationMessage(
-									          `Failed: Something went wrong`
-									        )						      		
-								      	}
-							      	}
-						      	})
-					        }			    
+						      	})					    		   
 						    	
 						  },
 						  allowOutsideClick: () => !Swal.isLoading()
@@ -192,15 +248,32 @@
 					  }
 					})
 				
-					formcount++;
-				});		
+					
 				//let $vm = this;	
 				
 			
 
 			},
 			edituser:function(obj){
-				this.swal_form(true);
+				this.VueSweetAlert2('v-userform', {
+					type:'user',
+					update:true,
+					faculties: this.faculties,
+					departments: this.departments,
+					alldata: {
+						first_name :"s2o3disdho",
+						other_names :"s2o3disdho",
+						matric_number :"s2o3disdho",
+						email :"s2o3disdho",
+						phone :"08023",
+						gender :"s2o3disdho",
+						faculty_id :72,
+						department_id :1,
+						role_id :1,
+						title :"s2o3disdho",
+						id :"s2o3disdho",
+					}
+				});				
 			},
 			deleteuser: function(id){
 				Swal.fire('delete');					
@@ -211,7 +284,13 @@
 			$('#'+id).after('<span class="text-danger requiredv">Required !</span>')
 			},
 			uploadstudent: function(){					
-				this.swal_form(false, null);			
+				this.swal_form(false, null);		
+				html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>"+
+					  	$vm.facultiesHTML+				
+					  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>user Name</legend>"+					  		   
+					    '<input id="swal-input1" class="swal2-input mt-1" value="'+obj.name+'" >' +
+					  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>user Abbr</legend>"+					  		   				    
+					    '<input id="swal-input2" class="swal2-input mt-1" value="'+obj.code+'">';	
 			},
 			async axiosGetFacultyHtml(update, faculty_id){
 				//method 1 
@@ -248,17 +327,23 @@
 			 	
 			}
 		},
-		async created(){
-			   this.createduser  = await this.axiosGet('api/users/users');
-			    //console.log(this.createduser)
-			    this.tableLoaded = true;
+		async created(){			
+			this.faculties =  await this.axiosGet('api/faculties/faculties');						
+			this.departments	 = await  this.axiosGet('api/departments/departments');					
+			this.createduser  = await this.axiosGet('api/users/users');
+			
+
+			this.facultiesHTML = this.selectHtmlGen(this.faculties,'code','faculty_id' )							
+			this.departmentsHTML = this.selectHtmlGen(this.departments,'code','department_id' )							
+
+			this.tableLoaded = true;
 			    
 			    /*initialize datatable */
-	             setTimeout(function() {
-	             	 $('#usertable').DataTable({
-				    	pageLength : 5,
-				    });
-	             }, 200);
+	        setTimeout(function() {
+	         	 $('#usertable').DataTable({
+			    	pageLength : 5,
+			    });
+	         }, 200);
 			
 		},
 		mounted(){			

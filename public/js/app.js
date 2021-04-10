@@ -5325,13 +5325,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           if (result.value) {
             var answers = {
               faculty_id: result.value[0],
-              department_name: result.value[1],
-              department_code: result.value[2]
+              name: result.value[1],
+              code: result.value[2]
             };
             Swal.fire({
               title: 'click on proceed',
               text: 'other cancel and restart',
-              html: "<table class='table text-left'>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>Faculty :</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'>".concat(result.value[3], "</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>department:</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'> ").concat(answers.department_name, ",</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t \t<td width='30%'><b>Abbr:</b></td>\n\t\t\t\t\t      \t\t \t<td width='70%'> ").concat(answers.department_code, " </td>\n\t\t\t\t\t      \t\t <tr>\n\t\t\t\t      \t\t</table>"),
+              html: "<table class='table text-left'>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>Faculty :</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'>".concat(result.value[3], "</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>department:</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'> ").concat(answers.name, ",</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t \t<td width='30%'><b>Abbr:</b></td>\n\t\t\t\t\t      \t\t \t<td width='70%'> ").concat(answers.code, " </td>\n\t\t\t\t\t      \t\t <tr>\n\t\t\t\t      \t\t</table>"),
               confirmButtonText: 'Process',
               cancelButtonText: 'Cancle',
               showCancelButton: true,
@@ -5827,7 +5827,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var formcount = 0;
       var $vm = this,
           html = '';
-      var topic = "Create Faculty"; //watch(this.watchfacultyHtml, 'value', function(){
+      var topic = "Create Faculty";
+      console.log(obj); //watch(this.watchfacultyHtml, 'value', function(){
 
       if (update) {
         topic = 'Update Faculty';
@@ -5867,10 +5868,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             showLoaderOnConfirm: true,
             preConfirm: function preConfirm(login) {
               if (update) {
-                var formData = {
-                  Faculty_id: obj.Faculty_id
-                };
-                return $vm.axios.post('api/faculties/upadte', formData, {
+                var formData = new FormData();
+                formData.append("faculty_id", obj.id);
+                formData.append("name", result.value[0]);
+                formData.append("code", result.value[1]);
+                return $vm.axios.post('api/faculties/update', formData, {
                   headers: $vm.axiosHeader
                 }).then(function (response) {
                   if (!response.data.sucess) {
@@ -5937,7 +5939,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       //let $vm = this;				
     },
     editfaculty: function editfaculty(obj) {
-      console.log(obj);
       this.swal_form(true, obj);
     },
     deletefaculty: function deletefaculty(id) {
@@ -10157,153 +10158,247 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       tableLoaded: false,
       facultiesHTML: null,
       faculties: null,
+      departments: null,
       watchfacultyHtml: {
         value: null
-      }
+      },
+      uploadlist: [],
+      listTrHtml: ""
     };
   },
   methods: {
-    createuser: function createuser() {
-      this.VueSweetAlert2('v-userform', {
-        type: 'user'
-      });
-    },
-    swal_form: function swal_form() {
-      var update = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-      var obj = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
-        faculty_id: 1,
-        user_id: 2,
-        name: 'computer science',
-        code: 'csc'
-      };
-      $('#system-loader').css('display', 'flex');
-      var formcount = 0;
-      var $vm = this,
-          html = '';
-      var topic = "Create user";
+    ProcessExcel: function ProcessExcel(data) {
+      //Read the Excel File data.
+      var workbook = XLSX.read(data, {
+        type: 'binary'
+      }),
+          dataARR = []; //Fetch the name of First Sheet.
 
-      if (update) {
-        topic = "Update user";
-        this.axiosGetFacultyHtml(update, obj.faculty_id); // fetch faculties and set selected base on update parameter if ture
-      } else {
-        this.axiosGetFacultyHtml(update); // fetch faculties
+      var firstSheet = workbook.SheetNames[0]; //Read all rows from First Sheet into an JSON array.
+
+      var excelRows = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[firstSheet]); //column 1 == matric number else skipped
+      //column 2 == first name // important
+      //column 3 == other name // important
+      //column 4 == email // important
+      //column 6 == gender ///important 
+      //column 5 == phonenumber 
+
+      for (i in excelRows) {
+        dataARR[i] = [];
+        c = -1;
+
+        if (i == 0) {
+          /*if (excelRows[i][0].toLowerCase() != "matric number" || excelRows[i][1].toLowerCase() != "first name" || excelRows[i][3].toLowerCase() != "last name" || excelRows[i][4].toLowerCase() != "email" || excelRows[i][4].toLowerCase() != "gender" || excelRows[i][3].toLowerCase() != "phone number") {}*/
+        } else {
+          dataARR[i] = {
+            matric_number: excelRows[i][0],
+            first_name: excelRows[i][1],
+            other_names: excelRows[i][2],
+            email: excelRows[i][3],
+            gender: excelRows[i][4],
+            phone: excelRows[i][4]
+          };
+
+          if (dataARR[i].matric_number == "") {
+            return {
+              sucess: false,
+              message: 'matric number is required on row' + i
+            }; // matric number is required 
+          }
+
+          if (dataARR[i].first_name == "") {
+            return {
+              sucess: false,
+              message: 'first name is required on row' + i
+            }; // matric number is required 
+          }
+
+          if (dataARR[i].other_names == "") {
+            return {
+              sucess: false,
+              message: 'other name is required on row' + i
+            }; // matric number is required 
+          }
+
+          if (dataARR[i].email == "") {
+            return {
+              sucess: false,
+              message: 'first name is required on row' + i
+            }; // matric number is required 
+          }
+        }
       }
 
-      watch(this.watchfacultyHtml, 'value', function () {
-        if (update) {
-          //this.axiosGetFacultyHtml(update,obj.faculty_id);					
-          html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>" + $vm.facultiesHTML + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>user Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" value="' + obj.name + '" >' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>user Abbr</legend>" + '<input id="swal-input2" class="swal2-input mt-1" value="' + obj.code + '">';
-        } else {
-          html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>" + $vm.facultiesHTML + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>user Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" >' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>user Abbr</legend>" + '<input id="swal-input2" class="swal2-input mt-1">';
+      return {
+        sucess: true,
+        message: dataARR
+      };
+    },
+    createuser: function createuser() {
+      this.VueSweetAlert2('v-userform', {
+        type: 'user',
+        faculties: this.faculties,
+        departments: this.departments
+      });
+    },
+    swal_form: function swal_form(obj) {
+      var $vm = this,
+          html = ''; //this.axiosGetFacultyHtml(false,obj.faculty_id); // fetch faculties and set selected base on update parameter if ture
+      //this.axiosGetFacultyHtml(update,obj.faculty_id);					
+
+      html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>" + $vm.facultiesHTML + "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Department</legend>" + $vm.departmentsHTML + "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Role</legend>" + "<select class='swal2-input' id='role_id'>" + "<option value='admin'>admin</option>" + "<option value='instructor'>instructor</option>" + "<option value='student'>student</option>" + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Select csv file</legend>" + '<input id="swal-file1" type="file" class="mt-1 mx-auto"  >';
+      $('#system-loader').hide();
+      Swal.fire({
+        title: "Upload bulk user",
+        html: html,
+        focusConfirm: false,
+        preConfirm: function preConfirm() {
+          var faculty = document.getElementById('faculty_id').value,
+              department = document.getElementById('department_id').value,
+              //Validate whether File is valid Excel file.
+          fileUpload = document.getElementById("swal-file1"),
+              regex = /^([a-zA-Z0-9\s_\\.\-:])+(.xls|.xlsx|.csv)$/;
+
+          if (regex.test(fileUpload.value.toLowerCase())) {
+            if (typeof FileReader != "undefined") {
+              var reader = new FileReader(); //For Browsers other than IE.
+
+              if (reader.readAsBinaryString) {
+                reader.onload = function (e) {
+                  $vm.uploadlist = ProcessExcel(e.target.result);
+                };
+
+                reader.readAsBinaryString(fileUpload.files[0]);
+              } else {
+                //For IE Browser.
+                reader.onload = function (e) {
+                  var data = "";
+                  var bytes = new Uint8Array(e.target.result);
+
+                  for (var i = 0; i < bytes.byteLength; i++) {
+                    data += String.fromCharCode(bytes[i]);
+                  }
+
+                  $vm.uploadlist = ProcessExcel(data);
+                };
+
+                reader.readAsArrayBuffer(fileUpload.files[0]);
+              }
+
+              if (!$vm.uploadlist.sucess) {
+                Swal.showValidationMessage($vm.uploadlist.message);
+              }
+            } else {
+              Swal.showValidationMessage("This browser does not support HTML5.");
+            }
+          } else {
+            Swal.showValidationMessage('Error: please select a valid file (.xls,. xlsx or .csv file)');
+          }
+
+          if (faculty == "" || department == "") {
+            Swal.showValidationMessage('All fields are required');
+          }
+
+          for (var i = 0; i < $vm.uploadlist.message.length; i++) {
+            $vm.listTrHtml += "<tr>";
+            $vm.listTrHtml += "<td>" + $vm.uploadlist.message[i].matric_number + "</td>";
+            $vm.listTrHtml += "<td>" + $vm.uploadlist.message[i].first_name + "</td>";
+            $vm.listTrHtml += "<td>" + $vm.uploadlist.message[i].other_names + "</td>";
+            $vm.listTrHtml += "<td>" + $vm.uploadlist.message[i].email + "</td>";
+            $vm.listTrHtml += "<td>" + $vm.uploadlist.message[i].gender + "</td>";
+            $vm.listTrHtml += "<td>" + $vm.uploadlist.message[i].phone + "</td>";
+            $vm.listTrHtml += "</tr>";
+          }
+
+          return [faculty, department, $vm.uploadlist.message];
         }
+      }).then(function (result) {
+        if (result.value) {
+          var answers = {
+            faculty_id: result.value[0],
+            user_name: result.value[1],
+            user_code: result.value[2]
+          };
+          Swal.fire({
+            title: 'click on proceed',
+            text: 'other cancel and restart',
+            html: "<table class='table text-left'>" + "<tr><td>Matric Number</td><td>First Name</td><td>Last Name</td><td>email</td><td>gender</td><td>phone</td></tr>" + $vm.listTrHtml + "</table>",
+            confirmButtonText: 'Process',
+            cancelButtonText: 'Cancle',
+            showCancelButton: true,
+            showLoaderOnConfirm: true,
+            preConfirm: function preConfirm(login) {
+              var formData = {
+                user_id: obj.user_id
+              };
+              return $vm.axios.post('api/users/import_students', {
+                bulk_users: $vm.uploadlist.message,
+                department_id: result.value[1],
+                faculty_id: result.value[0],
+                role_id: result.value[2]
+              }, {
+                headers: $vm.axiosHeader
+              }).then(function (response) {
+                if (!response.data.sucess) {
+                  throw new Error(response.statusText);
+                }
 
-        $('#system-loader').hide();
-        Swal.fire({
-          title: topic,
-          html: html,
-          focusConfirm: false,
-          preConfirm: function preConfirm() {
-            var faculty = document.getElementById('swal-input0').value,
-                facultyName,
-                userName = document.getElementById('swal-input1').value,
-                userAbbr = document.getElementById('swal-input2').value;
-            facultyName = document.getElementById('swal-input0').options;
-            facultyName = facultyName[facultyName.selectedIndex].text;
+                return response.json();
+              })["catch"](function (error) {
+                if (error.response) {
+                  if (error.response.status == 409) {
+                    Swal.showValidationMessage("Failed: user Already Exist");
+                  } else if (error.response.status == 401) {
+                    location.reload();
+                  } else {
+                    Swal.showValidationMessage("Failed: Something went wrong");
+                  }
+                }
+              });
+            },
+            allowOutsideClick: function allowOutsideClick() {
+              return !Swal.isLoading();
+            }
+          }).then(function (result) {
+            var title = 'created successfully';
 
-            if (faculty == "" || userName == "" || userAbbr == "") {
-              Swal.showValidationMessage('All fields are required');
+            if (update) {
+              title = 'updated successfully';
             }
 
-            return [faculty, userName, userAbbr, facultyName];
-          }
-        }).then(function (result) {
-          if (result.value) {
-            var answers = {
-              faculty_id: result.value[0],
-              user_name: result.value[1],
-              user_code: result.value[2]
-            };
-            Swal.fire({
-              title: 'click on proceed',
-              text: 'other cancel and restart',
-              html: "<table class='table text-left'>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>Faculty :</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'>".concat(result.value[3], "</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>user:</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'> ").concat(answers.user_name, ",</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t \t<td width='30%'><b>Abbr:</b></td>\n\t\t\t\t\t      \t\t \t<td width='70%'> ").concat(answers.user_code, " </td>\n\t\t\t\t\t      \t\t <tr>\n\t\t\t\t      \t\t</table>"),
-              confirmButtonText: 'Process',
-              cancelButtonText: 'Cancle',
-              showCancelButton: true,
-              showLoaderOnConfirm: true,
-              preConfirm: function preConfirm(login) {
-                if (update) {
-                  var formData = {
-                    user_id: obj.user_id
-                  };
-                  return $vm.axios.post('api/users/upadte', formData, {
-                    headers: $vm.axiosHeader
-                  }).then(function (response) {
-                    if (!response.data.sucess) {
-                      throw new Error(response.statusText);
-                    }
-
-                    return response.json();
-                  })["catch"](function (error) {
-                    if (error.response) {
-                      if (error.response.status == 409) {
-                        Swal.showValidationMessage("Failed: user Already Exist");
-                      } else if (error.response.status == 401) {
-                        location.reload();
-                      } else {
-                        Swal.showValidationMessage("Failed: Something went wrong");
-                      }
-                    }
-                  });
-                } else {
-                  return $vm.axios.post('api/users/create', $vm.createFormData(answers), {
-                    headers: $vm.axiosHeader
-                  }).then(function (response) {
-                    if (!response.data.sucess) {
-                      throw new Error(response.statusText);
-                    }
-
-                    return response.json();
-                  })["catch"](function (error) {
-                    if (error.response) {
-                      if (error.response.status == 409) {
-                        Swal.showValidationMessage("Failed: user Already Exist");
-                      } else if (error.response.status == 401) {
-                        location.reload();
-                      } else {
-                        Swal.showValidationMessage("Failed: Something went wrong");
-                      }
-                    }
-                  });
-                }
-              },
-              allowOutsideClick: function allowOutsideClick() {
-                return !Swal.isLoading();
-              }
-            }).then(function (result) {
-              var title = 'created successfully';
-
-              if (update) {
-                title = 'updated successfully';
-              }
-
-              if (result.isConfirmed) {
-                Swal.fire({
-                  title: title,
-                  icon: 'success',
-                  confirmButtonText: 'Ok'
-                }).then(function (result) {
-                  location.reload();
-                });
-              }
-            });
-          }
-        });
-        formcount++;
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: title,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+              }).then(function (result) {
+                location.reload();
+              });
+            }
+          });
+        }
       }); //let $vm = this;	
     },
     edituser: function edituser(obj) {
-      this.swal_form(true);
+      this.VueSweetAlert2('v-userform', {
+        type: 'user',
+        update: true,
+        faculties: this.faculties,
+        departments: this.departments,
+        alldata: {
+          first_name: "s2o3disdho",
+          other_names: "s2o3disdho",
+          matric_number: "s2o3disdho",
+          email: "s2o3disdho",
+          phone: "08023",
+          gender: "s2o3disdho",
+          faculty_id: 72,
+          department_id: 1,
+          role_id: 1,
+          title: "s2o3disdho",
+          id: "s2o3disdho"
+        }
+      });
     },
     deleteuser: function deleteuser(id) {
       Swal.fire('delete');
@@ -10315,6 +10410,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     uploadstudent: function uploadstudent() {
       this.swal_form(false, null);
+      html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>" + $vm.facultiesHTML + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>user Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" value="' + obj.name + '" >' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>user Abbr</legend>" + '<input id="swal-input2" class="swal2-input mt-1" value="' + obj.code + '">';
     },
     axiosGetFacultyHtml: function axiosGetFacultyHtml(update, faculty_id) {
       var _this = this;
@@ -10381,11 +10477,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return _this2.axiosGet('api/users/users');
+              return _this2.axiosGet('api/faculties/faculties');
 
             case 2:
+              _this2.faculties = _context2.sent;
+              _context2.next = 5;
+              return _this2.axiosGet('api/departments/departments');
+
+            case 5:
+              _this2.departments = _context2.sent;
+              _context2.next = 8;
+              return _this2.axiosGet('api/users/users');
+
+            case 8:
               _this2.createduser = _context2.sent;
-              //console.log(this.createduser)
+              _this2.facultiesHTML = _this2.selectHtmlGen(_this2.faculties, 'code', 'faculty_id');
+              _this2.departmentsHTML = _this2.selectHtmlGen(_this2.departments, 'code', 'department_id');
               _this2.tableLoaded = true;
               /*initialize datatable */
 
@@ -10395,7 +10502,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
               }, 200);
 
-            case 5:
+            case 13:
             case "end":
               return _context2.stop();
           }
@@ -10623,14 +10730,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       titleCont: ["Dr.", "Engr.", "Mr.", "Mrs.", "Prof."],
       roleCont: ["admin", 'instructor', 'student'],
       genderCont: ['male', 'female'],
-      faculties: null,
       facultiesHTML: null,
+      departmentHTML: null,
+      phone: "",
       watchfacultyHtml: {
         value: false
       },
@@ -10639,6 +10765,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       matric_number: "",
       email: "",
       gender: "",
+      deparment_id: "",
       faculty_id: "",
       role_id: "",
       title: "",
@@ -10646,6 +10773,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
+    normalize: function normalize(el) {
+      el.target.style.border = "1px solid #eee";
+      $('.requiredv').remove();
+    },
     submitForm: function submitForm() {
       if (this.validateI('myform')) {
         $('#system-loader').css('display', 'flex');
@@ -10728,65 +10859,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              //method 1 
-              //it relies on only the first faculties fetched
-              //require page reload in other to get faculty update
-              //it increase speed
-              $('#system-loader').css('display', 'flex');
-
-              if (!(_this.faculties === null)) {
-                _context.next = 5;
-                break;
+              if (_this.update) {
+                _this.first_name = _this.alldata.first_name;
+                _this.other_names = _this.alldata.other_names;
+                _this.matric_number = _this.alldata.matric_number;
+                _this.email = _this.alldata.email;
+                _this.gender = _this.alldata.gender;
+                _this.deparment_id = _this.alldata.deparment_id;
+                _this.faculty_id = _this.alldata.faculty_id;
+                _this.role_id = _this.alldata.role_id;
+                _this.title = _this.alldata.title;
+                _this.id = _this.alldata.id;
+                _this.phone = _this.phone;
               }
 
-              _context.next = 4;
-              return _this.axiosGet('api/faculties/faculties');
-
-            case 4:
-              _this.faculties = _context.sent;
-
-            case 5:
-              //method 2 
-              //does not require page reload 
-              //ajax request is made every time
-              //it might slow down operation
-
-              /*this.faculties =  await this.axiosGet('api/faculties/faculties');*/
-              _this.facultiesHTML = "<select id='deparment_id' class='form-control'>";
-
-              _this.faculties.forEach(function (item, idex) {
-                if (_this.update) {
-                  _this.facultiesHTML += "<option value='" + item.id + "'";
-
-                  if (item.id == faculty_id) {
-                    _this.facultiesHTML += "selected=selected";
-                  }
-
-                  _this.facultiesHTML += ">" + item.code + "</option>";
-                } else {
-                  _this.facultiesHTML += "<option value='" + item.id + "'>" + item.code + "</option>";
-                }
-              });
-
-              _this.facultiesHTML += "</select>"; //console.log(facultiesHTML);
-              //console.log(this.facultiesHTML);
-
               if (_this.update) {
-                _this.first_name = alldata.first_name;
-                _this.other_names = alldata.other_names;
-                _this.matric_number = alldata.matric_number;
-                _this.email = alldata.email;
-                _this.gender = alldata.gender;
-                _this.faculty_id = alldata.faculty_id;
-                _this.role_id = alldata.role_id;
-                _this.title = alldata.title;
-                _this.id = alldata.id;
+                _this.facultiesHTML = _this.selectHtmlGen(_this.faculties, 'code', 'faculty_id', _this.faculty_id, true);
+                _this.departmentHTML = _this.selectHtmlGen(_this.departments, 'code', 'deparment_id', _this.faculty_id, true);
+              } else {
+                _this.facultiesHTML = _this.selectHtmlGen(_this.faculties, 'code', 'faculty_id');
+                _this.departmentHTML = _this.selectHtmlGen(_this.departments, 'code', 'deparment_id');
               }
 
               _this.watchfacultyHtml.value = true;
-              $('#system-loader').hide(); //console.log(this.watchfacultyHtml.value)
 
-            case 11:
+            case 3:
             case "end":
               return _context.stop();
           }
@@ -10806,9 +10903,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     alldata: {
-      type: Array,
+      type: Object
+    },
+    faculties: {
+      type: Object,
       "default": function _default() {
-        return [];
+        return [{
+          "empty": "-"
+        }];
+      }
+    },
+    departments: {
+      type: Object,
+      "default": function _default() {
+        return [{
+          "empty": "-"
+        }];
       }
     }
   }
@@ -11885,6 +11995,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               this.validateState = true;
             }
           }
+        },
+        selectHtmlGen: function selectHtmlGen(obj, name) {
+          var idname = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "idname001";
+          var selected_id = arguments.length > 3 ? arguments[3] : undefined;
+          var update = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
+          var html = "<select id='" + idname + "' class='form-control'>";
+
+          if (!update) {
+            obj.forEach(function (item, idex) {
+              html += "<option value='" + item.id + "'>" + item[name] + "</option>";
+            });
+          } else {
+            obj.forEach(function (item, idex) {
+              html += "<option value='" + item.id + "'";
+
+              if (item.id == selected_id) {
+                html += "selected=selected";
+              }
+
+              html += ">" + item[name] + "</option>";
+            });
+          }
+
+          html += "</select>";
+          return html;
         },
         VueSweetAlert2: function VueSweetAlert2(component, propsData) {
           swal.fire({
@@ -41766,7 +41901,7 @@ var render = function() {
                         staticStyle: { "border-left": "1px solid #ccc" },
                         on: {
                           click: function($event) {
-                            return _vm.editfaculty(_vm.createdFaculty[index])
+                            return _vm.editfaculty(faculty)
                           }
                         }
                       }),
@@ -43780,7 +43915,7 @@ var render = function() {
           "div",
           { staticClass: "row py-4 px-4 m-0 r2 bg-white vh-70 scroll-y " },
           [
-            _c("h3", { staticClass: "mt-0" }, [_vm._v("Add New User")]),
+            _c("h5", [_vm._v("Add New User")]),
             _vm._v(" "),
             _vm.type == "user"
               ? _c("div", { staticClass: "m-0" }, [
@@ -43801,13 +43936,27 @@ var render = function() {
                         _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
                           _c("div", { staticClass: "px-1" }, [
                             _c("p", { staticClass: "fs001 my-1" }, [
+                              _vm._v("Department *")
+                            ]),
+                            _vm._v(" "),
+                            _c("span", {
+                              domProps: {
+                                innerHTML: _vm._s(_vm.departmentHTML)
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
+                          _c("div", { staticClass: "px-1" }, [
+                            _c("p", { staticClass: "fs001 my-1" }, [
                               _vm._v("Title *")
                             ]),
                             _vm._v(" "),
                             _c(
                               "select",
                               {
-                                staticClass: "form-control vI",
+                                staticClass: "form-control",
                                 attrs: {
                                   type: "text",
                                   name: "utitle",
@@ -43919,7 +44068,7 @@ var render = function() {
                             _c(
                               "select",
                               {
-                                staticClass: "form-control vI",
+                                staticClass: "form-control",
                                 attrs: {
                                   type: "text",
                                   name: "role",
@@ -43933,7 +44082,9 @@ var render = function() {
                                   {
                                     domProps: {
                                       value: mrole,
-                                      selected: { selected: mrole == _vm.role }
+                                      selected: {
+                                        selected: mrole == _vm.role_id
+                                      }
                                     }
                                   },
                                   [_vm._v(_vm._s(mrole))]
@@ -43953,7 +44104,7 @@ var render = function() {
                             _c(
                               "select",
                               {
-                                staticClass: "form-control vI",
+                                staticClass: "form-control ",
                                 attrs: {
                                   type: "text",
                                   name: "role",
@@ -44007,7 +44158,7 @@ var render = function() {
                                     name: "files",
                                     id: "fileI"
                                   },
-                                  on: { change: _vm.getDragedInFile }
+                                  on: { change: function($event) {} }
                                 })
                               ]
                             )
@@ -44045,6 +44196,32 @@ var render = function() {
               ? _c("div", [
                   _vm.watchfacultyHtml.value == true
                     ? _c("div", { staticClass: "row m-0" }, [
+                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
+                          _c("div", { staticClass: "px-1" }, [
+                            _c("p", { staticClass: "fs001 my-1" }, [
+                              _vm._v("Faculty *")
+                            ]),
+                            _vm._v(" "),
+                            _c("span", {
+                              domProps: { innerHTML: _vm._s(_vm.facultiesHTML) }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
+                          _c("div", { staticClass: "px-1" }, [
+                            _c("p", { staticClass: "fs001 my-1" }, [
+                              _vm._v("Department *")
+                            ]),
+                            _vm._v(" "),
+                            _c("span", {
+                              domProps: {
+                                innerHTML: _vm._s(_vm.departmentHTML)
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
                         _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
                           _c("div", { staticClass: "px-1" }, [
                             _c("p", { staticClass: "fs001 my-1" }, [
@@ -44149,11 +44326,11 @@ var render = function() {
                             _c(
                               "select",
                               {
-                                staticClass: "form-control  vI",
+                                staticClass: "form-control ",
                                 attrs: {
                                   type: "text",
                                   name: "role",
-                                  id: "role"
+                                  id: "role_id"
                                 },
                                 on: { keyup: _vm.normalize }
                               },
@@ -44175,7 +44352,7 @@ var render = function() {
                             _c(
                               "select",
                               {
-                                staticClass: "form-control vI",
+                                staticClass: "form-control",
                                 attrs: {
                                   type: "text",
                                   name: "role",

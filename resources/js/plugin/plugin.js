@@ -48,6 +48,24 @@ export default {
 					}
 				}
 			},
+		selectHtmlGen: function(obj,name,idname="idname001",selected_id, update=false){
+			let html = "<select id='"+idname+"' class='form-control'>"
+			if (!update) {
+				obj.forEach((item, idex)=>{
+					html += "<option value='"+item.id+"'>"+ item[name] +"</option>";							
+				});		
+			}else{
+				obj.forEach((item, idex)=>{					
+					html += "<option value='"+item.id+"'";
+					if (item.id == selected_id){
+						html += "selected=selected";
+					}
+					html += ">"+ item[name] +"</option>";					
+				});			
+			}
+			html += "</select>";			
+			return html;
+		},
 		VueSweetAlert2:function(component,propsData)
 		{
 		    swal.fire({
