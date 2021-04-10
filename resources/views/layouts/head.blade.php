@@ -11,6 +11,3 @@
 
    <link href="{{ asset('venobox/venobox.css')}}" rel="stylesheet">
    <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
-   <script>
-  
-   </script>

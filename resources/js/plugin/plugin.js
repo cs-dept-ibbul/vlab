@@ -16,7 +16,38 @@ export default {
       	}
       },
       methods:{
+      	validateI: function(id,sel=0){
+				if (sel ===0) {
 
+					let index =-1;
+					$('#'+id).find('.vI').each(function(){
+						index++;
+					});
+					let $vm = this;
+					$('#'+id).find('.vI').each(function(e){
+						if($(this).val()==""){
+							$(this).css('border','1px solid #e45');
+							$('.requiredv').remove();
+							$(this).after('<span class="text-danger requiredv">Required !</span>');						
+							$vm.validateState = false;
+							return false;
+						}					
+						if(e == index){
+							$vm.validateState = true;
+						}
+					})
+				}
+				if (sel=== 1) {
+					if($('#'+id+ 'option:selected').text()==""){
+						$('#'+id).css('border','1px solid #e45');
+						$('.requiredv').remove();
+						$('#'+id).after('<span class="text-danger requiredv">Required !</span>');						
+						this.validateState = false;						
+					}else{						
+						this.validateState = true;	
+					}
+				}
+			},
 		VueSweetAlert2:function(component,propsData)
 		{
 		    swal.fire({

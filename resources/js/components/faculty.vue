@@ -40,15 +40,148 @@
 			}
 		},
 		methods: {
-				editfaculty:function(obj){
-					Swal.fire('edit');
-				},
-				deletefaculty: function(id){
+			swal_form: function(update = false, obj={faculty_id:1, name:'Natural science', code: 'fns'}){	
+				$('#system-loader').css('display','flex');
+				let formcount = 0;
+				let $vm = this, html='';
+				let topic = "Create Faculty";
+				
+				//watch(this.watchfacultyHtml, 'value', function(){
+				if(update){			
+					topic = 'Update Faculty';
+					html = 			
+				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Name</legend>"+					  		   
+				    '<input id="swal-input1" class="swal2-input mt-1" value="'+obj.name+'" >' +
+				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Abbr</legend>"+					  		   				    
+				    '<input id="swal-input2" class="swal2-input mt-1" value="'+obj.code+'">';
+				}else{
+					html =
+				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Name</legend>"+					  		   
+				    '<input id="swal-input1" class="swal2-input mt-1" >' +
+				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Abbr</legend>"+					  		   				    
+				    '<input id="swal-input2" class="swal2-input mt-1">';	
+				}										
+				$('#system-loader').hide();						
+				Swal.fire({
+				  title: topic,
+				  html:html,
+				  focusConfirm: false,
+				  preConfirm: () => {					  	
+				  	 let  FacultyName = document.getElementById('swal-input1').value,
+				      FacultyAbbr = document.getElementById('swal-input2').value;					      					  	  
+				  	if ( FacultyName == "" || FacultyAbbr == "") {					     
+				         Swal.showValidationMessage('All fields are required');
+				  	}
+				    return [					      
+				      FacultyName,
+				      FacultyAbbr					      
+				    ]
+				  } 
+				}).then((result)=>{
+					if (result.value) {
+				    const answers = {name:result.value[0], code:result.value[1]}
+				    Swal.fire({
+				      title: 'click on proceed',
+				      text: 'other cancel and restart',
+				      html: `<table class='table text-left'>						      		
+					      		<tr>
+					      			<td width='30%'><b>Faculty Abbr:</b></td>
+					      			<td width='70%'> ${answers.name},</td>
+					      		</tr>
+					      		<tr>
+					      		 	<td width='30%'><b>Abbr:</b></td>
+					      		 	<td width='70%'> ${answers.code} </td>
+					      		 <tr>
+				      		</table>`,
+				      confirmButtonText:'Process',					      
+				      cancelButtonText:'Cancle',					      
+				      showCancelButton:true,					      
+				      showLoaderOnConfirm: true,
+				       preConfirm: (login) => {			
+				        if (update){
+				        	let formData = {Faculty_id:obj.Faculty_id};
+				        	return $vm.axios.post('api/faculties/upadte',formData,{headers:$vm.axiosHeader})
+					      	.then(response => {						      	
+						        if (!response.data.sucess) {
+						          throw new Error(response.statusText)
+						        }						   
+						        return response.json()
+					      	})
+					      	.catch(error => {
+						      	if (error.response) {
+							      	if (error.response.status == 409) {
+								        Swal.showValidationMessage(
+								          `Failed: Faculty Already Exist`
+								        )						      		
+							      	}else if(error.response.status == 401){
+							      		location.reload();
+							      	}else{
+							      		Swal.showValidationMessage(
+								          `Failed: Something went wrong`
+								        )						      		
+							      	}
+						      	}
+					      	})
+				        }else{
+				        	return $vm.axios.post('api/faculties/create',$vm.createFormData(answers),{headers:$vm.axiosHeader})
+					      	.then(response => {						      	
+						        if (!response.data.sucess) {
+						          throw new Error(response.statusText)
+						        }						   
+						        return response.json()
+					      	})
+					      	.catch(error => {
+						      	if (error.response) {
+							      	if (error.response.status == 409) {
+								        Swal.showValidationMessage(
+								          `Failed: Faculty Already Exist`
+								        )						      		
+							      	}else if(error.response.status == 401){
+							      		location.reload();
+							      	}else{
+							      		Swal.showValidationMessage(
+								          `Failed: Something went wrong`
+								        )						      		
+							      	}
+						      	}
+					      	})
+				        }			    
+					    	
+					  },
+					  allowOutsideClick: () => !Swal.isLoading()
+				    }).then((result) => {
+				    	let title = 'created successfully';
+				    	if (update) {
+				    		title = 'updated successfully'
+				    	}
+				    	if (result.isConfirmed) {
+						    Swal.fire({							    
+						      title: title,							      
+						      icon: 'success',
+						      confirmButtonText:'Ok',	
+						    }).then((result)=>{
+						    	location.reload();
+						    })
+						  }
+				    })
+				  }
+				})
+			
+				//formcount++;
+			//});		
+			//let $vm = this;				
+			},
+			editfaculty:function(obj){
+				console.log(obj);
+					this.swal_form(true,obj);
+			},
+			deletefaculty: function(id){
 					Swal.fire('delete');					
-				},
-				createFaculty: function(){
+			},
+			createFaculty: function(){
 					var $vm = this;
-					Swal.mixin({
+					this.swal_form();
+					/*Swal.mixin({
 					  input: 'text',
 					  confirmButtonText: 'Next &rarr;',
 					  showCancelButton: true,
@@ -108,7 +241,7 @@
 							  }
 					    })
 					  }
-					})
+					})*/
 				}
 		},
 		async created(){

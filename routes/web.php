@@ -30,11 +30,12 @@ Route::middleware(['userauth'])->group(function(){
 	Route::get('/create-course', 'App\Http\Controllers\CreateCourseController@index')->name('create-courses');
 	Route::get('/manage-faculty', 'App\Http\Controllers\ManageFacultyController@index')->name('manage-faculty');
 	Route::get('/manage-department', 'App\Http\Controllers\ManageDepartmentController@index')->name('manage-department');
+	Route::get('/manage-user', 'App\Http\Controllers\ManageUserController@index')->name('manage-user');
 	Route::get('/add-experiment', 'App\Http\Controllers\AddExperimentController@index')->name('add-experiment');
 	Route::get('/view-created-experiment', 'App\Http\Controllers\AddExperimentController@createdexperiment')->name('view-created-experiment');
 
 	Route::get('/my-courses', 'App\Http\Controllers\StudentCourses@index')->name('courses');
-	Route::get('/my-course-review/{id?}', 'App\Http\ControllersS\tudentCourses@review')->name('my-course-review')->where('id', '[0-9]+');
+	Route::get('/my-course-review/{id?}', 'App\Http\ControllersS\tudentCourses@review')->name('my-course-review');
 	Route::get('/view-Students-dashboard', 'App\Http\Controllers\adminViewStudentsdashboard@index')->name('view-Students-dashboard');
 	Route::get('/view-student', 'App\Http\Controllers\InstructorController@viewstudent')->name('view-student');
 

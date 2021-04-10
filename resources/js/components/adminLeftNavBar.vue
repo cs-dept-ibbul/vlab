@@ -79,23 +79,26 @@
 					</ul>
 				</ul>				 -->
 				<!-- manage user -->
-				<ul class="listCoverV">
-					<li class="listMenuVBtn nChildV"  v-bind:class="{btnActive:checkActive('user')}">
-						<span class="iconOV fa fa-users"></span>
-					</li>
-					<ul class="listMenuV">
-						<li>
-							<a :href="edituser" class="text-white"  v-bind:class="{btnActiveSub:checkActiveSub('createuser')}">
-								<span class="iconOV text-white fa fa-circle"></span><div class="labelV">Create user</div>
-							</a>
+				<a :href="user"   v-bind:class="{btnActive:checkActive('user')}">
+					<span class="iconOV fa fa-users"></span>
+				</a>
+				<!-- <ul class="listCoverV">
+						<li class="listMenuVBtn nChildV"  v-bind:class="{btnActive:checkActive('user')}">
+							<span class="iconOV fa fa-users"></span>
 						</li>
-						<li>
-							<a :href="createuser" class="text-white"  v-bind:class="{btnActiveSub:checkActiveSub('edituser')}">
-								<span class="iconOV text-white fa fa-circle"></span><div class="labelV">Edit/Del user</div>
-							</a>
-						</li>
-					</ul>
-				</ul>	
+						<ul class="listMenuV">
+							<li>
+								<a :href="edituser" class="text-white"  v-bind:class="{btnActiveSub:checkActiveSub('createuser')}">
+									<span class="iconOV text-white fa fa-circle"></span><div class="labelV">Create user</div>
+								</a>
+							</li>
+							<li>
+								<a :href="createuser" class="text-white"  v-bind:class="{btnActiveSub:checkActiveSub('edituser')}">
+									<span class="iconOV text-white fa fa-circle"></span><div class="labelV">Edit/Del user</div>
+								</a>
+							</li>
+						</ul>
+					</ul> -->	
 	
 				<a :href="settings"   v-bind:class="{btnActive:checkActive('settings')}">
 					<span class="iconOV fa fa-gear"></span>
@@ -176,7 +179,10 @@
 					</ul>
 				</ul>				 -->
 				<!-- manage user -->
-				<ul >
+				<a :href="user" class="nChildV"  v-bind:class="{btnActive:checkActive('user')}">
+					<span class="iconV fa fa-users"></span><div class="labelV">Manage User</div>
+				</a>	
+				<!-- 	<ul >
 					<li class="listMenuBtn nChildV"  v-bind:class="{btnActive:checkActive('user')}">
 						<span class="iconV fa fa-users"></span><div class="labelV">Manage Users</div>
 					</li>
@@ -192,7 +198,8 @@
 							</a>
 						</li>
 					</ul>
-				</ul>	
+				</ul>	 -->
+
 	
 				<a :href="settings"  class="nChildV" v-bind:class="{btnActive:checkActive('settings')}">
 					<span class="iconV fa fa-gear"></span><div class="labelV">Settings</div>

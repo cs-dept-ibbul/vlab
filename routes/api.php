@@ -24,10 +24,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::group([
     'middleware' => 'api',
 ], function ($router) {
 
+Route::get('faculty_course_student', [FacultyController::class, 'getFacultyWithCourseAndStudentCount']);
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
