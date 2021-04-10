@@ -5,7 +5,9 @@ use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Api\SchoolController;
 use App\Http\Controllers\Api\Util;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\DepartmentController;
 use App\Http\Controllers\Api\UserController;
+use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -65,6 +67,16 @@ Route::get('faculty_course_student', [FacultyController::class, 'getFacultyWithC
         });
 
         Route::group([
+            'prefix' => 'departments'
+        ], function () {
+            Route::post('create', [DepartmentController::class, 'create']);
+            Route::post('delete', [DepartmentController::class, 'deleteDepartment']);
+            Route::post('update', [DepartmentController::class, 'updateDepartment']);
+            Route::post('department', [DepartmentController::class, 'getDepartment']);
+            Route::get('departments', [DepartmentController::class, 'getAllDepartments']);
+        });
+
+        Route::group([
             'prefix' => 'experiments'
         ], function () {
             Route::post('create', [ExperimentController::class, 'create']);
@@ -80,6 +92,10 @@ Route::get('faculty_course_student', [FacultyController::class, 'getFacultyWithC
             Route::post('delete', [CourseController::class, 'deleteCourse']);
             Route::post('course', [CourseController::class, 'getCourse']);
             Route::get('courses', [CourseController::class, 'getAllCourses']);
+
+            Route::get('courses_students', [CourseController::class, 'courseStudents']);
+            Route::post('course_students', [CourseController::class, 'courseStudentById']);
+            Route::post('student_courses', [CourseController::class, 'studentCourses']);
 
             Route::post('add_course_resources', [CourseController::class, 'addCourseResources']);
             Route::post('assign_course_instructor', [CourseController::class, 'assignCourseInstructor']);

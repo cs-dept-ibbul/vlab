@@ -27,7 +27,7 @@ class SchoolController extends Controller
             if($school->save()){
                 return response()->json(['success' => true], 200);
             }
-            return response()->json(['success' => false], 200);
+            return response()->json(['success' => false], 400);
         }
         return response()->json(['error' => 'This school already exist'], 409);
     }
