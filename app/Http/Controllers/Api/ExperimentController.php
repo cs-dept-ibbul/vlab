@@ -17,20 +17,20 @@ class ExperimentController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'experiment_number'=>'required',
-            'experiment_intro'=>'required',
-            'experiment_goal'=>'required',
-            'experiment_mock'=>'required',
-            'aparatus'=>'required',
-            'procedures'=>'required',
-            'exercise'=>'required',
-            'faculty_id'=>'required',
+            'experiment_number' => 'required',
+            'experiment_intro' => 'required',
+            'experiment_goal' => 'required',
+            'experiment_mock' => 'required',
+            'aparatus' => 'required',
+            'procedures' => 'required',
+            'exercise' => 'required',
+            'faculty_id' => 'required',
         ]);
-        
+
         if ($validator->fails()) {
             return response()->json(['error' => "All fields are required"], 400);
         }
-        
+
         $id = Util::uuid();
         $name = $request->get('name');
         $experiment_number = $request->get('experiment_number');
@@ -65,17 +65,74 @@ class ExperimentController extends Controller
         $experiment->graph = $graph;
         $experiment->status = $status;
 
-            if($experiment->save()){
+        if ($experiment->save()) {
+            return response()->json(['success' => true], 200);
+        }
+        return response()->json(['success' => false], 400);
+    }
+
+    public function deleteExperiment(Request $request)
+    {
+        $experimentId = $request->get('experiment_id');
+        $experiment = Experiment::find($experimentId);
+        if ($experiment) {
+            $experiment->status = 'Inactive';
+            $save = $experiment->save();
+            if ($save) {
                 return response()->json(['success' => true], 200);
             }
-            return response()->json(['success' => false], 401);
+        } else {
+            return response()->json(['error' => 'No Experiment with this id'], 404);
+        }
+        return response()->json(['success' => false], 400);
     }
-    
+
+    public function updateExperiment(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'experiment_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "experiment_id field is required"], 400);
+        }
+
+        $experimentId = $request->get('experiment_id');
+        $experiment = Experiment::find($experimentId);
+
+        if ($experiment) {
+            $request->get('name') != null ? $experiment->name = $request->get('name') : null;
+            $request->get('experiment_number') != null ? $experiment->experiment_number = $request->get('experiment_number') : null;
+            $request->get('experiment_intro') != null ? $experiment->experiment_intro = $request->get('experiment_intro') : null;
+            $request->get('experiment_goal') != null ? $experiment->experiment_goal = $request->get('experiment_goal') : null;
+            $request->get('experiment_mock') != null ? $experiment->experiment_mock = $request->get('experiment_mock') : null;
+            $request->get('aparatus') != null ? $experiment->aparatus = $request->get('aparatus') : null;
+            $request->get('experiment_resource') != null ? $experiment->experiment_resource = $request->get('experiment_resource') : null;
+            $request->get('procedures') != null ? $experiment->procedures = $request->get('procedures') : null;
+            $request->get('exercise') != null ? $experiment->exercise = $request->get('exercise') : null;
+            $request->get('required') != null ? $experiment->required = $request->get('required') : null;
+            $request->get('theory') != null ? $experiment->theory = $request->get('theory') : null;
+            $request->get('tables') != null ? $experiment->tables = $request->get('tables') : null;
+            $request->get('graph') != null ? $experiment->graph = $request->get('graph') : null;
+            //$request->get('description') != null ? $experiment->description = $request->get('description') : null;
+
+            $save = $experiment->save();
+
+            if ($save) {
+                return response()->json(['success' => true], 200);
+            }
+        } else {
+            return response()->json(['error' => 'No Experiment with this id'], 404);
+        }
+
+        return response()->json(['success' => false], 400);
+    }
+
+
     public function getAllExperiment()
     {
         $experiments = Experiment::all();
         return response()->json($experiments, 200);
-
     }
 
     public function getExperiment(Request $request)
@@ -83,15 +140,15 @@ class ExperimentController extends Controller
         $validator = Validator::make($request->all(), [
             'experiment_id' => 'required',
         ]);
-        
+
         if ($validator->fails()) {
-            return response()->json(['error' => "All fields are required"], 400);
+            return response()->json(['error' => "All fields are required"], 409);
         }
 
         $experimentId = $request->get('experiment_id');
-        $experiment = Experiment::where(['id' => $experimentId])->first();
+        $experiment = Experiment::find($experimentId);
 
-        if(!empty($experiment)){
+        if (!empty($experiment)) {
             return response()->json($experiment, 200);
         } else {
             return response()->json(['error' => 'Experiment not found'], 404);

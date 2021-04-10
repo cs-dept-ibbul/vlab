@@ -9,12 +9,11 @@ use App\Models\CourseExperiment;
 use App\Models\CourseInstructor;
 use App\Models\CourseResources;
 use App\Models\CourseStudents;
-use App\Models\School;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 
 class CourseController extends Controller
 {
@@ -334,6 +333,46 @@ class CourseController extends Controller
             }
         }
         return response()->json(['enrolledCourses' => $data], 200);
+    }
+
+    public function courseStudents(){
+        $courseStudents = Course::with('students')->get();
+        return response()->json($courseStudents, 200);
+    }
+
+    public function courseStudentById(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'course_id' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "course_id field is required"], 400);
+        }
+
+        $courseId = $request->get('course_id');
+        $courseStudent = Course::where('id',$courseId)->with('students')->withCount('students')->get();
+        if($courseStudent){
+            return response()->json($courseStudent, 200);
+        }
+        return response()->json(['success' => false], 400);
+    }
+
+    public function studentCourses()
+    {
+        $studentCourse = User::where('id', $this->userId)->with('courses')->withCount('courses')->get();
+        return $studentCourse;
+    }
+    
+    //Should incase a user's courses needs to be fetched without a token
+    public function getStudentCourses(Request $request)
+    {
+        $userId = $request->get('user_id');
+        $studentCourse = User::where('id', $userId)->with('courses')->get();
+        if($studentCourse){
+            return response()->json($studentCourse, 200);
+        }
+        return response()->json(['success' => false], 400);
     }
 
     public function allIsNull(Array $arrays)
