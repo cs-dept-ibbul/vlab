@@ -366,6 +366,24 @@ class CourseController extends Controller
         return response()->json(['success' => false], 400);
     }
 
+    public function courseExperiments(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'course_id' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "course_id field is required"], 400);
+        }
+
+        $courseId = $request->get('course_id');
+        $courseStudent = Course::where('id',$courseId)->with('experiments')->withCount('experiments')->get();
+        if($courseStudent){
+            return response()->json($courseStudent, 200);
+        }
+        return response()->json(['success' => false], 400);
+    }
+
     public function studentCourses()
     {
         $studentCourse = User::where('id', $this->userId)->with('courses')->withCount('courses')->get();

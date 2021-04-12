@@ -101,6 +101,7 @@ Route::group([
             Route::post('add_student_course', [CourseController::class, 'addStudentCourse']);
             Route::post('bulk_course_assign', [CourseController::class, 'bulkCourseAssign']);
             Route::get('enrolledCourses', [CourseController::class, 'getStudentEnrolledCourses']);
+            Route::post('course_experiments', [CourseController::class, 'courseExperiments']);
         });
     });
 });
