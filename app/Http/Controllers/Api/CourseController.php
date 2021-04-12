@@ -160,7 +160,6 @@ class CourseController extends Controller
         return response()->json(['success' => false], 400);
     }
 
-
     public function getAllCourses()
     {
         $course = Course::with('school')->with('faculty')->get();
@@ -358,6 +357,15 @@ class CourseController extends Controller
         return response()->json(['success' => false], 400);
     }
 
+    public function courseStudentByFacultyId()
+    {
+        $courseStudent = Course::where('faculty_id',$this->facultyId)->with('faculty')->withCount('students')->get();
+        if($courseStudent){
+            return response()->json($courseStudent, 200);
+        }
+        return response()->json(['success' => false], 400);
+    }
+
     public function studentCourses()
     {
         $studentCourse = User::where('id', $this->userId)->with('courses')->withCount('courses')->get();
@@ -365,7 +373,7 @@ class CourseController extends Controller
     }
     
     //Should incase a user's courses needs to be fetched without a token
-    public function getStudentCourses(Request $request)
+    public function studentCoursesById(Request $request)
     {
         $userId = $request->get('user_id');
         $studentCourse = User::where('id', $userId)->with('courses')->get();

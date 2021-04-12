@@ -90,11 +90,11 @@ Route::group([
             Route::post('delete', [CourseController::class, 'deleteCourse']);
             Route::post('course', [CourseController::class, 'getCourse']);
             Route::get('courses', [CourseController::class, 'getAllCourses']);
-
             Route::get('courses_students', [CourseController::class, 'courseStudents']);
             Route::post('course_students', [CourseController::class, 'courseStudentById']);
-            Route::post('student_courses', [CourseController::class, 'studentCourses']);
-
+            Route::post('faculty_course_students', [CourseController::class, 'courseStudentByFacultyId']);
+            Route::get('student_courses', [CourseController::class, 'studentCourses']);
+            Route::post('student_courses', [CourseController::class, 'studentCoursesById']);
             Route::post('add_course_resources', [CourseController::class, 'addCourseResources']);
             Route::post('assign_course_instructor', [CourseController::class, 'assignCourseInstructor']);
             Route::post('assign_course_experiment', [CourseController::class, 'assignCourseExperiment']);
