@@ -91,7 +91,7 @@
 		    this.createdCourses  = await this.axiosGet('api/courses/courses');
 		    //console.log(this.createdCourses)
 		    this.tableLoaded = true;
-
+		    
 		    /*initialize datatable */
              setTimeout(function() {
              	 $('#coursetable').DataTable({

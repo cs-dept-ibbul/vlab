@@ -3,7 +3,7 @@
           <a href="#" @click="createdepartment" class="btn py-3 mb-5 mr-2 px-4 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 0.6rem">Create New <span class="text-white fa fa-chevron-down"></span></a>
           <br>
           <div class="notification-table ">
-				<table id="departmenttable" class="table table-hover" @click="editdepartment">
+				<table id="departmenttable" class="table table-hover">
 					<thead>
 						<tr id="cheadV">
 							
@@ -43,7 +43,7 @@
 			}
 		},
 		methods: {
-			swal_form: function(update = false, obj={faculty_id:1, department_id:2, name:'computer science', code: 'csc'}){	
+			swal_form: function(update = false, obj){	
 				$('#system-loader').css('display','flex');
 				let formcount = 0;
 				let $vm = this, html='';
@@ -119,8 +119,8 @@
 					      showLoaderOnConfirm: true,
 					       preConfirm: (login) => {			
 					        if (update){
-					        	let formData = {department_id:obj.department_id};
-					        	return $vm.axios.post('api/departments/upadte',formData,{headers:$vm.axiosHeader})
+					        	let formData = $vm.createFormData({department_id:obj.department_id});
+					        	return $vm.axios.post('api/departments/update',formData,{headers:$vm.axiosHeader})
 						      	.then(response => {						      	
 							        if (!response.data.sucess) {
 							          throw new Error(response.statusText)
@@ -195,10 +195,11 @@
 
 			},
 			editdepartment:function(obj){
-				this.swal_form(true);
+				
+				this.swal_form(true,obj);
 			},
-			deletedepartment: function(id){
-				Swal.fire('delete');					
+			deletedepartment: function(depertment_id){				
+				this.axiosDelete('api/departments/delete',{'department_id': depertment_id})					
 			},
 			singleValidate: function(id){
 			$('#'+id).css('border','1px solid #e45');

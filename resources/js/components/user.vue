@@ -109,8 +109,7 @@
 			swal_form: function(obj){	
 				
 				let $vm = this, html='';					    
-				//this.axiosGetFacultyHtml(false,obj.faculty_id); // fetch faculties and set selected base on update parameter if ture
-				
+				//this.axiosGetFacultyHtml(false,obj.faculty_id); // fetch faculties and set selected base on update parameter if ture	
 
 					//this.axiosGetFacultyHtml(update,obj.faculty_id);					
 					html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>"+

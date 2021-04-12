@@ -104,7 +104,13 @@ export default {
                    console.log(err)
                 }                 
                         
-		},  	
+		},  
+		show_loader(){
+			$('#system-loader').css('display','flex');
+		},
+		hide_loader(){
+			$('#system-loader').hide();
+		},
       	launch_toast(msg){
       		var x = $("#toast");
       		$('#toastdesc').html(msg);
@@ -114,6 +120,70 @@ export default {
   		frontendLogout(){
 		    localStorage.removeItem("LoggedUser");
   			location.href = "/logout";
+  		},
+  		axiosDelete:function(url, data){  			
+			let retryCount = 0;			
+				var $this = this;
+				
+				
+				let attemptsFailsV = function(){
+					$this.hide_loader();
+						Swal.fire({
+						  text: 'something went wrong',
+						  title: 'click Ok to retry',
+						  icon:'error',
+						  showClass: {
+						    popup: 'animate__animated animate__fadeInDown'
+						  },
+						  hideClass: {
+						    popup: 'animate__animated animate__fadeOutUp'
+						  }
+						}).then((result) => {					
+							  if (result.isConfirmed) {
+							    location.reload();
+							  } else if (result.isDenied) {
+							    Swal.fire('please reload the page', '', 'info')
+							  }
+						});
+				}
+				let AxiosFetchData = function(){
+					let datafetched = '0';						
+					retryCount +=1;		
+					$this.show_loader();
+                   	axios.post(url,$this.createFormData(data),{headers: $this.axiosHeader}).then(function(response, status, request) {        
+                            if (response.status === 200) {     
+                            	this.hide_loader();                                	
+                            	Swal.fire({
+                            		title:'deleted successfuly',
+                            		icon: 'success',                            		
+                            	}).then((result)=>{
+                            		location.reload();
+                            	});
+                            }else{
+                            	if (retryCount < 4) {
+                            		setTimeout(function() {
+                            			AxiosFetchData();
+                            		}, 5000);
+                            	}else{
+                            		/*when all attempts fails inform the user what to do*/
+                            		attemptsFailsV();
+                            	}
+                            }
+                        }, function(e) {        
+                        	//console.log(e.response.status);
+                             if(e.response.status === 401 ){
+                                location.href = "/logout";
+                             }else{
+                               attemptsFailsV()                                           
+                             }                                                                   
+                        })                             
+					try{
+					}catch(err){
+						console.log(err)
+					}
+					//return datafetched;
+				}		
+				AxiosFetchData();									
   		},
   		axiosGet: async(url) => {
   				let retryCount = 0;			
@@ -184,7 +254,97 @@ export default {
 				}							
 				return AxiosFetchData();				
                     
-  		}
+  		},
+  		axiosGetById: async(url,idname,idvalue) => {
+  			if (url=='' ||idname=='' || idvalue == '') {
+  				throw Error('axiosGetById: all parameter data must be provided');
+  			}
+  				let retryCount = 0;			
+				var $this = this;
+				//console.log($this);
+				let attemptsFailsV = function(){
+						Swal.fire({
+						  text: 'something went wrong',
+						  title: 'click Ok to retry',
+						  icon:'error',
+						  showClass: {
+						    popup: 'animate__animated animate__fadeInDown'
+						  },
+						  hideClass: {
+						    popup: 'animate__animated animate__fadeOutUp'
+						  }
+						}).then((result) => {
+							  /* Read more about isConfirmed, isDenied below */
+							  if (result.isConfirmed) {
+							    location.reload();
+							  } else if (result.isDenied) {
+							    Swal.fire('please reload the page', '', 'info')
+							  }
+						});
+				}
+				let AxiosFetchData = function(){
+					let datafetched = '0';						
+					retryCount +=1;		
+					let userLoggedInOld;
+					if(typeof localStorage.getItem('LoggedUser') != undefined){		      			
+		      			userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
+		      		}else{
+				        localStorage.removeItem("LoggedUser");
+		      		}
+		      		let Auth_ = 'Bearer '+userLoggedInOld;
+					let axiosHeader ={
+							'Content-Type':'application/json',
+							'Authorization':Auth_
+					};
+					
+					let formdata = new FormData;
+					formdata.append(idname, idvalue);						
+                   return axios.post(url,formdata,{headers: axiosHeader}).then(function(response, status, request) {        
+                            if (response.status === 200) {                                     	
+                            	let i,j;                  
+                               //console.log(response.data.map((a,b)=>{j = []; for(i in a) {j.push(a[i])} return j; }));                               
+                               return response.data;                                                                
+                            }else{
+                            	if (retryCount < 4) {
+                            		setTimeout(function() {
+                            			AxiosFetchData();
+                            		}, 5000);
+                            	}else{
+                            		/*when all attempts fails inform the user what to do*/
+                            		attemptsFailsV();
+                            	}
+                            }
+                        }, function(e) {        
+                        	//console.log(e.response.status);
+                             if(e.response.status === 401 ){
+                                location.href = "/logout";
+                             }else{
+                               attemptsFailsV()                                           
+                             }                                                                   
+                        })                             
+					try{
+					}catch(err){
+						console.log(err)
+					}
+					//return datafetched;
+				}							
+				return AxiosFetchData();				
+                    
+  		},
+  		rippleButton: function(){      				
+					$('.button').click(function(event){
+						var $this = $(this);
+					    var $offset = $this.parent().offset();
+					    //var $circle = $this.find('.c-ripple__circle');
+					  const diameter = Math.max($this.width(), $this.height());
+					  const radius = diameter / 2;
+					  let left = event.pageX - $offset.left - radius;
+					  let top = event.pageY - $offset.top - radius;
+
+					  $('.ripple').remove()
+					  $this.append("<span class='ripple b-warning' style='width:"+diameter+"px; height:"+diameter+"px; left:"+left+"px; top:"+top+"px;'></span>");
+					})			
+      			}
 
       },
       created: function(){
@@ -211,6 +371,24 @@ export default {
 	        	 	$vm.currentWidth = (($('.scroll-y').width()/windowWidth)* 100)+2;
 	      		}        	 	
       		},5);
+
+      		$(document).ready(function(){      			
+      			window.rippleButton = function(){      				
+					$('.button').click(function(event){
+						var $this = $(this);
+					    var $offset = $this.parent().offset();
+					    //var $circle = $this.find('.c-ripple__circle');
+					  const diameter = Math.max($this.width(), $this.height());
+					  const radius = diameter / 2;
+					  let left = event.pageX - $offset.left - radius;
+					  let top = event.pageY - $offset.top - radius;
+
+					  $('.ripple').remove()
+					  $this.append("<span class='ripple b-warning' style='width:"+diameter+"px; height:"+diameter+"px; left:"+left+"px; top:"+top+"px;'></span>");
+					})			
+      			}
+      			window.rippleButton();
+      		})
       		
         })
       }     		 

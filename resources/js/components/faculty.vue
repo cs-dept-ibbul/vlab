@@ -176,76 +176,15 @@
 			//let $vm = this;				
 			},
 			editfaculty:function(obj){
-
 					this.swal_form(true,obj);
 			},
-			deletefaculty: function(id){
-					Swal.fire('delete');					
+			deletefaculty: function(faculty_id){
+				this.axiosDelete('api/faculties/delete',{'faculty_id': faculty_id})					
+										
 			},
 			createFaculty: function(){
 					var $vm = this;
-					this.swal_form();
-					/*Swal.mixin({
-					  input: 'text',
-					  confirmButtonText: 'Next &rarr;',
-					  showCancelButton: true,
-					  progressSteps: ['1', '2']
-					}).queue([
-					  {
-					    title: 'Faculty Name',
-					    text: ''
-					  },
-					  {
-					    title: 'Faculty Abbrevation',
-					    text: 'this must be unique'
-					  }					  
-					]).then((result) => {
-					  if (result.value) {
-					    const answers = {faculty_name:result.value[0], faculty_code:result.value[1]}
-					    Swal.fire({
-					      title: 'click on proceed',
-					      text: 'other cancel and restart',
-					      html: `<b>Faculty:</b> ${answers.faculty_name},<br> <b>Abbr:</b> ${answers.faculty_code}`,
-					      confirmButtonText:'Process',					      
-					      cancelButtonText:'Cancel',					      
-					      showCancelButton:true,					      
-					      showLoaderOnConfirm: true,
-					       preConfirm: (login) => {						    
-						    return $vm.axios.post('api/faculties/create',$vm.createFormData(answers),{headers:$vm.axiosHeader})
-						      .then(response => {						      	
-						        if (!response.data.sucess) {
-						          throw new Error(response.statusText)
-						        }						   
-						        return response.json()
-						      })
-						      .catch(error => {
-						      	if (error.response) {
-							      	if (error.response.status == 409) {
-								        Swal.showValidationMessage(
-								          `Failed: Faculty Already Exist`
-								        )						      		
-							      	}else{
-							      		Swal.showValidationMessage(
-								          `Failed: Something went wrong`
-								        )						      		
-							      	}
-						      	}
-						      })
-						  },
-						  allowOutsideClick: () => !Swal.isLoading()
-					    }).then((result) => {
-					    	if (result.isConfirmed) {
-							    Swal.fire({							    
-							      title: `Created Successfully`,							      
-							      icon: 'success',
-							      confirmButtonText:'Ok',	
-							    }).then((result)=>{
-							    	location.reload();
-							    })
-							  }
-					    })
-					  }
-					})*/
+					this.swal_form();				
 				}
 		},
 		async created(){

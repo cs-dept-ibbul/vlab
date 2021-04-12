@@ -18,7 +18,7 @@
 
 		},
 		beforeCreate(){
-
+			let $vm = this;
 			setInterval(function(){				
 				try{
 		            $vm.axios.post('api/me',Auth_, { headers: headers }).then(function(response, status, request) {  		            
