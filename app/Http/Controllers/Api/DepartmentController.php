@@ -95,7 +95,7 @@ class DepartmentController extends Controller
         $department = Department::find($departmentId);
         if ($department) {
             $departmentName != null ? $department->name = $departmentName : null;
-            $departmentCode != null ? $department->department_code = $departmentCode : null;
+            $departmentCode != null ? $department->code = $departmentCode : null;
 
             if (empty($departmentName) && empty($departmentCode)) {
                 return response()->json(['message' => 'Nothing to update'], 200);
