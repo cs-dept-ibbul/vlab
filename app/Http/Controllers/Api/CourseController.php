@@ -186,6 +186,26 @@ class CourseController extends Controller
         }
     }
 
+    public function getCoursesByFacultyId(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'faculty_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "faculty_id is required"], 400);
+        }
+
+        $facultyId = $request->get('faculty_id');
+        $courses = Course::where('faculty_id', $facultyId)->get();
+
+        if (!empty($courses)) {
+            return response()->json($courses, 200);
+        } else {
+            return response()->json(['error' => 'faculty not found'], 404);
+        }
+    }
+
     public function assignCourseInstructor(Request $request)
     {
         $validator = Validator::make($request->all(), [
