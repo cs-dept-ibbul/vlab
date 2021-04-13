@@ -92,6 +92,7 @@ Route::group([
             Route::get('courses', [CourseController::class, 'getAllCourses']);
             Route::get('courses_students', [CourseController::class, 'courseStudents']);
             Route::post('course_students', [CourseController::class, 'courseStudentById']);
+            Route::post('faculty_courses', [CourseController::class, 'getCoursesByFacultyId']);
             Route::post('faculty_course_students', [CourseController::class, 'courseStudentByFacultyId']);
             Route::get('student_courses', [CourseController::class, 'studentCourses']);
             Route::post('student_courses', [CourseController::class, 'studentCoursesById']);
