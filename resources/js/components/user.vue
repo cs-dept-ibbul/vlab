@@ -194,11 +194,11 @@
 					    const answers = {faculty_id:result.value[0], user_name:result.value[1], user_code:result.value[2]}
 					    Swal.fire({
 					      title: 'click on proceed',
-					      text: 'other cancel and restart',
+					      text: 'you can also click on cancel to restart',
 					      html: "<table class='table text-left'>"+
 					      		"<tr><td>Matric Number</td><td>First Name</td><td>Last Name</td><td>email</td><td>gender</td><td>phone</td></tr>"+$vm.listTrHtml+"</table>",
 					      confirmButtonText:'Process',					      
-					      cancelButtonText:'Cancle',					      
+					      cancelButtonText:'Cancel',					      
 					      showCancelButton:true,					      
 					      showLoaderOnConfirm: true,
 					       preConfirm: (login) => {			
