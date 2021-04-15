@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'http://localhost:8000' : 'http://localhost:8000';
 export default {
   install(Vue, options) {
     Vue.mixin({
@@ -7,6 +7,7 @@ export default {
       	return {
       		userLoggedInOld: "",
       		axiosHeader:"",
+      		axiosHeaderWithFiles:"",
       		errorNetworkMessage:"network error",
       		errorSessionMessage:"Session Expired",
       		successLoginMessage:"logged in successfuly",
@@ -186,6 +187,7 @@ export default {
 				AxiosFetchData();									
   		},
   		axiosGet: async(url) => {
+  			console.log(url)
   				let retryCount = 0;			
 				var $this = this;
 				//console.log($this);
@@ -358,6 +360,10 @@ export default {
       		let Auth_ = 'Bearer '+this.userLoggedInOld;
 			this.axiosHeader ={
 					'Content-Type':'application/json',
+					'Authorization':Auth_
+			};
+			this.axiosHeaderWithFiles ={
+					'Content-Type':'multipart/form-data',
 					'Authorization':Auth_
 			};
       },
