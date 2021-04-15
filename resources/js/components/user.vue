@@ -47,7 +47,7 @@
 			}
 		},
 		methods: {
-		  ProcessExcel:function(data) {
+		 /* ProcessExcel:function(data) {
 		        //Read the Excel File data.
 
 		        var workbook = XLSX.read(data, {
@@ -71,7 +71,7 @@
 		 			dataARR[i] = [];
 		 			c =-1;
 		 			if (i == 0) {
-		 				/*if (excelRows[i][0].toLowerCase() != "matric number" || excelRows[i][1].toLowerCase() != "first name" || excelRows[i][3].toLowerCase() != "last name" || excelRows[i][4].toLowerCase() != "email" || excelRows[i][4].toLowerCase() != "gender" || excelRows[i][3].toLowerCase() != "phone number") {}*/
+		 				if (excelRows[i][0].toLowerCase() != "matric number" || excelRows[i][1].toLowerCase() != "first name" || excelRows[i][3].toLowerCase() != "last name" || excelRows[i][4].toLowerCase() != "email" || excelRows[i][4].toLowerCase() != "gender" || excelRows[i][3].toLowerCase() != "phone number") {}
 		 			}else{
 		 				dataARR[i]={
 			 				matric_number: excelRows[i][0],	 			
@@ -98,7 +98,7 @@
 		 		}
 
 		 		return {sucess:true,message:dataARR};
-		 	},
+		 	},*/
 			createuser:function(){
 				this.VueSweetAlert2('v-userform', {
 					type:'user',
@@ -135,9 +135,11 @@
 					  		department = document.getElementById('department_id').value,
 					  	 	//Validate whether File is valid Excel file.
         					 fileUpload = document.getElementById("swal-file1"),
+        					 csv = document.getElementById("swal-file1").files[0],
+
         					 regex = /^([a-zA-Z0-9\s_\\.\-:])+(.xls|.xlsx|.csv)$/;
         					  if (regex.test(fileUpload.value.toLowerCase())) {
-					          	if (typeof (FileReader) != "undefined") {
+					          	/*if (typeof (FileReader) != "undefined") {
 					                var reader = new FileReader();
 					 
 					                //For Browsers other than IE.
@@ -164,7 +166,7 @@
 					                }
 					            } else {
 					                Swal.showValidationMessage("This browser does not support HTML5.");
-					            }
+					            }*/
 					        } else {
 					           Swal.showValidationMessage('Error: please select a valid file (.xls,. xlsx or .csv file)');
 					        }
@@ -172,7 +174,7 @@
 					  	if ( faculty == "" || department == "") {					     
 					         Swal.showValidationMessage('All fields are required');
 					  	}
-					  	for (var i = 0; i < $vm.uploadlist.message.length; i++) {
+					  /*	for (var i = 0; i < $vm.uploadlist.message.length; i++) {
 					  		$vm.listTrHtml += "<tr>";
 					  		$vm.listTrHtml += "<td>"+$vm.uploadlist.message[i].matric_number+"</td>"
 					  		$vm.listTrHtml += "<td>"+$vm.uploadlist.message[i].first_name+"</td>"
@@ -181,12 +183,14 @@
 					  		$vm.listTrHtml += "<td>"+$vm.uploadlist.message[i].gender+"</td>"
 					  		$vm.listTrHtml += "<td>"+$vm.uploadlist.message[i].phone+"</td>"
 					  		$vm.listTrHtml += "</tr>";
-					     }
+					    }*/
+
 					    return [
 					      faculty,
 					      department,
-					      $vm.uploadlist.message
-					      
+					      csv,
+					      $( "#faculty_id option:selected" ).text(),
+					      $( "#department_id option:selected" ).text()					     
 					    ]
 					  } 
 					}).then((result)=>{
@@ -195,16 +199,19 @@
 					    Swal.fire({
 					      title: 'click on proceed',
 					      text: 'you can also click on cancel to restart',
-					      html: "<table class='table text-left'>"+
-					      		"<tr><td>Matric Number</td><td>First Name</td><td>Last Name</td><td>email</td><td>gender</td><td>phone</td></tr>"+$vm.listTrHtml+"</table>",
+					      html: `faculty: ${result.value[3]}<br>Department: ${result.value[4]}`,
+					     /* html: "<table class='table text-left'>"+
+					      		"<tr><td>Matric Number</td><td>First Name</td><td>Last Name</td><td>email</td><td>gender</td><td>phone</td></tr>"+$vm.listTrHtml+"</table>",*/
 					      confirmButtonText:'Process',					      
 					      cancelButtonText:'Cancel',					      
 					      showCancelButton:true,					      
 					      showLoaderOnConfirm: true,
 					       preConfirm: (login) => {			
-					        
-					        	let formData = {user_id:obj.user_id};
-					        	return $vm.axios.post('api/users/import_students',{bulk_users:$vm.uploadlist.message, department_id:result.value[1],faculty_id:result.value[0], role_id:result.value[2]},{headers:$vm.axiosHeader})
+					        	var formData=new FormData();
+								formData.append("csv",result.value[2]);
+								formData.append("department_id", result.value[1]);
+								formData.append("faculty_id", result.value[0]);
+					        	return $vm.axios.post('api/users/import_students',formData,{headers:$vm.axiosHeaderWithFiles})
 						      	.then(response => {						      	
 							        if (!response.data.sucess) {
 							          throw new Error(response.statusText)
