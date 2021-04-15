@@ -78,6 +78,8 @@ Route::group([
             'prefix' => 'experiments'
         ], function () {
             Route::post('create', [ExperimentController::class, 'create']);
+            Route::post('save_experiment_result', [ExperimentController::class, 'saveExperimentResult']);
+            Route::post('experiment_results_esid', [ExperimentController::class, 'getExperimentResultsByExpSessId']);
             Route::post('experiment', [ExperimentController::class, 'getExperiment']);
             Route::get('experiments', [ExperimentController::class, 'getAllExperiment']);
         });
