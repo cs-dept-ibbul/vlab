@@ -6,6 +6,7 @@ use Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Route;
 
 class loginController extends Controller
 {  
@@ -30,6 +31,10 @@ class loginController extends Controller
     {
         //\Auth::logout();
         $request->session()->flush();
+        $route = app('router')->getRoutes(url()->previous())->match(app('request')->create(url()->previous()))->getName();        
+        if ($route == 'home') {
+            return redirect('/');        
+        }
         return redirect()->route('login');
     }
 }

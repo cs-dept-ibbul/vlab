@@ -96,8 +96,12 @@ export default {
                   		
 		             localStorage.removeItem("LoggedUser");  		             
                      window.location.href   = "/logout"  
-                     }, function() {
-                     	launch_toast();
+                     }, function(error) {                     	
+                     	if(error.response.status==401){
+                     		localStorage.removeItem("LoggedUser");  		             
+                     		window.location.href   = "/logout"  
+                     	}
+                     	this.launch_toast();
 						$('#system-loader').css('display','none');
                         
                     });                                

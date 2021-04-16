@@ -41,21 +41,25 @@
       </div>
       <br><br>
       <div class="px-6">          
-          <!-- search and filter box for course -->
+          <!-- search and filter box for course -->       
         <div class="row d-lg-flex w-100 m-0" style="">          
-          <div class="col-md-4 pt-1 pl-0 ml-0 mb-5">
+          <div class="col-lg-4 col-md-3 pt-1 pl-0 ml-0 mb-5">
             <span class="font2 fs2 fw6">2 available courses</span>
           </div>
-          <div class="some-input-field-class col-md-8 d-flex justify-content-between p-0 mb-5" >          
-            <span  class="d-inline">            
-                <input name="filter" id="filter" class="input-search3" placeholder="Search V-labs">
+          <div class="some-input-field-class col-lg-8 col-md-9 d-flex justify-content-between p-0 mb-5 row" >          
+            <div class="col-lg-6 col-md-none"></div>
+            <div class="col-lg-3 p-0 m-0 col-md-6 col-sm-6">
+              <input name="filter" id="filter" class="input-search3 w-100" placeholder="Search V-labs">
               <span class="fa fa-search serachicon2"></span>                        
-            </span>
-            <div class="d-inline-block" >
-              <span class="font2 fs1 fw3">Sort By</span>
-              <button class="sort sortbtn" data-sort="name">Name <span class="fa fa-chevron-down"></span></button>
-              <span class="ml-2 fa fa-long-arrow-up pl-3 fw2" style="border-left: 1px solid #ccc;"></span>
             </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 d-flex flex-wrap pr-0" style="justify-content: space-between;">
+              <span></span>
+              <span style="white-space: nowrap;">                
+                <span class="font2 fs1 fw3 sortby">Sort By</span> 
+                <span class="sort sortbtn"  data-sort="name">Name <span class="fa fa-chevron-down"></span>|</span>
+                <span class="fa fa-long-arrow-up px-1 fw2"></span>              
+              </span>
+            </div>            
           </div>      
         </div>
         <!-- courses container -->
@@ -177,8 +181,10 @@
 
   },
   async created(){
-         this.faculty_course_student  = await this.axiosGet('api/faculties/faculty_course_student');
-          console.log(this.faculty_course_student)
+        let pathname = location.pathname.split('/')
+        let faculty_id = pathname[pathname.length -1];
+         this.faculty_course_student  = await this.axiosGetById('api/courses/faculty_courses','faculty_id', faculty_id);
+          //console.log(this.faculty_course_student)
           this.tableLoaded = true;
           
           /*initialize datatable */

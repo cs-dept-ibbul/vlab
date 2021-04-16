@@ -16,14 +16,20 @@
 					'Authorization':Auth_
 				};*/ 
 				$('#system-loader').css('display','flex');
+
 				try{
                     this.axios.post('api/logout','', {headers:this.axiosHeader}).then(function(response, status, request) {  
                   		
 		             localStorage.removeItem("LoggedUser");                                    
                             
-                     }, function() {
-                     	this.launch_toast();
-						$('#system-loader').css('display','none');
+                     }, function(error) {
+                     	console.log(error)
+                     	console.log(error.data)
+                     	console.log(error.message)
+                     	console.log(error.data.message)
+                     	console.log(error.data.response)
+                     	//this.launch_toast();
+						// $('#system-loader').css('display','none');
                         
                     });                                
                 }catch(err){

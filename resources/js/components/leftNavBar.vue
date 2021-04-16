@@ -127,7 +127,22 @@
 		beforeDestroy: function () {
 		  this.eventBus.$off('toggleSysNav', this.toggleNavOnHover)		  
 		},
-        props:['home','dashboard','explore','mycourse','courses','discussion','settings', 'active', 'incourse']
+        props:['home','dashboard','explore','mycourse','courses','discussion','settings', 'active', 'incourse'],
+        mounted(){
+        	var $this = this;        	
+        	var screenSize = function(){
+        		  if($(window).width()<= 700){
+	        	  	$this.hide = false;
+	        	  	$this.hide1 = true;
+	        	  	$this.show1 = false;
+	        	  	$this.show = true;
+	        	  }
+        	}
+        	screenSize();
+        	$(window).resize(function(){        		
+        		screenSize();
+        	})
+        }
 	};
 
 /*

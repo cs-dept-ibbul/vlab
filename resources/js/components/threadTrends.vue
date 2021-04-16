@@ -1,5 +1,5 @@
 <template>
-	<div class="w-100">
+	<div class="w-100" style="min-width: 100px;">
 		<div v-for="(week,index) in weeks" class=""><!-- loop weekly -->
 			<div class="d-flex flex-wrap-center timelineSM" style="margin-bottom: 20px;" v-if="weeks[index][1] != 0">
 				<span class="fs1 w10">Week {{week[0]}} </span>
