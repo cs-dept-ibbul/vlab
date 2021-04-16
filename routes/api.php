@@ -82,6 +82,7 @@ Route::get('faculty_course_student', [FacultyController::class, 'getFacultyWithC
             Route::post('create', [ExperimentController::class, 'create']);
             Route::post('save_experiment_result', [ExperimentController::class, 'saveExperimentResult']);
             Route::post('experiment_results_esid', [ExperimentController::class, 'getExperimentResultsByExpSessId']);
+            Route::post('experiment_results_csid', [ExperimentController::class, 'getExperimentResultsByCourseSessId']);
             Route::post('experiment', [ExperimentController::class, 'getExperiment']);
             Route::get('experiments', [ExperimentController::class, 'getAllExperiment']);
         });

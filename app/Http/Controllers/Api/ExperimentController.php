@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+use function PHPUnit\Framework\isNull;
 
 class ExperimentController extends Controller
 {
@@ -21,7 +22,7 @@ class ExperimentController extends Controller
 
     public function __construct()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             $this->currentUser = Auth::user();
             $this->schoolId = $this->currentUser->school_id;
             $this->facultyId = $this->currentUser->faculty_id;
@@ -39,7 +40,7 @@ class ExperimentController extends Controller
             'experiment_intro' => 'required',
             'experiment_goal' => 'required',
             'experiment_mock' => 'required',
-            'aparatus' => 'required',
+            'apparatus' => 'required',
             'procedures' => 'required',
             'exercise' => 'required',
         ]);
@@ -54,7 +55,7 @@ class ExperimentController extends Controller
         $experiment_intro = $request->get('experiment_intro');
         $experiment_goal = $request->get('experiment_goal');
         $experiment_mock = $request->get('experiment_mock');
-        $aparatus = $request->get('aparatus');
+        $apparatus = $request->get('apparatus');
         $experiment_resource = $request->get('experiment_resource');
         $procedures = $request->get('procedures');
         $exercise = $request->get('exercise');
@@ -70,7 +71,7 @@ class ExperimentController extends Controller
         $experiment->experiment_intro = $experiment_intro;
         $experiment->experiment_goal = $experiment_goal;
         $experiment->experiment_mock = $experiment_mock;
-        $experiment->aparatus = $aparatus;
+        $experiment->apparatus = $apparatus;
         $experiment->experiment_resource = $experiment_resource;
         $experiment->procedures = $procedures;
         $experiment->exercise = $exercise;
@@ -122,7 +123,7 @@ class ExperimentController extends Controller
             $request->get('experiment_intro') != null ? $experiment->experiment_intro = $request->get('experiment_intro') : null;
             $request->get('experiment_goal') != null ? $experiment->experiment_goal = $request->get('experiment_goal') : null;
             $request->get('experiment_mock') != null ? $experiment->experiment_mock = $request->get('experiment_mock') : null;
-            $request->get('aparatus') != null ? $experiment->aparatus = $request->get('aparatus') : null;
+            $request->get('apparatus') != null ? $experiment->apparatus = $request->get('apparatus') : null;
             $request->get('experiment_resource') != null ? $experiment->experiment_resource = $request->get('experiment_resource') : null;
             $request->get('procedures') != null ? $experiment->procedures = $request->get('procedures') : null;
             $request->get('exercise') != null ? $experiment->exercise = $request->get('exercise') : null;
@@ -183,7 +184,7 @@ class ExperimentController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => "All fields are required"], 400);
         }
-        
+
         $experimentResult = new ExperimentResult();
 
         $experimentId = $request->get('experiment_id');
@@ -196,7 +197,7 @@ class ExperimentController extends Controller
             'experiment_id' => $experimentId
         ]);
 
-        if(!empty($checkDuplicate)){
+        if (!empty($checkDuplicate)) {
             return response()->json(['error' => "Result already exist"], 409);
         }
 
@@ -207,12 +208,11 @@ class ExperimentController extends Controller
         $experimentResult->result_json = $resultJson;
 
         $saveResult = $experimentResult->save();
-        if($saveResult){
+        if ($saveResult) {
             return response()->json(['success' => true], 200);
         }
 
         return response()->json(['success' => false], 400);
-        
     }
 
     public function getExperimentResultsByExpSessId(Request $request)
@@ -239,8 +239,45 @@ class ExperimentController extends Controller
         } else {
             return response()->json(['error' => 'Experiment not found'], 404);
         }
-
-        return Course::with('experimentResults')->get();
     }
-    
+
+    public function getExperimentResultsByCourseSessId(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'course_id' => 'required',
+            'session_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "All fields are required"], 400);
+        }
+
+        $courseId = $request->get('course_id');
+        $sessionId = $request->get('session_id');
+
+        $experiments = [];
+        $results = [];
+        $courseExperiments = Course::where('id',$courseId)->with('experiments')->get();
+
+        if(sizeof($courseExperiments) > 0){
+            foreach ($courseExperiments as $courseExperiment) {
+                $experiments[] = $courseExperiment['experiments'];
+            }
+            foreach ($experiments as $experiment) {
+                foreach ($experiment as $result) {
+                    $experimentResults = ExperimentResult::where(['experiment_id' => $result->id, 'session_id' => $sessionId])->get();
+                    if (sizeof($experimentResults) > 0) {
+                        array_push($results, $experimentResults);
+                    }
+                }
+            }
+            return response()->json($results, 200);
+        } else {
+            return response()->json(['error' => 'Course not found'], 404);
+        }
+
+        return response()->json(['success' => false], 400);
+
+    }
 }
