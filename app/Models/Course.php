@@ -44,6 +44,11 @@ class Course extends Model
     {
         return $this->belongsToMany(Experiment::class, 'course_experiment');
     }
+
+    public function experimentResults()
+    {
+        return $this->hasManyThrough(ExperimentResult::class, CourseExperiment::class, null, 'experiment_id');
+    }
 }
 
 class CourseResources extends Model

@@ -13,6 +13,7 @@ class CreateExperimentsTable extends Migration
      */
     public function up()
     {
+
         Schema::create('experiments', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('name');
@@ -23,7 +24,7 @@ class CreateExperimentsTable extends Migration
             $table->string('aparatus');
             $table->string('experiment_resource');
             $table->string('procedures');
-            $table->string('exercise');
+            $table->string('exercise', 3000);
             $table->string('required');
             $table->string('theory');
             $table->string('faculty_id');
