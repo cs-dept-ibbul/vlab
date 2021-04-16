@@ -21,7 +21,7 @@ class CreateExperimentsTable extends Migration
             $table->string('experiment_intro');
             $table->string('experiment_goal');
             $table->string('experiment_mock');
-            $table->string('aparatus');
+            $table->string('apparatus');
             $table->string('experiment_resource');
             $table->string('procedures');
             $table->string('exercise', 3000);

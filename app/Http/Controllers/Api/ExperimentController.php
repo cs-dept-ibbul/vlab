@@ -40,7 +40,7 @@ class ExperimentController extends Controller
             'experiment_intro' => 'required',
             'experiment_goal' => 'required',
             'experiment_mock' => 'required',
-            'aparatus' => 'required',
+            'apparatus' => 'required',
             'procedures' => 'required',
             'exercise' => 'required',
         ]);
@@ -55,7 +55,7 @@ class ExperimentController extends Controller
         $experiment_intro = $request->get('experiment_intro');
         $experiment_goal = $request->get('experiment_goal');
         $experiment_mock = $request->get('experiment_mock');
-        $aparatus = $request->get('aparatus');
+        $apparatus = $request->get('apparatus');
         $experiment_resource = $request->get('experiment_resource');
         $procedures = $request->get('procedures');
         $exercise = $request->get('exercise');
@@ -71,7 +71,7 @@ class ExperimentController extends Controller
         $experiment->experiment_intro = $experiment_intro;
         $experiment->experiment_goal = $experiment_goal;
         $experiment->experiment_mock = $experiment_mock;
-        $experiment->aparatus = $aparatus;
+        $experiment->apparatus = $apparatus;
         $experiment->experiment_resource = $experiment_resource;
         $experiment->procedures = $procedures;
         $experiment->exercise = $exercise;
@@ -123,7 +123,7 @@ class ExperimentController extends Controller
             $request->get('experiment_intro') != null ? $experiment->experiment_intro = $request->get('experiment_intro') : null;
             $request->get('experiment_goal') != null ? $experiment->experiment_goal = $request->get('experiment_goal') : null;
             $request->get('experiment_mock') != null ? $experiment->experiment_mock = $request->get('experiment_mock') : null;
-            $request->get('aparatus') != null ? $experiment->aparatus = $request->get('aparatus') : null;
+            $request->get('apparatus') != null ? $experiment->apparatus = $request->get('apparatus') : null;
             $request->get('experiment_resource') != null ? $experiment->experiment_resource = $request->get('experiment_resource') : null;
             $request->get('procedures') != null ? $experiment->procedures = $request->get('procedures') : null;
             $request->get('exercise') != null ? $experiment->exercise = $request->get('exercise') : null;
