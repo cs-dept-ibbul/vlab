@@ -14,29 +14,46 @@
 				<a :href="dashboard"   v-bind:class="{btnActive:checkActive('dashboard')}">
 					<span class="iconOV fa fa-dashboard"></span>
 				</a>	
-				<a :href="explore"   v-bind:class="{btnActive:checkActive('explore')}">
+				<a href="/explore"   v-bind:class="{btnActive:checkActive('explore')}">
 					<span class="iconOV fa fa-spinner"></span>
 				</a>				
 							
-				<!-- manage student -->
-				<!-- <ul class="listCoverV">
-					<li class="listMenuVBtn nChildV"  v-bind:class="{btnActive:checkActive('student')}">
-						<span class="iconOV fa fa-student"></span>
+				<!-- manage course -->
+				<ul class="listCoverV" >
+					<li class="listMenuVBtn nChildV"  v-bind:class="{btnActive:checkActive('course')}">
+						<span class="iconOV  fa fa-book"></span>
 					</li>
 					<ul class="listMenuV">
 						<li>
-							<a :href="studentdashboard"  v-bind:class="{btnActiveSub:checkActiveSub('studentdashboard')}">
-								<span class="iconOV fa fa-circle"></span><div class="labelV">dashboard</div>
+							<a href="/create-course" class="text-white" v-bind:class="{btnActiveSub:checkActiveSub('createcourse')}">
+								<span class="iconOV text-white fa fa-circle"></span><div class="labelV">Create Course</div>
 							</a>
 						</li>
 						<li>
-							<a :href="viewstudent"  v-bind:class="{btnActiveSub:checkActiveSub('viewstudent')}">
-								<span class="iconOV fa fa-circle"></span><div class="labelV">view stduent</div>
+							<a href="/view-created-course"  class="text-white" v-bind:class="{btnActiveSub:checkActiveSub('editcourse')}">
+								<span class="iconOV text-white fa fa-circle"></span><div class="labelV">Edit/Del Course</div>
 							</a>
 						</li>
 					</ul>
 				</ul>	
-	 -->
+<!-- manage experiment -->
+				<ul class="listCoverV" >
+					<li class="listMenuVBtn nChildV"  v-bind:class="{btnActive:checkActive('experiment')}">
+						<span class="iconOV  fa fa-cube"></span>
+					</li>
+					<ul class="listMenuV">
+						<li>
+							<a href="/add-experiment" class="text-white"  v-bind:class="{btnActiveSub:checkActiveSub('addexperiment')}">
+								<span class="iconOV text-white fa fa-circle"></span><div class="labelV">Add Experi.</div>
+							</a>
+						</li>
+						<li>
+							<a :href="viewexperiment" class="text-white" v-bind:class="{btnActiveSub:checkActiveSub('viewexperiment')}">
+								<span class="iconOV text-white fa fa-circle"></span><div class="labelV">View Experi.</div>
+							</a>
+						</li>
+					</ul>
+				</ul>
 				<a :href="settings"   v-bind:class="{btnActive:checkActive('settings')}">
 					<span class="iconOV fa fa-gear"></span>
 				</a>		
@@ -54,10 +71,45 @@
 				<a :href="dashboard" class="nChildV"  v-bind:class="{btnActive:checkActive('dashboard')}">
 					<span class="iconV fa fa-dashboard"></span><div class="labelV">Dashboard</div>
 				</a>	
-				<a :href="explore" class="nChildV"  v-bind:class="{btnActive:checkActive('explore')}">
+				<a href="/explore" class="nChildV"  v-bind:class="{btnActive:checkActive('explore')}">
 					<span class="iconV fa fa-spinner"></span><div class="labelV">Explore</div>
 				</a>	
-									
+				<!-- manage course -->
+				<ul >
+					<li class="listMenuBtn nChildV"  v-bind:class="{btnActive:checkActive('course')}">
+						<span class="iconV fa fa-book"></span><div class="labelV">Manage Course</div>
+					</li>
+					<ul class="listMenu">
+						<li>
+							<a href="/create-course" class="nChildV " v-bind:class="{btnActiveSub:checkActiveSub('createcourse')}">
+								<span class="iconV fa fa-circle"></span><div class="labelV">Create Course</div>
+							</a>
+						</li>
+						<li>
+							<a href="/view-created-course" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('editcourse')}">
+								<span class="iconV fa fa-circle"></span><div class="labelV">Edit/Del Course</div>
+							</a>
+						</li>
+					</ul>
+				</ul>	
+<!-- manage Experiment -->
+				<ul >
+					<li class="listMenuBtn nChildV"  v-bind:class="{btnActive:checkActive('experiment')}">
+						<span class="iconV fa fa-cube"></span><div class="labelV">Manage Expr.</div>
+					</li>
+					<ul class="listMenu">
+						<li>
+							<a href="/add-experiment" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('addexperiment')}">
+								<span class="iconV fa fa-circle"></span><div class="labelV">Add Experiment</div>
+							</a>
+						</li>
+						<li>
+							<a :href="viewexperiment" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('viewexperiment')}">
+								<span class="iconV fa fa-circle"></span><div class="labelV">View Experiment</div>
+							</a>
+						</li>
+					</ul>
+				</ul>	
 				<!-- manage Stduent -->
 				<!--
 				<ul >

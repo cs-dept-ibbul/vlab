@@ -1,7 +1,6 @@
 @extends('../layouts/main')
 @section('content-body')
-<div style="display: flex;">   
-    <v-userauth></v-userauth>
+<div style="display: flex;">       
     
     <!-- main side bar -->
      <v-isidebar home="{{route('home')}}" dashboard="" explore="{{route('explore')}}" settings="{{route('home')}}" setexperiment="" viewexperiment="" student="{{route('view-student')}}"   active="student" activesub="student"></v-isidebar>   
@@ -13,9 +12,9 @@
         <!-- end to nav bar -->
 
         <!-- content -->
-           <div class="px-5">
+ <!--           <div class="px-5">
             <a class="btn py-3 px-4 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 0.6rem;margin-right:22px" data-toggle="modal" data-target="#staticBackdrop">Add Student <span class="text-white fa fa-chevron-down"></span></a>
-           </div>
+           </div> -->
         <v-viewstudent class="scroll-y vh-70"></v-viewstudent>
    </div>
  
@@ -25,7 +24,7 @@
 </div>
 </div>
 </div></div>
-
+<!-- 
 
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -72,5 +71,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 @endsection

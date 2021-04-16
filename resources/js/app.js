@@ -55,6 +55,8 @@ Vue.component('v-circuitconnectiontools', require('./components/circuitconnectio
 Vue.component('v-viewcreatedcourse', require('./components/viewCreatedCourse.vue').default); 
 Vue.component('v-faculty', require('./components/faculty.vue').default); 
 Vue.component('v-department', require('./components/department.vue').default); 
+Vue.component('v-user', require('./components/user.vue').default); 
+Vue.component('v-userform', require('./components/userForm.vue').default); 
 Vue.component('v-addexperiment', require('./components/addExperiment.vue').default); 
 Vue.component('v-viewcreatedexperiment', require('./components/viewCreatedExperiment.vue').default); 
 
@@ -69,7 +71,8 @@ Vue.component('v-t', require('./components/Section.vue').default);
 Vue.component('v-sponsor', require('./components/SponsorSection.vue').default);
 Vue.component('v-avl', require('./components/ExploreSection.vue').default);
 Vue.component('v-avlc', require('./components/AvailableCourses.vue').default);
-//Vue.component('v-viewcourses', require('./components/ViewCourse.vue').default);// VewCourse change to ViewCourse
+
+Vue.component('v-viewcourses', require('./components/viewCourses.vue').default);
 
 Vue.component('v-logintopnavbar', require('./components/NavbarLogin.vue').default);
 Vue.component('v-loginbox', require('./components/loginBox.vue').default);

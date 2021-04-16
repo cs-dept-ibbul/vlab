@@ -37,14 +37,17 @@
             		<div id="cdetail" v-if="sectionState==1" class="m-0 p-0">            			
 	            		<p class="fw8 fs1 font" style="color: #777;">Course Details</p>
 	            		<div class="row">            			
-	            			<div class="col-lg-8 col-md-6 m-0">
+	            			<div class="col-lg-6 col-md-12 m-0">
 	            				<p class="fs001 my-1">Course Title</p>
 	            				<input type="text" @keyup="normalize" class="form-control vI" id="ctitle">
-	            			</div>
-	            			<div class="col-lg-1 col-md-1 m-0 px-0"></div>
-	            			<div class="col-lg-3 col-md-5 m-0">
+	            			</div>	            			
+	            			<div class="col-lg-3 col-md-6 m-0">
 	            				<p class="fs001 my-1">Course Code</p>
 	            				<input type="text"  @keyup="normalize" class="form-control vI" id="ccode">
+	            			</div>
+	            			<div class="col-lg-3 col-md-6 m-0">
+	            				<p class="fs001 my-1">Enrollment Code</p>
+	            				<input type="text"  @keyup="normalize" class="form-control" id="ecode">
 	            			</div>
 	            			<div class="col-lg-12 col-md-12 mt-3">
 	            				<p class="fs001 my-1">Course Description</p>            				
@@ -207,6 +210,7 @@
 	    	 sectionState: 1,
 	    	 title:'',
 	    	 ccode:'',
+	    	 ecode:'',
 	    	 imagetoupload:'',
 	    	 validateState:false,
 	    	 selectedExperiment:[],
@@ -312,6 +316,7 @@
 					setTimeout(function() {
 					$('#ctitle').val($nv.alldata[0]['title']);
 					$('#ccode').val($nv.alldata[0]['course_code']);
+					$('#ecode').val($nv.alldata[0]['enrollment_code']);
 					$('#cdescription').val($nv.alldata[0]['description']);					
 					}, 50);				
 					this.checkstage(1);
@@ -452,6 +457,7 @@
 						this.alldata[0] = {
 							title: $('#ctitle').val(),
 							course_code:$('#ccode').val(),
+							enrollment_code:$('#ecode').val(),
 							description:$('#cdescription').val()
 						};						
 						this.sectionState = 2;						
@@ -530,6 +536,7 @@
 				   		const formData = new FormData();				   	
 					   	formData.append('title',this.alldata[0].title);
 					   	formData.append('code',this.alldata[0].course_code);
+					   	formData.append('enrollment_code',this.alldata[0].enrollment_code);
 					   	formData.append('description',this.alldata[0].description);
 					   	formData.append('experiment_id',this.alldata[1].id);
 					   	formData.append('instructor_id',this.alldata[2].id);
@@ -761,6 +768,7 @@
 				$(document).ready(function(){
 					$('#ctitle').val(this.alldata[0]['title']);
 					$('#ccode').val(this.alldata[0]['course_code']);
+					$('#ecode').val(this.alldata[0]['enrollment_code']);
 					$('#cdescription').val(this.alldata[0]['description']);					
 				});		
 
