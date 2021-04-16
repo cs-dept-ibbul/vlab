@@ -3,13 +3,31 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use App\Models\Experiment;
+use App\Models\ExperimentResult;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 
 class ExperimentController extends Controller
 {
+
+    private $currentUser;
+    private $schoolId;
+    private $facultyId;
+    private $userId;
+
+    public function __construct()
+    {
+        if(Auth::check()){
+            $this->currentUser = Auth::user();
+            $this->schoolId = $this->currentUser->school_id;
+            $this->facultyId = $this->currentUser->faculty_id;
+            $this->userId = $this->currentUser->id;
+        }
+    }
 
     public function create(Request $request)
     {
@@ -24,7 +42,6 @@ class ExperimentController extends Controller
             'aparatus' => 'required',
             'procedures' => 'required',
             'exercise' => 'required',
-            'faculty_id' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -43,7 +60,6 @@ class ExperimentController extends Controller
         $exercise = $request->get('exercise');
         $required = $request->get('required');
         $theory = $request->get('theory');
-        $faculty_id = $request->get('faculty_id');
         $tables = $request->get('tables');
         $graph = $request->get('graph');
         $status = $request->get('status') ?? 'Active';
@@ -60,7 +76,7 @@ class ExperimentController extends Controller
         $experiment->exercise = $exercise;
         $experiment->required = $required;
         $experiment->theory = $theory;
-        $experiment->faculty_id = $faculty_id;
+        $experiment->faculty_id = $this->facultyId;
         $experiment->tables = $tables;
         $experiment->graph = $graph;
         $experiment->status = $status;
@@ -142,7 +158,7 @@ class ExperimentController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => "All fields are required"], 409);
+            return response()->json(['error' => "experiment_id field is required"], 400);
         }
 
         $experimentId = $request->get('experiment_id');
@@ -154,4 +170,77 @@ class ExperimentController extends Controller
             return response()->json(['error' => 'Experiment not found'], 404);
         }
     }
+
+    public function saveExperimentResult(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'experiment_id' => 'required',
+            'session_id' => 'required',
+            'result_json' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "All fields are required"], 400);
+        }
+        
+        $experimentResult = new ExperimentResult();
+
+        $experimentId = $request->get('experiment_id');
+        $sessionId = $request->get('session_id');
+        $resultJson = $request->get('result_json');
+
+        $checkDuplicate = ExperimentResult::where([
+            'user_id' => $this->userId,
+            'session_id' => $sessionId,
+            'experiment_id' => $experimentId
+        ]);
+
+        if(!empty($checkDuplicate)){
+            return response()->json(['error' => "Result already exist"], 409);
+        }
+
+        $experimentResult->id = Util::uuid();
+        $experimentResult->user_id = $this->userId;
+        $experimentResult->experiment_id = $experimentId;
+        $experimentResult->session_id = $sessionId;
+        $experimentResult->result_json = $resultJson;
+
+        $saveResult = $experimentResult->save();
+        if($saveResult){
+            return response()->json(['success' => true], 200);
+        }
+
+        return response()->json(['success' => false], 400);
+        
+    }
+
+    public function getExperimentResultsByExpSessId(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'experiment_id' => 'required',
+            'session_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "All fields are required"], 400);
+        }
+
+        $experimentId = $request->get('experiment_id');
+        $sessionId = $request->get('session_id');
+
+        $experimentResult = ExperimentResult::where([
+            'session_id' => $sessionId,
+            'experiment_id' => $experimentId
+        ])->get();
+
+        if (!empty($experimentResult)) {
+            return response()->json($experimentResult, 200);
+        } else {
+            return response()->json(['error' => 'Experiment not found'], 404);
+        }
+
+        return Course::with('experimentResults')->get();
+    }
+    
 }
