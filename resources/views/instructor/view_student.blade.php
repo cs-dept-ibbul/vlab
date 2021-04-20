@@ -2,8 +2,8 @@
 @section('content-body')
 <div style="display: flex;">       
     
-    <!-- main side bar -->
-     <v-isidebar home="{{route('home')}}" dashboard="" explore="{{route('explore')}}" settings="{{route('home')}}" setexperiment="" viewexperiment="" student="{{route('view-student')}}"   active="student" activesub="student"></v-isidebar>   
+    <!-- main side bar --> 
+     <v-isidebar active="student" activesub="student"></v-isidebar>   
     <!-- end main side bar -->
 
    <div class="expr-dashboard-container  p-secondary ">

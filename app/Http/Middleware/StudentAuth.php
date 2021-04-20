@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Session;
-class UserAuth
+class StudentAuth
 {
     /**
      * Handle an incoming request.
@@ -19,7 +19,7 @@ class UserAuth
         if(Session::has('info')){
             $userData = session('info')->data->user ?? '';
             $role = $userData->role_id ?? '';            
-            if ($role == 1) {
+            if ($role == 3) {
                 return $next($request);                
             }else{
                 return redirect('/login');

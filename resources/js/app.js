@@ -69,7 +69,7 @@ Vue.component('v-tlb', require('./components/title-left-bar.vue').default);
 Vue.component('v-navb', require('./components/Navbar.vue').default);
 Vue.component('v-t', require('./components/Section.vue').default);
 Vue.component('v-sponsor', require('./components/SponsorSection.vue').default);
-Vue.component('v-avl', require('./components/ExploreSection.vue').default);
+Vue.component('v-explore', require('./components/ExploreSection.vue').default);
 Vue.component('v-avlc', require('./components/AvailableCourses.vue').default);
 
 Vue.component('v-viewcourses', require('./components/viewCourses.vue').default);

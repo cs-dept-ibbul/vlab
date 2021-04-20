@@ -683,9 +683,9 @@
 	     		}
 	     	},
 	     	alldata:{
-	     		type:Array, 
+	     		type:Object, 
 	     		default: function(){
-	     			return [];
+	     			return {};
 	     		}
 	     	},
 	     	coures_id:{
@@ -762,17 +762,23 @@
 
 
 		},
-		async created(){
-			if (this.update) {
+		async created(){			
+				//console.log(this.alldata);
+				//console.log(this.alldata.title);
 
+		    this.experiments  = await this.axiosGet('api/experiments/experiments');
+		    //console.log(this.createdexperiments)
+		    /*initialize datatable */           
+			if (this.update) {
+				let $this = this;
 				$(document).ready(function(){
-					$('#ctitle').val(this.alldata[0]['title']);
-					$('#ccode').val(this.alldata[0]['course_code']);
-					$('#ecode').val(this.alldata[0]['enrollment_code']);
-					$('#cdescription').val(this.alldata[0]['description']);					
+					$('#ctitle').val($this.alldata.title);
+					$('#ccode').val($this.alldata.code);
+					$('#ecode').val($this.alldata.enrollment_code);
+					$('#cdescription').val($this.alldata.description);					
 				});		
 
-				for(let i =0; i < this.alldata[1].id; i++ ){
+				/*for(let i =0; i < this.alldata[1].id; i++ ){
 					this.selectedExperiment[i] = this.alldata[1].id[i];
 					this.selectedExperimentName[i] = this.alldata[1].names[i];
 				}
@@ -781,21 +787,10 @@
 					this.selectedInstructorName[i] = this.alldata[2].names[i];
 				}
 
-				this.imagetoupload = this.alldata[3].image;
+				this.imagetoupload = this.alldata[3].image;*/
 				
 
 			}
-
-		    this.experiments  = await this.axiosGet('api/experiments/experiments');
-		    //console.log(this.createdexperiments)
-		    this.tableLoaded = true;
-		    
-		    /*initialize datatable */
-             setTimeout(function() {
-             	 $('#experimenttable').DataTable({
-			    	pageLength : 5,
-			    });
-             }, 200);
 		},
          events :{
          	'toggleClick':'toggleClick'

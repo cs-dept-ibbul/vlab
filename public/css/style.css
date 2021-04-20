@@ -64,8 +64,7 @@ main {
   border: 1px solid #fff;
   cursor: text !important;
 }
-.input-search3 {
-  width: 250px;
+.input-search3 {  
   height: 45px;
   padding: 8px 5px 8px 34px;
   color: #777;
@@ -75,6 +74,10 @@ main {
   border-radius: 9px;
   border: 1px solid #eee;
   cursor: text !important;
+}
+.sortby{
+  word-break: keep-all;
+  white-space: nowrap;
 }
 .hv-15{
   height: 15vh;
@@ -302,7 +305,7 @@ button:focus{
   flex-wrap: wrap;
   min-height: 87vh;
 }
-@media screen and (min-width: 644px){
+@media screen and (min-width: 644px){  
   .lg-flex{
       display: flex;
 
@@ -387,6 +390,9 @@ button:focus{
  color: #00b96b !important;
 }
 @media screen and (max-width: 644px){
+  div.px-6{
+    padding:15px;
+  }
     .sm-justify-center{
       justify-content: center;
     }
@@ -431,7 +437,6 @@ button:focus{
   position: relative;
   z-index: 5;
   width: 100%;
-
   padding: 2px 20px;
   height: 90%;
   overflow-y: scroll;
@@ -1285,15 +1290,18 @@ span.no-border-right,.no-border-right{
 @keyframes stay {
   
 }
-/*@-webkit-keyframes shrink {
-    from {min-width: 350px;} 
-    to {min-width: 50px;}
-}
+/*
+  @-webkit-keyframes shrink {
+      from {min-width: 350px;} 
+      to {min-width: 50px;}
+  }
 
-@keyframes shrink {
-    from {min-width: 350px;} 
-    to {min-width: 50px;}
-}*/
+  @keyframes shrink {
+      from {min-width: 350px;} 
+      to {min-width: 50px;}
+  }
+
+*/
 #addEBox tr{  
   border-top: none !important;
   border-bottom: 1px solid #eee !important;
@@ -1344,9 +1352,11 @@ thead tr#cheadV th{
 span.ripple.b-warning{
   background-color: rgba(20, 15, 55, 0.1);
 }
-/*00b96b
-FFDBB5
-20154e*/
+/*
+  00b96b
+  FFDBB5
+  20154e
+*/
 span.ripple {
   position: absolute;
   border-radius: 50%;
@@ -1367,4 +1377,20 @@ span.ripple {
     transform: scale(4);
     opacity: 0;
   }
+}
+
+.tenor {
+  position: absolute;
+  width: 25px;
+
+  right: -225px;
+  top: 10px;
+  z-index: 9;
+}
+.tenor-text{
+  width: 240px;
+  position: absolute;
+  display: inline-block;
+  margin-top: -4px;
+  z-index: 10;
 }

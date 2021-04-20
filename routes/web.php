@@ -22,32 +22,40 @@ Route::get('/logout', 'App\Http\Controllers\loginController@logout')->name('logo
 
 //AMDIN
 Route::middleware(['adminauth'])->group(function(){
-});
-
-
-Route::middleware(['userauth'])->group(function(){
-	Route::get('/view-created-course', 'App\Http\Controllers\Viewcreatedcourse@index')->name('view-created-course');
-	Route::get('/create-course', 'App\Http\Controllers\CreateCourseController@index')->name('create-courses');
 	Route::get('/manage-faculty', 'App\Http\Controllers\ManageFacultyController@index')->name('manage-faculty');
 	Route::get('/manage-department', 'App\Http\Controllers\ManageDepartmentController@index')->name('manage-department');
 	Route::get('/manage-user', 'App\Http\Controllers\ManageUserController@index')->name('manage-user');
-	Route::get('/add-experiment', 'App\Http\Controllers\AddExperimentController@index')->name('add-experiment');
-	Route::get('/view-created-experiment', 'App\Http\Controllers\AddExperimentController@createdexperiment')->name('view-created-experiment');
+});
+
+Route::middleware(['studentauth'])->group(function(){
+	Route::get('/UserDashboard', 'App\Http\Controllers\ViewUserDashboard@index')->name('sdashboard');
 
 	Route::get('/my-courses', 'App\Http\Controllers\StudentCourses@index')->name('courses');
 	Route::get('/my-course-review/{id?}', 'App\Http\ControllersS\tudentCourses@review')->name('my-course-review');
 	Route::get('/view-Students-dashboard', 'App\Http\Controllers\adminViewStudentsdashboard@index')->name('view-Students-dashboard');
-	Route::get('/view-student', 'App\Http\Controllers\InstructorController@viewstudent')->name('view-student');
+	Route::get('/viewCourse/{id?}', 'App\Http\Controllers\ViewCourseController@index')->name('viewCourse');
 
-	//{name?}
-
+	/*where to go*/
 	Route::get('/my-practicals', 'App\Http\Controllers\MyPracticals@index')->name('my-practicals');
+	Route::get('/my-Practical', 'App\Http\Controllers\ViewMyPracticalController@index');
+	/*end where to go*/
 
 	Route::get('/course-activities', 'App\Http\Controllers\adminViewCourses@index')->name('course-activities');
 	Route::get('/course-resources', 'App\Http\Controllers\adminCourseResources@index')->name('course-resources');
 	Route::get('/course-experiments', 'App\Http\Controllers\adminCourseExperiments@index')->name('course-experiments');
 
+});
 
+
+Route::middleware(['instructorauth'])->group(function(){
+	Route::get('/view-created-course', 'App\Http\Controllers\ManageCourseController@viewCourse')->name('view-created-course');
+	Route::get('/create-course', 'App\Http\Controllers\ManageCourseController@index')->name('create-courses');
+	Route::get('/add-experiment', 'App\Http\Controllers\AddExperimentController@index')->name('add-experiment');
+	Route::get('/view-created-experiment', 'App\Http\Controllers\AddExperimentController@createdexperiment')->name('view-created-experiment');
+	Route::get('/view-student', 'App\Http\Controllers\InstructorController@viewstudent')->name('view-student');
+});
+
+Route::middleware(['twouserauth'])->group(function(){
 
 	 /*series and parallel*/
 	Route::get('/circuitconnection-sap','App\Http\Controllers\experimentController@circuitconnection1')->name('circuitconnection1');
@@ -80,10 +88,6 @@ Route::middleware(['userauth'])->group(function(){
 		return view('experiment.micrometerEquipment');
 	})->name('micrometerEquipment');
 
-	Route::get('/viewCourse/{id?}', 'App\Http\Controllers\ViewCourseController@index')->name('viewCourse');
-	Route::get('/UserDashboard', 'App\Http\Controllers\ViewUserDashboard@index')->name('sdashboard');
-
-	Route::get('/my-Practical', 'App\Http\Controllers\ViewMyPracticalController@index');
 
 	/*Resistors color code this might change late to Electricity circuit construction */
 	Route::get('/resistor-color-code','App\Http\Controllers\experimentController@resistor')->name('resistors');
@@ -92,8 +96,9 @@ Route::middleware(['userauth'])->group(function(){
 	{
 		return view('experiment.resistorExperiment');
 	})->name('resistorExperiment');
-
-});
 /*end resistors color code*/
+});
+
+
 
 	

@@ -3,7 +3,8 @@
     <div class="loginBox">
         <div class="login-title">
             <b class="login-text">Login</b>
-            <p>Hi, This will only take a minute</p>
+            <!-- <p>Hi, This will only take a minute</p> -->
+            <p class="p-text-success">you have succefully logged in</p>
         </div>
        <div class="form-group">
 			<input class="form-control form-control-lg" type="text" placeholder="Matriculation Number">                    	

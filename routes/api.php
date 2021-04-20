@@ -31,7 +31,7 @@ Route::group([
     'middleware' => 'api',
 ], function ($router) {
 
-Route::get('faculty_course_student', [FacultyController::class, 'getFacultyWithCourseAndStudentCount']);
+    Route::get('faculty_course_student', [FacultyController::class, 'getFacultyWithCourseAndStudentCount']);
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
@@ -96,18 +96,18 @@ Route::get('faculty_course_student', [FacultyController::class, 'getFacultyWithC
             Route::post('course', [CourseController::class, 'getCourse']);
             Route::get('courses', [CourseController::class, 'getAllCourses']);
             Route::get('courses_students', [CourseController::class, 'courseStudents']);
-            Route::post('course_students', [CourseController::class, 'courseStudentById']);
-            Route::post('faculty_courses', [CourseController::class, 'getCoursesByFacultyId']);
-            Route::post('faculty_course_students', [CourseController::class, 'courseStudentByFacultyId']);
+            Route::post('course_students', [CourseController::class, 'courseStudentById']);//consume
+            Route::post('faculty_courses', [CourseController::class, 'getCoursesByFacultyId']);//consume
+            Route::post('faculty_course_students', [CourseController::class, 'courseStudentByFacultyId']); //not requested
             Route::get('student_courses', [CourseController::class, 'studentCourses']);
             Route::post('student_courses', [CourseController::class, 'studentCoursesById']);
-            Route::post('add_course_resources', [CourseController::class, 'addCourseResources']);
-            Route::post('assign_course_instructor', [CourseController::class, 'assignCourseInstructor']);
-            Route::post('assign_course_experiment', [CourseController::class, 'assignCourseExperiment']);
-            Route::post('add_student_course', [CourseController::class, 'addStudentCourse']);
-            Route::post('bulk_course_assign', [CourseController::class, 'bulkCourseAssign']);
-            Route::get('enrolledCourses', [CourseController::class, 'getStudentEnrolledCourses']);
-            Route::post('course_experiments', [CourseController::class, 'courseExperiments']);
+            Route::post('add_course_resources', [CourseController::class, 'addCourseResources']); //not requested
+            Route::post('assign_course_instructor', [CourseController::class, 'assignCourseInstructor']); //not requested
+            Route::post('assign_course_experiment', [CourseController::class, 'assignCourseExperiment']); //not requested
+            Route::post('add_student_course', [CourseController::class, 'addStudentCourse']);//not clear
+            Route::post('bulk_course_assign', [CourseController::class, 'bulkCourseAssign']); //not requested
+            Route::get('enrolledCourses', [CourseController::class, 'getStudentEnrolledCourses']);//not clear
+            Route::post('course_experiments', [CourseController::class, 'courseExperiments']); //consume
         });
     });
 });
