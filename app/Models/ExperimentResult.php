@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ExperimentResult extends Model
 {
     use HasFactory;
+    public $incrementing = false;
 
     protected $hidden = [
         'remember_token',
