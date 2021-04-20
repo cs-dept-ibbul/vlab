@@ -69,12 +69,14 @@
                             
                            /* var formContents = jQuery("#login-form").serialize();
                             */           
-                            $('#login-msg').css('display','flex');
+                            $('#login-msg-loader').show();
                             $('#login-err2').hide();
                             $('#login-err').hide();                               
                             try{                                
-                                $vm.axios.post('api/login', {email:$vm.username, password:$vm.password}).then(function(response, status, request) {        
-                                        console.log(response.status)                              
+                                $vm.axios.post('api/login', {email:$vm.username, password:$vm.password}).then(function(response, status, request) {                        
+                                        $('#login-msg-loader').hide();
+                                        $('#login-msg-success').show();                                            
+                                        $('#login-msg-success.checkmark').show();                                            
                                         if (response.status === 200) {                                        
                                            localStorage.setItem('LoggedUser',JSON.stringify(response.data));
                                             
@@ -91,15 +93,18 @@
                                         }
                                     }, function(e) {        
                                          if(e.response.status === 401 ){
-                                            $('#login-msg').css('display','none');                                    
+                                            $('#login-msg').css('display','none');  
+                                            $('#login-msg-loader').hide();                                            
+
+
                                             $('#login-err').show();  
                                          }else{
-                                            $('#login-msg').css('display','none');
+                                            $('#login-msg-loader').hide();
                                             $('#login-err2').show();                                                
                                          }                                                                   
                                     })                             
                             }catch(err){
-                                $('#login-msg').css('display','none');
+                                $('#login-msg-loader').hide();                                            
                                 $('#login-err2').show();
                             }                 
                         }

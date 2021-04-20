@@ -5271,9 +5271,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     alldata: {
-      type: Array,
+      type: Object,
       "default": function _default() {
-        return [];
+        return {};
       }
     },
     coures_id: {
@@ -5349,49 +5349,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var i, _i;
-
+      var $this;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              if (_this.update) {
-                $(document).ready(function () {
-                  $('#ctitle').val(this.alldata[0]['title']);
-                  $('#ccode').val(this.alldata[0]['course_code']);
-                  $('#ecode').val(this.alldata[0]['enrollment_code']);
-                  $('#cdescription').val(this.alldata[0]['description']);
-                });
-
-                for (i = 0; i < _this.alldata[1].id; i++) {
-                  _this.selectedExperiment[i] = _this.alldata[1].id[i];
-                  _this.selectedExperimentName[i] = _this.alldata[1].names[i];
-                }
-
-                for (_i = 0; _i < _this.alldata[2].id; _i++) {
-                  _this.selectedInstructor[_i] = _this.alldata[2].id[_i];
-                  _this.selectedInstructorName[_i] = _this.alldata[2].names[_i];
-                }
-
-                _this.imagetoupload = _this.alldata[3].image;
-              }
-
-              _context.next = 3;
+              _context.next = 2;
               return _this.axiosGet('api/experiments/experiments');
 
-            case 3:
+            case 2:
               _this.experiments = _context.sent;
+
               //console.log(this.createdexperiments)
-              _this.tableLoaded = true;
+
               /*initialize datatable */
-
-              setTimeout(function () {
-                $('#experimenttable').DataTable({
-                  pageLength: 5
+              if (_this.update) {
+                $this = _this;
+                $(document).ready(function () {
+                  $('#ctitle').val($this.alldata.title);
+                  $('#ccode').val($this.alldata.code);
+                  $('#ecode').val($this.alldata.enrollment_code);
+                  $('#cdescription').val($this.alldata.description);
                 });
-              }, 200);
+                /*for(let i =0; i < this.alldata[1].id; i++ ){
+                	this.selectedExperiment[i] = this.alldata[1].id[i];
+                	this.selectedExperimentName[i] = this.alldata[1].names[i];
+                }
+                for(let i =0; i < this.alldata[2].id; i++ ){
+                	this.selectedInstructor[i] = this.alldata[2].id[i];
+                	this.selectedInstructorName[i] = this.alldata[2].names[i];
+                }
+                	this.imagetoupload = this.alldata[3].image;*/
+              }
 
-            case 6:
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -6627,6 +6618,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Section"
 });
@@ -6732,7 +6724,7 @@ __webpack_require__.r(__webpack_exports__);
         if ($vm.username != "" && $vm.password != "") {
           /* var formContents = jQuery("#login-form").serialize();
            */
-          $('#login-msg').css('display', 'flex');
+          $('#login-msg-loader').show();
           $('#login-err2').hide();
           $('#login-err').hide();
 
@@ -6741,7 +6733,9 @@ __webpack_require__.r(__webpack_exports__);
               email: $vm.username,
               password: $vm.password
             }).then(function (response, status, request) {
-              console.log(response.status);
+              $('#login-msg-loader').hide();
+              $('#login-msg-success').show();
+              $('#login-msg-success.checkmark').show();
 
               if (response.status === 200) {
                 localStorage.setItem('LoggedUser', JSON.stringify(response.data));
@@ -6758,14 +6752,15 @@ __webpack_require__.r(__webpack_exports__);
             }, function (e) {
               if (e.response.status === 401) {
                 $('#login-msg').css('display', 'none');
+                $('#login-msg-loader').hide();
                 $('#login-err').show();
               } else {
-                $('#login-msg').css('display', 'none');
+                $('#login-msg-loader').hide();
                 $('#login-err2').show();
               }
             });
           } catch (err) {
-            $('#login-msg').css('display', 'none');
+            $('#login-msg-loader').hide();
             $('#login-err2').show();
           }
         }
@@ -11660,11 +11655,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       createdCourses: null,
-      tableLoaded: false
+      tableLoaded: false,
+      loaderState: true
     };
   },
   methods: {
@@ -11672,7 +11672,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     editCourse: function editCourse(obj, id) {
       this.VueSweetAlert2('v-createcourse', {
         update: true,
-        alldata: [],
+        alldata: obj,
         course_id: 2 //id
 
       });
@@ -11700,33 +11700,51 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       	});*/
     },
     deleteCourse: function deleteCourse(id) {
-      Swal.fire('delete');
+      var _this = this;
+
+      Swal.fire({
+        title: 'are you sure you want to delete',
+        text: '',
+        showCancelButton: true,
+        CancelButtonText: 'No',
+        ConfirmButtonText: 'Yes'
+      }).then(function (result) {
+        if (result.value) {
+          _this.axiosDelete('api/courses/delete', {
+            course_id: id
+          });
+        }
+      });
     }
   },
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var $this;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _this.axiosGet('api/courses/courses');
+              return _this2.axiosGet('api/courses/courses');
 
             case 2:
-              _this.createdCourses = _context.sent;
+              _this2.createdCourses = _context.sent;
+              //this endpoint is not returning foriegn data
               //console.log(this.createdCourses)
-              _this.tableLoaded = true;
+              _this2.tableLoaded = true;
+              $this = _this2;
               /*initialize datatable */
 
               setTimeout(function () {
                 $('#coursetable').DataTable({
                   pageLength: 5
                 });
+                $this.loaderState = false;
               }, 200);
 
-            case 5:
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -11735,7 +11753,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }))();
   },
   mounted: function mounted() {
-    this.$nextTick(function () {});
+    this.$nextTick(function () {
+      $(document).ready(function () {});
+    });
   }
 });
 
@@ -12376,6 +12396,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_skeletalLoaderA_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/skeletalLoaderA.vue */ "./resources/js/components/skeletalLoaderA.vue");
 /* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
 
 
@@ -12387,11 +12408,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 (axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.baseURL) = process.env.API_PATH !== 'production' ? 'http://localhost:8000' : 'http://localhost:8000';
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   install: function install(Vue, options) {
     var _this = this;
 
     Vue.mixin({
+      components: {
+        'v-loader': _components_skeletalLoaderA_vue__WEBPACK_IMPORTED_MODULE_2__.default
+      },
       data: function data() {
         return {
           userLoggedInOld: "",
@@ -44029,7 +44054,9 @@ var staticRenderFns = [
         _c("div", { staticClass: "login-title" }, [
           _c("b", { staticClass: "login-text" }, [_vm._v("Login")]),
           _vm._v(" "),
-          _c("p", [_vm._v("Hi, This will only take a minute")])
+          _c("p", { staticClass: "p-text-success" }, [
+            _vm._v("you have succefully logged in")
+          ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
@@ -46692,70 +46719,99 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "table",
-      { staticClass: "table table-hover", attrs: { id: "coursetable" } },
-      [
-        _vm._m(0),
-        _vm._v(" "),
-        _vm.tableLoaded
-          ? _c(
-              "tbody",
-              _vm._l(_vm.createdCourses, function(course, index) {
-                return _c("tr", { key: course.id }, [
-                  _vm._m(1, true),
-                  _vm._v(" "),
-                  _c("td", { attrs: { width: "25%", title: course.title } }, [
-                    _vm._v(_vm._s(course.title.slice(0, 20)) + " ...")
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { attrs: { width: "10%" } }, [
-                    _vm._v(_vm._s(course.code))
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "td",
-                    { attrs: { width: "15%", title: course.description } },
-                    [_vm._v(_vm._s(course.description.slice(0, 20)) + " ...")]
-                  ),
-                  _vm._v(" "),
-                  _c("td", { attrs: { width: "15%" } }, [_vm._v("12")]),
-                  _vm._v(" "),
-                  _c("td", { attrs: { width: "15%" } }, [_vm._v("500L")]),
-                  _vm._v(" "),
-                  _c("td", { attrs: { width: "5%" } }, [
-                    _vm._v(_vm._s(course.updated_at))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { attrs: { width: "10%" } }, [
-                    _c("span", {
-                      staticClass: "ml-2 fa fa-edit pl-3  fs01 cursor-1",
-                      staticStyle: { "border-left": "1px solid #ccc" },
-                      on: {
-                        click: function($event) {
-                          return _vm.editCourse(_vm.createdCourses[index])
-                        }
-                      }
+  return _c(
+    "div",
+    [
+      _vm.loaderState ? _c("v-loader") : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: !_vm.loaderState,
+              expression: "!loaderState"
+            }
+          ]
+        },
+        [
+          _c(
+            "table",
+            { staticClass: "table table-hover", attrs: { id: "coursetable" } },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _vm.tableLoaded
+                ? _c(
+                    "tbody",
+                    _vm._l(_vm.createdCourses, function(course, index) {
+                      return _c("tr", { key: course.id }, [
+                        _vm._m(1, true),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { attrs: { width: "25%", title: course.title } },
+                          [_vm._v(_vm._s(course.title.slice(0, 20)) + " ...")]
+                        ),
+                        _vm._v(" "),
+                        _c("td", { attrs: { width: "10%" } }, [
+                          _vm._v(_vm._s(course.code))
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          {
+                            attrs: { width: "15%", title: course.description }
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(course.description.slice(0, 20)) + " ..."
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("td", { attrs: { width: "15%" } }, [_vm._v("12")]),
+                        _vm._v(" "),
+                        _c("td", { attrs: { width: "15%" } }, [_vm._v("500L")]),
+                        _vm._v(" "),
+                        _c("td", { attrs: { width: "5%" } }, [
+                          _vm._v(_vm._s(course.updated_at))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { attrs: { width: "10%" } }, [
+                          _c("span", {
+                            staticClass: "ml-2 fa fa-edit pl-3  fs01 cursor-1",
+                            staticStyle: { "border-left": "1px solid #ccc" },
+                            on: {
+                              click: function($event) {
+                                return _vm.editCourse(_vm.createdCourses[index])
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass: "ml-2 fa fa-trash pl-3  fs01 cursor-1",
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteCourse(course.id)
+                              }
+                            }
+                          })
+                        ])
+                      ])
                     }),
-                    _vm._v(" "),
-                    _c("span", {
-                      staticClass: "ml-2 fa fa-trash pl-3  fs01 cursor-1",
-                      on: {
-                        click: function($event) {
-                          return _vm.deleteCourse(course.id)
-                        }
-                      }
-                    })
-                  ])
-                ])
-              }),
-              0
-            )
-          : _vm._e()
-      ]
-    )
-  ])
+                    0
+                  )
+                : _vm._e()
+            ]
+          )
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {

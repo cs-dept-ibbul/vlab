@@ -1378,3 +1378,19 @@ span.ripple {
     opacity: 0;
   }
 }
+
+.tenor {
+  position: absolute;
+  width: 25px;
+
+  right: -225px;
+  top: 10px;
+  z-index: 9;
+}
+.tenor-text{
+  width: 240px;
+  position: absolute;
+  display: inline-block;
+  margin-top: -4px;
+  z-index: 10;
+}

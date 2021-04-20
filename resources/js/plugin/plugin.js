@@ -1,8 +1,12 @@
 import axios from 'axios';
 axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'http://localhost:8000' : 'http://localhost:8000';
+import loader from '../components/skeletalLoaderA.vue'; 
 export default {
   install(Vue, options) {
     Vue.mixin({
+    	components:{		
+			'v-loader':loader,
+		},
       data(){
       	return {
       		userLoggedInOld: "",

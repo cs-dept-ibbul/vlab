@@ -22,12 +22,7 @@
                   		
 		             localStorage.removeItem("LoggedUser");                                    
                             
-                     }, function(error) {
-                     	console.log(error)
-                     	console.log(error.data)
-                     	console.log(error.message)
-                     	console.log(error.data.message)
-                     	console.log(error.data.response)
+                     }, function(error) {                     	
                      	//this.launch_toast();
 						// $('#system-loader').css('display','none');
                         

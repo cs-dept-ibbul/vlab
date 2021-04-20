@@ -19,9 +19,14 @@
     		<div class="d-flex">
     			
 	    		<p class="font2 fs8 fw6 p-text-dark">Login</p>
-	    		<div  id="login-msg" class="p-0 m-0 ml-4 p-display-none flex-wrap" >    			
-		    		<span>Hi, this will only take a munite</span>
-			        <span class="dot-flashing  ml-4"></span>
+	    		<div  id="login-msg" class="p-0 m-0 ml-4 d-flex flex-wrap position-relative" >    			
+	    			<span id="login-msg-loader" class="p-display-none">
+			    		<span>Hi, this will only take a munite</span>
+				        <span class="dot-flashing  ml-4"></span>	    				
+	    			</span>
+	    			<span id="login-msg-success" class="p-display-none">
+	    				<span class='p-text-success  tenor-text' >you have sucessfully logged in</span><span class=' ml-4'><img width="10%" class="tenor" src="{{asset('images/tenor.gif')}}"></span>
+	    			</span>
 	    		</div>
 	    		<div id="login-err" class="mt-3 ml-4 p-display-none">
 	    			<span class="alert alert-danger">Invalid username or password</span>
