@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
+    public $incrementing = false;
     use HasFactory;
 
     protected $hidden = [
@@ -50,22 +51,26 @@ class Course extends Model
 class CourseResources extends Model
 {
     use HasFactory;
+    public $incrementing = false;
 }
 
 class CourseExperiment extends Model
 {
     use HasFactory;
     protected $table = 'course_experiment';
+    public $incrementing = false;
 }
 
 class CourseInstructor extends Model
 {
     use HasFactory;
     protected $table = 'course_instructor';
+    public $incrementing = false;
 }
 class CourseStudents extends Model
 {
     use HasFactory;
+    public $incrementing = false;
 
     public function students()
     {

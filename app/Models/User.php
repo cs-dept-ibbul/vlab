@@ -12,6 +12,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
+    public $incrementing = false;
 
     // public function newQuery($excludeDeleted = true) {
     //     return parent::newQuery($excludeDeleted)
