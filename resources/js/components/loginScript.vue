@@ -51,7 +51,7 @@
         mounted(){
             let $vm = this;
             this.$nextTick(function(){
-                    $('#matric-number, #password').keyup(function(){
+                    $('#username, #password').keyup(function(){
                         $(this).css('border','1px solid #bbb');
                         $(this).next('.requiredv').remove();
                     });
@@ -62,7 +62,7 @@
                 }
 
                     $('#login-btn').click(function(){                        
-                        $vm.username = $vm.validateI('matric-number');
+                        $vm.username = $vm.validateI('username');
                         $vm.password = $vm.validateI('password');                    
 
                         if ($vm.username != "" && $vm.password != "") {
@@ -73,7 +73,7 @@
                             $('#login-err2').hide();
                             $('#login-err').hide();                               
                             try{                                
-                                $vm.axios.post('api/login', {email:$vm.username, password:$vm.password}).then(function(response, status, request) {                        
+                                $vm.axios.post('api/login', {username:$vm.username, password:$vm.password}).then(function(response, status, request) {                        
                                         $('#login-msg-loader').hide();
                                         $('#login-msg-success').show();                                            
                                         $('#login-msg-success.checkmark').show();                                            

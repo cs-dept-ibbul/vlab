@@ -23,7 +23,7 @@ class loginController extends Controller
     {
         
         $info = json_decode($request->get('data'));      
-        session(['info' => $info]);    
+        session(['info' => $info]);          
         $role = $info->data->user->role_id;
         if ($role== 1) {
             return redirect('/manage-user');                

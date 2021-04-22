@@ -14,7 +14,7 @@
                             <p class="fs2 fw7 mb-2 mt-4 fs10 font2 p-text-dark line-height-none show-student-detail cursor-1" @click='studentDetail(students)'>109</p>
                             <p class="mt-0 pt-0 p-text-dark font2 fw4 fs2 pl-2 ">Students</p>
                             <div class="font fs2 mt-4 p-text-warning cursor-1 show-course-detail r1" @click="couseDetail(departments)">
-                                <span class="fa fa-cube" ></span>
+                                <span class="fa fa-cube"></span>
                                 <span class="" >{{course.code}}</span>
                             </div>
                         </div>
@@ -165,88 +165,7 @@
 		},
 	}
 </script>
-<style scss>
-	$box-width:365px;
-$box-height:175px;
 
-body{
-  background-color:#69D2E7;  
-}
-
-.dropDown-tltp{
-  position: absolute;
-  display: inline-block;
-  left:40%;
-  top:60%;
-  
-  font-family: 'Roboto Condensed', sans-serif;
-  .label{
-    font-size: 20px;
-    border-radius: 5px;
-    border:2px solid #E0E4CC;
-    padding: 5px 31px;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    background: none;    
-    font-family:inherit;
-    box-shadow: 1px 1px 5px rgba(42, 42, 42,0.6);
-    background-color:#F38630;
-    &:focus{
-      outline: 0;
-      border:0;
-      box-shadow:none;
-      background-color:#de670a;
-    }
-    &:focus ~ .content{  
-      display: flex;             
-    }   
-  }
-  .content{
-    display:none;         
-    flex-direction: column;
-    flex-wrap: wrap;
-    border-radius: 5px;
-    border: 3px solid #A7DBD8;
-    position: absolute;    
-    bottom: 50px;
-    left: 0px;
-    width: 365px;
-    max-width: 365px;
-    max-height: 175px;
-    background-color: #fff;
-    box-shadow: 1px 1px 10px rgba(42, 42, 42, 0.5);
-    padding: 20px 10px 5px 20px;
-    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
-    a{
-      text-align: left;
-      font-size: 14px;
-      padding: 0px 0 15px 0;
-      color: #399bda;
-      text-decoration: none;
-      &:hover{
-        font-weight: bold;
-      }
-      &.selected{
-        font-weight: bold;
-      }
-    }
-    &:after{
-     position: absolute;
-    display: block;
-    bottom: -13px;
-    left: 12%;
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
-    border-top: 12px solid #A7DBD8;
-    content: " ";
-    font-size: 0;
-    line-height: 0;
-    width: 0;
-    }
-  }
-}
-</style>
 <style scoped="">
 	.card-cont::-webkit-scrollbar-thumb {
   background: #20154f;

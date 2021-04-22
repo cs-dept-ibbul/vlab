@@ -2251,6 +2251,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2276,8 +2281,6 @@ __webpack_require__.r(__webpack_exports__);
     toggleNavOffHover: function toggleNavOffHover() {//control = false;
     },
     addactivate: function addactivate(e) {
-      console.log(e.target);
-      alert(2);
       var box = document.getElementsByClassName('box');
 
       for (var i = 0; i < box.length; i++) {
@@ -2286,19 +2289,31 @@ __webpack_require__.r(__webpack_exports__);
 
       e.target.classList.add('boxActive');
     },
-    changeApparatus: function changeApparatus(tool) {
+    changeApparatus: function changeApparatus(t1, t2, t3) {
       //let  experimentSheet = document.getElementById('experimentSheet');
       var experimentSheet = $('#experimentSheet');
-      experimentSheet.attr('src', this.url + tool); //tool is value
+      experimentSheet.attr('src', this.url + t1 + '-' + t2 + '-' + t3); //tool is value
     },
     toggleNavOnHover: function toggleNavOnHover(value) {},
-    toggller: function toggller(e) {}
+    toggller: function toggller(e) {},
+    rightnavexpander: function rightnavexpander() {
+      if (this.rightNavState === false) {
+        $('#rightNav').addClass('width50');
+        this.rightNavState = true;
+      } else if (this.rightNavState === true) {
+        $('#rightNav').removeClass('width50');
+        this.rightNavState = false;
+      }
+    }
   },
   computed: {// a computed getter		  
   },
   created: function created() {
     var _this = this;
 
+    this.$eventBus.$on('startExperiment', function (data) {
+      _this.startExperiment = true;
+    });
     this.$eventBus.$on('rightNavtoggleClick', function (data) {
       //this.toggleNavOnHover();
       if (_this.activeRightNav === data.text) {} else {
@@ -2306,6 +2321,11 @@ __webpack_require__.r(__webpack_exports__);
         $('#' + data.text).slideDown(200);
         _this.activeRightNav = data.text;
       }
+    }); //invoke from toggleRightNav2() in ExperimentRibbon.vue;
+
+    this.$eventBus.$on('toggleRightNav2', function (data) {
+      $('#rightNav').addClass('width50');
+      _this.rightNavState = true;
     });
   },
   beforeDestroy: function beforeDestroy() {//this.eventBus.$off('rightNavtoggleClick', this.toggleNavOnHover)		  
@@ -2313,26 +2333,25 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     toolsizes: Array,
     url: String,
+    result: String,
     toolstate: Boolean,
     circuitconnectiontools: Boolean,
     othertools: Boolean,
-    electricitytools: Boolean
+    electricitytools: Boolean,
+    type: {
+      type: String,
+      "default": function _default() {
+        return '';
+      }
+    }
   },
   mounted: function mounted() {
     //console.log(this.toolsizes);
+    //alert(this.resultTable)
     var $vm = this;
     $('.box').click(function () {
       $('.box').removeClass('boxActive');
       $(this).addClass('boxActive');
-    });
-    $('.rightnavexpander').click(function () {
-      if ($vm.rightNavState === false) {
-        $('#rightNav').addClass('width50');
-        $vm.rightNavState = true;
-      } else if ($vm.rightNavState === true) {
-        $('#rightNav').removeClass('width50');
-        $vm.rightNavState = false;
-      }
     });
   }
 });
@@ -2358,6 +2377,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2369,7 +2390,10 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    expandVideo: function expandVideo() {}
+    expandVideo: function expandVideo() {},
+    submit: function submit(a) {
+      alert(a);
+    }
   }
 });
 
@@ -2410,10 +2434,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_data$methods$props$e = {
   data: function data() {
     return {
-      btnState: true
+      btnState: true,
+      startExperiment: false,
+      resultData: null
     };
   },
   methods: {
@@ -2428,6 +2455,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       */
       //this.newTodoText = ''
     },
+    toggleRightNav2: function toggleRightNav2(e) {
+      $('.fa-ico').removeClass('activeIco');
+      var rel;
+      $('.fa-ico').each(function () {
+        rel = $(this).attr('rel');
+
+        if (rel == e) {
+          $(this).addClass('activeIco');
+        }
+      });
+      this.$eventBus.$emit('rightNavtoggleClick', {
+        text: e
+      });
+      this.$eventBus.$emit('toggleRightNav2', {
+        text: e
+      });
+    },
     toggleExperimentGuider: function toggleExperimentGuider() {
       //        		alert(this.navState);
       this.btnState = !this.btnState;
@@ -2435,15 +2479,84 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$eventBus.$emit('toggleClick', {
         text: this.navState
       }); //this.newTodoText = ''
+    },
+    submit: function submit(a) {
+      var $this = this;
+      var value,
+          index = 0;
+      /*get result data*/
+
+      $('#result_table').find('.resultReading').each(function () {
+        if (index == 0) {
+          $this.resultData = [];
+        }
+
+        value = $(this).val();
+
+        if (value != '') {
+          $this.resultData[index] = value;
+        }
+
+        index++;
+      });
+      /*validate result data*/
+
+      if (this.resultData == null || this.resultData.length == 0) {
+        Swal.fire({
+          title: 'Please enter your data'
+        }).then(function (result) {
+          if (result.value) {
+            $this.toggleRightNav2('resulttable');
+          }
+        });
+        return 0;
+      }
+      /*submit result data*/
+
+
+      if (a == 'test') {
+        Swal.fire({
+          title: 'Are you sure you want to submit',
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No',
+          cancelButtonColor: '#666'
+        }).then(function (result) {
+          if (result.value) {
+            Swal.fire('');
+          }
+        });
+      }
     }
   },
-  props: [],
+  props: {
+    mode: {
+      type: String,
+      "default": function _default() {
+        return 'practice';
+      }
+    }
+  },
   events: {
     'rightNavtoggleClick': 'rightNavtoggleClick'
   }
 }, _defineProperty(_data$methods$props$e, "events", {
   'toggleClick': 'toggleClick'
-}), _defineProperty(_data$methods$props$e, "mounted", function mounted() {}), _data$methods$props$e);
+}), _defineProperty(_data$methods$props$e, "mounted", function mounted() {
+  this.$nextTick(function () {
+    if (this.startExperiment) {
+      alert();
+    }
+  });
+}), _defineProperty(_data$methods$props$e, "created", function created() {
+  var _this = this;
+
+  this.$eventBus.$on('startExperiment', function (data) {
+    _this.startExperiment = true;
+  });
+}), _defineProperty(_data$methods$props$e, "beforeDestroy", function beforeDestroy() {
+  this.eventBus.$off('toggleClick', this.toggleNavOnHover);
+}), _data$methods$props$e);
 
 /***/ }),
 
@@ -3104,6 +3217,20 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    validateResultInput: function validateResultInput() {
+      var regExp = /^[0-9]+\.?[0-9]*$/,
+          value;
+      $('.resultReading').on('keyup', function () {
+        value = $(this).val();
+        alert(value);
+        $(this).css('border', '1px solid #ccc');
+
+        if (regExp.test(value) == false) {
+          $(this).css('border', '1px solid red');
+          return 0;
+        }
+      });
+    },
     tickT: function tickT() {
       var _this = this;
 
@@ -3123,9 +3250,15 @@ __webpack_require__.r(__webpack_exports__);
       }, 1000);
     },
     startT: function startT() {
+      this.$eventBus.$emit('startExperiment', function () {
+        return true; //listen in expRightNav.vue
+      });
       this.start = true;
       this.startTime = Math.trunc(new Date().getTime() / 1000);
       document.getElementById('experimentSheet').style.display = 'block';
+      var $this = this;
+      setTimeout(function () {// $this.validateResultInput();
+      }, 1000);
     },
     valueFilter: function valueFilter(value) {
       if (value < 0) {
@@ -5921,7 +6054,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      navState: false
+      navState: false,
+      username: ''
     };
   },
   methods: {
@@ -5932,6 +6066,9 @@ __webpack_require__.r(__webpack_exports__);
         text: this.navState
       }); //this.newTodoText = ''
     }
+  },
+  created: function created() {
+    this.username = this.currentUser.first_name;
   },
   props: ['equipmentname', 'experimentnum'],
   mounted: function mounted() {},
@@ -6710,7 +6847,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var $vm = this;
     this.$nextTick(function () {
-      $('#matric-number, #password').keyup(function () {
+      $('#username, #password').keyup(function () {
         $(this).css('border', '1px solid #bbb');
         $(this).next('.requiredv').remove();
       });
@@ -6718,7 +6855,7 @@ __webpack_require__.r(__webpack_exports__);
       try {} catch (err) {}
 
       $('#login-btn').click(function () {
-        $vm.username = $vm.validateI('matric-number');
+        $vm.username = $vm.validateI('username');
         $vm.password = $vm.validateI('password');
 
         if ($vm.username != "" && $vm.password != "") {
@@ -6730,7 +6867,7 @@ __webpack_require__.r(__webpack_exports__);
 
           try {
             $vm.axios.post('api/login', {
-              email: $vm.username,
+              username: $vm.username,
               password: $vm.password
             }).then(function (response, status, request) {
               $('#login-msg-loader').hide();
@@ -10387,7 +10524,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              $this = _this; //this.students  = await this.axiosGetById('api/students/students','course_id',3);
+              $this = _this; //this.students  = await this.axiosGetById('api/students/course_students','course_id',3);
               //this.experiments  = await this.axiosGetById('api/students/students','course_id',3);
 
               setTimeout(function () {
@@ -11517,7 +11654,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      faculty_course_student: null
+      faculty_courses: null
     };
   },
   methods: {},
@@ -11536,7 +11673,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _this.axiosGetById('api/courses/faculty_courses', 'faculty_id', faculty_id);
 
             case 4:
-              _this.faculty_course_student = _context.sent;
+              _this.faculty_courses = _context.sent;
               //console.log(this.faculty_course_student)
               _this.tableLoaded = true;
               /*initialize datatable */
@@ -12426,7 +12563,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           errorSessionMessage: "Session Expired",
           successLoginMessage: "logged in successfuly",
           createdMessage: "created successfuly",
-          currentWidth: 100
+          currentWidth: 100,
+          currentUser: '',
+          startExperiment: false
         };
       },
       methods: {
@@ -12837,8 +12976,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       created: function created() {
         /*goes global*/
         if (_typeof(localStorage.getItem('LoggedUser')) != undefined) {
-          console.log(1);
           this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token;
+          this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;
         } else {
           localStorage.removeItem("LoggedUser");
         }
@@ -12866,8 +13005,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             window.rippleButton = function () {
               $('.button').click(function (event) {
                 var $this = $(this);
-                var $offset = $this.parent().offset(); //var $circle = $this.find('.c-ripple__circle');
-
+                var $offset = $this.parent().offset();
                 var diameter = Math.max($this.width(), $this.height());
                 var radius = diameter / 2;
                 var left = event.pageX - $offset.left - radius;
@@ -17969,7 +18107,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n/*@import url(\"https://use.fontawesome.com/releases/v5.13.0/css/all.css\");*/\ndiv[data-v-fc4318ee]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.slidewr[data-v-fc4318ee] {\n    position: absolute;\n    width: 100px;\n    height: 100px;    \n    transform: translateX(-100%);\n    -webkit-transform: translateX(-100%);\n}\n.slidein[data-v-fc4318ee] {\n    animation: slide-in-data-v-fc4318ee 0.5s forwards;\n    -webkit-animation: slide-in-data-v-fc4318ee 0.5s forwards;\n}\n.slideout[data-v-fc4318ee] {\n    animation: slide-out-data-v-fc4318ee 0.5s forwards;\n    -webkit-animation: slide-out-data-v-fc4318ee 0.5s forwards;\n}\n@keyframes slide-in-data-v-fc4318ee {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@-webkit-keyframes slide-in-data-v-fc4318ee {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@keyframes slide-out-data-v-fc4318ee {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.1); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:0;\n}\n}\n@-webkit-keyframes slide-out-data-v-fc4318ee {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.5); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:-10;\n}\n}\n[data-v-fc4318ee]::-webkit-scrollbar {\n  width: 9px; \n  cursor: pointer;\n}\n\n/* Track */\n[data-v-fc4318ee]::-webkit-scrollbar-track {\n\twidth: 50px;\n  border-radius: 5px;\n}\n \n/* Handle */\n[data-v-fc4318ee]::-webkit-scrollbar-thumb {\n  background: #eee; \n  border-radius: 10px;\n  cursor: pointer;\n}\n\n/* Handle on hover */\n[data-v-fc4318ee]::-webkit-scrollbar-thumb:hover {\n  background: #fff; \n  cursor: pointer;\n}\n.box[data-v-fc4318ee]{\n\theight: 35px; \n\t/*background-image:linear-gradient(#2F274E, #34d, #2F274E);*/\n\tbackground: darkblue;\n\tbox-shadow: 0px 0px 10px #fff;\n\tmargin: 35px auto;\n\ttext-align: center;\n\tcolor: #fff;\n\tpadding-top: 5px;\n\tborder-radius: 4px;\n\ttext-shadow: 1px 2px 2px #555;\n\tcursor: pointer !important;\n}\n.boxActive[data-v-fc4318ee]{\n\tbackground: #2F274E;\n}\n.containerR[data-v-fc4318ee]{\n\theight: 537px;\n\tbackground: #40356E;\n\toverflow-x: scroll;\n\tcolor: #fff;\n}\n.fa-align-justify[data-v-fc4318ee]{\n\tpadding: 5px;\n\tborder-radius: 0px 0px 3px 0px;\n\tcursor: pointer;\n\tborder-left: 1px solid #2F274E;\n\tcolor: #fff;\t\n\tbackground:transparent !important;\n}\n.fa-align-justify[data-v-fc4318ee]:hover{\n\tcolor: #2F274E;\n\tbackground:#fff !important;\n}\n.input-search[data-v-fc4318ee]{\n\twidth:100%;\n\theight:37px;\n\tbackground:#2F274E;\n\tpadding:10px;\n\tcolor:#fff;\n\tborder:none;\n}\n.input-alt[data-v-fc4318ee]{\n\twidth:100%;\n\theight:37px;\n\tbackground:#2F274E;\n\tpadding:10px;\n\tcolor:#fff;\n\tborder:none;\n\tposition: relative;\n\tz-index: 10;\n}\n.serachicon[data-v-fc4318ee]{\n\tcolor:#eee;\n\tposition: absolute;\n\tright: 10px; \n\ttop: 10px;\n}\n.pr[data-v-fc4318ee]{\n\tposition: relative;\n\tdisplay: block;\n}\n.z-1[data-v-fc4318ee]{\n\tz-index: 1;\n}\n.vhE-2[data-v-fc4318ee]{\n\theight: 87vh;\n\twidth: 100%;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/*@import url(\"https://use.fontawesome.com/releases/v5.13.0/css/all.css\");*/\ndiv[data-v-fc4318ee]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.slidewr[data-v-fc4318ee] {\n    position: absolute;\n    width: 100px;\n    height: 100px;    \n    transform: translateX(-100%);\n    -webkit-transform: translateX(-100%);\n}\n.slidein[data-v-fc4318ee] {\n    animation: slide-in-data-v-fc4318ee 0.5s forwards;\n    -webkit-animation: slide-in-data-v-fc4318ee 0.5s forwards;\n}\n.slideout[data-v-fc4318ee] {\n    animation: slide-out-data-v-fc4318ee 0.5s forwards;\n    -webkit-animation: slide-out-data-v-fc4318ee 0.5s forwards;\n}\n@keyframes slide-in-data-v-fc4318ee {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@-webkit-keyframes slide-in-data-v-fc4318ee {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@keyframes slide-out-data-v-fc4318ee {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.1); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:0;\n}\n}\n@-webkit-keyframes slide-out-data-v-fc4318ee {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.5); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:-10;\n}\n}\n[data-v-fc4318ee]::-webkit-scrollbar {\n  width: 9px; \n  cursor: pointer;\n}\n\n/* Track */\n[data-v-fc4318ee]::-webkit-scrollbar-track {\n\twidth: 50px;\n  border-radius: 5px;\n}\n \n/* Handle */\n[data-v-fc4318ee]::-webkit-scrollbar-thumb {\n  background: #eee; \n  border-radius: 10px;\n  cursor: pointer;\n}\n\n/* Handle on hover */\n[data-v-fc4318ee]::-webkit-scrollbar-thumb:hover {\n  background: #fff; \n  cursor: pointer;\n}\n.box[data-v-fc4318ee]{\n\theight: 35px; \n\t/*background-image:linear-gradient(#2F274E, #34d, #2F274E);*/\n\tbackground: darkblue;\n\tbox-shadow: 0px 0px 10px #fff;\n\tmargin: 35px auto;\n\ttext-align: center;\n\tcolor: #fff;\n\tpadding-top: 5px;\n\tborder-radius: 4px;\n\ttext-shadow: 1px 2px 2px #555;\n\tcursor: pointer !important;\n}\n.boxActive[data-v-fc4318ee]{\n\tbackground: #2F274E;\n}\n.containerR[data-v-fc4318ee]{\n\theight: 537px;\n\tbackground: #40356E;\n\toverflow-x: hidden;\n\tcolor: #fff;\n}\n.fa-align-justify[data-v-fc4318ee]{\n\tpadding: 5px;\n\tborder-radius: 0px 0px 3px 0px;\n\tcursor: pointer;\n\tborder-left: 1px solid #2F274E;\n\tcolor: #fff;\t\n\tbackground:transparent !important;\n}\n.fa-align-justify[data-v-fc4318ee]:hover{\n\tcolor: #2F274E;\n\tbackground:#fff !important;\n}\n.input-search[data-v-fc4318ee]{\n\twidth:100%;\n\theight:37px;\n\tbackground:#2F274E;\n\tpadding:10px;\n\tcolor:#fff;\n\tborder:none;\n}\n.input-alt[data-v-fc4318ee]{\n\twidth:100%;\n\theight:37px;\n\tbackground:#2F274E;\n\tpadding:10px;\n\tcolor:#fff;\n\tborder:none;\n\tposition: relative;\n\tz-index: 10;\n}\n.serachicon[data-v-fc4318ee]{\n\tcolor:#eee;\n\tposition: absolute;\n\tright: 10px; \n\ttop: 10px;\n}\n.pr[data-v-fc4318ee]{\n\tposition: relative;\n\tdisplay: block;\n}\n.z-1[data-v-fc4318ee]{\n\tz-index: 1;\n}\n.vhE-2[data-v-fc4318ee]{\n\theight: 87vh;\n\twidth: 100%;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -18019,7 +18157,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n/*@import url(\"https://use.fontawesome.com/releases/v5.13.0/css/all.css\");*/\n.tbtn[data-v-0f3afc1e]:active{\n    \tbox-shadow: inset 1px 2px 3px #111;\n}\n.tbtn[data-v-0f3afc1e]{\n    \tdisplay: flex;\n    \t\n    \tflex-wrap: wrap;\n    \talign-items: center;\n    \twidth:25px;\n    \theight: 25px; \n    \tborder-radius: 50%;\n    \tbackground: #eee;\n    \tcursor: pointer;\n}\n.fa-ico[data-v-0f3afc1e]{\n\t\tmargin: 0px 5px;\n\t\tpadding: 2px 5px;\n\t\tborder-radius: 5px;\n\t\tcolor:#eee;\n\t\tfont-size: 1.2em;\t\t\n\t\tcursor: pointer;\n\t\tmargin: 0px 5px;\n}\n.fa-ico[data-v-0f3afc1e]:hover{\n\t\tbackground: #EBEAEF;\n\t\tcolor:#2F274E;\n}\n.activeIco[data-v-0f3afc1e]{\n\t\tbackground: #EBEAEF;\n\t\tcolor:#2F274E;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/*@import url(\"https://use.fontawesome.com/releases/v5.13.0/css/all.css\");*/\n.tbtn[data-v-0f3afc1e]:active{\n    \tbox-shadow: inset 1px 2px 3px #111;\n}\n.tbtn[data-v-0f3afc1e]{\n    \tdisplay: flex;\n    \t\n    \tflex-wrap: wrap;\n    \talign-items: center;\n    \twidth:25px;\n    \theight: 25px; \n    \tborder-radius: 50%;\n    \tbackground: #eee;\n    \tcursor: pointer;\n}\n.fa-ico[data-v-0f3afc1e]{\n\t\tmargin: 0px 5px;\n\t\tpadding: 2px 5px;\n\t\tborder-radius: 5px;\n\t\tcolor:#eee;\n\t\tfont-size: 1.2em;\t\t\n\t\tcursor: pointer;\n\t\tmargin: 0px 5px;\n}\n.fa-ico[data-v-0f3afc1e]:hover{\n\t\tbackground: #EBEAEF;\n\t\tcolor:#2F274E;\n}\n.activeIco[data-v-0f3afc1e]{\n\t\tbackground: #EBEAEF;\n\t\tcolor:#2F274E;\n}\n.submit[data-v-0f3afc1e]:hover{\n\t\tcolor: #00b96b;\n}\n.submit[data-v-0f3afc1e]:active{\n\t\tfont-weight: bold;\n}\n.submit[data-v-0f3afc1e]{\n\t\tcursor: pointer;\n\t\t-webkit-user-select: none;\n\t\t   -moz-user-select: none;\n\t\t    -ms-user-select: none;\n\t\t        user-select: none;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -18544,33 +18682,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\n.timeline[data-v-41ea8ed8]{\r\n  mar
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewStudent.vue?vue&type=style&index=0&scss=true&lang=css&":
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewStudent.vue?vue&type=style&index=0&scss=true&lang=css& ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\t$box-width:365px;\n$box-height:175px;\nbody{\n  background-color:#69D2E7;\n}\n.dropDown-tltp{\n  position: absolute;\n  display: inline-block;\n  left:40%;\n  top:60%;\n  \n  font-family: 'Roboto Condensed', sans-serif;\n.label{\n    font-size: 20px;\n    border-radius: 5px;\n    border:2px solid #E0E4CC;\n    padding: 5px 31px;\n    color: #fff;\n    cursor: pointer;\n    display: inline-block;\n    background: none;    \n    font-family:inherit;\n    box-shadow: 1px 1px 5px rgba(42, 42, 42,0.6);\n    background-color:#F38630;\n&:focus{\n      outline: 0;\n      border:0;\n      box-shadow:none;\n      background-color:#de670a;\n}\n&:focus ~ .content{  \n      display: flex;\n}\n}\n.content{\n    display:none;         \n    flex-direction: column;\n    flex-wrap: wrap;\n    border-radius: 5px;\n    border: 3px solid #A7DBD8;\n    position: absolute;    \n    bottom: 50px;\n    left: 0px;\n    width: 365px;\n    max-width: 365px;\n    max-height: 175px;\n    background-color: #fff;\n    box-shadow: 1px 1px 10px rgba(42, 42, 42, 0.5);\n    padding: 20px 10px 5px 20px;\n    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;\na{\n      text-align: left;\n      font-size: 14px;\n      padding: 0px 0 15px 0;\n      color: #399bda;\n      text-decoration: none;\n&:hover{\n        font-weight: bold;\n}\n&.selected{\n        font-weight: bold;\n}\n}\n&:after{\n     position: absolute;\n    display: block;\n    bottom: -13px;\n    left: 12%;\n    border-left: 12px solid transparent;\n    border-right: 12px solid transparent;\n    border-top: 12px solid #A7DBD8;\n    content: \" \";\n    font-size: 0;\n    line-height: 0;\n    width: 0;\n}\n}\n}\n", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewStudent.vue?vue&type=style&index=1&id=5bb2184a&scoped=true&lang=css&":
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewStudent.vue?vue&type=style&index=0&id=5bb2184a&scoped=true&lang=css&":
 /*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewStudent.vue?vue&type=style&index=1&id=5bb2184a&scoped=true&lang=css& ***!
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewStudent.vue?vue&type=style&index=0&id=5bb2184a&scoped=true&lang=css& ***!
   \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -34191,39 +34305,9 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewStudent.vue?vue&type=style&index=0&scss=true&lang=css&":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewStudent.vue?vue&type=style&index=0&scss=true&lang=css& ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_viewStudent_vue_vue_type_style_index_0_scss_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./viewStudent.vue?vue&type=style&index=0&scss=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewStudent.vue?vue&type=style&index=0&scss=true&lang=css&");
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_viewStudent_vue_vue_type_style_index_0_scss_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default, options);
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_viewStudent_vue_vue_type_style_index_0_scss_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
-
-/***/ }),
-
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewStudent.vue?vue&type=style&index=1&id=5bb2184a&scoped=true&lang=css&":
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewStudent.vue?vue&type=style&index=0&id=5bb2184a&scoped=true&lang=css&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewStudent.vue?vue&type=style&index=1&id=5bb2184a&scoped=true&lang=css& ***!
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewStudent.vue?vue&type=style&index=0&id=5bb2184a&scoped=true&lang=css& ***!
   \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -34234,7 +34318,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_viewStudent_vue_vue_type_style_index_1_id_5bb2184a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./viewStudent.vue?vue&type=style&index=1&id=5bb2184a&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewStudent.vue?vue&type=style&index=1&id=5bb2184a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_viewStudent_vue_vue_type_style_index_0_id_5bb2184a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./viewStudent.vue?vue&type=style&index=0&id=5bb2184a&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewStudent.vue?vue&type=style&index=0&id=5bb2184a&scoped=true&lang=css&");
 
             
 
@@ -34243,11 +34327,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_viewStudent_vue_vue_type_style_index_1_id_5bb2184a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default, options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_viewStudent_vue_vue_type_style_index_0_id_5bb2184a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default, options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_viewStudent_vue_vue_type_style_index_1_id_5bb2184a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_viewStudent_vue_vue_type_style_index_0_id_5bb2184a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
 
 /***/ }),
 
@@ -36454,19 +36538,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _viewStudent_vue_vue_type_template_id_5bb2184a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./viewStudent.vue?vue&type=template&id=5bb2184a&scoped=true& */ "./resources/js/components/viewStudent.vue?vue&type=template&id=5bb2184a&scoped=true&");
 /* harmony import */ var _viewStudent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./viewStudent.vue?vue&type=script&lang=js& */ "./resources/js/components/viewStudent.vue?vue&type=script&lang=js&");
-/* harmony import */ var _viewStudent_vue_vue_type_style_index_0_scss_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./viewStudent.vue?vue&type=style&index=0&scss=true&lang=css& */ "./resources/js/components/viewStudent.vue?vue&type=style&index=0&scss=true&lang=css&");
-/* harmony import */ var _viewStudent_vue_vue_type_style_index_1_id_5bb2184a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./viewStudent.vue?vue&type=style&index=1&id=5bb2184a&scoped=true&lang=css& */ "./resources/js/components/viewStudent.vue?vue&type=style&index=1&id=5bb2184a&scoped=true&lang=css&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _viewStudent_vue_vue_type_style_index_0_id_5bb2184a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./viewStudent.vue?vue&type=style&index=0&id=5bb2184a&scoped=true&lang=css& */ "./resources/js/components/viewStudent.vue?vue&type=style&index=0&id=5bb2184a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
 ;
 
 
-
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_4__.default)(
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
   _viewStudent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
   _viewStudent_vue_vue_type_template_id_5bb2184a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
   _viewStudent_vue_vue_type_template_id_5bb2184a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
@@ -37743,28 +37825,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/viewStudent.vue?vue&type=style&index=0&scss=true&lang=css&":
-/*!********************************************************************************************!*\
-  !*** ./resources/js/components/viewStudent.vue?vue&type=style&index=0&scss=true&lang=css& ***!
-  \********************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_viewStudent_vue_vue_type_style_index_0_scss_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./viewStudent.vue?vue&type=style&index=0&scss=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewStudent.vue?vue&type=style&index=0&scss=true&lang=css&");
-
-
-/***/ }),
-
-/***/ "./resources/js/components/viewStudent.vue?vue&type=style&index=1&id=5bb2184a&scoped=true&lang=css&":
+/***/ "./resources/js/components/viewStudent.vue?vue&type=style&index=0&id=5bb2184a&scoped=true&lang=css&":
 /*!**********************************************************************************************************!*\
-  !*** ./resources/js/components/viewStudent.vue?vue&type=style&index=1&id=5bb2184a&scoped=true&lang=css& ***!
+  !*** ./resources/js/components/viewStudent.vue?vue&type=style&index=0&id=5bb2184a&scoped=true&lang=css& ***!
   \**********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_viewStudent_vue_vue_type_style_index_1_id_5bb2184a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./viewStudent.vue?vue&type=style&index=1&id=5bb2184a&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewStudent.vue?vue&type=style&index=1&id=5bb2184a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_viewStudent_vue_vue_type_style_index_0_id_5bb2184a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./viewStudent.vue?vue&type=style&index=0&id=5bb2184a&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/viewStudent.vue?vue&type=style&index=0&id=5bb2184a&scoped=true&lang=css&");
 
 
 /***/ }),
@@ -39126,147 +39195,155 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "vhE-2", attrs: { id: "rightNavigation" } }, [
-    _c(
-      "div",
-      {
-        staticClass: "containerR",
-        staticStyle: { height: "100%" },
-        attrs: { id: "tools" }
-      },
-      [
-        _c("div", { staticClass: "input-alt" }),
-        _vm._v(" "),
-        _vm.circuitconnectiontools == true
-          ? _c(
-              "span",
-              { staticClass: "pr z-1" },
-              [_c("circuitconnectiontools", { attrs: { has: "1" } })],
-              1
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.electricitytools == true
-          ? _c(
-              "span",
-              [
-                _c("span", {
-                  staticClass: "fa fa-align-justify bg-white rightnavexpander"
-                }),
-                _vm._v(" "),
-                _c("electricity")
-              ],
-              1
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.othertools == true
-          ? _c(
-              "span",
-              [
-                _c("span", {
-                  staticClass: "fa fa-align-justify bg-white rightnavexpander"
-                }),
-                _vm._v(" "),
-                _vm._l(_vm.toolsizes, function(tool) {
-                  return _c(
-                    "div",
-                    {
-                      key: tool,
-                      staticClass: "box",
-                      style: { width: tool + "px" },
-                      on: {
-                        click: function($event) {
-                          _vm.addactivate
-                          _vm.changeApparatus(tool)
-                        }
-                      }
-                    },
-                    [_vm._v("\n\t            \t\tSize\n\t        \t")]
-                  )
-                })
-              ],
-              2
-            )
-          : _vm._e()
-      ]
-    ),
-    _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
-    _vm._m(1),
-    _vm._v(" "),
-    _vm._m(2)
-  ])
+  return _c(
+    "div",
+    { staticClass: "vhE-2 ", attrs: { id: "rightNavigation" } },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "containerR",
+          staticStyle: { height: "100%" },
+          attrs: { id: "tools" }
+        },
+        [
+          _c("div", { staticClass: "input-alt" }),
+          _vm._v(" "),
+          _vm.circuitconnectiontools == true
+            ? _c(
+                "span",
+                { staticClass: "pr z-1" },
+                [_c("circuitconnectiontools", { attrs: { has: "1" } })],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.electricitytools == true
+            ? _c(
+                "span",
+                [
+                  _c("span", {
+                    staticClass:
+                      "fa fa-align-justify bg-white rightnavexpander",
+                    on: { click: _vm.rightnavexpander }
+                  }),
+                  _vm._v(" "),
+                  _c("electricity")
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.othertools == true
+            ? _c("span", [
+                _vm.type == "measurement" && _vm.startExperiment == true
+                  ? _c(
+                      "span",
+                      [
+                        _c("span", {
+                          staticClass:
+                            "fa fa-align-justify bg-white rightnavexpander",
+                          on: { click: _vm.rightnavexpander }
+                        }),
+                        _vm._v(" "),
+                        _vm._l(_vm.toolsizes[0].length, function(i) {
+                          return _c(
+                            "div",
+                            {
+                              key: i,
+                              staticClass: "box",
+                              style: { width: +"150px" },
+                              on: {
+                                click: function($event) {
+                                  _vm.addactivate
+                                  _vm.changeApparatus(
+                                    _vm.toolsizes[0][i],
+                                    _vm.toolsizes[1][i],
+                                    _vm.toolsizes[2][i]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n\t\t            \t\tSize " +
+                                  _vm._s(i) +
+                                  "\n\t\t        \t"
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  : _vm._e()
+              ])
+            : _vm._e()
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "containerR px-2",
+          staticStyle: { display: "none" },
+          attrs: { id: "resulttable" }
+        },
+        [
+          _c("div", { staticClass: "input-alt" }),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "fa fa-align-justify bg-white rightnavexpander",
+            on: { click: _vm.rightnavexpander }
+          }),
+          _vm._v(" "),
+          _vm.startExperiment
+            ? _c("div", { domProps: { innerHTML: _vm._s(_vm.result) } })
+            : _vm._e()
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "containerR",
+          staticStyle: { display: "none" },
+          attrs: { id: "resultgraph" }
+        },
+        [
+          _c("div", { staticClass: "input-alt" }),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "fa fa-align-justify bg-white rightnavexpander",
+            on: { click: _vm.rightnavexpander }
+          }),
+          _vm._v(" "),
+          _c("h1", [_vm._v("Graph")])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "containerR",
+          staticStyle: { display: "none" },
+          attrs: { id: "userhelp" }
+        },
+        [
+          _c("div", { staticClass: "input-alt" }),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "fa fa-align-justify bg-white rightnavexpander",
+            on: { click: _vm.rightnavexpander }
+          }),
+          _vm._v(" "),
+          _c("h1", [_vm._v("Help")])
+        ]
+      )
+    ]
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "containerR",
-        staticStyle: { display: "none" },
-        attrs: { id: "resulttable" }
-      },
-      [
-        _c("div", { staticClass: "input-alt" }),
-        _vm._v(" "),
-        _c("span", {
-          staticClass: "fa fa-align-justify bg-white rightnavexpander"
-        }),
-        _vm._v(" "),
-        _c("h1", [_vm._v("Result table")])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "containerR",
-        staticStyle: { display: "none" },
-        attrs: { id: "resultgraph" }
-      },
-      [
-        _c("div", { staticClass: "input-alt" }),
-        _vm._v(" "),
-        _c("span", {
-          staticClass: "fa fa-align-justify bg-white rightnavexpander"
-        }),
-        _vm._v(" "),
-        _c("h1", [_vm._v("Graph")])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "containerR",
-        staticStyle: { display: "none" },
-        attrs: { id: "userhelp" }
-      },
-      [
-        _c("div", { staticClass: "input-alt" }),
-        _vm._v(" "),
-        _c("span", {
-          staticClass: "fa fa-align-justify bg-white rightnavexpander"
-        }),
-        _vm._v(" "),
-        _c("h1", [_vm._v("Help")])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -39292,15 +39369,16 @@ var render = function() {
   return _c(
     "div",
     {
+      staticClass: "d-flex flex-wrap",
       staticStyle: {
         width: "100%",
         background: "#2F274E",
         color: "#fff",
-        padding: "7px 39px"
+        padding: "0px 39px"
       }
     },
     [
-      _c("div", { staticStyle: { display: "flex", width: "400px" } }, [
+      _c("div", { staticClass: " w-25" }, [
         _c("span", {
           staticClass: "fa fa-arrows-alt mr-5 pr-4",
           staticStyle: {
@@ -39311,7 +39389,9 @@ var render = function() {
           },
           on: { click: _vm.expandVideo }
         })
-      ])
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "w-75" })
     ]
   )
 }
@@ -39344,7 +39424,7 @@ var render = function() {
       staticStyle: {
         display: "flex",
         "justify-content": "space-between",
-        background: "#2F274E"
+        background: "#40356E"
       }
     },
     [
@@ -39377,7 +39457,7 @@ var render = function() {
           staticStyle: {
             display: "flex",
             "justify-content": "space-between",
-            background: "#2F274E",
+            background: "#40356E",
             width: "70%",
             color: "white"
           }
@@ -39415,24 +39495,45 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _vm._m(0)
+          _vm.startExperiment
+            ? _c(
+                "div",
+                { staticStyle: { padding: "6px", "margin-right": "60px" } },
+                [
+                  _vm.mode == "test"
+                    ? _c("span", {
+                        staticClass: "fa fa-save fa-ico",
+                        on: {
+                          click: function($event) {
+                            return _vm.submit("test")
+                          }
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.mode == "practice"
+                    ? _c(
+                        "span",
+                        {
+                          staticClass: "text-white submit",
+                          on: {
+                            click: function($event) {
+                              return _vm.submit("test")
+                            }
+                          }
+                        },
+                        [_vm._v("Submit")]
+                      )
+                    : _vm._e()
+                ]
+              )
+            : _vm._e()
         ]
       )
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticStyle: { padding: "6px", "margin-right": "60px" } },
-      [_c("span", { staticClass: "fa fa-save fa-ico" })]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -40448,7 +40549,7 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "timer",
+        staticClass: "timer bg-dark",
         staticStyle: {
           position: "absolute",
           top: "87px",
@@ -43153,38 +43254,31 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm._m(0)
+      _c(
+        "div",
+        {
+          staticStyle: {
+            display: "flex",
+            "flex-wrap": "wrap",
+            "align-items": "center"
+          }
+        },
+        [
+          _c("span", { staticClass: "fa fa-user mr-2" }),
+          _vm._v(" "),
+          _c(
+            "span",
+            { staticStyle: { "font-size": "0.9em", "font-weight": "300" } },
+            [_vm._v(_vm._s(_vm.username))]
+          ),
+          _vm._v(" "),
+          _c("span", { staticClass: "fa fa-chevron-down ml-2" })
+        ]
+      )
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticStyle: {
-          display: "flex",
-          "flex-wrap": "wrap",
-          "align-items": "center"
-        }
-      },
-      [
-        _c("span", { staticClass: "fa fa-user mr-2" }),
-        _vm._v(" "),
-        _c(
-          "span",
-          { staticStyle: { "font-size": "0.9em", "font-weight": "300" } },
-          [_vm._v("Sa'id")]
-        ),
-        _vm._v(" "),
-        _c("span", { staticClass: "fa fa-chevron-down ml-2" })
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -46335,364 +46429,378 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("br"),
+    _c("br"),
+    _vm._v(" "),
+    _c("div", { staticClass: "px-6" }, [
+      _vm._m(1),
+      _vm._v(" "),
+      _c("div", { staticClass: "p-secondary r2 m-0 p-4 hm300 mb-5" }, [
+        _c(
+          "p",
+          {
+            staticClass: " text-dark text-center fw4 font",
+            staticStyle: { display: "none" },
+            attrs: { id: "noMatch" }
+          },
+          [_vm._v("No course matches")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "row w-100 m-0 " },
+          [
+            _vm._l(_vm.faculty_courses, function(course) {
+              return _c("span", [
+                _c(
+                  "div",
+                  {
+                    staticClass: "p-4 w-100 bg-white shadow-sm my-3 fholder",
+                    staticStyle: { "border-radius": "9px" }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center mb-2"
+                      },
+                      [
+                        _c("div", { staticClass: "font " }, [
+                          _c("div", { staticClass: "mb-2" }, [
+                            _c("span", { staticClass: "fw5 fs01 ftag" }, [
+                              _vm._v(_vm._s(course.code))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("h3", { staticClass: "fw6 fdata" }, [
+                            _vm._v(_vm._s(course.title))
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "p",
+                            { staticClass: "my-1 font2 fs01 text-secondary" },
+                            [
+                              _vm._v(
+                                "But I must explain to you how you will go about this experiment"
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "my-0 fw5 fs1" }, [
+                            _vm._v("4 Practicals")
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(2, true)
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(3, true)
+              ])
+            }),
+            _vm._v(" "),
+            _vm._m(4),
+            _vm._v(" "),
+            _vm._m(5)
+          ],
+          2
+        )
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "w-100 row px-6 mx-0" }, [
-        _c("div", { staticClass: "col-lg-6 col-md-12 col-sm-12 p-0" }, [
-          _c(
-            "p",
-            {
-              staticStyle: {
-                "font-size": "3em",
-                "font-family": "'Roboto', serif",
-                "font-weight": "400"
-              }
-            },
-            [_vm._v("Physical Sciences")]
-          ),
+    return _c("div", { staticClass: "w-100 row px-6 mx-0" }, [
+      _c("div", { staticClass: "col-lg-6 col-md-12 col-sm-12 p-0" }, [
+        _c(
+          "p",
+          {
+            staticStyle: {
+              "font-size": "3em",
+              "font-family": "'Roboto', serif",
+              "font-weight": "400"
+            }
+          },
+          [_vm._v("Physical Sciences")]
+        ),
+        _vm._v(" "),
+        _c(
+          "p",
+          {
+            staticClass: "text-justify",
+            staticStyle: {
+              "font-family": "'Roboto', serif",
+              "font-size": "0.9em",
+              "font-weight": "300"
+            }
+          },
+          [
+            _vm._v(
+              "\n          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n        "
+            )
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-2 col-md-12 col-sm-12" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-4 col-md-12 col-sm-12 p-0" }, [
+        _c("div", { staticClass: "boxX p-4" }, [
+          _c("p", { staticClass: "fs2 fw8 font2" }, [_vm._v("What to Expect")]),
           _vm._v(" "),
-          _c(
-            "p",
-            {
-              staticClass: "text-justify",
-              staticStyle: {
-                "font-family": "'Roboto', serif",
-                "font-size": "0.9em",
-                "font-weight": "300"
-              }
-            },
-            [
+          _c("div", { staticClass: "d-flex " }, [
+            _c("span", {
+              staticClass:
+                "mr-2 fa fa-check text-success p-light border-rounded h1 r1 p-1"
+            }),
+            _vm._v(" "),
+            _c("p", { staticClass: "font2 fs1" }, [
               _vm._v(
-                "\n          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n        "
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
               )
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-2 col-md-12 col-sm-12" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-4 col-md-12 col-sm-12 p-0" }, [
-          _c("div", { staticClass: "boxX p-4" }, [
-            _c("p", { staticClass: "fs2 fw8 font2" }, [
-              _vm._v("What to Expect")
-            ]),
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "d-flex " }, [
+            _c("span", {
+              staticClass:
+                "mr-2 fa fa-check text-success p-light border-rounded h1 r1 p-1"
+            }),
             _vm._v(" "),
-            _c("div", { staticClass: "d-flex " }, [
-              _c("span", {
-                staticClass:
-                  "mr-2 fa fa-check text-success p-light border-rounded h1 r1 p-1"
-              }),
-              _vm._v(" "),
-              _c("p", { staticClass: "font2 fs1" }, [
-                _vm._v(
-                  "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
-                )
-              ])
-            ]),
+            _c("p", { staticClass: "font2 fs1" }, [
+              _vm._v(
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "d-flex " }, [
+            _c("span", {
+              staticClass:
+                "mr-2 fa fa-check text-success p-light border-rounded h1 r1 p-1"
+            }),
             _vm._v(" "),
-            _c("div", { staticClass: "d-flex " }, [
-              _c("span", {
-                staticClass:
-                  "mr-2 fa fa-check text-success p-light border-rounded h1 r1 p-1"
-              }),
-              _vm._v(" "),
-              _c("p", { staticClass: "font2 fs1" }, [
-                _vm._v(
-                  "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
-                )
-              ])
-            ]),
+            _c("p", { staticClass: "font2 fs1" }, [
+              _vm._v(
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "d-flex " }, [
+            _c("span", {
+              staticClass:
+                "mr-2 fa fa-check text-success p-light border-rounded h1 r1 p-1"
+            }),
             _vm._v(" "),
-            _c("div", { staticClass: "d-flex " }, [
-              _c("span", {
-                staticClass:
-                  "mr-2 fa fa-check text-success p-light border-rounded h1 r1 p-1"
-              }),
-              _vm._v(" "),
-              _c("p", { staticClass: "font2 fs1" }, [
-                _vm._v(
-                  "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
-                )
-              ])
-            ]),
+            _c("p", { staticClass: "font2 fs1" }, [
+              _vm._v(
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "d-flex " }, [
+            _c("span", {
+              staticClass:
+                "mr-2 fa fa-check text-success p-light border-rounded h1 r1 p-1"
+            }),
             _vm._v(" "),
-            _c("div", { staticClass: "d-flex " }, [
-              _c("span", {
-                staticClass:
-                  "mr-2 fa fa-check text-success p-light border-rounded h1 r1 p-1"
-              }),
-              _vm._v(" "),
-              _c("p", { staticClass: "font2 fs1" }, [
-                _vm._v(
-                  "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "d-flex " }, [
-              _c("span", {
-                staticClass:
-                  "mr-2 fa fa-check text-success p-light border-rounded h1 r1 p-1"
-              }),
-              _vm._v(" "),
-              _c("p", { staticClass: "font2 fs1" }, [
-                _vm._v(
-                  "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
-                )
-              ])
+            _c("p", { staticClass: "font2 fs1" }, [
+              _vm._v(
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
+              )
             ])
           ])
         ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row d-lg-flex w-100 m-0" }, [
+      _c("div", { staticClass: "col-lg-4 col-md-3 pt-1 pl-0 ml-0 mb-5" }, [
+        _c("span", { staticClass: "font2 fs2 fw6" }, [
+          _vm._v("2 available courses")
+        ])
       ]),
       _vm._v(" "),
-      _c("br"),
-      _c("br"),
-      _vm._v(" "),
-      _c("div", { staticClass: "px-6" }, [
-        _c("div", { staticClass: "row d-lg-flex w-100 m-0" }, [
-          _c("div", { staticClass: "col-lg-4 col-md-3 pt-1 pl-0 ml-0 mb-5" }, [
-            _c("span", { staticClass: "font2 fs2 fw6" }, [
-              _vm._v("2 available courses")
-            ])
+      _c(
+        "div",
+        {
+          staticClass:
+            "some-input-field-class col-lg-8 col-md-9 d-flex justify-content-between p-0 mb-5 row"
+        },
+        [
+          _c("div", { staticClass: "col-lg-6 col-md-none" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-3 p-0 m-0 col-md-6 col-sm-6" }, [
+            _c("input", {
+              staticClass: "input-search3 w-100",
+              attrs: {
+                name: "filter",
+                id: "filter",
+                placeholder: "Search V-labs"
+              }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "fa fa-search serachicon2" })
           ]),
           _vm._v(" "),
           _c(
             "div",
             {
-              staticClass:
-                "some-input-field-class col-lg-8 col-md-9 d-flex justify-content-between p-0 mb-5 row"
+              staticClass: "col-lg-3 col-md-6 col-sm-6 d-flex flex-wrap pr-0",
+              staticStyle: { "justify-content": "space-between" }
             },
             [
-              _c("div", { staticClass: "col-lg-6 col-md-none" }),
+              _c("span"),
               _vm._v(" "),
-              _c("div", { staticClass: "col-lg-3 p-0 m-0 col-md-6 col-sm-6" }, [
-                _c("input", {
-                  staticClass: "input-search3 w-100",
-                  attrs: {
-                    name: "filter",
-                    id: "filter",
-                    placeholder: "Search V-labs"
-                  }
-                }),
+              _c("span", { staticStyle: { "white-space": "nowrap" } }, [
+                _c("span", { staticClass: "font2 fs1 fw3 sortby" }, [
+                  _vm._v("Sort By")
+                ]),
                 _vm._v(" "),
-                _c("span", { staticClass: "fa fa-search serachicon2" })
+                _c(
+                  "span",
+                  {
+                    staticClass: "sort sortbtn",
+                    attrs: { "data-sort": "name" }
+                  },
+                  [
+                    _vm._v("Name "),
+                    _c("span", { staticClass: "fa fa-chevron-down" }),
+                    _vm._v("|")
+                  ]
+                ),
+                _vm._v(" "),
+                _c("span", { staticClass: "fa fa-long-arrow-up px-1 fw2" })
+              ])
+            ]
+          )
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("p", { staticClass: "text-success fs1 more-detail-pin" }, [
+        _vm._v("More Detail "),
+        _c("span", { staticClass: "fa fa-chevron-down text-success" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "more-detail" }, [
+      _c("p", [
+        _vm._v(
+          "\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n              "
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "p-4 w-100 bg-white shadow-sm my-3 fholder",
+        staticStyle: { "border-radius": "9px" }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass:
+              "d-flex justify-content-between align-items-center mb-2"
+          },
+          [
+            _c("div", { staticClass: "font " }, [
+              _c("div", { staticClass: "mb-2" }, [
+                _c("span", { staticClass: "fw5 fs01 ftag" }, [
+                  _vm._v("PHY 107")
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "fw5 fs01 ftag" }, [
+                  _vm._v("PHY 107")
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "fw5 fs01 ftag" }, [
+                  _vm._v("PHY 107")
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "fw5 fs01 ftag" }, [
+                  _vm._v("PHY 107")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("h3", { staticClass: "fw6 fdata" }, [
+                _vm._v("Virtual Optics")
               ]),
               _vm._v(" "),
               _c(
-                "div",
+                "p",
                 {
-                  staticClass:
-                    "col-lg-3 col-md-6 col-sm-6 d-flex flex-wrap pr-0",
-                  staticStyle: { "justify-content": "space-between" }
+                  staticClass: "my-1 font2 ",
+                  staticStyle: { color: "#888", "font-size": "0.85em" }
                 },
                 [
-                  _c("span"),
-                  _vm._v(" "),
-                  _c("span", { staticStyle: { "white-space": "nowrap" } }, [
-                    _c("span", { staticClass: "font2 fs1 fw3 sortby" }, [
-                      _vm._v("Sort By")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        staticClass: "sort sortbtn",
-                        attrs: { "data-sort": "name" }
-                      },
-                      [
-                        _vm._v("Name "),
-                        _c("span", { staticClass: "fa fa-chevron-down" }),
-                        _vm._v("|")
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "fa fa-long-arrow-up px-1 fw2" })
-                  ])
+                  _vm._v(
+                    "But I must explain to you how you will go about this experiment"
+                  )
                 ]
+              ),
+              _vm._v(" "),
+              _c(
+                "p",
+                {
+                  staticClass: "my-0 fw5",
+                  staticStyle: { "font-size": "0.9em" }
+                },
+                [_vm._v("4 Practicals")]
               )
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "p-secondary r2 m-0 p-4 hm300 mb-5" }, [
-          _c(
-            "p",
-            {
-              staticClass: " text-dark text-center fw4 font",
-              staticStyle: { display: "none" },
-              attrs: { id: "noMatch" }
-            },
-            [_vm._v("No course matches")]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "row w-100 m-0 " }, [
-            _c(
-              "div",
-              {
-                staticClass: "p-4 w-100 bg-white shadow-sm my-3 fholder",
-                staticStyle: { "border-radius": "9px" }
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "d-flex justify-content-between align-items-center mb-2"
-                  },
-                  [
-                    _c("div", { staticClass: "font " }, [
-                      _c("div", { staticClass: "mb-2" }, [
-                        _c("span", { staticClass: "fw5 fs01 ftag" }, [
-                          _vm._v("PHY 107")
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "fw5 fs01 ftag" }, [
-                          _vm._v("PHY 107")
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "fw5 fs01 ftag" }, [
-                          _vm._v("PHY 107")
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "fw5 fs01 ftag" }, [
-                          _vm._v("PHY 107")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("h3", { staticClass: "fw6 fdata" }, [_vm._v("Other")]),
-                      _vm._v(" "),
-                      _c(
-                        "p",
-                        { staticClass: "my-1 font2 fs01 text-secondary" },
-                        [
-                          _vm._v(
-                            "But I must explain to you how you will go about this experiment"
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "my-0 fw5 fs1" }, [
-                        _vm._v("4 Practicals")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c(
-                        "p",
-                        { staticClass: "text-success fs1 more-detail-pin" },
-                        [
-                          _vm._v("More Detail "),
-                          _c("span", {
-                            staticClass: "fa fa-chevron-down text-success"
-                          })
-                        ]
-                      )
-                    ])
-                  ]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "more-detail" }, [
-              _c("p", [
-                _vm._v(
-                  "\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n              "
-                )
-              ])
             ]),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "p-4 w-100 bg-white shadow-sm my-3 fholder",
-                staticStyle: { "border-radius": "9px" }
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "d-flex justify-content-between align-items-center mb-2"
-                  },
-                  [
-                    _c("div", { staticClass: "font " }, [
-                      _c("div", { staticClass: "mb-2" }, [
-                        _c("span", { staticClass: "fw5 fs01 ftag" }, [
-                          _vm._v("PHY 107")
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "fw5 fs01 ftag" }, [
-                          _vm._v("PHY 107")
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "fw5 fs01 ftag" }, [
-                          _vm._v("PHY 107")
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "fw5 fs01 ftag" }, [
-                          _vm._v("PHY 107")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("h3", { staticClass: "fw6 fdata" }, [
-                        _vm._v("Virtual Optics")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "p",
-                        {
-                          staticClass: "my-1 font2 ",
-                          staticStyle: { color: "#888", "font-size": "0.85em" }
-                        },
-                        [
-                          _vm._v(
-                            "But I must explain to you how you will go about this experiment"
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "p",
-                        {
-                          staticClass: "my-0 fw5",
-                          staticStyle: { "font-size": "0.9em" }
-                        },
-                        [_vm._v("4 Practicals")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c(
-                        "p",
-                        { staticClass: "text-success fs1 more-detail-pin" },
-                        [
-                          _vm._v("More Detail "),
-                          _c("span", {
-                            staticClass: "fa fa-chevron-down text-success"
-                          })
-                        ]
-                      )
-                    ])
-                  ]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "more-detail" }, [
-              _c("p", [
-                _vm._v(
-                  "\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n              "
-                )
+            _c("div", [
+              _c("p", { staticClass: "text-success fs1 more-detail-pin" }, [
+                _vm._v("More Detail "),
+                _c("span", { staticClass: "fa fa-chevron-down text-success" })
               ])
             ])
-          ])
-        ])
+          ]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "more-detail" }, [
+      _c("p", [
+        _vm._v(
+          "\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n              "
+        )
       ])
     ])
   }

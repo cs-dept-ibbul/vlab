@@ -16,7 +16,9 @@ export default {
       		errorSessionMessage:"Session Expired",
       		successLoginMessage:"logged in successfuly",
       		createdMessage:"created successfuly",
-      		currentWidth:100
+      		currentWidth:100,
+      		currentUser:'',
+      		startExperiment: false,
 
       	}
       },
@@ -359,9 +361,9 @@ export default {
       },
       created: function(){
       		/*goes global*/      		
-      		if(typeof localStorage.getItem('LoggedUser') != undefined){
-      			console.log(1);
+      		if(typeof localStorage.getItem('LoggedUser') != undefined){      			
       			this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
+      			this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;
       		}else{
 		        localStorage.removeItem("LoggedUser");
       		}
@@ -390,8 +392,7 @@ export default {
       			window.rippleButton = function(){      				
 					$('.button').click(function(event){
 						var $this = $(this);
-					    var $offset = $this.parent().offset();
-					    //var $circle = $this.find('.c-ripple__circle');
+					    var $offset = $this.parent().offset();					    
 					  const diameter = Math.max($this.width(), $this.height());
 					  const radius = diameter / 2;
 					  let left = event.pageX - $offset.left - radius;

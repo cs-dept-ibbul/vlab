@@ -36,7 +36,7 @@
 	    		</div>
     		</div>
     		<form id="login-form">
-    			<input type="text" placeholder="Matriculation Number" id="matric-number" class="form-control my-3 h2 login-input"  name="username">
+    			<input type="text" placeholder="Username" id="username" class="form-control my-3 h2 login-input"  name="username">
     			<input type="text" placeholder="Password"  id="password" class="form-control my-3 h2 login-input" name="password">
     			<button class="p-dark sys-submit-btn text-white font fs8 fw2 w-100 h2" type="button" id="login-btn">Login</button>
     			<p class="p-text-dark text-center fs2 fw3"><a href="">Forgot Password?</a></p>

@@ -1,9 +1,118 @@
 <?php
 $tools = 5;
-$toolSizes = [80,54,69,70,90];
+$toolSizes = [
+  [50,60],//'size'
+  [40,54],//'sizeI'
+  [80,54],//'sizeD'
+];
 $ct = 1;
-$started = 0; //this will be from database
+$started = '0'; //this will be from database
+$resultTable = '
+    <div id="result_table" class="bg-white p-2 mx-auto mt-2" style="border-radius:10px;width:450px;overflow:auto;"> 
+      <h4 class="text-warning font2 mb-0">Table of Measurements</h4>
+      <h5 class="text-dark font2 fs1 fw6 mt-2">Length of Cylinder</h5>
+      <table class="table table-bordered result-table" id="main_result_table"> 
+          <thead>
+            <th class="p-1 fs01 text-center" width="12%">No. Of Readings</th>
+            <th class="p-1 fs01 text-center" width="22%">Main Scale Reading (cm)</th>
+            <th class="p-1 fs01 text-center" width="22%">Vernier Coincidence</th>
+            <th class="p-1 fs01 text-center" width="22%">Vernier Readings (cm)</th>
+            <th class="p-1 fs01 text-center" width="22%">Length (L) Reading (cm)</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="r-template p-1 text-center" width="12%">1.</td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>                    
+            </tr>
+            <tr>
+              <td class="r-template p-1 text-center" width="12%">2.</td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>                    
+            </tr>
+            <tr>
+              <td class="r-template p-1 text-center" width="12%">Average</td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>                    
+            </tr>
+          </tbody>
+      </table>
+      <h5 class="text-dark font2 fs1 fw6 mt-2">Diameter of Cylinder</h5>
+      <table class="table table-bordered result-table" id="main_result_table"> 
+          <thead>
+            <th class="p-1 fs01 text-center" width="12%">No. Of Readings</th>
+            <th class="p-1 fs01 text-center" width="22%">Main Scale Reading (cm)</th>
+            <th class="p-1 fs01 text-center" width="22%">Vernier Coincidence</th>
+            <th class="p-1 fs01 text-center" width="22%">Vernier Readings (cm)</th>
+            <th class="p-1 fs01 text-center" width="22%">Length (L) Reading (cm)</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="r-template p-1 text-center" width="12%">1.</td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>                    
+            </tr>
+            <tr>
+              <td class="r-template p-1 text-center" width="12%">2.</td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>                    
+            </tr>
+            <tr>
+              <td class="r-template p-1 text-center" width="12%">Average</td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>                    
+            </tr>
+          </tbody>
+      </table>
+      <h5 class="text-dark font2 fs1 fw6 mt-2">Diameter of Bob</h5>
+      <table class="table table-bordered result-table" id="main_result_table"> 
+          <thead>
+            <th class="p-1 fs01 text-center" width="12%">No. Of Readings</th>
+            <th class="p-1 fs01 text-center" width="22%">Main Scale Reading (cm)</th>
+            <th class="p-1 fs01 text-center" width="22%">Vernier Coincidence</th>
+            <th class="p-1 fs01 text-center" width="22%">Vernier Readings (cm)</th>
+            <th class="p-1 fs01 text-center" width="22%">Length (L) Reading (cm)</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="r-template p-1 text-center" width="12%">1.</td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>                    
+            </tr>
+            <tr>
+              <td class="r-template p-1 text-center" width="12%">2.</td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>                    
+            </tr>
+            <tr>
+              <td class="r-template p-1 text-center" width="12%">Average</td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control"></td>                    
+            </tr>
+          </tbody>
+      </table>
 
+    </div>
+
+';
 ?>
 @extends('layouts/main')
 
@@ -11,11 +120,9 @@ $started = 0; //this will be from database
 @section('head')
 <script>
    var toolSizes = <?php echo json_encode($toolSizes); ?>;
-
-   //localStorage.setItem('objectSize',{{$toolSizes[0]}});
-   var experimentSheet;
-   var url = '{{route('vernierEquipment').'?size='.$toolSizes[0] }} ' //localStorage.getItem('objectSize');
    
+   var experimentSheet;
+   var url = '{{route("vernierEquipment")."?size=".$toolSizes[0][0]."-".$toolSizes[1][0]."-".$toolSizes[2][0] }} ' //localStorage.getItem('objectSize');   
    window.onload = function(){
     experimentSheet = document.getElementById('experimentSheet');
     experimentSheet.src= url;
@@ -26,10 +133,9 @@ $started = 0; //this will be from database
 @endsection
 @section('content-body')
 <div class="d-flex">   
-  <v-userauth></v-userauth>
-  
     <v-msidebar class='vh-100'></v-msidebar>   
    <!-- end main side bar -->
+
 
    <div class="w-100 vh-100 position-relative">
          <!-- top nav bar -->
@@ -49,11 +155,11 @@ $started = 0; //this will be from database
                <v-ribbon></v-ribbon>
                 <iframe width="100%" height="480px"  frameborder="0" style="display: none;" src="" id="experimentSheet"></iframe>
              
-               <v-start hourdata="1" munitedata="30" starteddata="{{$started}}" ></v-start>
+               <v-start hourdata="0" munitedata="30" starteddata="{{$started}}" ></v-start>
             </div>
             <!-- end experiment -->
             <div  class="zero-space exprightNav" id="rightNav">               
-               <v-rightnav :toolstate=true :othertools=true :toolsizes="{{json_encode($toolSizes)}}" url="{{route('vernierEquipment').'?size='}}" ></v-rightnav>        
+               <v-rightnav result="{{$resultTable}}" type='measurement' :toolstate=true :othertools=true :toolsizes="{{json_encode($toolSizes)}}" url="{{route('vernierEquipment').'?size='}}" ></v-rightnav>        
             </div>
             <!-- experiment footer -->
             <div class="position-absolute bottom-0 w-100">

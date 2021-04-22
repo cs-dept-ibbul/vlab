@@ -67,16 +67,15 @@
           <p id="noMatch" style="display: none;" class=" text-dark text-center fw4 font">No course matches</p>
           <div class="row w-100 m-0 ">       
            <!-- experiment box -->
+            <span v-for="course in faculty_courses">
+              
               <div class="p-4 w-100 bg-white shadow-sm my-3 fholder" style="border-radius: 9px;">
                 <div class="d-flex justify-content-between align-items-center mb-2">
                   <div class="font ">
                     <div class="mb-2">
-                      <span class="fw5 fs01 ftag">PHY 107</span>
-                      <span class="fw5 fs01 ftag">PHY 107</span>
-                      <span class="fw5 fs01 ftag">PHY 107</span>
-                      <span class="fw5 fs01 ftag">PHY 107</span>
+                      <span class="fw5 fs01 ftag">{{course.code}}</span>                      
                     </div>
-                    <h3 class="fw6 fdata">Other</h3>
+                    <h3 class="fw6 fdata">{{course.title}}</h3>
                     <p class="my-1 font2 fs01 text-secondary" >But I must explain to you how you will go about this experiment</p>
                     <p class="my-0 fw5 fs1">4 Practicals</p>
                   </div>
@@ -113,6 +112,7 @@
                   proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
               </div>
+            </span>
               <!-- end experiment box -->
 
               <!-- experiment box -->
@@ -174,7 +174,7 @@
   export default {
    data(){
       return{
-        faculty_course_student:null,
+        faculty_courses:null,
       }
     },
   methods:{
@@ -183,7 +183,7 @@
   async created(){
         let pathname = location.pathname.split('/')
         let faculty_id = pathname[pathname.length -1];
-         this.faculty_course_student  = await this.axiosGetById('api/courses/faculty_courses','faculty_id', faculty_id);
+         this.faculty_courses  = await this.axiosGetById('api/courses/faculty_courses','faculty_id', faculty_id);
           //console.log(this.faculty_course_student)
           this.tableLoaded = true;
           

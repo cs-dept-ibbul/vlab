@@ -104,7 +104,7 @@
 
 		    let $this = this;
 
-		    //this.students  = await this.axiosGetById('api/students/students','course_id',3);
+		    //this.students  = await this.axiosGetById('api/students/course_students','course_id',3);
 		    //this.experiments  = await this.axiosGetById('api/students/students','course_id',3);
              setTimeout(function() {             	
              	$this.loaderState =false;

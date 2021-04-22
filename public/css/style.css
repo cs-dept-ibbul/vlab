@@ -741,14 +741,14 @@ button:focus{
 /* Handle */
 
 ::-webkit-scrollbar-thumb {
-  background: #eee;
+  background: #20152e;
   border-radius: 10px;
   cursor: pointer;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #fff;
+  background: #20154e;
   cursor: pointer;
 }
 
@@ -832,9 +832,8 @@ span.w-60, .w-60{
   position: absolute;
   right: 0px;
   top: 13vh ;
-  width: 200px;
-
-  transition: width 1s;  
+  width: 200px;    
+  transition: width 0.4s;  
 
 }
 .bottom-0{
@@ -1393,4 +1392,22 @@ span.ripple {
   display: inline-block;
   margin-top: -4px;
   z-index: 10;
+}
+
+
+.r-template{
+  font-size: 0.9em;
+  font-family: Roboto;
+  font-weight: 500; 
+  height: 23px;
+}
+.r-template input{  
+  border-radius: 0px;
+  border:1px solid transparent;
+}
+.r-template input:focus{
+  box-shadow: none;
+  border:1px solid #666;
+  font-family: Roboto;
+  font-weight: 500;
 }
