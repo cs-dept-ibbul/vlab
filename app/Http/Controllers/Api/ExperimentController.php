@@ -189,6 +189,9 @@ class ExperimentController extends Controller
         $experimentResult = new ExperimentResult();
 
         $experimentId = $request->get('experiment_id');
+        $timeStarted = $request->get('time_started');
+        $timeSubmitted = $request->get('time_submitted');
+        $timeLeft = $request->get('time_left');
         $sessionId = $request->get('session_id');
         $resultJson = $request->get('result_json');
 
@@ -203,6 +206,10 @@ class ExperimentController extends Controller
             $experimentResultId = $checkDuplicate->first()->id;
             $upsertResult = ExperimentResult::find($experimentResultId);
             $upsertResult->result_json = $resultJson;
+            
+            $upsertResult->time_started = $timeStarted;
+            $upsertResult->time_submitted = $timeSubmitted;
+            $upsertResult->time_left = $timeLeft;
 
             if($upsertResult->save()){
                 return response()->json(['message' => "Experiment Result has been updated"], 200);
@@ -212,6 +219,11 @@ class ExperimentController extends Controller
         $experimentResult->id = Util::uuid();
         $experimentResult->user_id = $this->userId;
         $experimentResult->experiment_id = $experimentId;
+
+        $experimentResult->time_started = $timeStarted;
+        $experimentResult->time_submited = $timeSubmitted;
+        $experimentResult->time_left = $timeLeft;
+
         $experimentResult->session_id = $sessionId;
         $experimentResult->result_json = $resultJson;
 
