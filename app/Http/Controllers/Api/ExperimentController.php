@@ -195,6 +195,8 @@ class ExperimentController extends Controller
         $sessionId = $request->get('session_id');
         $resultJson = $request->get('result_json');
 
+        $completionStatus = $request->get('completion_status');
+
         $checkDuplicate = ExperimentResult::where([
             'user_id' => $this->userId,
             'session_id' => $sessionId,
@@ -210,6 +212,7 @@ class ExperimentController extends Controller
             $upsertResult->time_started = $timeStarted;
             $upsertResult->time_submitted = $timeSubmitted;
             $upsertResult->time_left = $timeLeft;
+            $upsertResult->completion_status = $completionStatus;
 
             if($upsertResult->save()){
                 return response()->json(['message' => "Experiment Result has been updated"], 200);
