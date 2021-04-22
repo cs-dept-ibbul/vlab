@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Faculty extends Model
 {
     use HasFactory;
+    public $incrementing = false;
 
     protected $hidden = [
         'remember_token',
