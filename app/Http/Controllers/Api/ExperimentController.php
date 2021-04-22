@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Experiment;
 use App\Models\ExperimentResult;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -198,7 +199,14 @@ class ExperimentController extends Controller
         ]);
 
         if (!empty($checkDuplicate)) {
-            return response()->json(['error' => "Result already exist"], 409);
+
+            $experimentResultId = $checkDuplicate->first()->id;
+            $upsertResult = ExperimentResult::find($experimentResultId);
+            $upsertResult->result_json = $resultJson;
+
+            if($upsertResult->save()){
+                return response()->json(['message' => "Experiment Result has been updated"], 200);
+            }
         }
 
         $experimentResult->id = Util::uuid();
