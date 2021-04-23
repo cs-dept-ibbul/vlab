@@ -21,6 +21,7 @@ class CourseController extends Controller
     private $schoolId;
     private $facultyId;
     private $userId;
+    private $currentSession;
 
     public function __construct()
     {
@@ -29,6 +30,7 @@ class CourseController extends Controller
             $this->schoolId = $this->currentUser->school_id;
             $this->facultyId = $this->currentUser->faculty_id;
             $this->userId = $this->currentUser->id;
+            $this->currentSession = SessionController::getCurrentSessionId();
         }
     }
 
@@ -50,6 +52,7 @@ class CourseController extends Controller
         $title = $request->get('title');
         $code = $request->get('code');
         $description = $request->get('description');
+        $sessionId = $request->get('session_id');
         $status = $request->get('status') ?? 'Active';
 
         $checkCourse = Course::where(['code' => $code])->first();
@@ -63,6 +66,7 @@ class CourseController extends Controller
                 'title'       => $title,
                 'code'        => $code,
                 'description' => $description,
+                'session_id' => $sessionId,
                 'status'      => $status,
             );
             /*creating course resources*/
@@ -298,12 +302,19 @@ class CourseController extends Controller
     {
         $userCourses = new CourseStudents();
         $userCourses->id = Util::uuid();
+        $sessionId = $this->currentSession;
+        
         $userCourses->course_id = $course_id;
         $userCourses->user_id = $user_id;
         $userCourses->school_id = $this->schoolId;
         $userCourses->faculty_id = $this->facultyId;
+        $userCourses->session_id = $sessionId;
 
-        $checkStudentCourse = CourseStudents::where(['course_id' => $course_id, 'user_id' => $user_id,])->first();
+        $checkStudentCourse = CourseStudents::where([
+            'course_id' => $course_id, 
+            'user_id' => $user_id, 
+            'session_id' => $sessionId
+        ])->first();
 
         if ($checkStudentCourse != null) {
             return response()->json(['error' => 'This course has already been assigned to this student'], 409);

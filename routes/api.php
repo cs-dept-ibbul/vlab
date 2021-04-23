@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Api\SchoolController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DepartmentController;
+use App\Http\Controllers\Api\SessionController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -80,6 +81,15 @@ Route::group([
             Route::post('experiment_results_csid', [ExperimentController::class, 'getExperimentResultsByCourseSessId']);
             Route::post('experiment', [ExperimentController::class, 'getExperiment']);
             Route::get('experiments', [ExperimentController::class, 'getAllExperiment']);
+        });
+
+        Route::group([
+            'prefix' => 'session'
+        ], function () {
+            Route::post('create', [SessionController::class, 'create']);
+            Route::post('update', [SessionController::class, 'update']);
+            Route::post('delete', [SessionController::class, 'delete']);
+            Route::get('all_session', [SessionController::class, 'getAllSession']);
         });
 
         Route::group([
