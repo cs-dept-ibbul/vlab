@@ -3,12 +3,9 @@ use App\Http\Controllers\Api\ExperimentController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Api\SchoolController;
-use App\Http\Controllers\Api\Util;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DepartmentController;
 use App\Http\Controllers\Api\UserController;
-use App\Models\Department;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 /*
@@ -93,6 +90,7 @@ Route::group([
             Route::post('delete', [CourseController::class, 'deleteCourse']);
             Route::post('course', [CourseController::class, 'getCourse']);
             Route::get('courses', [CourseController::class, 'getAllCourses']);
+            Route::post('enroll_student', [CourseController::class, 'enrollStudent']);
             Route::get('courses_students', [CourseController::class, 'courseStudents']);
             Route::post('course_students', [CourseController::class, 'courseStudentById']);
             Route::post('faculty_courses', [CourseController::class, 'getCoursesByFacultyId']);

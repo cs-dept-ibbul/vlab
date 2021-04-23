@@ -262,6 +262,32 @@ class CourseController extends Controller
         }
     }
 
+    public function enrollStudent(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'course_id' => 'required',
+            'enrollment_code' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "course_id and enrollment_code fields are required"], 400);
+        }
+
+        $courseId = $request->get('course_id');
+        $enrolmentCode = $request->get('enrollment_code');
+
+        $checkCode = Course::find($courseId);
+        
+        if($checkCode->enrollment_code == $enrolmentCode){
+            return $this->addStudentCourse($this->userId, $courseId);
+        } else {
+            return response()->json(['error' => 'Invalid Enrollment Code'], 400);
+        }
+
+        return response()->json(['success' => false], 400);
+
+    }
+
     public function addStudentCourse($user_id, $course_id)
     {
         $userCourses = new CourseStudents();
