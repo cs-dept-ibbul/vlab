@@ -17,6 +17,8 @@ class CreateCoursesTable extends Migration
             $table->string('id')->primary();
             $table->string('school_id');
             $table->string('faculty_id');
+            $table->string('session_id');
+            $table->string('enrollment_code');
             $table->string('title');
             $table->string('code');
             $table->string('description');
@@ -31,6 +33,7 @@ class CreateCoursesTable extends Migration
             $table->string('faculty_id');
             $table->string('course_id');
             $table->string('user_id');
+            $table->string('session_id');
             $table->enum('status', ['Active', 'Inactive']);
             $table->rememberToken();
             $table->timestamps();

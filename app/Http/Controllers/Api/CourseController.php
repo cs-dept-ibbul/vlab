@@ -24,7 +24,7 @@ class CourseController extends Controller
 
     public function __construct()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             $this->currentUser = Auth::user();
             $this->schoolId = $this->currentUser->school_id;
             $this->facultyId = $this->currentUser->faculty_id;
@@ -34,39 +34,39 @@ class CourseController extends Controller
 
     public function create(Request $request)
     {
-        $validator = Validator::make($request->all(), [                        
+        $validator = Validator::make($request->all(), [
             'title' => 'required',
             'code' => 'required',
             'resource_url' => 'required',
             'experiment_id' => 'required',
             'instructor_id' => 'required',
-        ]);       
+        ]);
         if ($validator->fails()) {
             return response()->json(['error' => "All fields are required"], 400);
         }
 
 
-        $course_uuid = Util::uuid();        
+        $course_uuid = Util::uuid();
         $title = $request->get('title');
         $code = $request->get('code');
         $description = $request->get('description');
         $status = $request->get('status') ?? 'Active';
-        
-        $checkCourse = Course::where(['code'=>$code])->first();
+
+        $checkCourse = Course::where(['code' => $code])->first();
 
         if (empty($checkCourse) || is_null($checkCourse)) {
-            
+
             $course = array(
-            'id'          => $course_uuid,
-            'school_id'   => $this->schoolId,
-            'faculty_id'  => $this->facultyId,
-            'title'       => $title,
-            'code'        => $code,
-            'description' => $description,
-            'status'      => $status,
+                'id'          => $course_uuid,
+                'school_id'   => $this->schoolId,
+                'faculty_id'  => $this->facultyId,
+                'title'       => $title,
+                'code'        => $code,
+                'description' => $description,
+                'status'      => $status,
             );
             /*creating course resources*/
-            
+
             $resource_uuid = Util::uuid();
             $resourceUrl = $request->get('resource_url');
 
@@ -74,38 +74,38 @@ class CourseController extends Controller
             $resource = array(
                 'id'         => $resource_uuid,
                 'course_id'  => $course_uuid,
-                'resourceUrl'=> $resourceUrl,
+                'resourceUrl' => $resourceUrl,
             );
 
-            /*add experiment to a course*/            
-            $experimentIds = explode(',', $request->get('experiment_id'));           
+            /*add experiment to a course*/
+            $experimentIds = explode(',', $request->get('experiment_id'));
             $experiments = array();
-            for($x =0; $x < sizeof($experimentIds); $x++){
-               array_push($experiments, array(
-                'id'            => Util::uuid(),
-                'course_id'     => $course_uuid,
-                'experiment_id' => $experimentIds[$x],
-               ));
+            for ($x = 0; $x < sizeof($experimentIds); $x++) {
+                array_push($experiments, array(
+                    'id'            => Util::uuid(),
+                    'course_id'     => $course_uuid,
+                    'experiment_id' => $experimentIds[$x],
+                ));
             };
-            
-            /*add instructors to a course*/            
-            $instructorIds = explode(',', $request->get('instructor_id'));           
+
+            /*add instructors to a course*/
+            $instructorIds = explode(',', $request->get('instructor_id'));
             $instructors = array();
-            for($x =0; $x < sizeof($instructorIds); $x++){
-               array_push($instructors, array(
-                'id'            => Util::uuid(),
-                'course_id'     => $course_uuid,
-                'instructor_id' => $experimentIds[$x],
-               ));
+            for ($x = 0; $x < sizeof($instructorIds); $x++) {
+                array_push($instructors, array(
+                    'id'            => Util::uuid(),
+                    'course_id'     => $course_uuid,
+                    'instructor_id' => $experimentIds[$x],
+                ));
             };
- 
-            DB::transaction(function () use($course,$resource, $experiments, $instructors) {
+
+            DB::transaction(function () use ($course, $resource, $experiments, $instructors) {
                 Course::insert($course);
                 CourseResources::insert($resource);
                 CourseExperiment::insert($experiments);
                 CourseInstructor::insert($instructors);
-            },5);            
-            return response()->json(['success' => true], 200);            
+            }, 5);
+            return response()->json(['success' => true], 200);
         }
         return response()->json(['error' => 'This course already exist'], 409);
     }
@@ -115,7 +115,7 @@ class CourseController extends Controller
     {
         $courseId = $request->get('course_id');
         $course = Course::find($courseId);
-        if($course){
+        if ($course) {
             $course->status = 'Inactive';
             $save = $course->save();
             if ($save) {
@@ -139,17 +139,17 @@ class CourseController extends Controller
 
         $courseId = $request->get('course_id');
         $course = Course::find($courseId);
-        if($course){
+        if ($course) {
             $request->get('title') != null ? $course->title = $request->get('title') : null;
             $request->get('code') != null ? $course->code = $request->get('code') : null;
             $request->get('description') != null ? $course->description = $request->get('description') : null;
-    
-            if(empty($request->get('title')) && empty($request->get('code'))){
+
+            if (empty($request->get('title')) && empty($request->get('code'))) {
                 return response()->json(['error' => 'All field is null'], 400);
             } else {
                 $save = $course->save();
             }
-    
+
             if ($save) {
                 return response()->json(['success' => true], 200);
             }
@@ -262,6 +262,38 @@ class CourseController extends Controller
         }
     }
 
+    public function enrollStudent(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'course_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "course_id field is required"], 400);
+        }
+
+        $courseId = $request->get('course_id');
+        $enrolmentCode = $request->get('enrollment_code');
+
+        $course = Course::find($courseId);
+
+        if (!empty($course)) {
+            if (!empty($course->enrollment_code)) {
+                if ($course->enrollment_code == $enrolmentCode) {
+                    return $this->addStudentCourse($this->userId, $courseId);
+                } else {
+                    return response()->json(['error' => 'Invalid Enrollment Code'], 400);
+                }
+            } else {
+                return $this->addStudentCourse($this->userId, $courseId);
+            }
+        } else {
+            return response()->json(['error' => 'Course not found'], 404);
+        }
+
+        return response()->json(['success' => false], 400);
+    }
+
     public function addStudentCourse($user_id, $course_id)
     {
         $userCourses = new CourseStudents();
@@ -354,7 +386,8 @@ class CourseController extends Controller
         return response()->json(['enrolledCourses' => $data], 200);
     }
 
-    public function courseStudents(){
+    public function courseStudents()
+    {
         $courseStudents = Course::with('students')->get();
         return response()->json($courseStudents, 200);
     }
@@ -370,8 +403,8 @@ class CourseController extends Controller
         }
 
         $courseId = $request->get('course_id');
-        $courseStudent = Course::where('id',$courseId)->with('students')->withCount('students')->get();
-        if($courseStudent){
+        $courseStudent = Course::where('id', $courseId)->with('students')->withCount('students')->get();
+        if ($courseStudent) {
             return response()->json($courseStudent, 200);
         }
         return response()->json(['success' => false], 400);
@@ -379,8 +412,8 @@ class CourseController extends Controller
 
     public function courseStudentByFacultyId()
     {
-        $courseStudent = Course::where('faculty_id',$this->facultyId)->with('faculty')->withCount('students')->get();
-        if($courseStudent){
+        $courseStudent = Course::where('faculty_id', $this->facultyId)->with('faculty')->withCount('students')->get();
+        if ($courseStudent) {
             return response()->json($courseStudent, 200);
         }
         return response()->json(['success' => false], 400);
@@ -397,8 +430,8 @@ class CourseController extends Controller
         }
 
         $courseId = $request->get('course_id');
-        $courseStudent = Course::where('id',$courseId)->with('experiments')->withCount('experiments')->get();
-        if($courseStudent){
+        $courseStudent = Course::where('id', $courseId)->with('experiments')->withCount('experiments')->get();
+        if ($courseStudent) {
             return response()->json($courseStudent, 200);
         }
         return response()->json(['success' => false], 400);
@@ -409,27 +442,26 @@ class CourseController extends Controller
         $studentCourse = User::where('id', $this->userId)->with('courses')->withCount('courses')->get();
         return $studentCourse;
     }
-    
+
     //Should incase a user's courses needs to be fetched without a token
     public function studentCoursesById(Request $request)
     {
         $userId = $request->get('user_id');
         $studentCourse = User::where('id', $userId)->with('courses')->get();
-        if($studentCourse){
+        if ($studentCourse) {
             return response()->json($studentCourse, 200);
         }
         return response()->json(['success' => false], 400);
     }
 
-    public function allIsNull(Array $arrays)
+    public function allIsNull(array $arrays)
     {
         $allIsNull = false;
         foreach ($arrays as $value) {
 
-            if(empty($value)){
+            if (empty($value)) {
                 $allIsNull = true;
             }
-
         }
         return $allIsNull;
     }

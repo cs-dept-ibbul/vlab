@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Experiment;
 use App\Models\ExperimentResult;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -188,8 +189,13 @@ class ExperimentController extends Controller
         $experimentResult = new ExperimentResult();
 
         $experimentId = $request->get('experiment_id');
+        $timeStarted = $request->get('time_started');
+        $timeSubmitted = $request->get('time_submitted');
+        $timeLeft = $request->get('time_left');
         $sessionId = $request->get('session_id');
         $resultJson = $request->get('result_json');
+
+        $completionStatus = $request->get('completion_status');
 
         $checkDuplicate = ExperimentResult::where([
             'user_id' => $this->userId,
@@ -198,12 +204,29 @@ class ExperimentController extends Controller
         ]);
 
         if (!empty($checkDuplicate)) {
-            return response()->json(['error' => "Result already exist"], 409);
+
+            $experimentResultId = $checkDuplicate->first()->id;
+            $upsertResult = ExperimentResult::find($experimentResultId);
+            $upsertResult->result_json = $resultJson;
+            
+            $upsertResult->time_started = $timeStarted;
+            $upsertResult->time_submitted = $timeSubmitted;
+            $upsertResult->time_left = $timeLeft;
+            $upsertResult->completion_status = $completionStatus;
+
+            if($upsertResult->save()){
+                return response()->json(['message' => "Experiment Result has been updated"], 200);
+            }
         }
 
         $experimentResult->id = Util::uuid();
         $experimentResult->user_id = $this->userId;
         $experimentResult->experiment_id = $experimentId;
+
+        $experimentResult->time_started = $timeStarted;
+        $experimentResult->time_submited = $timeSubmitted;
+        $experimentResult->time_left = $timeLeft;
+
         $experimentResult->session_id = $sessionId;
         $experimentResult->result_json = $resultJson;
 
