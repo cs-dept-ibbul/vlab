@@ -1,7 +1,5 @@
 <template>
   <div>
-      <button v-if="!facultyCourses" @click="facultyCourses = true" class="button bg-primary text-white ml-5 mt-3"><span class="fa fa-chevron-left text-white "></span> Back</button>
-      <div v-if="facultyCourses">
       <div class="w-100 row px-6 mx-0 mt-4">
 
         <div class="col-lg-6 col-md-12 col-sm-12 p-0">         
@@ -77,28 +75,12 @@
                 <div class="d-flex justify-content-between align-items-center mb-2">
                   <div class="font ">
                     <div class="mb-2">
-                      <span class="fw5 fs01 ftag">{{course.code}}</span>        
-
-                      <span v-if="!checkEnrollment(course.id)">                        
-                        <span v-if="course.enrollment_code != ''">
-                          <button @click="enrollmentCode" class="fw5 fs01 button shadow-sm bg-info px-3 py-1 text-white d-inline-block">Enroll</button>
-                          <input type="text" name="enrollment_code" @keyup="compare(course.enrollment_code,$event.target.value,course.id, $event.target)" :placeholder="ecode" class="formControl " width="150px">
-                          <span class="fa fa-check text-success display-none"></span>
-                          <span class="fa fa-plus text-danger display-none"></span>
-                        </span>           
-                        <span v-else>
-                          <button @click="enroll()" class="fw5 fs01 button shadow-sm bg-info px-3 py-1 text-white d-inline-block">Enroll</button>
-                          <!-- <input type="text" name="enrollment_code" :placeholder="ecode" class="formControl"> -->
-                        </span>                 
-                      </span>
-                      <span v-else>
-                          <button @click="viewEnrolledCourse(course.id)" class="fw5 fs01 button shadow-sm bg-success px-3 py-1 text-white d-inline-block">View Enrolled Course</button>
-                      </span>
+                      <span class="fw5 fs01 ftag">{{course.code}}</span>                      
                     </div>
                     <h3 class="fw6 fdata">{{course.title}}</h3>
                     <p class="my-1 font2 fs01 text-secondary" >{{course.description.slice(0,60)}}...</p>
                     <p class="my-0 fw5 fs1">{{course.experiments_count}} Practicals</p>
-                  </div> 
+                  </div>
                   <div>
                     <p class="text-success fs1 more-detail-pin" >More Detail <span class="fa fa-chevron-down text-success"></span></p>
                   </div>
@@ -115,33 +97,23 @@
               </div>
             </span>
               <!-- end experiment box -->
+
+            
           </div>  
         </div>
       </div>
-    </div>
-    <!-- <v-courseexperiment course="" v-else></v-courseexperiment>       -->
   </div>
  
 </template>
 
 <script>
-  import courseexperiment from './courseExperiment.vue';
   export default {
-    compontents:{
-      'v-courseexperiment': courseexperiment
-    },
    data(){
       return{
         faculty_courses:null,
         faculty:null,
         total_courses:0,
-        loadederState:true,
-        ecode: '',
-        student_courses:[
-          {id:'25cfd559-4b3b-45f3-be6f-1b9d37ff2fd8'}
-        ],
-        facultyCourses: true,
-        courseProp: null,
+        loadederState:true
       }
     },
   methods:{
@@ -150,108 +122,16 @@
             $('.more-detail').not($(this).closest('.fholder').next()).slideUp(200);
             $(this).closest('.fholder').next().slideToggle(200);
           })
-    },
-    enroll:function(){
-       this.show_loader();            
-        this.axios.post('api/courses/add_student_course', {user_id:this.currentUser.id, course_id: course_id},{headers: this.axiosHeader},function(response,status){
-          if (response.status === 200) {                                                                                      
-            this.hide_loader();
-          }else{
-
-          }
-        }, function(e) {                       
-           if(e.response.status === 401 ){
-              location.href = "/logout";
-           }else{
-            Swal.fire({
-              title:'something went wrong',
-              text: 'check your internet connection',
-              icon: 'danger',
-            })
-            this.hide_loader();
-           }                                                                   
-        })
-    },
-    checkEnrollment: function(course_id){
-      console.log({course_id})
-        for (var i = 0; i < this.student_courses.length; i++) {
-          if(this.student_courses[i].id == course_id){
-            return true;
-          }
-        }
-    },
-    viewEnrolledCourse: function(course_id){
-      location.href = '/my-course-review/'+course_id;
-        /*this.facultyCourses = false;
-        this.courseProp = course;*/
-    },
-    compare:function(code,value,course_id, event){                  
-      let e = event.parentNode.children;
-      let fail = e[e.length-1];
-      let pass = e[e.length-2];      
-      
-        if(value == code){
-
-            this.show_loader();            
-            this.axios.post('api/courses/add_student_course', {user_id:this.currentUser.id, course_id: course_id},{headers: this.axiosHeader},function(response,status){
-              if (response.status === 200) {                                                                         
-                pass.style.display  = 'inline-block';
-                fail.style.display  = 'none';
-                event.style.width   = '0px';
-                event.style.opacity = '0.2';
-                setTimeout(function() {e[1].style.display= 'none';}, 10);
-                this.hide_loader();
-              }else{
-
-              }
-            }, function(e) {                       
-               if(e.response.status === 401 ){
-                  location.href = "/logout";
-               }else{
-                Swal.fire({
-                  title:'something went wrong',
-                  text: 'check your internet connection',
-                  icon: 'danger',
-                })
-                this.hide_loader();
-               }                                                                   
-            })   
-        }else{
-            pass.style.display= 'none';
-            fail.style.display= 'inline-block';
-        }
-    },
-    
-  enrollmentCode:function(e){
-        this.ecode= '';
-        e.target.nextElementSibling.style.display = 'inline-block';
-        let code = 'enter enrollment code';
-        code = code.split('');
-        let i = -1;
-        let $this = this;
-        let interval = setInterval(function() {
-          i++;
-          if ($this.ecode != 'enter enrollment code'){
-            if (code[i]=='') {
-                $this.ecode += ' ';
-            }else{$this.ecode += code[i];}
-          }else{
-            clearInterval(interval);
-          }
-        }, 50)
     }
-  },
-  computed:{
-    
+
   },
   async created(){
         let pathname = location.pathname.split('/')
         let faculty_id = pathname[pathname.length -1];
          this.faculty_courses  = await this.axiosGetById('api/courses/faculty_courses','faculty_id', faculty_id);
-         //this.student_courses  = await this.axiosGetById('api/courses/student_courses','user_id', this.currentUser.id);
          this.faculty  = await this.axiosGetById('api/faculties/faculty','faculty_id', faculty_id);
-         //this.student_courses = this.student_courses.courses;
-          //console.log(this.student_courses)
+         
+          //console.log(this.faculty_course_student)
          this.loadederState = false;
          let $this = this;
          let interval = setInterval(function () {
@@ -264,7 +144,6 @@
           
           /*initialize datatable */
           setTimeout(function() {
-            $this.rippleButton();
              $this.initMoreDetail();        
           }, 200);
       
@@ -472,24 +351,5 @@ ul li:before{
 }
 hr{
   clear: left;
-}
-input.formControl{
-  transition: 0.5s all;
-  width: 150px;
-  height: 26px;
-  padding: 7px;
-  border-radius: 0px;
-  border:1px solid #888;
-  display: none;
-  position: relative;
-  top: 2px;
-}
-.formControl:focus{
-  border:1px solid #888;  
-  border-radius: 0px;
-  outline: 0;
-}
-.display-none{
-  display: none;
 }
 </style>

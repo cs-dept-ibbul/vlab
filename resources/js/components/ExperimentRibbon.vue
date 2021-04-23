@@ -60,22 +60,44 @@
 			},			
 			submit(a){
 				var $this = this;
-				let value,index=0;
-				
-				/*get result data*/
-				$('#result_table').find('.resultReading').each(function(){
-					if (index == 0) {
-						$this.resultData = [];
-					}
-					value = $(this).val();					
-					if ( value != '') {						
-						$this.resultData[index] = value;
-					}
-					index++;
+				let value, header, bdy,emptyChk='',
+				resultData = {};
+				this.resultData = [];
+
+				/*get result data*/				
+
+				$('.main_result_table').each(function(index){
+					resultData.title = $(this).prev().text();
+					resultData.head=  [];
+					resultData.data=  [];		
+					
+					/*get table headers*/
+					header = [];
+					$(this).find('th').each(function(index2){
+						header.push($(this).text());
+					});				
+					resultData.head = header
+
+					/*get table rows*/
+					$(this).find('tr').each(function(index2){						
+						bdy = [];						
+						$(this).find('.resultReading').each(function(index3){						
+							value = $(this).val();
+							bdy.push(value);		
+							if (index3 != 0) {
+								if (value!=''){emptyChk=1;}					
+							}
+						});											
+						resultData.data[index2] = bdy;
+					});
+					$this.resultData.push(resultData);
+
 				});
 
+				/*console.log(JSON.stringify(this.resultData).length);
+				console.log(this.resultData);*/
 				/*validate result data*/
-				if (this.resultData == null || this.resultData.length == 0 ){
+				if (emptyChk == '' ){
 					Swal.fire({
 						title:'Please enter your data'
 					}).then(result=>{

@@ -1,27 +1,37 @@
 <template>
-	<div class="w-100">        
-        <div class="ssc-head-line mb" style="height: 100px;"></div>
-        <div class="ssc-line mt-2 w-100"></div>
-        <div class="ssc-line mb w-75"></div>
-        <div class="ssc-line mb w-50"></div>
-        <div class="ssc-line mb w-25"></div>
+	<div class="w-100">      
+        <div class="w-100 m-0 p-0" v-if="type=='table'">            
+            <span v-for="i in count" class="w-100">
+                <div class="ssc-head-line mb" style="height: 100px;"></div>
+                <div class="ssc-line mt-2 w-100"></div>
+                <div class="ssc-line mb w-75"></div>
+                <div class="ssc-line mb w-50"></div>
+                <div class="ssc-line mb w-25"></div>
+                <br v-if='i != count'>       
+            </span>      
+        </div>
 
-        <br>
-        <div class="ssc-head-line mb" style="height: 100px;"></div>
-        <div class="ssc-line mt-2 w-100"></div>
-        <div class="ssc-line mb w-75"></div>
-        <div class="ssc-line mb w-50"></div>
-        <div class="ssc-line mb w-25"></div>
-        <br>
-        <div class="ssc-head-line mb" style="height: 100px;"></div>
-        <div class="ssc-line mt-2 w-100"></div>
-        <div class="ssc-line mb w-75"></div>
-        <div class="ssc-line mb w-50"></div>
-        <div class="ssc-line mb w-25"></div>        
-      </div>
+        <div class="w-100 m-0 p-0" v-if="type=='line'">
+            <div class="ssc-line mb w-75"></div>
+            <div class="ssc-line mb w-50"></div>
+        </div>
+    </div>
 </template>
 <script>
 	export default{
-
+        props:{
+            type:{
+                type:String,
+                default:function(){
+                    return 'table';
+                }
+            },
+            count: {
+                type:Number,
+                default: function(){
+                    return 3;
+                }
+            }
+        }
 	}
 </script>

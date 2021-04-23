@@ -62,6 +62,10 @@ Vue.component('v-viewcreatedexperiment', require('./components/viewCreatedExperi
 
 /*end admin component*/
 
+/*instructor component*/
+Vue.component('v-viewcoursesinstructor', require('./components/viewCoursesInstructor.vue').default);
+/*end instructor component*/
+
 Vue.component('v-tlb2', require('./components/title-left-bar.vue').default);
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
@@ -73,6 +77,7 @@ Vue.component('v-explore', require('./components/ExploreSection.vue').default);
 Vue.component('v-avlc', require('./components/AvailableCourses.vue').default);
 
 Vue.component('v-viewcourses', require('./components/viewCourses.vue').default);
+Vue.component('v-courseexperiment', require('./components/courseExperiment.vue').default);
 
 Vue.component('v-logintopnavbar', require('./components/NavbarLogin.vue').default);
 Vue.component('v-loginbox', require('./components/loginBox.vue').default);
