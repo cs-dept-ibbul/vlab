@@ -6,12 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Experiment;
 use App\Models\ExperimentResult;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
-use function PHPUnit\Framework\isNull;
 
 class ExperimentController extends Controller
 {
@@ -20,6 +17,7 @@ class ExperimentController extends Controller
     private $schoolId;
     private $facultyId;
     private $userId;
+    private $currentSession;
 
     public function __construct()
     {
@@ -28,6 +26,7 @@ class ExperimentController extends Controller
             $this->schoolId = $this->currentUser->school_id;
             $this->facultyId = $this->currentUser->faculty_id;
             $this->userId = $this->currentUser->id;
+            $this->currentSession = SessionController::getCurrentSessionId();
         }
     }
 
@@ -178,7 +177,6 @@ class ExperimentController extends Controller
 
         $validator = Validator::make($request->all(), [
             'experiment_id' => 'required',
-            'session_id' => 'required',
             'result_json' => 'required',
         ]);
 
@@ -192,7 +190,8 @@ class ExperimentController extends Controller
         $timeStarted = $request->get('time_started');
         $timeSubmitted = $request->get('time_submitted');
         $timeLeft = $request->get('time_left');
-        $sessionId = $request->get('session_id');
+        $sessionId = $this->currentSession;
+        $weeklyWork = $request->get('weekly_work_id');
         $resultJson = $request->get('result_json');
 
         $completionStatus = $request->get('completion_status');
@@ -208,8 +207,8 @@ class ExperimentController extends Controller
             $experimentResultId = $checkDuplicate->first()->id;
             $upsertResult = ExperimentResult::find($experimentResultId);
             $upsertResult->result_json = $resultJson;
+            $upsertResult->weekly_work_id = $weeklyWork;
             
-            $upsertResult->time_started = $timeStarted;
             $upsertResult->time_submitted = $timeSubmitted;
             $upsertResult->time_left = $timeLeft;
             $upsertResult->completion_status = $completionStatus;
@@ -242,18 +241,16 @@ class ExperimentController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'experiment_id' => 'required',
-            'session_id' => 'required',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => "All fields are required"], 400);
+            return response()->json(['error' => "experiment_id field is required"], 400);
         }
 
         $experimentId = $request->get('experiment_id');
-        $sessionId = $request->get('session_id');
 
         $experimentResult = ExperimentResult::where([
-            'session_id' => $sessionId,
+            'session_id' => $this->currentSession,
             'experiment_id' => $experimentId
         ])->get();
 
@@ -269,15 +266,13 @@ class ExperimentController extends Controller
 
         $validator = Validator::make($request->all(), [
             'course_id' => 'required',
-            'session_id' => 'required',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => "All fields are required"], 400);
+            return response()->json(['error' => "course_id field is required"], 400);
         }
 
         $courseId = $request->get('course_id');
-        $sessionId = $request->get('session_id');
 
         $experiments = [];
         $results = [];
@@ -289,7 +284,7 @@ class ExperimentController extends Controller
             }
             foreach ($experiments as $experiment) {
                 foreach ($experiment as $result) {
-                    $experimentResults = ExperimentResult::where(['experiment_id' => $result->id, 'session_id' => $sessionId])->get();
+                    $experimentResults = ExperimentResult::where(['experiment_id' => $result->id, 'session_id' => $this->currentSession])->get();
                     if (sizeof($experimentResults) > 0) {
                         array_push($results, $experimentResults);
                     }
