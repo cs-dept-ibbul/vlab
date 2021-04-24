@@ -55,6 +55,7 @@ Vue.component('v-circuitconnectiontools', require('./components/circuitconnectio
 Vue.component('v-viewcreatedcourse', require('./components/viewCreatedCourse.vue').default); 
 Vue.component('v-faculty', require('./components/faculty.vue').default); 
 Vue.component('v-department', require('./components/department.vue').default); 
+Vue.component('v-session', require('./components/session.vue').default); 
 Vue.component('v-user', require('./components/user.vue').default); 
 Vue.component('v-userform', require('./components/userForm.vue').default); 
 Vue.component('v-addexperiment', require('./components/addExperiment.vue').default); 

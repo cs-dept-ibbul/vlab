@@ -22,8 +22,10 @@ Route::get('/logout', 'App\Http\Controllers\loginController@logout')->name('logo
 
 //AMDIN
 Route::middleware(['adminauth'])->group(function(){
+
 	Route::get('/manage-faculty', 'App\Http\Controllers\ManageFacultyController@index')->name('manage-faculty');
 	Route::get('/manage-department', 'App\Http\Controllers\ManageDepartmentController@index')->name('manage-department');
+	Route::get('/manage-session', 'App\Http\Controllers\ManageSessionController@index')->name('manage-session');
 	Route::get('/manage-user', 'App\Http\Controllers\ManageUserController@index')->name('manage-user');
 });
 

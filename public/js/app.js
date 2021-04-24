@@ -3385,6 +3385,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -3401,7 +3405,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   props: ['username', 'title'],
-  mounted: function mounted() {
+  created: function created() {
     this.username = JSON.parse(localStorage.getItem('LoggedUser')).user.first_name;
   },
   events: {
@@ -4463,6 +4467,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
 //
 //
 //
@@ -5676,6 +5683,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         Swal.fire({
           title: topic,
           html: html,
+          confirmButtonText: 'Create',
+          cancelButtonText: 'Cancel',
+          cancelButtonColor: '#dd000f',
+          confirmButtonColor: '#00b96b',
+          showCancelButton: true,
+          showLoaderOnConfirm: true,
           focusConfirm: false,
           preConfirm: function preConfirm() {
             var faculty = document.getElementById('swal-input0').value,
@@ -5702,8 +5715,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               title: 'click on proceed',
               text: 'other cancel and restart',
               html: "<table class='table text-left'>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>Faculty :</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'>".concat(result.value[3], "</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>department:</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'> ").concat(answers.name, ",</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t \t<td width='30%'><b>Abbr:</b></td>\n\t\t\t\t\t      \t\t \t<td width='70%'> ").concat(answers.code, " </td>\n\t\t\t\t\t      \t\t <tr>\n\t\t\t\t      \t\t</table>"),
-              confirmButtonText: 'Process',
-              cancelButtonText: 'Cancle',
+              confirmButtonText: 'Continue',
+              cancelButtonText: 'Cancel',
+              cancelButtonColor: '#dd000f',
+              confirmButtonColor: '#00b96b',
               showCancelButton: true,
               showLoaderOnConfirm: true,
               preConfirm: function preConfirm(login) {
@@ -5766,7 +5781,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 Swal.fire({
                   title: title,
                   icon: 'success',
-                  confirmButtonText: 'Ok'
+                  confirmButtonText: 'Ok',
+                  confirmButtonColor: '#00b96b'
                 }).then(function (result) {
                   location.reload();
                 });
@@ -6217,6 +6233,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       Swal.fire({
         title: topic,
         html: html,
+        confirmButtonText: 'Ok',
+        cancelButtonText: 'Cancel',
+        cancelButtonColor: '#dd000f',
+        confirmButtonColor: '#00b96b',
+        showCancelButton: true,
+        showLoaderOnConfirm: true,
         focusConfirm: false,
         preConfirm: function preConfirm() {
           var FacultyName = document.getElementById('swal-input1').value,
@@ -6238,8 +6260,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             title: 'click on proceed',
             text: 'other cancel and restart',
             html: "<table class='table text-left'>\t\t\t\t\t\t      \t\t\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>Faculty Abbr:</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'> ".concat(answers.name, ",</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t \t<td width='30%'><b>Abbr:</b></td>\n\t\t\t\t\t      \t\t \t<td width='70%'> ").concat(answers.code, " </td>\n\t\t\t\t\t      \t\t <tr>\n\t\t\t\t      \t\t</table>"),
-            confirmButtonText: 'Process',
-            cancelButtonText: 'Cancle',
+            confirmButtonText: 'Continue',
+            cancelButtonText: 'Cancel',
+            cancelButtonColor: '#dd000f',
+            confirmButtonColor: '#00b96b',
             showCancelButton: true,
             showLoaderOnConfirm: true,
             preConfirm: function preConfirm(login) {
@@ -6523,6 +6547,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -6571,7 +6596,7 @@ __webpack_require__.r(__webpack_exports__);
   beforeDestroy: function beforeDestroy() {
     this.eventBus.$off('toggleSysNav', this.toggleNavOnHover);
   },
-  props: ['home', 'dashboard', 'viewstudent', 'studentdashboard', 'explore', 'experiment', 'student', 'settings', 'active', 'activesub'],
+  props: ['home', 'dashboard', 'viewstudent', 'studentdashboard', 'viewexperiment', 'explore', 'experiment', 'student', 'settings', 'active', 'activesub'],
   mounted: function mounted() {
     /*btn slider*/
     $('.listMenuBtn').click(function () {
@@ -8231,6 +8256,255 @@ var experimentOne, resulInHtml;
         });
       })();
     });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/session.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/session.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      createdsession: null,
+      tableLoaded: false
+    };
+  },
+  methods: {
+    swal_form: function swal_form() {
+      var update = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      var obj = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+        session_id: 1,
+        name: 'Natural science',
+        code: 'fns'
+      };
+      $('#system-loader').css('display', 'flex');
+      var formcount = 0;
+      var $vm = this,
+          html = '';
+      var topic = "Create session";
+      console.log(obj); //watch(this.watchsessionHtml, 'value', function(){
+
+      if (update) {
+        topic = 'Update session';
+        html = "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>session Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" value="' + obj.name + '" >';
+      } else {
+        html = "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>session Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" >';
+      }
+
+      $('#system-loader').hide();
+      Swal.fire({
+        title: topic,
+        html: html,
+        confirmButtonText: 'Create',
+        cancelButtonText: 'Cancel',
+        cancelButtonColor: '#dd000f',
+        confirmButtonColor: '#00b96b',
+        showCancelButton: true,
+        showLoaderOnConfirm: true,
+        focusConfirm: false,
+        preConfirm: function preConfirm() {
+          var sessionName = document.getElementById('swal-input1').value;
+
+          if (sessionName == "") {
+            Swal.showValidationMessage('All fields are required');
+          }
+
+          var regExp = /^(20?\d)\d{2}\/(20?\d)\d{2}$/;
+
+          if (!regExp.test(sessionName)) {
+            Swal.showValidationMessage('Invalid session');
+          } else {
+            var sessionArr = sessionName.split('/');
+            if (sessionArr[1] - sessionArr[0] < 0 || sessionArr[1] - sessionArr[0] > 1) Swal.showValidationMessage('InValid session');
+          }
+
+          return [sessionName];
+        }
+      }).then(function (result) {
+        if (result.value) {
+          var answers = {
+            name: result.value[0]
+          };
+          Swal.fire({
+            title: 'Confirm Data',
+            html: "<table class='table text-left'>\t\t\t\t\t\t      \t\t\n\t\t\t\t\t      \t\t<tr>\t\t\t\t\t      \t\t\n\t\t\t\t\t      \t\t\t<td width='70%' class=\"text-center fs2 fw6 font1\">session:  ".concat(answers.name, "</td>\n\t\t\t\t\t      \t\t</tr>\t\t\t\t\t      \t\n\t\t\t\t      \t\t</table>"),
+            confirmButtonText: 'Continue',
+            cancelButtonText: 'Cancel',
+            cancelButtonColor: '#dd000f',
+            confirmButtonColor: '#00b96b',
+            showCancelButton: true,
+            showLoaderOnConfirm: true,
+            preConfirm: function preConfirm(login) {
+              if (update) {
+                var formData = new FormData();
+                formData.append("session_id", obj.id);
+                formData.append("name", result.value[0]);
+                return $vm.axios.post('api/sessions/update', formData, {
+                  headers: $vm.axiosHeader
+                }).then(function (response) {
+                  if (!response.data.sucess) {
+                    throw new Error(response.statusText);
+                  }
+
+                  return response.json();
+                })["catch"](function (error) {
+                  if (error.response) {
+                    if (error.response.status == 409) {
+                      Swal.showValidationMessage("Failed: session Already Exist");
+                    } else if (error.response.status == 401) {
+                      location.reload();
+                    } else {
+                      Swal.showValidationMessage("Failed: Something went wrong");
+                    }
+                  }
+                });
+              } else {
+                return $vm.axios.post('api/sessions/create', $vm.createFormData(answers), {
+                  headers: $vm.axiosHeader
+                }).then(function (response) {
+                  if (!response.data.sucess) {
+                    throw new Error(response.statusText);
+                  }
+
+                  return response.json();
+                })["catch"](function (error) {
+                  if (error.response) {
+                    if (error.response.status == 409) {
+                      Swal.showValidationMessage("Failed: session Already Exist");
+                    } else if (error.response.status == 401) {
+                      location.reload();
+                    } else {
+                      Swal.showValidationMessage("Failed: Something went wrong");
+                    }
+                  }
+                });
+              }
+            },
+            allowOutsideClick: function allowOutsideClick() {
+              return !Swal.isLoading();
+            }
+          }).then(function (result) {
+            var title = 'created successfully';
+
+            if (update) {
+              title = 'updated successfully';
+            }
+
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: title,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+              }).then(function (result) {
+                location.reload();
+              });
+            }
+          });
+        }
+      }); //formcount++;
+      //});		
+      //let $vm = this;				
+    },
+    editsession: function editsession(obj) {
+      this.swal_form(true, obj);
+    },
+    setsession: function setsession(obj) {
+      //		this.swal_form(true,obj);
+      Swal.fire('sj');
+    },
+    deletesession: function deletesession(session_id) {
+      this.axiosDelete('api/sessions/delete', {
+        'session_id': session_id
+      });
+    },
+    createsession: function createsession() {
+      var $vm = this;
+      this.swal_form();
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this.axiosGet('api/sessions/sessions');
+
+            case 2:
+              _this.createdsession = _context.sent;
+              //console.log(this.createdsession)
+              _this.tableLoaded = true;
+              /*initialize datatable */
+
+              setTimeout(function () {
+                $('#sessiontable').DataTable({
+                  pageLength: 5
+                });
+              }, 200);
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  mounted: function mounted() {
+    this.$nextTick(function () {});
   }
 });
 
@@ -11671,6 +11945,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   compontents: {
@@ -11739,47 +12017,51 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     compare: function compare(code, value, course_id, event) {
       var e = event.parentNode.children;
-      var fail = e[e.length - 1];
-      var pass = e[e.length - 2];
+      /*let fail = e[e.length-1];
+      let pass = e[e.length-2];      
+      */
 
       if (value == code) {
-        this.show_loader();
-        this.axios.post('api/courses/add_student_course', {
-          user_id: this.currentUser.id,
-          course_id: course_id
-        }, {
-          headers: this.axiosHeader
-        }, function (response, status) {
-          if (response.status === 200) {
-            pass.style.display = 'inline-block';
-            fail.style.display = 'none';
-            event.style.width = '0px';
-            event.style.opacity = '0.2';
-            setTimeout(function () {
-              e[1].style.display = 'none';
-            }, 10);
-            this.hide_loader();
-          } else {}
-        }, function (e) {
-          if (e.response.status === 401) {
-            location.href = "/logout";
-          } else {
-            Swal.fire({
-              title: 'something went wrong',
-              text: 'check your internet connection',
-              icon: 'danger'
-            });
-            this.hide_loader();
-          }
-        });
+        event.nextElementSibling.style.borderBottom = '1px solid #00b96b';
+        setTimeout(function () {
+          this.show_loader();
+          var nodeBtn = document.CreateElement('button');
+          this.axios.post('api/courses/add_student_course', {
+            user_id: this.currentUser.id,
+            course_id: course_id
+          }, {
+            headers: this.axiosHeader
+          }, function (response, status) {
+            if (response.status === 200) {
+              //pass.style.display  = 'inline-block';
+              event.nextElementSibling.style.display = 'none';
+              location.reload();
+              setTimeout(function () {
+                e[1].style.display = 'none';
+              }, 10);
+              this.hide_loader();
+            } else {}
+          }, function (e) {
+            if (e.response.status === 401) {
+              location.href = "/logout";
+            } else {
+              Swal.fire({
+                title: 'something went wrong',
+                text: 'check your internet connection',
+                icon: 'danger'
+              });
+              this.hide_loader();
+            }
+          });
+        }, 100);
       } else {
-        pass.style.display = 'none';
-        fail.style.display = 'inline-block';
+        //pass.style.display= 'none';
+        event.nextElementSibling.style.borderBottom = '1px solid red';
       }
     },
     enrollmentCode: function enrollmentCode(e) {
       this.ecode = '';
-      e.target.nextElementSibling.style.display = 'inline-block';
+      e.target.nextElementSibling.style.visibility = 'visible';
       var code = 'enter enrollment code';
       code = code.split('');
       var i = -1;
@@ -12755,6 +13037,7 @@ vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-circuitconnectiontools', _
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-viewcreatedcourse', __webpack_require__(/*! ./components/viewCreatedCourse.vue */ "./resources/js/components/viewCreatedCourse.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-faculty', __webpack_require__(/*! ./components/faculty.vue */ "./resources/js/components/faculty.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-department', __webpack_require__(/*! ./components/department.vue */ "./resources/js/components/department.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-session', __webpack_require__(/*! ./components/session.vue */ "./resources/js/components/session.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-user', __webpack_require__(/*! ./components/user.vue */ "./resources/js/components/user.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-userform', __webpack_require__(/*! ./components/userForm.vue */ "./resources/js/components/userForm.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-addexperiment', __webpack_require__(/*! ./components/addExperiment.vue */ "./resources/js/components/addExperiment.vue").default);
@@ -12947,7 +13230,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           createdMessage: "created successfuly",
           currentWidth: 100,
           currentUser: '',
-          startExperiment: false
+          startExperiment: false,
+          navbarState: false
         };
       },
       methods: {
@@ -13353,6 +13637,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             $('.ripple').remove();
             $this.append("<span class='ripple b-warning' style='width:" + diameter + "px; height:" + diameter + "px; left:" + left + "px; top:" + top + "px;'></span>");
           });
+        },
+        naviconToggler: function naviconToggler(e) {
+          if (this.navbarState === false) {
+            this.navbarState = true;
+            $('.navicon').addClass('change');
+            $('.mobileMenu').show(200);
+          } else {
+            this.navbarState = false;
+            $('.navicon').removeClass('change');
+            $('.mobileMenu').slideUp(200);
+          }
         }
       },
       created: function created() {
@@ -13383,6 +13678,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               $vm.currentWidth = $('.scroll-y').width() / windowWidth * 100 + 2;
             }
           }, 5);
+
+          var mobileS = function mobileS(size) {
+            if (size < 751) {
+              $('.MenuLContainer').addClass('removeMenu');
+              $('.menuBtnToggler').addClass('removeMenu');
+              $('#MainMobile').html($('#wideMenu').clone());
+              $('.listMenu').not($(this).next()).slideUp(200);
+              $(this).parent().find('ul.listMenu').slideToggle(200);
+            } else {
+              $('#MainMobile').css('display', 'none');
+              $('.MenuLContainer').removeClass('removeMenu');
+              $('.menuBtnToggler').removeClass('removeMenu');
+            }
+          };
+
+          mobileS($(window).width());
+          $(window).resize(function () {
+            mobileS($(this).width());
+          });
           $(document).ready(function () {
             window.rippleButton = function () {
               $('.button').click(function (event) {
@@ -18737,7 +19051,7 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);"]);
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nul li[data-v-1216290b]{\r\n\tlist-style: none;\r\n\tmargin: 0px;\r\n\tpadding: 0px;\n}\nul[data-v-1216290b]{\r\n\tpadding: 0px;\r\n\tmargin: 0px;\n}\n.listMenuBtn[data-v-1216290b],.listMenuVBtn[data-v-1216290b]{\r\n\tdisplay: flex;\r\n\tflex-wrap: wrap;\r\n\talign-items: center;\n}\n.listMenuVBtn[data-v-1216290b]{\r\n\tpadding: 1px !important;\r\n\tmargin: 0px auto !important;\n}\n.listCoverV:hover  ul.listMenuV[data-v-1216290b]{\r\n\tdisplay: block;\n}\nul.listMenu[data-v-1216290b]{\r\n\tbackground: rgba(150,200,150,.1);\r\n\tdisplay: none;\r\n\tpadding:8px;\n}\n.listCoverV[data-v-1216290b]{\r\n\tposition: relative;\r\n\tdisplay: inline-block;\n}\nul.listMenuV[data-v-1216290b]{\t\r\n\twidth: 150px;\r\n\tposition: absolute;\r\n\ttop: 0px;\r\n\tleft: 50px;\r\n\tdisplay: none;\t\r\n\tbackground: #3c9;\t\r\n\tcolor: white;\r\n\tpadding:8px;\n}\nul.listMenuV li a.btnActiveSub[data-v-1216290b]{\r\n\tcolor: white;\n}\nul.listMenuV li a[data-v-1216290b] {\r\n\tdisplay: flex;\r\n\tflex-wrap: wrap;\r\n\talign-items: center;\r\n\tcursor: pointer;\n}\nul.listMenuV li[data-v-1216290b]{\r\n\tmargin: 5px auto;\n}\nul.listMenuV li a span.iconOV[data-v-1216290b]{\r\n\twidth: 1px;\r\n\tpadding: 5px 8px;\r\n\tfont-size: 0.45em;\n}\na[data-v-1216290b]{\r\n\ttext-decoration: none;\n}\n.widthRed[data-v-1216290b]{\r\n\twidth: 60px !important;\n}\n.MenuLContainer[data-v-1216290b]{\r\n\tdisplay: flex;\r\n\tmargin-top:50px;\n}\n.menuBtnToggler[data-v-1216290b]{\r\n\tcursor: pointer;\n}\n.slider[data-v-1216290b] {\r\n    position: absolute;\r\n    width: 100px;\r\n    height: 100px;    \r\n    transform: translateX(-100%);\r\n    -webkit-transform: translateX(-100%);\r\n    z-index: 5;\n}\n.slidein[data-v-1216290b] {\r\n    animation: slide-in-data-v-1216290b 0.5s forwards;\r\n    -webkit-animation: slide-in-data-v-1216290b 0.5s forwards;\n}\n.slideout[data-v-1216290b] {\r\n    animation: slide-out-data-v-1216290b 0.5s forwards;\r\n    -webkit-animation: slide-out-data-v-1216290b 0.5s forwards;\n}\n@keyframes slide-in-data-v-1216290b {\n100% { transform: translateX(0%);\n}\n}\n@-webkit-keyframes slide-in-data-v-1216290b {\n100% { -webkit-transform: translateX(0%);\n}\n}\n@keyframes slide-out-data-v-1216290b {\n0% { transform: translateX(0%);\n}\n100% { transform: translateX(-300%);\n}\n}\n@-webkit-keyframes slide-out-data-v-1216290b {\n0% { -webkit-transform: translateX(0%);\n}\n100% { -webkit-transform: translateX(-300%);\n}\n}\n.reduceSize[data-v-1216290b]{\r\n\twidth: 0px !important;\r\n\ttransition: width 0.5s;\n}\n.niconsV[data-v-1216290b]{\r\n\t\twidth: 55px; \r\n\t\tmargin-top: 5px;\n}\n.niconsV-logout[data-v-1216290b]{\r\n\t\tposition: absolute;\r\n\t\ttop: 62vh;\r\n\t\tleft: 10px;\n}\n.menuLI[data-v-1216290b]{\r\n\t\tcolor:#2F274E;\r\n\t\tfont-size: 1.4em;\n}\n.menuBtnToggler[data-v-1216290b]{\r\n\t\tdisplay: flex;\r\n\t\tflex-wrap: wrap;\r\n\t\talign-items:center;\r\n\t\tcolor:#2F274E;\r\n\t\tmargin-top:50px;\r\n\t\tmargin-left: 10px;\n}\n.nChildV[data-v-1216290b]{\r\n\t\tfont-weight: 400;\r\n\t\tfont-size: 0.95em;\r\n\t\tfont-family: 'Roboto';\t\t\r\n\t\tdisplay: flex;\r\n\t\tpadding: 10px 18px;\t\t\t\r\n\t\tcolor:#2F274E;\r\n\t\ttext-align: left;\t\t\r\n\t\talign-items: center;\r\n\t\tflex-wrap: wrap;\r\n\t\tmargin:5px 0px;\r\n\t\tborder-radius: 8px;\r\n\t\tcursor: pointer;\n}\nul.listMenu li a.nChildV[data-v-1216290b]{\r\n\t\tpadding: 10px 8px;\n}\n.listMenuVBtn.nChildV[data-v-1216290b]{\r\n\t\tpadding: 10px 1px;\n}\n.listMenu li a.nChildV[data-v-1216290b]{\r\n\t\tpadding: 5px 18px;\n}\n.nChildV-logout[data-v-1216290b]{\r\n\t\tposition: absolute;\r\n\t\ttop: 72vh;\r\n\t\tleft: 10px;\n}\n.btnActive[data-v-1216290b]{\r\n\t\tbackground: rgba(150,200,150,.1) !important;\r\n\t\tcolor: #3c9 !important;\n}\n.btnActiveSub[data-v-1216290b]{\r\n\t\tcolor:#3c9;\n}\n.iconV[data-v-1216290b]{\r\n\t\tmargin-right: 10px;\n}\n.listMenu li a span.iconV[data-v-1216290b]{\r\n\t\tfont-size: 0.5em;\n}\n.iconOV[data-v-1216290b]{\r\n\t\tfloat: left;\t\t\t\r\n\t\tpadding: 15px 18px;\r\n\t\tborder-radius: 8px;\r\n\t\tdisplay:block;\r\n\t\twidth: 100%;\r\n\t\tcursor: pointer;\r\n\t\tfont-size: 1.1em;\t\r\n\t\tcolor:#2F274E;\n}\n.iconOV[data-v-1216290b]:not(:first-child){\r\n\t\tmargin:2px 0px;\n}\n.iconOV[data-v-1216290b]:hover{\r\n\t\tbackground: #3c9;\r\n\t\tcolor:#fff;\n}\n.nChildV[data-v-1216290b]:hover{\r\n\t\tbackground: #3c9;\r\n\t\tcolor:#fff;\n}\n.nChildv:hover  .labelV[data-v-1216290b]{\r\n\t\tcolor: #fff;\r\n\t\tborder: 1px solid red;\n}\n.scrollableV[data-v-1216290b]{\r\n\t\toverflow-x: hidden;\r\n\t\toverflow-y: scroll;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nul li[data-v-1216290b]{\r\n\tlist-style: none;\r\n\tmargin: 0px;\r\n\tpadding: 0px;\n}\nul[data-v-1216290b]{\r\n\tpadding: 0px;\r\n\tmargin: 0px;\n}\n.listMenuBtn[data-v-1216290b],.listMenuVBtn[data-v-1216290b]{\r\n\tdisplay: flex;\r\n\tflex-wrap: wrap;\r\n\talign-items: center;\n}\n.listMenuVBtn[data-v-1216290b]{\r\n\tpadding: 1px !important;\r\n\tmargin: 0px auto !important;\n}\n.listCoverV:hover  ul.listMenuV[data-v-1216290b]{\r\n\tdisplay: block;\n}\nul.listMenu[data-v-1216290b]{\r\n\tbackground: rgba(150,200,150,.1);\r\n\tdisplay: none;\r\n\tpadding:8px;\n}\n.listCoverV[data-v-1216290b]{\r\n\tposition: relative;\r\n\tdisplay: inline-block;\n}\nul.listMenuV[data-v-1216290b]{\t\r\n\twidth: 150px;\r\n\tposition: absolute;\r\n\ttop: 0px;\r\n\tleft: 50px;\r\n\tdisplay: none;\t\r\n\tbackground: #3c9;\t\r\n\tcolor: white;\r\n\tpadding:8px;\n}\nul.listMenuV li a.btnActiveSub[data-v-1216290b]{\r\n\tcolor: white;\n}\nul.listMenuV li a[data-v-1216290b] {\r\n\tdisplay: flex;\r\n\tflex-wrap: wrap;\r\n\talign-items: center;\r\n\tcursor: pointer;\n}\nul.listMenuV li[data-v-1216290b]{\r\n\tmargin: 5px auto;\n}\nul.listMenuV li a span.iconOV[data-v-1216290b]{\r\n\twidth: 1px;\r\n\tpadding: 5px 8px;\r\n\tfont-size: 0.45em;\n}\na[data-v-1216290b]{\r\n\ttext-decoration: none;\n}\n.widthRed[data-v-1216290b]{\r\n\twidth: 60px !important;\n}\n.MenuLContainer[data-v-1216290b]{\r\n\tdisplay: flex;\r\n\tmargin-top:50px;\t\r\n\twidth: 230px;\n}\n.menuBtnToggler[data-v-1216290b]{\r\n\tcursor: pointer;\n}\n.slider[data-v-1216290b] {\r\n    position: absolute;\r\n    width: 100px;\r\n    height: 100px;    \r\n    transform: translateX(-100%);\r\n    -webkit-transform: translateX(-100%);\r\n    z-index: 5;\n}\n.slidein[data-v-1216290b] {\r\n    animation: slide-in-data-v-1216290b 0.5s forwards;\r\n    -webkit-animation: slide-in-data-v-1216290b 0.5s forwards;\n}\n.slideout[data-v-1216290b] {\r\n    animation: slide-out-data-v-1216290b 0.5s forwards;\r\n    -webkit-animation: slide-out-data-v-1216290b 0.5s forwards;\n}\n@keyframes slide-in-data-v-1216290b {\n100% { transform: translateX(0%);\n}\n}\n@-webkit-keyframes slide-in-data-v-1216290b {\n100% { -webkit-transform: translateX(0%);\n}\n}\n@keyframes slide-out-data-v-1216290b {\n0% { transform: translateX(0%);\n}\n100% { transform: translateX(-300%);\n}\n}\n@-webkit-keyframes slide-out-data-v-1216290b {\n0% { -webkit-transform: translateX(0%);\n}\n100% { -webkit-transform: translateX(-300%);\n}\n}\n.reduceSize[data-v-1216290b]{\r\n\twidth: 0px !important;\r\n\ttransition: width 0.5s;\n}\n.niconsV[data-v-1216290b]{\r\n\t\twidth: 55px; \r\n\t\tmargin-top: 5px;\n}\n.niconsV-logout[data-v-1216290b]{\r\n\t\tposition: absolute;\r\n\t\ttop: 62vh;\r\n\t\tleft: 10px;\n}\n.menuLI[data-v-1216290b]{\r\n\t\tcolor:#2F274E;\r\n\t\tfont-size: 1.4em;\n}\n.menuBtnToggler[data-v-1216290b]{\r\n\t\tdisplay: flex;\r\n\t\tflex-wrap: wrap;\r\n\t\talign-items:center;\r\n\t\tcolor:#2F274E;\r\n\t\tmargin-top:50px;\r\n\t\tmargin-left: 10px;\n}\n.nChildV[data-v-1216290b]{\r\n\t\tfont-weight: 400;\r\n\t\tfont-size: 0.95em;\r\n\t\tfont-family: 'Roboto';\t\t\r\n\t\tdisplay: flex;\r\n\t\tpadding: 10px 18px;\t\t\t\r\n\t\tcolor:#2F274E;\r\n\t\ttext-align: left;\t\t\r\n\t\talign-items: center;\r\n\t\tflex-wrap: wrap;\r\n\t\tmargin:5px 0px;\r\n\t\tborder-radius: 8px;\r\n\t\tcursor: pointer;\n}\nul.listMenu li a.nChildV[data-v-1216290b]{\r\n\t\tpadding: 10px 8px;\n}\n.listMenuVBtn.nChildV[data-v-1216290b]{\r\n\t\tpadding: 10px 1px;\n}\n.listMenu li a.nChildV[data-v-1216290b]{\r\n\t\tpadding: 5px 18px;\n}\n.nChildV-logout[data-v-1216290b]{\r\n\t\tposition: absolute;\r\n\t\ttop: 72vh;\r\n\t\tleft: 10px;\n}\n.btnActive[data-v-1216290b]{\r\n\t\tbackground: rgba(150,200,150,.1) !important;\r\n\t\tcolor: #3c9 !important;\n}\n.btnActiveSub[data-v-1216290b]{\r\n\t\tcolor:#3c9;\n}\n.iconV[data-v-1216290b]{\r\n\t\tmargin-right: 10px;\n}\n.listMenu li a span.iconV[data-v-1216290b]{\r\n\t\tfont-size: 0.5em;\n}\n.iconOV[data-v-1216290b]{\r\n\t\tfloat: left;\t\t\t\r\n\t\tpadding: 15px 18px;\r\n\t\tborder-radius: 8px;\r\n\t\tdisplay:block;\r\n\t\twidth: 100%;\r\n\t\tcursor: pointer;\r\n\t\tfont-size: 1.1em;\t\r\n\t\tcolor:#2F274E;\n}\n.iconOV[data-v-1216290b]:not(:first-child){\r\n\t\tmargin:2px 0px;\n}\n.iconOV[data-v-1216290b]:hover{\r\n\t\tbackground: #3c9;\r\n\t\tcolor:#fff;\n}\n.nChildV[data-v-1216290b]:hover{\r\n\t\tbackground: #3c9;\r\n\t\tcolor:#fff;\n}\n.nChildv:hover  .labelV[data-v-1216290b]{\r\n\t\tcolor: #fff;\r\n\t\tborder: 1px solid red;\n}\n.scrollableV[data-v-1216290b]{\r\n\t\toverflow-x: hidden;\r\n\t\toverflow-y: scroll;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -19057,7 +19371,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.timeline[data-v-41ea8ed8]{\r\n  margin-top:10px\n}\n.text[data-v-41ea8ed8]{\r\n  background-color: #d4d9df; \r\n  padding: 8px; \r\n  border-radius: 10px; \r\n  font-size: 16px;\n}\n.practical-desc[data-v-41ea8ed8] {\r\n  display: flex; \r\n  justify-content: space-between;\r\n  width: 52%;\r\n  font-size: 16px;\r\n  padding: 8px 0;\n}\n.col-md-10[data-v-41ea8ed8] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: 8rem;\n}\n.col-md-2[data-v-41ea8ed8] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content:space-around;\n}\n.practical-title[data-v-41ea8ed8] {\r\n  font-weight: bolder;\r\n  padding-top: 10px;\r\n  text-transform: capitalize;\n}\n.child[data-v-41ea8ed8] {\r\n  background-color: #fff;\r\n  margin-bottom: 30px;\r\n  margin-top:10px;\r\n  border-radius: 0.5rem;\r\n  padding: 10px;\r\n  height: 10rem;\r\n  display: flex;\r\n  justify-content: space-between;\n}\nul.timeline[data-v-41ea8ed8] {\r\n  list-style-type: none;\r\n  position: relative;\n}\nul.timeline[data-v-41ea8ed8]:before {\r\n  content: \" \";\r\n  background: #d4d9df;\r\n  display: inline-block;\r\n  position: absolute;\r\n  left: 29px;\r\n  width: 2px;\r\n  height: 100%;\r\n  z-index: 400;\n}\nul.timeline > li[data-v-41ea8ed8] {\r\n  margin: 0px 0;\r\n  padding-left: 20px;\r\n  margin-bottom: 10px;\n}\nul.timeline > li[data-v-41ea8ed8]:before {\r\n  content: \" \";\r\n  background: white;\r\n  display: inline-block;\r\n  position: absolute;\r\n  border-radius: 50%;\r\n  border: 3px solid #191236;\r\n  left: 20px;\r\n  width: 20px;\r\n  height: 20px;\r\n  z-index: 400;\n}\n.vlab-practicals[data-v-41ea8ed8] {\r\n  width: 100%;\r\n  background-color: #ebeaef;\r\n  max-height: 700px;\r\n  border-radius: 2.5rem;\n}\n.instructors[data-v-41ea8ed8] {\r\n  color: #959399;\r\n  margin-bottom: 0%;\n}\n.view-practicals[data-v-41ea8ed8] {\r\n  width: 95%;\r\n  background-color: #ebeaef;\r\n  height: 200px;\r\n  border-radius: 2rem;\r\n  margin-top: 55px;\r\n  display: flex;\n}\n.view-practicals-box[data-v-41ea8ed8] {\r\n  width: 12%;\r\n  background-color: #adaabb;\r\n  height: 150px;\r\n\r\n  position: absolute;\r\n  z-index: 1;\r\n  border-radius: 2.5rem;\r\n  right: 55%;\r\n  top: 38%;\n}\n.view-Practical_text[data-v-41ea8ed8] {\r\n  align-self: flex-end;\r\n  padding-left: 20px;\n}\n.fa[data-v-41ea8ed8] {\r\n  padding-left: 5px;\n}\n.side[data-v-41ea8ed8] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.expect[data-v-41ea8ed8] {\r\n  width: 55%;\r\n  background-color: #ebeaef;\r\n  height: 300px;\r\n  border-radius: 2rem;\r\n  margin-top: 55px;\n}\n.what-to-expect-text[data-v-41ea8ed8] {\r\n  padding-left: 20px;\r\n  padding-top: 20px;\r\n  font-weight: bold;\r\n  color: #191236;\n}\n.expect-content[data-v-41ea8ed8] {\r\n  width: 90%;\r\n  overflow-x: hidden;\r\n  overflow-y: scroll;\r\n  scrollbar-color: #191236 #bebebe;\r\n  scrollbar-width: thin;\r\n  max-height: 220px;\r\n  margin-left: 15px;\n}\n.input-row[data-v-41ea8ed8] {\r\n  margin-top: 20px;\n}\n.md-size[data-v-41ea8ed8]{\r\n  font-size: 16px;\n}\nul[data-v-41ea8ed8]{\r\n  float: left;\n}\nul li[data-v-41ea8ed8]{\r\n  height: 20px;\r\n  display: inline;    \r\n  list-style: square;\n}\nul li[data-v-41ea8ed8]:before{\r\n  content: \"\";\r\n  width:5px;\r\n  height:5px;\r\n  background: #444;\r\n  display: inline-block;\r\n  margin-right: 5px;\n}\nhr[data-v-41ea8ed8]{\r\n  clear: left;\n}\ninput.formControl[data-v-41ea8ed8]{\r\n  transition: 0.5s all;\r\n  width: 150px;\r\n  height: 26px;\r\n  padding: 7px;\r\n  border-radius: 0px;\r\n  border:1px solid #888;\r\n  display: none;\r\n  position: relative;\r\n  top: 2px;\n}\n.formControl[data-v-41ea8ed8]:focus{\r\n  border:1px solid #888;  \r\n  border-radius: 0px;\r\n  outline: 0;\n}\n.display-none[data-v-41ea8ed8]{\r\n  display: none;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.timeline[data-v-41ea8ed8]{\r\n  margin-top:10px\n}\n.text[data-v-41ea8ed8]{\r\n  background-color: #d4d9df; \r\n  padding: 8px; \r\n  border-radius: 10px; \r\n  font-size: 16px;\n}\n.practical-desc[data-v-41ea8ed8] {\r\n  display: flex; \r\n  justify-content: space-between;\r\n  width: 52%;\r\n  font-size: 16px;\r\n  padding: 8px 0;\n}\n.col-md-10[data-v-41ea8ed8] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: 8rem;\n}\n.col-md-2[data-v-41ea8ed8] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content:space-around;\n}\n.practical-title[data-v-41ea8ed8] {\r\n  font-weight: bolder;\r\n  padding-top: 10px;\r\n  text-transform: capitalize;\n}\n.child[data-v-41ea8ed8] {\r\n  background-color: #fff;\r\n  margin-bottom: 30px;\r\n  margin-top:10px;\r\n  border-radius: 0.5rem;\r\n  padding: 10px;\r\n  height: 10rem;\r\n  display: flex;\r\n  justify-content: space-between;\n}\nul.timeline[data-v-41ea8ed8] {\r\n  list-style-type: none;\r\n  position: relative;\n}\nul.timeline[data-v-41ea8ed8]:before {\r\n  content: \" \";\r\n  background: #d4d9df;\r\n  display: inline-block;\r\n  position: absolute;\r\n  left: 29px;\r\n  width: 2px;\r\n  height: 100%;\r\n  z-index: 400;\n}\nul.timeline > li[data-v-41ea8ed8] {\r\n  margin: 0px 0;\r\n  padding-left: 20px;\r\n  margin-bottom: 10px;\n}\nul.timeline > li[data-v-41ea8ed8]:before {\r\n  content: \" \";\r\n  background: white;\r\n  display: inline-block;\r\n  position: absolute;\r\n  border-radius: 50%;\r\n  border: 3px solid #191236;\r\n  left: 20px;\r\n  width: 20px;\r\n  height: 20px;\r\n  z-index: 400;\n}\n.vlab-practicals[data-v-41ea8ed8] {\r\n  width: 100%;\r\n  background-color: #ebeaef;\r\n  max-height: 700px;\r\n  border-radius: 2.5rem;\n}\n.instructors[data-v-41ea8ed8] {\r\n  color: #959399;\r\n  margin-bottom: 0%;\n}\n.view-practicals[data-v-41ea8ed8] {\r\n  width: 95%;\r\n  background-color: #ebeaef;\r\n  height: 200px;\r\n  border-radius: 2rem;\r\n  margin-top: 55px;\r\n  display: flex;\n}\n.view-practicals-box[data-v-41ea8ed8] {\r\n  width: 12%;\r\n  background-color: #adaabb;\r\n  height: 150px;\r\n\r\n  position: absolute;\r\n  z-index: 1;\r\n  border-radius: 2.5rem;\r\n  right: 55%;\r\n  top: 38%;\n}\n.view-Practical_text[data-v-41ea8ed8] {\r\n  align-self: flex-end;\r\n  padding-left: 20px;\n}\n.fa[data-v-41ea8ed8] {\r\n  padding-left: 5px;\n}\n.side[data-v-41ea8ed8] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.expect[data-v-41ea8ed8] {\r\n  width: 55%;\r\n  background-color: #ebeaef;\r\n  height: 300px;\r\n  border-radius: 2rem;\r\n  margin-top: 55px;\n}\n.what-to-expect-text[data-v-41ea8ed8] {\r\n  padding-left: 20px;\r\n  padding-top: 20px;\r\n  font-weight: bold;\r\n  color: #191236;\n}\n.expect-content[data-v-41ea8ed8] {\r\n  width: 90%;\r\n  overflow-x: hidden;\r\n  overflow-y: scroll;\r\n  scrollbar-color: #191236 #bebebe;\r\n  scrollbar-width: thin;\r\n  max-height: 220px;\r\n  margin-left: 15px;\n}\n.input-row[data-v-41ea8ed8] {\r\n  margin-top: 20px;\n}\n.md-size[data-v-41ea8ed8]{\r\n  font-size: 16px;\n}\nul[data-v-41ea8ed8]{\r\n  float: left;\n}\nul li[data-v-41ea8ed8]{\r\n  height: 20px;\r\n  display: inline;    \r\n  list-style: square;\n}\nul li[data-v-41ea8ed8]:before{\r\n  content: \"\";\r\n  width:5px;\r\n  height:5px;\r\n  background: #444;\r\n  display: inline-block;\r\n  margin-right: 5px;\n}\nhr[data-v-41ea8ed8]{\r\n  clear: left;\n}\ninput.formControl[data-v-41ea8ed8]{\r\n  transition: 0.5s all;\r\n  width: 130px;\r\n  height: 26px;\r\n  padding: 7px;\r\n  border-radius: 0px;\r\n  border: none;\r\n  border-bottom:1px solid #888;\r\n  display: block;\r\n  visibility: hidden;\r\n  position: relative;\r\n  top: 10px;\r\n  margin-bottom: 5px;\n}\n.formControl[data-v-41ea8ed8]:focus{\r\n  border-bottom:1px solid #00b96b;  \r\n  border-radius: 0px;\r\n  outline: 0;\n}\n.display-none[data-v-41ea8ed8]{\r\n  display: none;\n}\n.button[data-v-41ea8ed8]{\r\n  width: 130px;\r\n  margin-bottom: 7px;\n}\n.more-detail-pin[data-v-41ea8ed8]{\r\n  width: 130px;\r\n  text-align: center;\r\n  position: relative;\r\n  bottom: -10px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36519,6 +36833,45 @@ component.options.__file = "resources/js/components/searies_and_parallel_p.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/session.vue":
+/*!*********************************************!*\
+  !*** ./resources/js/components/session.vue ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _session_vue_vue_type_template_id_72bcc91b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./session.vue?vue&type=template&id=72bcc91b& */ "./resources/js/components/session.vue?vue&type=template&id=72bcc91b&");
+/* harmony import */ var _session_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./session.vue?vue&type=script&lang=js& */ "./resources/js/components/session.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _session_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _session_vue_vue_type_template_id_72bcc91b___WEBPACK_IMPORTED_MODULE_0__.render,
+  _session_vue_vue_type_template_id_72bcc91b___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/session.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/shade_level_p.vue":
 /*!***************************************************!*\
   !*** ./resources/js/components/shade_level_p.vue ***!
@@ -37684,6 +38037,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_searies_and_parallel_p_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./searies_and_parallel_p.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/searies_and_parallel_p.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_searies_and_parallel_p_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/components/session.vue?vue&type=script&lang=js&":
+/*!**********************************************************************!*\
+  !*** ./resources/js/components/session.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_session_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./session.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/session.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_session_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -39003,6 +39372,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_searies_and_parallel_p_vue_vue_type_template_id_a2907854_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_searies_and_parallel_p_vue_vue_type_template_id_a2907854_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./searies_and_parallel_p.vue?vue&type=template&id=a2907854&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/searies_and_parallel_p.vue?vue&type=template&id=a2907854&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/session.vue?vue&type=template&id=72bcc91b&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/session.vue?vue&type=template&id=72bcc91b& ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_session_vue_vue_type_template_id_72bcc91b___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_session_vue_vue_type_template_id_72bcc91b___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_session_vue_vue_type_template_id_72bcc91b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./session.vue?vue&type=template&id=72bcc91b& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/session.vue?vue&type=template&id=72bcc91b&");
 
 
 /***/ }),
@@ -40401,7 +40787,7 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "row hm300 w-100 px-6 py-5",
+        staticClass: "row hm300 w-100 px-6 py-5 m-0",
         staticStyle: { background: "#f0f0f0" }
       },
       _vm._l(_vm.courseCate.faculties, function(cat) {
@@ -41265,14 +41651,31 @@ var render = function() {
           }
         },
         [
-          _c("span", {
-            staticClass: "fa fa-align-justify mr-3",
-            staticStyle: { "font-size": "1.4em", cursor: "pointer" }
-          }),
+          _c(
+            "div",
+            {
+              staticClass: "navicon",
+              on: {
+                click: function($event) {
+                  return _vm.naviconToggler($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "bar1" }),
+              _vm._v(" "),
+              _c("div", { staticClass: "bar2" }),
+              _vm._v(" "),
+              _c("div", { staticClass: "bar3" })
+            ]
+          ),
           _vm._v(" "),
           _c(
             "span",
-            { staticStyle: { "font-weight": "500", "font-size": "1em" } },
+            {
+              staticClass: "ml-2",
+              staticStyle: { "font-weight": "500", "font-size": "1em" }
+            },
             [_vm._v(_vm._s(_vm.title))]
           )
         ]
@@ -42494,12 +42897,16 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
+    _c("div", {
+      staticClass: "m-0 mobileMenu p-display-none ",
+      attrs: { id: "MainMobile" }
+    }),
+    _vm._v(" "),
     _c(
       "div",
       {
         staticClass: "MenuLContainer bg-white",
-        class: { reduceSize: _vm.show },
-        staticStyle: { width: "230px" }
+        class: { reduceSize: _vm.show }
       },
       [
         _c(
@@ -42572,9 +42979,7 @@ var render = function() {
               [_c("span", { staticClass: "iconOV fa fa-gear" })]
             ),
             _vm._v(" "),
-            _c("a", { attrs: { href: "#" }, on: { click: _vm.logout } }, [
-              _c("span", { staticClass: "iconOV fa fa-arrow-circle-left" })
-            ])
+            _vm._m(0)
           ]
         ),
         _vm._v(" "),
@@ -42593,7 +42998,8 @@ var render = function() {
               "margin-right": "20px",
               height: "75vh",
               "padding-right": "10px"
-            }
+            },
+            attrs: { id: "wideMenu" }
           },
           [
             _c(
@@ -42678,6 +43084,19 @@ var render = function() {
               "a",
               {
                 staticClass: "nChildV",
+                class: { btnActive: _vm.checkActive("session") },
+                attrs: { href: "/manage-session" }
+              },
+              [
+                _c("span", { staticClass: "iconV fa fa-calendar" }),
+                _c("div", { staticClass: "labelV" }, [_vm._v("Manage Session")])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "nChildV",
                 class: { btnActive: _vm.checkActive("settings") },
                 attrs: { href: _vm.settings }
               },
@@ -42687,25 +43106,32 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "nChildV",
-                attrs: { href: "#" },
-                on: { click: _vm.logout }
-              },
-              [
-                _c("span", { staticClass: "iconV fa fa-arrow-circle-left" }),
-                _c("div", { staticClass: "labelV" }, [_vm._v("Logout")])
-              ]
-            )
+            _vm._m(1)
           ]
         )
       ]
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { attrs: { href: "/logout" } }, [
+      _c("span", { staticClass: "iconOV fa fa-arrow-circle-left" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "nChildV", attrs: { href: "/logout" } }, [
+      _c("span", { staticClass: "iconV fa fa-arrow-circle-left" }),
+      _c("div", { staticClass: "labelV" }, [_vm._v("Logout")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -44066,12 +44492,16 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
+    _c("div", {
+      staticClass: "m-0 mobileMenu p-display-none ",
+      attrs: { id: "MainMobile" }
+    }),
+    _vm._v(" "),
     _c(
       "div",
       {
         staticClass: "MenuLContainer bg-white",
-        class: { reduceSize: _vm.show },
-        staticStyle: { width: "230px" }
+        class: { reduceSize: _vm.show }
       },
       [
         _c(
@@ -44249,7 +44679,8 @@ var render = function() {
               "margin-left": "20px",
               "margin-right": "20px",
               height: ""
-            }
+            },
+            attrs: { id: "wideMenu" }
           },
           [
             _c(
@@ -44492,12 +44923,17 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
+    _c("div", {
+      staticClass: "m-0 mobileMenu p-display-none ",
+      attrs: { id: "MainMobile" }
+    }),
+    _vm._v(" "),
     _c(
       "div",
       {
-        staticClass: "MenuLContainer",
+        staticClass: "MenuLContainer bg-white",
         class: { reduceSize: _vm.show },
-        staticStyle: { display: "flex", width: "200px", background: "#fff" }
+        attrs: { id: "wideMenu" }
       },
       [
         _c(
@@ -45168,6 +45604,130 @@ var staticRenderFns = [
         ])
       ]
     )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/session.vue?vue&type=template&id=72bcc91b&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/session.vue?vue&type=template&id=72bcc91b& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "w-100 mt-2 py-3" }, [
+    _c(
+      "a",
+      {
+        staticClass:
+          "btn py-3 mb-5 mr-2 px-4 text-white fs1 font1 p-success btn-lg pull-right",
+        staticStyle: { "border-radius": "0.6rem" },
+        attrs: { href: "#" },
+        on: { click: _vm.createsession }
+      },
+      [
+        _vm._v("Create New "),
+        _c("span", { staticClass: "text-white fa fa-chevron-down" })
+      ]
+    ),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("div", { staticClass: "notification-table " }, [
+      _c(
+        "table",
+        { staticClass: "table table-hover", attrs: { id: "sessiontable" } },
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm.tableLoaded
+            ? _c(
+                "tbody",
+                _vm._l(_vm.createdsession, function(session, index) {
+                  return _c("tr", { key: index }, [
+                    _c(
+                      "td",
+                      { attrs: { width: "40%", title: session.title } },
+                      [_vm._v(_vm._s(session.name))]
+                    ),
+                    _vm._v(" "),
+                    _c("td", { attrs: { width: "15%" } }, [
+                      _vm._v(_vm._s(session.updated_at))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { width: "5%" } }, [
+                      _vm._v(_vm._s(session.status))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { width: "40%" } }, [
+                      _c("span", {
+                        staticClass: "ml-2 fa fa-edit pl-3  fs01 cursor-1",
+                        staticStyle: { "border-left": "1px solid #ccc" },
+                        on: {
+                          click: function($event) {
+                            return _vm.editsession(session)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", {
+                        staticClass: "ml-2 fa fa-edit pl-3  fs01 cursor-1",
+                        staticStyle: { "border-left": "1px solid #ccc" },
+                        on: {
+                          click: function($event) {
+                            return _vm.setsession(session)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", {
+                        staticClass: "ml-2 fa fa-trash pl-3  fs01 cursor-1",
+                        on: {
+                          click: function($event) {
+                            return _vm.deletesession(session.id)
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                }),
+                0
+              )
+            : _vm._e()
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", { attrs: { id: "cheadV" } }, [
+        _c("th", { attrs: { width: "40%" } }, [_vm._v("session name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { width: "15%" } }, [_vm._v("date created")]),
+        _vm._v(" "),
+        _c("th", { attrs: { width: "5%" } }, [_vm._v("status")]),
+        _vm._v(" "),
+        _c("th", { attrs: { width: "40%" } }, [_vm._v("Action")])
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -47160,87 +47720,7 @@ var render = function() {
                               _c("div", { staticClass: "mb-2" }, [
                                 _c("span", { staticClass: "fw5 fs01 ftag" }, [
                                   _vm._v(_vm._s(course.code))
-                                ]),
-                                _vm._v(" "),
-                                !_vm.checkEnrollment(course.id)
-                                  ? _c("span", [
-                                      course.enrollment_code != ""
-                                        ? _c("span", [
-                                            _c(
-                                              "button",
-                                              {
-                                                staticClass:
-                                                  "fw5 fs01 button shadow-sm bg-info px-3 py-1 text-white d-inline-block",
-                                                on: {
-                                                  click: _vm.enrollmentCode
-                                                }
-                                              },
-                                              [_vm._v("Enroll")]
-                                            ),
-                                            _vm._v(" "),
-                                            _c("input", {
-                                              staticClass: "formControl ",
-                                              attrs: {
-                                                type: "text",
-                                                name: "enrollment_code",
-                                                placeholder: _vm.ecode,
-                                                width: "150px"
-                                              },
-                                              on: {
-                                                keyup: function($event) {
-                                                  return _vm.compare(
-                                                    course.enrollment_code,
-                                                    $event.target.value,
-                                                    course.id,
-                                                    $event.target
-                                                  )
-                                                }
-                                              }
-                                            }),
-                                            _vm._v(" "),
-                                            _c("span", {
-                                              staticClass:
-                                                "fa fa-check text-success display-none"
-                                            }),
-                                            _vm._v(" "),
-                                            _c("span", {
-                                              staticClass:
-                                                "fa fa-plus text-danger display-none"
-                                            })
-                                          ])
-                                        : _c("span", [
-                                            _c(
-                                              "button",
-                                              {
-                                                staticClass:
-                                                  "fw5 fs01 button shadow-sm bg-info px-3 py-1 text-white d-inline-block",
-                                                on: {
-                                                  click: function($event) {
-                                                    return _vm.enroll()
-                                                  }
-                                                }
-                                              },
-                                              [_vm._v("Enroll")]
-                                            )
-                                          ])
-                                    ])
-                                  : _c("span", [
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass:
-                                            "fw5 fs01 button shadow-sm bg-success px-3 py-1 text-white d-inline-block",
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.viewEnrolledCourse(
-                                                course.id
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("View Enrolled Course")]
-                                      )
-                                    ])
+                                ])
                               ]),
                               _vm._v(" "),
                               _c("h3", { staticClass: "fw6 fdata" }, [
@@ -47268,7 +47748,120 @@ var render = function() {
                               ])
                             ]),
                             _vm._v(" "),
-                            _vm._m(2, true)
+                            _c("div", [
+                              !_vm.checkEnrollment(course.id)
+                                ? _c("div", [
+                                    course.enrollment_code == ""
+                                      ? _c("span", [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "fw5 fs01 button shadow-sm bg-success px-3 py-2 text-white p-display-none",
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.viewEnrolledCourse(
+                                                    "course.id"
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [_vm._v("View Course")]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "fw5 fs01 button shadow-sm bg-dark px-3 py-2 text-white d-inline-block",
+                                              on: { click: _vm.enrollmentCode }
+                                            },
+                                            [_vm._v("Enroll")]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("input", {
+                                            staticClass: "formControl ",
+                                            attrs: {
+                                              type: "text",
+                                              name: "enrollment_code",
+                                              placeholder: _vm.ecode
+                                            },
+                                            on: {
+                                              keyup: function($event) {
+                                                return _vm.compare(
+                                                  course.enrollment_code,
+                                                  $event.target.value,
+                                                  course.id,
+                                                  $event.target
+                                                )
+                                              }
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("span", {
+                                            staticClass:
+                                              "fa fa-check text-success display-none"
+                                          }),
+                                          _vm._v(" "),
+                                          _c("span", {
+                                            staticClass:
+                                              "fa fa-plus text-danger display-none"
+                                          })
+                                        ])
+                                      : _c("span", [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "fw5 fs01 button shadow-sm bg-secondary px-3 py-2 text-white d-inline-block",
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.enroll()
+                                                }
+                                              }
+                                            },
+                                            [_vm._v("Enroll")]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("input", {
+                                            staticClass: "formControl",
+                                            attrs: {
+                                              type: "text",
+                                              name: "enrollment_code",
+                                              placeholder: _vm.ecode
+                                            }
+                                          })
+                                        ])
+                                  ])
+                                : _c("div", [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "fw5 fs01 button shadow-sm bg-success px-3 py-2 text-white d-inline-block",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.viewEnrolledCourse(
+                                              course.id
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("View Course")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      staticClass: "formControl",
+                                      attrs: {
+                                        type: "text",
+                                        name: "enrollment_code",
+                                        placeholder: _vm.ecode
+                                      }
+                                    })
+                                  ]),
+                              _vm._v(" "),
+                              _vm._m(2, true)
+                            ])
                           ]
                         )
                       ]
@@ -47456,12 +48049,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("p", { staticClass: "text-success fs1 more-detail-pin" }, [
+    return _c(
+      "p",
+      { staticClass: "text-success fs1 more-detail-pin text-center" },
+      [
         _vm._v("More Detail "),
         _c("span", { staticClass: "fa fa-chevron-down text-success" })
-      ])
-    ])
+      ]
+    )
   }
 ]
 render._withStripped = true

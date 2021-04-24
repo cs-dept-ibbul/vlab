@@ -19,6 +19,7 @@ export default {
       		currentWidth:100,
       		currentUser:'',
       		startExperiment: false,
+      		navbarState:false,
 
       	}
       },
@@ -343,6 +344,7 @@ export default {
 				return AxiosFetchData();				
                     
   		},
+  		
   		rippleButton: function(){      				
 					$('.button').click(function(event){
 						var $this = $(this);
@@ -356,7 +358,19 @@ export default {
 					  $('.ripple').remove()
 					  $this.append("<span class='ripple b-warning' style='width:"+diameter+"px; height:"+diameter+"px; left:"+left+"px; top:"+top+"px;'></span>");
 					})			
-      			}
+      			},
+      	naviconToggler: function(e){
+      		if (this.navbarState === false) {
+      			this.navbarState = true;
+      			$('.navicon').addClass('change');
+      			$('.mobileMenu').show(200);
+      			
+      		}else{
+      			this.navbarState = false;
+      			$('.navicon').removeClass('change');
+      			$('.mobileMenu').slideUp(200);
+      		}
+      	}
 
       },
       created: function(){
@@ -387,7 +401,24 @@ export default {
 	        	 	$vm.currentWidth = (($('.scroll-y').width()/windowWidth)* 100)+2;
 	      		}        	 	
       		},5);
+      		let mobileS = function(size) {
+      			if(size < 751) {      				
+      				$('.MenuLContainer').addClass('removeMenu');
+      				$('.menuBtnToggler').addClass('removeMenu');      				
+      				$('#MainMobile').html($('#wideMenu').clone());
+       				$('.listMenu').not($(this).next()).slideUp(200);
+  	 			    $(this).parent().find('ul.listMenu').slideToggle(200);
+      			}else{
+      				$('#MainMobile').css('display','none');      				
+      				$('.MenuLContainer').removeClass('removeMenu');
+      				$('.menuBtnToggler').removeClass('removeMenu');
+				}
 
+      		}
+      		mobileS($(window).width());
+      		$(window).resize(function(){
+      			mobileS($(this).width())
+      		})
       		$(document).ready(function(){      			
       			window.rippleButton = function(){      				
 					$('.button').click(function(event){
