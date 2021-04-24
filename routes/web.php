@@ -22,8 +22,10 @@ Route::get('/logout', 'App\Http\Controllers\loginController@logout')->name('logo
 
 //AMDIN
 Route::middleware(['adminauth'])->group(function(){
+
 	Route::get('/manage-faculty', 'App\Http\Controllers\ManageFacultyController@index')->name('manage-faculty');
 	Route::get('/manage-department', 'App\Http\Controllers\ManageDepartmentController@index')->name('manage-department');
+	Route::get('/manage-session', 'App\Http\Controllers\ManageSessionController@index')->name('manage-session');
 	Route::get('/manage-user', 'App\Http\Controllers\ManageUserController@index')->name('manage-user');
 });
 
@@ -31,7 +33,7 @@ Route::middleware(['studentauth'])->group(function(){
 	Route::get('/UserDashboard', 'App\Http\Controllers\ViewUserDashboard@index')->name('sdashboard');
 
 	Route::get('/my-courses', 'App\Http\Controllers\StudentCourses@index')->name('courses');
-	Route::get('/my-course-review/{id?}', 'App\Http\ControllersS\tudentCourses@review')->name('my-course-review');
+	Route::get('/my-course-review/{id?}', 'App\Http\Controllers\StudentCourses@review')->name('my-course-review');
 	Route::get('/view-Students-dashboard', 'App\Http\Controllers\adminViewStudentsdashboard@index')->name('view-Students-dashboard');
 	Route::get('/viewCourse/{id?}', 'App\Http\Controllers\ViewCourseController@index')->name('viewCourse');
 
@@ -48,6 +50,8 @@ Route::middleware(['studentauth'])->group(function(){
 
 
 Route::middleware(['instructorauth'])->group(function(){
+	Route::get('/view-course/{id?}', 'App\Http\Controllers\ViewCourseController@forInstructor')->name('view-course');
+
 	Route::get('/view-created-course', 'App\Http\Controllers\ManageCourseController@viewCourse')->name('view-created-course');
 	Route::get('/create-course', 'App\Http\Controllers\ManageCourseController@index')->name('create-courses');
 	Route::get('/add-experiment', 'App\Http\Controllers\AddExperimentController@index')->name('add-experiment');

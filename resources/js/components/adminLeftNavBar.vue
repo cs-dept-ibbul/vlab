@@ -5,10 +5,10 @@
 			<span class="fa fa-square mr-2 position-fixed" style="font-size: 2em;"></span>
 			<b class="menuLI ml-5" v-bind:class="{slidein:show1, slideout:hide1}">V-LAB</b>
 		</div>
-
-		<div style="width: 230px;" class="MenuLContainer bg-white"  v-bind:class="{reduceSize:show}">			
+		<div class="m-0 mobileMenu p-display-none " id="MainMobile"></div>
+		<div  class="MenuLContainer bg-white"  v-bind:class="{reduceSize:show}">			
 			<div v-bind:class="{slidein:show, slideout:hide}" class="niconsV slider" >
-					<a :href="home"  v-bind:class="{btnActive:checkActive('home')}">
+				<a :href="home"  v-bind:class="{btnActive:checkActive('home')}">
 					<span class="iconOV  fa fa-home "></span>
 				</a>	
 				<a :href="dashboard"   v-bind:class="{btnActive:checkActive('dashboard')}">
@@ -69,11 +69,11 @@
 				<a :href="settings"   v-bind:class="{btnActive:checkActive('settings')}">
 					<span class="iconOV fa fa-gear"></span>
 				</a>					
-				<a @click="logout" :href="'#'"  >				
+				<a  href="/logout"  >				
 					<span class="iconOV fa fa-arrow-circle-left"></span>
 				</a>	
 			</div>
-			<div v-bind:class="{slidein:show1, slideout:hide1, scrollableV:hide1, scrollableV:show1}" style="position: relative; margin-left: 10px; margin-right:20px;height:75vh; padding-right: 10px;" >
+			<div id="wideMenu" v-bind:class="{slidein:show1, slideout:hide1, scrollableV:hide1, scrollableV:show1}" style="position: relative; margin-left: 10px; margin-right:20px;height:75vh; padding-right: 10px;" >
 				<a :href="home" class="nChildV" v-bind:class="{btnActive:checkActive('home')}">
 					<span class="iconV fa fa-home "></span><div class="labelV">Home</div>
 				</a>	
@@ -114,6 +114,9 @@
 				<a :href="user" class="nChildV"  v-bind:class="{btnActive:checkActive('user')}">
 					<span class="iconV fa fa-users"></span><div class="labelV">Manage User</div>
 				</a>	
+				<a href="/manage-session" class="nChildV"  v-bind:class="{btnActive:checkActive('session')}">
+					<span class="iconV fa fa-calendar"></span><div class="labelV">Manage Session</div>
+				</a>	
 				<!-- 	<ul >
 					<li class="listMenuBtn nChildV"  v-bind:class="{btnActive:checkActive('user')}">
 						<span class="iconV fa fa-users"></span><div class="labelV">Manage Users</div>
@@ -136,7 +139,7 @@
 				<a :href="settings"  class="nChildV" v-bind:class="{btnActive:checkActive('settings')}">
 					<span class="iconV fa fa-gear"></span><div class="labelV">Settings</div>
 				</a>					
-				<a @click="logout" :href="'#'"  class="nChildV">				
+				<a href="/logout"  class="nChildV">				
 					<span class="iconV fa fa-arrow-circle-left"></span><div class="labelV">Logout</div>
 				</a>				
 			</div>
@@ -286,6 +289,7 @@ a{
 .MenuLContainer{
 	display: flex;
 	margin-top:50px;	
+	width: 230px;
 }
 .menuBtnToggler{
 	cursor: pointer;

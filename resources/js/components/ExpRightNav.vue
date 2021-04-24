@@ -1,5 +1,5 @@
 <template>
-	<div class="vhE-2" id="rightNavigation">
+	<div class="vhE-2 " id="rightNavigation">
 		<div class="containerR" id="tools" style="height:100%;">	
 			
 		   	<div class="input-alt"></div>	
@@ -7,34 +7,39 @@
 		   	 	<circuitconnectiontools has='1'  ></circuitconnectiontools>
 		   	</span>	   
 		   	<span v-if="electricitytools==true">	
-			   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>		   		
+			   	<span class="fa fa-align-justify bg-white rightnavexpander" @click="rightnavexpander"></span>		   		
 		   		<electricity></electricity>	   		
 		   	</span>
-		   	<span v-if="othertools==true">		   		
-			   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>
-	            <div v-for="tool in toolsizes"  :key="tool" @click="addactivate;changeApparatus(tool)"  v-bind:style="{width:tool+'px'}" class="box">
-	            		Size
-	        	</div>                  
+		   	<span v-if="othertools==true">	
+		   		<span v-if= "type=='measurement' && startExperiment == true">		   		
+				   	<span class="fa fa-align-justify bg-white rightnavexpander" @click="rightnavexpander"></span>
+		            <div v-for="i in toolsizes[0].length"  :key="i" @click="addactivate;changeApparatus(toolsizes[0][i],toolsizes[1][i],toolsizes[2][i])"  v-bind:style="{width:+'150px'}" class="box">
+		            		Size {{i}}
+		        	</div>                  
+		   		</span>
 		   	</span>
 		<!-- <span v-if="toolstate==true">
 		</span>		
 		<span v-else>			
 		</span> -->
 		</div>
-		<div class="containerR" style="display: none;" id="resulttable">
+		<div class="containerR px-2" style="display: none;" id="resulttable">
 		   	<div class="input-alt"></div>
-		   <span class="fa fa-align-justify bg-white rightnavexpander"></span>
-		   <h1>Result table</h1>				                
+		   <span class="fa fa-align-justify bg-white rightnavexpander" @click="rightnavexpander"></span>
+		   
+		   <div v-html="result" v-if="startExperiment">
+		   	
+		   </div>				                
 		</div>
 		<div class="containerR" style="display: none;" id="resultgraph">				
 		   	<div class="input-alt"></div>
-		   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>
+		   	<span class="fa fa-align-justify bg-white rightnavexpander" @click="rightnavexpander"></span>
 
 		   <h1>Graph</h1>				                
 		</div>
 		<div class="containerR" style="display: none;" id="userhelp">		
 		   	<div class="input-alt"></div>		
-		   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>			
+		   	<span class="fa fa-align-justify bg-white rightnavexpander" @click="rightnavexpander"></span>			
 		   <h1>Help</h1>				                
 		</div>
 		<!-- <div class="containerR" style="display: none;" id="unkl">			
@@ -73,8 +78,7 @@
             	//control = false;
         	},
         	addactivate(e){
-        		console.log(e.target);
-        		alert(2);
+        	
         		let box = document.getElementsByClassName('box');
         		for (let i = 0; i < box.length; i++) {
         			box[i].classList.remove('boxActive');
@@ -82,11 +86,11 @@
         		e.target.classList.add('boxActive');
 
         	},
-        	changeApparatus(tool){
+        	changeApparatus(t1,t2,t3){
 
         		//let  experimentSheet = document.getElementById('experimentSheet');
         		let  experimentSheet = $('#experimentSheet');
-        		 experimentSheet.attr('src',this.url+tool); //tool is value
+        		 experimentSheet.attr('src',this.url+t1+'-'+t2+'-'+t3); //tool is value
 
         	},
         	toggleNavOnHover: function(value){          
@@ -95,17 +99,28 @@
         	toggller(e){
 
         	},
+        	rightnavexpander:function(){
+        		if(this.rightNavState=== false){
+        			$('#rightNav').addClass('width50');
+        			this.rightNavState = true;
+        		}else if(this.rightNavState === true){
+        			$('#rightNav').removeClass('width50');
+        			this.rightNavState = false;
+        		}
+        	}
 
         },	
         computed: {
     		// a computed getter		  
 		  },
         created: function () {      
-
+          this.$eventBus.$on('startExperiment',data=>{
+          	this.startExperiment = true;          	
+          })
 		  this.$eventBus.$on('rightNavtoggleClick', data => {		  	
 		  	//this.toggleNavOnHover();
 		  	if(this.activeRightNav === data.text){		  		
-
+ 
 		  	}else{
 		  		$('.containerR').slideUp();
 		  		$('#'+data.text).slideDown(200);		  			  		
@@ -113,6 +128,11 @@
 		  	}
 		  })		  
 
+		  //invoke from toggleRightNav2() in ExperimentRibbon.vue;
+		  this.$eventBus.$on('toggleRightNav2', data=>{
+        		$('#rightNav').addClass('width50');
+        		this.rightNavState = true;
+		  })
 		},
 
 		beforeDestroy: function () {
@@ -122,28 +142,28 @@
         props:{
             toolsizes: Array,
             url:String,
+            result: String,
             toolstate:Boolean,
             circuitconnectiontools:Boolean,
             othertools:Boolean,
-            electricitytools:Boolean
+            electricitytools:Boolean,
+            type:{
+            	type:String,
+            	default: function(){
+            		return '';
+            	}
+            },
         },        
-        mounted(){
+        mounted(){        		
+
         	//console.log(this.toolsizes);
-        var $vm = this;	               	
+       		 //alert(this.resultTable)
+       		 var $vm = this;	               	
         	$('.box').click(function(){
         		$('.box').removeClass('boxActive');
         		$(this).addClass('boxActive');
 
-        	});
-        	$('.rightnavexpander').click(function(){
-        		if($vm.rightNavState=== false){
-        			$('#rightNav').addClass('width50');
-        			$vm.rightNavState = true;
-        		}else if($vm.rightNavState === true){
-        			$('#rightNav').removeClass('width50');
-        			$vm.rightNavState = false;
-        		}
-        	})
+        	});       
         }		
 	}
 
@@ -245,7 +265,7 @@
 .containerR{
 	height: 537px;
 	background: #40356E;
-	overflow-x: scroll;
+	overflow-x: hidden;
 	color: #fff;
 }
 .fa-align-justify{

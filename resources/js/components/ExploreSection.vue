@@ -5,9 +5,9 @@
           <div class="font2 fw4  systab systab--active ">Course Category</div>
         <div class="font2 fw4 systab ml-3">Most Visited Courses</div>
         </div>
-        <div class="row hm300 w-100 px-6 py-5" style="background: #f0f0f0;">          
+        <div class="row hm300 w-100 px-6 py-5 m-0" style="background: #f0f0f0;">          
           <div class="col-12 col-md-6 col-lg-4 mt-5" v-for="cat in courseCate.faculties">
-            <a style="text-decoration: none;" :href="'/viewCourse/'+cat.id" class="w-100 cadin">
+            <a style="text-decoration: none;" :href="link+cat.id" class="w-100 cadin">
               
             <div class="w-100 r2 shadow">
               <div  class="h130 w-100 p-secondary rt2"></div>
@@ -37,6 +37,7 @@
 export default {
   data(){
     return {
+      link:'/viewCourse/',
       courseCate: [
         {'id':1,'name': 'Applied Science','totalCourse':'7','totalStudents':500},
         {'id':2,'name': 'Science & Engineering ','totalCourse':'12','totalStudents':1000},
@@ -46,7 +47,10 @@ export default {
     }
   },
   async created(){
-
+    if (this.currentUser.role_id != 3) {
+        this.link = '/view-course/'
+    }
+      
         this.courseCate  = await this.axiosGet('api/faculties/faculty_course_student');
         //console.log(this.createdFaculty)
         this.tableLoaded = true;

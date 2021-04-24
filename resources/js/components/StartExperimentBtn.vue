@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div style="position: absolute;top: 87px; right: 40px; z-index: 15;" class="timer">
+		<div style="position: absolute;top: 87px; right: 40px; z-index: 15;" class="timer bg-dark">
 			  <div class="countdown">
 			    <!-- <div class="block">
 			      <p class="digit">{{ days}}:</p>
@@ -45,6 +45,19 @@ mounted() {
     }
   },
   methods:{
+    validateResultInput:function(){
+          let regExp = /^[0-9]+\.?[0-9]*$/,
+                value;
+        $('.resultReading').on('keyup',function(){
+                value = $(this).val();
+                alert(value);
+                $(this).css('border','1px solid #ccc');
+                if (regExp.test(value)== false){
+                  $(this).css('border','1px solid red');              
+                  return 0;
+                }
+              })
+      },
   	tickT(){
   		let experimentSheet = document.getElementById('experimentSheet');
   		
@@ -62,10 +75,16 @@ mounted() {
     	},1000);
   	},
   	startT(){
-
+      this.$eventBus.$emit('startExperiment', function () {
+        return true; //listen in expRightNav.vue
+      } )
   		this.start = true;
       this.startTime=Math.trunc((new Date()).getTime() / 1000);
       document.getElementById('experimentSheet').style.display = 'block'
+      let $this = this;
+      setTimeout(function() {
+       // $this.validateResultInput();
+      },  1000);
 
   	},
   	valueFilter(value){

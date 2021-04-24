@@ -1,28 +1,27 @@
 <template>	
 		<div class="w-100 mt-2 py-3">
-          <a href="#" @click="createFaculty" class="btn py-3 mb-5 mr-2 px-4 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 0.6rem">Create New <span class="text-white fa fa-chevron-down"></span></a>
+          <a href="#" @click="createsession" class="btn py-3 mb-5 mr-2 px-4 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 0.6rem">Create New <span class="text-white fa fa-chevron-down"></span></a>
           <br>
           <div class="notification-table ">
-				<table id="facultytable" class="table table-hover">
+				<table id="sessiontable" class="table table-hover">
 					<thead>
 						<tr id="cheadV">
 							
-						<th width="40%">faculty name</th>
-			            <th width="20%">faculty abbr.</th>	            
+						<th width="40%">session name</th>			               
 			            <th width="15%">date created</th>
 			            <th width="5%">status</th>
-			            <th width="20%">Action</th>
+			            <th width="40%">Action</th>
 						</tr>
 					</thead>
 					<tbody v-if="tableLoaded">
-			        <tr v-for="(faculty, index) in createdFaculty" :key="index">	         
-			            <td width="40%" :title="faculty.title">{{faculty.name}}</td>
-			            <td width="20%">{{faculty.code}}</td>	           
-			            <td width="15%">{{faculty.updated_at}}</td>	            
-			            <td width="5%">{{faculty.status}}</td>	            
-			            <td width="10%">
-			            	<span class="ml-2 fa fa-edit pl-3  fs01 cursor-1" @click="editfaculty(faculty)" style="border-left: 1px solid #ccc;"></span>
-			            	<span class="ml-2 fa fa-trash pl-3  fs01 cursor-1" @click="deletefaculty(faculty.id)"></span>
+			        <tr v-for="(session, index) in createdsession" :key="index">	         
+			            <td width="40%" :title="session.title">{{session.name}}</td>			            
+			            <td width="15%">{{session.updated_at}}</td>	            
+			            <td width="5%">{{session.status}}</td>	            
+			            <td width="40%">
+			            	<span class="ml-2 fa fa-edit pl-3  fs01 cursor-1" @click="editsession(session)" style="border-left: 1px solid #ccc;"></span>
+			            	<span class="ml-2 fa fa-edit pl-3  fs01 cursor-1" @click="setsession(session)" style="border-left: 1px solid #ccc;"></span>
+			            	<span class="ml-2 fa fa-trash pl-3  fs01 cursor-1" @click="deletesession(session.id)"></span>
 			            </td>
 			        </tr>
 			    	</tbody>
@@ -35,83 +34,80 @@
 	export default{
 		data(){
 			return{
-				createdFaculty:null,
+				createdsession:null,
 				tableLoaded:false
 			}
 		},
 		methods: {
-			swal_form: function(update = false, obj={faculty_id:1, name:'Natural science', code: 'fns'}){	
+			swal_form: function(update = false, obj={session_id:1, name:'Natural science', code: 'fns'}){	
 				$('#system-loader').css('display','flex');
 				let formcount = 0;
 				let $vm = this, html='';
-				let topic = "Create Faculty";
+				let topic = "Create session";
 				console.log(obj);
-				//watch(this.watchfacultyHtml, 'value', function(){
+				//watch(this.watchsessionHtml, 'value', function(){
 				if(update){			
-					topic = 'Update Faculty';
+					topic = 'Update session';
 					html = 			
-				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Name</legend>"+					  		   
-				    '<input id="swal-input1" class="swal2-input mt-1" value="'+obj.name+'" >' +
-				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Abbr</legend>"+					  		   				    
-				    '<input id="swal-input2" class="swal2-input mt-1" value="'+obj.code+'">';
+				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>session Name</legend>"+					  		   
+				    '<input id="swal-input1" class="swal2-input mt-1" value="'+obj.name+'" >' ;			 
 				}else{
 					html =
-				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Name</legend>"+					  		   
-				    '<input id="swal-input1" class="swal2-input mt-1" >' +
-				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Abbr</legend>"+					  		   				    
-				    '<input id="swal-input2" class="swal2-input mt-1">';	
+				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>session Name</legend>"+					  		   
+				    '<input id="swal-input1" class="swal2-input mt-1" >' 
+				    ;
 				}										
 				$('#system-loader').hide();						
 				Swal.fire({
 				  title: topic,
 				  html:html,
-				  confirmButtonText:'Ok',					      
-			      cancelButtonText:'Cancel',				      				      
+				  confirmButtonText:'Create',					      
+			      cancelButtonText:'Cancel',					      
 			      cancelButtonColor:'#dd000f',					      
 			      confirmButtonColor:'#00b96b',					      
 			      showCancelButton:true,					      
 			      showLoaderOnConfirm: true,
 				  focusConfirm: false,
 				  preConfirm: () => {					  	
-				  	 let  FacultyName = document.getElementById('swal-input1').value,
-				      FacultyAbbr = document.getElementById('swal-input2').value;					      					  	  
-				  	if ( FacultyName == "" || FacultyAbbr == "") {					     
+				  	 let  sessionName = document.getElementById('swal-input1').value;
+				      				      					  	  
+				  	if ( sessionName == "" ) {					     
 				         Swal.showValidationMessage('All fields are required');
 				  	}
+				  	let regExp = /^(20?\d)\d{2}\/(20?\d)\d{2}$/;
+				  	if (!regExp.test(sessionName)) {
+				  		 Swal.showValidationMessage('Invalid session');	
+				  	}else{
+				  		let sessionArr = sessionName.split('/');
+				  		if(sessionArr[1]-sessionArr[0] < 0 || sessionArr[1]-sessionArr[0] >1)
+				  			Swal.showValidationMessage('InValid session');
+				  	}
 				    return [					      
-				      FacultyName,
-				      FacultyAbbr					      
+				      sessionName,				      					     
 				    ]
 				  } 
 				}).then((result)=>{
 					if (result.value) {
-				    const answers = {name:result.value[0], code:result.value[1]}
+				    const answers = {name:result.value[0]}
 				    Swal.fire({
-				      title: 'click on proceed',
-				      text: 'other cancel and restart',
+				      title: 'Confirm Data',				      
 				      html: `<table class='table text-left'>						      		
-					      		<tr>
-					      			<td width='30%'><b>Faculty Abbr:</b></td>
-					      			<td width='70%'> ${answers.name},</td>
-					      		</tr>
-					      		<tr>
-					      		 	<td width='30%'><b>Abbr:</b></td>
-					      		 	<td width='70%'> ${answers.code} </td>
-					      		 <tr>
+					      		<tr>					      		
+					      			<td width='70%' class="text-center fs2 fw6 font1">session:  ${answers.name}</td>
+					      		</tr>					      	
 				      		</table>`,
 				      confirmButtonText:'Continue',					      
-				      cancelButtonText:'Cancel',				      				      
+				      cancelButtonText:'Cancel',					      				      				      
 				      cancelButtonColor:'#dd000f',					      
-				      confirmButtonColor:'#00b96b',					      
+				      confirmButtonColor:'#00b96b',				      
 				      showCancelButton:true,					      
 				      showLoaderOnConfirm: true,
 				       preConfirm: (login) => {			
 				        if (update){
 				        	const formData = new FormData();
-				        	formData.append("faculty_id",obj.id);
-				        	formData.append("name",result.value[0]);
-				        	formData.append("code",result.value[1]);				        	 
-				        	return $vm.axios.post('api/faculties/update',formData,{headers:$vm.axiosHeader})
+				        	formData.append("session_id",obj.id);
+				        	formData.append("name",result.value[0]);				        				        	
+				        	return $vm.axios.post('api/sessions/update',formData,{headers:$vm.axiosHeader})
 					      	.then(response => {						      	
 						        if (!response.data.sucess) {
 						          throw new Error(response.statusText)
@@ -123,7 +119,7 @@
 						      	if (error.response) {
 							      	if (error.response.status == 409) {
 								        Swal.showValidationMessage(
-								          `Failed: Faculty Already Exist`
+								          `Failed: session Already Exist`
 								        )						      		
 							      	}else if(error.response.status == 401){
 							      		location.reload();
@@ -135,7 +131,7 @@
 						      	}
 					      	})
 				        }else{
-				        	return $vm.axios.post('api/faculties/create',$vm.createFormData(answers),{headers:$vm.axiosHeader})
+				        	return $vm.axios.post('api/sessions/create',$vm.createFormData(answers),{headers:$vm.axiosHeader})
 					      	.then(response => {						      	
 						        if (!response.data.sucess) {
 						          throw new Error(response.statusText)
@@ -146,7 +142,7 @@
 						      	if (error.response) {
 							      	if (error.response.status == 409) {
 								        Swal.showValidationMessage(
-								          `Failed: Faculty Already Exist`
+								          `Failed: session Already Exist`
 								        )						      		
 							      	}else if(error.response.status == 401){
 							      		location.reload();
@@ -183,27 +179,31 @@
 			//});		
 			//let $vm = this;				
 			},
-			editfaculty:function(obj){
+			editsession:function(obj){
 					this.swal_form(true,obj);
 			},
-			deletefaculty: function(faculty_id){
-				this.axiosDelete('api/faculties/delete',{'faculty_id': faculty_id})					
+			setsession:function(obj){
+			//		this.swal_form(true,obj);
+			Swal.fire('sj');
+			},
+			deletesession: function(session_id){
+				this.axiosDelete('api/sessions/delete',{'session_id': session_id})					
 										
 			},
-			createFaculty: function(){
+			createsession: function(){
 					var $vm = this;
 					this.swal_form();				
 				}
 		},
 		async created(){
 
-		    this.createdFaculty  = await this.axiosGet('api/faculties/faculties');
-		    //console.log(this.createdFaculty)
+		    this.createdsession  = await this.axiosGet('api/sessions/sessions');
+		    //console.log(this.createdsession)
 		    this.tableLoaded = true;
 		    
 		    /*initialize datatable */
              setTimeout(function() {
-             	 $('#facultytable').DataTable({
+             	 $('#sessiontable').DataTable({
 			    	pageLength : 5,
 			    });
              }, 200);

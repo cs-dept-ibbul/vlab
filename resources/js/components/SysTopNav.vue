@@ -2,8 +2,12 @@
 	<div style="margin:0; padding: 18px 20px 18px 20px;display: flex;justify-content: space-between;width: 100%;background: #f0f0f0;">
 		<div style="display: flex;flex-wrap: wrap;align-items: center; ">
 			<!-- <span @click="toggleExperimentGuider" style="font-size: 1.4em;cursor: pointer;" class="fa fa-align-justify mr-3"></span> -->
-			<span  style="font-size: 1.4em;cursor: pointer;" class="fa fa-align-justify mr-3"></span>
-			<span style="font-weight: 500;font-size: 1em;">{{title}}</span>
+			<div class="navicon" @click="naviconToggler($event)">
+			  <div class="bar1"></div>
+			  <div class="bar2"></div>
+			  <div class="bar3"></div>
+			</div>
+			<span style="font-weight: 500;font-size: 1em;" class="ml-2">{{title}}</span>
 		</div>		
 		<div style="display: flex;flex-wrap: wrap;align-items: center;">
 			<span class="fa fa-user mr-2"></span>
@@ -31,7 +35,7 @@
         },	
         
          props: ['username','title'],
-         mounted(){	        
+         created(){	        
 
          	this.username =  JSON.parse(localStorage.getItem('LoggedUser')).user.first_name; 	
          },

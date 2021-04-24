@@ -24,7 +24,7 @@ $id =  request('id');
         <v-navb class="vh-15" home="{{route('home')}}" explore="{{route('explore')}}" login="{{route('login')}}"></v-navb>
         	<br><br><br><br>
         <div class="vh-85 scroll-y">
-        	<v-viewcourses faculty_uuid="{{$id}}"></v-viewcourses>
+        	<v-viewcoursesinstructor faculty_uuid="{{$id}}"></v-viewcoursesinstructor>
 	 	</div>
     </div>
 </div>

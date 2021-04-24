@@ -9,7 +9,9 @@ class ViewCourseController extends Controller
     public function index(){
         return view('viewCourse');
     }
-
+	public function forInstructor(){
+        return view('instructor.view_course');
+    }
     
 }
 ?>

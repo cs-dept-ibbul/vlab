@@ -5,8 +5,8 @@
 			<span class="fa fa-square mr-2" style="font-size: 2em;"></span>
 			<b class="menuLI" v-bind:class="{slidein:show1, slideout:hide1}">V-LAB</b>
 		</div>
-
-		<div style="display: flex;width: 200px;background: #fff" class="MenuLContainer"  v-bind:class="{reduceSize:show}">			
+		<div class="m-0 mobileMenu p-display-none " id="MainMobile"></div>
+		<div  class="MenuLContainer bg-white" id="wideMenu"  v-bind:class="{reduceSize:show}">				
 			<div v-bind:class="{slidein:show, slideout:hide}" class="niconsV slider">
 				<a :href="home"  v-bind:class="{btnActive:homeA}">
 					<span class="iconOV fa fa-home btnActive" title="Home"></span>					

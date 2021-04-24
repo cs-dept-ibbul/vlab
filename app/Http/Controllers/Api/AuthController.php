@@ -42,11 +42,10 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => "All fields are required"], 400);
         }
-
         $credentials = [
             'username' => $request->get('username'),
             'password' => md5($request->get('password')),
-        ];
+        ];        
         
         $user = User::where($credentials)->first();
 
