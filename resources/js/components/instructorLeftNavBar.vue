@@ -6,7 +6,8 @@
 			<b class="menuLI" v-bind:class="{slidein:show1, slideout:hide1}">V-LAB</b>
 		</div>
 
-		<div style="width: 230px;" class="MenuLContainer bg-white"  v-bind:class="{reduceSize:show}">			
+		<div class="m-0 mobileMenu p-display-none " id="MainMobile"></div>
+		<div  class="MenuLContainer bg-white"  v-bind:class="{reduceSize:show}">	
 			<div v-bind:class="{slidein:show, slideout:hide}" class="niconsV slider" >
 					<a :href="home"  v-bind:class="{btnActive:checkActive('home')}">
 					<span class="iconOV fa fa-home "></span>
@@ -64,7 +65,7 @@
 					<span class="iconOV fa fa-arrow-circle-left"></span>
 				</a>	
 			</div>
-			<div v-bind:class="{slidein:show1, slideout:hide1}" style="position: relative; margin-left: 20px; margin-right:20px;height: " >
+			<div id="wideMenu" v-bind:class="{slidein:show1, slideout:hide1}" style="position: relative; margin-left: 20px; margin-right:20px;height: " >
 				<a :href="home" class="nChildV" v-bind:class="{btnActive:checkActive('home')}">
 					<span class="iconV fa fa-home "></span><div class="labelV">Home</div>
 				</a>	
@@ -194,7 +195,7 @@
 		beforeDestroy: function () {
 		  this.eventBus.$off('toggleSysNav', this.toggleNavOnHover)		  
 		},
-        props:['home','dashboard','viewstudent','studentdashboard','explore','experiment','student','settings', 'active','activesub'],
+        props:['home','dashboard','viewstudent','studentdashboard','viewexperiment','explore','experiment','student','settings', 'active','activesub'],
         mounted(){
         	
         	/*btn slider*/

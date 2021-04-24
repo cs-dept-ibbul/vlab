@@ -76,6 +76,12 @@
 					Swal.fire({
 					  title: topic,
 					  html:html,
+					  confirmButtonText:'Create',					      
+				      cancelButtonText:'Cancel',				      				      
+				      cancelButtonColor:'#dd000f',					      
+				      confirmButtonColor:'#00b96b',					      
+				      showCancelButton:true,					      
+				      showLoaderOnConfirm: true,
 					  focusConfirm: false,
 					  preConfirm: () => {
 					  	let faculty = document.getElementById('swal-input0').value,
@@ -113,8 +119,10 @@
 						      		 	<td width='70%'> ${answers.code} </td>
 						      		 <tr>
 					      		</table>`,
-					      confirmButtonText:'Process',					      
-					      cancelButtonText:'Cancle',					      
+					      confirmButtonText:'Continue',					      
+					      cancelButtonText:'Cancel',				      				      
+					      cancelButtonColor:'#dd000f',					      
+					      confirmButtonColor:'#00b96b',					      
 					      showCancelButton:true,					      
 					      showLoaderOnConfirm: true,
 					       preConfirm: (login) => {			
@@ -178,7 +186,8 @@
 							    Swal.fire({							    
 							      title: title,							      
 							      icon: 'success',
-							      confirmButtonText:'Ok',	
+							      confirmButtonText:'Ok',
+				      			  confirmButtonColor:'#00b96b',	
 							    }).then((result)=>{
 							    	location.reload();
 							    })

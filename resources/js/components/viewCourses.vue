@@ -79,28 +79,32 @@
                     <div class="mb-2">
                       <span class="fw5 fs01 ftag">{{course.code}}</span>        
 
-                      <span v-if="!checkEnrollment(course.id)">                        
-                        <span v-if="course.enrollment_code != ''">
-                          <button @click="enrollmentCode" class="fw5 fs01 button shadow-sm bg-info px-3 py-1 text-white d-inline-block">Enroll</button>
-                          <input type="text" name="enrollment_code" @keyup="compare(course.enrollment_code,$event.target.value,course.id, $event.target)" :placeholder="ecode" class="formControl " width="150px">
-                          <span class="fa fa-check text-success display-none"></span>
-                          <span class="fa fa-plus text-danger display-none"></span>
-                        </span>           
-                        <span v-else>
-                          <button @click="enroll()" class="fw5 fs01 button shadow-sm bg-info px-3 py-1 text-white d-inline-block">Enroll</button>
-                          <!-- <input type="text" name="enrollment_code" :placeholder="ecode" class="formControl"> -->
-                        </span>                 
-                      </span>
-                      <span v-else>
-                          <button @click="viewEnrolledCourse(course.id)" class="fw5 fs01 button shadow-sm bg-success px-3 py-1 text-white d-inline-block">View Enrolled Course</button>
-                      </span>
                     </div>
                     <h3 class="fw6 fdata">{{course.title}}</h3>
                     <p class="my-1 font2 fs01 text-secondary" >{{course.description.slice(0,60)}}...</p>
                     <p class="my-0 fw5 fs1">{{course.experiments_count}} Practicals</p>
                   </div> 
                   <div>
-                    <p class="text-success fs1 more-detail-pin" >More Detail <span class="fa fa-chevron-down text-success"></span></p>
+                      <div v-if="!checkEnrollment(course.id)">                        
+                        <span v-if="course.enrollment_code == ''">
+                          <button @click="viewEnrolledCourse('course.id')" class="fw5 fs01 button shadow-sm bg-success px-3 py-2 text-white p-display-none">View Course</button>
+                          <button @click="enrollmentCode" class="fw5 fs01 button shadow-sm bg-dark px-3 py-2 text-white d-inline-block">Enroll</button>
+                          <input type="text" name="enrollment_code" @keyup="compare(course.enrollment_code,$event.target.value,course.id, $event.target)" :placeholder="ecode" class="formControl ">
+                          <span class="fa fa-check text-success display-none"></span>
+                          <span class="fa fa-plus text-danger display-none"></span>
+                        </span>           
+                        <span v-else>
+                          <button @click="enroll()" class="fw5 fs01 button shadow-sm bg-secondary px-3 py-2 text-white d-inline-block">Enroll</button>
+                          <!-- maintain design -->
+                          <input type="text" name="enrollment_code" :placeholder="ecode" class="formControl">
+                        </span>                 
+                      </div>
+                      <div v-else>
+                          <button @click="viewEnrolledCourse(course.id)" class="fw5 fs01 button shadow-sm bg-success px-3 py-2 text-white d-inline-block">View Course</button>
+                          <!-- maintain design -->
+                          <input type="text" name="enrollment_code" :placeholder="ecode" class="formControl">                          
+                      </div>
+                    <p class="text-success fs1 more-detail-pin text-center" >More Detail <span class="fa fa-chevron-down text-success"></span></p>
                   </div>
                 </div>
               </div>
@@ -187,18 +191,20 @@
     },
     compare:function(code,value,course_id, event){                  
       let e = event.parentNode.children;
-      let fail = e[e.length-1];
+      /*let fail = e[e.length-1];
       let pass = e[e.length-2];      
-      
-        if(value == code){
+      */         
 
+        if(value == code){
+          event.nextElementSibling.style.borderBottom= '1px solid #00b96b';            
+          setTimeout(function() {
             this.show_loader();            
+            let nodeBtn = document.CreateElement('button')
             this.axios.post('api/courses/add_student_course', {user_id:this.currentUser.id, course_id: course_id},{headers: this.axiosHeader},function(response,status){
               if (response.status === 200) {                                                                         
-                pass.style.display  = 'inline-block';
-                fail.style.display  = 'none';
-                event.style.width   = '0px';
-                event.style.opacity = '0.2';
+                //pass.style.display  = 'inline-block';
+                event.nextElementSibling.style.display  = 'none';
+                  location.reload();
                 setTimeout(function() {e[1].style.display= 'none';}, 10);
                 this.hide_loader();
               }else{
@@ -216,15 +222,16 @@
                 this.hide_loader();
                }                                                                   
             })   
+          }, 100);
         }else{
-            pass.style.display= 'none';
-            fail.style.display= 'inline-block';
+            //pass.style.display= 'none';
+            event.nextElementSibling.style.borderBottom= '1px solid red';
         }
     },
     
   enrollmentCode:function(e){
         this.ecode= '';
-        e.target.nextElementSibling.style.display = 'inline-block';
+        e.target.nextElementSibling.style.visibility = 'visible';
         let code = 'enter enrollment code';
         code = code.split('');
         let i = -1;
@@ -475,21 +482,34 @@ hr{
 }
 input.formControl{
   transition: 0.5s all;
-  width: 150px;
+  width: 130px;
   height: 26px;
   padding: 7px;
   border-radius: 0px;
-  border:1px solid #888;
-  display: none;
+  border: none;
+  border-bottom:1px solid #888;
+  display: block;
+  visibility: hidden;
   position: relative;
-  top: 2px;
+  top: 10px;
+  margin-bottom: 5px;
 }
 .formControl:focus{
-  border:1px solid #888;  
+  border-bottom:1px solid #00b96b;  
   border-radius: 0px;
   outline: 0;
 }
 .display-none{
   display: none;
+}
+.button{
+  width: 130px;
+  margin-bottom: 7px;
+}
+.more-detail-pin{
+  width: 130px;
+  text-align: center;
+  position: relative;
+  bottom: -10px;
 }
 </style>

@@ -65,6 +65,12 @@
 				Swal.fire({
 				  title: topic,
 				  html:html,
+				  confirmButtonText:'Ok',					      
+			      cancelButtonText:'Cancel',				      				      
+			      cancelButtonColor:'#dd000f',					      
+			      confirmButtonColor:'#00b96b',					      
+			      showCancelButton:true,					      
+			      showLoaderOnConfirm: true,
 				  focusConfirm: false,
 				  preConfirm: () => {					  	
 				  	 let  FacultyName = document.getElementById('swal-input1').value,
@@ -93,8 +99,10 @@
 					      		 	<td width='70%'> ${answers.code} </td>
 					      		 <tr>
 				      		</table>`,
-				      confirmButtonText:'Process',					      
-				      cancelButtonText:'Cancle',					      
+				      confirmButtonText:'Continue',					      
+				      cancelButtonText:'Cancel',				      				      
+				      cancelButtonColor:'#dd000f',					      
+				      confirmButtonColor:'#00b96b',					      
 				      showCancelButton:true,					      
 				      showLoaderOnConfirm: true,
 				       preConfirm: (login) => {			
