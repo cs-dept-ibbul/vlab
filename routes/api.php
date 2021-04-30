@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DepartmentController;
 use App\Http\Controllers\Api\SessionController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\WeeklyWorkController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 /*
@@ -92,6 +93,16 @@ Route::group([
             Route::post('update', [SessionController::class, 'update']);
             Route::post('delete', [SessionController::class, 'delete']);
             Route::get('all_session', [SessionController::class, 'getAllSession']);
+        });
+
+        Route::group([
+            'prefix' => 'works'
+        ], function () {
+            Route::post('create', [WeeklyWorkController::class, 'create']);
+            Route::post('update', [WeeklyWorkController::class, 'update']);
+            Route::post('delete', [WeeklyWorkController::class, 'delete']);
+            Route::post('weekly_work', [WeeklyWorkController::class, 'getWeeklyWork']);
+            Route::get('weekly_works', [WeeklyWorkController::class, 'getWeeklyWorks']);
         });
 
         Route::group([
