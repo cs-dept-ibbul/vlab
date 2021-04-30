@@ -100,7 +100,9 @@ class SessionController extends Controller
 
     static public function getCurrentSessionId()
     {
-        $currentSession = Session::where('is_current', 1)->first();
-        return $currentSession->id;
+        $currentSession = Session::where('is_current', '1')->first();
+        if(!empty($currentSession)){
+            return $currentSession->id;
+        }
     }
 }

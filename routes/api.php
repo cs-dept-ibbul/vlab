@@ -79,6 +79,7 @@ Route::group([
             Route::post('save_experiment_result', [ExperimentController::class, 'saveExperimentResult']);
             Route::post('experiment_results_esid', [ExperimentController::class, 'getExperimentResultsByExpSessId']);
             Route::post('experiment_results_csid', [ExperimentController::class, 'getExperimentResultsByCourseSessId']);
+            Route::post('experiment_results_cusid', [ExperimentController::class, 'getExperimentResultsByCourseUserSessId']);
             Route::post('experiment', [ExperimentController::class, 'getExperiment']);
             Route::get('experiments', [ExperimentController::class, 'getAllExperiment']);
         });
