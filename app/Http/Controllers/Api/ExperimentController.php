@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\CourseExperiment;
 use App\Models\Experiment;
 use App\Models\ExperimentResult;
 use Illuminate\Http\Request;
@@ -149,6 +150,12 @@ class ExperimentController extends Controller
     public function getAllExperiment()
     {
         $experiments = Experiment::all();
+        return response()->json($experiments, 200);
+    }
+
+    public function getAllCourseExperiment()
+    {
+        $experiments = CourseExperiment::with('experiments')->get();
         return response()->json($experiments, 200);
     }
 
