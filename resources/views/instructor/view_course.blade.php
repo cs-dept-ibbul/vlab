@@ -16,7 +16,8 @@ $id =  request('id');
 @section('content-body')
 <div style="display: flex;">   
 <!-- <v-userauth></v-userauth> -->
-   <v-msidebar dashboard="{{route('sdashboard')}}" home="{{route('home')}}" explore="{{route('explore')}}" settings="{{route('home')}}" mycourse="{{route('courses')}}" courses="{{route('courses')}}" incourse="0" active="dashboard"  ></v-msidebar>   
+  <v-isidebar active="course" activesub="createcourse"></v-isidebar>
+
 
     <div class="w-100 m-0 p-0">
         {{-- <img src="{{asset('images/course_image.png')}}"> --}}

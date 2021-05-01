@@ -1,8 +1,9 @@
 <template>
-	<div style="position: relative;">
-		<div class="viewstudent w-50">
-           	<button class="button bg-primary text-white pl-1 pr-2 py-2" @click="viewstudent"><span class="fa fa-chevron-left ml-2 mr-1 text-white"></span>View Student</button>
-         </div>
+	<div>		
+		<!-- <div class="viewstudent w-50" >
+           	<button class="button bg-success text-white px-1 py-1 mt-2 pr-3" ><span class="fa fa-chevron-left  ml-2 mr-1 text-white fs01"></span>Back</button>
+        </div> -->
+         <br><br>
 		<v-loader  v-if="loaderState"></v-loader>						
 		<br>
 		<div v-show="!loaderState" class="row">	
@@ -78,18 +79,15 @@
 				let $this = this;
 				this.section = false;
 				setTimeout(function() {
-
 				//$this.loaderState2 = false;
-
 				}, 600);
 
-
+				this.$eventBus.$emit('viewStudentExperiment',{data:true});
 			},
 			viewstudent:function(){
-				this.loaderState2= false;
-				this.section = true;
+				
 			}
-		},
+		},		
 		mounted(){
 			this.$nextTick(function(){
 
@@ -103,7 +101,10 @@
 		async created(){
 
 		    let $this = this;
-
+		    this.$eventBus.$on('viewstudentBtn2',data=>{				
+				this.loaderState2= false;
+				this.section = true;
+			})
 		    //this.students  = await this.axiosGetById('api/students/course_students','course_id',3);
 		    //this.experiments  = await this.axiosGetById('api/students/students','course_id',3);
              setTimeout(function() {             	
@@ -124,5 +125,8 @@
 		position: absolute;
 		top: -48px;
 		left: 90px;
+	}
+	tbody tr td{
+		text-transform: capitalize;
 	}
 </style>

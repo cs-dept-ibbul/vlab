@@ -19,8 +19,6 @@ $id =  request('id');
    <v-msidebar dashboard="{{route('sdashboard')}}" home="{{route('home')}}" explore="{{route('explore')}}" settings="{{route('home')}}" mycourse="{{route('courses')}}" courses="{{route('courses')}}" incourse="0" active="dashboard"  ></v-msidebar>   
 
     <div class="w-100 m-0 p-0">
-        {{-- <img src="{{asset('images/course_image.png')}}"> --}}
-
         <v-navb class="vh-15" home="{{route('home')}}" explore="{{route('explore')}}" login="{{route('login')}}"></v-navb>
         	<br><br><br><br>
         <div class="vh-85 scroll-y">

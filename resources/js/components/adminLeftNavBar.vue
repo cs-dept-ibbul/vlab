@@ -286,11 +286,7 @@ a{
 .widthRed{
 	width: 60px !important;
 }
-.MenuLContainer{
-	display: flex;
-	margin-top:50px;	
-	width: 230px;
-}
+
 .menuBtnToggler{
 	cursor: pointer;
 

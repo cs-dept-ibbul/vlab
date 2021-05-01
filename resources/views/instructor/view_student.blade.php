@@ -3,10 +3,10 @@
 <div style="display: flex;">       
     
     <!-- main side bar --> 
-     <v-isidebar active="student" activesub="student"></v-isidebar>   
+   <v-isidebar active="student" activesub="student"></v-isidebar>   
     <!-- end main side bar -->
 
-   <div class="expr-dashboard-container  p-secondary ">
+   <div class="w-100 bg-light">
         <!-- top nav bar -->
         <v-systopnave title="Students" username='said'></v-systopnave>   
         <!-- end to nav bar -->
@@ -21,9 +21,6 @@
 
 
 </div>
-</div>
-</div>
-</div></div>
 <!-- 
 
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
