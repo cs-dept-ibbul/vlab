@@ -10,7 +10,8 @@ import plugin from "./plugin/plugin";
 //import App from './views/app.vue'
 
 /*experiment page component*/
- window.Vue = require('vue');
+ //window.Vue = require('vue');
+ window.Vue = Vue;
 /*Vue.prototype.$http = axios*/
 //vuex
 Vue.use(Vuex)
@@ -65,6 +66,8 @@ Vue.component('v-viewcreatedexperiment', require('./components/viewCreatedExperi
 
 /*instructor component*/
 Vue.component('v-viewcoursesinstructor', require('./components/viewCoursesInstructor.vue').default);
+Vue.component('v-task', require('./components/task.vue').default);
+Vue.component('v-taskform', require('./components/taskForm.vue').default);
 /*end instructor component*/
 
 Vue.component('v-tlb2', require('./components/title-left-bar.vue').default);

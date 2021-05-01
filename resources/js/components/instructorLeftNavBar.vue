@@ -1,14 +1,14 @@
 <template>
 
-	<div>
+	<div style="height: 100vh !important;">
 		<div class="menuBtnToggler bg-white cursor-1" id="togglerV"  @click="toggleMenu">
 			<span class="fa fa-square mr-2" style="font-size: 2em;"></span>
-			<b class="menuLI" v-bind:class="{slidein:show1, slideout:hide1}">V-LAB</b>
+			<b class="menuLI" v-bind:class="{slidein:showWideMenu, slideout:hideMiniMenuWideMenu}">V-LAB</b>
 		</div>
 
 		<div class="m-0 mobileMenu p-display-none " id="MainMobile"></div>
 		<div  class="MenuLContainer bg-white"  v-bind:class="{reduceSize:show}">	
-			<div v-bind:class="{slidein:show, slideout:hide}" class="niconsV slider" >
+			<div v-bind:class="{slidein:show, slideout:hideMiniMenu}" class="niconsV slider" >
 					<a :href="home"  v-bind:class="{btnActive:checkActive('home')}">
 					<span class="iconOV fa fa-home "></span>
 				</a>	
@@ -37,7 +37,7 @@
 						</li>
 					</ul>
 				</ul>	
-<!-- manage experiment -->
+				<!-- manage experiment -->
 				<ul class="listCoverV" >
 					<li class="listMenuVBtn nChildV"  v-bind:class="{btnActive:checkActive('experiment')}">
 						<span class="iconOV  fa fa-cube"></span>
@@ -58,14 +58,18 @@
 				<a :href="settings"   v-bind:class="{btnActive:checkActive('settings')}">
 					<span class="iconOV fa fa-gear"></span>
 				</a>		
-				<a :href="student"   v-bind:class="{btnActive:checkActive('student')}">
-					<span class="iconOV fa fa-student"></span>
+				<a href="/view-student"   v-bind:class="{btnActive:checkActive('student')}">
+					<span class="iconOV fa fa-user"></span>
+				</a>			
+				<a href="/manage-task"   v-bind:class="{btnActive:checkActive('task')}">
+					<span class="iconOV fa fa-tasks"></span>
 				</a>					
 				<a @click="logout" :href="'#'"  >				
 					<span class="iconOV fa fa-arrow-circle-left"></span>
 				</a>	
 			</div>
-			<div id="wideMenu" v-bind:class="{slidein:show1, slideout:hide1}" style="position: relative; margin-left: 20px; margin-right:20px;height: " >
+			<!-- end mini side bar -->
+			<div id="wideMenu" v-bind:class="{slidein:showWideMenu, slideout:hideMiniMenuWideMenu}" style="position: relative; margin-left: 20px; margin-right:20px;width: 230px;" >
 				<a :href="home" class="nChildV" v-bind:class="{btnActive:checkActive('home')}">
 					<span class="iconV fa fa-home "></span><div class="labelV">Home</div>
 				</a>	
@@ -105,7 +109,7 @@
 							</a>
 						</li>
 						<li>
-							<a :href="viewexperiment" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('viewexperiment')}">
+							<a href="/view-created-experiment" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('viewexperiment')}">
 								<span class="iconV fa fa-circle"></span><div class="labelV">View Experiment</div>
 							</a>
 						</li>
@@ -131,14 +135,16 @@
 					</ul>
 				</ul>	
 				-->
-				<a :href="student"  class="nChildV" v-bind:class="{btnActive:checkActive('student')}">
-					<span class="iconV fa fa-gear"></span><div class="labelV">Students</div>
+				<a href="/view-student"  class="nChildV" v-bind:class="{btnActive:checkActive('student')}">
+					<span class="iconV fa fa-user"></span><div class="labelV">Students</div>
 				</a>					
 	
 				<a :href="settings"  class="nChildV" v-bind:class="{btnActive:checkActive('settings')}">
 					<span class="iconV fa fa-gear"></span><div class="labelV">Settings</div>
 				</a>	
-
+				<a href="/manage-task"  class="nChildV" v-bind:class="{btnActive:checkActive('task')}">
+					<span class="iconV fa fa-tasks"></span><div class="labelV">Manage Task</div>
+				</a>					
 				<a @click="logout" :href="'#'"  class="nChildV">				
 					<span class="iconV fa fa-arrow-circle-left"></span><div class="labelV">Logout</div>
 				</a>				
@@ -151,11 +157,12 @@
 		    data:function() {
 		    	return{
 
-            classObj:{ "color-red" : true } ,
-            show:false,
-            hide:true,
-            show1:true,
-            hide1:false,
+		            classObj:{ "color-red" : true } ,
+		            show:false,
+		            hideMiniMenu:true,
+		            showWideMenu:true,
+		            hideMiniMenuWideMenu:false,
+		            iconStateFromSysTopNav:true
            
 		    	}
         },
@@ -167,9 +174,9 @@
                 }else{
             		document.getElementById('togglerV').classList.remove('widthRed');  	                            	
                 }            
-                this.hide=!this.hide;                
-                this.show1=!this.show1;                
-                this.hide1=!this.hide1;                
+                this.hideMiniMenu=!this.hideMiniMenu;                
+                this.showWideMenu=!this.showWideMenu;                
+                this.hideMiniMenuWideMenu=!this.hideMiniMenuWideMenu;                
               
             },
         	checkActive: function(el){        		
@@ -189,6 +196,10 @@
         created:function(){
 		  this.$eventBus.$on('toggleSysNav', data => {
 		  	this.toggleMenu();
+		  })	
+		  this.$eventBus.$on('toggleFromSysTopNav', data => {
+		  	 this.iconStateFromSysTopNav = data.data;
+		  	this.toggleMenu();
 		  })		          
         },
         
@@ -198,24 +209,42 @@
         props:['home','dashboard','viewstudent','studentdashboard','viewexperiment','explore','experiment','student','settings', 'active','activesub'],
         mounted(){
         	
-        	/*btn slider*/
-        	$('.listMenuBtn').click(function(){        		
-        		$('.listMenu').not($(this).next()).slideUp(200);
-	 			$(this).parent().find('ul.listMenu').slideToggle(200);
-	 		})
-	 		$('.listMenuVBtn').click(function(){   	 				 		
+         	this.$nextTick(function(){
 
-        		$('.listVMenu').not($(this).next()).addClass('slideout');
-        		$('.listVMenu').not($(this).next()).removeClass('slidein');
-        		let elt = $(this).parent().find('ul.listMenu');
-	 			if(elt.hasClass('slidein')){
-	 				elt.addClass('slideout');
-	 				elt.removeClass('slidin');
-	 			}else{
-	 				elt.removeClass('slideout');
-	 				elt.addClass('slidin');
-	 			}
-	 		})
+	        	/*btn slider*/
+	        	$('.listMenuBtn').click(function(){        		
+	        		$('.listMenu').not($(this).next()).slideUp(200);
+		 			$(this).parent().find('ul.listMenu').slideToggle(200);
+		 		})
+		 		$('.listMenuVBtn').click(function(){   	 				 		
+
+	        		$('.listVMenu').not($(this).next()).addClass('slideout');
+	        		$('.listVMenu').not($(this).next()).removeClass('slidein');
+	        		let elt = $(this).parent().find('ul.listMenu');
+		 			if(elt.hasClass('slidein')){
+		 				elt.addClass('slideout');
+		 				elt.removeClass('slidin');
+		 			}else{
+		 				elt.removeClass('slideout');
+		 				elt.addClass('slidin');
+		 			}
+		 		})
+		 		let $this = this;
+		 		$(window).resize(function() {
+         			$('.listVMenu').not($(this).next()).addClass('slideout');
+        			$('.listVMenu').not($(this).next()).removeClass('slidein');
+        			let elt = $(this).parent().find('ul.listMenu');
+	         		if($(this).width() > 750){
+	         			if(!$this.iconStateFromSysTopNav && !elt.hasClass('slidein') ){
+		        			elt.addClass('slideout');
+		 					elt.removeClass('slidin');        				
+	         			}else{
+	         				elt.removeClass('slideout');
+		 					elt.addClass('slidin');
+	         			}	    
+	         		}
+	         	});     			
+         	})
         }
 	};
 </script> 

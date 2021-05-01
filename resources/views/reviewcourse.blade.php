@@ -43,9 +43,9 @@
 
 @endsection
 @section('content-body')
-<div style="display: flex;">   
+<div style="display: flex;overflow: hidden;">   
 	<!-- <v-userauth></v-userauth> -->
-
+asdfwae
    <!-- main side bar -->
    <v-msidebar home="{{route('home')}}" explore="{{route('explore')}}" settings="{{route('home')}}" mycourse="{{route('my-course-review')}}" courses="{{route('courses')}}" incourse="0" active="mycourse"  ></v-msidebar>   
    
