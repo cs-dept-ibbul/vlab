@@ -21,9 +21,8 @@ class CreateWeeklyWorkTable extends Migration
 			$table->string('access_code', 225)->nullable()->default('NULL');
 			$table->enum('limitation', ['0', '1'])->default('0');
 			$table->enum('status', ['Active', 'Inactive'])->default('Active');
-			$table->string('remember_token', 100)->nullable()->default('NULL');
-			$table->timestamp('created_at')->nullable()->default('NULL');
-			$table->timestamp('updated_at')->nullable()->default('NULL');
+			$table->rememberToken();
+            $table->timestamps();
 		});
 	}
 
