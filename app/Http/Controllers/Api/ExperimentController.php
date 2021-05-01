@@ -9,6 +9,7 @@ use App\Models\ExperimentResult;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use \DB;
 
 class ExperimentController extends Controller
 {
@@ -28,6 +29,12 @@ class ExperimentController extends Controller
             $this->userId = $this->currentUser->id;
             $this->currentSession = SessionController::getCurrentSessionId();
         }
+    }
+
+    public function getCourseExperiments()
+    {
+        $experiments = DB::select('SELECT c.id as course_id, e.id as experiment_id,e.name as name FROM course_experiment AS c INNER JOIN experiments as e on c.experiment_id = e.id');
+        return response()->json($experiments, 200);
     }
 
     public function create(Request $request)

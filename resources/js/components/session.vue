@@ -15,8 +15,8 @@
 					</thead>
 					<tbody v-if="tableLoaded">
 			        <tr v-for="(session, index) in createdsession" :key="index">	         
-			            <td width="40%" :title="session.title">{{session.name}}</td>			            
-			            <td width="15%">{{session.updated_at}}</td>	            
+			            <td width="40%" :title="session.title">{{session.session}}</td>			            
+			            <td width="15%">{{session.created_at}}</td>	            
 			            <td width="5%">{{session.status}}</td>	            
 			            <td width="40%">
 			            	<span class="ml-2 fa fa-edit pl-3  fs01 cursor-1" @click="editsession(session)" style="border-left: 1px solid #ccc;"></span>
@@ -50,7 +50,7 @@
 					topic = 'Update session';
 					html = 			
 				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>session Name</legend>"+					  		   
-				    '<input id="swal-input1" class="swal2-input mt-1" value="'+obj.name+'" >' ;			 
+				    '<input id="swal-input1" class="swal2-input mt-1" value="'+obj.session+'" >' ;			 
 				}else{
 					html =
 				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>session Name</legend>"+					  		   
@@ -88,12 +88,12 @@
 				  } 
 				}).then((result)=>{
 					if (result.value) {
-				    const answers = {name:result.value[0]}
+				    const answers = {session:result.value[0]}
 				    Swal.fire({
 				      title: 'Confirm Data',				      
 				      html: `<table class='table text-left'>						      		
 					      		<tr>					      		
-					      			<td width='70%' class="text-center fs2 fw6 font1">session:  ${answers.name}</td>
+					      			<td width='70%' class="text-center fs2 fw6 font1">session:  ${answers.session}</td>
 					      		</tr>					      	
 				      		</table>`,
 				      confirmButtonText:'Continue',					      
@@ -106,8 +106,8 @@
 				        if (update){
 				        	const formData = new FormData();
 				        	formData.append("session_id",obj.id);
-				        	formData.append("name",result.value[0]);				        				        	
-				        	return $vm.axios.post('api/sessions/update',formData,{headers:$vm.axiosHeader})
+				        	formData.append("session",result.value[0]);				        				        	
+				        	return $vm.axios.post('api/session/update',formData,{headers:$vm.axiosHeader})
 					      	.then(response => {						      	
 						        if (!response.data.sucess) {
 						          throw new Error(response.statusText)
@@ -131,7 +131,7 @@
 						      	}
 					      	})
 				        }else{
-				        	return $vm.axios.post('api/sessions/create',$vm.createFormData(answers),{headers:$vm.axiosHeader})
+				        	return $vm.axios.post('api/session/create',$vm.createFormData(answers),{headers:$vm.axiosHeader})
 					      	.then(response => {						      	
 						        if (!response.data.sucess) {
 						          throw new Error(response.statusText)
@@ -187,7 +187,7 @@
 			Swal.fire('sj');
 			},
 			deletesession: function(session_id){
-				this.axiosDelete('api/sessions/delete',{'session_id': session_id})					
+				this.axiosDelete('api/session/delete',{'session_id': session_id})					
 										
 			},
 			createsession: function(){
@@ -197,7 +197,7 @@
 		},
 		async created(){
 
-		    this.createdsession  = await this.axiosGet('api/sessions/sessions');
+		    this.createdsession  = await this.axiosGet('api/session/all_session');
 		    //console.log(this.createdsession)
 		    this.tableLoaded = true;
 		    

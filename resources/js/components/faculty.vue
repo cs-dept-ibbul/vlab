@@ -111,7 +111,7 @@
 				        	formData.append("faculty_id",obj.id);
 				        	formData.append("name",result.value[0]);
 				        	formData.append("code",result.value[1]);				        	 
-				        	return $vm.axios.post('api/faculties/update',formData,{headers:$vm.axiosHeader})
+				        	return $vm.axios.post($vm.baseApiUrl+'faculties/update',formData,{headers:$vm.axiosHeader})
 					      	.then(response => {						      	
 						        if (!response.data.sucess) {
 						          throw new Error(response.statusText)

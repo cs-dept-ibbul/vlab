@@ -1,7 +1,8 @@
 <template>
 	<div  class="px-5 mt-5 card-cont">
-            <div v-if="section!=0" class="mb-2">
-            	<button class="button bg-primary text-white pl-1 pr-2 py-2" @click="sectionControl"><span class="fa fa-chevron-left ml-2 mr-1 text-white"></span>back</button>
+            <div v-if="section!=0" class="mb-2" style="position: fixed;z-index: 10;">
+            	<button v-show="stepBack==1" class="button bg-dark text-white px-1 py-1  pr-3" @click="sectionControl"><span class="fa fa-chevron-left ml-2 mr-1 text-white fs01 text-white fs01"></span>Back</button>
+            	<button v-show="stepBack==2"  class="button bg-success text-white px-1 py-1  pr-3" @click="viewstudentBtn"><span class="fa fa-chevron-left ml-2 mr-1 text-white fs01 text-white fs01"></span>Back</button>
             </div>
             <div v-if="loaderState">
             	<v-loader></v-loader>
@@ -23,7 +24,8 @@
                         </div>                    
                     </div>
     
-                </div>                       
+                </div>              
+
             </div>        
             <div v-if="section==1">
             	<v-viewstudentbycourse></v-viewstudentbycourse>
@@ -46,6 +48,7 @@
 				section: 0,
 				selectedCourse: null,
 				courses:null,
+				stepBack:1,
 				departments:[
 					{departments: 'physics', total:60},
 					{departments: 'computer science', total:50},
@@ -117,6 +120,10 @@
 				  }
 				})
 			},
+			viewstudentBtn: function(){				
+				this.$eventBus.$emit('viewstudentBtn2', {data:true});
+				this.stepBack =1;
+			},
 			studentDetail:function(d){
 				let table = "<table class='table r2 shadow-sm table-hover'><thead><tr><th class='text-left'>matric</th>	<th  class='text-left'>first name</th ><th class='text-left'>last name</th> </tr></thead><tbody>";
 					for (var i = 0; i < d.length; i++) {
@@ -148,7 +155,9 @@
 			}
 		},
 		async created(){
-
+			this.$eventBus.$on('viewStudentExperiment',data=>{
+				this.stepBack =2;
+			});
 		    this.courses  = await this.axiosGet('api/courses/courses');
 		    //console.log(this.createdCourses)
 		    this.tableLoaded = true;
@@ -167,7 +176,7 @@
 </script>
 
 <style scoped="">
-	.card-cont::-webkit-scrollbar-thumb {
+.card-cont::-webkit-scrollbar-thumb {
   background: #20154f;
   border-radius: 10px;
   cursor: pointer;

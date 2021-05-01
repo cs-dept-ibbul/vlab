@@ -1,13 +1,13 @@
 <template>
-	<div class="m-0 p-0">
+	<div class="m-0 p-0" style="height: 87.8vh;">
 		
-	<div class="row bg-light m-0 px-2 pt-4">
-            <div class="col-lg-4 col-md-5 col-sm-12 m-0 ">
-            	<p class="fs2 fw8 font">
-            		<span v-if="!update">Add Experiment</span>
-            		<span v-if="update">Update Experiment</span>
-            	</p>
-            	<div  class="w-100 bg-white r2 px-4 py-4 shadow-sm"><!-- loop weekly -->
+	<div class="row bg-light m-0 px-2">
+            <div class="col-lg-4 col-md-5 col-sm-12 m-0 vh-76 p-4 mt-2 ">            	
+            	<div  class="w-100 bg-white r2 px-4 py-4 shadow-sm vh-76"><!-- loop weekly -->
+	            	<p class="fs1 fw8  font mb-1  ml-1">
+	            		<span style="color: #777;" v-if="!update">Add Experiment</span>
+	            		<span style="color: #777;" v-if="update">Update Experiment</span>
+	            	</p>
 						<div class="d-flex flex-wrap-center mb-4" >
 							<span class="ncircle" v-bind:class="{tactive:stageone,tsuccess:stageonep}" >1</span>
 							<span class="tline" v-bind:class="{tlactive:stageone,tlsuccess:stageonep}"></span>
@@ -16,25 +16,24 @@
 						<div class="d-flex flex-wrap-center mb-4 ">	
 							<span class="ncircle" v-bind:class="{tactive:stagetwo,tsuccess:stagetwop}">2</span>
 							<span class="tline" v-bind:class="{tlactive:stagetwo,tlsuccess:stagetwop}"></span>
-							<div class="fs1 w10 no-break ml-3">Experiment Box</div>							
-						</div>
+							<div class="fs1 w10 no-break ml-3">Select Experiment</div>							
+						</div><!-- 
 						<div class="d-flex flex-wrap-center mb-4 ">	
 							<span class="ncircle"  v-bind:class="{tactive:stagethree,tsuccess:stagethreep}">3</span>
 							<span class="tline" v-bind:class="{tlactive:stagethree,tlsuccess:stagethreep}"></span>
 							<div class="fs1 w10 no-break ml-3">Config.</div>
-						</div>
+						</div> -->
 						<div class="d-flex flex-wrap-center mb-4 ">	
-							<span class="ncircle"  v-bind:class="{tactive:stagefour,tsuccess:stagefourp}">4</span>							
+							<span class="ncircle"  v-bind:class="{tactive:stagethree,tsuccess:stagethreep}">4</span>							
 							<div class="fs1 w10 no-break ml-3">Submit</div>
-						</div>
-				</div>
-            			   	
+						</div>				             
+				</div>				
             </div>
             	
-            <div class="col-lg-8 col-md-7 col-sm-12 pt-3" style="height: 76vh;">
+            <div class="col-lg-8 col-md-7 col-sm-12 m-0 mt-2 p-4 vh-76" >
             	<!-- course detatil -->            	
-            	<div  class="py-4 px-4 mt-3 r2 bg-white shadow-sm vh-70 scroll-y " style="">
-            		<div id="edetail" v-if="sectionState==1" class="m-0 p-0">            			
+            	<div  class="py-4 px-4  r2 bg-white shadow-sm vh-68 scroll-y add-experiment-form">
+            		<div id="edetail" v-show="sectionState==1" class="m-0 p-0">            			
 	            		<p class="fw8 fs1 font" style="color: #777;">Details</p>
 	            		<div class="row">            			
 	            			<div class="col-lg-6 col-md-6 m-0">
@@ -43,18 +42,12 @@
 		            				<input type="text" @keyup="normalize" class="form-control vI" id="etitle">
 	            				</div>
 	            			</div>
-	            			<div class="col-lg-6 col-md-6 m-0">
+	            			<!-- <div class="col-lg-6 col-md-6 m-0">
 	            				<div class="px-1" >	            					
 		            				<p class="fs001 my-1">Experiment Number * <span class="fs01 fw5" style="color: #888;">I, II, III ...</span></p>		            				
 		            				<input type="text" @keyup="normalize" class="form-control vI" id="enumber">
 	            				</div>
-	            			</div>
-	            			<div class="col-lg-6 col-md-6 m-0">
-	            				<div class="px-1">	            					
-		            				<p class="fs001 my-1">Experiment Video <span class="fs01 fw5" style="color: #888;">video url/link</span></p>		            				
-		            				<input type="text" @keyup="normalize" class="form-control " id="elink">
-	            				</div>
-	            			</div>	      
+	            			</div> -->
 	            			<div class="col-lg-6 col-md-6 m-0">
 	            				<div class="px-1">	            					
 		            				<p class="fs001 my-1">Experiment Diagram</p>		            				
@@ -65,6 +58,12 @@
 		            					</span>
 		            					<input @change="getDragedInFile"  type="file" style="position: absolute;top: 0; left: 0;" name="files" class="draginto form-control" id="fileI">
 		            				</div>
+	            				</div>
+	            			</div>	      
+	            			<div class="col-lg-12 col-md-12 m-0 mt-3">
+	            				<div class="px-1">	            					
+		            				<p class="fs001 my-1">Experiment Video <span class="fs01 fw5" style="color: #888;">video url/link</span></p>		            				
+		            				<input type="text" @keyup="normalize" placeholder="https://" class="form-control " id="elink">
 	            				</div>
 	            			</div>	      
 	            			<div class="col-lg-12 col-md-12 mt-3">
@@ -85,7 +84,17 @@
 	            			</div>
 	            			<div class="col-lg-12 col-md-12 mt-3">
 	            				<p class="fs001 my-1">Exercise</p>            				
-	            				<div @keyup="normalize" class="form-control editor-container" style="height: 250px;" id="exercise"></div>
+	            				<div @keyup="normalize" class="form-control editor-container p-0"  id="exercise" style="height: 250px;">
+	            				<div class="adjoined-bottom m-0 p-0">
+									<div class="grid-container m-0 p-0">
+										<div class="grid-width-100 m-0 p-0">
+											<div id="editor" style="height: 250px;">
+												
+											</div>
+										</div>
+									</div>
+								</div>
+	            				</div>
 	            			</div>
 	            			<div class="col-lg-12 col-md-12 mt-3">
 	            				<p class="fs001 my-1">Resourses</p>            				
@@ -93,7 +102,7 @@
 	            			</div>
 	            		</div>
 	            	</div>
-	            	<div id="addExperiment" v-if="sectionState==2" class="m-0 p-0 shineA">     
+	            	<div id="addExperiment" v-show="sectionState==2" class="m-0 p-0 shineA">     
 	            			<p class="fw8 fs1 font" style="color: #777;">Add Experiment</p>
 	            			<div class="row">            			
 		            			<div class="col-lg-12 col-md-12 m-0">
@@ -123,7 +132,7 @@
 		            			</div>
 	            			</div>       			
 	            	</div>
-	            	<div id="experimentConfig" v-if="sectionState==3" class="m-0 p-0 shineA">     
+	            	<!-- <div id="experimentConfig" v-if="sectionState==3" class="m-0 p-0 shineA">     
 	            			<p class="fw8 fs1 font" style="color: #777;">Configuration</p>
 	            			<div class="row">            			
 		            			<div class="col-lg-12 col-md-12 m-0">
@@ -134,8 +143,8 @@
 		            			</div>
 	            			</div>       			
 	            	</div>	            
-
-	            	<div id="addInstructors" v-if="sectionState==4" class="m-0 p-0 shineA">  
+ -->
+	            	<div id="addInstructors" v-show="sectionState==3" class="m-0 p-0 shineA">  
 	            		<h3 class="text-center fw8 font mt-5 p-text-success">All Process Completed</h3>
 	            		<h5 class="text-center fw5 font p-text-success">use the previous button to review or click on submit !</h5>
 	            	<!-- 	<p class="fw8 fs1 font" style="color: #777;">Add Instructor</p>   
@@ -212,24 +221,25 @@
             	</div>
             
             </div> 
-   		</div>
-        <div class="row bg-white m-0">
-            <div class="col-lg-8 col-md-7 col-sm-12">
-            </div>
-            <div class="col-lg-4 col-md-3 col-sm-12 mx-auto py-2 d-flex">            	
-            	<button v-if="sectionState >1" class="btn p-success text-white py-2 px-3 mr-3" @click="prevSection" ><span class="fa fa-arrow-left"></span> Previous </button>
-            	<button v-if="sectionState != 4" class="btn p-success text-white py-2 px-3" @click="nextSection" > Continue <span class="fa fa-arrow-right"></span></button>
-            	<button v-if="sectionState == 4" class="btn p-success text-white py-2 px-3" @click="submitProcess" >
-            		<span v-if="!update">Submit</span>
-            		<span v-if="update">Update</span> 
-            		<span class="fa fa-arrow-right"></span>
-            	</button>
-
-            </div>
-            <div class="col-md-1 col-sm-12 mx-auto">
-            </div>
-            <!--  -->
+   	</div>
+    <div class="row bg-white m-0">
+        <div class="col-lg-8 col-md-7 col-sm-12">
         </div>
+        <div class="col-lg-4 col-md-3 col-sm-12 mx-auto py-2 d-flex">            	
+        	<button v-if="sectionState >1" class="btn p-success text-white py-2 px-3 mr-3" @click="prevSection" ><span class="fa fa-arrow-left"></span> Previous </button>
+        	<button v-if="sectionState != 3" class="btn p-success text-white py-2 px-3" @click="nextSection" > Continue <span class="fa fa-arrow-right"></span></button>
+        	<button v-if="sectionState == 3" class="btn p-success text-white py-2 px-3" @click="submitProcess" >
+	    		<span v-if="!update">Submit</span>
+	    		<span v-if="update">Update</span> 
+	    		<span class="fa fa-arrow-right"></span>
+        	</button>
+
+        </div>
+        <div class="col-md-1 col-sm-12 mx-auto">
+        </div>
+        {{alldata}}
+        <!--  -->
+    </div>
 	</div>
 </template>
 
@@ -277,6 +287,51 @@
 			   this.$eventBus.$emit('toggleClick',{text:this.navState});
 			    //this.newTodoText = ''
 			},
+			initCKEDITOR: function(){
+				if ( CKEDITOR.env.ie && CKEDITOR.env.version < 9 )
+						CKEDITOR.tools.enableHtml5Elements( document );
+					CKEDITOR.config.height = 150;
+					CKEDITOR.config.width = 'auto';
+
+					var initSample = ( function() {
+						var wysiwygareaAvailable = isWysiwygareaAvailable(),
+							isBBCodeBuiltIn = !!CKEDITOR.plugins.get( 'bbcode' );
+
+						return function() {
+							var editorElement = CKEDITOR.document.getById( 'editor' );
+
+							// :(((
+							if ( isBBCodeBuiltIn ) {
+								editorElement.setHtml(
+									/*'Hello world!\n\n' +
+									'I\'m an instance of [url=https://ckeditor.com]CKEditor[/url].'*/
+								);
+							}
+
+							// Depending on the wysiwygarea plugin availability initialize classic or inline editor.
+							if ( wysiwygareaAvailable ) {
+								CKEDITOR.replace( 'editor' );
+							} else {
+								editorElement.setAttribute( 'contenteditable', 'true' );
+								CKEDITOR.inline( 'editor' );
+
+								// TODO we can consider displaying some info box that
+								// without wysiwygarea the classic editor may not work.
+							}
+						};
+
+						function isWysiwygareaAvailable() {
+							// If in development mode, then the wysiwygarea must be available.
+							// Split REV into two strings so builder does not replace it :D.
+							if ( CKEDITOR.revision == ( '%RE' + 'V%' ) ) {
+								return true;
+							}
+
+							return !!CKEDITOR.plugins.get( 'wysiwygarea' );
+						}
+					} )();
+					initSample();
+				},
 			checkstage(state){
 				if (state === 1) {					
 					this.stageone= false;
@@ -362,7 +417,7 @@
 				let $nv = this;
 				if (this.sectionState ===1) {					
 					setTimeout(function() {
-					$nv.quill_init();
+					//$nv.quill_init();
 					$('#etitle').val($nv.alldata[0]['title']);
 					$('#enumber').val($nv.alldata[0]['experiment_number']);
 					$('#aim').val($nv.alldata[0]['aim']);					
@@ -384,6 +439,13 @@
 				}
 				if (this.sectionState === 3) {					
 					setTimeout(function() {
+						$nv.reiterateSelectedInstructor();
+					}, 50);
+					this.checkstage(3);					
+
+				}/*
+				if (this.sectionState === 3) {					
+					setTimeout(function() {
 				 		$('input[name=config][value='+$nv.configMode+']').attr('checked','checked');		
 					}, 50);
 					this.checkstage(3);					
@@ -394,7 +456,7 @@
 						$nv.reiterateSelectedInstructor();
 					}, 50);
 					this.checkstage(4);					
-				}
+				}*/
 			},
 			quill_init: function(){
 				 this.quill = new Quill('.editor-container', {
@@ -502,6 +564,11 @@
 							$('.requiredv').remove();
 							$(this).after('<span class="text-danger requiredv">Required !</span>');						
 							$vm.validateState = false;
+
+							/*scroll to required position*/
+							let scrollAmount = $(this).offset().top - $('#'+id).offset().top ;					
+							$('.add-experiment-form').animate({scrollTop: scrollAmount},1000);
+
 							return false;
 						}					
 						if(e == index){
@@ -527,7 +594,7 @@
 				$('.requiredv').remove();
 			},
 			nextSection: function(){
-				let $nv = this;
+				let $nv = this;				
 				if (this.sectionState === 1){	
 					this.validateI('edetail');
 					
@@ -540,7 +607,7 @@
 							aim:$('#aim').val(),
 							theory:$('#theory').val(),
 							aparatus:$('#aparatus').val(),
-							exercise:$('#exercise').find('.ql-editor').html(),
+							exercise: CKEDITOR.instances['editor'].getData(),
 							resources:$('#resources').val(),
 							procedure:$('#procedure').val(),
 						};												
@@ -555,9 +622,7 @@
 						}
 					}, 200);
 				
-				}else if (this.sectionState === 2){
-					
-
+				}else if (this.sectionState === 2){					
 					if (this.selectedExperiment.length == 0){
 					 this.singleValidate('addEBox');
 					}else{
@@ -575,8 +640,9 @@
 				 			$('input[name=config][value='+$nv.configMode+']').attr('checked','checked');		
 						}
 					}, 50);
-				}else if (this.sectionState === 3){
-					this.configMode = $('input[name=config]:checked').val();
+				}				
+			/*	else if (this.sectionState === 3){
+					
 					if(this.configMode == ""){
 						$('.requiredv').remove();
 						$('.configV').parent().after('<span class="text-danger requiredv">Required !</span>')
@@ -590,20 +656,10 @@
 				    	this.sectionState = 4;	
 					}
 
-				}
+				}*/
 			},
 			submitProcess: function(){
-					let $vm = this;
-
-					/*if (this.selectedInstructor.length == 0){
-					 this.singleValidate('addIBox');
-					 return 0;
-					}else{									    	    
-				    	this.alldata[3] = {
-				    		'id': this.selectedInstructor,
-				    		'names': this.selectedInstructorName
-				    	};
-					}*/								
+					let $vm = this;		
 
 				   try{
 
@@ -619,7 +675,7 @@
 					   	formData.append('aparatus',this.alldata[0].aparatus);
 					   	formData.append('procedure',this.alldata[0].procedure);
 					   	formData.append('experiment_url',this.alldata[1].experiment_url);
-					   	formData.append('config',this.alldata[2].config);
+					   	//formData.append('config',this.alldata[2].config);
 
 				   		$('#system-loader').css('display','flex');
 
@@ -699,33 +755,7 @@
 			          console.log(err)//show network error notification
 			        }
 			},
-	/*		dragEnter(e){			
-				this.dragrelease = true;
-				let $nv = this;	
-				let holder = document.getElementById('dgbox');
-				holder.classList.add('dragenter');
-			    let file = e.dataTransfer.files[0];
 
-				   let reader = new FileReader();
-				$('.progress').css('display','block');
-
-				   reader.onloadstart = function(event) {
-					    $('.progressi').css('display','block');
-					};
-					reader.onprogress = function(event) {						
-					   if (event.lengthComputable) {
-         					$nv.percentage  = (event.loaded/event.total)* 100;					    
-         					$('.progress-bar').css('width', $nv.percentage+'%');         					
-					    }
-					};
-					reader.onloadend = function(event) {
-				 		$('#imageprev').html('<img id="image_droped" width="200px"  src="'+event.target.result+'">');		
-				 		$nv.imagetoupload = event.target.result;					    
-					};				
-				    reader.readAsDataURL(file);				
-				 	e.preventDefault();
-
-			},*/
 			getDragedInFile: function(e){					
 				if (this.dragrelease==false) {
 				    let $nv = this;						
@@ -802,25 +832,31 @@
 		},
          mounted: function () {
          	let $vm = this;
-			 this.quill_init();
+			 //this.quill_init();
+			 this.$nextTick(function () {			 			 	
+			 		this.initCKEDITOR();
+			         $(document).on('click', '.rmexp', function() {					
+						$vm.selectedExperiment = [];
+						$vm.selectedExperimentName = [];
+	         			$('#'+ $(this).attr('rel')).parent().remove();    			
+					});
+					$(document).on('click', '.rmexp1', function() {					
+						$vm.selectedInstructor.splice($(this).attr('rel'),1);
+						$vm.selectedInstructorName.splice($(this).attr('rel'),1);
+	         			$vm.reiterateSelectedInstructor();         			
+					});
+								
+				let interval;
+				interval  = setInterval(function() {										
+					if($('.cke_dialog_contents').length){					   		   
+					   	$('table').find("[name='CCEquationEditor']").find('#CCequation1').prev().remove();
+					   clearInterval(interval);
+					}
+				}, 500);
 
-		  this.$nextTick(function () {
-		    // Code that will run only after the
-		    // entire view has been rendered
-         		$(document).on('click', '.rmexp', function() {					
-					$vm.selectedExperiment = [];
-					$vm.selectedExperimentName = [];
-         			$('#'+ $(this).attr('rel')).parent().remove();    			
-				});
-				$(document).on('click', '.rmexp1', function() {					
-					$vm.selectedInstructor.splice($(this).attr('rel'),1);
-					$vm.selectedInstructorName.splice($(this).attr('rel'),1);
-         			$vm.reiterateSelectedInstructor();         			
-				});
-				
-			
-			
-		  });
+			 });
+
+
 
 
 		},
@@ -831,6 +867,21 @@
 	}
 </script>
 <style scoped>
+	.cpy{
+		position: absolute;
+		top: 0;
+		right: 0;
+		display: block;
+		background: #2a6;
+		color:white;
+		cursor: pointer;
+		font-size: 0.8em;
+		padding: 2px;
+
+	}
+	.cpy:focus{
+		color: yellow;	
+	}
 	.close{
 		background: #ccc !important;
 		border-radius: 50% !important;
@@ -1106,5 +1157,14 @@
 #imageprev{	
 }
 table tr td{
+}
+.table-bordered:not(:first-child) td{
+	font-size: 0.9em;
+	padding: 2px;
+}
+.hint-table tr td{
+padding: 1px;
+font-size: 0.9em;
+color: #999;
 }
 </style>
