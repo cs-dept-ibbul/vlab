@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DepartmentController;
 use App\Http\Controllers\Api\SessionController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\WeeklyWorkController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 /*
@@ -81,6 +82,8 @@ Route::group([
             Route::post('save_experiment_result', [ExperimentController::class, 'saveExperimentResult']);
             Route::post('experiment_results_esid', [ExperimentController::class, 'getExperimentResultsByExpSessId']);
             Route::post('experiment_results_csid', [ExperimentController::class, 'getExperimentResultsByCourseSessId']);
+            Route::post('experiment_results_cusid', [ExperimentController::class, 'getExperimentResultsByCourseUserSessId']);
+            Route::post('course_experiments', [ExperimentController::class, 'getAllCourseExperiment']);
             Route::post('experiment', [ExperimentController::class, 'getExperiment']);
             Route::get('experiments', [ExperimentController::class, 'getAllExperiment']);
         });
@@ -92,6 +95,22 @@ Route::group([
             Route::post('update', [SessionController::class, 'update']);
             Route::post('delete', [SessionController::class, 'delete']);
             Route::get('all_session', [SessionController::class, 'getAllSession']);
+        });
+
+        Route::group([
+            'prefix' => 'works'
+        ], function () {
+            Route::post('create', [WeeklyWorkController::class, 'create']);
+            Route::post('update', [WeeklyWorkController::class, 'update']);
+            Route::post('delete', [WeeklyWorkController::class, 'delete']);
+            Route::post('assign_work_experiment', [WeeklyWorkController::class, 'assignWeeklyWorkExperiment']);
+            Route::post('weekly_work', [WeeklyWorkController::class, 'getWeeklyWork']);
+            Route::get('weekly_works', [WeeklyWorkController::class, 'getWeeklyWorks']);
+            
+            Route::post('delete_work_expetiment', [WeeklyWorkController::class, 'deleteWorkExperiment']);
+            Route::post('update_work_experiment', [WeeklyWorkController::class, 'updateWorkExperiment']);
+            Route::post('work_experiment', [WeeklyWorkController::class, 'getWeeklyWorkExperiment']);
+            Route::get('work_experiments', [WeeklyWorkController::class, 'getWeeklyWorkExperiments']);
         });
 
         Route::group([
