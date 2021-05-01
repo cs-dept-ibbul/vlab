@@ -19,7 +19,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'verifyUser']]);
     }
 
     public function uuid()
@@ -27,12 +27,7 @@ class AuthController extends Controller
         return Str::uuid()->toString();
     }
 
-    /**
-     * Get a JWT via given credentials.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function login(Request $request)
+    public function checkUser(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'username' => 'required',
@@ -48,10 +43,32 @@ class AuthController extends Controller
             'password' => md5($request->get('password')),
         ];
         
-        $user = User::where($credentials)->first();
+        return User::where($credentials)->first();
+    }
+
+    public function verifyUser(Request $request)
+    {
+        $user = $this->checkUser($request);
+
+        if(!empty($user)){
+            return response()->json(['success' => true], 200);
+        }
+
+        return response()->json(['success' => false], 400);
+    }
+
+    /**
+     * Get a JWT via given credentials.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function login(Request $request)
+    {   
+        $user = $this->checkUser($request);
 
         if(!empty($user)){
             $usingDefaultPassword = $user->using_default_password;
+
             if ($token = auth()->login($user)) {
                 return $this->respondWithToken($token, $usingDefaultPassword);
             }
