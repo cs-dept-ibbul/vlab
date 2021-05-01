@@ -101,8 +101,14 @@ Route::group([
             Route::post('create', [WeeklyWorkController::class, 'create']);
             Route::post('update', [WeeklyWorkController::class, 'update']);
             Route::post('delete', [WeeklyWorkController::class, 'delete']);
+            Route::post('assign_work_experiment', [WeeklyWorkController::class, 'assignWeeklyWorkExperiment']);
             Route::post('weekly_work', [WeeklyWorkController::class, 'getWeeklyWork']);
             Route::get('weekly_works', [WeeklyWorkController::class, 'getWeeklyWorks']);
+            
+            Route::post('delete_work_expetiment', [WeeklyWorkController::class, 'deleteWorkExperiment']);
+            Route::post('update_work_experiment', [WeeklyWorkController::class, 'updateWorkExperiment']);
+            Route::post('work_experiment', [WeeklyWorkController::class, 'getWeeklyWorkExperiment']);
+            Route::get('work_experiments', [WeeklyWorkController::class, 'getWeeklyWorkExperiments']);
         });
 
         Route::group([
