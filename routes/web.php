@@ -53,6 +53,7 @@ Route::middleware(['instructorauth'])->group(function(){
 	Route::get('/view-course/{id?}', 'App\Http\Controllers\ViewCourseController@forInstructor')->name('view-course');
 
 	Route::get('/view-created-course', 'App\Http\Controllers\ManageCourseController@viewCourse')->name('view-created-course');
+	Route::get('/manage-task', 'App\Http\Controllers\InstructorController@task')->name('manage-task');
 	Route::get('/create-course', 'App\Http\Controllers\ManageCourseController@index')->name('create-courses');
 	Route::get('/add-experiment', 'App\Http\Controllers\AddExperimentController@index')->name('add-experiment');
 	Route::get('/view-created-experiment', 'App\Http\Controllers\AddExperimentController@createdexperiment')->name('view-created-experiment');
