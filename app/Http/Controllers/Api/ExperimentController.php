@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\CourseExperiment;
 use App\Models\Experiment;
 use App\Models\ExperimentResult;
 use Illuminate\Http\Request;
@@ -159,6 +160,12 @@ class ExperimentController extends Controller
         return response()->json($experiments, 200);
     }
 
+    public function getAllCourseExperiment()
+    {
+        $experiments = CourseExperiment::with('experiments')->get();
+        return response()->json($experiments, 200);
+    }
+
     public function getExperiment(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -270,7 +277,20 @@ class ExperimentController extends Controller
 
     public function getExperimentResultsByCourseSessId(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'course_id' => 'required',
+        ]);
 
+        if ($validator->fails()) {
+            return response()->json(['error' => "course_id field is required"], 400);
+        }
+
+        $courseId = $request->get('course_id');
+        return $this->experimentResults($courseId);
+    }
+
+    public function getExperimentResultsByCourseUserSessId(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'course_id' => 'required',
         ]);
@@ -281,6 +301,14 @@ class ExperimentController extends Controller
 
         $courseId = $request->get('course_id');
 
+        $result = collect($this->experimentResults($courseId));
+        $result = $result->where('user_id', $this->userId);
+
+        return response()->json($result, 200);
+    }
+
+    public function experimentResults($courseId)
+    {
         $experiments = [];
         $results = [];
         $courseExperiments = Course::where('id',$courseId)->with('experiments')->get();
@@ -297,12 +325,14 @@ class ExperimentController extends Controller
                     }
                 }
             }
-            return response()->json($results, 200);
+            if(sizeof($results) > 0){
+                return $results[0];
+            }
         } else {
             return response()->json(['error' => 'Course not found'], 404);
         }
 
         return response()->json(['success' => false], 400);
-
     }
+    
 }
