@@ -35,7 +35,7 @@ class WeeklyWorkController extends Controller
             'title' => 'required',
             'date_open' => 'required',
             'date_close' => 'required',
-            'experiment_id' => 'required',
+            'experiment_ids' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -44,15 +44,16 @@ class WeeklyWorkController extends Controller
 
         $id = Util::uuid();
         $title = $request->get('title');
-        $experimentId = $request->get('experiment_id');
+        $experimentIds = $request->get('experiment_ids');
         $dateOpen = $request->get('date_open');
         $dateClose = $request->get('date_close');
         $accessCode = $request->get('access_code');
         $limitation = $request->get('limitation') ?? '0';
 
+        $experimentIds = explode(',', $experimentIds);
+        
         $weeklyWork->id = $id;
         $weeklyWork->title = $title;
-        $weeklyWork->experiment_id = $experimentId;
         $weeklyWork->date_open = $dateOpen;
         $weeklyWork->date_close = $dateClose;
         $weeklyWork->access_code = $accessCode;
@@ -60,11 +61,15 @@ class WeeklyWorkController extends Controller
         $weeklyWork->school_id = $this->schoolId;
         $weeklyWork->faculty_id = $this->facultyId;
         $weeklyWork->session_id = $this->currentSession;
-
+        
         if ($weeklyWork->save()) {
+            foreach ($experimentIds as $experimentId) {
+                $this->assignWeeklyWorkExperiment($id, $experimentId);
+            }
             return response()->json(['success' => true], 200);
         }
         return response()->json(['success' => false], 400);
+    
     }
 
     public function update(Request $request)
@@ -151,22 +156,11 @@ class WeeklyWorkController extends Controller
         }
     }
 
-    public function assignWeeklyWorkExperiment(Request $request)
+    public function assignWeeklyWorkExperiment($workId, $experimentId)
     {
-        $validator = Validator::make($request->all(), [
-            'work_id' => 'required',
-            'experiment_id' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => "Both work_id and experiment_id field are required"], 400);
-        }
-
+       
         $weeklyWorkExperiment = new WeeklyWorkExperiment();
         $id = Util::uuid();
-        $workId = $request->get('work_id');
-        $experimentId = $request->get('experiment_id');
-
         $weeklyWorkExperiment->id = $id;
         $weeklyWorkExperiment->weekly_work_id = $workId;
         $weeklyWorkExperiment->experiment_id = $experimentId;
