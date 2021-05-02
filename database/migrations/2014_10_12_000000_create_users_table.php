@@ -19,6 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('first_name');
             $table->string('other_names');
             $table->string('gender');
+            $table->string('faculty_id',36);
+		    $table->string('school_id',36);
+            $table->string('deparment_id',36);
             $table->string('role_id');
             $table->string('email')->unique();
             $table->string('matric_number');
