@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,6 +15,18 @@ class WeeklyWork extends Model
         'created_at',
         'updated_at',
     ];
+
+    protected $appends = [
+        'expired',
+    ];
+
+    public function getExpiredAttribute()
+    {
+        $today = Carbon::now();
+        $hasExpired = $this->date_close < $today->toDateString();
+        
+        return $hasExpired;
+    }
 }
 
 class WeeklyWorkExperiment extends Model {

@@ -12,6 +12,7 @@ use function PHPUnit\Framework\isEmpty;
 
 class AuthController extends Controller
 {
+    private $allFieldRequiredError = 'All fields are required';
     /**
      * Create a new AuthController instance.
      *
@@ -30,12 +31,12 @@ class AuthController extends Controller
     public function checkUser(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'required',
-            'password' => 'required',
+            'username' => 'required|min:1',
+            'password' => 'required|min:1',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => "All fields are required"], 400);
+            return $this->allFieldRequiredError;
         }
 
         $credentials = [
@@ -50,7 +51,11 @@ class AuthController extends Controller
     {
         $user = $this->checkUser($request);
 
-        if(!empty($user)){
+        if($user == $this->allFieldRequiredError){
+            return response()->json(['error' => $this->allFieldRequiredError], 400);
+        }
+
+        if($user){
             return response()->json(['success' => true], 200);
         }
 
@@ -65,6 +70,10 @@ class AuthController extends Controller
     public function login(Request $request)
     {   
         $user = $this->checkUser($request);
+        
+        if($user == $this->allFieldRequiredError){
+            return response()->json(['error' => $this->allFieldRequiredError], 400);
+        }
 
         if(!empty($user)){
             $usingDefaultPassword = $user->using_default_password;
