@@ -234,37 +234,37 @@ main {
   height: 21vh;
 }
 .vh-20{
-  height: 20vh;
+  height: 20
 }
 .vh-19{
-  height: 19vh;
+  height: 19
 }
 .vh-18{
-  height: 18vh;
+  height: 18
 }
 .vh-17{
-  height: 17vh;
+  height: 17
 }
 .vh-16{
-  height: 16vh;
+  height: 16
 }
 .vh-15{
-  height: 15vh;
+  height: 15
 }
 .vh-14{
-  height: 14vh;
+  height: 14
 }
 .vh-13{
-  height: 13vh;
+  height: 13
 }
 .vh-12{
-  height: 12vh;
+  height: 12
 }
 .vh-11{
-  height: 11vh;
+  height: 11
 }
 .vh-10{
-  height: 10vh;
+  height: 10
 }
 .vh-70{
   height: 70vh;
@@ -1685,6 +1685,7 @@ span.ripple {
       /*rgba(5,100,0,.2)*/
       /*border:1px solid rgba(5,100,0,.3);*/
       background: white;
+      color: #5a9;
       box-shadow:#ccc 1px 1px 3px;
       border-left: 4px solid #5a9;    
     }
@@ -1692,6 +1693,7 @@ span.ripple {
       /*background: rgba(170,30,60,.2);
       border:1px solid rgba(170,30,60,.3);*/
       background: white;
+      color:#d36;
       box-shadow:#ccc 1px 1px 3px;
       border-left: 4px solid #d36;      
     }

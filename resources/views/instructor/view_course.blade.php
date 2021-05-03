@@ -16,7 +16,7 @@ $id =  request('id');
 @section('content-body')
 <div style="display: flex;">   
 <!-- <v-userauth></v-userauth> -->
-  <v-isidebar active="course" activesub="createcourse"></v-isidebar>
+  <v-isidebar active="viewcourse" activesub="editcourse"></v-isidebar>
 
 
     <div class="w-100 m-0 p-0">

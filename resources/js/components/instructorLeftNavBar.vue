@@ -203,7 +203,7 @@
 		  })		          
         },
         
-		beforeDestroy: function () {
+		beforeDestroy: function (){
 		  this.eventBus.$off('toggleSysNav', this.toggleNavOnHover)		  
 		},
         props:['home','dashboard','viewstudent','studentdashboard','viewexperiment','explore','experiment','student','settings', 'active','activesub'],

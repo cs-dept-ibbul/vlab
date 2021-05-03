@@ -28,7 +28,7 @@
 
   <!--end loader element  -->
 
-    <div class="container-fluid p-0" id="app" style="padding-right: 0;overflow: hidden;">
+    <div class="container-fluid p-0" id="app" style="padding-right: 0;">
        @yield('content-body')
     </div>
 

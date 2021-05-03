@@ -4837,16 +4837,54 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
 //
 //
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {};
+    return {
+      course_experiment: null
+    };
   },
   methods: {},
-  props: {}
+  props: {
+    course: {
+      type: Object
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this.axiosGetById('api/courses/faculty_courses', 'faculty_id', faculty_id);
+
+            case 2:
+              _this.course_experiment = _context.sent;
+
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  }
 });
 
 /***/ }),
@@ -10997,6 +11035,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _taskForm_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./taskForm.vue */ "./resources/js/components/taskForm.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -11033,7 +11072,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    'v-taskform': _taskForm_vue__WEBPACK_IMPORTED_MODULE_1__.default
+  },
   data: function data() {
     return {
       courses_experiments: null,
@@ -11041,9 +11085,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       loadederState: true,
       weeklyworks: [{
         id: 1,
-        code: '1235',
+        date_open: '12/02/2021',
+        date_close: '12/04/2021',
+        access_code: '1235',
         title: 'week 1',
-        course_code: 'phy 107',
+        course_code: 'phy 106',
         is_expired: true,
         experiments: [{
           id: 1,
@@ -11054,7 +11100,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }]
       }, {
         id: 2,
-        code: '1235',
+        date_open: '12/02/2021',
+        date_close: '12/04/2021',
+        access_code: '1235',
         title: 'week 2',
         course_code: 'phy 107',
         is_expired: true,
@@ -11064,7 +11112,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }]
       }, {
         id: 3,
-        code: '1235',
+        date_open: '12/02/2021',
+        date_close: '12/04/2021',
+        access_code: '1235',
         title: 'week 3',
         course_code: 'phy 107',
         is_expired: true,
@@ -11074,7 +11124,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }]
       }, {
         id: 4,
-        code: '1235',
+        date_open: '12/02/2021',
+        date_close: '12/04/2021',
+        access_code: '1235',
         title: 'week 4',
         course_code: 'phy 107',
         is_expired: true,
@@ -11084,7 +11136,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }]
       }, {
         id: 5,
-        code: '1235',
+        date_open: '12/02/2021',
+        date_close: '12/04/2021',
+        access_code: '1235',
         title: 'week 6',
         course_code: 'phy 107',
         is_expired: false,
@@ -11094,7 +11148,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }]
       }, {
         id: 6,
-        code: '1235',
+        date_open: '12/02/2021',
+        date_close: '12/04/2021',
+        access_code: '1235',
         title: 'Exam',
         course_code: 'phy 107',
         is_expired: false,
@@ -11113,23 +11169,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         update: false
       });
     },
-    editTask: function editTask(code) {
+    deletework: function deletework(id) {
+      this.axiosDelete(this.baseApiUrl + 'works/delete', {
+        work_id: id
+      });
+    },
+    editTask: function editTask(obj) {
       this.VueSweetAlert2('v-taskform', {
         faculty_courses: this.faculty_courses,
         courses_experiments: this.courses_experiments,
-        update: 1
+        update: true,
+        alldata: obj
       });
     },
     taskCode: function taskCode(code) {
-      /*Swal.fire({
-      	html: `<p class="text-success fs1 w-100 fw6 text-right mx-0" id="code-point">${code}</p>`,
-      	confirmButtonColor:'#00b96b',	
-      });
-      let charCode = code.split(''), c=-1;
-      $('#code-point').animate(
-      	{'padding-right': '50%'}
-      );
-      return 0;*/
       var $this = this;
       Swal.fire({
         title: 'Verify Your Identity',
@@ -11142,14 +11195,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         showLoaderOnConfirm: true,
         focusConfirm: false,
         preConfirm: function preConfirm() {
-          return $this.axios.post($this.baseApiUrl + 'confirm_identity', $this.createFormData({
+          return $this.axios.post($this.baseApiUrl + 'verify_user', $this.createFormData({
             username: $this.currentUser.username,
             password: document.getElementById('swal-input1').value
           }), $this.axiosHeader, {
             headers: $this.axiosHeader
           }).then(function (response) {
-            console.log(response);
-
             if (!response.data.sucess) {
               throw new Error(response.statusText);
             }
@@ -11160,7 +11211,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               if (error.response.status == 409) {} else if (error.response.status == 401) {
                 location.reload();
               } else {
-                Swal.showValidationMessage('Failed: Something went wrong');
+                Swal.showValidationMessage('Failed: wrong password');
               }
             }
           });
@@ -11195,11 +11246,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 3:
               _this.faculty_courses = _context.sent;
-              _context.next = 6;
-              return _this.axiosGet('api/experiments/course_experiments');
-
-            case 6:
-              _this.courses_experiments = _context.sent;
+              //this.weeklyworks  = await this.axiosGet(this.baseApiUrl+'works/weekly_works');
+              //this.courses_experiments  = await this.axiosGet('api/courses/course_experiments');
               _this.loadederState = false;
               $this = _this;
               /*initialize datatable */
@@ -11208,7 +11256,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 $this.rippleButton();
               }, 200);
 
-            case 10:
+            case 7:
             case "end":
               return _context.stop();
           }
@@ -11275,12 +11323,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       experiments: [],
       selectedExerpiment: "",
-      selectedCourse: ""
+      selectedCourse: "",
+      selectedCourseObj: {},
+      title: "",
+      access_code: "",
+      open: "",
+      close: "",
+      ucourse: "",
+      experiment: ""
     };
   },
   methods: {
@@ -11289,28 +11347,25 @@ __webpack_require__.r(__webpack_exports__);
       var $this = this,
           experimentname = "";
       this.selectedExerpiment = [];
+      var j = 0;
       selected.each(function () {
         experimentname = $(this).text();
-        console.log(experimentname);
-        $this.selectedExerpiment = $this.faculty_courses.map(function (e) {
-          console.log($this.selectedCourse);
 
-          if (e.course_id == $this.selectedCourse) {
-            for (var i = 0; i < e[experiments].length; i++) {
-              if (e[experiments][i].name = experimentname) return e.experiment_id;
-            }
+        for (j = 0; j < $this.experiments.length; j++) {
+          if ($this.experiments[j].name === experimentname) {
+            $this.selectedExerpiment.push($this.experiments[j].id);
           }
-        });
+        }
       });
-      console.log(this.selectedExerpiment);
     },
     createTask: function createTask() {
-      var title = $('#titleForm').find('.vI');
-      var access = $('#accessCodeForm').find('.vI');
-      var open = $('#openForm').find('.vI');
-      var close = $('#closeForm').find('.vI');
-      var course = $('#courseD');
-      var experiment = $('#experimentD');
+      var title = $('#titleForm').find('.vI'),
+          access = $('#accessCodeForm').find('.vI'),
+          open = $('#openForm').find('.vI'),
+          close = $('#closeForm').find('.vI'),
+          course = $('#courseD'),
+          experiment = $('#experimentD'),
+          $this = this;
 
       if (title.val() == '') {
         $('.requiredv').remove();
@@ -11347,17 +11402,88 @@ __webpack_require__.r(__webpack_exports__);
         $('.btn-new')[0].after('Required');
         return 0;
       }
+
+      this.show_loader();
+
+      if (this.update) {
+        var _formData = {
+          work_id: this.alldata.id,
+          title: title.val(),
+          date_open: open.val(),
+          date_close: close.val(),
+          experiment_id: this.selectedExerpiment,
+          access_code: access.val()
+        };
+        var _route = 'update';
+        var _success_msg = "updated successfully";
+      } else {
+        var _route2 = 'create';
+        var _formData2 = {
+          title: title.val(),
+          date_open: open.val(),
+          date_close: close.val(),
+          experiment_id: this.selectedExerpiment,
+          access_code: access.val()
+        };
+        var _success_msg2 = $this.createdMessage;
+      }
+
+      this.axios.post(this.baseApiUrl + 'works/' + route, this.createFormData(formData), {
+        headers: this.axiosHeader
+      }).then(function (response, status, request) {
+        $this.hide_loader();
+
+        if (response.status == 200) {
+          Swal.fire({
+            title: success_msg,
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonText: "Ok",
+            cancelButtonColor: "red"
+          }).then(function (result) {
+            location.reload();
+          });
+        } else if (response.status == 401) {
+          Swal.fire({
+            title: $this.errorSessionMessage,
+            icon: 'error',
+            confirmButtonText: "Ok"
+          }).then(function (result) {
+            if (result.isConfirmed) {
+              $this.frontendLogout();
+            } else if (result.isDenied) {}
+          });
+        } else if (e.response.status == 409) {
+          Swal.fire({
+            title: 'already exist',
+            icon: 'warning',
+            confirmButtonText: "Ok"
+          });
+        }
+      }, function (e) {
+        $this.hide_loader();
+        var errMsg = $this.errorSessionMessage;
+
+        if (e.response.status == 409) {
+          errMsg = e.response.data.error;
+        }
+      });
     },
     loadExperiment: function loadExperiment(e) {
       var _this = this;
 
-      var course_id = e.value;
-      this.selectedCourse = course_id;
-      this.faculty_courses.map(function (e) {
-        if (e['id'] == course_id) {
-          _this.experiments = e['experiments'];
-        }
-      });
+      var course_id;
+
+      if (this.update) {} else {
+        course_id = e.value;
+        this.selectedCourse = course_id;
+        this.faculty_courses.map(function (e) {
+          if (e['id'] == course_id) {
+            _this.experiments = e['experiments'];
+          }
+        });
+      }
+
       var opthtml = "";
 
       for (var i = 0; i < this.experiments.length; i++) {
@@ -11368,7 +11494,28 @@ __webpack_require__.r(__webpack_exports__);
       $('#experimentD').selectpicker('refresh'); //console.log(this.experiments);
     }
   },
-  created: function created() {},
+  created: function created() {
+    if (this.update) {
+      this.title = this.alldata.title;
+      this.open = this.alldata.date_open;
+      this.close = this.alldata.date_close;
+      this.access_code = this.alldata.access_code;
+      var $this = this;
+      this.ucourse = this.faculty_courses.filter(function (item) {
+        return item.code === $this.alldata.course_code;
+      });
+      this.experiments = this.ucourse[0].experiments;
+      $this.selectedExerpiment = [1, 2]; // from alldata.experiments
+
+      var selectedexp = [];
+      setTimeout(function () {
+        $('#courseD').val($this.ucourse[0].id);
+        $this.loadExperiment();
+        $('#experimentD').selectpicker('val', $this.selectedExerpiment);
+        $('#experimentD').selectpicker('refresh');
+      }, 100);
+    }
+  },
   props: {
     update: {
       type: Boolean,
@@ -44084,9 +44231,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("div", {})])
+  }
+]
 render._withStripped = true
 
 
@@ -47579,15 +47733,34 @@ var render = function() {
               attrs: { tabindex: "1" }
             },
             [
-              _c("span", [
+              _c("span", {}, [
                 _c("h5", { staticClass: "t-h0" }, [
                   _vm._v(_vm._s(weeklywork.course_code))
                 ]),
                 _vm._v(" "),
-                _c("h4", { staticClass: "t-h1" }, [
+                _c("h4", { staticClass: "t-h1 text-center" }, [
                   _vm._v(_vm._s(weeklywork.title))
                 ])
               ]),
+              _vm._v(" "),
+              _c(
+                "p",
+                {
+                  staticClass: "fs01 fw6 font",
+                  staticStyle: {
+                    color: "inherit",
+                    position: "absolute",
+                    bottom: "-15px"
+                  }
+                },
+                [
+                  _vm._v(
+                    _vm._s(weeklywork.date_open) +
+                      " - " +
+                      _vm._s(weeklywork.date_close)
+                  )
+                ]
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "task-overlay" }, [
                 _c("div", { staticClass: "task-text" }, [
@@ -47603,7 +47776,18 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "task-btns" }, [
-                  _c("div", { staticClass: "task-btn" }, [_vm._v("Delete")]),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "task-btn",
+                      on: {
+                        click: function($event) {
+                          return _vm.deletework(weeklywork.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Delete")]
+                  ),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -47611,7 +47795,7 @@ var render = function() {
                       staticClass: "task-btn",
                       on: {
                         click: function($event) {
-                          return _vm.editTask(weeklywork.id)
+                          return _vm.editTask(weeklywork)
                         }
                       }
                     },
@@ -47624,7 +47808,7 @@ var render = function() {
                       staticClass: "task-btn",
                       on: {
                         click: function($event) {
-                          return _vm.taskCode(weeklywork.code)
+                          return _vm.taskCode(weeklywork.access_code)
                         }
                       }
                     },
@@ -47670,7 +47854,22 @@ var render = function() {
     _c("h3", { staticClass: "form-header" }, [_vm._v("Create Task")]),
     _vm._v(" "),
     _c("div", { staticClass: "m-0 row  p-3 form-body" }, [
-      _vm._m(0),
+      _c(
+        "div",
+        {
+          staticClass: "col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-4",
+          attrs: { id: "titleForm" }
+        },
+        [
+          _c("label", [_vm._v("Title")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control vI",
+            attrs: { type: "text", name: "title", id: "titleD" },
+            domProps: { value: _vm.title }
+          })
+        ]
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4" }, [
         _c("label", [_vm._v("Course")]),
@@ -47690,9 +47889,16 @@ var render = function() {
             _c("option", { attrs: { value: "-" } }),
             _vm._v(" "),
             _vm._l(_vm.faculty_courses, function(course) {
-              return _c("option", { domProps: { value: course.id } }, [
-                _vm._v(_vm._s(course.code))
-              ])
+              return _c(
+                "option",
+                {
+                  domProps: {
+                    selected: _vm.ucourse.code == course.code,
+                    value: course.id
+                  }
+                },
+                [_vm._v(_vm._s(course.code))]
+              )
             })
           ],
           2
@@ -47735,11 +47941,68 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm._m(1),
+      _c(
+        "div",
+        {
+          staticClass: "col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4",
+          attrs: { id: "accessCodeForm" }
+        },
+        [
+          _c("label", [_vm._v("Access Code")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control vI",
+            attrs: { type: "password", name: "code", id: "codeD" },
+            domProps: { value: _vm.access_code }
+          })
+        ]
+      ),
       _vm._v(" "),
-      _vm._m(2),
+      _c(
+        "div",
+        {
+          staticClass: "col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4",
+          attrs: { id: "openForm" }
+        },
+        [
+          _c("label", [_vm._v("open")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control vI datepicker2",
+            attrs: {
+              type: "text",
+              name: "title",
+              id: "openD",
+              "date-format": "dd-mm-yyyy",
+              autocomplete: "off"
+            },
+            domProps: { value: _vm.open }
+          })
+        ]
+      ),
       _vm._v(" "),
-      _vm._m(3),
+      _c(
+        "div",
+        {
+          staticClass: "col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4",
+          attrs: { id: "closeForm" }
+        },
+        [
+          _c("label", [_vm._v("Close")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control vI datepicker2",
+            attrs: {
+              type: "text",
+              name: "title",
+              id: "closeD",
+              "date-format": "dd-mm-yyyy",
+              autocomplete: "off"
+            },
+            domProps: { value: _vm.close }
+          })
+        ]
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "col-lg-10 col-md-9 col-sm-8 col-xs-12  mt-4" }),
       _vm._v(" "),
@@ -47750,106 +48013,17 @@ var render = function() {
             staticClass: "button bg-success text-white w-100 px-3 py-3",
             on: { click: _vm.createTask }
           },
-          [_vm._v("Create")]
+          [
+            !_vm.update ? _c("span", [_vm._v("Create")]) : _vm._e(),
+            _vm._v(" "),
+            _vm.update ? _c("span", [_vm._v("Update")]) : _vm._e()
+          ]
         )
       ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-4",
-        attrs: { id: "titleForm" }
-      },
-      [
-        _c("label", [_vm._v("Title")]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control vI",
-          attrs: { type: "text", name: "title", id: "titleD" }
-        })
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4",
-        attrs: { id: "accessCodeForm" }
-      },
-      [
-        _c("label", [_vm._v("Access Code")]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control vI",
-          attrs: { type: "text", name: "code", id: "codeD" }
-        })
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4",
-        attrs: { id: "openForm" }
-      },
-      [
-        _c("label", [_vm._v("open")]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control vI datepicker2",
-          attrs: {
-            type: "text",
-            name: "title",
-            id: "openD",
-            "date-format": "dd-mm-yyyy",
-            autocomplete: "off"
-          }
-        })
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4",
-        attrs: { id: "closeForm" }
-      },
-      [
-        _c("label", [_vm._v("Close")]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control vI datepicker2",
-          attrs: {
-            type: "text",
-            name: "title",
-            id: "closeD",
-            "date-format": "dd-mm-yyyy",
-            autocomplete: "off"
-          }
-        })
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
