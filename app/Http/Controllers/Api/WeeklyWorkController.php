@@ -132,7 +132,7 @@ class WeeklyWorkController extends Controller
 
     public function getWeeklyWorks()
     {
-        $weeklyWorks = WeeklyWork::all();
+        $weeklyWorks = WeeklyWork::with('experiments')->get();
         return response()->json($weeklyWorks, 200);
     }
 
@@ -150,7 +150,7 @@ class WeeklyWorkController extends Controller
         $weeklyWork = WeeklyWork::find($workId);
 
         if ($weeklyWork) {
-            return response()->json($weeklyWork, 200);
+            return response()->json($weeklyWork->with('experiments')->get(), 200);
         } else {
             return response()->json(['error' => 'Weekly Work not found'], 404);
         }
