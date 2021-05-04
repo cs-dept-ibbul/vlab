@@ -123,14 +123,14 @@
                     }               
 
                     this.show_loader();
-                     if (this.update){
-                         const formData = {work_id: this.alldata.id, title:title.val(), date_open:open.val(), date_close:close.val(), experiment_id:this.selectedExerpiment,access_code:access.val()}
-                         let route = 'update';                         
-                         let success_msg = "updated successfully";
-                     }else{
-                         let route = 'create';
-                         const formData = {title:title.val(), date_open:open.val(), date_close:close.val(), experiment_id:this.selectedExerpiment,access_code:access.val()}
-                         let success_msg = $this.createdMessage
+                    console.log(this.update)
+                    let route = 'create';
+                   let success_msg = $this.createdMessage
+                    let formData = {title:title.val(), date_open:open.val(), date_close:close.val(), experiment_ids:this.selectedExerpiment,access_code:access.val()}
+                     if (this.update === true){
+                        formData = {work_id: this.alldata.id, title:title.val(), date_open:open.val(), date_close:close.val(), experiment_ids:this.selectedExerpiment,access_code:access.val()}
+                         route = 'update';                         
+                        success_msg = "updated successfully";
                      }
                     this.axios.post(this.baseApiUrl+'works/'+route,this.createFormData(formData),{headers:this.axiosHeader})
                     .then(function(response, status, request) {                                          

@@ -5748,149 +5748,202 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       tableLoaded: false,
       facultiesHTML: null,
       faculties: null,
+      oldfaculty: "",
       watchfacultyHtml: {
         value: null
       }
     };
   },
   methods: {
-    swal_form: function swal_form() {
-      var update = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-      var obj = arguments.length > 1 ? arguments[1] : undefined;
-      $('#system-loader').css('display', 'flex');
-      var formcount = 0;
-      var $vm = this,
-          html = '';
-      var topic = "Create Department";
-
-      if (update) {
-        topic = "Update Department";
-        this.axiosGetFacultyHtml(update, obj.faculty_id); // fetch faculties and set selected base on update parameter if ture
-      } else {
-        this.axiosGetFacultyHtml(update); // fetch faculties
-      }
-
-      watch(this.watchfacultyHtml, 'value', function () {
-        if (update) {
-          //this.axiosGetFacultyHtml(update,obj.faculty_id);					
-          html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>" + $vm.facultiesHTML + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" value="' + obj.name + '" >' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Abbr</legend>" + '<input id="swal-input2" class="swal2-input mt-1" value="' + obj.code + '">';
-        } else {
-          html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>" + $vm.facultiesHTML + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" >' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Abbr</legend>" + '<input id="swal-input2" class="swal2-input mt-1">';
+    getFacultyName: function getFacultyName(id) {
+      var faculty = this.faculties.filter(function (item) {
+        if (id === item.id) {
+          return item;
         }
+      });
+      return faculty[0].code;
+    },
+    swal_form: function swal_form() {
+      var _arguments = arguments,
+          _this = this;
 
-        $('#system-loader').hide();
-        Swal.fire({
-          title: topic,
-          html: html,
-          confirmButtonText: 'Create',
-          cancelButtonText: 'Cancel',
-          cancelButtonColor: '#dd000f',
-          confirmButtonColor: '#00b96b',
-          showCancelButton: true,
-          showLoaderOnConfirm: true,
-          focusConfirm: false,
-          preConfirm: function preConfirm() {
-            var faculty = document.getElementById('swal-input0').value,
-                facultyName,
-                departmentName = document.getElementById('swal-input1').value,
-                departmentAbbr = document.getElementById('swal-input2').value;
-            facultyName = document.getElementById('swal-input0').options;
-            facultyName = facultyName[facultyName.selectedIndex].text;
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var update, obj, formcount, $vm, html, topic, btnName, old;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                update = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : false;
+                obj = _arguments.length > 1 ? _arguments[1] : undefined;
+                $('#system-loader').css('display', 'flex');
+                formcount = 0;
+                $vm = _this, html = '';
+                topic = "Create Department";
+                btnName = "Create";
+                old = {
+                  faculty_name: "",
+                  name: "",
+                  code: ""
+                };
 
-            if (faculty == "" || departmentName == "" || departmentAbbr == "") {
-              Swal.showValidationMessage('All fields are required');
-            }
-
-            return [faculty, departmentName, departmentAbbr, facultyName];
-          }
-        }).then(function (result) {
-          if (result.value) {
-            var answers = {
-              faculty_id: result.value[0],
-              name: result.value[1],
-              code: result.value[2]
-            };
-            Swal.fire({
-              title: 'click on proceed',
-              text: 'other cancel and restart',
-              html: "<table class='table text-left'>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>Faculty :</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'>".concat(result.value[3], "</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>department:</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'> ").concat(answers.name, ",</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t \t<td width='30%'><b>Abbr:</b></td>\n\t\t\t\t\t      \t\t \t<td width='70%'> ").concat(answers.code, " </td>\n\t\t\t\t\t      \t\t <tr>\n\t\t\t\t      \t\t</table>"),
-              confirmButtonText: 'Continue',
-              cancelButtonText: 'Cancel',
-              cancelButtonColor: '#dd000f',
-              confirmButtonColor: '#00b96b',
-              showCancelButton: true,
-              showLoaderOnConfirm: true,
-              preConfirm: function preConfirm(login) {
-                if (update) {
-                  var formData = $vm.createFormData({
-                    department_id: obj.department_id
-                  });
-                  return $vm.axios.post('api/departments/update', formData, {
-                    headers: $vm.axiosHeader
-                  }).then(function (response) {
-                    if (!response.data.sucess) {
-                      throw new Error(response.statusText);
-                    }
-
-                    return response.json();
-                  })["catch"](function (error) {
-                    if (error.response) {
-                      if (error.response.status == 409) {
-                        Swal.showValidationMessage("Failed: department Already Exist");
-                      } else if (error.response.status == 401) {
-                        location.reload();
-                      } else {
-                        Swal.showValidationMessage("Failed: Something went wrong");
-                      }
-                    }
-                  });
-                } else {
-                  return $vm.axios.post('api/departments/create', $vm.createFormData(answers), {
-                    headers: $vm.axiosHeader
-                  }).then(function (response) {
-                    if (!response.data.sucess) {
-                      throw new Error(response.statusText);
-                    }
-
-                    return response.json();
-                  })["catch"](function (error) {
-                    if (error.response) {
-                      if (error.response.status == 409) {
-                        Swal.showValidationMessage("Failed: department Already Exist");
-                      } else if (error.response.status == 401) {
-                        location.reload();
-                      } else {
-                        Swal.showValidationMessage("Failed: Something went wrong");
-                      }
-                    }
-                  });
+                if (!update) {
+                  _context.next = 15;
+                  break;
                 }
-              },
-              allowOutsideClick: function allowOutsideClick() {
-                return !Swal.isLoading();
-              }
-            }).then(function (result) {
-              var title = 'created successfully';
 
-              if (update) {
-                title = 'updated successfully';
-              }
+                btnName = "Update";
+                topic = "Update Department";
+                _context.next = 13;
+                return _this.axiosGetFacultyHtml(update, obj.faculty_id);
 
-              if (result.isConfirmed) {
+              case 13:
+                _context.next = 17;
+                break;
+
+              case 15:
+                _context.next = 17;
+                return _this.axiosGetFacultyHtml(update);
+
+              case 17:
+                //watch(this.watchfacultyHtml, 'value', function(){
+                //let dialog  = function(){
+                if (update) {
+                  old = {
+                    faculty_name: '<span class="text-danger">' + $vm.oldfaculty + '</span> <b class="text-success"> to </b> ',
+                    name: '<span class="text-danger">' + obj.name + '</span> <b class="text-success"> to </b> ',
+                    code: '<span class="text-danger">' + obj.code + '</span> <b class="text-success"> to </b> '
+                  }; //this.axiosGetFacultyHtml(update,obj.faculty_id);					
+
+                  html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>" + $vm.facultiesHTML + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" value="' + obj.name + '" >' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Abbr</legend>" + '<input id="swal-input2" class="swal2-input mt-1" value="' + obj.code + '">';
+                } else {
+                  html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>" + $vm.facultiesHTML + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" >' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Abbr</legend>" + '<input id="swal-input2" class="swal2-input mt-1">';
+                }
+
+                $('#system-loader').hide();
                 Swal.fire({
-                  title: title,
-                  icon: 'success',
-                  confirmButtonText: 'Ok',
-                  confirmButtonColor: '#00b96b'
+                  title: topic,
+                  html: html,
+                  confirmButtonText: btnName,
+                  cancelButtonText: 'Cancel',
+                  cancelButtonColor: '#dd000f',
+                  confirmButtonColor: '#00b96b',
+                  showCancelButton: true,
+                  showLoaderOnConfirm: true,
+                  focusConfirm: false,
+                  preConfirm: function preConfirm() {
+                    var faculty = document.getElementById('swal-input0').value,
+                        facultyName,
+                        departmentName = document.getElementById('swal-input1').value,
+                        departmentAbbr = document.getElementById('swal-input2').value;
+                    facultyName = document.getElementById('swal-input0').options;
+                    facultyName = facultyName[facultyName.selectedIndex].text;
+
+                    if (faculty == "" || departmentName == "" || departmentAbbr == "") {
+                      Swal.showValidationMessage('All fields are required');
+                    }
+
+                    return [faculty, departmentName, departmentAbbr, facultyName];
+                  }
                 }).then(function (result) {
-                  location.reload();
-                });
-              }
-            });
+                  if (result.value) {
+                    var answers = {
+                      faculty_id: result.value[0],
+                      name: result.value[1],
+                      code: result.value[2]
+                    };
+                    Swal.fire({
+                      title: 'click on proceed',
+                      text: 'other cancel and restart',
+                      html: "<table class='table text-left'>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>Faculty :</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'>".concat(old.faculty_name, " ").concat(result.value[3], "</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>department:</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'>").concat(old.name, " ").concat(answers.name, ",</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t \t<td width='30%'><b>Abbr:</b></td>\n\t\t\t\t\t      \t\t \t<td width='70%'>").concat(old.code, " ").concat(answers.code, " </td>\n\t\t\t\t\t      \t\t <tr>\n\t\t\t\t      \t\t</table>"),
+                      confirmButtonText: 'Continue',
+                      cancelButtonText: 'Cancel',
+                      cancelButtonColor: '#dd000f',
+                      confirmButtonColor: '#00b96b',
+                      showCancelButton: true,
+                      showLoaderOnConfirm: true,
+                      preConfirm: function preConfirm(login) {
+                        if (update) {
+                          var formData = $vm.createFormData({
+                            department_id: obj.id,
+                            faculty_id: answers.faculty_id,
+                            name: result.value[1],
+                            code: result.value[2]
+                          });
+                          return $vm.axios.post($vm.baseApiUrl + 'departments/update', formData, {
+                            headers: $vm.axiosHeader
+                          }).then(function (response) {
+                            if (!response.data.sucess) {
+                              throw new Error(response.statusText);
+                            }
+
+                            return response.json();
+                          })["catch"](function (error) {
+                            if (error.response) {
+                              if (error.response.status == 409) {
+                                Swal.showValidationMessage("Failed: department Already Exist");
+                              } else if (error.response.status == 401) {
+                                location.reload();
+                              } else {
+                                Swal.showValidationMessage("Failed: Something went wrong");
+                              }
+                            }
+                          });
+                        } else {
+                          return $vm.axios.post($vm.baseApiUrl + 'departments/create', $vm.createFormData(answers), {
+                            headers: $vm.axiosHeader
+                          }).then(function (response) {
+                            if (!response.data.sucess) {
+                              throw new Error(response.statusText);
+                            }
+
+                            return response.json();
+                          })["catch"](function (error) {
+                            if (error.response) {
+                              if (error.response.status == 409) {
+                                Swal.showValidationMessage("Failed: department Already Exist");
+                              } else if (error.response.status == 401) {
+                                location.reload();
+                              } else {
+                                Swal.showValidationMessage("Failed: Something went wrong");
+                              }
+                            }
+                          });
+                        }
+                      },
+                      allowOutsideClick: function allowOutsideClick() {
+                        return !Swal.isLoading();
+                      }
+                    }).then(function (result) {
+                      var title = 'created successfully';
+
+                      if (update) {
+                        title = 'updated successfully';
+                      }
+
+                      if (result.isConfirmed) {
+                        Swal.fire({
+                          title: title,
+                          icon: 'success',
+                          confirmButtonText: 'Ok',
+                          confirmButtonColor: '#00b96b'
+                        }).then(function (result) {
+                          location.reload();
+                        });
+                      }
+                    });
+                  }
+                }); //formcount++;
+                //};		
+                //});		
+                //let $vm = this;	
+
+              case 20:
+              case "end":
+                return _context.stop();
+            }
           }
-        });
-        formcount++;
-      }); //let $vm = this;	
+        }, _callee);
+      }))();
     },
     editdepartment: function editdepartment(obj) {
       this.swal_form(true, obj);
@@ -5909,76 +5962,72 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.swal_form(false, null);
     },
     axiosGetFacultyHtml: function axiosGetFacultyHtml(update, faculty_id) {
-      var _this = this;
+      var _this2 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var $this, run;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                if (!(_this.faculties === null)) {
-                  _context.next = 4;
-                  break;
-                }
+                $this = _this2;
+                _context2.next = 3;
+                return function () {
+                  $this.facultiesHTML = "<select id='swal-input0' class='swal2-input mt-1'>";
+                  $this.faculties.forEach(function (item, idex) {
+                    if (update) {
+                      $this.facultiesHTML += "<option value='" + item.id + "'";
 
-                _context.next = 3;
-                return _this.axiosGet('api/faculties/faculties');
+                      if (item.id === faculty_id) {
+                        $this.oldfaculty = item.code;
+                        $this.facultiesHTML += " selected=selected ";
+                      }
+
+                      $this.facultiesHTML += ">" + item.code + "</option>";
+                    } else {
+                      $this.facultiesHTML += "<option value='" + item.id + "'>" + item.code + "</option>";
+                    }
+                  });
+                  $this.facultiesHTML += "</select>";
+                };
 
               case 3:
-                _this.faculties = _context.sent;
+                run = _context2.sent;
+                run();
+                _this2.watchfacultyHtml.value = Math.random(1, 1000);
 
-              case 4:
-                //method 2 
-                //does not require page reload 
-                //ajax request is made every time
-                //it might slow down operation
-
-                /*this.faculties =  await this.axiosGet('api/faculties/faculties');*/
-                _this.facultiesHTML = "<select id='swal-input0' class='swal2-input mt-1'>";
-
-                _this.faculties.forEach(function (item, idex) {
-                  if (update) {
-                    _this.facultiesHTML += "<option value='" + item.id + "'";
-
-                    if (item.id == faculty_id) {
-                      _this.facultiesHTML += "selected=selected";
-                    }
-
-                    _this.facultiesHTML += ">" + item.code + "</option>";
-                  } else {
-                    _this.facultiesHTML += "<option value='" + item.id + "'>" + item.code + "</option>";
-                  }
-                });
-
-                _this.facultiesHTML += "</select>"; //console.log(facultiesHTML);
-                //console.log(this.facultiesHTML);
-
-                _this.watchfacultyHtml.value = Math.random(1, 1000); //console.log(this.watchfacultyHtml.value)
-
-              case 8:
+              case 6:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }))();
     }
   },
   created: function created() {
-    var _this2 = this;
+    var _this3 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
-              _context2.next = 2;
-              return _this2.axiosGet('api/departments/departments');
+              _context3.next = 2;
+              return _this3.axiosGet('api/departments/departments');
 
             case 2:
-              _this2.createddepartment = _context2.sent;
-              //console.log(this.createddepartment)
-              _this2.tableLoaded = true;
+              _this3.createddepartment = _context3.sent;
+              _context3.next = 5;
+              return _this3.axiosGet('api/faculties/faculties');
+
+            case 5:
+              _this3.faculties = _context3.sent;
+              _context3.next = 8;
+              return _this3.axiosGetFacultyHtml(false, null);
+
+            case 8:
+              _this3.tableLoaded = true;
               /*initialize datatable */
 
               setTimeout(function () {
@@ -5987,12 +6036,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
               }, 200);
 
-            case 5:
+            case 10:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2);
+      }, _callee3);
     }))();
   },
   mounted: function mounted() {
@@ -6319,9 +6368,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var $vm = this,
           html = '';
       var topic = "Create Faculty";
+      var old = {
+        name: "",
+        code: ""
+      };
+      var btnName = "Create";
       console.log(obj); //watch(this.watchfacultyHtml, 'value', function(){
 
       if (update) {
+        btnName = "Update";
+        old = {
+          name: '<span class="text-danger">' + obj.name + '</span> <b class="text-success"> to </b> ',
+          code: '<span class="text-danger">' + obj.code + '</span> <b class="text-success"> to </b> '
+        };
         topic = 'Update Faculty';
         html = "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" value="' + obj.name + '" >' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Abbr</legend>" + '<input id="swal-input2" class="swal2-input mt-1" value="' + obj.code + '">';
       } else {
@@ -6332,7 +6391,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       Swal.fire({
         title: topic,
         html: html,
-        confirmButtonText: 'Ok',
+        confirmButtonText: btnName,
         cancelButtonText: 'Cancel',
         cancelButtonColor: '#dd000f',
         confirmButtonColor: '#00b96b',
@@ -6358,7 +6417,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           Swal.fire({
             title: 'click on proceed',
             text: 'other cancel and restart',
-            html: "<table class='table text-left'>\t\t\t\t\t\t      \t\t\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>Faculty Abbr:</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'> ".concat(answers.name, ",</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t \t<td width='30%'><b>Abbr:</b></td>\n\t\t\t\t\t      \t\t \t<td width='70%'> ").concat(answers.code, " </td>\n\t\t\t\t\t      \t\t <tr>\n\t\t\t\t      \t\t</table>"),
+            html: "<table class='table text-left'>\t\t\t\t\t\t      \t\t\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>Faculty Abbr:</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'>".concat(old.name, " ").concat(answers.name, "</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t \t<td width='30%'><b>Abbr:</b></td>\n\t\t\t\t\t      \t\t \t<td width='70%'>").concat(old.code, " ").concat(answers.code, " </td>\n\t\t\t\t\t      \t\t <tr>\n\t\t\t\t      \t\t</table>"),
             confirmButtonText: 'Continue',
             cancelButtonText: 'Cancel',
             cancelButtonColor: '#dd000f',
@@ -6369,8 +6428,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               if (update) {
                 var formData = new FormData();
                 formData.append("faculty_id", obj.id);
-                formData.append("name", result.value[0]);
-                formData.append("code", result.value[1]);
+                formData.append("faculty_name", result.value[0]);
+                formData.append("faculty_code", result.value[1]);
                 return $vm.axios.post($vm.baseApiUrl + 'faculties/update', formData, {
                   headers: $vm.axiosHeader
                 }).then(function (response) {
@@ -8441,6 +8500,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -8589,7 +8649,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     setsession: function setsession(obj) {
       //		this.swal_form(true,obj);
-      Swal.fire('sj');
+      Swal.fire({
+        text: "are you sure you want to set ".concat(obj.session, " as current session "),
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        cancelButtonColor: '#dd000f',
+        confirmButtonColor: '#00b96b',
+        showCancelButton: true,
+        showLoaderOnConfirm: true,
+        preConfirm: function preConfirm(login) {
+          var formData = new FormData();
+          formData.append("session_id", obj.id);
+          return $vm.axios.post($vm.baseApiUrl + 'session/set', formData, {
+            headers: $vm.axiosHeader
+          }).then(function (response) {
+            if (!response.data.sucess) {
+              throw new Error(response.statusText);
+            }
+
+            return {
+              reponse: response.json(),
+              status: true
+            };
+          })["catch"](function (error) {
+            if (error.response) {
+              Swal.showValidationMessage("Failed: Something went wrong, check your internet connection");
+            }
+          });
+        }
+      }).then(function (result) {
+        if (result.value.status) {
+          Swal.fire({
+            title: 'ssession set successfully',
+            confirmButtonColor: '#00b96b'
+          });
+        }
+      });
     },
     deletesession: function deletesession(session_id) {
       this.axiosDelete('api/session/delete', {
@@ -11246,7 +11341,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 3:
               _this.faculty_courses = _context.sent;
-              //this.weeklyworks  = await this.axiosGet(this.baseApiUrl+'works/weekly_works');
+              _context.next = 6;
+              return _this.axiosGet(_this.baseApiUrl + 'works/weekly_works');
+
+            case 6:
+              _this.weeklyworks = _context.sent;
               //this.courses_experiments  = await this.axiosGet('api/courses/course_experiments');
               _this.loadederState = false;
               $this = _this;
@@ -11256,7 +11355,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 $this.rippleButton();
               }, 200);
 
-            case 7:
+            case 10:
             case "end":
               return _context.stop();
           }
@@ -11404,28 +11503,28 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.show_loader();
+      console.log(this.update);
+      var route = 'create';
+      var success_msg = $this.createdMessage;
+      var formData = {
+        title: title.val(),
+        date_open: open.val(),
+        date_close: close.val(),
+        experiment_ids: this.selectedExerpiment,
+        access_code: access.val()
+      };
 
-      if (this.update) {
-        var _formData = {
+      if (this.update === true) {
+        formData = {
           work_id: this.alldata.id,
           title: title.val(),
           date_open: open.val(),
           date_close: close.val(),
-          experiment_id: this.selectedExerpiment,
+          experiment_ids: this.selectedExerpiment,
           access_code: access.val()
         };
-        var _route = 'update';
-        var _success_msg = "updated successfully";
-      } else {
-        var _route2 = 'create';
-        var _formData2 = {
-          title: title.val(),
-          date_open: open.val(),
-          date_close: close.val(),
-          experiment_id: this.selectedExerpiment,
-          access_code: access.val()
-        };
-        var _success_msg2 = $this.createdMessage;
+        route = 'update';
+        success_msg = "updated successfully";
       }
 
       this.axios.post(this.baseApiUrl + 'works/' + route, this.createFormData(formData), {
@@ -11882,7 +11981,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               formData.append("csv", result.value[2]);
               formData.append("department_id", result.value[1]);
               formData.append("faculty_id", result.value[0]);
-              return $vm.axios.post('api/users/import_students', formData, {
+              return $vm.axios.post($vm.baseApiUrl + 'users/import_students', formData, {
                 headers: $vm.axiosHeaderWithFiles
               }).then(function (response) {
                 if (!response.data.sucess) {
@@ -12033,7 +12132,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 5:
               _this2.departments = _context2.sent;
               _context2.next = 8;
-              return _this2.axiosGet('api/users/users');
+              return _this2.axiosGet('api/users/create');
 
             case 8:
               _this2.createduser = _context2.sent;
@@ -14081,7 +14180,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               headers: $this.axiosHeader
             }).then(function (response, status, request) {
               if (response.status === 200) {
-                this.hide_loader();
+                $this.hide_loader();
                 Swal.fire({
                   title: 'deleted successfuly',
                   icon: 'success'
@@ -44997,7 +45096,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("td", { attrs: { width: "20%" } }, [
-                      _vm._v(_vm._s(department.faculty_code))
+                      _vm._v(_vm._s(_vm.getFacultyName(department.faculty_id)))
                     ]),
                     _vm._v(" "),
                     _c("td", { attrs: { width: "15%" } }, [
@@ -46629,11 +46728,13 @@ var render = function() {
                       _vm._v(_vm._s(session.created_at))
                     ]),
                     _vm._v(" "),
-                    _c("td", { attrs: { width: "5%" } }, [
-                      _vm._v(_vm._s(session.status))
+                    _c("td", { attrs: { width: "15%" } }, [
+                      _vm._v(
+                        _vm._s(session.is_current == 1 ? "current session" : "")
+                      )
                     ]),
                     _vm._v(" "),
-                    _c("td", { attrs: { width: "40%" } }, [
+                    _c("td", { attrs: { width: "30%" } }, [
                       _c("span", {
                         staticClass: "ml-2 fa fa-edit pl-3  fs01 cursor-1",
                         staticStyle: { "border-left": "1px solid #ccc" },
@@ -46645,7 +46746,19 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("span", {
-                        staticClass: "ml-2 fa fa-edit pl-3  fs01 cursor-1",
+                        staticClass:
+                          "ml-2 fa fa-check pl-3 text-success  fs01 cursor-1",
+                        staticStyle: { "border-left": "1px solid #ccc" },
+                        on: {
+                          click: function($event) {
+                            return _vm.setsession(session)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", {
+                        staticClass:
+                          "ml-2 fa fa-times pl-3 text-danger fs01 cursor-1",
                         staticStyle: { "border-left": "1px solid #ccc" },
                         on: {
                           click: function($event) {

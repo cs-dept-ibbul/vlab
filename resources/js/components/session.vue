@@ -17,10 +17,11 @@
 			        <tr v-for="(session, index) in createdsession" :key="index">	         
 			            <td width="40%" :title="session.title">{{session.session}}</td>			            
 			            <td width="15%">{{session.created_at}}</td>	            
-			            <td width="5%">{{session.status}}</td>	            
-			            <td width="40%">
+			            <td width="15%">{{session.is_current==1?'current session':''}}</td>	            
+			            <td width="30%">
 			            	<span class="ml-2 fa fa-edit pl-3  fs01 cursor-1" @click="editsession(session)" style="border-left: 1px solid #ccc;"></span>
-			            	<span class="ml-2 fa fa-edit pl-3  fs01 cursor-1" @click="setsession(session)" style="border-left: 1px solid #ccc;"></span>
+			            	<span class="ml-2 fa fa-check pl-3 text-success  fs01 cursor-1" @click="setsession(session)" style="border-left: 1px solid #ccc;"></span>
+			            	<span class="ml-2 fa fa-times pl-3 text-danger fs01 cursor-1" @click="setsession(session)" style="border-left: 1px solid #ccc;"></span>
 			            	<span class="ml-2 fa fa-trash pl-3  fs01 cursor-1" @click="deletesession(session.id)"></span>
 			            </td>
 			        </tr>
@@ -184,7 +185,40 @@
 			},
 			setsession:function(obj){
 			//		this.swal_form(true,obj);
-			Swal.fire('sj');
+				Swal.fire({
+					text:`are you sure you want to set ${obj.session} as current session `,
+					  confirmButtonText:'Yes',					      
+				      cancelButtonText:'No',				      				      
+				      cancelButtonColor:'#dd000f',					      
+				      confirmButtonColor:'#00b96b',					      
+				      showCancelButton:true,			
+				      showLoaderOnConfirm: true,
+				       preConfirm: (login) => {	
+				       	const formData = new FormData();
+			        	formData.append("session_id",obj.id);				        	
+			        	return $vm.axios.post($vm.baseApiUrl+'session/set',formData,{headers:$vm.axiosHeader})
+				      	.then(response => {						      	
+					        if (!response.data.sucess) {
+					          throw new Error(response.statusText)
+					        }						   
+					        return {reponse:response.json(),status:true}
+				      	})
+				      	.catch(error => {
+					      	if (error.response) {
+					      		Swal.showValidationMessage(
+						          `Failed: Something went wrong, check your internet connection`
+						        )						      		
+					      	}
+				       })
+				   }
+				}).then((result)=>{
+					if (result.value.status) {						
+						Swal.fire({
+							title:'ssession set successfully',
+							confirmButtonColor:'#00b96b',	
+						})
+					}
+				})
 			},
 			deletesession: function(session_id){
 				this.axiosDelete('api/session/delete',{'session_id': session_id})					

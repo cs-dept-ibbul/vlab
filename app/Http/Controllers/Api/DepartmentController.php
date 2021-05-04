@@ -33,13 +33,14 @@ class DepartmentController extends Controller
         $id = Util::uuid();
         $departmentName = $request->get('name');
         $departmentCode = $request->get('code');
+        $facultyId = $request->get('faculty_id');
         $status = $request->get('status') ?? 'Active';
         $department = new Department();
         $department->id = $id;
         $department->name = $departmentName;
         $department->code = $departmentCode;
         $department->school_id = $this->schoolId;
-        $department->faculty_id = $this->facultyId;
+        $department->faculty_id = $facultyId;
         $department->status = $status;
 
 

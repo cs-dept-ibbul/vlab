@@ -211,7 +211,7 @@
 								formData.append("csv",result.value[2]);
 								formData.append("department_id", result.value[1]);
 								formData.append("faculty_id", result.value[0]);
-					        	return $vm.axios.post('api/users/import_students',formData,{headers:$vm.axiosHeaderWithFiles})
+					        	return $vm.axios.post($vm.baseApiUrl+'users/import_students',formData,{headers:$vm.axiosHeaderWithFiles})
 						      	.then(response => {						      	
 							        if (!response.data.sucess) {
 							          throw new Error(response.statusText)
@@ -336,7 +336,7 @@
 		async created(){			
 			this.faculties =  await this.axiosGet('api/faculties/faculties');						
 			this.departments	 = await  this.axiosGet('api/departments/departments');					
-			this.createduser  = await this.axiosGet('api/users/users');
+			this.createduser  = await this.axiosGet('api/users/create');
 			
 
 			this.facultiesHTML = this.selectHtmlGen(this.faculties,'code','faculty_id' )							

@@ -136,7 +136,7 @@ export default {
   		},
   		axiosDelete:function(url, data){  			
 			let retryCount = 0;			
-				var $this = this;
+				let $this = this;
 				
 				
 				let attemptsFailsV = function(){
@@ -165,7 +165,7 @@ export default {
 					$this.show_loader();
                    	axios.post(url,$this.createFormData(data),{headers: $this.axiosHeader}).then(function(response, status, request) {        
                             if (response.status === 200) {     
-                            	this.hide_loader();                                	
+                            	$this.hide_loader();                                	
                             	Swal.fire({
                             		title:'deleted successfuly',
                             		icon: 'success',                            		

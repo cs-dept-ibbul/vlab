@@ -80,7 +80,7 @@ class FacultyController extends Controller
         $faculty = Faculty::find($facultyId);
         if($faculty){
             $facultyName != null ? $faculty->name = $facultyName : null;
-            $facultyCode != null ? $faculty->faculty_code = $facultyCode : null;
+            $facultyCode != null ? $faculty->code = $facultyCode : null;
     
             if(empty($facultyName) && empty($facultyCode) && empty($schoolID)){
                 return response()->json(['message' => 'Nothing to update'], 200);

@@ -121,7 +121,7 @@
 		 async created(){        
          let faculty_id = this.currentUser.faculty_id;
          this.faculty_courses  = await this.axiosGetById('api/courses/faculty_courses','faculty_id', faculty_id);
-         //this.weeklyworks  = await this.axiosGet(this.baseApiUrl+'works/weekly_works');
+         this.weeklyworks  = await this.axiosGet(this.baseApiUrl+'works/weekly_works');
          
          //this.courses_experiments  = await this.axiosGet('api/courses/course_experiments');
          
@@ -130,7 +130,7 @@
    
           /*initialize datatable */
           setTimeout(function() {
-            $this.rippleButton();
+            $this.rippleButton(); 
                     
           }, 200);
       
