@@ -42,6 +42,11 @@ Route::group([
         Route::group([
             'prefix' => 'users'
         ], function () {
+            Route::post('students', [UserController::class, 'getStudents']);
+            Route::post('faculty_admins', [UserController::class, 'getFacultyAdmins']);
+            Route::post('delete', [UserController::class, 'delete']);
+            Route::post('update', [UserController::class, 'update']);
+            Route::post('create_faculty_admin', [UserController::class, 'createFacultyAdmin']);
             Route::post('import_students', [UserController::class, 'importStudents']);
             Route::post('update_password', [UserController::class, 'updatePassword']);
         });

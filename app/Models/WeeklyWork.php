@@ -24,12 +24,18 @@ class WeeklyWork extends Model
     {
         $today = Carbon::now();
         $hasExpired = $this->date_close < $today->toDateString();
-        
+
         return $hasExpired;
+    }
+
+    public function experiments()
+    {
+        return $this->belongsToMany(Experiment::class, 'weekly_work_experiments');
     }
 }
 
-class WeeklyWorkExperiment extends Model {
+class WeeklyWorkExperiment extends Model
+{
     use HasFactory;
 
     protected $hidden = [
@@ -42,11 +48,9 @@ class WeeklyWorkExperiment extends Model {
     {
         return $this->belongsToMany(Experiment::class, 'weekly_work_experiments', 'id');
     }
-    
+
     public function weeklyWork()
     {
         return $this->belongsTo(WeeklyWork::class, 'weekly_work_id');
     }
-
-
 }
