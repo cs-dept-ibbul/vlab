@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Models\Session;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -24,6 +25,7 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array
      */
+
     protected $fillable = [
         'username',
         'password',
@@ -43,6 +45,7 @@ class User extends Authenticatable implements JWTSubject
 
     protected $appends = [
         'name',
+        'session_id'
     ];
 
     
@@ -60,9 +63,19 @@ class User extends Authenticatable implements JWTSubject
         return $this->other_names . ' ' . $this->first_name;
     }
 
+    public function getSessionIdAttribute(): string
+    {
+        return Session::where(['is_current'=>1, 'status'=>'Active'])->first()->id;
+    }
+
     public function courses()
     {
         return $this->belongsToMany(Course::class, 'user_courses');
+    }    
+
+    public function result()
+    {
+        return $this->hasMany(ExperimentResult::class, 'user_id');
     }
 
     /**

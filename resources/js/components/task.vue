@@ -2,9 +2,9 @@
 	<div class="mx-auto">
 		  <a href="#" @click="create" class="btn py-3 mb-5 mr-2 px-4 text-white fs1 font1 p-success btn-lg" style="border-radius: 0.6rem">Create New <span class="text-white fa fa-chevron-down"></span></a>
          <div class="task-container" style="width: 100%;">
-			<div v-for="weeklywork in weeklyworks" class="task-item1 " v-bind:class="{'task-not-active':weeklywork.is_expired,'task-active':!weeklywork.is_expired}" tabindex="1">
+			<div v-for="weeklywork in weeklyworks" class="task-item1 " v-bind:class="{'task-not-active':weeklywork.expired,'task-active':!weeklywork.expired}" tabindex="1">
 				<span class="">				
-					<h5 class="t-h0">{{weeklywork.course_code}}</h5>
+					<h5 class="t-h0">{{weeklywork.course.code}}</h5>
 					<h4 class="t-h1 text-center">{{weeklywork.title}}</h4>		
 				</span>				
 				<p style="color:inherit;position: absolute;bottom: -15px;" class="fs01 fw6 font">{{weeklywork.date_open}} - {{weeklywork.date_close}}</p>	
@@ -12,7 +12,7 @@
 					<div class="task-text">
 						<h5 >Experiments</h5>
 						<ul>
-							<li v-for="experiment in weeklywork.experiments">{{experiment.name}}</li>							
+							<li v-for="experiment in weeklywork.weekly_work_experiments">{{experiment.experiments.name}}</li>							
 						</ul>
 					</div>
 					<div class="task-btns">					

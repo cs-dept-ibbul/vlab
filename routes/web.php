@@ -33,7 +33,9 @@ Route::middleware(['studentauth'])->group(function(){
 	Route::get('/UserDashboard', 'App\Http\Controllers\ViewUserDashboard@index')->name('sdashboard');
 
 	Route::get('/my-courses', 'App\Http\Controllers\StudentCourses@index')->name('courses');
-	Route::get('/my-course-review/{id?}', 'App\Http\Controllers\StudentCourses@review')->name('my-course-review');
+	Route::middleware(['is_enrolled'])->group(function(){
+		Route::get('/my-course-review/{id}', 'App\Http\Controllers\StudentCourses@review')->name('my-course-review');
+	});
 	Route::get('/view-Students-dashboard', 'App\Http\Controllers\adminViewStudentsdashboard@index')->name('view-Students-dashboard');
 	Route::get('/viewCourse/{id?}', 'App\Http\Controllers\ViewCourseController@index')->name('viewCourse');
 
@@ -61,7 +63,7 @@ Route::middleware(['instructorauth'])->group(function(){
 });
 
 Route::middleware(['twouserauth'])->group(function(){
-
+	Route::get('/unauthorized-e', function(){return view('unAuthorized.NotEnrolled');});
 	 /*series and parallel*/
 	Route::get('/circuitconnection-sap','App\Http\Controllers\experimentController@circuitconnection1')->name('circuitconnection1');
 	Route::get('/simple-circuit','App\Http\Controllers\experimentController@simpleCircuit')->name('simple-circuit');
@@ -104,6 +106,3 @@ Route::middleware(['twouserauth'])->group(function(){
 /*end resistors color code*/
 });
 
-
-
-	

@@ -130,39 +130,41 @@
 	            	<div id="reviews" v-if="sectionState==5" class="m-0 p-0 px-2 shineA" style="overflow-y: scroll;height: 55vh; ">  
 	            		<div v-for="(aitem,i) in alldata">
 	            			<div v-if="i==0" class="m-0">
-		            			<div class="fw8">Course Detailed</div>
+		            			<div class="fw8 text-success fs01">Course Detailed</div>
 		            			<table class="table table-bordered">		            				
 		            				<tbody>		            							            					
 					            		<tr v-for="(edatavalue,j,k) in aitem" class="p-1">
-	            							<td v-if="k==0" class="text-left" width="40%">Title</td>
-	            							<td v-if="k==1" class="text-left" width="40%">Course Code</td>
-	            							<td v-if="k==2" class="text-left" width="40%">Course Description</td>
-				            				<td width="60%" class="text-left"> {{ edatavalue }}</td>
+	            							<td v-if="k==0" class="text-left fs01 fw6 text-dark" width="40%">Title</td>
+	            							<td v-if="k==1" class="text-left fs01 fw6 text-dark" width="40%">Course Code</td>
+	            							<td v-if="k==2" class="text-left fs01 fw6 text-dark" width="40%">access code</td>
+	            							<td v-if="k==3" class="text-left fs01 fw6 text-dark" width="40%">Course Description</td>
+				            				<td width="60%" class="text-left fs01 text-dark"> {{ edatavalue }}</td>
 					            		</tr>	            						            			
 		            				</tbody>
 		            			</table>
 	            			</div>
 	            			         				
 		            			<div v-if="i==1" class="col-lg-6 col-md-6 my-2 mx-0 px-0 ">
-			            			<div class="fw8 m-0">Selected Experiment</div>
+			            			<div class="fw8 m-0 text-success fs01">Selected Experiment</div>
 			            			<div class="p-2  m-0">			            				
-					            		<p v-for="(edatavalue,j, inde) in aitem.names">		            				
+					            		<p v-for="(edatavalue,j, inde) in aitem.names" class="fs01 text-dark">		            				
 				            				<b>{{inde}}.</b> {{edatavalue}}
 					            		</p>	            				
 			            			</div>
 		            			</div>
 		            			<div v-if="i==2" class=" col-lg-5 col-md-5 mx-0 px-0 ">
-			            			<div class="fw8 m-0">Selected Instructor</div>
+			            			<div class="fw8 m-0 text-success fs01">Selected Instructor</div>
 			            			<div class="p-2  m-0">			            				
-					            		<p v-for="(edatavalue,j, inde) in aitem.names">		            				
+					            		<p v-for="(edatavalue,j, inde) in aitem.names" class="fs01 text-dark">		            				
 				            				<b>{{inde}}.</b> {{edatavalue}}
 					            		</p>	            				
 			            			</div>
 		            			</div>	            	
 	            			<div v-if="i==3" class="m-0 mt-2">
-		            			<div class="fw8">image to Upload</div>
+		            			<div class="fw8 text-success fs01">image to Upload</div>
 		            			<div>
 		            				<img width="200px" :src="aitem.image">
+		            				<img width="200px" :src="imagetoupload">
 		            			</div>				
 	            			</div>	            			
 	            		</div>
@@ -211,7 +213,9 @@
 	    	 title:'',
 	    	 ccode:'',
 	    	 ecode:'',
+	    	 course_id:'',
 	    	 imagetoupload:'',
+	    	 resourceFile:'',
 	    	 validateState:false,
 	    	 selectedExperiment:[],
 	    	 selectedExperimentName:[],
@@ -540,16 +544,24 @@
 					   	formData.append('description',this.alldata[0].description);
 					   	formData.append('experiment_id',this.alldata[1].id);
 					   	formData.append('instructor_id',this.alldata[2].id);
-					   	formData.append('resource_url',this.alldata[3].image);
+					   	formData.append('resource_url',this.resourceFile);
 
 				   		$('#system-loader').css('display','flex');
+				   			$('#system-loader').css('display','flex');
+			   				let route = 'create';
+					   		let successMsg = this.reatedMessage;
+					   		if (this.update) {
+								route = 'update'			   		
+					   			formData.append('course_id',this.course_id);
 
-			            $vm.axios.post('api/courses/create',formData, {headers: $vm.axiosHeader}).then(function(response, status, request) { 		
+								successMsg = 'Updated Successfully';
+					   		}
+			            $vm.axios.post('api/courses/'+route,formData, {headers: $vm.axiosHeaderWithFiles}).then(function(response, status, request) { 		
 				   			$('#system-loader').css('display','none');
 				   			if(response.status == 200){
 
 				   				Swal.fire({
-								  title: $vm.createdMessage,
+								  title: successMsg,
 								  text:'tell us where to go',
 								  icon:'success',
 								  showDenyButton: true,
@@ -618,7 +630,7 @@
 				let holder = document.getElementById('dgbox');
 				holder.classList.add('dragenter');
 			    let file = e.dataTransfer.files[0];
-
+			    this.resourceFile = file;
 				   let reader = new FileReader();
 				$('.progress').css('display','block');
 
@@ -648,7 +660,7 @@
 					holder.classList.add('dragenter');
 				    let file;
 					file = e.target.files[0];
-
+					this.resourceFile = file;
 					   let reader = new FileReader();
 					$('.progress').css('display','block');
 
@@ -712,62 +724,17 @@
 					$vm.selectedInstructorName.splice($(this).attr('rel'),1);
          			$vm.reiterateSelectedInstructor();         			
 				});
-				
-				/*fetch experiment*/
-			   /*try{
-			   	
-		            $vm.axios.get('api/experiments/experiments',{ headers: $vm.axiosHeader }).then(function(response, status, request) { 			   	
-		            	if(response.status == 200){
-			            	 $vm.experiments = response.data;				   				
-				   		}else if(response.status == 401){
-			   				Swal.fire({
-							  title: $vm.errorSessionMessage,								  
-							  icon:'success',
-							  showDenyButton: true,								  
-							  confirmButtonText: `Ok`,								  
-							}).then((result) => {								  
-							  if (result.isConfirmed) {
-							    $vm.frontendLogout();
-							  } else if (result.isDenied) {								    
-							  }
-							})
-				   		}
-		            	//console.log($vm.experiments);			   	
-		              
-		            }, function(e) {			            
-		              vt.error($vm.errorNetworkMessage,{
-						  title: undefined,
-						  position: "bottom-right",
-						  duration: 10000,
-						  closable: true,
-						  focusable: true,
-						  callback: undefined
-						});
-		            
-		            });
-
-		        }catch(err){*/
-		          /* vt.error($vm.errorNetworkMessage,{
-						  title: undefined,
-						  position: "bottom-right",
-						  duration: 10000,
-						  closable: true,
-						  focusable: true,
-						  callback: undefined
-						});
-		          console.log(err)//show network error notification*/
-		       // }
+								
 			
 		  });
 
 
 		},
 		async created(){			
-				//console.log(this.alldata);
-				//console.log(this.alldata.title);
+
 
 		    this.experiments  = await this.axiosGet('api/experiments/experiments');
-		    //console.log(this.createdexperiments)
+		   
 		    /*initialize datatable */           
 			if (this.update) {
 				let $this = this;
@@ -777,17 +744,19 @@
 					$('#ecode').val($this.alldata.enrollment_code);
 					$('#cdescription').val($this.alldata.description);					
 				});		
-
-				/*for(let i =0; i < this.alldata[1].id; i++ ){
-					this.selectedExperiment[i] = this.alldata[1].id[i];
-					this.selectedExperimentName[i] = this.alldata[1].names[i];
+				this.course_id = this.alldata.course_id;
+					
+				for(var j =0; j < this.alldata.course_experiment.length; j++ ){					
+					this.selectedExperiment[j] = this.alldata.course_experiment[j].experiments.id;
+					this.selectedExperimentName[j] = this.alldata.course_experiment[j].experiments.name;
+					this.selectedInstructor[j] ='please skip';
 				}
-				for(let i =0; i < this.alldata[2].id; i++ ){
-					this.selectedInstructor[i] = this.alldata[2].id[i];
-					this.selectedInstructorName[i] = this.alldata[2].names[i];
-				}
+		/*		for(let i =0; i < this.alldata[2].id; i++ ){
+					this.selectedInstructor[i] = this.alldata.course_resources[i].id;
+					this.selectedInstructorName[i] = this.alldata.course_resources[i].resourceUrl;
+				}*/
 
-				this.imagetoupload = this.alldata[3].image;*/
+				this.imagetoupload = this.alldata.course_resources[0].resourceUrl;;
 				
 
 			}

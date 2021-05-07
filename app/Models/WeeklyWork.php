@@ -15,6 +15,7 @@ class WeeklyWork extends Model
         'created_at',
         'updated_at',
     ];
+   public $incrementing = false;
 
     protected $appends = [
         'expired',
@@ -22,21 +23,34 @@ class WeeklyWork extends Model
 
     public function getExpiredAttribute()
     {
-        $today = Carbon::now();
-        $hasExpired = $this->date_close < $today->toDateString();
+        $today      = Carbon::now();
+        $diff       = date_diff(date_create($this->date_close),$today);
+        $daysLeft   = $diff->format("%R%a");
+        $hasExpired = $daysLeft > 0;
 
         return $hasExpired;
     }
-
-    public function experiments()
+     public function user_course()
     {
-        return $this->belongsToMany(Experiment::class, 'weekly_work_experiments');
+        return $this->belongsTo(CourseStudents::class, 'course_id');
+    }
+     
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'course_id');
+    }
+         
+    public function weekly_work_experiments()
+    {
+        return $this->hasMany(WeeklyWorkExperiment::class, 'weekly_work_id');
     }
 }
 
 class WeeklyWorkExperiment extends Model
 {
     use HasFactory;
+   public $incrementing = false;
+
 
     protected $hidden = [
         'remember_token',
@@ -44,11 +58,15 @@ class WeeklyWorkExperiment extends Model
         'updated_at',
     ];
 
+ 
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'course_id');
+    }
     public function experiments()
     {
-        return $this->belongsToMany(Experiment::class, 'weekly_work_experiments', 'id');
+        return $this->belongsTo(Experiment::class, 'experiment_id');
     }
-
     public function weeklyWork()
     {
         return $this->belongsTo(WeeklyWork::class, 'weekly_work_id');

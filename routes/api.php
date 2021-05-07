@@ -84,7 +84,9 @@ Route::group([
         Route::group([
             'prefix' => 'experiments'
         ], function () {
+            
             Route::post('create', [ExperimentController::class, 'create']);
+            Route::post('update', [ExperimentController::class, 'updateExperiment']);
             Route::post('save_experiment_result', [ExperimentController::class, 'saveExperimentResult']);
             Route::post('experiment_results_esid', [ExperimentController::class, 'getExperimentResultsByExpSessId']);
             Route::post('experiment_results_csid', [ExperimentController::class, 'getExperimentResultsByCourseSessId']);
@@ -112,6 +114,7 @@ Route::group([
             Route::post('assign_work_experiment', [WeeklyWorkController::class, 'assignWeeklyWorkExperiment']);
             Route::post('weekly_work', [WeeklyWorkController::class, 'getWeeklyWork']);
             Route::get('weekly_works', [WeeklyWorkController::class, 'getWeeklyWorks']);
+            Route::post('student_task', [WeeklyWorkController::class, 'getStudentWeeklyWork']);
             
             Route::post('delete_work_expetiment', [WeeklyWorkController::class, 'deleteWorkExperiment']);
             Route::post('update_work_experiment', [WeeklyWorkController::class, 'updateWorkExperiment']);

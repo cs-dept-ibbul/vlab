@@ -93,6 +93,8 @@ Vue.component('v-topnav', require('./components/TopNav.vue').default);
 Vue.component('v-lactivity', require('./components/Lastactivity.vue').default);
 Vue.component('v-practicaltimeline', require('./components/PracticalTimeLine.vue').default);
 Vue.component('v-viewstudent', require('./components/viewStudent.vue').default);
+Vue.component('v-mycourses', require('./components/mycourses.vue').default);
+Vue.component('v-reviewcourse', require('./components/reviewCourse.vue').default);
 
 Vue.component('v-enrolledpracticals', require('./components/EnrolledPractical.vue').default);
 

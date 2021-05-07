@@ -52,7 +52,8 @@ class CourseController extends Controller
         $title = $request->get('title');
         $code = $request->get('code');
         $description = $request->get('description');
-        $sessionId = $request->get('session_id');
+        $sessionId = $this->currentSession;;
+        $enrollment_code = $request->get('enrollment_code');    
         $status = $request->get('status') ?? 'Active';
 
         $checkCourse = Course::where(['code' => $code])->first();
@@ -66,13 +67,28 @@ class CourseController extends Controller
                 'title'       => $title,
                 'code'        => $code,
                 'description' => $description,
+                'enrollment_code'=> $enrollment_code,
                 'session_id' => $sessionId,
                 'status'      => $status,
             );
             /*creating course resources*/
 
             $resource_uuid = Util::uuid();
-            $resourceUrl = $request->get('resource_url');
+            $file = $request->resource_url;              
+            //$file_size = round($file->getSize() / 1024);
+            $file_ex = $file->getClientOriginalExtension();            
+
+            if (!in_array($file_ex, array('jpg', 'gif', 'png','pdf', 'doc', 'docs')))
+            {
+                    return response()->json(['error' => 'invalid resources'], 401);
+            }else{
+
+                $name = str_replace(' ', '_', $title);
+                $resourceName = $name.'.'.$file_ex;
+                $path = 'images/resources/';
+                $resourceUrl=  $path.$resourceName;
+                $file->move(base_path().$path, $resourceUrl);
+            }
 
             /*resource data*/
             $resource = array(
@@ -147,6 +163,7 @@ class CourseController extends Controller
             $request->get('title') != null ? $course->title = $request->get('title') : null;
             $request->get('code') != null ? $course->code = $request->get('code') : null;
             $request->get('description') != null ? $course->description = $request->get('description') : null;
+            $request->get('enrollment_code') != null ? $course->enrollment_code = $request->get('enrollment_code') : null;
 
             if (empty($request->get('title')) && empty($request->get('code'))) {
                 return response()->json(['error' => 'All field is null'], 400);
@@ -166,7 +183,11 @@ class CourseController extends Controller
 
     public function getAllCourses()
     {
-        $course = Course::with('school')->with('faculty')->get();
+        $course = Course::select( ['id as course_id', 'title', 'code', 'description', 'enrollment_code', 'session_id','faculty_id'])
+                        ->with(['school','faculty','course_experiment'=>function($query){
+                               $query->select(['course_experiment.id','course_experiment.experiment_id'])
+                                ->with('experiments:id,name,page');
+                  },'course_resources:id,resourceUrl'])->get();
         return response()->json($course, 200);
     }
 
@@ -298,17 +319,13 @@ class CourseController extends Controller
         return response()->json(['success' => false], 400);
     }
 
-    public function addStudentCourse($user_id, $course_id)
+    public function addStudentCourse(Request $request)
     {
-        $userCourses = new CourseStudents();
-        $userCourses->id = Util::uuid();
         $sessionId = $this->currentSession;
+        $course_id = $request->get('course_id');
+        $user_id   = $request->get('user_id');
         
-        $userCourses->course_id = $course_id;
-        $userCourses->user_id = $user_id;
-        $userCourses->school_id = $this->schoolId;
-        $userCourses->faculty_id = $this->facultyId;
-        $userCourses->session_id = $sessionId;
+
 
         $checkStudentCourse = CourseStudents::where([
             'course_id' => $course_id, 
@@ -319,6 +336,14 @@ class CourseController extends Controller
         if ($checkStudentCourse != null) {
             return response()->json(['error' => 'This course has already been assigned to this student'], 409);
         }
+        
+        $userCourses = new CourseStudents();
+        $userCourses->id = Util::uuid();
+        $userCourses->course_id = $course_id;
+        $userCourses->user_id = $user_id;
+        $userCourses->school_id = $this->schoolId;
+        $userCourses->faculty_id = $this->facultyId;
+        $userCourses->session_id = $sessionId;
 
         if ($userCourses->save()) {
             return response()->json(['success' => true], 200);

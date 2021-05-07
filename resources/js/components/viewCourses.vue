@@ -85,16 +85,19 @@
                     <p class="my-0 fw5 fs1">{{course.experiments_count}} Practicals</p>
                   </div> 
                   <div>
-                      <div v-if="!checkEnrollment(course.id)">                        
-                        <span v-if="course.enrollment_code == ''">
-                          <button @click="viewEnrolledCourse('course.id')" class="fw5 fs01 button shadow-sm bg-success px-3 py-2 text-white p-display-none">View Course</button>
+                      <div v-if="!checkEnrollment(course.id)">  
+                      <!-- if not enrolled -->                      
+                        <span v-if="course.enrollment_code != ''">
+                          <!-- if enrollment code is required  -->
+                          <button @click="viewEnrolledCourse(course.id)" class="fw5 fs01 button shadow-sm bg-success px-3 py-2 text-white p-display-none">View Course</button>
                           <button @click="enrollmentCode" class="fw5 fs01 button shadow-sm bg-dark px-3 py-2 text-white d-inline-block">Enroll</button>
-                          <input type="text" name="enrollment_code" @keyup="compare(course.enrollment_code,$event.target.value,course.id, $event.target)" :placeholder="ecode" class="formControl ">
+                          <input type="text" name="enrollment_code" @keyup="compare(course.enrollment_code,$event.target.value,course.id, $event)" :placeholder="ecode" class="formControl ">
                           <span class="fa fa-check text-success display-none"></span>
                           <span class="fa fa-plus text-danger display-none"></span>
                         </span>           
                         <span v-else>
-                          <button @click="enroll()" class="fw5 fs01 button shadow-sm bg-secondary px-3 py-2 text-white d-inline-block">Enroll</button>
+                          <!-- if enrollment code is not required  -->                          
+                          <button @click="enroll(course.id)" class="fw5 fs01 button shadow-sm bg-secondary px-3 py-2 text-white d-inline-block">Enroll</button>
                           <!-- maintain design -->
                           <input type="text" name="enrollment_code" :placeholder="ecode" class="formControl">
                         </span>                 
@@ -102,7 +105,7 @@
                       <div v-else>
                           <button @click="viewEnrolledCourse(course.id)" class="fw5 fs01 button shadow-sm bg-success px-3 py-2 text-white d-inline-block">View Course</button>
                           <!-- maintain design -->
-                          <input type="text" name="enrollment_code" :placeholder="ecode" class="formControl">                          
+                          <input type="text" name="enrollment_code" :placeholder="ecode" class="formControl">
                       </div>
                     <p class="text-success fs1 more-detail-pin text-center" >More Detail <span class="fa fa-chevron-down text-success"></span></p>
                   </div>
@@ -155,9 +158,9 @@
             $(this).closest('.fholder').next().slideToggle(200);
           })
     },
-    enroll:function(){
+    enroll:function(course_id){
        this.show_loader();            
-        this.axios.post('api/courses/add_student_course', {user_id:this.currentUser.id, course_id: course_id},{headers: this.axiosHeader},function(response,status){
+        this.axios.post('api/courses/add_student_course/'+this.currentUser.id, {user_id:this.currentUser.id, course_id: course_id},{headers: this.axiosHeader},function(response,status){
           if (response.status === 200) {                                                                                      
             this.hide_loader();
           }else{
@@ -176,8 +179,7 @@
            }                                                                   
         })
     },
-    checkEnrollment: function(course_id){
-      console.log({course_id})
+    checkEnrollment: function(course_id){      
         for (var i = 0; i < this.student_courses.length; i++) {
           if(this.student_courses[i].id == course_id){
             return true;
@@ -190,42 +192,41 @@
         this.courseProp = course;*/
     },
     compare:function(code,value,course_id, event){                  
-      let e = event.parentNode.children;
-      /*let fail = e[e.length-1];
-      let pass = e[e.length-2];      
-      */         
+      let e = event.target.parentNode.children;
+   
+      this.removeError(event.target);
+        let $this = this;        
+        if (event.keyCode === 13) {
+            if(value == code){
+              event.target.nextElementSibling.style.borderBottom= '1px solid #00b96b';            
+              setTimeout(function() {
+                $this.show_loader();                        
+                $this.axios.post('api/courses/add_student_course', {user_id:$this.currentUser.id, course_id: course_id},{headers: $this.axiosHeader},function(response,status){
+                  if (response.status) {
+                    //pass.style.display  = 'inline-block';                    
+                    location.reload();
+                    /*setTimeout(function() {e[1].style.display= 'none';}, 10);
+                    $this.hide_loader();*/
+                  }else{
 
-        if(value == code){
-          event.nextElementSibling.style.borderBottom= '1px solid #00b96b';            
-          setTimeout(function() {
-            this.show_loader();            
-            let nodeBtn = document.CreateElement('button')
-            this.axios.post('api/courses/add_student_course', {user_id:this.currentUser.id, course_id: course_id},{headers: this.axiosHeader},function(response,status){
-              if (response.status === 200) {                                                                         
-                //pass.style.display  = 'inline-block';
-                event.nextElementSibling.style.display  = 'none';
-                  location.reload();
-                setTimeout(function() {e[1].style.display= 'none';}, 10);
-                this.hide_loader();
-              }else{
-
-              }
-            }, function(e) {                       
-               if(e.response.status === 401 ){
-                  location.href = "/logout";
-               }else{
-                Swal.fire({
-                  title:'something went wrong',
-                  text: 'check your internet connection',
-                  icon: 'danger',
-                })
-                this.hide_loader();
-               }                                                                   
-            })   
-          }, 100);
-        }else{
-            //pass.style.display= 'none';
-            event.nextElementSibling.style.borderBottom= '1px solid red';
+                  }
+                }, function(e) {                       
+                   if(e.response.status === 401 ){
+                      location.href = "/logout";
+                   }else{
+                    Swal.fire({
+                      title:'something went wrong',
+                      text: 'check your internet connection',
+                      icon: 'danger',
+                    })
+                    $this.hide_loader();
+                   }                                                                   
+                })   
+              }, 100);
+            }else{              
+              this.addError(event.target);
+              //pass.style.display= 'none';              
+            }
         }
     },
     
@@ -255,7 +256,8 @@
         let pathname = location.pathname.split('/')
         let faculty_id = pathname[pathname.length -1];
          this.faculty_courses  = await this.axiosGetById('api/courses/faculty_courses','faculty_id', faculty_id);
-         //this.student_courses  = await this.axiosGetById('api/courses/student_courses','user_id', this.currentUser.id);
+         this.student_courses  = await this.axiosGetById('api/courses/student_courses','user_id', this.currentUser.id);
+         this.student_courses = this.student_courses[0].courses;
          this.faculty  = await this.axiosGetById('api/faculties/faculty','faculty_id', faculty_id);
          //this.student_courses = this.student_courses.courses;
           //console.log(this.student_courses)

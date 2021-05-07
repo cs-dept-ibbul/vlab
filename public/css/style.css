@@ -1841,8 +1841,31 @@ span.ripple {
 
 
     */
-
+    .timelineContainer{
+      width: 90%;
+    }
+    .timelineBox{
+      width: 80%;
+    }
+    .timelineBoxContainer{
+      width: 70%;
+    }
+    .thread{
+      width: 12%;
+    }
+    .timeline-name-status-mobile{
+      display: none;
+    }
     @media (max-width: 1145px) {
+      .timelineBox{
+        width: 100%;
+      }
+      .timelineBoxContainer{
+        width: 90%;
+      }
+      .thread{
+        width: 20%;
+      }
       .task-container {
         grid-template-columns: repeat(3, 1fr);
       }
@@ -1851,16 +1874,37 @@ span.ripple {
       .task-container {
         grid-template-columns: repeat(2, 1fr);
       }
-    }
+    }    
     @media (max-width: 720px  ) {
+      .thread{
+        width: 113px;
+      }
+      .pd-sm-2{
+        padding: 0px !important;
+      }
       .task-container {
         grid-template-columns: repeat(2, 1fr);
       }
     }
     @media (max-width: 497px) {
+      .timelineBox{
+        width: 100%;
+      }
+      .timelineBoxContainer{
+        width: 100%;
+      }
+        .timeline-name-status-mobile{
+          display: block;
+        }
+      .timeline-name-status{
+        display: none;
+      }
       .task-container {
         grid-template-columns: repeat(1, 1fr);        
       }
+    }
+    .line-h01{
+      line-height: 0.1em;
     }
     .task-active span .t-h1{
       color: #5a9;     
@@ -1908,3 +1952,24 @@ span.ripple {
       box-shadow: #eee 1px 1.5px 3px;
 
     }
+    
+.shakeinput
+  { 
+    vertical-align: middle;
+    box-shadow: 0 0 0 transparent;
+    border: 1px solid #999;
+    outline: 0 none;
+    transition: box-shadow 0.5s;
+  }
+.errorshake
+    {
+      animation: shake 0.2s ease-in-out 0s 2;
+      box-shadow: 0 0 0.5em red;
+    }
+
+@keyframes shake {
+  0% { margin-left: 0rem; }
+  25% { margin-left: 0.5rem; }
+  75% { margin-left: -0.5rem; }
+  100% { margin-left: 0rem; }
+}

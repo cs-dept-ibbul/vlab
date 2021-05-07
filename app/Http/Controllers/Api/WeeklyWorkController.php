@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\WeeklyWork;
+use App\Models\CourseStudents;
 use App\Models\WeeklyWorkExperiment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -130,9 +131,93 @@ class WeeklyWorkController extends Controller
         return response()->json(['success' => false], 400);
     }
 
+    public function getStudentWeeklyWork(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+            'course_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "work_id field is required"], 400);
+        }
+
+        $session_id = $this->currentSession;
+        $course_id = $request->get('course_id');
+        $user_id = $request->get('user_id');
+
+        $weeklyWorks = WeeklyWork::select('weekly_works.*')->with(['weekly_work_experiments.experiments'])->join('courses','courses.id','weekly_works.course_id')->where(['weekly_works.session_id'=>$session_id, 'weekly_works.course_id'=>$course_id,'weekly_works.status'=>'Active'])->get();
+        //return dd($weeklyWorks);
+        $studentResult = CourseStudents::with(['course.results'=>function($query) use($user_id){
+                            $query->where(['experiment_results.session_id'=>$this->currentSession,'experiment_results.user_id'=>$user_id]);
+                        }])->get();
+
+        $allData = array();
+
+        //get out only courses which include result in it
+        $courseWithResultFiltered = array();
+
+        for ($i=0; $i < sizeof($studentResult) ; $i++) { 
+            array_push($courseWithResultFiltered, $studentResult[$i]['course']);
+        }
+               
+        function filter_get_and_result($array, $experimentID, $courseID,$weeklyWorkId){
+            $output='';
+            $a1=$a2="";
+            
+            foreach ($array as $key => $value) { 
+
+            //loop into user courses                 
+                if ($value->id === $courseID) {                                        
+                    if (!is_null($value->results)) {
+                        //$toArray =json_decode(json_encode($value->results),true);   
+                        foreach ($value->results as $key2 => $value2) {
+                             if ($value2->weekly_work_id === $weeklyWorkId && $experimentID === $value2->experiment_id) {
+                                 $output = $value2;
+                                 break;
+                             }
+                         } 
+                    }
+                }
+                if ($output != '') {
+                    break;
+                }
+            }
+            return $output;
+        }
+
+        foreach ($weeklyWorks as $key => $week) {
+            //$week = $weekly->attributesToArray();                        
+            $allData[$key] = $week->getOriginal();                                            
+            $allData[$key]['course'] = $week->course;                                            
+            $allData[$key]['experiments']= [];                  
+            foreach ($week->weekly_work_experiments as $key2 => $experiment) {
+
+                $experimentId = $experiment->experiment_id;
+                $courseId = $week->course_id;                                
+                $gg = '';
+                $gg = filter_get_and_result($courseWithResultFiltered, $experimentId, $courseId, $experiment->id);
+                $rr = [];
+                if ($gg != "") {
+                   //$weeklyExperimentResult[] = $gg[0]; 
+                    $rr = $gg;
+
+                }                
+                $allData[$key]['experiments'][$key2] =array(
+                    'experiment_results'=> $rr,'weekly_experiment_work_id'=>$experiment->id,'experiment'=>$experiment->experiments);                
+            } 
+
+
+        }
+                    
+        return response()->json($allData, 200);
+    }
+
     public function getWeeklyWorks()
     {
-        $weeklyWorks = WeeklyWork::with('experiments')->get();
+
+        $weeklyWorks = WeeklyWork::select(['id as work_id','id','course_id','access_code','date_open','date_close','session_id','limitation','title'])->with(['course','weekly_work_experiments.experiments'])->get();
         return response()->json($weeklyWorks, 200);
     }
 

@@ -201,17 +201,24 @@
                     this.access_code = this.alldata.access_code;                    
                     let $this = this;
                     this.ucourse  = this.faculty_courses.filter(function(item){
-                         return item.code === $this.alldata.course_code;
+                         return item.code === $this.alldata.course.code;
                     })
                     this.experiments = this.ucourse[0].experiments;
-                    $this.selectedExerpiment = [1,2];// from alldata.experiments
+                    
+                    let experimentids = [];                    
+                    let exp;
+                    for (var i = 0; i < this.alldata.weekly_work_experiments.length; i++) {
+                        exp = this.alldata.weekly_work_experiments[i];
+                        experimentids.push(exp.experiment_id);
+                    }
+                    //console.log(experimentids);
+                    $this.selectedExerpiment = experimentids;// from alldata.experiments
                     let selectedexp = [];
                     setTimeout(function() {
                          $('#courseD').val($this.ucourse[0].id)
                          $this.loadExperiment();                 
                          $('#experimentD').selectpicker('val',$this.selectedExerpiment);
                          $('#experimentD').selectpicker('refresh');
-
                     }, 100);
                }
                   

@@ -27,7 +27,17 @@
 							<span class="ncircle"  v-bind:class="{tactive:stagethree,tsuccess:stagethreep}">4</span>							
 							<div class="fs1 w10 no-break ml-3">Submit</div>
 						</div>				             
-				</div>				
+				</div>		
+				<div v-if="update" class="w-100 py-2 shadow-sm bg-white my-1 scroll-y" style="height: 150px;">
+					<center>
+						<video class="mx-auto" :data-id="youtubeID(alldata1.video_url)"></video>
+					</center>					
+				</div>
+				<div v-if="update" class="w-100 py-2 shadow-sm bg-white">
+					<center>						
+						<img :src="alldata1.experiment_diagram" width="50%;" class="rounded mx-auto">
+					</center>
+				</div>		
             </div>
             	
             <div class="col-lg-8 col-md-7 col-sm-12 m-0 mt-2 p-4 vh-76" >
@@ -51,12 +61,12 @@
 	            			<div class="col-lg-6 col-md-6 m-0">
 	            				<div class="px-1">	            					
 		            				<p class="fs001 my-1">Experiment Diagram</p>		            				
-		            				<div class="w-100  p-0" style="position: relative;">
+		            				<div class="w-100  p-0 file-cover" style="position: relative;">
 		            					<span class="d-flex w-100 cursor-1">		            						
 			            					<span class="form-control fw2 font w-60 r-right-none p-text-secondary no-border-right" id="imageName" >.jpg, .png</span>
 			            					<span class="form-control  fw2 font w-40 r-left-none p-text-success">Upload File</span>
 		            					</span>
-		            					<input @change="getDragedInFile"  type="file" style="position: absolute;top: 0; left: 0;" name="files" class="draginto form-control" id="fileI">
+		            					<input @change="onFileChange($event)"  type="file" style="position: absolute;top: 0; left: 0;" name="files" class="draginto form-control" id="fileI">
 		            				</div>
 	            				</div>
 	            			</div>	      
@@ -65,18 +75,29 @@
 		            				<p class="fs001 my-1">Experiment Video <span class="fs01 fw5" style="color: #888;">video url/link</span></p>		            				
 		            				<input type="text" @keyup="normalize" placeholder="https://" class="form-control " id="elink">
 	            				</div>
-	            			</div>	      
+	            			</div>	      	      
 	            			<div class="col-lg-12 col-md-12 mt-3">
-	            				<p class="fs001 my-1">Aim</p>            				
+	            				<p class="fs001 my-1">Aim*</p>            				
 	            				<textarea @keyup="normalize" class="form-control vI" rows="4" id="aim"></textarea>
 	            			</div>
 	            			<div class="col-lg-12 col-md-12 mt-3">
-	            				<p class="fs001 my-1">Theory</p>            				
-	            				<textarea @keyup="normalize" class="form-control vI" rows="4" id="theory"></textarea>
+	            				<p class="fs001 my-1">Required*</p>            				
+	            				<div @keyup="normalize" class="form-control required-container p-0"  id="required-cover" style="height: 250px;">
+	            				<textarea id="editor-1" style="height: 250px;"></textarea>
+	            				<!-- <div class="adjoined-bottom m-0 p-0">
+									<div class="grid-container m-0 p-0">
+										<div class="grid-width-100 m-0 p-0">
+											<div >
+												
+											</div>
+										</div>
+									</div>
+								</div> -->
+	            				</div>
 	            			</div>
 	            			<div class="col-lg-12 col-md-12 mt-3">
-	            				<p class="fs001 my-1">Aparatus</p>            				
-	            				<textarea @keyup="normalize" class="form-control " rows="4" id="aparatus"></textarea>
+	            				<p class="fs001 my-1">apparatus</p>            				
+	            				<textarea @keyup="normalize" class="form-control " rows="4" id="apparatus"></textarea>
 	            			</div>
 	            			<div class="col-lg-12 col-md-12 mt-3">
 	            				<p class="fs001 my-1">procedure</p>            				
@@ -132,92 +153,11 @@
 		            			</div>
 	            			</div>       			
 	            	</div>
-	            	<!-- <div id="experimentConfig" v-if="sectionState==3" class="m-0 p-0 shineA">     
-	            			<p class="fw8 fs1 font" style="color: #777;">Configuration</p>
-	            			<div class="row">            			
-		            			<div class="col-lg-12 col-md-12 m-0">
-		            				<span>		            					
-			            				<span class="fs1 fw5 p-text-success ">Practice Mode:</span><input value="practice" class="configV" type="radio" name="config">
-			            				<span class="fs1 fw5 p-text-success">Test Mode:</span> <input value="test" class="configV" type="radio" name="config">
-		            				</span>
-		            			</div>
-	            			</div>       			
-	            	</div>	            
- -->
+	     
 	            	<div id="addInstructors" v-show="sectionState==3" class="m-0 p-0 shineA">  
 	            		<h3 class="text-center fw8 font mt-5 p-text-success">All Process Completed</h3>
 	            		<h5 class="text-center fw5 font p-text-success">use the previous button to review or click on submit !</h5>
-	            	<!-- 	<p class="fw8 fs1 font" style="color: #777;">Add Instructor</p>   
-	            		<div class="d-flex">
-    					<select @keyup="normalize" class="form-control vI" id="selectedInstructor">
-    						<option></option>
-    						<option value="1">Mr. name Caliper</option>
-    						<option value="3">Mrs. Screw Guage</option>
-    						<option value="2">Dr. Simple Pendulum</option>
-    					</select>
-    					<button class=" ml-2 sysbtn p-success text-white" @click="addIBox">Add</button>
-        				</div>
-        				<br><br>
-        				<div class="d-flex  justify-content-between w-100">
-        					<div class="hr w-100"></div>
-        					<div class="w-100 text-center" style="margin-top:-10px;">Added Instructor</div>
-        					<div class="hr w-100"></div>
-        				</div>
-        				<br>
-        				<table style="min-height: 200px;"  class="table table-striped table-hover">
-        					<tbody id="addIBox">
-        						
-        					</tbody>		            					
-        				</table> -->
-		            	<!-- 
-	        			<div id="addIBox" class="r1" style="height: 200px;">        					
-        				</div> -->
 	            	</div>
-	            <!-- 	<div id="reviews" v-if="sectionState==5" class="m-0 p-0 shineA" style="overflow-y: scroll;">  
-	            		<div v-for="(aitem,i) in alldata">
-	            			<div v-if="i==0" class="m-0">
-		            			<div class="fw8">Course Detailed</div>
-		            			<table class="table table-striped table-hover">
-		            				<thead class="bg-dark">
-		            					<th class="p-1 text-white bg-dark"></th>
-		            					<th class="p-1 text-white bg-dark text-left">Title/No.</th>
-		            					<th class="p-1 text-white bg-dark text-left">video url</th>
-		            					<th class="p-1 text-white bg-dark text-left">diagram</th>
-		            				</thead>
-		            				<tbody>
-		            					<td>		            						
-						            		<td v-for="(edatavalue,j) in aitem" class="p-1">
-					            				{{edatavalue}}
-						            		</td>	            						            				
-		            					</td>
-		            				</tbody>
-		            			</table>
-	            			</div>
-	            			         				
-		            			<div v-if="i==1" class="col-lg-6 col-md-6 my-2 mx-0 px-0 ">
-			            			<div class="fw8 m-0">Selected Experiment</div>
-			            			<div class="p-2 border m-0">			            				
-					            		<p v-for="(edatavalue,j, inde) in aitem.names">		            				
-				            				<b>{{inde}}.</b> {{edatavalue}}
-					            		</p>	            				
-			            			</div>
-		            			</div>
-		            			<div v-if="i==2" class=" col-lg-5 col-md-5 mx-0 px-0 ">
-			            			<div class="fw8 m-0">Selected Instructor</div>
-			            			<div class="p-2 border m-0">			            				
-					            		<p v-for="(edatavalue,j, inde) in aitem.names">		            				
-				            				<b>{{inde}}.</b> {{edatavalue}}
-					            		</p>	            				
-			            			</div>
-		            			</div>	            	
-	            			<div v-if="i==3" class="m-0">
-		            			<div class="fw8">image to Upload</div>
-		            			<div>
-		            				<img width="200px" :src="aitem.image">
-		            			</div>				
-	            			</div>	            			
-	            		</div>
-	            	</div> -->
             	</div>
             
             </div> 
@@ -237,7 +177,11 @@
         </div>
         <div class="col-md-1 col-sm-12 mx-auto">
         </div>
-        {{alldata}}
+ 		<template id='swal-template-already-exist'>
+		  <!-- <swal-title>Already Exist</swal-title> -->
+		</template>
+		<button class='d-none' id="swal-id" swal_templater_event='#swal-template-already-exist'></button>
+
         <!--  -->
     </div>
 	</div>
@@ -258,22 +202,27 @@
 	    	 stagefour:false,
 	    	 stagefourp:false,
 	    	 navState:false,
+	    	 alldata:[],
 	    	 courseTrend: 4,
 	    	 sectionState: 1,
 	    	 title:'',
 	    	 ccode:'',
+	    	 experiment_id_to_update:'',
 	    	 imagetoupload:'',
 	    	 validateState:false,
-	    	 selectedExperiment:[],
-	    	 selectedExperimentName:[],
+	    	 selectedExperiment:'',
+	    	 selectedExperimentName:'',
 	    	 selectedInstructor:[],
 	    	 selectedInstructorName:[],
+	    	 required:'',
+	    	 exercise:'',
 	    	 percentage:0,
+	    	 ediagram:"",
 	    	 experiments:[
-	    	 	{name:'vernier caliper',value:'vernier_caliper'},
+	    	 	{name:'vernier caliper',value:'vernier-caliper'},
 	    	 	{name:'Micrometer Screw Guage',value:'micrometer'},
-	    	 	{name:'Simple Pendulum',value:'simple_pendulum'},
-	    	 	{name:'Resistor Color Code',value:'resistor_color_code'},
+	    	 	{name:'Simple Pendulum',value:'simple-pendulum'},
+	    	 	{name:'Resistor Color Code',value:'resistor-color-code'},
 	    	 ],
 	    	 dragrelease:false,
 	    	 quill:null,
@@ -287,7 +236,18 @@
 			   this.$eventBus.$emit('toggleClick',{text:this.navState});
 			    //this.newTodoText = ''
 			},
-			initCKEDITOR: function(){
+			onFileChange(event) {
+				console.log(event)
+            	this.ediagram = event.target.files[0];
+            	$('#imageName').text(this.ediagram.name)
+            	let ext = ['image/jpeg','image/png'];
+            	if (!includes(this.ediagram)) {
+            		$('.requiredv').remove();
+            		$('.file-cover').after('<span class="text-danger requiredv" id="ar001">invalid file type</span>');
+            		return false;
+            	}
+        	},
+			initCKEDITOR: function(id){
 				if ( CKEDITOR.env.ie && CKEDITOR.env.version < 9 )
 						CKEDITOR.tools.enableHtml5Elements( document );
 					CKEDITOR.config.height = 150;
@@ -298,9 +258,7 @@
 							isBBCodeBuiltIn = !!CKEDITOR.plugins.get( 'bbcode' );
 
 						return function() {
-							var editorElement = CKEDITOR.document.getById( 'editor' );
-
-							// :(((
+							var editorElement = CKEDITOR.document.getById( id );				
 							if ( isBBCodeBuiltIn ) {
 								editorElement.setHtml(
 									/*'Hello world!\n\n' +
@@ -310,13 +268,10 @@
 
 							// Depending on the wysiwygarea plugin availability initialize classic or inline editor.
 							if ( wysiwygareaAvailable ) {
-								CKEDITOR.replace( 'editor' );
+								CKEDITOR.replace( id );							
 							} else {
 								editorElement.setAttribute( 'contenteditable', 'true' );
-								CKEDITOR.inline( 'editor' );
-
-								// TODO we can consider displaying some info box that
-								// without wysiwygarea the classic editor may not work.
+								CKEDITOR.inline(id);								
 							}
 						};
 
@@ -415,91 +370,48 @@
 			prevSection:function(){
 				this.sectionState--;
 				let $nv = this;
-				if (this.sectionState ===1) {					
-					setTimeout(function() {
-					//$nv.quill_init();
-					$('#etitle').val($nv.alldata[0]['title']);
-					$('#enumber').val($nv.alldata[0]['experiment_number']);
-					$('#aim').val($nv.alldata[0]['aim']);					
-					$('#elink').val($nv.alldata[0]['video_url']);					
-					$('#imageName').val($nv.alldata[0]['diagram_url']);					
-					$('#theory').val($nv.alldata[0]['theory']);					
-					$('#aparatus').val($nv.alldata[0]['aparatus']);					
-					$('#procedure').val($nv.alldata[0]['procedure']);					
-					$('#resources').val($nv.alldata[0]['resources']);										
-					$('#exercise').find('.ql-editor').append($nv.alldata[0]['exercise']);					
-					}, 50);				
+				if (this.sectionState ===1) {								
 					this.checkstage(1);
 				}
 				if (this.sectionState === 2 ) {					
-					setTimeout(function() {
-					$nv.reiterateSelectedExp();
-					},50);
 					this.checkstage(2);					
 				}
 				if (this.sectionState === 3) {					
-					setTimeout(function() {
-						$nv.reiterateSelectedInstructor();
-					}, 50);
 					this.checkstage(3);					
-
-				}/*
-				if (this.sectionState === 3) {					
-					setTimeout(function() {
-				 		$('input[name=config][value='+$nv.configMode+']').attr('checked','checked');		
-					}, 50);
-					this.checkstage(3);					
-
 				}
-				if (this.sectionState===4) {					
-					setTimeout(function() {
-						$nv.reiterateSelectedInstructor();
-					}, 50);
-					this.checkstage(4);					
-				}*/
-			},
-			quill_init: function(){
-				 this.quill = new Quill('.editor-container', {
-				    modules: {
-				    formula: true,
-				    toolbar: [
-						['bold', 'italic', 'underline', 'strike'],
-						['link'],
-						['blockquote'],
-						[{ 'list': 'ordered'}, { 'list': 'bullet' }],
-				  		[{ 'script': 'sub'}, { 'script': 'super' }], 
-						['align', { 'align': 'center' }, { 'align': 'right' }, { 'align': 'justify' }],
-						['formula']
-					]
-				  },
-				  placeholder: 'editor...',
-				  theme: 'snow'  // or 'bubble'
-				});
-			  var enableMathQuillFormulaAuthoring = mathquill4quill();
-			  enableMathQuillFormulaAuthoring(this.quill);
+
+
+
 			},
 			addEBox:function(){			
 				let evalue = $('#selectExperiment').val();
 				this.validateState =false;
+				let oldvalue = this.selectedExperiment;
+				this.selectedExperiment  = evalue;
 
-				if($('#selectExperiment option:selected').text()!=""){
-					this.validateState =true;
+				if(evalue != ''){				
+					this.validateState = true;
 					let selExpName = $('#selectExperiment option:selected').text();
-					if(!this.selectedExperiment.includes(evalue)){						
-						if (this.selectedExperiment.length > 0) {
-							Swal.fire('only one Experiment Expected');							
-						}else{							
-						   this.selectedExperiment.push(evalue);
-						   this.selectedExperimentName.push(selExpName);
-						   let $vm = this;
-						   ///alert(this.selectedExperiment.includes(evalue));
-						   let indexof = this.selectedExperiment.indexOf(evalue);
-							$('#addEBox').append("<tr><td class='d-flex justify-content-between flex-wrap-center ' style='font-size:0.9em;cursor:pointer;' id='"+this.selectedExperiment.indexOf(evalue)+"'><p><b >Experiment "+(Number(this.selectedExperiment.indexOf(evalue))+1)+'</b>:<span class="ml-5"></span> '+selExpName+"</p><span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+indexof+"' >&times</span></td></tr>");
-						}
+					if(this.selectedExperiment != oldvalue){												
+						alert('only experiment can be added')
+						this.selectedExperiment = oldvalue;
+					/*	Swal.bindClickHandler()	
+						Swal.mixin({
+						  toast: true,
+						}).bindClickHandler('swal_templater_event');		
+						document.getElementById('swal-id').click();*/
+						return 0;
 					}else{
 					   $('#ar000').remove();
-					   $('#addEBox').after('<span class="text-danger requiredv" id="ar000">already exist!</span>');				
+					   $('#addEBox').after('<span class="text-danger requiredv" id="ar000">already exist!</span>');
+					   return 0;				
 					}
+																	
+				   this.selectedExperimentName = selExpName;
+				   let $vm = this;
+				   ///alert(this.selectedExperiment.includes(evalue));	
+				   this.reiterateSelectedExp();				   				
+					
 					
 				}else{
 					$('.requiredv').remove();
@@ -508,47 +420,35 @@
 				}			
 			},
 			reiterateSelectedExp(){
-				$('#addEBox').html("");
-				for (let i = 0; i < this.selectedExperiment.length; i++) {
-					$('#addEBox').append("<tr><td class='d-flex justify-content-between flex-wrap-center ' style='font-size:0.9em;cursor:pointer;' id='"+i+"'><p><b >Experiment "+(i+1)+'</b>:<span class="ml-5"></span> '+this.selectedExperimentName[i]+"</p><span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+i+"' >&times</span></td></tr>")	
-					}
-			},	
-			addIBox:function(){
-				let obj = $('#selectedInstructor');
-				let evalue = Number(obj.val());
-				this.validateState =false;
-
-				if($('#selectedInstructor option:selected').text()!=""){
-					this.validateState =true;
-					let selExpName = $('#selectedInstructor option:selected').text();
-					if(!this.selectedInstructor.includes(evalue)){
-					  this.selectedInstructor.push(evalue);
-					  this.selectedInstructorName.push(selExpName);
-					  let $vm = this;
-					///alert(this.selectedInstructor.includes(evalue));
-					 let indexof = 'inst'+this.selectedInstructor.indexOf(evalue);
-						$('#addIBox').append("<tr><td class='d-flex justify-content-between flex-wrap-center ' style='font-size:0.9em;cursor:pointer;' id='inst"+this.selectedInstructor.indexOf(evalue)+"'><p><b >Experiment "+selExpName+"</p><span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp1' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+indexof+"' >&times</span></td></tr>")
-					}else{
-						$('#ar001').remove();
-					   $('#addIBox').after('<span class="text-danger requiredv" id="ar001">already exist!</span>');				
-					}
+				$('#addEBox').html("");			
+				$('#addEBox').append(`
+							<tr>
+								<td class='d-flex justify-content-between flex-wrap-center ' style='font-size:0.9em;cursor:pointer;' id='${this.selectedExperiment}'>
+									<p>
+										<b >Experiment 1</b>:<span class="ml-5"></span> ${this.selectedExperimentName}
+									</p>
+									<span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='${this.selectedExperiment}'>&times</span>
+								</td>
+							</tr>`);
 					
-				}else{
-					obj.after('<span class="text-danger requiredv">Required !</span>');	
-					obj.css('border','1px solid #e45');
-				}			
-			},
-			reiterateSelectedInstructor(){
-				$('#addIBox').html("");
-				for (let i = 0; i < this.selectedInstructor.length; i++) {
-					$('#addIBox').append("<tr><td class='d-flex justify-content-between flex-wrap-center ' style='font-size:0.9em;cursor:pointer;' id='inst"+i+"'><p class='py-2 pl-3 my-0'><b >Experiment "+(i+1)+'</b>:<span class="ml-5"></span> '+this.selectedInstructorName[i]+"</p><span class=' mt-2 close d-flex justify-content-around flex-wrap-center rmexp1' style='background:#ccc; border-radius:50%;width:25px;height:25px;' rel='"+i+"' >&times</span></td></tr>")	
-					}
-			},
-			
+			},			
 			singleValidate: function(id){
 				$('#'+id).css('border','1px solid #e45');
 				$('.requiredv').remove();
 				$('#'+id).after('<span class="text-danger requiredv">Required !</span>')
+			},
+			validateR:function(data, id){
+				if (data == '') {
+					let thisDiv = $('#'+id);
+					thisDiv.css('border','1px solid #e45');
+					$('.requiredv').remove();
+					thisDiv.after('<span class="text-danger requiredv">Required !</span>');					
+					this.validateState = false;
+					let scrollAmount = thisDiv.offset().top - $('#edetail').offset().top ;					
+					$('.add-experiment-form').animate({scrollTop: scrollAmount},1000);
+					return false;
+				}
+
 			},
 			validateI: function(id,sel=0){
 				if (sel ===0) {
@@ -564,8 +464,6 @@
 							$('.requiredv').remove();
 							$(this).after('<span class="text-danger requiredv">Required !</span>');						
 							$vm.validateState = false;
-
-							/*scroll to required position*/
 							let scrollAmount = $(this).offset().top - $('#'+id).offset().top ;					
 							$('.add-experiment-form').animate({scrollTop: scrollAmount},1000);
 
@@ -593,35 +491,32 @@
 				el.target.style.border = "1px solid #eee";
 				$('.requiredv').remove();
 			},
-			nextSection: function(){
+			nextSection: function(){				
 				let $nv = this;				
 				if (this.sectionState === 1){	
-					this.validateI('edetail');
-					
+					this.validateI('edetail');			
+					this.required = CKEDITOR.instances['editor-1'].getData();		
+					this.exercise = CKEDITOR.instances['editor'].getData();		
+					this.validateR(this.required,'required-cover')
 					if(this.validateState === true){
 													
 						this.alldata[0] = {
 							title: $('#etitle').val(),
-							experiment_number:$('#enumber').val(),
+							experiment_intro:$('#experiment_intro').val(),
 							video_url:$('#elink').val(),
-							aim:$('#aim').val(),
-							theory:$('#theory').val(),
-							aparatus:$('#aparatus').val(),
-							exercise: CKEDITOR.instances['editor'].getData(),
+							experiment_diagram:$('#fileI').prop('files')[0],
+							aim:$('#aim').val(),						
+							apparatus:$('#apparatus').val(),							
 							resources:$('#resources').val(),
+							required:$('#required').val(),
 							procedure:$('#procedure').val(),
-						};												
+						};	
+
 						this.sectionState = 2;						
 						this.stageone= false;
 				    	this.stageonep = true;
 				    	this.stagetwo = true;
 					}
-					setTimeout(function() {
-						if ($nv.selectedExperiment.length != 0) {
-							$nv.reiterateSelectedExp();
-						}
-					}, 200);
-				
 				}else if (this.sectionState === 2){					
 					if (this.selectedExperiment.length == 0){
 					 this.singleValidate('addEBox');
@@ -633,158 +528,108 @@
 				    	this.alldata[1]= {				    		
 				    		'experiment_url': this.selectedExperiment
 				    	};
-					}
-					let $nv = this;
-					setTimeout(function() {
-						if ($nv.configMode != "") {
-				 			$('input[name=config][value='+$nv.configMode+']').attr('checked','checked');		
-						}
-					}, 50);
+					}								
 				}				
-			/*	else if (this.sectionState === 3){
-					
-					if(this.configMode == ""){
-						$('.requiredv').remove();
-						$('.configV').parent().after('<span class="text-danger requiredv">Required !</span>')
-					}else{
-						this.alldata[2] = {
-							'config' : this.configMode
-						};
-				    	this.stagethree = false;
-				    	this.stagethreep = true;
-				    	this.stagefour = true;
-				    	this.sectionState = 4;	
-					}
 
-				}*/
 			},
 			submitProcess: function(){
-					let $vm = this;		
+				let $vm = this;		
 
-				   try{
+			   try{
 
-				   		const formData = new FormData();				   	
-					   	formData.append('title',this.alldata[0].title);
-					   	formData.append('experiment_number',this.alldata[0].experiment_number);
-					   	formData.append('video_url',this.alldata[0].video_url);
-					   	formData.append('theory',this.alldata[0].theory);
-					   	formData.append('aim',this.alldata[0].aim);
-					   	formData.append('resources',this.alldata[0].resources);
-					   	formData.append('exercise',this.alldata[0].exercise);
-					   	formData.append('exercise',this.alldata[0].exercise);
-					   	formData.append('aparatus',this.alldata[0].aparatus);
-					   	formData.append('procedure',this.alldata[0].procedure);
-					   	formData.append('experiment_url',this.alldata[1].experiment_url);
-					   	//formData.append('config',this.alldata[2].config);
+			   		const formData = new FormData();					  
+				   	formData.append('experiment_id',this.experiment_id_to_update);
+				   	formData.append('name',this.alldata[0].title);
+				   	formData.append('experiment_intro',this.alldata[0].experiment_intro);
+				   	formData.append('video_url',this.alldata[0].video_url);
+				   	formData.append('required',this.required);
+				   	formData.append('experiment_goal',this.alldata[0].aim);
+				   	formData.append('experiment_diagram',this.ediagram);
+				   	formData.append('experiment_resource', this.alldata[0].resources);
+				   	formData.append('exercise',this.exercise);					   	
+				   	formData.append('apparatus',this.alldata[0].apparatus);
+				   	formData.append('procedures',this.alldata[0].procedure);				   	
+				   	formData.append('page',this.alldata[1].experiment_url);				   	
+				   	//formData.append('config',this.alldata[2].config);
 
-				   		$('#system-loader').css('display','flex');
+			   		$('#system-loader').css('display','flex');
+			   		let route = 'create';
+			   		let successMsg = this.reatedMessage;
+			   		if (this.update) {
+						route = 'update'			   		
+						successMsg = 'Updated Successfully';
+			   		}
+		            $vm.axios.post('api/experiments/'+route,formData, {headers: $vm.axiosHeaderWithFiles}).then(function(response, status, request) { 		
+			   			$('#system-loader').css('display','none');
+			   			if(response.status == 200){
 
-			            $vm.axios.post('api/experiments/create',formData, {headers: $vm.axiosHeader}).then(function(response, status, request) { 		
-				   			$('#system-loader').css('display','none');
-				   			if(response.status == 200){
-
-				   				Swal.fire({
-								  title: $vm.createdMessage,
-								  text:'tell us where to go',
-								  icon:'success',
-								  showDenyButton: true,
-								  showCancelButton: true,
-								  confirmButtonText: `view created courses`,
-								  denyButtonText: `Ok, refresh the page`,
-								}).then((result) => {
-								  
-								  if (result.isConfirmed) {
-								    location.href = "/view-created-course";
-								  } else if (result.isDenied) {
-								    location.reload();
-								  }
-								})
-				   			}else if(response.status == 401){
-				   				Swal.fire({
-								  title: $vm.errorSessionMessage,								  
-								  icon:'success',
-								  showDenyButton: true,								  
-								  confirmButtonText: `Ok`,								  
-								}).then((result) => {								  
-								  if (result.isConfirmed) {
-								    $vm.frontendLogout();
-								  } else if (result.isDenied) {								    
-								  }
-								})
-				   			}
-			            	//console.log(response);			   				           
-			            }, function(e) {		  
-			            	//console.log(e.status)
-					   		$('#system-loader').css('display','none');
-			            	if(e.response.status === 401 ){
-			            		Swal.fire({
-			            			title:$vm.errorSessionMessage,
-			            			icon: 'warning'
-			            		}).then((result)=>{
-			            			if (result) {
-                                		location.href = "/logout";
-			            			}
-			            		})
-                            }else{
-						   		let errMsg = $vm.errorSessionMessage;					   		
-						   		Swal.fire({
-						   			title: 'something went wrong',
-						   			text: 'try again',
-						   			icon: 'error'
-						   		})
-						   	    /*if (e.response.status == 409){					   	    	
-						   	    	errMsg = e.response.data.error;
-						   	    }*/
-                                                                         
-                             }        
-			            
-			            	//console.log($vm.axiosHeader)
-			            });
-
-			        }catch(err){
+			   				Swal.fire({
+							  title: successMsg,
+							  text:'tell us where to go',
+							  icon:'success',
+							  showDenyButton: true,
+							  showCancelButton: true,
+							  confirmButtonText: `view created courses`,
+							  denyButtonText: `Ok, refresh the page`,
+							}).then((result) => {
+							  
+							  if (result.isConfirmed) {
+							    location.href = "/view-created-course";
+							  } else if (result.isDenied) {
+							    location.reload();
+							  }
+							})
+			   			}else if(response.status == 401){
+			   				Swal.fire({
+							  title: $vm.errorSessionMessage,								  
+							  icon:'success',
+							  showDenyButton: true,								  
+							  confirmButtonText: `Ok`,								  
+							}).then((result) => {								  
+							  if (result.isConfirmed) {
+							    $vm.frontendLogout();
+							  } else if (result.isDenied) {								    
+							  }
+							})
+			   			}
+		            	//console.log(response);			   				           
+		            }, function(e) {		  
+		            	//console.log(e.status)
 				   		$('#system-loader').css('display','none');
+		            	if(e.response.status === 401 ){
+		            		Swal.fire({
+		            			title:$vm.errorSessionMessage,
+		            			icon: 'warning'
+		            		}).then((result)=>{
+		            			if (result) {
+                            		location.href = "/logout";
+		            			}
+		            		})
+                        }else{
+					   		let errMsg = $vm.errorSessionMessage;					   		
+					   		Swal.fire({
+					   			title: 'something went wrong',
+					   			text: 'try again',
+					   			icon: 'error'
+					   		})
+					    }        
+		            
+		            });
 
-			           vt.error($vm.errorNetworkMessage,{
-							  title: undefined,
-							  position: "bottom-right",
-							  duration: 10000,
-							  closable: true,
-							  focusable: true,
-							  callback: undefined
-							});
-			          console.log(err)//show network error notification
-			        }
-			},
+		        }catch(err){
+			   		$('#system-loader').css('display','none');
 
-			getDragedInFile: function(e){					
-				if (this.dragrelease==false) {
-				    let $nv = this;						
-				    let file, filename;
-					file = e.target.files[0];					
-					filename = file.name;
-					   let reader = new FileReader();
-					$('.progress').css('display','block');
-
-					   reader.onloadstart = function(event) {
-						    $('.progressi').css('display','block');
-						};
-						reader.onprogress = function(event) {						
-						   if (event.lengthComputable) {
-	         					$nv.percentage  = (event.loaded/event.total)* 100;					    
-	         					$('.progress-bar').css('width', $nv.percentage+'%');         					
-						    }
-						};
-						reader.onloadend = function(event) {
-					 		$('#imageName').html(filename);							 		
-					 		$nv.imagetoupload = event.target.result;					    
-						};
-					    /*reader.onload = function (event) {
-					    }*/
-					    reader.readAsDataURL(file);				
-					 	e.preventDefault();
-
-				}
+		           vt.error($vm.errorNetworkMessage,{
+						  title: undefined,
+						  position: "bottom-right",
+						  duration: 10000,
+						  closable: true,
+						  focusable: true,
+						  callback: undefined
+						});//show network error notification
+		        }
 			}
+			
         },	
 
         
@@ -795,10 +640,10 @@
          			return false;
          		}
          	},
-         	alldata:{
-         		type:Array, 
+         	alldata1:{
+         		type:Object, 
          		default: function(){
-         			return [];
+         			return {};
          		},         		
          	},
          	experiment_id:{
@@ -809,42 +654,49 @@
 	     	}
          },
           created(){
-			if (this.update) {
+			if (this.update) {				
+				let $this = this;
+				$(document).ready(function(){					
+					$this.required = $this.alldata1.required;
+					$this.exercise =$this.alldata1.exercise
+					$this.experiment_id_to_update = $this.alldata1.id;
+					setTimeout(function() {
+						$('#etitle').val($this.alldata1.name);
+						$('#experiment_intro').val($this.alldata1.experiment_intro);
+						$('#elink').val($this.alldata1.video_url);
+						$('#aim').val($this.alldata1.experiment_goal);
+		 				CKEDITOR.instances['editor-1'].setData($this.required);		
+						CKEDITOR.instances['editor'].setData($this.exercise);
+						$this.selectedExperiment = $this.alldata1.page;					
+						$this.selectedExperimentName = $this.alldata1.name;						
+						$this.reiterateSelectedExp();
 
-				$(document).ready(function(){
-					$('#etitle').val(this.alldata[0]['title']);
-					$('#enumber').val(this.alldata[0]['experiment_number']);
-					$('#elink').val(this.alldata[0]['video_url']);
-					$('#aim').val(this.alldata[0]['aim']);
-					$('#theory').val(this.alldata[0]['theory']);
-					$('#aparatus').val(this.alldata[0]['aparatus']);
-					$('#exercise').find('.ql-editor').append(this.alldata[0]['exercise']);
-					$('#resources').val(this.alldata[0]['resources']);
-					$('#procedure').val(this.alldata[0]['procedure']);
+						$this.web_player();
+
+					},3000);			
+					$('#apparatus').val($this.alldata1.apparatus);					
+					$('#resources').val($this.alldata1.resources);
+					$('#procedure').val($this.alldata1.procedures);
 				});		
-
-				this.selectedExperiment = this.alldata[1].experiment_url;					
-
-				this.configMode = this.alldata[2].config;				
-				
-
 			}
 		},
          mounted: function () {
          	let $vm = this;
 			 //this.quill_init();
-			 this.$nextTick(function () {			 			 	
-			 		this.initCKEDITOR();
-			         $(document).on('click', '.rmexp', function() {					
-						$vm.selectedExperiment = [];
-						$vm.selectedExperimentName = [];
-	         			$('#'+ $(this).attr('rel')).parent().remove();    			
-					});
-					$(document).on('click', '.rmexp1', function() {					
-						$vm.selectedInstructor.splice($(this).attr('rel'),1);
-						$vm.selectedInstructorName.splice($(this).attr('rel'),1);
-	         			$vm.reiterateSelectedInstructor();         			
-					});
+			 this.$nextTick(function () {					 		
+	 			this.initCKEDITOR('editor');
+	 			this.initCKEDITOR('editor-1');			 		 			 
+
+		        $(document).on('click', '.rmexp', function() {					
+					$vm.selectedExperiment = '';
+					$vm.selectedExperimentName = '';
+         			$('#'+ $(this).attr('rel')).parent().remove();    			
+				});
+				$(document).on('click', '.rmexp1', function() {					
+					$vm.selectedInstructor.splice($(this).attr('rel'),1);
+					$vm.selectedInstructorName.splice($(this).attr('rel'),1);
+         			$vm.reiterateSelectedInstructor();         			
+				});
 								
 				let interval;
 				interval  = setInterval(function() {										

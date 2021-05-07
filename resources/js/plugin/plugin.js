@@ -114,7 +114,7 @@ export default {
                         
                     });                                
                 }catch(err){
-                   console.log(err)
+                 //  console.log(err)
                 }                 
                         
 		},  
@@ -133,6 +133,50 @@ export default {
   		frontendLogout(){
 		    localStorage.removeItem("LoggedUser");
   			location.href = "/logout";
+  		},
+		addError(element) {                
+        	element.classList.add('errorshake');
+      	},
+      	removeError(e) {
+        	e.classList.remove('errorshake');
+      	},
+  		web_player(w='250px',h='140px',autoplay=1){
+  			const tag = document.createElement("script");
+		    tag.src = "https://www.youtube.com/player_api";
+		    const firstScriptTag = document.getElementsByTagName("script")[0];
+		    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+		    function onPlayerReady(evt) {
+			    const player = evt.target;
+			    player.setVolume(50); // percent
+			  }
+			 window.onYouTubePlayerAPIReady = function() {
+			    const video = document.querySelector("video");
+			    const videoId = video.getAttribute("data-id");
+			    new YT.Player(video, {
+			      width: w,
+			      height: h,
+			      videoId: videoId,
+			      playerVars: {
+			        autoplay: autoplay,
+			        controls: 1,
+			        rel: 0,
+			        iv_load_policy: 3,
+			        cc_load_policy: 0,
+			        fs: 0,
+			        disablekb: 1
+			      },
+			      events: {
+			        "onReady": onPlayerReady
+			      }
+			    });
+			  };						
+			
+  		},
+  		youtubeID(url){
+  			if (url == null) {
+  				throw ERROR('youtubeID(url): youtube link required');
+  			}
+  			return url.split('=')[1];
   		},
   		axiosDelete:function(url, data){  			
 			let retryCount = 0;			
@@ -192,14 +236,14 @@ export default {
                         })                             
 					try{
 					}catch(err){
-						console.log(err)
+						//console.log(err)
 					}
 					//return datafetched;
 				}		
 				AxiosFetchData();									
   		},
   		axiosGet: async(url) => {
-  			console.log(url)
+  			//console.log(url)
   				let retryCount = 0;			
 				var $this = this;
 				//console.log($this);
@@ -262,7 +306,7 @@ export default {
                         })                             
 					try{
 					}catch(err){
-						console.log(err)
+						//console.log(err)
 					}
 					//return datafetched;
 				}							
@@ -313,6 +357,82 @@ export default {
 					
 					let formdata = new FormData;
 					formdata.append(idname, idvalue);						
+                   return axios.post(url,formdata,{headers: axiosHeader}).then(function(response, status, request) {        
+                            if (response.status === 200) {                                     	
+                            	let i,j;                  
+                               //console.log(response.data.map((a,b)=>{j = []; for(i in a) {j.push(a[i])} return j; }));                               
+                               return response.data;                                                                
+                            }else{
+                            	if (retryCount < 4) {
+                            		setTimeout(function() {
+                            			AxiosFetchData();
+                            		}, 5000);
+                            	}else{
+                            		/*when all attempts fails inform the user what to do*/
+                            		attemptsFailsV();
+                            	}
+                            }
+                        }, function(e) {        
+                        	//console.log(e.response.status);
+                             if(e.response.status === 401 ){
+                                location.href = "/logout";
+                             }else{
+                               attemptsFailsV()                                           
+                             }                                                                   
+                        })                             
+					try{
+					}catch(err){
+						console.log(err)
+					}
+					//return datafetched;
+				}							
+				return AxiosFetchData();				
+                    
+  		},
+  		axiosGetByParams: async(url,obj=null) => {
+  			if (obj== null) {
+  				throw Error('axiosGetById: all parameter data must be provided');
+  			}
+  				let retryCount = 0;			
+				var $this = this;
+				//console.log($this);
+				let attemptsFailsV = function(){
+						Swal.fire({
+						  text: 'something went wrong',
+						  title: 'click Ok to retry',
+						  icon:'error',
+						  showClass: {
+						    popup: 'animate__animated animate__fadeInDown'
+						  },
+						  hideClass: {
+						    popup: 'animate__animated animate__fadeOutUp'
+						  }
+						}).then((result) => {
+							  /* Read more about isConfirmed, isDenied below */
+							  if (result.isConfirmed) {
+							    location.reload();
+							  } else if (result.isDenied) {
+							    Swal.fire('please reload the page', '', 'info')
+							  }
+						});
+				}
+				let AxiosFetchData = function(){
+					let datafetched = '0';						
+					retryCount +=1;		
+					let userLoggedInOld;
+					if(typeof localStorage.getItem('LoggedUser') != undefined){		      			
+		      			userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
+		      		}else{
+				        localStorage.removeItem("LoggedUser");
+		      		}
+		      		let Auth_ = 'Bearer '+userLoggedInOld;
+					let axiosHeader ={
+							'Content-Type':'application/json',
+							'Authorization':Auth_
+					};
+										
+					  const formdata  = new FormData();
+		    		  Object.keys(obj).forEach(key => formdata .append(key, obj[key]));
                    return axios.post(url,formdata,{headers: axiosHeader}).then(function(response, status, request) {        
                             if (response.status === 200) {                                     	
                             	let i,j;                  

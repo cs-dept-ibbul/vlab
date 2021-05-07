@@ -43,14 +43,10 @@ class ExperimentController extends Controller
         $experiment = new Experiment();
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'experiment_number' => 'required',
-            'experiment_intro' => 'required',
-            'experiment_goal' => 'required',
-            'experiment_mock' => 'required',
-            'apparatus' => 'required',
+            'name' => 'required',       
+            'experiment_goal' => 'required',           
             'procedures' => 'required',
-            'exercise' => 'required',
+            'required' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -59,32 +55,47 @@ class ExperimentController extends Controller
 
         $id = Util::uuid();
         $name = $request->get('name');
-        $experiment_number = $request->get('experiment_number');
-        $experiment_intro = $request->get('experiment_intro');
-        $experiment_goal = $request->get('experiment_goal');
-        $experiment_mock = $request->get('experiment_mock');
-        $apparatus = $request->get('apparatus');
-        $experiment_resource = $request->get('experiment_resource');
-        $procedures = $request->get('procedures');
-        $exercise = $request->get('exercise');
-        $required = $request->get('required');
-        $theory = $request->get('theory');
-        $tables = $request->get('tables');
-        $graph = $request->get('graph');
+        //$experiment_number = $request->get('experiment_number');
+        $experiment_intro = $request->get('experiment_intro')??'-';
+        $experiment_goal = $request->get('experiment_goal')??'-';    
+        $experiment_diagram = $request->experiment_diagram;
+        return dd($experiment_diagram);
+        $apparatus = $request->get('apparatus')??'-';
+        $experiment_resource = $request->get('experiment_resource')??'-';
+        $procedures = $request->get('procedures')??'-';
+        $exercise = $request->get('exercise')??'-';
+        $required = $request->get('required');    
+        $video_url = $request->get('video_url')??'-';
+        $page = $request->get('page')??'-';
+        $tables = $request->get('tables')??'false';
+        $graph = $request->get('graph')??'false';
         $status = $request->get('status') ?? 'Active';
+        $experiment_diagram_url = "-";
+        if ($experiment_diagram != '-') {            
+            $file = $experiment_diagram;                      
+            //$file_size = round($file->getSize() / 1024);
+            $file_ex = $file->getClientOriginalExtension();
+            $file_mime = $file->getMimeType();
+
+            if (!in_array($file_ex, array('jpg', 'gif', 'png'))) return response()->json(['error' => 'invalid experiments diagram'], 401);
+                 $newname = $page.'.'.$file_ex;
+                 $path = 'images/resources/';
+                 $experiment_diagram_url=  $path.$newname;
+                 $file->move(base_path().$path, $newname);
+        }
 
         $experiment->id = $id;
-        $experiment->name = $name;
-        $experiment->experiment_number = $experiment_number;
+        $experiment->name = $name;        
         $experiment->experiment_intro = $experiment_intro;
         $experiment->experiment_goal = $experiment_goal;
-        $experiment->experiment_mock = $experiment_mock;
+        $experiment->experiment_diagram = $experiment_diagram_url;/*uploaded url*/
         $experiment->apparatus = $apparatus;
         $experiment->experiment_resource = $experiment_resource;
         $experiment->procedures = $procedures;
         $experiment->exercise = $exercise;
         $experiment->required = $required;
-        $experiment->theory = $theory;
+        $experiment->video_url = $video_url;
+        $experiment->page = $page;
         $experiment->faculty_id = $this->facultyId;
         $experiment->tables = $tables;
         $experiment->graph = $graph;
@@ -130,13 +141,13 @@ class ExperimentController extends Controller
             $request->get('experiment_number') != null ? $experiment->experiment_number = $request->get('experiment_number') : null;
             $request->get('experiment_intro') != null ? $experiment->experiment_intro = $request->get('experiment_intro') : null;
             $request->get('experiment_goal') != null ? $experiment->experiment_goal = $request->get('experiment_goal') : null;
-            $request->get('experiment_mock') != null ? $experiment->experiment_mock = $request->get('experiment_mock') : null;
+            $request->get('experiment_diagram') != null ? $experiment->experiment_diagram = $request->get('experiment_diagram') : null;
             $request->get('apparatus') != null ? $experiment->apparatus = $request->get('apparatus') : null;
             $request->get('experiment_resource') != null ? $experiment->experiment_resource = $request->get('experiment_resource') : null;
             $request->get('procedures') != null ? $experiment->procedures = $request->get('procedures') : null;
             $request->get('exercise') != null ? $experiment->exercise = $request->get('exercise') : null;
             $request->get('required') != null ? $experiment->required = $request->get('required') : null;
-            $request->get('theory') != null ? $experiment->theory = $request->get('theory') : null;
+            $request->get('video_url') != null ? $experiment->video_url = $request->get('video_url') : null;
             $request->get('tables') != null ? $experiment->tables = $request->get('tables') : null;
             $request->get('graph') != null ? $experiment->graph = $request->get('graph') : null;
             //$request->get('description') != null ? $experiment->description = $request->get('description') : null;

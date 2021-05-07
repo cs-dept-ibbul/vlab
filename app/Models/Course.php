@@ -23,7 +23,22 @@ class Course extends Model
     
     public function course_experiment()
     {
-        return $this->hasMany(CourseExperiment::class);
+        return $this->hasMany(CourseExperiment::class,'course_id');
+    }
+
+    public function course_resources()
+    {
+        return $this->hasMany(CourseResources::class,'course_id');
+    }
+
+    public function weekly_work()
+    {
+        return $this->hasMany(weeklyWork::class,'course_id');
+    }
+
+    public function course_student()
+    {
+        return $this->hasMany(CourseStudents::class,'course_id');
     }
 
     public function school()
@@ -45,6 +60,10 @@ class Course extends Model
     {
         return $this->belongsToMany(Experiment::class, 'course_experiment');
     }
+
+    public function results(){
+        return $this->hasMany(ExperimentResult::class,'course_id');
+    }
     
 }
 
@@ -52,6 +71,18 @@ class CourseResources extends Model
 {
     use HasFactory;
     public $incrementing = false;
+}
+
+class UserCourses extends Model
+{
+    use HasFactory;
+    public $incrementing = false;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
+
 }
 
 class CourseExperiment extends Model
@@ -76,6 +107,7 @@ class CourseInstructor extends Model
     protected $table = 'course_instructor';
     public $incrementing = false;
 }
+/*
 class CourseStudents extends Model
 {
     use HasFactory;
@@ -85,8 +117,14 @@ class CourseStudents extends Model
     {
         return $this->hasMany(User::class, 'id');
     }
+    
+    public function course(){
+        $this->belongsTo(Course::class);
+    }
+
     protected $table = 'user_courses';
     protected $fillable = [
         'course_id',
     ];
 }
+*/

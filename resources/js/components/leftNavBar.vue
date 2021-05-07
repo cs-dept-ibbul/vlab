@@ -8,25 +8,25 @@
 		<div class="m-0 mobileMenu p-display-none " id="MainMobile"></div>
 		<div  class="MenuLContainer bg-white" id="wideMenu"  v-bind:class="{reduceSize:show}">				
 			<div v-bind:class="{slidein:show, slideout:hide}" class="niconsV slider">
-				<a :href="home"  v-bind:class="{btnActive:homeA}">
+				<a :href="home"  v-bind:class="{btnActive: checkActive('home')}">
 					<span class="iconOV fa fa-home btnActive" title="Home"></span>					
 				</a>
-				<a :href="dashboard"  v-bind:class="{btnActive:dashboardA}">
+				<a :href="dashboard"  v-bind:class="{btnActive: checkActive('dashboard')}">
 					<span class="iconOV fa fa-dashboard" title="Dashboard"></span>					
 				</a>
-				<a :href="explore"  v-bind:class="{btnActive:exploreA}">
+				<a href="/explore"  v-bind:class="{btnActive: checkActive('explore')}">
 					<span class="iconOV fa fa-spinner" title="Explore"></span>					
 				</a>
-				<a :href="courses"  v-if="incourse == '1'"  v-bind:class="{btnActive:coursesA}">
+				<a href="/my-courses"   v-bind:class="{btnActive: checkActive('courses')}">
 					<span class="iconOV fa fa-toggle-on" title="Courses"></span>					
 				</a>
-				<a :href="mycourse" v-else v-bind:class="{btnActive:mycourseA}">
+				<a href="#" v-if="incourse == '1'" v-bind:class="{btnActive: checkActive('mycoursereview')}">
 					<span class="iconOV fa fa-toggle-on" title="My Courses"></span>					
 				</a>
-				<a :href="discussion" v-bind:class="{btnActive:discussionA}">
-					<span class="iconOV fa fa-comment" title="Settings"></span>					
+				<a href="/" v-bind:class="{btnActive: checkActive('discussion')}">
+					<span class="iconOV fa fa-comment" title="Discussion"></span>					
 				</a>
-				<a :href="settings" v-bind:class="{btnActive:settingsA}">
+				<a href="/" v-bind:class="{btnActive: checkActive('settings')}">
 					<span class="iconOV fa fa-gear" title="Settings"></span>					
 				</a>
 				<a @click="logout" >
@@ -34,25 +34,25 @@
 				</a>
 			</div>
 			<div v-bind:class="{slidein:show1, slideout:hide1}" style="position: relative; margin-left: 20px; margin-right:20px;height: " >
-				<a :href="home" class="nChildV" v-bind:class="{btnActive:homeA}">
+				<a href="/" class="nChildV" v-bind:class="{btnActive: checkActive('home')}">
 					<span class="iconV fa fa-home "></span><div class="labelV">Home</div>
 				</a>	
-				<a :href="dashboard" class="nChildV"  v-bind:class="{btnActive:dashboardA}">
+				<a :href="dashboard" class="nChildV"  v-bind:class="{btnActive: checkActive('dashboard')}">
 					<span class="iconV fa fa-dashboard"></span><div class="labelV">Dashboard</div>
 				</a>	
-				<a :href="explore" class="nChildV"  v-bind:class="{btnActive:exploreA}">
+				<a href="/explore" class="nChildV"  v-bind:class="{btnActive: checkActive('explore')}">
 					<span class="iconV fa fa-spinner"></span><div class="labelV">Explore</div>
 				</a>	
-				<a :href="courses" v-if="incourse == '1'" class="nChildV" v-bind:class="{btnActive:coursesA}">
+				<a href="/my-courses"  class="nChildV" v-bind:class="{btnActive: checkActive('courses')}">
 					<span class="iconV fa fa-toggle-on"></span><div class="labelV">Course</div>
 				</a>
-				<a :href="mycourse" v-else class="nChildV" v-bind:class="{btnActive:mycourseA}">
+				<a href="#" v-if="incourse == '1'" class="nChildV" v-bind:class="{btnActive: checkActive('mycoursereview')}">
 					<span class="iconV fa fa-toggle-on"></span><div class="labelV">My Courses</div>
 				</a>
-				<a :href="'#'"  class="nChildV" v-bind:class="{btnActive:discussionA}">
+				<a href="'#'"  class="nChildV" v-bind:class="{btnActive: checkActive('discussion')}">
 					<span class="iconV fa fa-comment"></span><div class="labelV">Discussion</div>
 				</a>	
-				<a :href="settings"  class="nChildV" v-bind:class="{btnActive:settingsA}">
+				<a :href="settings"  class="nChildV" v-bind:class="{btnActive: checkActive('settings')}">
 					<span class="iconV fa fa-gear"></span><div class="labelV">Settings</div>
 				</a>					
 				<a @click="logout" :href="'#'"  class="nChildV">				
@@ -71,14 +71,7 @@
             show:false,
             hide:true,
             show1:true,
-            hide1:false,
-            homeA:false,
-            exploreA:false,
-            coursesA:false,
-            discussionA:false,
-            settingsA:false,
-            mycourseA:false,
-            dashboardA:false
+            hide1:false,    
 		    	}
         },
         methods:{
@@ -93,35 +86,19 @@
                 this.show1=!this.show1;                
                 this.hide1=!this.hide1;                
               
-            }
+            },
+        	checkActive: function(el){        		
+        		if (this.active===el) {        			
+        			return true;
+        		}
+        	},
+ 
         },
-
-
         created:function(){
 		  this.$eventBus.$on('toggleSysNav', data => {
 		  	this.toggleMenu();
-		  })		  
-        	if (this.active=='home'){
-        		this.homeA = true;
-        	}
-        	if (this.active=='dashboard'){
-        		this.dashboardA = true;
-        	}
-        	if (this.active=='explore'){
-        		this.exploreA = true;
-        	}
-        	if (this.active=='courses'){
-        		this.coursesA = true;
-        	}
-        	if (this.active=='mycourse'){
-        		this.mycourseA = true;
-        	}
-        	if (this.active=='settings'){
-        		this.settingsA = true;
-        	}
-        	if (this.active=='discussion'){
-        		this.discussionA = true;
-        	}
+		  })		          
+		  console.log(this.incourse)
         },
         
 		beforeDestroy: function () {
@@ -129,6 +106,26 @@
 		},
         props:['home','dashboard','explore','mycourse','courses','discussion','settings', 'active', 'incourse'],
         mounted(){
+
+        	/*btn slider*/
+        	$('.listMenuBtn').click(function(){        		
+        		$('.listMenu').not($(this).next()).slideUp(200);
+	 			$(this).parent().find('ul.listMenu').slideToggle(200);
+	 		})
+	 		$('.listMenuVBtn').click(function(){   	 				 		
+
+        		$('.listVMenu').not($(this).next()).addClass('slideout');
+        		$('.listVMenu').not($(this).next()).removeClass('slidein');
+        		let elt = $(this).parent().find('ul.listMenu');
+	 			if(elt.hasClass('slidein')){
+	 				elt.addClass('slideout');
+	 				elt.removeClass('slidin');
+	 			}else{
+	 				elt.removeClass('slideout');
+	 				elt.addClass('slidin');
+	 			}
+	 		})
+
         	var $this = this;        	
         	var screenSize = function(){
         		  if($(window).width()<= 700){
