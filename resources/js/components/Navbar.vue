@@ -59,51 +59,57 @@
 </template>
 <script>
 
-export default {
-  name: 'Navbar',
+export default {  
+  data(){
+    return{
+
+    showNav: false,
+    username:'',
+    mydashboard: '#',
+    forLogout:false,
+    role_id:'',
+    }
+  },
+  created(){        
+      if(localStorage.hasOwnProperty('LoggedUser')){                                
+        let role_id =  JSON.parse(localStorage.getItem('LoggedUser')).user.role_id;          
+        if (this.all_roles !== '') {
+         let RoleName = this.getKeyByValue(JSON.parse(this.all_roles),role_id)
+         if (RoleName != undefined) {
+           if (RoleName == 'admin'){
+            this.mydashboard = '/manage-user'
+           }
+           if (RoleName == 'instructor'){
+            this.mydashboard = '/view-student';
+           }
+           if (RoleName == 'student'){
+            this.mydashboard = '/userDashboard';
+           }
+         }    
+
+        }
+        this.username =  JSON.parse(localStorage.getItem('LoggedUser')).user.first_name;          
+      }else{
+        this.username ='';
+      }
+  },
   props: {
     home:String,
     explore:String,
     login:String,
-    mydashboard: '',
     all_roles:{
         type:String,
         default:function(){
-          return '{admin:1,instructor:2,student:3}';
+          return '';
         }
     }
-  },
-  data: () => ({
-    showNav: false,
-    username:'',
-    forLogout:false,
-  }),
-  created(){    
-     let RoleName = this.getKeyByValue(JSON.parse(this.all_roles),this.currentUser.role)
-     if (RoleName != undefined) {
-       if (RoleName == 'admin'){
-        this.mydashboard = '/manage-user'
-       }
-       if (RoleName == 'instructor'){
-        this.mydashboard = '/view-student';
-       }
-       if (RoleName == 'student'){
-        this.mydashboard = '/userDashboard';
-       }
-     }
-    
-      if(JSON.parse(localStorage.getItem('LoggedUser')) == undefined ){
-        this.username ='';
-      }else{
-        this.username =  JSON.parse(localStorage.getItem('LoggedUser')).user.first_name;          
-      }
   },
   methods: {
     getDashboard(){
               
     },
     getKeyByValue(object, value) {
-      for(let k in object){        
+      for(let k in object){                       
         if (object[k] === value) {
           return k;
           break;

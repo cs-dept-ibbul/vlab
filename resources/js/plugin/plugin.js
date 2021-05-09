@@ -603,31 +603,11 @@ export default {
       },
       created: function(){
       		/*goes global*/      	      		      	
-      		let $this = this;      
-      		let pathname = location.pathname.split('/')[1];       		
+      				
+/*
 
       		if (!this.freePath.includes(pathname) || pathname == 'login') {
       			
-	      		if(localStorage.hasOwnProperty('LoggedUser')){     	      				      
-	      			this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
-	      			this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;
-	      			if(pathname === 'login'){
-			        	location.href = '/';
-	      			}
-	      		}else{	
-	      			if (pathname != 'login'){
-			        	this.frontendLogout();
-	      			}
-	      		}
-	      		let AuthAxios = 'Bearer '+this.userLoggedInOld;
-				this.axiosHeader ={
-						'Content-Type':'application/json',
-						'Authorization':AuthAxios
-				};
-				this.axiosHeaderWithFiles ={
-						'Content-Type':'multipart/form-data',
-						'Authorization':AuthAxios
-				};			
       		}else{
       			if(localStorage.hasOwnProperty('LoggedUser')){     	      			      
 	      			this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
@@ -642,7 +622,7 @@ export default {
 							'Authorization':AuthAxios
 					};	     		
 	      		}
-      		}
+      		}*/
       },
       mounted: function(){
 
@@ -698,6 +678,58 @@ export default {
       			}
       			window.rippleButton();
       		})
+
+
+      		/*login checking and validation*/
+      		let $this = this;      
+      		let pathname = location.pathname.split('/')[1];       		
+
+	      		if(localStorage.hasOwnProperty('LoggedUser')){     	      				      
+	      			this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
+	      			this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;
+	      			if(pathname === 'login'){
+			        	location.href = '/';
+	      			}
+	      			/*doing front end login checking*/ 
+	      			//user might have token expired but still logged in. 
+	      			$.post('/ajax-check-login',{"_token": $('meta[name="csrf-token"]').attr('content')},function(data){      				
+	      				if (data.status == 200){
+	      					
+	      				}else{
+	      					if(this.freePath.includes(pathname)){
+		      					localStorage.removeItem("LoggedUser");  
+		      					$this.launch_toast('logged out!');      				
+	      					}else{
+		      					localStorage.removeItem("LoggedUser");        						
+					        	location.href = '/login';
+	      					}
+	      				}
+	      			}).done(function(){}).fail(function(){}).always(function(){});
+	      	}else{	
+      			try{
+	      			$.post('/ajax-logout',{"_token": $('meta[name="csrf-token"]').attr('content')},function(data){      				
+	      				if (data.status == 200){      					
+	      					$this.launch_toast('you are logged out');
+	      				}
+	      			})/*.done(function(){}).fail(function(e){	      			
+	      			}).always(function(){});*/
+	      		/*	if (pathname != 'login'){
+			        	this.frontendLogout();
+	      			}*/
+	      		}catch(err){
+	      			
+	      		}
+	      	}
+
+      		let AuthAxios = 'Bearer '+this.userLoggedInOld;
+			this.axiosHeader ={
+					'Content-Type':'application/json',
+					'Authorization':AuthAxios
+			};
+			this.axiosHeaderWithFiles ={
+					'Content-Type':'multipart/form-data',
+					'Authorization':AuthAxios
+			};	
       		
         })
       }     		 

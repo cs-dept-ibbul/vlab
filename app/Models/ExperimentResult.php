@@ -20,4 +20,9 @@ class ExperimentResult extends Model
     {
     	return $this->belongsTo(Experiment::class, 'experiment_id');
     }
+
+     public function student()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

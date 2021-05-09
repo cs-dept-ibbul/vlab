@@ -11,44 +11,91 @@
 		    	<h4 class="text-center font fw6">Experiments</h4>
 		    	<button class="px-4 py-2 button btn btn-light text-dark w-100 fw6 font fs1 my-2 " style="font-weight: 500;" v-for="experiment in experiments" :key="experiment.id" @click="fetchExperimentResult(experiment.id)">{{experiment.name}}</button>
 		    </div>
-			<div class="col-lg-9 col-md-12" v-show="loaderState2">
-				<v-loader></v-loader>						
+			<div class="col-lg-9 col-md-12 " style="max-height: 65vh; overflow: scroll;" v-if="loaderState2">
+				<v-loader v-if="!showresults"></v-loader>							
+				<div v-else class="p-2">
+					<div class="w-100 rounded shadow-sm bg-white p-2" v-for="result in results">
+						<div class="row">							
+							<div class="font  col-lg-8 col-md-12">
+								<span class=" no-break">
+									<span class="fw5 p-text-success">Matric No.: </span>
+									<span class="mr-1">{{result.student.matric_number}}</span>
+								</span>
+								<span class="no-break">
+									<span class="fw5 p-text-success"> Name: </span> {{result.student.first_name + ' '+result.student.other_names}}
+								</span>
+							</div>
+							<div class=" font fs01 col-lg-4 col-md-12">
+								<span class=" no-break"><span class="fw5 p-text-success">Started:</span> 3/23/43 </span>						
+								<span class=" no-break"><span class="fw5 p-text-success">Submitted:</span> 3/23/43</span>						
+							</div>
+						</div>
+						<table class="table table-bordered iresult">
+							<thead v-html="returnHeader(result.result_json)" class="bg-white p-2 mx-auto mt-2"></thead>
+							<tbody> 
+								<tr v-for="tr in JSON.parse(result.result_json)[0].data">
+									<td v-for="td in tr">{{td}}</td>
+								</tr>								
+							</tbody>
+						</table>						
+					</div>
+				</div>									
 			</div>
-			<div class="col-lg-9 col-md-12" v-show="section">
-				<table id="studenttable" class="table table-hover">
-					<thead>
-						<tr id="cheadV">					
-						<th width="10%">S/N</th>
-			            <th width="20%">Matric Number</th>
-			            <th width="30%">First Name</th>
-			            <th width="30%">Last Name</th>
-			            <th width="10%">Gender</th>	            
-						</tr>
-					</thead>
-					<tbody>				
-				        <tr v-for="(student, index) in students" :key="student.id">
-				            <td width="10%">
-				            </td>
-				            <td width="20%">{{student.matric_number}}</td>	            
-				            <td width="30%">{{student.first_name}}</td>
-				            <td width="30%">{{student.other_names}}</td>
-				            <td width="10%">{{student.gender}}</td>
-				        </tr>
-			    	</tbody>
-			    </table>
+			<div class="col-lg-9 col-md-12" v-show="section">						
+					<table id="studenttable" class="table table-hover">
+						<thead>
+							<tr id="cheadV">					
+							<th width="10%">S/N</th>
+				            <th width="20%">Matric Number</th>
+				            <th width="30%">First Name</th>
+				            <th width="30%">Last Name</th>
+				            <th width="10%">Gender</th>	            
+							</tr>
+						</thead>
+						<tbody>				
+					        <tr v-for="(student, index) in students" :key="student.index">
+					            <td width="10%">{{index+1}}.
+					            </td>
+					            <td width="20%">{{student.students.matric_number}}</td>	            
+					            <td width="30%">{{student.students.first_name}}</td>
+					            <td width="30%">{{student.students.other_names}}</td>
+					            <td width="10%">{{student.students.gender}}</td>
+					        </tr>
+				    	</tbody>
+				    </table>				
+				<!-- results -->				
 			</div>
 			<div class="col-lg-9 col-md-12" v-if="section ==false && loaderState2 == false ">
 			</div>			    			
-		    <div class="col-lg-3 col-md-12 p-1 d-xs-none d-sm-none d-md-none d-lg-block" >
-		    	<h4 class="text-center font fw6">Experiments</h4>
-		    	<button class="px-4 py-2 button btn btn-light text-dark w-100 fw6 font fs1 my-2 " style="font-weight: 500;" v-for="experiment in experiments" :key="experiment.id" @click="fetchExperimentResult(experiment.id)">{{experiment.name}}</button>
+		    <div class="col-lg-3 col-md-12 p-1 d-xs-none d-sm-none d-md-none d-lg-block" >		    	
+		    	<div style="min-height: 150px; box-shadow: 2px 2px 9px #ccc;border-radius: 5px 5px 0px 0px; padding: 0px 0px 10px 0px;">
+		    		<h4 style="border-radius: 5px 5px 0px 0px; background: #00b96b;" class="p-2 text-white text-center font m-0 fw3">Task</h4>
+	    			<div v-for="task in tasks" class="bg-white " >
+	    				<div class="d-flex justify-between flex-wrap btn-spec px-3 pt-3 pb-1" tabindex="1">
+		    				<h6 class="fw3 text-dark">{{task.title}}</h6>
+		    				<span class="fa fa-chevron-up fs01 spanIconM iconM d-flex flex-wrap" style="color: #bbb;"></span>	    					
+	    				</div>
+	    				<ul class="display-none px-3 py-2 ulLeft">
+	    <li v-for="exp in task.weekly_work_experiments" @click="showResult(exp.id,$root)" class="font2 text-dark">
+	    						{{exp.experiments.name}}
+	    					</li>
+	    				</ul>
+	    			</div>	
+
+	    		    	
+		    		
+		    	</div>
+		    	<!--
+		    		<button class="px-4 py-2 button btn btn-light text-dark w-100 fw6 font fs1 my-2 " style="font-weight: 500;" v-for="task in experiments" :key="experiment.id" @click="fetchExperimentResult(experiment.id)">{{experiment.name}}</button>
+		    	-->
 		    </div>
 		</div>
+		
 	</div>
 </template>
 
 <script>
-	import loader from './skeletalLoaderA.vue'; 	
+	import loader from './skeletalLoaderA.vue'; 		
 	export default{
 		components:{		
 			'v-loader':loader,
@@ -58,6 +105,7 @@
 				loaderState:true,
 				loaderState2:false,
 				section:true,
+				iconchange:false,
 				students: [
 					{id:1,first_name:'ismail',other_names:'hamza',gender:'male',matric_number:'u15/fns/csc/1011'},
 					{id:2,first_name:'ismail',other_names:'hamza',gender:'male',matric_number:'u15/fns/csc/1011'},
@@ -70,7 +118,10 @@
 				experiments:[
 					{id:1,name:'simple pendulum'},
 					{id:2,name:'Vernier Caliper'}
-				]				
+				],
+				tasks:[],
+				showresults:false,
+				results: [],
 			}
 		},
 		methods:{
@@ -78,20 +129,108 @@
 				this.loaderState2 = true;
 				let $this = this;
 				this.section = false;
-				setTimeout(function() {
-				//$this.loaderState2 = false;
-				}, 600);
 
-				this.$eventBus.$emit('viewStudentExperiment',{data:true});
+				//this.$eventBus.$emit('viewStudentExperiment',{data:true});
 			},
 			viewstudent:function(){
 				
+			},
+			returnHeader:function(json){				
+				return JSON.parse(json)[0].mhead;
+			},
+			showResult:function(weekly_work_experiment_id,root){				
+				let id = weekly_work_experiment_id;			
+				console.log(id)
+				this.$eventBus.$emit('viewStudentExperiment',{data:true}); //line 132 listen to me and also viewStudent.vue parent		
+
+
+				let retryCount = 0;			
+				var $this = this;
+				//console.log($this);
+					let attemptsFailsV = function(){
+							Swal.fire({
+							  text: 'something went wrong',
+							  title: 'click Ok to retry',
+							  icon:'error',
+							  showClass: {
+							    popup: 'animate__animated animate__fadeInDown'
+							  },
+							  hideClass: {
+							    popup: 'animate__animated animate__fadeOutUp'
+							  }
+							}).then((result) => {
+								  /* Read more about isConfirmed, isDenied below */
+								  if (result.isConfirmed) {
+								    location.reload();
+								  } else if (result.isDenied) {
+								    Swal.fire('please reload the page', '', 'info')
+								  }
+							});
+					}
+					let AxiosFetchData = function(){
+						let datafetched = '0';						
+						retryCount +=1;		
+						let userLoggedInOld;
+						if(localStorage.hasOwnProperty('LoggedUser')){		      			
+			      			userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
+			      		}else{
+					        localStorage.removeItem("LoggedUser");
+			      		}
+			      		let AuthAxios = 'Bearer '+userLoggedInOld;
+						let axiosHeader ={
+								'Content-Type':'application/json',
+								'Authorization':AuthAxios
+						};
+											
+					    const formdata  = new FormData();						  
+					    formdata .append('weekly_experiment_id', id)			    	    
+	                    $this.axios.post($this.baseApiUrl+'experiments/experiment_results_esid',formdata,{headers: axiosHeader}).then(function(response, status, request) {        
+	                            if (response.status === 200) {                                     	
+	                            	let i,j;                  
+	                               //console.log(response.data.map((a,b)=>{j = []; for(i in a) {j.push(a[i])} return j; }));        
+	                               $this.results = response.data
+	                               $this.showresults = true;	
+	                               console.log($this.results)	                       
+	                            }else{
+	                            	if (retryCount < 4) {
+	                            		setTimeout(function() {
+	                            			AxiosFetchData();
+	                            		}, 5000);
+	                            	}else{
+	                            		/*when all attempts fails inform the user what to do*/
+	                            		attemptsFailsV();
+	                            	}
+	                            }
+	                        }, function(e) {        
+	                        	//console.log(e.response.status);
+	                             if(e.response.status === 401 ){
+	                             	 localStorage.removeItem("LoggedUser");
+	                                location.href = "/logout";
+	                             }else{
+	                               attemptsFailsV()                                           
+	                             }                                                                   
+	                        })                             
+						try{
+						}catch(err){
+							console.log(err)
+						}
+						//return datafetched;
+					}							
+					return AxiosFetchData();										
 			}
 		},		
 		mounted(){
 			this.$nextTick(function(){
-
+				$('.btn-spec').click(function(){
+					$(this).find('.spanIconM').toggleClass('spanIcon');
+					$(this).next().slideToggle(200);
+				});
 			})
+			this.$eventBus.$on('viewStudentExperiment',data=>{
+				this.loaderState2 = true;
+				this.section = false;
+				this.showresults = false;
+			});
 		},
 		props:{
 			course:{
@@ -99,12 +238,15 @@
 			}
 		},
 		async created(){
+			this.students = this.course.course_student;
+			this.tasks = this.course.weekly_work;
 
 		    let $this = this;
 		    this.$eventBus.$on('viewstudentBtn2',data=>{				
 				this.loaderState2= false;
 				this.section = true;
-			})
+				
+			});
 		    //this.students  = await this.axiosGetById('api/students/course_students','course_id',3);
 		    //this.experiments  = await this.axiosGetById('api/students/students','course_id',3);
              setTimeout(function() {             	
@@ -128,5 +270,61 @@
 	}
 	tbody tr td{
 		text-transform: capitalize;
+	}
+	.justify-between{
+		margin-bottom: 6px;
+		justify-content: space-between;
+	}
+	.btn-spec:focus{
+		-webkit-box-shadow: 0 6px 6px -4px #ccc;
+		-moz-box-shadow: 0 8px 6px -4px #ccc;
+		box-shadow: 0 8px 6px -4px #ccc;
+	}	
+	.iconM{		
+		justify-content: center;		
+	}
+	.display-none{
+		display: none;
+	}
+	.spanIcon{
+		-webkit-transform: rotate(180deg);
+  		transform: rotate(180deg);
+	}
+	.btn-spec{	  
+		cursor: pointer;
+		-webkit-box-shadow: 0 6px 2px -4px #eee;
+		-moz-box-shadow: 0 6px 2px -4px #eee;
+		box-shadow: 0 6px 2px -4px #eee;
+	}
+	.ulLeft li{
+		margin-left: 10px;		
+		cursor: pointer;
+		color: rgb(200,200,200);
+	}
+	.ulLeft li:hover{
+		text-decoration: underline;
+	}
+/*	.ulLeft:after{
+		position: absolute;
+		content: '';
+		display: block;
+		width: 100%;
+		height: 3px;
+		background: #eee;
+		filter: blur(1.4px);
+		top:0;
+		left: 0px;
+
+	}*/
+	.ulLeft{	
+		position: relative;	
+		border-radius: 5px;
+		width: 90%;
+		left: 5%;
+		margin-top: 4px;
+		background: #ccc;
+	}
+	.iresult tbody tr td{
+		padding: 2px;
 	}
 </style>

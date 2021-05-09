@@ -291,24 +291,23 @@ class ExperimentController extends Controller
     public function getExperimentResultsByExpSessId(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'experiment_id' => 'required',
+            'weekly_experiment_id' => 'required',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => "experiment_id field is required"], 400);
+            return response()->json(['error' => "weekly work experiment id field is required"], 400);
         }
 
-        $experimentId = $request->get('experiment_id');
-
-        $experimentResult = ExperimentResult::where([
+        $experimentId = $request->get('weekly_experiment_id');        
+        $experimentResult = ExperimentResult::with('student')->where([
             'session_id' => $this->currentSession,
-            'experiment_id' => $experimentId
+            'weekly_work_id' => $experimentId
         ])->get();
 
         if (!empty($experimentResult)) {
             return response()->json($experimentResult, 200);
         } else {
-            return response()->json(['error' => 'Experiment not found'], 404);
+            return response()->json(['error' => 'result not found'], 404);
         }
     }
 

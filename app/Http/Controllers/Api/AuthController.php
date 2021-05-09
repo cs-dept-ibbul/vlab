@@ -130,7 +130,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => Carbon::now()->addDays(1)->timestamp,
+            'expires_in' => Carbon::now()->addDays(3)->timestamp,
             //'expires_in' => auth()->factory()->getTTL() * 60,
             'user' => $this->me()->original
         ]);

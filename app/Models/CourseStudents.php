@@ -11,12 +11,16 @@ class CourseStudents extends Model
     public $incrementing = false;
 
     public function course(){
-       return $this->belongsTo(Course::class);
+       return $this->belongsTo(Course::class, 'course_id');
     }
 
+    /*public function students()
+    {
+        return $this->hasMany(User::class, 'user_id');
+    }*/
     public function students()
     {
-        return $this->hasMany(User::class, 'id');
+        return $this->belongsTo(User::class,'user_id');
     }
     protected $table = 'user_courses';
     protected $fillable = [

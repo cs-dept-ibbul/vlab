@@ -2504,10 +2504,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       $('.main_result_table').each(function (index) {
         resultData.title = $(this).prev().text();
         resultData.head = [];
+        resultData.mhead = '';
         resultData.data = [];
         /*get table headers*/
 
-        header = [];
+        var header = [];
+        resultData.mhead = $(this).find('thead').html();
         $(this).find('th').each(function (index2) {
           header.push($(this).text());
         });
@@ -2939,20 +2941,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              if (_this.currentUser.role_id == _this.instructorRole) {
-                _this.link = '/view-course/';
-              }
-
-              _context.next = 3;
+              _context.next = 2;
               return _this.axiosGet('api/faculties/faculty_course_student');
 
-            case 3:
+            case 2:
               _this.courseCate = _context.sent;
               //console.log(this.createdFaculty)
               _this.tableLoaded = true;
               /*initialize datatable */
 
-            case 5:
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -3098,47 +3096,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'Navbar',
-  props: {
-    home: String,
-    explore: String,
-    login: String,
-    mydashboard: '',
-    all_roles: {
-      type: String,
-      "default": function _default() {
-        return '{admin:1,instructor:2,student:3}';
-      }
-    }
-  },
   data: function data() {
     return {
       showNav: false,
       username: '',
-      forLogout: false
+      mydashboard: '#',
+      forLogout: false,
+      role_id: ''
     };
   },
   created: function created() {
-    var RoleName = this.getKeyByValue(JSON.parse(this.all_roles), this.currentUser.role);
+    if (localStorage.hasOwnProperty('LoggedUser')) {
+      var role_id = JSON.parse(localStorage.getItem('LoggedUser')).user.role_id;
 
-    if (RoleName != undefined) {
-      if (RoleName == 'admin') {
-        this.mydashboard = '/manage-user';
+      if (this.all_roles !== '') {
+        var RoleName = this.getKeyByValue(JSON.parse(this.all_roles), role_id);
+
+        if (RoleName != undefined) {
+          if (RoleName == 'admin') {
+            this.mydashboard = '/manage-user';
+          }
+
+          if (RoleName == 'instructor') {
+            this.mydashboard = '/view-student';
+          }
+
+          if (RoleName == 'student') {
+            this.mydashboard = '/userDashboard';
+          }
+        }
       }
 
-      if (RoleName == 'instructor') {
-        this.mydashboard = '/view-student';
-      }
-
-      if (RoleName == 'student') {
-        this.mydashboard = '/userDashboard';
-      }
-    }
-
-    if (JSON.parse(localStorage.getItem('LoggedUser')) == undefined) {
-      this.username = '';
-    } else {
       this.username = JSON.parse(localStorage.getItem('LoggedUser')).user.first_name;
+    } else {
+      this.username = '';
+    }
+  },
+  props: {
+    home: String,
+    explore: String,
+    login: String,
+    all_roles: {
+      type: String,
+      "default": function _default() {
+        return '';
+      }
     }
   },
   methods: {
@@ -11432,6 +11434,53 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -11442,6 +11491,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       loaderState: true,
       loaderState2: false,
       section: true,
+      iconchange: false,
       students: [{
         id: 1,
         first_name: 'ismail',
@@ -11491,24 +11541,123 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, {
         id: 2,
         name: 'Vernier Caliper'
-      }]
+      }],
+      tasks: [],
+      showresults: false,
+      results: []
     };
   },
   methods: {
     fetchExperimentResult: function fetchExperimentResult(id) {
       this.loaderState2 = true;
       var $this = this;
-      this.section = false;
-      setTimeout(function () {//$this.loaderState2 = false;
-      }, 600);
+      this.section = false; //this.$eventBus.$emit('viewStudentExperiment',{data:true});
+    },
+    viewstudent: function viewstudent() {},
+    returnHeader: function returnHeader(json) {
+      return JSON.parse(json)[0].mhead;
+    },
+    showResult: function showResult(weekly_work_experiment_id, root) {
+      var id = weekly_work_experiment_id;
+      console.log(id);
       this.$eventBus.$emit('viewStudentExperiment', {
         data: true
-      });
-    },
-    viewstudent: function viewstudent() {}
+      }); //line 132 listen to me and also viewStudent.vue parent		
+
+      var retryCount = 0;
+      var $this = this; //console.log($this);
+
+      var attemptsFailsV = function attemptsFailsV() {
+        Swal.fire({
+          text: 'something went wrong',
+          title: 'click Ok to retry',
+          icon: 'error',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+          }
+        }).then(function (result) {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            location.reload();
+          } else if (result.isDenied) {
+            Swal.fire('please reload the page', '', 'info');
+          }
+        });
+      };
+
+      var AxiosFetchData = function AxiosFetchData() {
+        var datafetched = '0';
+        retryCount += 1;
+        var userLoggedInOld;
+
+        if (localStorage.hasOwnProperty('LoggedUser')) {
+          userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token;
+        } else {
+          localStorage.removeItem("LoggedUser");
+        }
+
+        var AuthAxios = 'Bearer ' + userLoggedInOld;
+        var axiosHeader = {
+          'Content-Type': 'application/json',
+          'Authorization': AuthAxios
+        };
+        var formdata = new FormData();
+        formdata.append('weekly_experiment_id', id);
+        $this.axios.post($this.baseApiUrl + 'experiments/experiment_results_esid', formdata, {
+          headers: axiosHeader
+        }).then(function (response, status, request) {
+          if (response.status === 200) {
+            var i, j; //console.log(response.data.map((a,b)=>{j = []; for(i in a) {j.push(a[i])} return j; }));        
+
+            $this.results = response.data;
+            $this.showresults = true;
+            console.log($this.results);
+          } else {
+            if (retryCount < 4) {
+              setTimeout(function () {
+                AxiosFetchData();
+              }, 5000);
+            } else {
+              /*when all attempts fails inform the user what to do*/
+              attemptsFailsV();
+            }
+          }
+        }, function (e) {
+          //console.log(e.response.status);
+          if (e.response.status === 401) {
+            localStorage.removeItem("LoggedUser");
+            location.href = "/logout";
+          } else {
+            attemptsFailsV();
+          }
+        });
+
+        try {} catch (err) {
+          console.log(err);
+        } //return datafetched;
+
+      };
+
+      return AxiosFetchData();
+    }
   },
   mounted: function mounted() {
-    this.$nextTick(function () {});
+    var _this = this;
+
+    this.$nextTick(function () {
+      $('.btn-spec').click(function () {
+        $(this).find('.spanIconM').toggleClass('spanIcon');
+        $(this).next().slideToggle(200);
+      });
+    });
+    this.$eventBus.$on('viewStudentExperiment', function (data) {
+      _this.loaderState2 = true;
+      _this.section = false;
+      _this.showresults = false;
+    });
   },
   props: {
     course: {
@@ -11516,7 +11665,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
       var $this;
@@ -11524,11 +11673,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              $this = _this;
+              _this2.students = _this2.course.course_student;
+              _this2.tasks = _this2.course.weekly_work;
+              $this = _this2;
 
-              _this.$eventBus.$on('viewstudentBtn2', function (data) {
-                _this.loaderState2 = false;
-                _this.section = true;
+              _this2.$eventBus.$on('viewstudentBtn2', function (data) {
+                _this2.loaderState2 = false;
+                _this2.section = true;
               }); //this.students  = await this.axiosGetById('api/students/course_students','course_id',3);
               //this.experiments  = await this.axiosGetById('api/students/students','course_id',3);
 
@@ -11541,7 +11692,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
               }, 200);
 
-            case 3:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -13979,6 +14130,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       selectedCourse: null,
       courses: null,
       stepBack: 1,
+      coursestudents: {},
       departments: [{
         departments: 'physics',
         total: 60
@@ -15209,49 +15361,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       created: function created() {
         /*goes global*/
-        var $this = this;
-        var pathname = location.pathname.split('/')[1];
 
-        if (!this.freePath.includes(pathname) || pathname == 'login') {
-          if (localStorage.hasOwnProperty('LoggedUser')) {
-            this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token;
-            this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;
-
-            if (pathname === 'login') {
-              location.href = '/';
-            }
-          } else {
-            if (pathname != 'login') {
-              this.frontendLogout();
-            }
-          }
-
-          var AuthAxios = 'Bearer ' + this.userLoggedInOld;
-          this.axiosHeader = {
-            'Content-Type': 'application/json',
-            'Authorization': AuthAxios
-          };
-          this.axiosHeaderWithFiles = {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': AuthAxios
-          };
-        } else {
-          if (localStorage.hasOwnProperty('LoggedUser')) {
-            this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token;
-            this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;
-
-            var _AuthAxios = 'Bearer ' + this.userLoggedInOld;
-
-            this.axiosHeader = {
-              'Content-Type': 'application/json',
-              'Authorization': _AuthAxios
-            };
-            this.axiosHeaderWithFiles = {
-              'Content-Type': 'multipart/form-data',
-              'Authorization': _AuthAxios
-            };
-          }
-        }
+        /*
+        
+              		if (!this.freePath.includes(pathname) || pathname == 'login') {
+              			
+              		}else{
+              			if(localStorage.hasOwnProperty('LoggedUser')){     	      			      
+        	      			this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
+        	      			this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;	 
+        	      			let AuthAxios = 'Bearer '+this.userLoggedInOld;
+        					this.axiosHeader ={
+        							'Content-Type':'application/json',
+        							'Authorization':AuthAxios
+        					};
+        					this.axiosHeaderWithFiles ={
+        							'Content-Type':'multipart/form-data',
+        							'Authorization':AuthAxios
+        					};	     		
+        	      		}
+              		}*/
       },
       mounted: function mounted() {
         var $vm = this;
@@ -15314,6 +15443,62 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             window.rippleButton();
           });
+          /*login checking and validation*/
+
+          var $this = this;
+          var pathname = location.pathname.split('/')[1];
+
+          if (localStorage.hasOwnProperty('LoggedUser')) {
+            this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token;
+            this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;
+
+            if (pathname === 'login') {
+              location.href = '/';
+            }
+            /*doing front end login checking*/
+            //user might have token expired but still logged in. 
+
+
+            $.post('/ajax-check-login', {
+              "_token": $('meta[name="csrf-token"]').attr('content')
+            }, function (data) {
+              if (data.status == 200) {} else {
+                if (this.freePath.includes(pathname)) {
+                  localStorage.removeItem("LoggedUser");
+                  $this.launch_toast('logged out!');
+                } else {
+                  localStorage.removeItem("LoggedUser");
+                  location.href = '/login';
+                }
+              }
+            }).done(function () {}).fail(function () {}).always(function () {});
+          } else {
+            try {
+              $.post('/ajax-logout', {
+                "_token": $('meta[name="csrf-token"]').attr('content')
+              }, function (data) {
+                if (data.status == 200) {
+                  $this.launch_toast('you are logged out');
+                }
+              });
+              /*.done(function(){}).fail(function(e){	      			
+              }).always(function(){});*/
+
+              /*	if (pathname != 'login'){
+                	this.frontendLogout();
+              	}*/
+            } catch (err) {}
+          }
+
+          var AuthAxios = 'Bearer ' + this.userLoggedInOld;
+          this.axiosHeader = {
+            'Content-Type': 'application/json',
+            'Authorization': AuthAxios
+          };
+          this.axiosHeaderWithFiles = {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': AuthAxios
+          };
         });
       }
     });
@@ -20971,7 +21156,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nbutton.button[data-v-bf171800]:focus{\n\tbox-shadow: none !important;\n}\n.viewstudent[data-v-bf171800]{\n\tposition: absolute;\n\ttop: -48px;\n\tleft: 90px;\n}\ntbody tr td[data-v-bf171800]{\n\ttext-transform: capitalize;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nbutton.button[data-v-bf171800]:focus{\n\t\tbox-shadow: none !important;\n}\n.viewstudent[data-v-bf171800]{\n\t\tposition: absolute;\n\t\ttop: -48px;\n\t\tleft: 90px;\n}\ntbody tr td[data-v-bf171800]{\n\t\ttext-transform: capitalize;\n}\n.justify-between[data-v-bf171800]{\n\t\tmargin-bottom: 6px;\n\t\tjustify-content: space-between;\n}\n.btn-spec[data-v-bf171800]:focus{\n\t\tbox-shadow: 0 8px 6px -4px #ccc;\n}\n.iconM[data-v-bf171800]{\t\t\n\t\tjustify-content: center;\n}\n.display-none[data-v-bf171800]{\n\t\tdisplay: none;\n}\n.spanIcon[data-v-bf171800]{\n  transform: rotate(180deg);\n}\n.btn-spec[data-v-bf171800]{\t  \n\t\tcursor: pointer;\n\t\tbox-shadow: 0 6px 2px -4px #eee;\n}\n.ulLeft li[data-v-bf171800]{\n\t\tmargin-left: 10px;\t\t\n\t\tcursor: pointer;\n\t\tcolor: rgb(200,200,200);\n}\n.ulLeft li[data-v-bf171800]:hover{\n\t\ttext-decoration: underline;\n}\n/*\t.ulLeft:after{\n\t\tposition: absolute;\n\t\tcontent: '';\n\t\tdisplay: block;\n\t\twidth: 100%;\n\t\theight: 3px;\n\t\tbackground: #eee;\n\t\tfilter: blur(1.4px);\n\t\ttop:0;\n\t\tleft: 0px;\n\n\t}*/\n.ulLeft[data-v-bf171800]{\t\n\t\tposition: relative;\t\n\t\tborder-radius: 5px;\n\t\twidth: 90%;\n\t\tleft: 5%;\n\t\tmargin-top: 4px;\n\t\tbackground: #ccc;\n}\n.iresult tbody tr td[data-v-bf171800]{\n\t\tpadding: 2px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -49691,22 +49876,134 @@ var render = function() {
             2
           ),
           _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
+          _vm.loaderState2
+            ? _c(
+                "div",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.loaderState2,
-                  expression: "loaderState2"
-                }
-              ],
-              staticClass: "col-lg-9 col-md-12"
-            },
-            [_c("v-loader")],
-            1
-          ),
+                  staticClass: "col-lg-9 col-md-12 ",
+                  staticStyle: { "max-height": "65vh", overflow: "scroll" }
+                },
+                [
+                  !_vm.showresults
+                    ? _c("v-loader")
+                    : _c(
+                        "div",
+                        { staticClass: "p-2" },
+                        _vm._l(_vm.results, function(result) {
+                          return _c(
+                            "div",
+                            {
+                              staticClass:
+                                "w-100 rounded shadow-sm bg-white p-2"
+                            },
+                            [
+                              _c("div", { staticClass: "row" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "font  col-lg-8 col-md-12" },
+                                  [
+                                    _c("span", { staticClass: " no-break" }, [
+                                      _c(
+                                        "span",
+                                        { staticClass: "fw5 p-text-success" },
+                                        [_vm._v("Matric No.: ")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("span", { staticClass: "mr-1" }, [
+                                        _vm._v(
+                                          _vm._s(result.student.matric_number)
+                                        )
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("span", { staticClass: "no-break" }, [
+                                      _c(
+                                        "span",
+                                        { staticClass: "fw5 p-text-success" },
+                                        [_vm._v(" Name: ")]
+                                      ),
+                                      _vm._v(
+                                        " " +
+                                          _vm._s(
+                                            result.student.first_name +
+                                              " " +
+                                              result.student.other_names
+                                          ) +
+                                          "\n\t\t\t\t\t\t\t\t"
+                                      )
+                                    ])
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: " font fs01 col-lg-4 col-md-12"
+                                  },
+                                  [
+                                    _c("span", { staticClass: " no-break" }, [
+                                      _c(
+                                        "span",
+                                        { staticClass: "fw5 p-text-success" },
+                                        [_vm._v("Started:")]
+                                      ),
+                                      _vm._v(" 3/23/43 ")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("span", { staticClass: " no-break" }, [
+                                      _c(
+                                        "span",
+                                        { staticClass: "fw5 p-text-success" },
+                                        [_vm._v("Submitted:")]
+                                      ),
+                                      _vm._v(" 3/23/43")
+                                    ])
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "table",
+                                { staticClass: "table table-bordered iresult" },
+                                [
+                                  _c("thead", {
+                                    staticClass: "bg-white p-2 mx-auto mt-2",
+                                    domProps: {
+                                      innerHTML: _vm._s(
+                                        _vm.returnHeader(result.result_json)
+                                      )
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "tbody",
+                                    _vm._l(
+                                      JSON.parse(result.result_json)[0].data,
+                                      function(tr) {
+                                        return _c(
+                                          "tr",
+                                          _vm._l(tr, function(td) {
+                                            return _c("td", [
+                                              _vm._v(_vm._s(td))
+                                            ])
+                                          }),
+                                          0
+                                        )
+                                      }
+                                    ),
+                                    0
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      )
+                ],
+                1
+              )
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "div",
@@ -49734,23 +50031,27 @@ var render = function() {
                   _c(
                     "tbody",
                     _vm._l(_vm.students, function(student, index) {
-                      return _c("tr", { key: student.id }, [
-                        _c("td", { attrs: { width: "10%" } }),
+                      return _c("tr", { key: student.index }, [
+                        _c("td", { attrs: { width: "10%" } }, [
+                          _vm._v(
+                            _vm._s(index + 1) + ".\n\t\t\t\t\t            "
+                          )
+                        ]),
                         _vm._v(" "),
                         _c("td", { attrs: { width: "20%" } }, [
-                          _vm._v(_vm._s(student.matric_number))
+                          _vm._v(_vm._s(student.students.matric_number))
                         ]),
                         _vm._v(" "),
                         _c("td", { attrs: { width: "30%" } }, [
-                          _vm._v(_vm._s(student.first_name))
+                          _vm._v(_vm._s(student.students.first_name))
                         ]),
                         _vm._v(" "),
                         _c("td", { attrs: { width: "30%" } }, [
-                          _vm._v(_vm._s(student.other_names))
+                          _vm._v(_vm._s(student.students.other_names))
                         ]),
                         _vm._v(" "),
                         _c("td", { attrs: { width: "10%" } }, [
-                          _vm._v(_vm._s(student.gender))
+                          _vm._v(_vm._s(student.students.gender))
                         ])
                       ])
                     }),
@@ -49772,29 +50073,82 @@ var render = function() {
                 "col-lg-3 col-md-12 p-1 d-xs-none d-sm-none d-md-none d-lg-block"
             },
             [
-              _c("h4", { staticClass: "text-center font fw6" }, [
-                _vm._v("Experiments")
-              ]),
-              _vm._v(" "),
-              _vm._l(_vm.experiments, function(experiment) {
-                return _c(
-                  "button",
-                  {
-                    key: experiment.id,
-                    staticClass:
-                      "px-4 py-2 button btn btn-light text-dark w-100 fw6 font fs1 my-2 ",
-                    staticStyle: { "font-weight": "500" },
-                    on: {
-                      click: function($event) {
-                        return _vm.fetchExperimentResult(experiment.id)
+              _c(
+                "div",
+                {
+                  staticStyle: {
+                    "min-height": "150px",
+                    "box-shadow": "2px 2px 9px #ccc",
+                    "border-radius": "5px 5px 0px 0px",
+                    padding: "0px 0px 10px 0px"
+                  }
+                },
+                [
+                  _c(
+                    "h4",
+                    {
+                      staticClass: "p-2 text-white text-center font m-0 fw3",
+                      staticStyle: {
+                        "border-radius": "5px 5px 0px 0px",
+                        background: "#00b96b"
                       }
-                    }
-                  },
-                  [_vm._v(_vm._s(experiment.name))]
-                )
-              })
-            ],
-            2
+                    },
+                    [_vm._v("Task")]
+                  ),
+                  _vm._v(" "),
+                  _vm._l(_vm.tasks, function(task) {
+                    return _c("div", { staticClass: "bg-white " }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex justify-between flex-wrap btn-spec px-3 pt-3 pb-1",
+                          attrs: { tabindex: "1" }
+                        },
+                        [
+                          _c("h6", { staticClass: "fw3 text-dark" }, [
+                            _vm._v(_vm._s(task.title))
+                          ]),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass:
+                              "fa fa-chevron-up fs01 spanIconM iconM d-flex flex-wrap",
+                            staticStyle: { color: "#bbb" }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "ul",
+                        { staticClass: "display-none px-3 py-2 ulLeft" },
+                        _vm._l(task.weekly_work_experiments, function(exp) {
+                          return _c(
+                            "li",
+                            {
+                              staticClass: "font2 text-dark",
+                              on: {
+                                click: function($event) {
+                                  return _vm.showResult(exp.id, _vm.$root)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n\t    \t\t\t\t\t\t" +
+                                  _vm._s(exp.experiments.name) +
+                                  "\n\t    \t\t\t\t\t"
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      )
+                    ])
+                  })
+                ],
+                2
+              )
+            ]
           )
         ]
       )
@@ -52225,7 +52579,7 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("109")]
+                        [_vm._v(_vm._s(course.course_student.length))]
                       ),
                       _vm._v(" "),
                       _c(
@@ -52266,7 +52620,17 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
-    _vm.section == 1 ? _c("div", [_c("v-viewstudentbycourse")], 1) : _vm._e()
+    _vm.section == 1
+      ? _c(
+          "div",
+          [
+            _c("v-viewstudentbycourse", {
+              attrs: { course: _vm.selectedCourse }
+            })
+          ],
+          1
+        )
+      : _vm._e()
   ])
 }
 var staticRenderFns = [

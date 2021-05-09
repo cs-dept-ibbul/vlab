@@ -44,7 +44,7 @@
 			},
 			toggleRightNav2: function(e){
 				$('.fa-ico').removeClass('activeIco');
-				let rel;
+				var rel;
         		$('.fa-ico').each(function(){
         			rel = $(this).attr('rel');
         			if (rel == e) {
@@ -63,7 +63,7 @@
 			},			
 			submit(a){
 				var $this = this;
-				let value, header, bdy,emptyChk='',
+				var value, header, bdy,emptyChk='',
 				resultData = {};
 				this.resultData = [];
 
@@ -72,14 +72,16 @@
 				$('.main_result_table').each(function(index){
 					resultData.title = $(this).prev().text();
 					resultData.head=  [];
+					resultData.mhead=  '';
 					resultData.data=  [];		
 					
 					/*get table headers*/
-					header = [];
+					var header = [];
+					resultData.mhead = $(this).find('thead').html();
 					$(this).find('th').each(function(index2){
 						header.push($(this).text());
 					});				
-					resultData.head = header
+					resultData.head = header;
 
 					/*get table rows*/
 					$(this).find('tr').each(function(index2){						
@@ -123,7 +125,7 @@
 					}).then(result=>{
 						if(result.value){
 							if ($this.weekly_work_id != null){
-								let formobj = {
+								var formobj = {
 									user_id:$this.currentUser.id,
 									weekly_work_id:$this.weekly_work_id,
 									result_json: JSON.stringify($this.resultData),
@@ -161,7 +163,7 @@
          	})
          },
           created: function () {
-		 	let pathname = location.pathname.split('/')
+		 	var pathname = location.pathname.split('/')
         	this.weekly_work_id = pathname[pathname.length -1];
 	  		
 	  		this.$eventBus.$on('listeningToTimeLeft', data => {	  			

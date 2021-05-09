@@ -50,12 +50,15 @@ class Course extends Model
     {
         return $this->belongsTo(Faculty::class);
     }
-
-    public function students()
-    {
-        return $this->belongsToMany(User::class, 'user_courses');
+    public function weeklyWorkExperiment(){
+        return $this->hasMany(WeeklyWorkExperiment::class)->using(weeklyWork::class);        
     }
 
+/*    public function students()
+    {
+        return $this->belongsToMany(CourseStudents::class);
+    }
+*/
     public function experiments()
     {
         return $this->belongsToMany(Experiment::class, 'course_experiment');
@@ -97,7 +100,7 @@ class CourseExperiment extends Model
     }
     public function course()
     {
-        return $this->belongsTo(Course::class, 'course_id');
+        return $this->belongsTo(Course::class);
     }
 }
 

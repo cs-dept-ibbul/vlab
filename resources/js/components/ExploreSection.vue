@@ -47,10 +47,11 @@ export default {
     }
   },
   async created(){
-    if (this.currentUser.role_id == this.instructorRole) {
+/*    console.log(this.currentUser)
+    if (this.currentUser.role_id == this.instructorRole) {      
         this.link = '/view-course/'
     }
-      
+      */
         this.courseCate  = await this.axiosGet('api/faculties/faculty_course_student');
         //console.log(this.createdFaculty)
         this.tableLoaded = true;

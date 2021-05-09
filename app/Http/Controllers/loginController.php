@@ -47,4 +47,22 @@ class loginController extends Controller
         }
         return redirect()->route('login');
     }
+    public function ajaxlogout(Request $request){
+        $allsessions = $request->session()->all()?? '';
+        if($allsessions != ''){
+            $request->session()->flush();
+            return response()->json(['success' => true,  'status'=>200], 200);            
+        }else{
+            return response()->json(['success' => true,  'status'=>400], 400);                    
+        }
+    }
+    public function ajaxchecklogin(Request $request){
+    
+        $allsessions = $request->session()->all()?? '';
+        if($allsessions != ''){            
+            return response()->json(['success' => true, 'status'=>200], 200);//still loged in
+        }else{
+            return response()->json(['success' => true, 'status'=>400], 200);//logged out                    
+        }
+    }
 }

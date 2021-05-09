@@ -69,6 +69,7 @@
                             
                            /* var formContents = jQuery("#login-form").serialize();
                             */           
+                        
                             $('#login-msg-loader').show();
                             $('#login-err2').hide();
                             $('#login-err').hide();                               

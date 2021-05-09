@@ -82,6 +82,10 @@ main {
   word-break: keep-all;
   white-space: nowrap;
 }
+.no-break{
+ word-break: keep-all;
+  white-space: nowrap; 
+}
 .hv-15{
   height: 15vh;
 }

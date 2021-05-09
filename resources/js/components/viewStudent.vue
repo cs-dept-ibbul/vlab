@@ -12,7 +12,7 @@
                     <div @click="selectCourse(course)" class="shadow-sm r2 button bg-white d-flex flex-wrap justify-content-between w-100 pl-0 py-4 pr-4">                
                         <div class="p-0 image-bg-1"></div>
                         <div class="my-2">
-                            <p class="fs2 fw7 mb-2 mt-4 fs10 font2 p-text-dark line-height-none show-student-detail cursor-1" @click='studentDetail(students)'>109</p>
+                            <p class="fs2 fw7 mb-2 mt-4 fs10 font2 p-text-dark line-height-none show-student-detail cursor-1" @click='studentDetail(students)'>{{course.course_student.length}}</p>
                             <p class="mt-0 pt-0 p-text-dark font2 fw4 fs2 pl-2 ">Students</p>
                             <div class="font fs2 mt-4 p-text-warning cursor-1 show-course-detail r1" @click="couseDetail(departments)">
                                 <span class="fa fa-cube"></span>
@@ -28,13 +28,13 @@
 
             </div>        
             <div v-if="section==1">
-            	<v-viewstudentbycourse></v-viewstudentbycourse>
+            	<v-viewstudentbycourse :course="selectedCourse"></v-viewstudentbycourse>
             </div>
         </div>
 </template>
 
 
-<script>
+<script> 
 	import studentincourse from './studentInCourse.vue'; 
 	import loader from './skeletalLoaderA.vue'; 
 	export default{
@@ -49,6 +49,7 @@
 				selectedCourse: null,
 				courses:null,
 				stepBack:1,
+				coursestudents:{},
 				departments:[
 					{departments: 'physics', total:60},
 					{departments: 'computer science', total:50},
@@ -79,7 +80,7 @@
 		},
 		methods: {
 			selectCourse: function(obj){
-				let $this = this;
+				let $this = this;				
 				setTimeout(function() {					
 					$this.selectedCourse = obj;
 					$this.section = 1;

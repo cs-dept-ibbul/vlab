@@ -183,11 +183,9 @@ class CourseController extends Controller
 
     public function getAllCourses()
     {
-        $course = Course::select( ['id as course_id', 'title', 'code', 'description', 'enrollment_code', 'session_id','faculty_id'])
-                        ->with(['school','faculty','course_experiment'=>function($query){
-                               $query->select(['course_experiment.id','course_experiment.experiment_id'])
-                                ->with('experiments:id,name,page');
-                  },'course_resources:id,resourceUrl'])->get();
+        $course = Course::with(['faculty','weekly_work.weekly_work_experiments.experiments','course_experiment'=>function($query){
+                               $query->with('experiments:id,name,page');
+                  },'course_resources','course_student.students'])->where(['session_id'=>$this->currentSession, 'faculty_id'=>$this->facultyId])->get();
         return response()->json($course, 200);
     }
 

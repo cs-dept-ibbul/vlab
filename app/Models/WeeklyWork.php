@@ -37,7 +37,7 @@ class WeeklyWork extends Model
      
     public function course()
     {
-        return $this->belongsTo(Course::class, 'course_id');
+        return $this->belongsTo(Course::class);
     }
          
     public function weekly_work_experiments()
@@ -57,11 +57,10 @@ class WeeklyWorkExperiment extends Model
         'created_at',
         'updated_at',
     ];
-
  
     public function course()
-    {
-        return $this->belongsTo(Course::class, 'course_id');
+    {        
+        return $this->belongsTo(Course::class)->using(weeklyWork::class,'weekly_work_id');
     }
     public function experiments()
     {
@@ -69,6 +68,6 @@ class WeeklyWorkExperiment extends Model
     }
     public function weeklyWork()
     {
-        return $this->belongsTo(WeeklyWork::class, 'weekly_work_id');
+      return $this->belongsTo(WeeklyWork::class);
     }
 }
