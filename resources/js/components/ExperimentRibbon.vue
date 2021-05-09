@@ -27,6 +27,9 @@
 	    	btnState:true,
 	    	startExperiment:false,
 	    	resultData: null,
+	    	weekly_work_id:null,
+	    	timeStart:0,
+	    	timeleft:0
 	    	}
         },
         methods:{
@@ -110,6 +113,7 @@
 
 				/*submit result data*/
 				if (a=='test') {
+
 					Swal.fire({
 						title: 'Are you sure you want to submit',
 						showCancelButton:true,
@@ -118,7 +122,16 @@
 						cancelButtonColor: '#666'
 					}).then(result=>{
 						if(result.value){
-							Swal.fire('')
+							if ($this.weekly_work_id != null){
+								let formobj = {
+									user_id:$this.currentUser.id,
+									weekly_work_id:$this.weekly_work_id,
+									result_json: JSON.stringify($this.resultData),
+									time_started:$this.timeStart,
+									time_submitted:new Date().toLocaleString(),
+									time_left:$this.timeleft}
+								$this.axiosGetByParamsWithMessage($this.baseApiUrl+'experiments/save_experiment_result',formobj, $this,'Saved !');
+							}
 
 						}
 					})
@@ -142,16 +155,22 @@
          mounted(){	
          	this.$nextTick(function(){         	
 	         
-	         	if (this.startExperiment){
-	         		alert();
+	         	if (this.startExperiment){	         	
 		         	
 	         	}         			         	
          	})
          },
           created: function () {
-		 
+		 	let pathname = location.pathname.split('/')
+        	this.weekly_work_id = pathname[pathname.length -1];
+	  		
+	  		this.$eventBus.$on('listeningToTimeLeft', data => {	  			
+	  			this.timeleft = data;
+	  		});
+        	
 		  this.$eventBus.$on('startExperiment', data => {
 		  	this.startExperiment = true;
+		  	this.timeStart= new Date().toLocaleString();
 		  })		  
 
 		},

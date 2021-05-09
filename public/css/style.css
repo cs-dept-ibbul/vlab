@@ -536,6 +536,10 @@ button:focus{
   background: rgba(0, 170, 40, 0.1) !important;
   color: #00b96b !important;
 }
+.sys-bg-danger {
+  background: rgba(170, 10, 40, 0.1) !important;
+  color: #b9076b !important;
+}
 .cursor-1{
   cursor: pointer;
 }
@@ -1841,6 +1845,18 @@ span.ripple {
 
 
     */
+    #result_table{
+      user-select: none;
+    }
+    .overlapcells{
+    position: absolute;
+    width: 302%;
+    background: white;
+    top: 1px;
+    padding: 10px 0px;
+    border-bottom: 1px solid #eee;
+    left: 1px;
+  }
     .timelineContainer{
       width: 90%;
     }
@@ -1952,7 +1968,7 @@ span.ripple {
       box-shadow: #eee 1px 1.5px 3px;
 
     }
-    
+
 .shakeinput
   { 
     vertical-align: middle;

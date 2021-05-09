@@ -21,9 +21,9 @@ class CreateExperimentResultTable extends Migration
             $table->string('session_id', 36);
             $table->string('weekly_work_id', 36);
             $table->string('result_json', 3000);
-            $table->string('time_started', 10);
-            $table->string('time_submited', 10);
-            $table->string('time_left', 10);
+            $table->string('time_started', 25);
+            $table->string('time_submited', 25);
+            $table->string('time_left', 25);
             $table->enum('completion_status', ['Not Started', 'Started', 'Completed'])->default('Not Started');
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->rememberToken();

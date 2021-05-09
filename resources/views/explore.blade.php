@@ -1,3 +1,6 @@
+<?php
+  $instructorRole =  config('calculations.default_roles.instructor');
+ ?>
 @extends('layouts/main')
 @section('content-body')
     <div class="w-100 m-0 p-0 explore">
@@ -5,7 +8,7 @@
         <br>
         <br>
         <br>
-        <v-explore></v-explore>
+        <v-explore instructorRole="{{$instructorRole}}"></v-explore>
        
     </div>
 @endsection

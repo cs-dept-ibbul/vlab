@@ -64,45 +64,27 @@ Route::middleware(['instructorauth'])->group(function(){
 
 Route::middleware(['twouserauth'])->group(function(){
 	Route::get('/unauthorized-e', function(){return view('unAuthorized.NotEnrolled');});
+	Route::get('/no-access', function(){return view('unAuthorized.noAccess');});
 	 /*series and parallel*/
 	Route::get('/circuitconnection-sap','App\Http\Controllers\experimentController@circuitconnection1')->name('circuitconnection1');
-	Route::get('/simple-circuit','App\Http\Controllers\experimentController@simpleCircuit')->name('simple-circuit');
-	Route::get('/simpleCircuit', function ()
-	{
-		return view('experiment.simpleCircuit');
-	})->name('simpleCircuit');
-
-	/*shade level*/
-	Route::get('/circuitconnection','App\Http\Controllers\experimentController@circuitconnection2')->name('circuitconnection2');
-	Route::get('/simple-pendulum','App\Http\Controllers\experimentController@simplePendulum')->name('simple-pendulum');
-
-	Route::get('/simplependulumEquipment', function ()
-	{
-		return view('experiment.simplependulumEquipment');
-	})->name('simplependulumEquipment');
+	Route::get('/simpleCircuit', function (){return view('experiment.simpleCircuit');})->name('simpleCircuit');
+	Route::get('/simplependulumEquipment', function (){return view('experiment.simplependulumEquipment');})->name('simplependulumEquipment');
+	Route::get('/vernierEquipment', function (){return view('experiment.vernierEquipment');})->name('vernierEquipment');
+	Route::get('/micrometerEquipment', function (){return view('experiment.micrometerEquipment');})->name('micrometerEquipment');
+	Route::get('/resistorExperiment', function (){return view('experiment.resistorExperiment');})->name('resistorExperiment');
 
 
-	Route::get('/vernier-caliper','App\Http\Controllers\experimentController@vernierCaliper')->name('vernier-caliper');
-	Route::get('/vernierEquipment', function ()
-	{
-		return view('experiment.vernierEquipment');
-	})->name('vernierEquipment');
+    Route::middleware(['whoareyou'])->group(function(){
 
+		Route::get('/simple-circuit/{id?}','App\Http\Controllers\experimentController@simpleCircuit')->name('simple-circuit');
+		Route::get('/simple-pendulum/{id?}','App\Http\Controllers\experimentController@simplePendulum')->name('simple-pendulum');
+		Route::get('/circuitconnection/{id?}','App\Http\Controllers\experimentController@circuitconnection2')->name('circuitconnection2');
+		Route::get('/vernier-caliper/{id?}','App\Http\Controllers\experimentController@vernierCaliper')->name('vernier-caliper');
+		Route::get('/micrometer/{id?}','App\Http\Controllers\experimentController@micrometerScrewGuage')->name('micrometer');
+		/*Resistors color code this might change late to Electricity circuit construction */
+		Route::get('/resistor-color-code/{id?}','App\Http\Controllers\experimentController@resistor')->name('resistors');
+		/*end resistors color code*/
+    });
 
-	Route::get('/micrometer','App\Http\Controllers\experimentController@micrometerScrewGuage')->name('micrometer');
-	Route::get('/micrometerEquipment', function ()
-	{
-		return view('experiment.micrometerEquipment');
-	})->name('micrometerEquipment');
-
-
-	/*Resistors color code this might change late to Electricity circuit construction */
-	Route::get('/resistor-color-code','App\Http\Controllers\experimentController@resistor')->name('resistors');
-
-	Route::get('/resistorExperiment', function ()
-	{
-		return view('experiment.resistorExperiment');
-	})->name('resistorExperiment');
-/*end resistors color code*/
 });
 

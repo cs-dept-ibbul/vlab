@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar py-3" :style="'width:'+currentWidth+'%;'" >
+  <nav id="navbarId" class="navbar py-3" :style="'width:'+currentWidth+'%;'" >
     <div class="container align-items-center mb-0">
       <div class="navbar__logo">
         <img src="/vlab.png"  width="100" class="mt-2" alt="vlab-logo" />
@@ -32,16 +32,19 @@
             <a @click="logout" class="forLogout" v-bind:class="{extra:forLogout}">Logout</a>            
           </div>
       </ul>
-      <ul class="navbar__list d-none d-lg-flex align-items-lg-center mb-0">
+      <ul id="lnav" class="navbar__list d-none d-lg-flex align-items-lg-center mb-0">
         <li v-if="username == ''"  class="navbar__list__item"><a :href="login">Login</a></li>
         <li v-if="username == ''" class="navbar__list__item navbar__list__item--btn">
           <a href="#">Signup</a>
         </li>
-          <li class="sys-acc" @click="forLogout =!forLogout" v-if="username != '' " >
+          <li class="sys-acc p-0" @click="forLogout =!forLogout" v-if="username != '' " >
             <span class="fa fa-user mr-2"></span>
             <span style="font-size: 0.9em; font-weight: 300;">{{username}}</span>
             <span class="fa fa-chevron-down ml-2"></span>
-            <a @click="logout" class="forLogout" v-bind:class="{extra:forLogout}">Logout</a>
+            <div class="forLogout" v-bind:class="{extra:forLogout}">
+              <a :href="mydashboard">My Account</a>
+              <a @click="logout">Logout</a>              
+            </div>
           </li>
       </ul>
       <button
@@ -58,13 +61,37 @@
 
 export default {
   name: 'Navbar',
-  props: ['home', 'explore', 'login'],
+  props: {
+    home:String,
+    explore:String,
+    login:String,
+    mydashboard: '',
+    all_roles:{
+        type:String,
+        default:function(){
+          return '{admin:1,instructor:2,student:3}';
+        }
+    }
+  },
   data: () => ({
     showNav: false,
     username:'',
     forLogout:false,
   }),
-  created(){
+  created(){    
+     let RoleName = this.getKeyByValue(JSON.parse(this.all_roles),this.currentUser.role)
+     if (RoleName != undefined) {
+       if (RoleName == 'admin'){
+        this.mydashboard = '/manage-user'
+       }
+       if (RoleName == 'instructor'){
+        this.mydashboard = '/view-student';
+       }
+       if (RoleName == 'student'){
+        this.mydashboard = '/userDashboard';
+       }
+     }
+    
       if(JSON.parse(localStorage.getItem('LoggedUser')) == undefined ){
         this.username ='';
       }else{
@@ -72,6 +99,17 @@ export default {
       }
   },
   methods: {
+    getDashboard(){
+              
+    },
+    getKeyByValue(object, value) {
+      for(let k in object){        
+        if (object[k] === value) {
+          return k;
+          break;
+        }
+      }    
+    },
     toggleNav() {
       this.showNav = !this.showNav;
     },
@@ -79,6 +117,12 @@ export default {
 
     }
   },
+  mounted(){
+    let $this =this;
+    $('#navbarId').next().click(function(){      
+      $this.forLogout = false;
+    })
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -88,12 +132,21 @@ export default {
     top: 0px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    padding: 10px;
+    padding: 0px;
     background: #fff;
-    width: 100px;
+    width: 150px;    
     text-align: center;
     transition: 1s top;
     display: none;
+  }
+  .forLogout a{
+    display: block;
+    border-bottom: 1px solid #eee;
+    padding: 10px 15px;
+  }
+  .forLogout a:hover{
+    background: rgba(30,10,60,.5);
+    color: white;
   }
 
 @keyframes fdown {

@@ -19,7 +19,9 @@ class StudentAuth
         if(Session::has('info')){
             $userData = session('info')->data->user ?? '';
             $role = $userData->role_id ?? '';            
-            if ($role == 3) {
+            $studentRole =  config('calculations.default_roles.student');
+            
+            if ($role == $studentRole) {
                 return $next($request);                
             }else{
                 return redirect('/login');

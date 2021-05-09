@@ -41,7 +41,8 @@ mounted() {
       now: Math.trunc((new Date()).getTime() / 1000),
       startTime:Math.trunc((new Date()).getTime() / 1000),
       start: false,
-      timeexpires:false
+      timeexpires:false,
+      timeleft:0
     }
   },
   methods:{
@@ -81,12 +82,21 @@ mounted() {
   		this.start = true;
       this.startTime=Math.trunc((new Date()).getTime() / 1000);
       document.getElementById('experimentSheet').style.display = 'block'
-      let $this = this;
-      setTimeout(function() {
-       // $this.validateResultInput();
-      },  1000);
-
+      let $this = this;   
   	},
+    sendTimeLeft:function(){
+      let $this = this
+      let interval;      
+      interval = setInterval(function(){
+        if(!$this.timeexpires){
+          $this.timeleft = $this.hours+':'+$this.minutes+':'+$this.seconds;
+          $this.$eventBus.$emit('listeningToTimeLeft',$this.timeleft);
+        }        
+        else{
+          clearInterval(interval);
+        }
+      },1100);
+    },
   	valueFilter(value){
   		 if (value < 0) {		  	
 		    return '00';
@@ -151,6 +161,9 @@ mounted() {
 		  return value;
 
     }
+  },
+  created(){
+      this.sendTimeLeft();    
   }
 }
 

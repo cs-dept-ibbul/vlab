@@ -20,7 +20,9 @@ export default {
       		currentUser:'',
       		startExperiment: false,
       		navbarState:false,
-      		baseApiUrl : 'api/'
+      		freePath:['','explore'],
+      		baseApiUrl : 'api/',
+      		BaseOrigin:'http://localhost:8000'	
 
       	}
       },
@@ -141,6 +143,7 @@ export default {
         	e.classList.remove('errorshake');
       	},
   		web_player(w='250px',h='140px',autoplay=1){
+  			let $this = this;
   			const tag = document.createElement("script");
 		    tag.src = "https://www.youtube.com/player_api";
 		    const firstScriptTag = document.getElementsByTagName("script")[0];
@@ -156,6 +159,7 @@ export default {
 			      width: w,
 			      height: h,
 			      videoId: videoId,
+			      origin: $this.BaseOrigin,
 			      playerVars: {
 			        autoplay: autoplay,
 			        controls: 1,
@@ -229,7 +233,8 @@ export default {
                         }, function(e) {        
                         	//console.log(e.response.status);
                              if(e.response.status === 401 ){
-                                location.href = "/logout";
+                                 localStorage.removeItem("LoggedUser");
+  								 location.href = "/logout";
                              }else{
                                attemptsFailsV()                                           
                              }                                                                   
@@ -270,16 +275,16 @@ export default {
 				let AxiosFetchData = function(){
 					let datafetched = '0';						
 					retryCount +=1;		
-					let userLoggedInOld;
-					if(typeof localStorage.getItem('LoggedUser') != undefined){		      			
+					let userLoggedInOld = "";
+					if(localStorage.hasOwnProperty('LoggedUser')){		      			
 		      			userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
 		      		}else{
 				        localStorage.removeItem("LoggedUser");
 		      		}
-		      		let Auth_ = 'Bearer '+userLoggedInOld;
+		      		let AuthAxios = 'Bearer '+userLoggedInOld;
 					let axiosHeader ={
 							'Content-Type':'application/json',
-							'Authorization':Auth_
+							'Authorization':AuthAxios
 					};
                    return axios.get(url,{headers: axiosHeader}).then(function(response, status, request) {        
                             if (response.status === 200) {                                     	
@@ -298,8 +303,9 @@ export default {
                             }
                         }, function(e) {        
                         	//console.log(e.response.status);
-                             if(e.response.status === 401 ){
-                                location.href = "/logout";
+                             if(e.response.status === 401 ){                             	
+                                 localStorage.removeItem("LoggedUser");
+  								location.href = "/logout";
                              }else{
                                attemptsFailsV()                                           
                              }                                                                   
@@ -308,7 +314,7 @@ export default {
 					}catch(err){
 						//console.log(err)
 					}
-					//return datafetched;
+					//return datafetched; 
 				}							
 				return AxiosFetchData();				
                     
@@ -344,15 +350,15 @@ export default {
 					let datafetched = '0';						
 					retryCount +=1;		
 					let userLoggedInOld;
-					if(typeof localStorage.getItem('LoggedUser') != undefined){		      			
+					if(localStorage.hasOwnProperty('LoggedUser')){		      			
 		      			userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
 		      		}else{
 				        localStorage.removeItem("LoggedUser");
 		      		}
-		      		let Auth_ = 'Bearer '+userLoggedInOld;
+		      		let AuthAxios = 'Bearer '+userLoggedInOld;
 					let axiosHeader ={
 							'Content-Type':'application/json',
-							'Authorization':Auth_
+							'Authorization':AuthAxios
 					};
 					
 					let formdata = new FormData;
@@ -375,6 +381,7 @@ export default {
                         }, function(e) {        
                         	//console.log(e.response.status);
                              if(e.response.status === 401 ){
+                             	 localStorage.removeItem("LoggedUser");
                                 location.href = "/logout";
                              }else{
                                attemptsFailsV()                                           
@@ -420,15 +427,15 @@ export default {
 					let datafetched = '0';						
 					retryCount +=1;		
 					let userLoggedInOld;
-					if(typeof localStorage.getItem('LoggedUser') != undefined){		      			
+					if(localStorage.hasOwnProperty('LoggedUser')){		      			
 		      			userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
 		      		}else{
 				        localStorage.removeItem("LoggedUser");
 		      		}
-		      		let Auth_ = 'Bearer '+userLoggedInOld;
+		      		let AuthAxios = 'Bearer '+userLoggedInOld;
 					let axiosHeader ={
 							'Content-Type':'application/json',
-							'Authorization':Auth_
+							'Authorization':AuthAxios
 					};
 										
 					  const formdata  = new FormData();
@@ -451,6 +458,7 @@ export default {
                         }, function(e) {        
                         	//console.log(e.response.status);
                              if(e.response.status === 401 ){
+                             	 localStorage.removeItem("LoggedUser");
                                 location.href = "/logout";
                              }else{
                                attemptsFailsV()                                           
@@ -465,7 +473,91 @@ export default {
 				return AxiosFetchData();				
                     
   		},
-  		
+  		attemptsFailsV:function(){
+			Swal.fire({
+			  text: 'something went wrong',
+			  title: 'click Ok to retry',
+			  icon:'error',
+			  showClass: {
+			    popup: 'animate__animated animate__fadeInDown'
+			  },
+			  hideClass: {
+			    popup: 'animate__animated animate__fadeOutUp'
+			  }
+			}).then((result) => {
+				  /* Read more about isConfirmed, isDenied below */
+				  if (result.isConfirmed) {
+				    location.reload();
+				  } else if (result.isDenied) {
+				    Swal.fire('please reload the page', '', 'info')
+				  }
+			});
+		},		
+  		axiosGetByParamsWithMessage: async(url,obj=null,pow,msg='created successfuly',) => {
+  			if (obj== null) {
+  				throw Error('axiosGetById: all parameter data must be provided');
+  			}
+  				let retryCount = 0;			
+				var $this = pow;
+				//console.log($this);				
+				let AxiosFetchData = function(){
+					let datafetched = '0';						
+					retryCount +=1;		
+					let userLoggedInOld;
+					if(localStorage.hasOwnProperty('LoggedUser')){		      			
+		      			userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
+		      		}else{
+				        localStorage.removeItem("LoggedUser");
+		      		}
+		      		let AuthAxios = 'Bearer '+userLoggedInOld;
+					let axiosHeader ={
+							'Content-Type':'application/json',
+							'Authorization':AuthAxios
+					};
+										
+		    		  $this.show_loader();
+					  const formdata  = new FormData();
+		    		  Object.keys(obj).forEach(key => formdata .append(key, obj[key]));
+                   return axios.post(url,formdata,{headers: axiosHeader}).then(function(response, status, request) {        
+                            if (response.status === 200) {                                     	
+                            	let i,j;  
+                            	$this.hide_loader();                
+                               //console.log(response.data.map((a,b)=>{j = []; for(i in a) {j.push(a[i])} return j; }));                               
+                               Swal.fire({
+                               	text: msg,                               	
+                               	icon: 'success',
+						      	confirmButtonText:'Ok',
+			      			  	confirmButtonColor:'#00b96b',	
+                               });                                                              
+                            }else{
+                            	$this.hide_loader();
+                            	if (retryCount < 4) {
+                            		setTimeout(function() {
+                            			AxiosFetchData();
+                            		}, 5000);
+                            	}else{
+                            		/*when all attempts fails inform the user what to do*/
+                            		$this.attemptsFailsV();
+                            	}
+                            }
+                        }, function(e) {        
+                        	//console.log(e.response.status);
+                             $this.hide_loader();
+                             if(e.response.status === 401 ){
+                             	 localStorage.removeItem("LoggedUser");
+                                location.href = "/logout";
+                             }else{
+                               $this.attemptsFailsV()                                           
+                             }                                                                   
+                        })                             
+					try{
+					}catch(err){					
+					}
+					//return datafetched;
+				}							
+				return AxiosFetchData();				
+                    
+  		},
   		rippleButton: function(){      				
 					$('.button').click(function(event){
 						var $this = $(this);
@@ -510,22 +602,47 @@ export default {
 
       },
       created: function(){
-      		/*goes global*/      		
-      		if(typeof localStorage.getItem('LoggedUser') != undefined){      			
-      			this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
-      			this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;
+      		/*goes global*/      	      		      	
+      		let $this = this;      
+      		let pathname = location.pathname.split('/')[1];       		
+
+      		if (!this.freePath.includes(pathname) || pathname == 'login') {
+      			
+	      		if(localStorage.hasOwnProperty('LoggedUser')){     	      				      
+	      			this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
+	      			this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;
+	      			if(pathname === 'login'){
+			        	location.href = '/';
+	      			}
+	      		}else{	
+	      			if (pathname != 'login'){
+			        	this.frontendLogout();
+	      			}
+	      		}
+	      		let AuthAxios = 'Bearer '+this.userLoggedInOld;
+				this.axiosHeader ={
+						'Content-Type':'application/json',
+						'Authorization':AuthAxios
+				};
+				this.axiosHeaderWithFiles ={
+						'Content-Type':'multipart/form-data',
+						'Authorization':AuthAxios
+				};			
       		}else{
-		        localStorage.removeItem("LoggedUser");
+      			if(localStorage.hasOwnProperty('LoggedUser')){     	      			      
+	      			this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
+	      			this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;	 
+	      			let AuthAxios = 'Bearer '+this.userLoggedInOld;
+					this.axiosHeader ={
+							'Content-Type':'application/json',
+							'Authorization':AuthAxios
+					};
+					this.axiosHeaderWithFiles ={
+							'Content-Type':'multipart/form-data',
+							'Authorization':AuthAxios
+					};	     		
+	      		}
       		}
-      		let Auth_ = 'Bearer '+this.userLoggedInOld;
-			this.axiosHeader ={
-					'Content-Type':'application/json',
-					'Authorization':Auth_
-			};
-			this.axiosHeaderWithFiles ={
-					'Content-Type':'multipart/form-data',
-					'Authorization':Auth_
-			};
       },
       mounted: function(){
 

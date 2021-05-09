@@ -140,7 +140,12 @@
 		},
 
         props:{
-            toolsizes: Array,
+            toolsizes:{
+            	type:Array,
+            	default:function(){
+            		return [];
+            	}
+            },
             url:String,
             result: String,
             toolstate:Boolean,

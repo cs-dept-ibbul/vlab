@@ -91,7 +91,8 @@
 									<div class="p-3  bg-white shadow-sm mb-3 timelineBoxContainer" style="border-radius: 9px;">
 										<div class="d-flex justify-content-between align-items-center">
 											<div class="font">
-												<span class="fw4 sys-bg-success fs1 p-2 rounded">{{weeks.course.code}}</span>
+											<span class="fw4 fs1 p-2 rounded" v-bind:class="{'sys-bg-success':dateCheck(weeks.date_open,weeks.date_close)>=0,'sys-bg-danger':dateCheck(weeks.date_open,weeks.date_close)<0}">{{weeks.course.code}}
+												</span>
 												<p class="fw4 pt-2 pb-0 mb-1" >Experiment {{innerindex+1}}</p>
 												<div class="fs1 font2" style="color: #888;">
 													<div class="d-inline-block">
@@ -101,16 +102,20 @@
 													<div class="d-inline-block"><span>{{weeks.date_close}}</span></div>
 												</div>
 											</div>
-											<div>					     		
-												<span class="timeline-name-status" v-if="checkStatus(experiment)">Completed</span>	
-												<a  v-else :href="'/'+experiment.experiment.page" class="text-success fs1 fw3 timeline-name-status">Start</a>
+											<div class="text-right">					     		
+												<span class="timeline-name-status" v-if="checkStatus(experiment)">Completed
+												</span>	
+												<span v-else>
+													<a v-if="dateCheck(weeks.date_open,weeks.date_close)>=0" :href="'/'+experiment.experiment.page+'/'+experiment.weekly_experiment_work_id" class="text-success fs1 fw3 timeline-name-status">Start</a>
+													<span v-else class="closeMsg text-right">Closed</span>
+												</span>
 												<!-- on mobile -->
 												<div  v-if="checkStatus(experiment)" class="timeline-name-status-mobile">		
 														<span class="fs8 fa fa-check-circle t-success"></span>				
 												</div>			
-												<a  v-else :href="'/'+experiment.experiment.page" class="text-success fs1 fw3 timeline-name-status-mobile"><span class="fa fa-play text-success fs1"></span></a>
+												<a  v-else :href="'/'+experiment.experiment.page+'/'+experiment.weekly_experiment_work_id" class="text-success fs1 fw3 timeline-name-status-mobile"><span class="fa fa-play text-success fs1"></span></a>
 												<!-- end on mobile -->
-											</div>
+											</div>											
 										</div>				
 									</div>
 									<div  v-if="checkStatus(experiment)" class="pl-2 timeline-name-status">		
@@ -214,7 +219,7 @@
 		},
 		methods:{
 			checkStatus: function(experiment){
-				if(experiment.experiment_results.length>0){					
+				if(experiment.experiment_results.length!=0){					
 					if (experiment.experiment_results.completion_status =='Completed'){
 						return true;
 					}else{
@@ -223,6 +228,19 @@
 				}else{
 					return false;
 				}
+			},
+			dateCheck(date1,date2){
+				function parseDate(str) {
+				    var mdy = str.split('/');
+				    return new Date(mdy[2], mdy[0]-1, mdy[1]);
+				}
+
+				function datediff(first, second) {
+				    // Take the difference between the dates and divide by milliseconds per day.
+				    // Round to nearest whole number to deal with DST.
+				    return Math.round((second-first)/(1000*60*60*24));
+				}
+				return datediff(parseDate(date1), parseDate(date2));
 			},
 			checkExperimentsStatus:function(experiments){
 				let arr = [];
@@ -287,4 +305,8 @@
 	}
 </script>
 <style>	
+	.closeMsg{			
+		font-size: 0.9em;
+		color: #b56;		
+	}
 </style>

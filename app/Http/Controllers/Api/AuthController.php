@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -129,7 +130,8 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
+            'expires_in' => Carbon::now()->addDays(1)->timestamp,
+            //'expires_in' => auth()->factory()->getTTL() * 60,
             'user' => $this->me()->original
         ]);
     }

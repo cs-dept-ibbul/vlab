@@ -17,9 +17,10 @@ class AdminAuth
     public function handle(Request $request, Closure $next)
     {
         if(Session::has('info')){
-            $userData = session('info')->data->user ?? '';
+            $userData = session('info')->data->user ?? '';            
+            $adminRole = config('calculations.default_roles.admin');
             $role = $userData->role_id ?? '';            
-            if ($role == 1) {
+            if ($role == $adminRole) {
                 return $next($request);                
             }else{
                 return redirect('/login');

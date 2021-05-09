@@ -1,12 +1,12 @@
 <?php
-$tools = 5;
+/*$tools = 5;
 $toolSizes = [
   [50,60],//'size'
   [40,54],//'sizeI'
   [80,54],//'sizeD'
 ];
 $ct = 1;
-$started = '0'; //this will be from database
+$started = '0'; //this will be from database*/
 $resultTable ='
     <div id="result_table" class="bg-white p-2 mx-auto mt-2" style="border-radius:10px;width:450px;overflow:auto;"> 
       <h4 class="text-warning font2 mb-0">Table of Measurements</h4>
@@ -118,10 +118,11 @@ $resultTable ='
 
 @section('head')
 <script>
-   var toolSizes = <?php echo json_encode($toolSizes); ?>;
+   /*var toolSizes = <?php// echo json_encode($toolSizes); ?>;
    
    var experimentSheet;
-   var url = '{{route("vernierEquipment")."?size=".$toolSizes[0][0]."-".$toolSizes[1][0]."-".$toolSizes[2][0] }} ' //localStorage.getItem('objectSize');   
+   var url = '{{route("vernierEquipment")."?size=".$toolSizes[0][0]."-".$toolSizes[1][0]."-".$toolSizes[2][0] }} ' *///localStorage.getItem('objectSize');   
+   var url = '{{route("vernierEquipment")}}"' ///localStorage.getItem('objectSize');   
    window.onload = function(){
     experimentSheet = document.getElementById('experimentSheet');
     experimentSheet.src= url;

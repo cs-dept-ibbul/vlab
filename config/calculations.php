@@ -1,0 +1,1 @@
+<?php return [ 'default_roles' => ['admin'=>'61947969-78e6-4619-be35-50541aef8cb3', 'instructor'=>'9260655c-6933-45a0-8d01-6de3d6a52657', 'student'=>'3e836670-a9d5-4c78-bfb8-0bdcda27263c'] ];

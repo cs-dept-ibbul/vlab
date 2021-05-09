@@ -18,8 +18,9 @@ class InstructorAuth
     {
         if(Session::has('info')){
             $userData = session('info')->data->user ?? '';
-            $role = $userData->role_id ?? '';            
-            if ($role == 2) {
+            $role = $userData->role_id ?? '';      
+            $instructorRole =  config('calculations.default_roles.instructor');
+            if ($role == $instructorRole) {
                 return $next($request);                
             }else{
                 return redirect('/login');

@@ -22,14 +22,16 @@
         },
         methods:{
          expandVideo:function(){
-
+         		this.$eventBus.$emit('videoExpander', true);
          },
          submit: function(a){
          		alert(a);
          }
 
         },	
-       
+       created(){
+
+       }
 	}
 
 </script>

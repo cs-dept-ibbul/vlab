@@ -47,7 +47,7 @@ export default {
     }
   },
   async created(){
-    if (this.currentUser.role_id != 3) {
+    if (this.currentUser.role_id == this.instructorRole) {
         this.link = '/view-course/'
     }
       
@@ -56,7 +56,8 @@ export default {
         this.tableLoaded = true;
         
         /*initialize datatable */            
-    }
+    },
+    props:['instructorRole']
 };
 </script>
 

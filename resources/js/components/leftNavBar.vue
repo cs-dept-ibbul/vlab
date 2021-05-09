@@ -11,7 +11,7 @@
 				<a :href="home"  v-bind:class="{btnActive: checkActive('home')}">
 					<span class="iconOV fa fa-home btnActive" title="Home"></span>					
 				</a>
-				<a :href="dashboard"  v-bind:class="{btnActive: checkActive('dashboard')}">
+				<a href="/UserDashboard"  v-bind:class="{btnActive: checkActive('dashboard')}">
 					<span class="iconOV fa fa-dashboard" title="Dashboard"></span>					
 				</a>
 				<a href="/explore"  v-bind:class="{btnActive: checkActive('explore')}">
@@ -23,10 +23,10 @@
 				<a href="#" v-if="incourse == '1'" v-bind:class="{btnActive: checkActive('mycoursereview')}">
 					<span class="iconOV fa fa-toggle-on" title="My Courses"></span>					
 				</a>
-				<a href="/" v-bind:class="{btnActive: checkActive('discussion')}">
+				<a href="#" v-bind:class="{btnActive: checkActive('discussion')}">
 					<span class="iconOV fa fa-comment" title="Discussion"></span>					
 				</a>
-				<a href="/" v-bind:class="{btnActive: checkActive('settings')}">
+				<a href="#" v-bind:class="{btnActive: checkActive('settings')}">
 					<span class="iconOV fa fa-gear" title="Settings"></span>					
 				</a>
 				<a @click="logout" >
@@ -37,7 +37,7 @@
 				<a href="/" class="nChildV" v-bind:class="{btnActive: checkActive('home')}">
 					<span class="iconV fa fa-home "></span><div class="labelV">Home</div>
 				</a>	
-				<a :href="dashboard" class="nChildV"  v-bind:class="{btnActive: checkActive('dashboard')}">
+				<a href="UserDashboard" class="nChildV"  v-bind:class="{btnActive: checkActive('dashboard')}">
 					<span class="iconV fa fa-dashboard"></span><div class="labelV">Dashboard</div>
 				</a>	
 				<a href="/explore" class="nChildV"  v-bind:class="{btnActive: checkActive('explore')}">
@@ -49,10 +49,10 @@
 				<a href="#" v-if="incourse == '1'" class="nChildV" v-bind:class="{btnActive: checkActive('mycoursereview')}">
 					<span class="iconV fa fa-toggle-on"></span><div class="labelV">My Courses</div>
 				</a>
-				<a href="'#'"  class="nChildV" v-bind:class="{btnActive: checkActive('discussion')}">
+				<a href="#"  class="nChildV" v-bind:class="{btnActive: checkActive('discussion')}">
 					<span class="iconV fa fa-comment"></span><div class="labelV">Discussion</div>
 				</a>	
-				<a :href="settings"  class="nChildV" v-bind:class="{btnActive: checkActive('settings')}">
+				<a href="#"  class="nChildV" v-bind:class="{btnActive: checkActive('settings')}">
 					<span class="iconV fa fa-gear"></span><div class="labelV">Settings</div>
 				</a>					
 				<a @click="logout" :href="'#'"  class="nChildV">				
