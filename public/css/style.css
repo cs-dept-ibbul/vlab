@@ -1963,6 +1963,12 @@ span.ripple {
       }
     }    
     @media (max-width: 720px  ) {
+      .sponsors{
+        padding: 30px !important;
+      }
+      .sponsor-row{
+        width: 100%;        
+      }
       .hideOnMobile{
         display: none;
       }

@@ -21333,7 +21333,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "img[data-v-05899fd4] {\n  width: 60px;\n  height: 60px;\n  display: inline-block;\n  margin: 5px;\n  box-shadow: 0px 0px 3px #ccc;\n  border-radius: 8px;\n  padding: 5px;\n}\n.sponsors[data-v-05899fd4] {\n  justify-content: space-between;\n  padding: 25px 128px;\n  color: #2F2651;\n}\n.sponsors__title[data-v-05899fd4] {\n  font-weight: 600;\n  font-size: 1.8rem;\n}\n.custom-section[data-v-05899fd4] {\n  width: 15%;\n  margin: 10px;\n  padding: 15px;\n  background-color: #eeeeef;\n  border-radius: 1rem;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "img[data-v-05899fd4] {\n  width: 60px;\n  height: 60px;\n  display: inline-block;\n  margin: 5px;\n  box-shadow: 0px 0px 3px #ccc;\n  border-radius: 8px;\n  padding: 5px;\n}\n.special img[data-v-05899fd4] {\n  width: 150px;\n  height: 56px;\n}\n.sponsors[data-v-05899fd4] {\n  justify-content: space-between;\n  padding: 25px 128px;\n  color: #2F2651;\n}\n.sponsors__title[data-v-05899fd4] {\n  font-weight: 600;\n  font-size: 1.8rem;\n}\n.custom-section[data-v-05899fd4] {\n  width: 15%;\n  margin: 10px;\n  padding: 15px;\n  background-color: #eeeeef;\n  border-radius: 1rem;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -45085,7 +45085,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "sponsors w-100 d-flex " }, [
-      _c("div", { staticClass: " " }, [
+      _c("div", { staticClass: "sponsor-row" }, [
         _c("h2", { staticClass: "sponsors__title" }, [
           _vm._v("\n\t\t\t\tPartners\n\t\t\t")
         ]),
@@ -45101,13 +45101,13 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("div", {}, [
+      _c("div", { staticClass: "sponsor-row" }, [
         _c("h2", { staticClass: "sponsors__title text-center" }, [
           _vm._v("\n\t\t\t\tSponsor\n\t\t\t")
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "sponsors__list pull-right" }, [
-          _c("img", { attrs: { src: "/images/ibbul.jpg" } })
+        _c("div", { staticClass: "sponsors__list special pull-right" }, [
+          _c("img", { attrs: { src: "/images/sponsor.png" } })
         ])
       ])
     ])

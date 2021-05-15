@@ -1,6 +1,6 @@
 <template>
   <div class="sponsors w-100 d-flex ">  	
-		<div class=" ">
+		<div class="sponsor-row">
 			<h2 class="sponsors__title">
 				Partners
 			</h2>
@@ -11,12 +11,12 @@
 				<img src="/images/seamliness.png">
 			</div>
 		</div>
-		<div class="">
+		<div class="sponsor-row">
 			<h2 class="sponsors__title text-center">
 				Sponsor
 			</h2>
-			<div class="sponsors__list pull-right">
-				<img src="/images/ibbul.jpg">
+			<div class="sponsors__list special pull-right">
+				<img src="/images/sponsor.png">
 			</div>
 		</div>
   </div>
@@ -38,6 +38,10 @@ export default {
 		border-radius: 8px;
 		padding: 5px;
 
+	}
+	.special img{
+		width: 150px;
+		height: 56px;
 	}
 .sponsors {
 	justify-content: space-between;
