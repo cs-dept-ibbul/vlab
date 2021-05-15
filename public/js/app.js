@@ -49119,7 +49119,7 @@ var render = function() {
                       attrs: { href: "/course-experiments" }
                     },
                     [
-                      _c("span", { staticClass: "iconV fa fa-circle" }),
+                      _c("span", { staticClass: "iconOV fa fa-circle" }),
                       _c("div", { staticClass: "labelV" }, [
                         _vm._v("Course Exper.")
                       ])
@@ -49138,7 +49138,7 @@ var render = function() {
                       attrs: { href: "/course-resources" }
                     },
                     [
-                      _c("span", { staticClass: "iconV fa fa-circle" }),
+                      _c("span", { staticClass: "iconOV fa fa-circle" }),
                       _c("div", { staticClass: "labelV" }, [
                         _vm._v("Course Resourc.")
                       ])

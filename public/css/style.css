@@ -2127,3 +2127,6 @@ span.ripple {
 .justify-center{
   justify-content: center;
 }
+.form-control{
+  width: 100% !important;
+}

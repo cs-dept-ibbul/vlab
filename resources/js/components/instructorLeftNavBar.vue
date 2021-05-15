@@ -37,12 +37,12 @@
 						</li>
 						<li>
 							<a href="/course-experiments" class="text-white" v-bind:class="{btnActiveSub:checkActiveSub('courseExperiment')}">
-								<span class="iconV fa fa-circle"></span><div class="labelV">Course Exper.</div>
+								<span class="iconOV fa fa-circle"></span><div class="labelV">Course Exper.</div>
 							</a>
 						</li>
 						<li>
 							<a href="/course-resources" class="text-white" v-bind:class="{btnActiveSub:checkActiveSub('courseResources')}">
-								<span class="iconV fa fa-circle"></span><div class="labelV">Course Resourc.</div>
+								<span class="iconOV fa fa-circle"></span><div class="labelV">Course Resourc.</div>
 							</a>
 						</li>
 					</ul>
