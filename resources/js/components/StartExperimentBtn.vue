@@ -1,5 +1,12 @@
 <template>
 	<div>
+    
+    <div  class="position-to-center alert-danger py-5" :style="'height:'+accessCodeheight+'px;'" v-if="accessCode == false">
+      <div class="position-left">
+        <label  class="ml-2 pl-2"><i >Access Code</i></label><br>
+        <input type="text" name="enrollment_code" @keyup="compare($event.target.value, $event)" class="formControl ">
+      </div>
+    </div>   
 		<div style="position: absolute;top: 87px; right: 40px; z-index: 15;" class="timer bg-dark">
 			  <div class="countdown">
 			    <!-- <div class="block">
@@ -23,7 +30,7 @@
 		<span v-if="timeexpires==true" class="start" style="position: absolute;top:45%; left: 45%;  cursor: pointer;background: #a23;color: #fff;padding: 15px 20px;border-radius: 8px;">
 			<span class="fa fa-lock mr-1" ></span>Time Up
 		</span>
-		<span class="start" style="position: absolute;top:78%; left: 45%;  cursor: pointer;background: #7d9;color: #fff;padding: 15px 20px;border-radius: 8px;" @click="startT" v-if="start==false">
+		<span class="start" style="position: absolute;top:78%; left: 45%;  cursor: pointer;background: #7d9;color: #fff;padding: 15px 20px;border-radius: 8px;" @click="startT" v-if="start==false && accessCode == true">
 			<span class="fa fa-caret-right mr-1" ></span>Start Experiment
 		</span>
 		
@@ -32,7 +39,9 @@
 <script>
 	export default{
 mounted() {
-		this.tickT()
+		this.$nextTick(function(){
+      this.accessCodeheight = $('#mainExp').height()-70;
+    })
 	//alert(parseInt(this.hourdata)+10);
   	//alert( Math.trunc( ( this.now + (parseInt(this.hourdata)*36000000) + (parseInt(this.munitedata)*60000) ) +'+' +this.now)
   },
@@ -42,7 +51,9 @@ mounted() {
       startTime:Math.trunc((new Date()).getTime() / 1000),
       start: false,
       timeexpires:false,
-      timeleft:0
+      timeleft:0,
+      accessCode:false,
+      accessCodeheight: 400
     }
   },
   methods:{
@@ -105,12 +116,28 @@ mounted() {
 		    return '0'+value;
 		  }
 		  return value;
-  	}
+  	},
+    compare:function(value, event){                  
+      let e = event.target.parentNode.children;
+   
+      this.removeError(event.target);
+        let $this = this;        
+        if (event.keyCode === 13) {
+            if(value == this.access_code){    
+              this.accessCode = true;                      
+            }else{              
+              this.addError(event.target);
+              //pass.style.display= 'none';              
+            }
+        }
+    },
+    
   },
   props:[    
         'hourdata',
-            'munitedata',
-            'starteddata'
+        'munitedata',
+        'starteddata',
+        'access_code'
           ],
   computed: {
     dateInMilliseconds() {
@@ -200,4 +227,31 @@ mounted() {
     margin: 0px;
     text-align: center;
 }
+.position-to-center{
+  width:100%;    
+  position: relative;
+}
+.position-left{
+  display:inline-block;
+  position:absolute;
+  left:40%;
+  top:25%;
+}
+input.formControl{
+  transition: 0.5s all;
+  width: 130px;
+  height: 26px;
+  padding: 7px;
+  border-radius: 0px;
+  border: none;
+  border-bottom:1px solid #888;
+  top: 10px;
+  margin-bottom: 5px;
+}
+.formControl:focus{
+  border-bottom:1px solid #00b96b;  
+  border-radius: 0px;
+  outline: 0;
+}
+
 </style>

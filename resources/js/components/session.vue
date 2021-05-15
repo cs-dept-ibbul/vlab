@@ -7,21 +7,18 @@
 					<thead>
 						<tr id="cheadV">
 							
-						<th width="40%">session name</th>			               
-			            <th width="15%">date created</th>
-			            <th width="5%">status</th>
+						<th width="40%">session name</th>			               			            
+			            <th width="20%">status</th>
 			            <th width="40%">Action</th>
 						</tr>
 					</thead>
 					<tbody v-if="tableLoaded">
 			        <tr v-for="(session, index) in createdsession" :key="index">	         
 			            <td width="40%" :title="session.title">{{session.session}}</td>			            
-			            <td width="15%">{{session.created_at}}</td>	            
-			            <td width="15%">{{session.is_current==1?'current session':''}}</td>	            
+			            <td width="20%">{{session.is_current==1?'current session':''}}</td>	            
 			            <td width="30%">
 			            	<span class="ml-2 fa fa-edit pl-3  fs01 cursor-1" @click="editsession(session)" style="border-left: 1px solid #ccc;"></span>
-			            	<span class="ml-2 fa fa-check pl-3 text-success  fs01 cursor-1" @click="setsession(session)" style="border-left: 1px solid #ccc;"></span>
-			            	<span class="ml-2 fa fa-times pl-3 text-danger fs01 cursor-1" @click="setsession(session)" style="border-left: 1px solid #ccc;"></span>
+			            	<span class="ml-2 fa fa-check pl-3 text-success fs01 cursor-1" title="set as current session" @click="setsession(session)" style="border-left: 1px solid #ccc;"></span>			            	
 			            	<span class="ml-2 fa fa-trash pl-3  fs01 cursor-1" @click="deletesession(session.id)"></span>
 			            </td>
 			        </tr>
@@ -44,11 +41,12 @@
 				$('#system-loader').css('display','flex');
 				let formcount = 0;
 				let $vm = this, html='';
-				let topic = "Create session";
-				console.log(obj);
+				let topic = "Create session";				
+				let popbtn = "Create";				
 				//watch(this.watchsessionHtml, 'value', function(){
 				if(update){			
 					topic = 'Update session';
+					popbtn = 'Update';
 					html = 			
 				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>session Name</legend>"+					  		   
 				    '<input id="swal-input1" class="swal2-input mt-1" value="'+obj.session+'" >' ;			 
@@ -62,7 +60,7 @@
 				Swal.fire({
 				  title: topic,
 				  html:html,
-				  confirmButtonText:'Create',					      
+				  confirmButtonText:popbtn,					      
 			      cancelButtonText:'Cancel',					      
 			      cancelButtonColor:'#dd000f',					      
 			      confirmButtonColor:'#00b96b',					      
@@ -185,6 +183,7 @@
 			},
 			setsession:function(obj){
 			//		this.swal_form(true,obj);
+			var $vm = this;
 				Swal.fire({
 					text:`are you sure you want to set ${obj.session} as current session `,
 					  confirmButtonText:'Yes',					      
@@ -196,7 +195,7 @@
 				       preConfirm: (login) => {	
 				       	const formData = new FormData();
 			        	formData.append("session_id",obj.id);				        	
-			        	return $vm.axios.post($vm.baseApiUrl+'session/set',formData,{headers:$vm.axiosHeader})
+			        	return $vm.axios.post($vm.baseApiUrl+'session/set_session',formData,{headers:$vm.axiosHeader})
 				      	.then(response => {						      	
 					        if (!response.data.sucess) {
 					          throw new Error(response.statusText)
@@ -212,10 +211,13 @@
 				       })
 				   }
 				}).then((result)=>{
-					if (result.value.status) {						
+					if (result.value) {						
 						Swal.fire({
 							title:'ssession set successfully',
+							confirmButtonText:'Ok',
 							confirmButtonColor:'#00b96b',	
+						}).then((result)=>{
+							location.reload();
 						})
 					}
 				})

@@ -38,7 +38,7 @@
 
     <div style="width: 100%; " class="sysbg">
      <v-systopnave title="My Courses" username='said'></v-systopnave>     
-    <v-reviewcourse></v-reviewcourse>
+    <v-reviewcourse publicPath="{{public_path()}}"></v-reviewcourse>
 	</div>
 </div>
 @endsection

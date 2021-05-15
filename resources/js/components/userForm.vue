@@ -3,29 +3,29 @@
 	<div class="m-0 p-0">
       <form @submit.prevent="submitForm" id="myform" class="m-0 p-0">
       	<span class="d-none">
-      		<input type="text" name="id" :value="id">
+      		<input type="text" name="user_id" :value="id">
       	</span>
 		<div class="row py-4 px-4 m-0 r2 bg-white vh-70 scroll-y " >     					    					
 			<h5>Add New User</h5>
 		  <!-- user form -->
-			<div v-if="type == 'user'" class="m-0">
+			<div v-if="rolename != 'student'" class="m-0">
 				<div v-if="watchfacultyHtml.value == true" class="row m-0">				
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Faculty *</p>
-							<span v-html="facultiesHTML"></span>		            				
+							<span v-html="facultiesHTML" class="w-100"></span>		            				
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Department *</p>		            				
-							<span v-html="departmentHTML"></span>		            											
+							<span v-html="departmentHTML" class="w-100"></span>		            											
 						</div>
 					</div>
 				  	<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Title *</p>		            				
-							<select type="text" @keyup="normalize" class="form-control" name="utitle" id="utitle">
+							<select type="text" @keyup="normalize" class="form-control w-100" name="utitle" id="utitle">
 								<option v-for="mtitle in titleCont" :value="mtitle" v-bind:selected="{selected:mtitle==title}"  >{{mtitle}}</option>
 							</select>
 						</div>
@@ -58,15 +58,16 @@
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Role*</p>		            				
 							<select type="text" @keyup="normalize" class="form-control" name="role" id="role">
-								<option v-for="mrole in roleCont" :value="mrole" v-bind:selected="{selected:mrole==role_id}"  >{{mrole}}</option>								            				
+								<option v-for="(role,index) in JSON.parse(roles)" :selected="role==urole" :value="role">{{index}}</option>		            					
+								 							            				
 							</select>
 						</div>
 					</div> 
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Gender *</p>		            				
-							<select type="text" @keyup="normalize" class="form-control " name="role" id="role">
-								<option v-for="mgender in genderCont" :value="mtitle" v-bind:selected="{selected:mgender==gender}"  >{{mgender}}</option>									            				
+							<select type="text" @keyup="normalize" class="form-control " name="gender" id="gender">
+								<option v-for="mgender in genderCont" :value="mgender" v-bind:selected="mgender==gender"  >{{mgender}}</option>									            				
 							</select>
 						</div>
 					</div> 
@@ -84,7 +85,7 @@
 					</div>	      	            	
 					<div class="col-12">    				
 						<center>
-							<button type="submit" class="btn py-2 mb-5 mr-2 mt-3 px-4 text-white fs1 font1 p-success btn-sm" >
+							<button type="submit" @click="submitForm" class="btn py-2 mb-5 mr-2 mt-3 px-4 text-white fs1 font1 p-success btn-sm" >
 								<span v-if="update">Update</span>
 								<span v-else>Submit</span>
 							</button>			    			
@@ -93,18 +94,18 @@
 				</div>
 	      	</div>
 	      	<!-- student form -->
-	      	<div v-if="type == 'student'">
+	      	<div v-if="rolename == 'student'">
 				<div v-if="watchfacultyHtml.value == true" class="row m-0">			
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Faculty *</p>
-							<span v-html="facultiesHTML"></span>		            				
+							<span v-html="facultiesHTML" class="w-100"></span>		            				
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Department *</p>		            				
-							<span v-html="departmentHTML"></span>		            											
+							<span v-html="departmentHTML" class="w-100"></span>		            											
 						</div>
 					</div>		      		
 		          	<div class="col-lg-6 col-md-6 m-0">
@@ -141,21 +142,21 @@
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Role*</p>		            				
 							<select type="text" @keyup="normalize" class="form-control " name="role" id="role_id">
-								<option value="Student">Student</option>		            					
+								<option v-for="(role,index) in JSON.parse(roles)" v-bind:selected="role==urole" :value="role">{{index}}</option>		            					
 							</select>
 						</div>
 					</div> 
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Gender *</p>		            				
-							<select type="text" @keyup="normalize" class="form-control" name="role" id="role">
-								<option v-for="mgender in genderCont" :value="mtitle" v-bind:selected="{selected:mgender==gender}"  >{{mgender}}</option>									            				
+							<select type="text" @keyup="normalize" class="form-control" name="gender" id="gender">
+								<option v-for="mgender in genderCont" :value="mgender" v-bind:selected="mgender==gender"  >{{mgender}}</option>									            				
 							</select>
 						</div>
 					</div> 			      	            
 					<div class="col-12">    				
 						<center>
-							<button type="submit" class="btn py-2 mb-5 mr-2 mt-3 px-4 text-white fs1 font1 p-success btn-sm" >
+							<button type="submit" @click="submitForm" class="btn py-2 mb-5 mr-2 mt-3 px-4 text-white fs1 font1 p-success btn-sm" >
 								<span v-if="update">Update</span>
 								<span v-else>Submit</span>
 							</button>			    			
@@ -184,11 +185,13 @@
 				matric_number:"",
 				email:"",
 				gender:"",
-				deparment_id:"",
+				department_id:"",
 				faculty_id:"",
 				role_id:"",
 				title:"",				
-				id:""
+				id:"",
+				rolename:'',
+				urole:''
 			}
 		},
 		methods:{
@@ -197,75 +200,114 @@
 				$('.requiredv').remove();
 			},
 			submitForm: function(){	
-				if (this.validateI('myform')) {
-					$('#system-loader').css('display','flex');	
-					if (!update) {						
-						this.axios.post('api/users/create',$('#myform').serialize(),{headers:this.axiosHeader})
-				      	.then(response => {						      	
-					        if (!response.data.sucess) {
-					          throw new Error(response.statusText);
-					        }						   
-					        Swal.fire({
-					        	title: 'created succefully',
-					        	icon: 'success'
-					        }).then((result)=>{
-					        	location.reload();
-					        })
+				this.validateI('myform')				
+					this.show_loader();
+					var formD = $('#myform').serialize().split('&'),ky,kn, $this= this;
+					const formData = new FormData(document.getElementById('myform'));											 
+
+					/*for (var m in formD) {
+					 	ky = formD[m].split('=')[0];
+					 	kn = formD[m].split('=')[1];
+						formData.append(ky,kn);
+					}*/
+					if (!this.update) {						
+						this.axios.post('api/users/create',formData,{headers:this.axiosHeader})
+				      	.then(response => {		
+
+				      		$this.hide_loader();											  
+				      		if (response.status==200) {				      			
+						        Swal.fire({
+						        	title: 'created succefully',
+						        	icon: 'success',
+						        	confirmButtonText:'Ok',
+						      		confirmButtonColor:'#00b96b',	
+						        }).then((result)=>{
+						        	location.reload();
+						        })
+				      		}else{
+				      			Swal.fire({
+					        		title: 'something went wrong',
+						        	icon: 'error',
+						        	confirmButtonText:'Ok',
+				      				confirmButtonColor:'#00b96b',	
+						        })		  
+				      		}
 				      	})
 				      	.catch(error => {
+				      		$this.hide_loader();
 					      	if (error.response) {
 						      	if (error.response.status == 409) {					      	
 							        Swal.fire({
 							        	title: 'already exist user',
 							        	text: 'email or matric number',
-							        	icon: 'warning'
+							        	icon: 'warning',
+					        			confirmButtonText:'Ok',
+					      				confirmButtonColor:'#00b96b',	
+
 					      			})					      		
 						      	}else if(error.response.status == 401){
 						      		location.reload();
 						      	}else{
+
 						      		Swal.fire({
 						        		title: 'something went wrong',
-							        	icon: 'error'
+							        	icon: 'error',
+							        	confirmButtonText:'Ok',
+					      				confirmButtonColor:'#00b96b',	
 							        })		      		
 						      	}
 					      	}	
 					    })					  
 					}
 
-					if (update) {						
-						this.axios.post('api/users/update',$('#myform').serialize(),{headers:this.axiosHeader})
-				      	.then(response => {						      	
-					        if (!response.data.sucess) {
-					          throw new Error(response.statusText);
-					        }						   
-					        Swal.fire({
-					        	title: 'updated succefully',
-					        	icon: 'success'
-					        }).then((result)=>{
-					        	location.reload();
-					        })
+					if (this.update) {					
+						this.axios.post('api/users/update',formData,{headers:this.axiosHeader})
+				      	.then(response => {	
+				      		$this.hide_loader();					      		
+				      		if (response.status ==200) {				      			
+						        Swal.fire({
+						        	title: 'updated succefully',
+						        	icon: 'success',
+								    confirmButtonText:'Ok',
+					      			confirmButtonColor:'#00b96b',	
+						        }).then((result)=>{
+						        	location.reload();
+						        })
+				      		}else{
+				      			Swal.fire({
+					        		title: 'something went wrong',
+						        	icon: 'error',
+						        	confirmButtonText:'Ok',
+					      			confirmButtonColor:'#00b96b',	
+						        })	
+				      		}				      						  
 				      	})
 				      	.catch(error => {
+				      		$this.hide_loader();
+
 					      	if (error.response) {
 						      	if (error.response.status == 409) {					      	
 							        Swal.fire({
 							        	title: 'already exist user',
 							        	text: 'email or matric number',
-							        	icon: 'warning'
+							        	icon: 'warning',
+							        	confirmButtonText:'Ok',
+					      				confirmButtonColor:'#00b96b',	
 					      			})					      		
 						      	}else if(error.response.status == 401){
 						      		location.reload();
 						      	}else{
 						      		Swal.fire({
 						        		title: 'something went wrong',
-							        	icon: 'error'
+							        	icon: 'error',
+							        	confirmButtonText:'Ok',
+					      				confirmButtonColor:'#00b96b',	
 							        })		      		
 						      	}
 					      	}	
 					    })					  
 					}
-				}			
-			}		
+				}							
 		},
 		async created(){
 			
@@ -275,21 +317,28 @@
 					this.matric_number = 	this.alldata.matric_number;
 					this.email = 	this.alldata.email;
 					this.gender = 	this.alldata.gender;
-					this.deparment_id = 	this.alldata.deparment_id;
+					this.department_id = 	this.alldata.department_id;
 					this.faculty_id = 	this.alldata.faculty_id;
 					this.role_id = 	this.alldata.role_id;
 					this.title = 		this.alldata.title;
 					this.id = 		this.alldata.id;
-				this.phone = 		this.phone;
+					this.phone = 		this.phone;
+					this.urole = 		this.alldata.role_id;					
+					for(var k in JSON.parse(this.roles)){
+						if (JSON.parse(this.roles)[k]==this.urole) {
+							this.rolename = k;
+							break;
+						}
+					}					
 			}					
 
 			
 			if (this.update) {						
 				this.facultiesHTML = this.selectHtmlGen(this.faculties,'code', 'faculty_id',this.faculty_id, true )				
-				this.departmentHTML = this.selectHtmlGen(this.departments,'code', 'deparment_id',this.faculty_id, true )				
+				this.departmentHTML = this.selectHtmlGen(this.departments,'code', 'department_id',this.department_id, true )				
 			}else{
 				this.facultiesHTML = this.selectHtmlGen(this.faculties,'code','faculty_id' )				
-				this.departmentHTML = this.selectHtmlGen(this.departments,'code','deparment_id')				
+				this.departmentHTML = this.selectHtmlGen(this.departments,'code','department_id')				
 			}
 			
 			this.watchfacultyHtml.value = true;			
@@ -310,17 +359,27 @@
 	     		type:Object	     	
 	     	},
 	     	faculties:{
-	     		type:Object,	     	
+	     		type:Array,	     	
 	     		default:function(){
 	     			return [{"empty":"-"}]
 	     		}
 	     	},
 	     	departments:{
-	     		type:Object,	     	
+	     		type:Array,	     	
 	     		default:function(){
 	     			return [{"empty":"-"}]
 	     		}
+	     	},
+	     	roles:{
+	     		type:String
 	     	}
 		}
 	}
 </script>
+
+<style scoped="">
+	.form-control,select#faculty_id.form-control,#department_id{
+		width: 100% !important;
+	}
+
+</style>

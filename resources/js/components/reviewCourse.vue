@@ -1,22 +1,28 @@
 <template>
 	<div class="m-0 p-0 w-100">
+		<div style="position: relative;top:10px;left:50px;z-index: 100;text-transform: uppercase;" class="font2 fs1 w-75">
+			::My Courses Review
+			<span>
+				<i class="fa fa-angle-double-right"></i>
+				{{course_with_exp.code}}		
+			</span>
+		</div>
+		<div id="wideArea"></div>		
 		 <div class="row pd-lg-3 pd-sm-2  " style="width: 98%; margin: 50px auto;height: 75.5vh;overflow-y: scroll;">
      	<div class="col-lg-7 col-md-8 col-sm-12 col-xs-12">   
      		<p class="fw6 font2">Introduction</p>
-     		<p class="text-justify font2 fw4" style="color: #666;font-size: 0.9em;">
-     			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-     		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-     		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-     		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-     		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-     		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+     		<v-loader type='line' v-if="loaderState"></v-loader>
+     		<p v-if="!loaderState" class="text-justify font2 fw4" style="color: #666;font-size: 0.9em;">
+     			{{course_with_exp.description}}
      	   </p>
 
-     		<p class="fw6 font2" style="font-size: 0.9em;">4 Prcaticals</p>
+     		<!-- <p class="fw6 font2" style="font-size: 0.9em;">{{course_with_exp.course_experiment.length}} Prcaticals</p> -->
 	    </div>
      	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-5">
      		<div style="width: 90%;height: 150px;border-radius: 9px;background: #333;" class="mx-auto shadow">
-     			<iframe width="100%" class="rounded" height="auto" src="https://www.youtube.com/embed/5Vc21hGJLpM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>		
+     			<div class="videoContainer" v-if="!loaderState" id="smallArea">
+					<video class="mx-auto" :data-id="youtubeID(course_with_exp.video_url)"></video>
+				</div>
      		</div>
      	</div>
      	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row ml-3"> 
@@ -72,11 +78,11 @@
      	<div class="w-100">
      		<br><br>
      		<div style="border-bottom: 1px solid #ccc;">
-     			<div class="font2 fw4 systab systabActive">Experiment</div>
-     			<div class="font2 fw4 systab">Resources</div>
+     			<div class="font2 fw4 systab" v-bind:class="{systabActive:minitab=='experiments'}"  @click="minitab = 'experiments'">Experiment</div>
+     			<div class="font2 fw4 systab" v-bind:class="{systabActive:minitab=='resources'}" @click="minitab ='resources'" >Resources</div>
      		</div>
      		<br><br>
-     		<div class="d-flex">
+     		<div class="d-flex" v-if="minitab=='experiments'">
      			<!-- start thread  -->
 				<div class="p-0 thread" v-if="threadReady" >
 					<v-thread :weeks="threadTrends" key='noew'></v-thread>
@@ -106,14 +112,14 @@
 												<span class="timeline-name-status" v-if="checkStatus(experiment)">Completed
 												</span>	
 												<span v-else>
-													<a v-if="dateCheck(weeks.date_open,weeks.date_close)>=0" :href="'/'+experiment.experiment.page+'/'+experiment.weekly_experiment_work_id" class="text-success fs1 fw3 timeline-name-status">Start</a>
+													<a v-if="dateCheck(weeks.date_open,weeks.date_close)>=0" :href="'/'+experiment.page+'/'+experiment.weekly_experiment_work_id" class="text-success fs1 fw3 timeline-name-status">Start</a>
 													<span v-else class="closeMsg text-right">Closed</span>
 												</span>
 												<!-- on mobile -->
 												<div  v-if="checkStatus(experiment)" class="timeline-name-status-mobile">		
 														<span class="fs8 fa fa-check-circle t-success"></span>				
 												</div>			
-												<a  v-else :href="'/'+experiment.experiment.page+'/'+experiment.weekly_experiment_work_id" class="text-success fs1 fw3 timeline-name-status-mobile"><span class="fa fa-play text-success fs1"></span></a>
+												<a  v-else :href="'/'+experiment.page+'/'+experiment.weekly_experiment_work_id" class="text-success fs1 fw3 timeline-name-status-mobile"><span class="fa fa-play text-success fs1"></span></a>
 												<!-- end on mobile -->
 											</div>											
 										</div>				
@@ -129,6 +135,25 @@
 
 					</div>
 			</div>
+			<div v-show="minitab=='resources'" class="row" style="min-height: 400px;">
+				<div v-for="resource in course_with_exp.course_resources" class="col-lg-4 col-md-3 col-sm-6 col-sm-12 resource">
+					<div class="position-relative w-100 rounded shadow-sm bg-white p-2" v-if="resoursType(resource.resourceUrl)=='image'" >
+						<center>
+							<img :src="'/'+resource.resourceUrl" width="80%">							
+						</center>
+					<div class="position-relative w-100 rounded d-flex flex-wrap  shadow-sm bg-white" v-if="resoursType(resource.resourceUrl)=='doc'" >
+						<a :href="resource.resourceUrl">Document File</a>
+					</div>
+					<div class="w-100 rounded d-flex flex-wrap shadow-sm bg-white " v-if="resoursType(resource.resourceUrl)=='vid'" >
+						<a :href="resource.resourceUrl">video File</a>
+					</div>
+					<div class="w-100 rounded d-flex flex-wrap  shadow-sm bg-white" v-if="resoursType(resource.resourceUrl)=='other'" >
+						<a :href="resource.resourceUrl">Other File</a>
+					</div>
+					<div class="resource-caption text-center py-2 font fw5 w-100 position-absolute bottom-0 left-0">{{resource.caption}}</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		</div>
 
@@ -137,7 +162,7 @@
 
 
 <script>
-	import thread from './threadTrends.vue';
+	import thread from './threadTrends.vue';	
 	export default{
 		components:{
 			'v-thread': thread
@@ -146,6 +171,9 @@
 			return{
 				threadTrends:[],
 				threadReady: false,
+				loaderState:true,
+				course_with_exp:[],
+				minitab:'experiments',
 				weeksExp:[
 					{
 						title:'week 1',
@@ -155,7 +183,9 @@
 						limitation:'16-12-2020',
 						course:[
 							{
-								code: 'Phy 107'
+								code: 'Phy 107',
+								description:'',
+								video_url:'',
 							}
 						],
 						experiments:[
@@ -173,51 +203,31 @@
 				 			},
 			 			]
 			 		},
-			 		{
-			 			title:'week 2',
-			 			date_open:'11-12-2020',
-			 			date_close:'16-12-2020',
-			 			access_close:'16-12-2020',
-						limitation:'16-12-2020',
-						course:[
-							{
-								code: 'Phy 107'
-							}
-						],
-			 			experiments:[
-				 			{
-				 				id:2,
-				 				name:'vernier-caliper',
-				 				page:'verniercaliper',
-				 				experiment_results:[{completion_status:'Not Completed'}]
-				 			}
-			 			]
-			 		},
-			 		{
-			 			title:'week 3',
-			 			date_open:'11-12-2020',
-			 			date_close:'16-12-2020',
-			 			access_close:'16-12-2020',
-						limitation:'16-12-2020',
-						course:[
-							{
-								code: 'Phy 107'
-							}
-						],
-			 			experiments:[
-				 			{
-				 				id:2,
-				 				name:'vernier-caliper',
-				 				page:'verniercaliper',
-				 				experiment_results:[{completion_status:'Completed'}]
-				 			},
-			 			]
-			 		},			 
+			 				 
 				 ]
 				
 			}
 		},
 		methods:{
+			changeTab:function(tab){					
+				this.mintab = tab;
+			},
+			resoursType(url){
+				let urltype = url.split('.')[url.split('.').length -1];
+				
+				let image = ['jpg', 'png','gif', 'jpeg'];
+				let doc = ['doc', 'docx','pdf'];
+				let vid = ['mp4', 'mpeg','3gp'];
+				if (image.includes(urltype)){
+					return 'image';
+				}else if(doc.includes(urltype)){
+					return 'doc'
+				}else if(vid.includes(urltype)){
+					return 'video'
+				}else {
+					return 'other'
+				}
+			},
 			checkStatus: function(experiment){
 				if(experiment.experiment_results.length!=0){					
 					if (experiment.experiment_results.completion_status =='Completed'){
@@ -245,8 +255,8 @@
 			checkExperimentsStatus:function(experiments){
 				let arr = [];
 				for(let i = 0; i < experiments.length; i++) {
-					if(experiments[i].experiment_results.length!=0){								
-						if (experiments[i].experiment_results.completion_status == 'Completed') {
+					if(experiments[i].experiment_results.length!=0){														
+						if (experiments[i].experiment_results[0].completion_status == 'Completed') {
 							arr.push(1)
 						}else{
 							arr.push(0)						
@@ -262,7 +272,7 @@
 				let status = 1;
 				for(let i = 0; i < experiments.length; i++) {						
 					if(experiments[i].experiment_results.length!=0){					
-						if(experiments[i].experiment_results.completion_status != 'Completed'){
+						if(experiments[i].experiment_results[0].completion_status != 'Completed'){
 							status = 0;
 						}
 					}					
@@ -271,7 +281,7 @@
 			}
 		},
 		mounted(){
-			this.$nextTick(function(){
+			this.$nextTick(function(){				
 				 setInterval(function() {
 				 	if ($(window).width() <1000) {
 				 		$('.toberemoved').hide();
@@ -285,7 +295,9 @@
 			
 			let pathname = location.pathname.split('/');
         	let course_id = pathname[pathname.length -1];
-			this.weeksExp = await this.axiosGetByParams('api/works/student_task',{'user_id':this.currentUser.id, 'course_id':course_id});			
+        	console.log(this.currentUser);
+			this.weeksExp = await this.axiosGetByParams('api/works/student_task',{'user_id':2, 'course_id':course_id});		
+			this.course_with_exp = await this.axiosPost('api/courses/course_experiments',{course_id:course_id});			
 			for (let i = 0; i < this.weeksExp.length; i++) {				
 				this.threadTrends[i] = [
 					this.weeksExp[i].title,
@@ -296,17 +308,51 @@
 					this.threadReady = true;
 				}
 			}
+			this.loaderState = false;
+				let $this = this;
+				setTimeout(function() {					
+					$this.web_player();
+					$('.videoContainer').dblclick(function(){						
+						$this.expandVideo();
+					});
+				}, 500);
 			//console.log(this.threadTrends)
 			/*[1,1,[1,1,1]],//sub array is for exercises in the week 1=>completed, 0=> not completed
 	 	 	[2,1,[1,0]],
 	 	 	[3,0,[0]],
 	 	 	[4,0,[0]]*/
-		}
+		},
+		props:['publicPath']
 	}
 </script>
 <style>	
 	.closeMsg{			
 		font-size: 0.9em;
 		color: #b56;		
+	}
+	.resource-caption{
+		display: none;
+		transition: all 0.4s;		
+		bottom: -50px;
+		left: 0px;
+		position: absolute;
+		background: rgba(0,0,0,.5);
+		font-weight: 500;
+		color: white;
+		opacity: 0;
+		animation: move 0.4s;
+	}
+	@keyframes move {
+	0% {
+	     transform: translateY(20px);
+	  }
+	  100% {
+	     transform: translateY(0px);
+	  }
+	}
+	.resource:hover .resource-caption{
+		display: block;
+		opacity: 1;	
+		bottom: 0px;
 	}
 </style>

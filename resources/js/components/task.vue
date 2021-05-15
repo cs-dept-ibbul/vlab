@@ -58,8 +58,8 @@
 						update:false
 					})
 			},
-			 deletework:function(id){
-                    this.axiosDelete(this.baseApiUrl+'works/delete', {work_id:id});
+			 deletework:function(id){			 	
+                 this.axiosDelete(this.baseApiUrl+'works/delete', {work_id:id});
                },      
 			editTask:function(obj){
 					this.VueSweetAlert2('v-taskform',{
@@ -135,6 +135,7 @@
           }, 200);
       
           },
+         
 		
 	}
 </script>

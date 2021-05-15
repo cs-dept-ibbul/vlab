@@ -35,6 +35,16 @@
 								<span class="iconOV text-white fa fa-circle"></span><div class="labelV">Edit/Del Course</div>
 							</a>
 						</li>
+						<li>
+							<a href="/course-experiments" class="text-white" v-bind:class="{btnActiveSub:checkActiveSub('courseExperiment')}">
+								<span class="iconV fa fa-circle"></span><div class="labelV">Course Exper.</div>
+							</a>
+						</li>
+						<li>
+							<a href="/course-resources" class="text-white" v-bind:class="{btnActiveSub:checkActiveSub('courseResources')}">
+								<span class="iconV fa fa-circle"></span><div class="labelV">Course Resourc.</div>
+							</a>
+						</li>
 					</ul>
 				</ul>	
 				<!-- manage experiment -->
@@ -53,6 +63,7 @@
 								<span class="iconOV text-white fa fa-circle"></span><div class="labelV">View Experi.</div>
 							</a>
 						</li>
+					
 					</ul>
 				</ul>
 				<a :href="settings"   v-bind:class="{btnActive:checkActive('settings')}">
@@ -91,8 +102,18 @@
 							</a>
 						</li>
 						<li>
-							<a href="/view-created-course" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('editcourse')}">
+							<a href="/manage-course-experiment" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('editcourse')}">
 								<span class="iconV fa fa-circle"></span><div class="labelV">Edit/Del Course</div>
+							</a>
+						</li>
+						<li>
+							<a href="/course-experiments" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('courseExperiment')}">
+								<span class="iconV fa fa-circle"></span><div class="labelV">Course Exper.</div>
+							</a>
+						</li>
+						<li>
+							<a href="/course-resources" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('courseResources')}">
+								<span class="iconV fa fa-circle"></span><div class="labelV">Course Resourc.</div>
 							</a>
 						</li>
 					</ul>

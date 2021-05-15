@@ -15,7 +15,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $this->down();
-            $table->string('id')->primary();
+            $table->string('id',36);
+            $table->string('salute',11)->nullable();
             $table->string('first_name');
             $table->string('other_names');
             $table->string('gender');
@@ -23,17 +24,19 @@ class CreateUsersTable extends Migration
 		    $table->string('school_id',36);
             $table->string('department_id',36);
             $table->string('role_id');
-            $table->string('email')->unique();
-            $table->string('matric_number');
+            $table->string('email')->unique()->nullable();
+            $table->string('matric_number')->nullable();
+            $table->string('phone',15)->nullable();
             $table->string('username');
             $table->string('password');
             $table->string('using_default_password');
             $table->string('user_ip_address');
-            $table->string('faculty_id',36);
+            $table->string('faculty_id',36)->nullable();
             $table->string('school_id',36);
             $table->string('deparment_id',36);
-            $table->text('token');
-            $table->enum('status', ['Active', 'Inactive']);
+            $table->string('session_id',36);
+            $table->text('token')->nullable();
+            $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

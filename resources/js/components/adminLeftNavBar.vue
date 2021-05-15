@@ -1,7 +1,7 @@
 <template>
 
 	<div class="vh-100">
-		<div class="menuBtnToggler bg-white cursor-1 " id="togglerV"  @click="toggleMenu">
+		<div class="menuBtnToggler bg-white cursor-1 " id="togglerV"  @click="">
 			<span class="fa fa-square mr-2 position-fixed" style="font-size: 2em;"></span>
 			<b class="menuLI ml-5" v-bind:class="{slidein:show1, slideout:hide1}">V-LAB</b>
 		</div>
@@ -20,52 +20,19 @@
 				
 				<!-- manage faculty -->
 				<a :href="department"   v-bind:class="{btnActive:checkActive('department')}">
-					<span class="iconOV fa fa-department"></span>
+					<span class="iconOV fa fa-institution"></span>
 				</a>	
 				
 				<!-- manage faculty -->
 				<a :href="faculty"   v-bind:class="{btnActive:checkActive('faculty')}">
 					<span class="iconOV fa fa-institution"></span>
 				</a>	
-				<!-- <ul class="listCoverV" >
-					<li class="listMenuVBtn nChildV"  v-bind:class="{btnActive:checkActive('faculty')}">
-						<span class="iconOV fa fa-institution"></span>
-					</li>
-					<ul class="listMenuV">
-						<li>
-							<a :href="createfaculty"  v-bind:class="{btnActiveSub:checkActiveSub('createfaculty')}">
-								<span class="iconOV text-white fa fa-circle"></span><div class="labelV">Create faculty</div>
-							</a>
-						</li>
-						<li>
-							<a :href="editfaculty"  v-bind:class="{btnActiveSub:checkActiveSub('editfaculty')}">
-								<span class="iconOV text-white fa fa-circle"></span><div class="labelV">Edit/Del Faculty</div>
-							</a>
-						</li>
-					</ul>
-				</ul>				 -->
+	
 				<!-- manage user -->
 				<a :href="user"   v-bind:class="{btnActive:checkActive('user')}">
 					<span class="iconOV fa fa-users"></span>
 				</a>
-				<!-- <ul class="listCoverV">
-						<li class="listMenuVBtn nChildV"  v-bind:class="{btnActive:checkActive('user')}">
-							<span class="iconOV fa fa-users"></span>
-						</li>
-						<ul class="listMenuV">
-							<li>
-								<a :href="edituser" class="text-white"  v-bind:class="{btnActiveSub:checkActiveSub('createuser')}">
-									<span class="iconOV text-white fa fa-circle"></span><div class="labelV">Create user</div>
-								</a>
-							</li>
-							<li>
-								<a :href="createuser" class="text-white"  v-bind:class="{btnActiveSub:checkActiveSub('edituser')}">
-									<span class="iconOV text-white fa fa-circle"></span><div class="labelV">Edit/Del user</div>
-								</a>
-							</li>
-						</ul>
-					</ul> -->	
-	
+
 				<a :href="settings"   v-bind:class="{btnActive:checkActive('settings')}">
 					<span class="iconOV fa fa-gear"></span>
 				</a>					
@@ -93,23 +60,7 @@
 				<a :href="faculty" class="nChildV"  v-bind:class="{btnActive:checkActive('faculty')}">
 					<span class="iconV fa fa-institution"></span><div class="labelV">Manage Faculty</div>
 				</a>	
-				<!-- <ul >
-					<li class="listMenuBtn nChildV"  v-bind:class="{btnActive:checkActive('faculty')}">
-						<span class="iconV fa fa-institution"></span><div class="labelV">Manage Faculty</div>
-					</li>
-					<ul class="listMenu">
-						<li>
-							<a :href="createfaculty" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('createfaculty')}">
-								<span class="iconV fa fa-circle"></span><div class="labelV">Create faculty</div>
-							</a>
-						</li>
-						<li>
-							<a :href="editfaculty" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('editfaculty')}">
-								<span class="iconV fa fa-circle"></span><div class="labelV">Edit/Del Faculty</div>
-							</a>
-						</li>
-					</ul>
-				</ul>				 -->
+			
 				<!-- manage user -->
 				<a :href="user" class="nChildV"  v-bind:class="{btnActive:checkActive('user')}">
 					<span class="iconV fa fa-users"></span><div class="labelV">Manage User</div>
@@ -117,24 +68,7 @@
 				<a href="/manage-session" class="nChildV"  v-bind:class="{btnActive:checkActive('session')}">
 					<span class="iconV fa fa-calendar"></span><div class="labelV">Manage Session</div>
 				</a>	
-				<!-- 	<ul >
-					<li class="listMenuBtn nChildV"  v-bind:class="{btnActive:checkActive('user')}">
-						<span class="iconV fa fa-users"></span><div class="labelV">Manage Users</div>
-					</li>
-					<ul class="listMenu">
-						<li>
-							<a :href="edituser" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('edituser')}">
-								<span class="iconV fa fa-circle"></span><div class="labelV">Create user</div>
-							</a>
-						</li>
-						<li>
-							<a :href="createuser" class="nChildV" v-bind:class="{btnActiveSub:checkActiveSub('createuser')}">
-								<span class="iconV fa fa-circle"></span><div class="labelV">Edit/Del user</div>
-							</a>
-						</li>
-					</ul>
-				</ul>	 -->
-
+			
 	
 				<a :href="settings"  class="nChildV" v-bind:class="{btnActive:checkActive('settings')}">
 					<span class="iconV fa fa-gear"></span><div class="labelV">Settings</div>
@@ -187,13 +121,13 @@
         },
 
         created:function(){
-		  this.$eventBus.$on('toggleSysNav', data => {
+		  this.$eventBus.$on('toggleFromSysTopNav', data => {
 		  	this.toggleMenu();
 		  })		          
         },
         
 		beforeDestroy: function () {
-		  this.eventBus.$off('toggleSysNav', this.toggleNavOnHover)		  
+		  this.eventBus.$off('toggleFromSysTopNav', this.toggleNavOnHover)		  
 		},
         props:['home','dashboard','department','viewexperiment','addexperiment','createcourse','editcourse','createuser','edituser','explore','faculty','courses','user','settings', 'active','activesub', 'incourse'],
 

@@ -15,7 +15,7 @@
  <!--           <div class="px-5">
             <a class="btn py-3 px-4 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 0.6rem;margin-right:22px" data-toggle="modal" data-target="#staticBackdrop">Add Student <span class="text-white fa fa-chevron-down"></span></a>
            </div> -->
-        <v-viewstudent class="scroll-y vh-70"></v-viewstudent>
+        <v-viewstudent class="scroll-y vh-78"></v-viewstudent>
    </div>
  
 

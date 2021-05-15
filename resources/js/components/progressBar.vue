@@ -2,7 +2,7 @@
 	<div style="width: 100%;">
 		<div class ="progress mt-4" style="width: 100%;">			
 			<div v-bind:style="{width:percentage +'%'}" class="p-success progress-bar"></div>
-			<span style="position: absolute;right: 20px;">{{percentage}}% Complete</span>					
+			<span style="position: absolute;right: 20px;">{{percentage.toFixed(0)}}% <span class="hideOnMobile"> Complete </span></span>					
 		</div>
 		<!-- 
 		<span v-if="percentage==100">
@@ -54,7 +54,7 @@
      	},
          created(){
          	this.percentage  = (parseInt(this.evalue)/parseInt(this.avalue))* 100;
-         	console.log(this.percentage);
+         	//console.log(this.percentage);
          	if (this.percentage == 100) {
 
          	}

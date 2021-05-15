@@ -155,7 +155,7 @@ $resultTable ='
                <v-ribbon></v-ribbon>
                 <iframe width="100%" height="480px"  frameborder="0" style="display: none;" src="" id="experimentSheet"></iframe>
              
-               <v-start hourdata="0" munitedata="30" starteddata="{{$started}}" ></v-start>
+               <v-start access_code="{{$access_code}}" hourdata="0" munitedata="30" starteddata="{{$started}}" ></v-start>
             </div>
             <!-- end experiment -->
             <div  class="zero-space exprightNav" id="rightNav">               

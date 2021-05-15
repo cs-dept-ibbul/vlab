@@ -132,6 +132,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+  #navbarId{
+    user-select: none;
+  }
   .forLogout{
     position: absolute;
     left: -15px;

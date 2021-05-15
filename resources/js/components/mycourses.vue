@@ -12,28 +12,32 @@
 						<span class="fa fa-search serachicon2"></span> 				   				   			
 					</span>
 					<div style="display: inline-block;">
-						<span style="font-family: inherit;font-weight: 300;font-size: 0.9em;">Sort By</span>
-						<button class="sort sortbtn" data-sort="name">Name <span class="fa fa-chevron-down"></span></button>
-						<span class="ml-2 fa fa-long-arrow-up pl-3" style="border-left: 1px solid #ccc;font-weight: 200;"></span>
+						<i style="font-family: inherit;font-weight: 300;font-size: 0.9em;">Sort By</i>
+						<button class="sort sortbtn" data-sort="name">Name <i class="fa fa-chevron-down"></i></button>
+						<i class="ml-2 fa fa-long-arrow-up pl-3" style="border-left: 1px solid #ccc;font-weight: 200;"></i>
 					</div>
 				</div>
 			</div>
-			<div class="row">
+			<div v-if="loaderState">
+				<br>
+          		<v-loader count="2"></v-loader>
+         	</div>
+			<div class="row" v-if="!loaderState">
 				
 
 					<!-- experiment box -->
 				<div v-for="course in mycourses" class="p-4 w-100 bg-white shadow-sm my-3 fholder" style="border-radius: 9px;">
 					<div class="d-flex justify-content-between align-items-center mb-2">
 						<div class="font ">
-							<h3 class="fw6 fdata">{{course.code}}</h3>
-							<p class="my-1 font2 " style="color:#888;font-size: 0.85em;">{{course.description}}</p>
+							<h3 class="fw6 fdata">{{course.course.code}}</h3>
+							<p class="my-1 font2 " style="color:#888;font-size: 0.85em;">{{course.course.description}}</p>
 							<p class="my-0 fw5" style="font-size: 0.9em;"><!-- {{course.experiments.length}} --> Practicals</p>
 						</div>
 						<div>
-							<a :href="'my-course-review/'+course.id" class="sysbtn-md p-success text-white">View <span class="fa fa-arrow-right text-white"></span></a>
+							<a :href="'my-course-review/'+course.course.id" class="sysbtn-md p-success text-white">View <i class="fa fa-arrow-right text-white"></i></a>
 						</div>
 					</div>
-					<v-progress evalue=0 avalue=4></v-progress>
+					<v-progress :evalue="experimentDone(course.weekly_work_experiment)" :avalue="course.weekly_work_experiment.length" ></v-progress>
 					
 				</div>
 				<!-- end experiment box -->
@@ -54,11 +58,22 @@
 		},
 		data(){
 			return {
+				loaderState:true,
 				mycourses:{},
 			}
 		},
 		methods:{
-
+			experimentDone(expAll){
+				//console.log(expAll);
+				let count =0;
+				for(let i =0; i< expAll.length; i++){
+					console.log(expAll[i]);
+					if(expAll[i].result.length > 0){
+						count+=1;
+					}
+				}
+				return count;
+			}
 		},
 		mounted(){
 			this.$nextTick(function(){
@@ -84,10 +99,10 @@
 			})
 		},
 		async created(){
-			let userD  = await this.axiosGetById('api/courses/student_courses','user_id', this.currentUser.id);
-			this.mycourses = userD[0].courses;         //change request to merge expeiment_tbl with user_course_table
-
-			console.log(this.mycourses)
+			this.mycourses  = await this.axiosGetById('api/courses/enrolledCourses','user_id', this.currentUser.id);
+			this.loaderState = false;
+		      //change request to merge expeiment_tbl with user_course_table
+			
 		}
 	}
 </script>

@@ -41,7 +41,7 @@ $started = 0; //this will be from database
                <div class="w-100" style="height: 480px;display: none;position: relative;" id="experimentSheet">
                                  
                </div>             
-               <v-start hourdata="1" munitedata="30" starteddata="{{$started}}" ></v-start>
+               <v-start access_code="{{$access_code}}" hourdata="1" munitedata="30" starteddata="{{$started}}" ></v-start>
             </div>
             <!-- end experiment -->
             <div  class="zero-space exprightNav" id="rightNav">               

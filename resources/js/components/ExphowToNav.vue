@@ -87,15 +87,7 @@
 	            	document.getElementById('expSideBar').classList.remove('addSize');  	
 	            		document.getElementById('mainExp').style.width= '88%';	
                 }  
-            },
-            expandVideo(){
-            	$('.videoContainer').detach().appendTo('#wideArea');
-            	this.web_player('70%', '70%');       
-            	setTimeout(function() {
-            		$('.videoContainer  iframe').addClass('h-75 w-75');            	
-            		$('.videoContainer').addClass('videContainerProp');
-            	}, 500);     	
-            },          
+            },            
         	toggller(e){
         		if (e == 'procedure'){
         			document.getElementById('exercise').style.display ='none';
@@ -182,13 +174,7 @@
 
          props: ['aim','aparatus','theory','requirment', 'exercise', 'resources'],
          mounted(){	       
-         	$('#wideArea').not('.videoContainer iframe').click(function(){
-         		$('.videoContainer').removeClass('videContainerProp');
-            	$('.videoContainer  iframe').removeClass('h-75 w-75');            	
-         		$('.videoContainer').detach().appendTo('#smallArea');
-            	this.web_player();       
-
-         	})
+         	
          	
 	/*		$('.accordion').click(function(){
 				$('.accordBodyV').slideUp()
@@ -360,35 +346,6 @@ background-color: #ADAABB !important;
   transition: 0.2s ease-out;
   padding: 0px 20px;
   text-align: justify;
-}
-.videContainerProp{
-	padding: 0px 14px;
-	position: fixed;
-	 top:-5px;
-	 left:0px;
-	 width: 100%;
-	 height: 100vh;
-	 background: rgba(0,0,50,.8);
-	 z-index: 100;
-	 display: flex;
-	 justify-content: center;
-	 flex-wrap: wrap;
-	 align-items: center;	 
-}
-.videContainerProp iframe{
-	transition: transform 1s;
-    animation: zoomvideo 1s ease-in ;
-}
-@keyframes zoomvideo {
-    0% {
-        transform: scale(1,1);
-    }
-    50% {
-        transform: scale(1.2,1.2);
-    }
-    100% {
-        transform: scale(1,1);
-    }
 }
 
 .cardcontainer img {

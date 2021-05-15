@@ -66,6 +66,10 @@ Route::middleware(['instructorauth'])->group(function(){
 	Route::get('/add-experiment', 'App\Http\Controllers\AddExperimentController@index')->name('add-experiment');
 	Route::get('/view-created-experiment', 'App\Http\Controllers\AddExperimentController@createdexperiment')->name('view-created-experiment');
 	Route::get('/view-student', 'App\Http\Controllers\InstructorController@viewstudent')->name('view-student');
+
+	Route::get('/course-experiments', 'App\Http\Controllers\ViewCourseController@courseExperiments');
+	Route::get('/course-resources', 'App\Http\Controllers\ViewCourseController@courseResources');
+	
 });
 
 Route::middleware(['twouserauth'])->group(function(){

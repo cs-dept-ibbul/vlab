@@ -37,7 +37,10 @@
     		</div>
     		<form id="login-form">
     			<input type="text" placeholder="Username" id="username" class="form-control my-3 h2 login-input"  name="username">
-    			<input type="text" placeholder="Password"  id="password" class="form-control my-3 h2 login-input" name="password">
+                <div class="position-relative">                    
+    			<input type="password" placeholder="Password"  id="password" class="form-control my-3 h2 login-input" name="password">
+                <span id="togglePwDisplay" style="user-select: none;cursor: pointer;position:absolute; top: 28%;right: 6%;" class="p-text-dark">show</span>
+                </div>
     			<button class="p-dark sys-submit-btn text-white font fs8 fw2 w-100 h2" type="button" id="login-btn">Login</button>
     			<p class="p-text-dark text-center fs2 fw3"><a href="">Forgot Password?</a></p>
     		</form>

@@ -1,28 +1,48 @@
 <template>	
-		<div class="w-100 mt-2 py-3">
-          <a href="#" @click="createuser" class="btn py-3 mb-5 mr-2 px-4 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 0.6rem">Create user <span class="text-white fa fa-chevron-down"></span></a>
-          <a href="#" @click="uploadstudent" class="btn py-3 mb-5 mr-2 px-4 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 0.6rem">Upload Student <span class="text-white fa fa-chevron-down"></span></a>
+		<div class="w-100 mt-2 py-3 position-relative">
+          <a v-if="!loaderState"  href="#" @click="createuser" class="btn-admin-user btn py-3 mb-5 mr-2 px-4 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 0.6rem">Create user <span class="text-white fa fa-chevron-down"></span></a>
+          <a v-if="!loaderState" href="#" @click="uploadstudent" class="btn-admin-user btn py-3 mb-5 mr-2 px-4 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 0.6rem">Upload Student <span class="text-white fa fa-chevron-down"></span></a>
           <br>
-     
-          <div class="notification-table ">
-				<table id="usertable" class="table table-hover" @click="edituser">
+      	<div class="w-100 user-search-box">
+		    <div class="py-2 d-inline-block">		        
+		        <select id="sessionid" class="form-control d-inline-block"  placeholder="select session">
+		        	<option value=""></option>
+		        	<option v-for="(session,index) in sessions" :value="session.id">{{session.session}}</option>
+		        </select>	        
+		        <select id="roleid" class="form-control  d-inline-block">
+		        	<option value=""></option>		        	
+		        	<option v-for="(role,index) in JSON.parse(roles)" :value="role">{{index}}</option>
+		        </select>
+		        <select id="departmentid" class="form-control  d-inline-block"  placeholder="department">
+		        	<option value=""></option>		        	
+		        	<option v-for="(department,index) in departments" :value="department.id">{{department.code}}</option>
+		        </select>
+		        <button class="button" @click="fetchUser">Go</button>
+		    </div>
+
+		</div>
+		<div v-if="loaderState">
+			<br><br><br><br><br><br>
+          	<v-loader count="2"></v-loader>
+         </div>
+          <div class="notification-table forUser" v-if="!loaderState">			     
+			     
+				<table id="usertable" class="table table-hover">
 					<thead>
 						<tr id="cheadV">							
 							<th width="30%">user name</th>
-				            <th width="20%">user abbr.</th>	            
-							<th width="20%">Faculty</th>
-				            <th width="15%">date created</th>			            
+				            <th width="20%">role</th>	            
+							<th width="20%">Department</th>				            			           
 				            <th width="15%">Action</th>
 						</tr>
 					</thead>
-					<tbody v-if="tableLoaded">
+					<tbody v-if="!loaderState">
 				        <tr v-for="(user, index) in createduser" :key="index">	         
-				            <td width="30%" :title="user.title">{{user.name}}</td>
-				            <td width="20%">{{user.code}}</td>	           
-				            <td width="20%">{{user.faculty_code}}</td>	           
-				            <td width="15%">{{user.updated_at}}</td>	            			            	           
+				            <td width="30%">{{user.first_name}} {{user.other_names}}</td>
+				            <td width="20%">{{ getRoleName(user.role_id) }}</td>	           
+				            <td width="20%">{{user.department.code}}</td>	           			                  
 				            <td width="15%" >
-				            	<span class="ml-2 fa fa-edit pl-3  fs01 cursor-1" @click="edituser(createduser[index])" style="border-left: 1px solid #ccc;"></span>
+				            	<span class="ml-2 fa fa-edit pl-3  fs01 cursor-1" @click="edituser(user)" style="border-left: 1px solid #ccc;"></span>
 				            	<span class="ml-2 fa fa-trash pl-3  fs01 cursor-1" @click="deleteuser(user.id)"></span>
 				            </td>
 				        </tr>
@@ -33,6 +53,7 @@
 </template>
 
 <script>
+	import loader from './skeletalLoaderA.vue'; 
 	export default{
 		data(){
 			return{
@@ -43,85 +64,82 @@
 				departments:null,
 				watchfacultyHtml:{value:null},
 				uploadlist:[],
-				listTrHtml:""
+				listTrHtml:"",
+				sessions:[],
+				loaderState:true,
+				response:'',
+
 			}
 		},
+		components:{		
+			'v-loader':loader,
+		},
 		methods: {
-		 /* ProcessExcel:function(data) {
-		        //Read the Excel File data.
-
-		        var workbook = XLSX.read(data, {
-		            type: 'binary'
-		        }),
-		        dataARR =[];
 		 
-		        //Fetch the name of First Sheet.
-		        var firstSheet = workbook.SheetNames[0];
-		 
-		        //Read all rows from First Sheet into an JSON array.
-		        var excelRows = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[firstSheet]);
-		      	//column 1 == matric number else skipped
-		      	//column 2 == first name // important
-		      	//column 3 == other name // important
-		      	//column 4 == email // important
-		      	//column 6 == gender ///important 
-		      	//column 5 == phonenumber 
-
-		 		for(i in excelRows){
-		 			dataARR[i] = [];
-		 			c =-1;
-		 			if (i == 0) {
-		 				if (excelRows[i][0].toLowerCase() != "matric number" || excelRows[i][1].toLowerCase() != "first name" || excelRows[i][3].toLowerCase() != "last name" || excelRows[i][4].toLowerCase() != "email" || excelRows[i][4].toLowerCase() != "gender" || excelRows[i][3].toLowerCase() != "phone number") {}
-		 			}else{
-		 				dataARR[i]={
-			 				matric_number: excelRows[i][0],	 			
-			 				first_name:    excelRows[i][1],	 			
-			 				other_names:   excelRows[i][2],	 			
-			 				email:         excelRows[i][3],	 			
-			 				gender:         excelRows[i][4],	 					 					
-			 				phone:         excelRows[i][4],	 					 					
-		 				}
-		 				if (dataARR[i].matric_number == "") {
-		 					return {sucess:false, message:'matric number is required on row'+ i} // matric number is required 
-		 				}
-		 				if (dataARR[i].first_name == "") {
-		 					return {sucess:false, message:'first name is required on row'+ i} // matric number is required 
-		 				}
-		 				if (dataARR[i].other_names == "") {
-		 					return {sucess:false, message:'other name is required on row'+ i} // matric number is required 
-		 				}
-		 				if (dataARR[i].email == "") {
-		 					return {sucess:false, message:'first name is required on row'+ i} // matric number is required 
-		 				}
-
-		 			}		 			
-		 		}
-
-		 		return {sucess:true,message:dataARR};
-		 	},*/
 			createuser:function(){
 				this.VueSweetAlert2('v-userform', {
 					type:'user',
 					faculties: this.faculties,
-					departments: this.departments
+					departments: this.departments,
+					roles:this.roles
 				});
+			},
+			getRoleName:function(role_id){
+				var role = JSON.parse(this.roles);
+				for(var i in role){						
+					if (role[i]==role_id) {
+						return i;
+						break;
+					}
+				}				
+			},
+			fetchUser:function(){
+				var session_id = $('#sessionid').val();
+				var department_id = $('#departmentid').val();
+				var role_id = $('#roleid').val();
+				$('#sessionid').css({'border':'1px solid #ccc'});
+				if (session_id==''){
+					$('#sessionid').attr('style','border:1px solid red !important;');									
+					$('.requiredv').remove();
+					$('#sessionid').before('<span class="text-danger requiredv">Required !</span>');
+					return false;					
+				}
+				var $this = this;
+				this.loaderState = true;
+				this.axios.post(this.baseApiUrl+'users/by_search',this.createFormData({session_id:session_id,department_id:department_id, role_id:role_id}), {headers:this.axiosHeader}).then(function(response, status, request) {        
+                            if (response.status === 200) {                                     	
+                               $this.createduser = response.data;
+							   $this.loaderState = false;
+							     setTimeout(function() {
+						         	 $('#usertable').DataTable({
+								    	pageLength : 5,
+								    });
+						         }, 500);
+                            }else{
+                            }
+                        }, function(e) {                                	
+                             if(e.response.status === 401 ){
+                             	 localStorage.removeItem("LoggedUser");
+                                location.href = "/logout";
+                             }else{                               
+                             }                                                                   
+                        })  
+
 			},
 			swal_form: function(obj){	
 				
-				let $vm = this, html='';					    
-				//this.axiosGetFacultyHtml(false,obj.faculty_id); // fetch faculties and set selected base on update parameter if ture	
-
-					//this.axiosGetFacultyHtml(update,obj.faculty_id);					
+				var $vm = this, html='';					    
+						
 					html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>"+
 					  	$vm.facultiesHTML+		
 					  	"<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Department</legend>"+
-					  	$vm.departmentsHTML+									  	
+					  	"<select id='department_id' name='department_id' class='form-control w-100'></select>"+									  	
 					  	"<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Role</legend>"+
-					  	"<select class='swal2-input' id='role_id'>"+
-					  	"<option value='admin'>admin</option>"+				
-					  	"<option value='instructor'>instructor</option>"+
-					  	"<option value='student'>student</option>"+									  	
-					  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Select csv file</legend>"+					     
+					  	"<select class='swal2-input' id='role_id'>";
+					  	for(var ik in JSON.parse(this.roles)){
+					  		html += "<option value='"+JSON.parse(this.roles)[ik]+"'>"+ik+"</option>";
+					  	}					  	
+					  	html += "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Select csv file</legend>"+					     
 					    '<input id="swal-file1" type="file" class="mt-1 mx-auto"  >' ;	
 
 					
@@ -131,92 +149,58 @@
 					  html:html,
 					  focusConfirm: false,
 					  preConfirm: () => {
-					  	let faculty = document.getElementById('faculty_id').value,
+					  	var faculty = document.getElementById('faculty_id').value,
 					  		department = document.getElementById('department_id').value,
 					  	 	//Validate whether File is valid Excel file.
         					 fileUpload = document.getElementById("swal-file1"),
-        					 csv = document.getElementById("swal-file1").files[0],
-
-        					 regex = /^([a-zA-Z0-9\s_\\.\-:])+(.xls|.xlsx|.csv)$/;
-        					  if (regex.test(fileUpload.value.toLowerCase())) {
-					          	/*if (typeof (FileReader) != "undefined") {
-					                var reader = new FileReader();
-					 
-					                //For Browsers other than IE.
-					                if (reader.readAsBinaryString) {
-					                    reader.onload = function (e) {
-					                       $vm.uploadlist = ProcessExcel(e.target.result);
-					                    };
-					                    reader.readAsBinaryString(fileUpload.files[0]);
-					                } else {
-					                    //For IE Browser.
-					                    reader.onload = function (e) {
-					                        var data = "";
-					                        var bytes = new Uint8Array(e.target.result);
-					                        for (var i = 0; i < bytes.byteLength; i++) {
-					                            data += String.fromCharCode(bytes[i]);
-					                        }
-					                      $vm.uploadlist =  ProcessExcel(data);
-
-					                    };
-					                    reader.readAsArrayBuffer(fileUpload.files[0]);
-					                }
-					                if (!$vm.uploadlist.sucess){
-					                	Swal.showValidationMessage($vm.uploadlist.message);
-					                }
-					            } else {
-					                Swal.showValidationMessage("This browser does not support HTML5.");
-					            }*/
+        					 role_id = document.getElementById("role_id").value,
+        					 csv = document.getElementById("swal-file1").files[0]        					
+        					 var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.xls|.xlsx|.csv)$/;
+        					  if (regex.test(fileUpload.value.toLowerCase())) {					     
 					        } else {
-					           Swal.showValidationMessage('Error: please select a valid file (.xls,. xlsx or .csv file)');
+					           Swal.showValidationMessage('Error: please select a valid file (.csv file)');
 					        }
 
 					  	if ( faculty == "" || department == "") {					     
 					         Swal.showValidationMessage('All fields are required');
 					  	}
-					  /*	for (var i = 0; i < $vm.uploadlist.message.length; i++) {
-					  		$vm.listTrHtml += "<tr>";
-					  		$vm.listTrHtml += "<td>"+$vm.uploadlist.message[i].matric_number+"</td>"
-					  		$vm.listTrHtml += "<td>"+$vm.uploadlist.message[i].first_name+"</td>"
-					  		$vm.listTrHtml += "<td>"+$vm.uploadlist.message[i].other_names+"</td>"
-					  		$vm.listTrHtml += "<td>"+$vm.uploadlist.message[i].email+"</td>"
-					  		$vm.listTrHtml += "<td>"+$vm.uploadlist.message[i].gender+"</td>"
-					  		$vm.listTrHtml += "<td>"+$vm.uploadlist.message[i].phone+"</td>"
-					  		$vm.listTrHtml += "</tr>";
-					    }*/
-
+	
 					    return [
 					      faculty,
 					      department,
 					      csv,
 					      $( "#faculty_id option:selected" ).text(),
-					      $( "#department_id option:selected" ).text()					     
+					      $( "#department_id option:selected" ).text(),					     
+					      role_id
 					    ]
 					  } 
 					}).then((result)=>{
 						if (result.value) {
-					    const answers = {faculty_id:result.value[0], user_name:result.value[1], user_code:result.value[2]}
+					    const answers = {faculty_id:result.value[0], user_name:result.value[1], csv:result.value[2],role_id:result.value[5]}
 					    Swal.fire({
 					      title: 'click on proceed',
 					      text: 'you can also click on cancel to restart',
-					      html: `faculty: ${result.value[3]}<br>Department: ${result.value[4]}`,
-					     /* html: "<table class='table text-left'>"+
-					      		"<tr><td>Matric Number</td><td>First Name</td><td>Last Name</td><td>email</td><td>gender</td><td>phone</td></tr>"+$vm.listTrHtml+"</table>",*/
+					      html: `faculty: ${result.value[3]}<br>Department: ${result.value[4]}`,					     
 					      confirmButtonText:'Process',					      
 					      cancelButtonText:'Cancel',					      
 					      showCancelButton:true,					      
 					      showLoaderOnConfirm: true,
+					      confirmButtonColor:'#00b96b',	
 					       preConfirm: (login) => {			
 					        	var formData=new FormData();
 								formData.append("csv",result.value[2]);
 								formData.append("department_id", result.value[1]);
 								formData.append("faculty_id", result.value[0]);
-					        	return $vm.axios.post($vm.baseApiUrl+'users/import_students',formData,{headers:$vm.axiosHeaderWithFiles})
-						      	.then(response => {						      	
+								formData.append("role_id", result.value[5]);	
+								var resultR='';							
+					        	$vm.axios.post($vm.baseApiUrl+'users/import_students',formData,{headers:$vm.axiosHeaderWithFiles})
+						      	.then(response => {							      		      						      		
+							        resultR=response;
 							        if (!response.data.sucess) {
 							          throw new Error(response.statusText)
-							        }						   
-							        return response.json()
+							        }		
+							        //$vm.response = 'response';
+							     //   return response.json()
 						      	})
 						      	.catch(error => {
 							      	if (error.response) {
@@ -232,24 +216,68 @@
 									        )						      		
 								      	}
 							      	}
-						      	})					    		   
-						    	
+						      	})			
+						      	let interval = setInterval(function(){
+						      		if (resultR!= ''){
+						      			$vm.response = resultR;
+								    	clearInterval(interval);					      		
+								    	return [
+								    	resultR,
+								    	120
+								    	]	
+						      		}
+						      	},50);		    		   
 						  },
 						  allowOutsideClick: () => !Swal.isLoading()
 					    }).then((result) => {
-					    	let title = 'created successfully';
-					    	if (update) {
-					    		title = 'updated successfully'
-					    	}
-					    	if (result.isConfirmed) {
-							    Swal.fire({							    
-							      title: title,							      
-							      icon: 'success',
-							      confirmButtonText:'Ok',	
-							    }).then((result)=>{
-							    	location.reload();
-							    })
-							  }
+					    	let interval = setInterval(function(){
+					      		if ($vm.response != ''){
+							    	clearInterval(interval);					      		
+							    	let html = `<div>
+							    					<button class="button btn-info py-2 px-3 mb-2" id="PrintAreaUXP">Print</button>
+							    					<div id="resultuploadidX" style="overflow-y:scroll; height:250px;">
+							    					<table class="table table-stripped table-hover">
+							    				<thead>
+							    					<th class="bg-success fs1 text-white p-1 w-50">uploaded</th>
+							    					<th class="bg-danger fs1 text-white p-1 w-50">Error: already exists</th>
+							    				</thead>
+							    				<tbody>
+							    				
+							    	`;
+
+							    	let uploaded = $vm.response.data.uploaded,failed = $vm.response.data.failed, maxRow =  Math.max(uploaded.length,failed.length),
+							    	tr='';
+							    	for(let k= 0; k<maxRow; k++){
+							    		tr += '<tr>';
+							    		if (k< uploaded.length) {
+								    		tr += '<td class="p-1 fs01">'+ uploaded[k] +'</td>'
+							    		}else{tr += '<td class="p-1 fs01"></td>';}
+
+							    		if (k< failed.length) {
+								    		tr += '<td class="p-1 fs01">'+ failed[k] +'</td>'
+							    		}else{tr += '<td class="p-1 fs01"></td>';}														    		
+							    		tr += '</tr>';
+							    	}
+							    	setTimeout(function() {
+							    		$('#PrintAreaUXP').click(function(){
+							    			$vm.PrintArea('resultuploadidX','Result on user upload');
+							    		})
+							    	}, 100);
+							    	html += tr +
+							    			`</tbody></table></div> </div>`;							    	
+									    Swal.fire({							    
+									      title: 'Uploaded Result',				
+									      html:	html,	      
+									      icon: 'success',
+									      confirmButtonText:'Ok',										      
+				      			  		confirmButtonColor:'#00b96b',	
+									    }).then((result)=>{
+									    	location.reload();
+									    })										    
+							    	
+					      		}
+						      	},100);				    	
+					    	//let title = $vm.response.data.success;					    						    	
 					    })
 					  }
 					})
@@ -260,25 +288,14 @@
 			
 
 			},
-			edituser:function(obj){
+			edituser:function(obj){				
 				this.VueSweetAlert2('v-userform', {
-					type:'user',
+					type:'',
 					update:true,
 					faculties: this.faculties,
 					departments: this.departments,
-					alldata: {
-						first_name :"s2o3disdho",
-						other_names :"s2o3disdho",
-						matric_number :"s2o3disdho",
-						email :"s2o3disdho",
-						phone :"08023",
-						gender :"s2o3disdho",
-						faculty_id :72,
-						department_id :1,
-						role_id :1,
-						title :"s2o3disdho",
-						id :"s2o3disdho",
-					}
+					roles:this.roles,
+					alldata: obj
 				});				
 			},
 			deleteuser: function(id){
@@ -290,13 +307,21 @@
 			$('#'+id).after('<span class="text-danger requiredv">Required !</span>')
 			},
 			uploadstudent: function(){					
-				this.swal_form(false, null);		
-				html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>"+
-					  	$vm.facultiesHTML+				
-					  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>user Name</legend>"+					  		   
-					    '<input id="swal-input1" class="swal2-input mt-1" value="'+obj.name+'" >' +
-					  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>user Abbr</legend>"+					  		   				    
-					    '<input id="swal-input2" class="swal2-input mt-1" value="'+obj.code+'">';	
+				this.swal_form(false, null);					
+					    var $this = this;
+					    setTimeout(function() {
+					    	$('#faculty_id').change(function(){
+					    		
+					    		var departmentsX = $this.faculties.filter((item)=>{return item.id === $(this).val()})[0].department;
+					    		var opt="";
+					    		departmentsX.forEach((item, idex)=>{
+										opt += "<option value='"+item.id+"'>"+ item.code +"</option>";
+								});	
+
+					    	$('#department_id').html(opt);
+								
+							})
+					    }, 50);
 			},
 			async axiosGetFacultyHtml(update, faculty_id){
 				//method 1 
@@ -325,40 +350,68 @@
 						this.facultiesHTML += "<option value='"+item.id+"'>"+ item.code +"</option>";
 					}
 				});
-				this.facultiesHTML += "</select>";		
-				//console.log(facultiesHTML);
-				//console.log(this.facultiesHTML);
+				this.facultiesHTML += "</select>";						
 				this.watchfacultyHtml.value = Math.random(1,1000);
-				//console.log(this.watchfacultyHtml.value)
+				
 			 	
 			}
 		},
 		async created(){			
-			this.faculties =  await this.axiosGet('api/faculties/faculties');						
+			this.faculties       =  await this.axiosGet('api/faculties/faculties');						
 			this.departments	 = await  this.axiosGet('api/departments/departments');					
-			this.createduser  = await this.axiosGet('api/users/create');
-			
-
-			this.facultiesHTML = this.selectHtmlGen(this.faculties,'code','faculty_id' )							
+			this.createduser     = await this.axiosGet('api/users/users');			
+			this.sessions        = await this.axiosGet('api/session/all_session');			
+			this.facultiesHTML   = this.selectHtmlGen(this.faculties,'code','faculty_id' )							
 			this.departmentsHTML = this.selectHtmlGen(this.departments,'code','department_id' )							
 
-			this.tableLoaded = true;
-			    
+			this.loaderState = false;
+			this.tableLoaded = false;
 			    /*initialize datatable */
 	        setTimeout(function() {
 	         	 $('#usertable').DataTable({
 			    	pageLength : 5,
 			    });
-	         }, 200);
+	         }, 50);
 			
 		},
+		 props:{
+          	roles:{
+          		type:String,
+          		default:function(){
+          			return '{}'
+          		}
+          	}
+          },
 		mounted(){			
 			
 			this.$nextTick(function(){ 
+				function PrintArea(elem, title,length=400)
+				{
+				    var mywindow = window.open('', 'PRINT', 'height='+length+',width=600');
+
+				    mywindow.document.write('<html><head><title>' + title  + '</title>');
+				    mywindow.document.write('</head><body >');
+				    mywindow.document.write('<h1>' + title  + '</h1>');
+				    mywindow.document.write(document.getElementById(elem).innerHTML);
+				    mywindow.document.write('</body></html>');
+
+				    mywindow.document.close(); // necessary for IE >= 10
+				    mywindow.focus(); // necessary for IE >= 10*/
+
+				    mywindow.print();
+				    mywindow.close();
+
+				    return true;
+				}
 			}); 
 		}
 	};
 </script>
 <style type="text/css">
-	
+	tr td{
+		text-transform: capitalize;
+	}
+	.form-control{
+		width: 120px;
+	}
 </style>

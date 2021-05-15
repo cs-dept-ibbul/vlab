@@ -66,6 +66,23 @@ class SessionController extends Controller
             return response()->json(['error' => 'Session not found'], 404);
         }
     }
+    public function setSession(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+              'session_id' => 'required',
+        ]);
+
+        $session_id = $request->get('session_id');
+
+        $session = Session::find($session_id);
+        $session->is_current = 1;
+        Session::whereNotIn('id', [$session_id])->update(['is_current' => 0]);
+
+        if($session->save()){
+            return response()->json(['success' => true], 200);
+        }
+
+    }
 
     public function delete(Request $request)
     {

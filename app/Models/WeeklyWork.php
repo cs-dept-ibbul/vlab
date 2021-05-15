@@ -21,6 +21,10 @@ class WeeklyWork extends Model
         'expired',
     ];
 
+    public function newQuery($excludeDeleted = true) {
+        return parent::newQuery($excludeDeleted)
+            ->where('weekly_works.status', '=', 'Active');
+    }
     public function getExpiredAttribute()
     {
         $today      = Carbon::now();
@@ -46,7 +50,7 @@ class WeeklyWork extends Model
     }
 }
 
-class WeeklyWorkExperiment extends Model
+/*class WeeklyWorkExperiment extends Model
 {
     use HasFactory;
    public $incrementing = false;
@@ -71,3 +75,4 @@ class WeeklyWorkExperiment extends Model
       return $this->belongsTo(WeeklyWork::class);
     }
 }
+*/

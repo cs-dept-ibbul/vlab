@@ -82,6 +82,7 @@ Vue.component('v-avlc', require('./components/AvailableCourses.vue').default);
 
 Vue.component('v-viewcourses', require('./components/viewCourses.vue').default);
 Vue.component('v-courseexperiment', require('./components/courseExperiment.vue').default);
+Vue.component('v-courseresources', require('./components/courseResources.vue').default);
 
 Vue.component('v-logintopnavbar', require('./components/NavbarLogin.vue').default);
 Vue.component('v-loginbox', require('./components/loginBox.vue').default);
@@ -126,7 +127,10 @@ Vue.component('v-userauth', require('./components/userAuthentication.vue').defau
         beforeCreated(){
             document.getElementsByTagName('')
         },
-          mounted(){            
+      mounted(){     
+        $('body').append(`
+          <a class="flex-wrap forBug" style=" width:50px; height:50px; display:flex; justify-content:center;"><span class="fa fa-bug text-danger fs8 p-0"></span></a>
+          `)
     }
  });
 

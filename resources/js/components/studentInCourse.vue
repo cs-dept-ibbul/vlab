@@ -2,8 +2,8 @@
 	<div>		
 		<!-- <div class="viewstudent w-50" >
            	<button class="button bg-success text-white px-1 py-1 mt-2 pr-3" ><span class="fa fa-chevron-left  ml-2 mr-1 text-white fs01"></span>Back</button>
-        </div> -->
-         <br><br>
+        </div> -->        
+         <br><br>         
 		<v-loader  v-if="loaderState"></v-loader>						
 		<br>
 		<div v-show="!loaderState" class="row">	
@@ -68,7 +68,7 @@
 			<div class="col-lg-9 col-md-12" v-if="section ==false && loaderState2 == false ">
 			</div>			    			
 		    <div class="col-lg-3 col-md-12 p-1 d-xs-none d-sm-none d-md-none d-lg-block" >		    	
-		    	<div style="min-height: 150px; box-shadow: 2px 2px 9px #ccc;border-radius: 5px 5px 0px 0px; padding: 0px 0px 10px 0px;">
+		    	<div class="task-list-container">
 		    		<h4 style="border-radius: 5px 5px 0px 0px; background: #00b96b;" class="p-2 text-white text-center font m-0 fw3">Task</h4>
 	    			<div v-for="task in tasks" class="bg-white " >
 	    				<div class="d-flex justify-between flex-wrap btn-spec px-3 pt-3 pb-1" tabindex="1">
@@ -106,6 +106,7 @@
 				loaderState2:false,
 				section:true,
 				iconchange:false,
+				course_code:'',
 				students: [
 					{id:1,first_name:'ismail',other_names:'hamza',gender:'male',matric_number:'u15/fns/csc/1011'},
 					{id:2,first_name:'ismail',other_names:'hamza',gender:'male',matric_number:'u15/fns/csc/1011'},
@@ -139,14 +140,13 @@
 				return JSON.parse(json)[0].mhead;
 			},
 			showResult:function(weekly_work_experiment_id,root){				
-				let id = weekly_work_experiment_id;			
-				console.log(id)
+				let id = weekly_work_experiment_id;							
 				this.$eventBus.$emit('viewStudentExperiment',{data:true}); //line 132 listen to me and also viewStudent.vue parent		
 
 
 				let retryCount = 0;			
 				var $this = this;
-				//console.log($this);
+				
 					let attemptsFailsV = function(){
 							Swal.fire({
 							  text: 'something went wrong',
@@ -187,10 +187,9 @@
 	                    $this.axios.post($this.baseApiUrl+'experiments/experiment_results_esid',formdata,{headers: axiosHeader}).then(function(response, status, request) {        
 	                            if (response.status === 200) {                                     	
 	                            	let i,j;                  
-	                               //console.log(response.data.map((a,b)=>{j = []; for(i in a) {j.push(a[i])} return j; }));        
+	                           
 	                               $this.results = response.data
 	                               $this.showresults = true;	
-	                               console.log($this.results)	                       
 	                            }else{
 	                            	if (retryCount < 4) {
 	                            		setTimeout(function() {
@@ -202,7 +201,7 @@
 	                            	}
 	                            }
 	                        }, function(e) {        
-	                        	//console.log(e.response.status);
+	                        	
 	                             if(e.response.status === 401 ){
 	                             	 localStorage.removeItem("LoggedUser");
 	                                location.href = "/logout";
@@ -212,7 +211,7 @@
 	                        })                             
 						try{
 						}catch(err){
-							console.log(err)
+							//console.log(err)
 						}
 						//return datafetched;
 					}							
@@ -238,8 +237,9 @@
 			}
 		},
 		async created(){
-			this.students = this.course.course_student;
-			this.tasks = this.course.weekly_work;
+			this.students 	 = this.course.course_student;
+			this.tasks		 = this.course.weekly_work;
+			this.course_code = this.course.code;
 
 		    let $this = this;
 		    this.$eventBus.$on('viewstudentBtn2',data=>{				
@@ -326,5 +326,13 @@
 	}
 	.iresult tbody tr td{
 		padding: 2px;
+	}
+	.task-list-container{
+		min-height: 150px;
+		box-shadow: 2px 2px 9px #ccc;
+		border-radius: 5px 5px 0px 0px;
+		padding: 0px 0px 10px 0px;
+		user-select: none;
+
 	}
 </style>

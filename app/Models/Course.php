@@ -70,12 +70,6 @@ class Course extends Model
     
 }
 
-class CourseResources extends Model
-{
-    use HasFactory;
-    public $incrementing = false;
-}
-
 class UserCourses extends Model
 {
     use HasFactory;

@@ -59,8 +59,34 @@ export default {
 					}
 				}
 			},
+			PrintArea(elem, title,length=400)
+			{
+			    var mywindow = window.open('', 'PRINT', 'height='+length+',width=600');
+
+			    mywindow.document.write('<html><head><title>' + title  + '</title>');
+			    mywindow.document.write('</head><body >');
+			    mywindow.document.write('<h1>' + title  + '</h1>');
+			    mywindow.document.write(document.getElementById(elem).innerHTML);
+			    mywindow.document.write('</body></html>');
+
+			    mywindow.document.close(); // necessary for IE >= 10
+			    mywindow.focus(); // necessary for IE >= 10*/
+
+			    mywindow.print();
+			    mywindow.close();
+
+			    return true;
+			},
+		expandVideo(){
+            	$('.videoContainer').detach().appendTo('#wideArea');
+            	this.web_player('70%', '70%');       
+            	setTimeout(function() {
+            		$('.videoContainer  iframe').addClass('h-75 w-75');            	
+            		$('.videoContainer').addClass('videContainerProp');
+            	}, 500);     	
+            },   
 		selectHtmlGen: function(obj,name,idname="idname001",selected_id, update=false){
-			let html = "<select id='"+idname+"' class='form-control'>"
+			let html = "<select id='"+idname+"' name='"+idname+"' class='form-control w-100'><option value=''></option>"
 			if (!update) {
 				obj.forEach((item, idex)=>{
 					html += "<option value='"+item.id+"'>"+ item[name] +"</option>";							
@@ -244,8 +270,20 @@ export default {
 						//console.log(err)
 					}
 					//return datafetched;
-				}		
-				AxiosFetchData();									
+				}
+				Swal.fire({
+					title: 'Are you sure you want to delete',
+					cancelButtonText:'No',				      				      
+					confirmButtonText:'Yes',				      				      
+			        cancelButtonColor:'#dd000f',					      
+			        confirmButtonColor:'#00b96b',					      
+			      	showCancelButton:true,					      
+			      	icon:'warning'
+				}).then((result)=>{
+					if (result.value){
+						AxiosFetchData();									
+					}
+				})		
   		},
   		axiosGet: async(url) => {
   			//console.log(url)
@@ -287,6 +325,81 @@ export default {
 							'Authorization':AuthAxios
 					};
                    return axios.get(url,{headers: axiosHeader}).then(function(response, status, request) {        
+                            if (response.status === 200) {                                     	
+                            	let i,j;                  
+                               //console.log(response.data.map((a,b)=>{j = []; for(i in a) {j.push(a[i])} return j; }));                               
+                               return response.data;                                                                
+                            }else{
+                            	if (retryCount < 4) {
+                            		setTimeout(function() {
+                            			AxiosFetchData();
+                            		}, 5000);
+                            	}else{
+                            		/*when all attempts fails inform the user what to do*/
+                            		attemptsFailsV();
+                            	}
+                            }
+                        }, function(e) {        
+                        	//console.log(e.response.status);
+                             if(e.response.status === 401 ){                             	
+                                 localStorage.removeItem("LoggedUser");
+  								location.href = "/logout";
+                             }else{
+                               attemptsFailsV()                                           
+                             }                                                                   
+                        })                             
+					try{
+					}catch(err){
+						//console.log(err)
+					}
+					//return datafetched; 
+				}							
+				return AxiosFetchData();				
+                    
+  		},
+  		axiosPost: async(url,obj) => {
+  			//console.log(url)
+  				let retryCount = 0;			
+				var $this = this;
+				//console.log($this);
+				let attemptsFailsV = function(){
+						Swal.fire({
+						  text: 'something went wrong',
+						  title: 'click Ok to retry',
+						  icon:'error',
+						  showClass: {
+						    popup: 'animate__animated animate__fadeInDown'
+						  },
+						  hideClass: {
+						    popup: 'animate__animated animate__fadeOutUp'
+						  }
+						}).then((result) => {
+							  /* Read more about isConfirmed, isDenied below */
+							  if (result.isConfirmed) {
+							    location.reload();
+							  } else if (result.isDenied) {
+							    Swal.fire('please reload the page', '', 'info')
+							  }
+						});
+				}
+				let AxiosFetchData = function(){
+					let datafetched = '0';						
+					retryCount +=1;		
+					let userLoggedInOld = "";
+					if(localStorage.hasOwnProperty('LoggedUser')){		      			
+		      			userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
+		      		}else{
+				        localStorage.removeItem("LoggedUser");
+		      		}
+		      		let AuthAxios = 'Bearer '+userLoggedInOld;
+					let axiosHeader ={
+							'Content-Type':'application/json',
+							'Authorization':AuthAxios
+					};
+				    const formData = new FormData();
+		    		Object.keys(obj).forEach(key => formData.append(key, obj[key]));
+		    			
+                   return axios.post(url,formData,{headers: axiosHeader}).then(function(response, status, request) {        
                             if (response.status === 200) {                                     	
                             	let i,j;                  
                                //console.log(response.data.map((a,b)=>{j = []; for(i in a) {j.push(a[i])} return j; }));                               
@@ -572,7 +685,7 @@ export default {
 					  $this.append("<span class='ripple b-warning' style='width:"+diameter+"px; height:"+diameter+"px; left:"+left+"px; top:"+top+"px;'></span>");
 					})			
       			},
-      	naviconToggler: function(e){
+      	naviconToggler: function(e){      		
       		if ($(window).width() <751) {
 
 	      		if (this.navbarState === false) {
@@ -625,9 +738,22 @@ export default {
       		}*/
       },
       mounted: function(){
-
       	let $vm = this;
       	this.$nextTick(function(){
+	      	
+	      	$(document).ready(function(){
+	      		
+      			/*minimize vido player*/
+		      	$('#wideArea').not('.videoContainer iframe').click(function(){
+	         		$('.videoContainer').removeClass('videContainerProp');
+	            	$('.videoContainer  iframe').removeClass('h-75 w-75');            	
+	         		$('.videoContainer').detach().appendTo('#smallArea');
+	            	$vm.web_player();       
+
+	         	});
+		      	/*end minimize video*/
+	      	})
+
       		let windowWidth =	$(document).width();
       		setInterval(function(){
 	      		if ($('.scroll-y').innerWidth()) {

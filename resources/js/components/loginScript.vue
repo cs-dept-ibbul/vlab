@@ -61,6 +61,16 @@
                     
                 }
 
+                $('#togglePwDisplay').click(function(){
+                    var contX = $(this).text();
+                    if (contX==='show') {
+                        $(this).prev().attr('type','text');
+                        $(this).text('hide')
+                    }else if(contX === 'hide'){
+                        $(this).prev().attr('type','password');                        
+                        $(this).text('show');                        
+                    }
+                });
                     $('#login-btn').click(function(){                        
                         $vm.username = $vm.validateI('username');
                         $vm.password = $vm.validateI('password');                    

@@ -227,8 +227,23 @@
 				
 				this.swal_form(true,obj);
 			},
-			deletedepartment: function(depertment_id){				
-				this.axiosDelete('api/departments/delete',{'department_id': depertment_id})					
+			deletedepartment: function(depertment_id){			
+				Swal.fire({
+					title: 'confirm delete',
+					icon:'warning',
+					confirmButtonText:'Continue',					      
+			      cancelButtonText:'Cancel',				      				      
+			      cancelButtonColor:'#dd000f',					      
+			      confirmButtonColor:'#00b96b',					      
+			      showCancelButton:true,					      
+			      showLoaderOnConfirm: true,
+				}).then((result)=>{
+					if (result.value) {
+						this.axiosDelete('api/departments/delete',{'department_id': depertment_id})					
+
+					}
+				})	
+				//this.axiosDelete('api/departments/delete',{'department_id': depertment_id})					
 			},
 			singleValidate: function(id){
 			$('#'+id).css('border','1px solid #e45');

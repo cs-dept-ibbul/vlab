@@ -21,6 +21,7 @@ class CreateCoursesTable extends Migration
             $table->string('enrollment_code');
             $table->string('title');
             $table->string('code');
+            $table->string('video_url')->nullable();
             $table->string('description');
             $table->enum('status', ['Active', 'Inactive']);
             $table->rememberToken();
@@ -51,7 +52,8 @@ class CreateCoursesTable extends Migration
         Schema::create('course_resources', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('course_id');
-            $table->string('resourceUrl');
+            $table->string('resourceUrl')->nullable();
+            $table->string('caption')->nullable();
             $table->enum('status', ['Active', 'Inactive']);
             $table->rememberToken();
             $table->timestamps();

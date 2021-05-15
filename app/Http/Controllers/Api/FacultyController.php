@@ -100,7 +100,7 @@ class FacultyController extends Controller
 
     public function getAllFaculties()
     {
-        $faculties =  Faculty::all();
+        $faculties =  Faculty::with('department')->get();
         return response()->json($faculties, 200);
     }
 

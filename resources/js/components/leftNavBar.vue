@@ -8,26 +8,27 @@
 		<div class="m-0 mobileMenu p-display-none " id="MainMobile"></div>
 		<div  class="MenuLContainer bg-white" id="wideMenu"  v-bind:class="{reduceSize:show}">				
 			<div v-bind:class="{slidein:show, slideout:hide}" class="niconsV slider">
-				<a :href="home"  v-bind:class="{btnActive: checkActive('home')}">
-					<span class="iconOV fa fa-home btnActive" title="Home"></span>					
+
+				<a :href="home"  >
+					<span v-bind:class="{btnActive: checkActive('home')}" class="iconOV fa fa-home" title="Home"></span>					
 				</a>
-				<a href="/UserDashboard"  v-bind:class="{btnActive: checkActive('dashboard')}">
-					<span class="iconOV fa fa-dashboard" title="Dashboard"></span>					
+				<a href="/UserDashboard"  >
+					<span v-bind:class="{btnActive: checkActive('dashboard')}" class="iconOV fa fa-dashboard" title="Dashboard"></span>					
 				</a>
-				<a href="/explore"  v-bind:class="{btnActive: checkActive('explore')}">
-					<span class="iconOV fa fa-spinner" title="Explore"></span>					
+				<a href="/explore"  >
+					<span v-bind:class="{btnActive: checkActive('explore')}" class="iconOV fa fa-spinner" title="Explore"></span>					
 				</a>
-				<a href="/my-courses"   v-bind:class="{btnActive: checkActive('courses')}">
-					<span class="iconOV fa fa-toggle-on" title="Courses"></span>					
+				<a href="/my-courses"   >
+					<span class="iconOV fa fa-toggle-on" title="Courses" v-bind:class="{btnActive: checkActive('courses')}"></span>					
 				</a>
-				<a href="#" v-if="incourse == '1'" v-bind:class="{btnActive: checkActive('mycoursereview')}">
-					<span class="iconOV fa fa-toggle-on" title="My Courses"></span>					
+				<a href="#" v-if="incourse == '1'" >
+					<span v-bind:class="{btnActive: checkActive('mycoursereview')}" class="iconOV fa fa-toggle-on" title="My Courses"></span>					
 				</a>
-				<a href="#" v-bind:class="{btnActive: checkActive('discussion')}">
-					<span class="iconOV fa fa-comment" title="Discussion"></span>					
+				<a href="#" >
+					<span v-bind:class="{btnActive: checkActive('discussion')}" class="iconOV fa fa-comment" title="Discussion"></span>					
 				</a>
-				<a href="#" v-bind:class="{btnActive: checkActive('settings')}">
-					<span class="iconOV fa fa-gear" title="Settings"></span>					
+				<a href="#" >
+					<span v-bind:class="{btnActive: checkActive('settings')}" class="iconOV fa fa-gear" title="Settings"></span>					
 				</a>
 				<a @click="logout" >
 					<span class="iconOV fa fa-arrow-circle-left" style="margin-top: ;" title="Logout"></span>
@@ -95,14 +96,14 @@
  
         },
         created:function(){
-		  this.$eventBus.$on('toggleSysNav', data => {
+		  this.$eventBus.$on('toggleFromSysTopNav', data => {
 		  	this.toggleMenu();
 		  })		          
 		  console.log(this.incourse)
         },
         
 		beforeDestroy: function () {
-		  this.eventBus.$off('toggleSysNav', this.toggleNavOnHover)		  
+		  this.eventBus.$off('toggleFromSysTopNav', this.toggleNavOnHover)		  
 		},
         props:['home','dashboard','explore','mycourse','courses','discussion','settings', 'active', 'incourse'],
         mounted(){

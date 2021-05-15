@@ -47,7 +47,10 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'session_id'
     ];
-
+    public function newQuery($excludeDeleted = true) {
+        return parent::newQuery($excludeDeleted)
+            ->where('users.status', 'Active');
+    }
     
     /**
      * The attributes that should be cast to native types.
@@ -71,7 +74,13 @@ class User extends Authenticatable implements JWTSubject
     public function courses()
     {
         return $this->belongsToMany(Course::class, 'user_courses');
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'department_id');
     }    
+
 
     public function result()
     {
