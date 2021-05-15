@@ -20,7 +20,7 @@ export default {
       		currentUser:'',
       		startExperiment: false,
       		navbarState:false,
-      		freePath:['','explore'],
+      		freePath:['','explore','feedbacks'],
       		baseApiUrl : 'api/',
       		BaseOrigin:'http://localhost:8000'	
 
@@ -285,7 +285,7 @@ export default {
 					}
 				})		
   		},
-  		axiosGet: async(url) => {
+  		axiosGet: async(url,feedback=false) => {
   			//console.log(url)
   				let retryCount = 0;			
 				var $this = this;
@@ -343,7 +343,9 @@ export default {
                         	//console.log(e.response.status);
                              if(e.response.status === 401 ){                             	
                                  localStorage.removeItem("LoggedUser");
-  								location.href = "/logout";
+                                 if(!feedback){
+  									location.href = "/logout";
+                                 }
                              }else{
                                attemptsFailsV()                                           
                              }                                                                   

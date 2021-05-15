@@ -19,6 +19,9 @@ Route::post('/proccess-login', 'App\Http\Controllers\loginController@process_log
 Route::get('/', 'App\Http\Controllers\PagesController@index')->name('home');
 Route::get('/explore', 'App\Http\Controllers\ExploreController@index')->name('explore');
 Route::get('/logout', 'App\Http\Controllers\loginController@logout')->name('logout');
+Route::get('/feedbacks', function(){
+	return view('feedbacks');
+});
 
 Route::post('/ajax-logout', 'App\Http\Controllers\loginController@ajaxlogout');
 Route::post('/ajax-check-login', 'App\Http\Controllers\loginController@ajaxchecklogin');

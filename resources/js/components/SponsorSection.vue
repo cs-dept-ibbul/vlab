@@ -40,8 +40,9 @@ export default {
 
 	}
 	.special img{
-		width: 150px;
-		height: 56px;
+		width: 200px;
+		height: 70px;
+		box-shadow: none;
 	}
 .sponsors {
 	justify-content: space-between;

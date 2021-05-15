@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Api\ExperimentController;
+use App\Http\Controllers\Api\FeedbackController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Api\SchoolController;
@@ -32,6 +33,9 @@ Route::group([
 
     Route::get('faculty_course_student', [FacultyController::class, 'getFacultyWithCourseAndStudentCount']);
     Route::post('login', [AuthController::class, 'login']);
+    Route::post('feedback', [FeedbackController::class, 'feedback']);
+    Route::get('getfeedbacks', [FeedbackController::class, 'getFeedback']);
+
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
