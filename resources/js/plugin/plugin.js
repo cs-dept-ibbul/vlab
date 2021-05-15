@@ -21,8 +21,7 @@ export default {
       		startExperiment: false,
       		navbarState:false,
       		freePath:['','explore','feedbacks'],
-      		baseApiUrl : 'api/',
-      		BaseOrigin:'http://localhost:8000'	
+      		baseApiUrl : 'api/'      		
 
       	}
       },
