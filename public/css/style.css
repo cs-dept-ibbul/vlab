@@ -2027,7 +2027,7 @@ span.ripple {
     }
     @media (max-width: 497px) {
       .forThumb{
-        left: 10%;
+        left: 5%;
         font-size: 0.95em;
         width: 220px;
         flex-direction: column;        
