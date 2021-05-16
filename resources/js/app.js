@@ -138,10 +138,13 @@ Vue.component('v-feedback', require('./components/feedback.vue').default);
         $('body').append(`
           <div class="flex-wrap justify-between forThumb d-flex">
           <span>Did you like this page?</span>
+              <span>
               <i class="fa fa-thumbs-o-down likeThisPage" rel="no" style="font-size:1.3em;"></i>          
               <i class="fa fa-thumbs-o-up likeThisPage"   rel="yes"  style="font-size:1.3em;"></i>          
+              </span>
           </div>
-          `);
+          <div style="position:absolute;top:135%;height:30px;width:100%;"></div>
+          `); 
 
 
         $('.likeThisPage').on('click', function(){

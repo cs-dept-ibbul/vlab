@@ -9,11 +9,11 @@
     			<a href="/login" class="font fs2 fw3 text-white mx-1">Login</a>
     		</div>
     	</div>
-    	<div class="col-lg-6 col-md-6 mt-5">
+    	<div class="col-lg-6 col-md-6 mt-5" id="login-box-119">
     		<h1 class="text-center text-white font2 fw6">Welcome to Vlab</h1>
     		<div class="login-left"></div>
     	</div>
-    	<div class="col-lg-6 col-md-6 mt-5 pt-5">       	 	
+    	<div class="col-lg-6 col-md-6 mt-5 pt-5 " id="login-box-120">       	 	
     		<div class="p-5 login-right">
     		
     		<div class="d-flex">

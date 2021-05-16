@@ -15306,7 +15306,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_4__.default({
   },
   mounted: function mounted() {
     $('body').append("\n          <a class=\"flex-wrap forBug\" style=\" width:50px; height:50px; display:flex; justify-content:center;\"><span class=\"fa fa-bug text-danger fs8 p-0\"></span></a>\n          ");
-    $('body').append("\n          <div class=\"flex-wrap justify-between forThumb d-flex\">\n          <span>Did you like this page?</span>\n              <i class=\"fa fa-thumbs-o-down likeThisPage\" rel=\"no\" style=\"font-size:1.3em;\"></i>          \n              <i class=\"fa fa-thumbs-o-up likeThisPage\"   rel=\"yes\"  style=\"font-size:1.3em;\"></i>          \n          </div>\n          ");
+    $('body').append("\n          <div class=\"flex-wrap justify-between forThumb d-flex\">\n          <span>Did you like this page?</span>\n              <span>\n              <i class=\"fa fa-thumbs-o-down likeThisPage\" rel=\"no\" style=\"font-size:1.3em;\"></i>          \n              <i class=\"fa fa-thumbs-o-up likeThisPage\"   rel=\"yes\"  style=\"font-size:1.3em;\"></i>          \n              </span>\n          </div>\n          <div style=\"position:absolute;top:135%;height:30px;width:100%;\"></div>\n          ");
     $('.likeThisPage').on('click', function () {
       var res = $(this).attr('rel');
       var $vm = this;
@@ -15541,8 +15541,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           startExperiment: false,
           navbarState: false,
           freePath: ['', 'explore', 'feedbacks'],
-          baseApiUrl: 'api/',
-          BaseOrigin: 'http://localhost:8000'
+          baseApiUrl: 'api/'
         };
       },
       methods: {

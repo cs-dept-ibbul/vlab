@@ -1974,11 +1974,38 @@ span.ripple {
     }
     @media (max-width: 945px) {
 
+      .forThumb{
+        left: 35%;
+      }
+
       .task-container {
         grid-template-columns: repeat(2, 1fr);
       }
     }    
     @media (max-width: 720px  ) {
+      div#login-box-120{        
+        margin-top: 10px !important;
+        padding-top: 10px !important;
+        width: 100%;
+        padding-left: 2px !important;
+      }
+      .login-left{
+       height: 100px;
+       margin-bottom: 10px !important; 
+
+      }
+       #login-box-119{
+        padding-left: 2px !important;
+      }
+      div#login-box-120 .login-right{
+        padding: 24px !important;
+        width: 100%;        
+        min-height: 350px;
+
+      }
+      .forThumb{
+        left: 28%;
+      }
       .sponsors{
         padding: 30px !important;
       }
@@ -1999,6 +2026,14 @@ span.ripple {
       }
     }
     @media (max-width: 497px) {
+      .forThumb{
+        left: 10%;
+        font-size: 0.95em;
+        width: 220px;
+        flex-direction: column;        
+        padding-top:5px;
+        padding-bottom: 5px;
+      }
        .notification-table.forUser{
           margin-top: 235px;
         }        
