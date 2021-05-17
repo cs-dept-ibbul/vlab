@@ -19,20 +19,20 @@
     		<div class="d-flex">
     			
 	    		<p class="font2 fs8 fw6 p-text-dark">Login</p>
-	    		<div  id="login-msg" class="p-0 m-0 ml-4 d-flex flex-wrap position-relative" >    			
+	    		<div  id="login-msg" class="p-0 m-0 d-flex flex-wrap position-relative" >    			
 	    			<span id="login-msg-loader" class="p-display-none">
-			    		<span>Hi, this will only take a munite</span>
+			    		<span>Hi, this will only take a minute</span>
 				        <span class="dot-flashing  ml-4"></span>	    				
 	    			</span>
 	    			<span id="login-msg-success" class="p-display-none">
-	    				<span class='p-text-success  tenor-text' >you have sucessfully logged in</span><span class=' ml-4'><img width="10%" class="tenor" src="{{asset('images/tenor.gif')}}"></span>
+	    				<span class='p-text-success  tenor-text forLoginMsg' >you have sucessfully logged in</span><span class=' ml-4'><img width="10%" class="tenor" src="{{asset('images/tenor.gif')}}"></span>
 	    			</span>
 	    		</div>
-	    		<div id="login-err" class="mt-3 ml-4 p-display-none">
-	    			<span class="alert alert-danger">Invalid username or password</span>
+	    		<div id="login-err" class="mt-3 ml-2 p-display-none">
+	    			<span class="alert alert-danger forLoginMsg">Invalid username or password</span>
 	    		</div>
 	    		<div id="login-err2" class="mt-3 ml-4 p-display-none ">
-	    			<span class="alert alert-warning" >No internet connection...</span>
+	    			<span class="alert alert-warning forLoginMsg" >No internet connection...</span>
 	    		</div>
     		</div>
     		<form id="login-form">

@@ -47,6 +47,7 @@ export default {
     }
   },
   async created(){
+    let coux = await this.axiosGet('api/courses/check',false, 'Constact the Administrator to create faculties');            
 /*    console.log(this.currentUser)
     if (this.currentUser.role_id == this.instructorRole) {      
         this.link = '/view-course/'

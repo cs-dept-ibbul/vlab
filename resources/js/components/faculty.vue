@@ -46,8 +46,7 @@
 				let $vm = this, html='';
 				let topic = "Create Faculty";
 				let old = {name:"",code:""};
-				let btnName ="Create";
-				console.log(obj);
+				let btnName ="Create";				
 				//watch(this.watchfacultyHtml, 'value', function(){
 				if(update){
 					btnName= "Update";
@@ -77,7 +76,7 @@
 			      showLoaderOnConfirm: true,
 				  focusConfirm: false,
 				  preConfirm: () => {					  	
-				  	 let  FacultyName = document.getElementById('swal-input1').value,
+				  	 let  FacultyName = document.getElementById('swal-input1').value.toUpperCase(),
 				      FacultyAbbr = document.getElementById('swal-input2').value;					      					  	  
 				  	if ( FacultyName == "" || FacultyAbbr == "") {					     
 				         Swal.showValidationMessage('All fields are required');
@@ -89,18 +88,19 @@
 				  } 
 				}).then((result)=>{
 					if (result.value) {
-				    const answers = {name:result.value[0], code:result.value[1]}
+				    const answers = {faculty_name:result.value[0], faculty_code:result.value[1]}
+
 				    Swal.fire({
 				      title: 'click on proceed',
 				      text: 'other cancel and restart',
 				      html: `<table class='table text-left'>						      		
 					      		<tr>
 					      			<td width='30%'><b>Faculty Abbr:</b></td>
-					      			<td width='70%'>${old.name} ${answers.name}</td>
+					      			<td width='70%'>${old.name} ${answers.faculty_name}</td>
 					      		</tr>
 					      		<tr>
 					      		 	<td width='30%'><b>Abbr:</b></td>
-					      		 	<td width='70%'>${old.code} ${answers.code} </td>
+					      		 	<td width='70%'>${old.code} ${answers.faculty_code} </td>
 					      		 <tr>
 				      		</table>`,
 				      confirmButtonText:'Continue',					      

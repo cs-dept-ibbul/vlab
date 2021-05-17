@@ -95,7 +95,9 @@
         	},
  
         },
-        created:function(){
+        async created(){
+        	this.currentSession = await this.axiosGet('api/current_session',false, 'Constact the Administrator to Set a Session');          
+            window.sessionNow = this.currentSession; 
 		  this.$eventBus.$on('toggleFromSysTopNav', data => {
 		  	this.toggleMenu();
 		  })		          

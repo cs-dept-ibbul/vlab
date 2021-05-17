@@ -128,9 +128,8 @@ Vue.component('v-feedback', require('./components/feedback.vue').default);
               alert();
             }
         },
-        beforeCreated(){
-            document.getElementsByTagName('')
-        },
+    beforeCreated(){          
+     },
       mounted(){     
         $('body').append(`
           <a class="flex-wrap forBug" style=" width:50px; height:50px; display:flex; justify-content:center;"><span class="fa fa-bug text-danger fs8 p-0"></span></a>

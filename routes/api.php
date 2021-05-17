@@ -40,6 +40,7 @@ Route::group([
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
     Route::post('verify_user', [AuthController::class, 'verifyUser']);
+    Route::get('current_session', [SessionController::class, 'getCurrentSession']);
 
     Route::group(['middleware' => ['jwt.auth']], function () {
 
@@ -75,6 +76,7 @@ Route::group([
             Route::post('faculty', [FacultyController::class, 'getFaculty']);
             Route::get('faculties', [FacultyController::class, 'getAllFaculties']);
             Route::get('faculty_courses', [FacultyController::class, 'facultiesWithCourses']);
+            Route::get('check', [FacultyController::class, 'check']);
             Route::get('faculty_course_student', [FacultyController::class, 'getFacultyWithCourseAndStudentCount']);
         });
 

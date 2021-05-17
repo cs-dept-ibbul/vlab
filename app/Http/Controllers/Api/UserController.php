@@ -37,12 +37,11 @@ class UserController extends Controller
         $user = new User();
 
         $validator = Validator::make($request->all(), [
-            'email' => 'required',
-            'password' => 'required',
+            'email' => 'required',            
             'first_name' => 'required',
             'faculty_id' => 'required',
         ]);
-
+        
         if ($validator->fails()) {
             return response()->json(['error' => "All fields are required"], 400);
         }
@@ -56,7 +55,7 @@ class UserController extends Controller
         $faculty_id = $request->get('faculty_id');
         $department_id = $request->get('department_id');
         $gender = $request->get('gender');
-        $phone = $request->get('phone');
+        $phone = $request->get('phone');        
         $salute = $request->get('title')??'';
         $user_ip_address = (new Util())->ip();
         $status = $request->get('status') ?? 'Active';
@@ -79,6 +78,8 @@ class UserController extends Controller
             $user->phone = $phone;
             $user->matric_number = $matric_number;
             $user->salute = $salute;
+            $user->session_id = $this->currentSession;
+            
 
 
             $user->status = $status;

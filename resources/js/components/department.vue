@@ -1,6 +1,6 @@
 <template>	
 		<div class="w-100 mt-2 py-3">
-          <a href="#" @click="createdepartment" class="btn py-3 mb-5 mr-2 px-4 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 0.6rem">Create New <span class="text-white fa fa-chevron-down"></span></a>
+          <a v-if="!tableLoaded" href="#" @click="createdepartment" class="btn py-3 mb-5 mr-2 px-4 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 0.6rem">Create New <span class="text-white fa fa-chevron-down"></span></a>
           <br>
           <div class="notification-table ">
 				<table id="departmenttable" class="table table-hover">
@@ -14,7 +14,7 @@
 			            <th width="15%">Action</th>
 						</tr>
 					</thead>
-					<tbody v-if="tableLoaded">
+					<tbody v-if="!tableLoaded">
 			        <tr v-for="(department, index) in createddepartment" :key="index">	         
 			            <td width="30%" :title="department.title">{{department.name}}</td>
 			            <td width="20%">{{department.code}}</td>	           
@@ -36,7 +36,7 @@
 		data(){
 			return{
 				createddepartment:null,
-				tableLoaded:false,
+				tableLoaded:true,
 				facultiesHTML: null,
 				faculties: null,
 				oldfaculty:"",
@@ -53,7 +53,6 @@
 				return faculty[0].code;
 			},
 			async swal_form(update = false, obj){					
-				$('#system-loader').css('display','flex');
 				let formcount = 0;
 				let $vm = this, html='';
 				let topic = "Create Department";
@@ -81,14 +80,14 @@
 					  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Name</legend>"+					  		   
 					    '<input id="swal-input1" class="swal2-input mt-1" value="'+obj.name+'" >' +
 					  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Abbr</legend>"+					  		   				    
-					    '<input id="swal-input2" class="swal2-input mt-1" value="'+obj.code+'">';
+					    '<input id="swal-input2" class="UpperCase swal2-input mt-1" value="'+obj.code+'">';
 					}else{
 						html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>"+
 					  	$vm.facultiesHTML+				
 					  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Name</legend>"+					  		   
 					    '<input id="swal-input1" class="swal2-input mt-1" >' +
 					  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Abbr</legend>"+					  		   				    
-					    '<input id="swal-input2" class="swal2-input mt-1">';	
+					    '<input id="swal-input2" class="swal2-input mt-1 UpperCase">';	
 					}										
 					$('#system-loader').hide();						
 					Swal.fire({
@@ -104,7 +103,7 @@
 					  preConfirm: () => {
 					  	let faculty = document.getElementById('swal-input0').value,
 					  	 facultyName , departmentName = document.getElementById('swal-input1').value,
-					      departmentAbbr = document.getElementById('swal-input2').value;
+					      departmentAbbr = document.getElementById('swal-input2').value.toUpperCase();
 					      facultyName = document.getElementById('swal-input0').options;
 					  	  facultyName = facultyName[facultyName.selectedIndex].text
 					  	if ( faculty == "" || departmentName == "" || departmentAbbr == "") {					     
@@ -144,7 +143,7 @@
 					      confirmButtonColor:'#00b96b',					      
 					      showCancelButton:true,					      
 					      showLoaderOnConfirm: true,
-					       preConfirm: (login) => {								       	
+					       preConfirm: (login) => {							
 					        if (update){
 					        	let formData = $vm.createFormData({department_id:obj.id,faculty_id:answers.faculty_id,name:result.value[1], code:result.value[2]});
 					        	return $vm.axios.post($vm.baseApiUrl+'departments/update',formData,{headers:$vm.axiosHeader})
@@ -170,8 +169,9 @@
 							      	}
 						      	})
 					        }else{
-					        	return $vm.axios.post($vm.baseApiUrl+'departments/create',$vm.createFormData(answers),{headers:$vm.axiosHeader})
-						      	.then(response => {						      	
+						      	   	
+					        	return $vm.axios.post('api/departments/create',$vm.createFormData(answers),{headers:$vm.axiosHeader})
+						      	.then(response => {		
 							        if (!response.data.sucess) {
 							          throw new Error(response.statusText)
 							        }						   
@@ -208,7 +208,7 @@
 							      confirmButtonText:'Ok',
 				      			  confirmButtonColor:'#00b96b',	
 							    }).then((result)=>{
-							    	location.reload();
+							       location.reload();
 							    })
 							  }
 					    })
@@ -282,7 +282,7 @@
 		       this.faculties = await this.axiosGet('api/faculties/faculties');
 			   await this.axiosGetFacultyHtml(false,null);
 			    
-			    this.tableLoaded = true;
+			    this.tableLoaded = false;
 			    /*initialize datatable */
 	             setTimeout(function() {
 	             	 $('#departmenttable').DataTable({

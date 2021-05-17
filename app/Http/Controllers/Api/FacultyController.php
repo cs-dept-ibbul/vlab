@@ -38,6 +38,14 @@ class FacultyController extends Controller
         return response()->json(['error' => 'This faculty already exist'], 409);
     }
 
+    public function check()
+    {
+        $faculties =  Faculty::with('department')->get();
+        if (sizeof($faculties)>0) {
+            return response()->json($faculties, 200);            
+        }
+        return response()->json(['error' => 'Not found'], 404);                
+    }
     public function deleteFaculty(Request $request)
     {
 

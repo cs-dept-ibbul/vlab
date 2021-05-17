@@ -25,7 +25,7 @@
 			<br><br><br><br><br><br>
           	<v-loader count="2"></v-loader>
          </div>
-          <div class="notification-table forUser" v-if="!loaderState">			     
+          <div class="notification-table forUser">			     
 			     
 				<table id="usertable" class="table table-hover">
 					<thead>
@@ -110,11 +110,11 @@
                             if (response.status === 200) {                                     	
                                $this.createduser = response.data;
 							   $this.loaderState = false;
-							     setTimeout(function() {
+							     /*setTimeout(function() {
 						         	 $('#usertable').DataTable({
 								    	pageLength : 5,
 								    });
-						         }, 500);
+						         }, 500);*/
                             }else{
                             }
                         }, function(e) {                                	
@@ -145,7 +145,7 @@
 					
 					$('#system-loader').hide();						
 					Swal.fire({
-					  title: "Upload bulk user",
+					  title: "Upload Bulk User",
 					  html:html,
 					  focusConfirm: false,
 					  preConfirm: () => {
@@ -156,7 +156,7 @@
         					 role_id = document.getElementById("role_id").value,
         					 csv = document.getElementById("swal-file1").files[0]        					
         					 var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.xls|.xlsx|.csv)$/;
-        					  if (regex.test(fileUpload.value.toLowerCase())) {					     
+        					if (regex.test(fileUpload.value.toLowerCase())) {					     
 					        } else {
 					           Swal.showValidationMessage('Error: please select a valid file (.csv file)');
 					        }
@@ -299,7 +299,21 @@
 				});				
 			},
 			deleteuser: function(id){
-				Swal.fire('delete');					
+				Swal.fire({
+					title: 'confirm delete',
+					icon:'warning',
+					confirmButtonText:'Continue',					      
+			      cancelButtonText:'Cancel',				      				      
+			      cancelButtonColor:'#dd000f',					      
+			      confirmButtonColor:'#00b96b',					      
+			      showCancelButton:true,					      
+			      showLoaderOnConfirm: true,
+				}).then((result)=>{
+					if (result.value) {
+						this.axiosDelete('api/users/delete',{'user_id': id})					
+
+					}
+				})					
 			},
 			singleValidate: function(id){
 			$('#'+id).css('border','1px solid #e45');

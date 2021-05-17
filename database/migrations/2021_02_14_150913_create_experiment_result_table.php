@@ -14,10 +14,11 @@ class CreateExperimentResultTable extends Migration
     public function up()
     {
         Schema::create('experiment_results', function (Blueprint $table) {
-            $table->string('id', 36)->primary();
+            //this->down();
+            $table->string('id',36)->primary();
             $table->string('user_id', 36);
-            $table->integer('course_id', 36);
-            $table->integer('experiment_id', 36);
+            $table->string('course_id', 36);
+            $table->string('experiment_id', 36);
             $table->string('session_id', 36);
             $table->string('weekly_work_id', 36);
             $table->string('result_json', 3000);

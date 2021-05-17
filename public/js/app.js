@@ -2923,20 +2923,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var coux;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _this.axiosGet('api/faculties/faculty_course_student');
+              return _this.axiosGet('api/courses/check', false, 'Constact the Administrator to create faculties');
 
             case 2:
+              coux = _context.sent;
+              _context.next = 5;
+              return _this.axiosGet('api/faculties/faculty_course_student');
+
+            case 5:
               _this.courseCate = _context.sent;
               //console.log(this.createdFaculty)
               _this.tableLoaded = true;
               /*initialize datatable */
 
-            case 4:
+            case 7:
             case "end":
               return _context.stop();
           }
@@ -4538,6 +4544,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4629,7 +4648,8 @@ __webpack_require__.r(__webpack_exports__);
       show: false,
       hide: true,
       show1: true,
-      hide1: false
+      hide1: false,
+      currentSession: []
     };
   },
   methods: {
@@ -4661,9 +4681,29 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.$eventBus.$on('toggleFromSysTopNav', function (data) {
-      _this.toggleMenu();
-    });
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this.axiosGet('api/current_session', false, 'Please set a Session');
+
+            case 2:
+              _this.currentSession = _context.sent;
+              window.sessionNow = _this.currentSession;
+
+              _this.$eventBus.$on('toggleFromSysTopNav', function (data) {
+                _this.toggleMenu();
+              });
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   },
   beforeDestroy: function beforeDestroy() {
     this.eventBus.$off('toggleFromSysTopNav', this.toggleNavOnHover);
@@ -6216,7 +6256,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       createddepartment: null,
-      tableLoaded: false,
+      tableLoaded: true,
       facultiesHTML: null,
       faculties: null,
       oldfaculty: "",
@@ -6246,7 +6286,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 update = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : false;
                 obj = _arguments.length > 1 ? _arguments[1] : undefined;
-                $('#system-loader').css('display', 'flex');
                 formcount = 0;
                 $vm = _this, html = '';
                 topic = "Create Department";
@@ -6258,24 +6297,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 };
 
                 if (!update) {
-                  _context.next = 15;
+                  _context.next = 14;
                   break;
                 }
 
                 btnName = "Update";
                 topic = "Update Department";
-                _context.next = 13;
+                _context.next = 12;
                 return _this.axiosGetFacultyHtml(update, obj.faculty_id);
 
-              case 13:
-                _context.next = 17;
+              case 12:
+                _context.next = 16;
                 break;
 
-              case 15:
-                _context.next = 17;
+              case 14:
+                _context.next = 16;
                 return _this.axiosGetFacultyHtml(update);
 
-              case 17:
+              case 16:
                 //watch(this.watchfacultyHtml, 'value', function(){
                 //let dialog  = function(){
                 if (update) {
@@ -6285,9 +6324,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     code: '<span class="text-danger">' + obj.code + '</span> <b class="text-success"> to </b> '
                   }; //this.axiosGetFacultyHtml(update,obj.faculty_id);					
 
-                  html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>" + $vm.facultiesHTML + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" value="' + obj.name + '" >' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Abbr</legend>" + '<input id="swal-input2" class="swal2-input mt-1" value="' + obj.code + '">';
+                  html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>" + $vm.facultiesHTML + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" value="' + obj.name + '" >' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Abbr</legend>" + '<input id="swal-input2" class="UpperCase swal2-input mt-1" value="' + obj.code + '">';
                 } else {
-                  html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>" + $vm.facultiesHTML + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" >' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Abbr</legend>" + '<input id="swal-input2" class="swal2-input mt-1">';
+                  html = "<legend class='text-left mb-1 mt-3 pb-0 fs1 p-text-success'>Select Faculty</legend>" + $vm.facultiesHTML + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" >' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Department Abbr</legend>" + '<input id="swal-input2" class="swal2-input mt-1 UpperCase">';
                 }
 
                 $('#system-loader').hide();
@@ -6305,7 +6344,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     var faculty = document.getElementById('swal-input0').value,
                         facultyName,
                         departmentName = document.getElementById('swal-input1').value,
-                        departmentAbbr = document.getElementById('swal-input2').value;
+                        departmentAbbr = document.getElementById('swal-input2').value.toUpperCase();
                     facultyName = document.getElementById('swal-input0').options;
                     facultyName = facultyName[facultyName.selectedIndex].text;
 
@@ -6360,7 +6399,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                             }
                           });
                         } else {
-                          return $vm.axios.post($vm.baseApiUrl + 'departments/create', $vm.createFormData(answers), {
+                          return $vm.axios.post('api/departments/create', $vm.createFormData(answers), {
                             headers: $vm.axiosHeader
                           }).then(function (response) {
                             if (!response.data.sucess) {
@@ -6408,7 +6447,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 //});		
                 //let $vm = this;	
 
-              case 20:
+              case 19:
               case "end":
                 return _context.stop();
             }
@@ -6513,7 +6552,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _this4.axiosGetFacultyHtml(false, null);
 
             case 8:
-              _this4.tableLoaded = true;
+              _this4.tableLoaded = false;
               /*initialize datatable */
 
               setTimeout(function () {
@@ -6858,8 +6897,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         name: "",
         code: ""
       };
-      var btnName = "Create";
-      console.log(obj); //watch(this.watchfacultyHtml, 'value', function(){
+      var btnName = "Create"; //watch(this.watchfacultyHtml, 'value', function(){
 
       if (update) {
         btnName = "Update";
@@ -6885,7 +6923,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         showLoaderOnConfirm: true,
         focusConfirm: false,
         preConfirm: function preConfirm() {
-          var FacultyName = document.getElementById('swal-input1').value,
+          var FacultyName = document.getElementById('swal-input1').value.toUpperCase(),
               FacultyAbbr = document.getElementById('swal-input2').value;
 
           if (FacultyName == "" || FacultyAbbr == "") {
@@ -6897,13 +6935,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }).then(function (result) {
         if (result.value) {
           var answers = {
-            name: result.value[0],
-            code: result.value[1]
+            faculty_name: result.value[0],
+            faculty_code: result.value[1]
           };
           Swal.fire({
             title: 'click on proceed',
             text: 'other cancel and restart',
-            html: "<table class='table text-left'>\t\t\t\t\t\t      \t\t\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>Faculty Abbr:</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'>".concat(old.name, " ").concat(answers.name, "</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t \t<td width='30%'><b>Abbr:</b></td>\n\t\t\t\t\t      \t\t \t<td width='70%'>").concat(old.code, " ").concat(answers.code, " </td>\n\t\t\t\t\t      \t\t <tr>\n\t\t\t\t      \t\t</table>"),
+            html: "<table class='table text-left'>\t\t\t\t\t\t      \t\t\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>Faculty Abbr:</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'>".concat(old.name, " ").concat(answers.faculty_name, "</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t \t<td width='30%'><b>Abbr:</b></td>\n\t\t\t\t\t      \t\t \t<td width='70%'>").concat(old.code, " ").concat(answers.faculty_code, " </td>\n\t\t\t\t\t      \t\t <tr>\n\t\t\t\t      \t\t</table>"),
             confirmButtonText: 'Continue',
             cancelButtonText: 'Cancel',
             cancelButtonColor: '#dd000f',
@@ -7103,6 +7141,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -7320,14 +7366,35 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.$eventBus.$on('toggleSysNav', function (data) {
-      _this.toggleMenu();
-    });
-    this.$eventBus.$on('toggleFromSysTopNav', function (data) {
-      _this.iconStateFromSysTopNav = data.data;
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this.axiosGet('api/current_session', false, 'Constact the Administrator to Set a Session');
 
-      _this.toggleMenu();
-    });
+            case 2:
+              _this.currentSession = _context.sent;
+              window.sessionNow = _this.currentSession;
+
+              _this.$eventBus.$on('toggleSysNav', function (data) {
+                _this.toggleMenu();
+              });
+
+              _this.$eventBus.$on('toggleFromSysTopNav', function (data) {
+                _this.iconStateFromSysTopNav = data.data;
+
+                _this.toggleMenu();
+              });
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   },
   beforeDestroy: function beforeDestroy() {
     this.eventBus.$off('toggleSysNav', this.toggleNavOnHover);
@@ -7386,6 +7453,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -7486,10 +7561,31 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.$eventBus.$on('toggleFromSysTopNav', function (data) {
-      _this.toggleMenu();
-    });
-    console.log(this.incourse);
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this.axiosGet('api/current_session', false, 'Constact the Administrator to Set a Session');
+
+            case 2:
+              _this.currentSession = _context.sent;
+              window.sessionNow = _this.currentSession;
+
+              _this.$eventBus.$on('toggleFromSysTopNav', function (data) {
+                _this.toggleMenu();
+              });
+
+              console.log(_this.incourse);
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   },
   beforeDestroy: function beforeDestroy() {
     this.eventBus.$off('toggleFromSysTopNav', this.toggleNavOnHover);
@@ -7663,6 +7759,55 @@ __webpack_require__.r(__webpack_exports__);
           return true;
         }
       }
+    },
+    submitNow: function submitNow() {
+      var $vm = this;
+      $vm.username = $vm.validateI('username');
+      $vm.password = $vm.validateI('password');
+
+      if ($vm.username != "" && $vm.password != "") {
+        /* var formContents = jQuery("#login-form").serialize();
+         */
+        $('#login-msg-loader').show();
+        $('#login-err2').hide();
+        $('#login-err').hide();
+
+        try {
+          $vm.axios.post('api/login', {
+            username: $vm.username,
+            password: $vm.password
+          }).then(function (response, status, request) {
+            $('#login-msg-loader').hide();
+            $('#login-msg-success').show();
+            $('#login-msg-success.checkmark').show();
+
+            if (response.status === 200) {
+              localStorage.setItem('LoggedUser', JSON.stringify(response.data));
+              /*update store*/
+
+              $vm.$store.dispatch('updateUser', response);
+              $('#response-data').val(JSON.stringify(response));
+              $('#auto-redirect').submit();
+              $('#login-msg').css('display', 'none');
+            } else {
+              $('#login-msg').css('display', 'none');
+              $('#login-err').show();
+            }
+          }, function (e) {
+            if (e.response.status === 401) {
+              $('#login-msg').css('display', 'none');
+              $('#login-msg-loader').hide();
+              $('#login-err').show();
+            } else {
+              $('#login-msg-loader').hide();
+              $('#login-err2').show();
+            }
+          });
+        } catch (err) {
+          $('#login-msg-loader').hide();
+          $('#login-err2').show();
+        }
+      }
     }
   },
   created: function created() {},
@@ -7687,53 +7832,13 @@ __webpack_require__.r(__webpack_exports__);
           $(this).text('show');
         }
       });
-      $('#login-btn').click(function () {
-        $vm.username = $vm.validateI('username');
-        $vm.password = $vm.validateI('password');
-
-        if ($vm.username != "" && $vm.password != "") {
-          /* var formContents = jQuery("#login-form").serialize();
-           */
-          $('#login-msg-loader').show();
-          $('#login-err2').hide();
-          $('#login-err').hide();
-
-          try {
-            $vm.axios.post('api/login', {
-              username: $vm.username,
-              password: $vm.password
-            }).then(function (response, status, request) {
-              $('#login-msg-loader').hide();
-              $('#login-msg-success').show();
-              $('#login-msg-success.checkmark').show();
-
-              if (response.status === 200) {
-                localStorage.setItem('LoggedUser', JSON.stringify(response.data));
-                /*update store*/
-
-                $vm.$store.dispatch('updateUser', response);
-                $('#response-data').val(JSON.stringify(response));
-                $('#auto-redirect').submit();
-                $('#login-msg').css('display', 'none');
-              } else {
-                $('#login-msg').css('display', 'none');
-                $('#login-err').show();
-              }
-            }, function (e) {
-              if (e.response.status === 401) {
-                $('#login-msg').css('display', 'none');
-                $('#login-msg-loader').hide();
-                $('#login-err').show();
-              } else {
-                $('#login-msg-loader').hide();
-                $('#login-err2').show();
-              }
-            });
-          } catch (err) {
-            $('#login-msg-loader').hide();
-            $('#login-err2').show();
-          }
+      $('#password').keyup(function (e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+          $vm.submitNow();
         }
+      });
+      $('#login-btn').click(function () {
+        $vm.submitNow();
       });
     });
   }
@@ -9607,15 +9712,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var formcount = 0;
       var $vm = this,
           html = '';
-      var topic = "Create session";
+      var topic = "Create Session";
       var popbtn = "Create"; //watch(this.watchsessionHtml, 'value', function(){
 
       if (update) {
         topic = 'Update session';
         popbtn = 'Update';
-        html = "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>session Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" value="' + obj.session + '" >';
+        html = "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Session Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" value="' + obj.session + '" >' + '<input id="swal-input2" type="checkbox" class="mr-1 mt-2 d-inline-block"><label class="mb-1 d-inline-block">set as current session</label>';
       } else {
-        html = "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>session Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" >';
+        html = "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Session Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" >' + '<input id="swal-input2" type="checkbox" class="mr-1 mt-2 d-inline-block"><label class="mb-1 d-inline-block">set as current session</label>';
+        ;
       }
 
       $('#system-loader').hide();
@@ -9631,6 +9737,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         focusConfirm: false,
         preConfirm: function preConfirm() {
           var sessionName = document.getElementById('swal-input1').value;
+          var is_current = 0,
+              current = 'No';
+
+          if ($('#swal-input2').prop('checked')) {
+            current = 'Yes';
+            is_current = 1;
+          } //let  is_current = document.getElementById('swal-input1 ').value;
+
 
           if (sessionName == "") {
             Swal.showValidationMessage('All fields are required');
@@ -9645,16 +9759,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             if (sessionArr[1] - sessionArr[0] < 0 || sessionArr[1] - sessionArr[0] > 1) Swal.showValidationMessage('InValid session');
           }
 
-          return [sessionName];
+          return [sessionName, is_current, current];
         }
       }).then(function (result) {
         if (result.value) {
           var answers = {
-            session: result.value[0]
+            session: result.value[0],
+            is_current: result.value[1]
           };
           Swal.fire({
             title: 'Confirm Data',
-            html: "<table class='table text-left'>\t\t\t\t\t\t      \t\t\n\t\t\t\t\t      \t\t<tr>\t\t\t\t\t      \t\t\n\t\t\t\t\t      \t\t\t<td width='70%' class=\"text-center fs2 fw6 font1\">session:  ".concat(answers.session, "</td>\n\t\t\t\t\t      \t\t</tr>\t\t\t\t\t      \t\n\t\t\t\t      \t\t</table>"),
+            html: "<table class='table text-left'>\t\t\t\t\t\t      \t\t\n\t\t\t\t\t      \t\t<tr>\t\t\t\t\t      \t\t\n\t\t\t\t\t      \t\t\t<td width='70%' class=\"text-center fs2 fw6 font1\">session:  ".concat(answers.session, "</td>\n\t\t\t\t\t      \t\t\t<td width='70%' class=\"text-center fs2 fw6 font1\">current Session: ").concat(result.value[2], " </td>\n\t\t\t\t\t      \t\t</tr>\t\t\t\t\t      \t\n\n\t\t\t\t      \t\t</table>"),
             confirmButtonText: 'Continue',
             cancelButtonText: 'Cancel',
             cancelButtonColor: '#dd000f',
@@ -9666,6 +9781,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 var formData = new FormData();
                 formData.append("session_id", obj.id);
                 formData.append("session", result.value[0]);
+                formData.append("is_current", result.value[1]);
                 return $vm.axios.post('api/session/update', formData, {
                   headers: $vm.axiosHeader
                 }).then(function (response) {
@@ -9769,7 +9885,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }).then(function (result) {
         if (result.value) {
           Swal.fire({
-            title: 'ssession set successfully',
+            title: 'Session set successfully',
             confirmButtonText: 'Ok',
             confirmButtonColor: '#00b96b'
           }).then(function (result) {
@@ -13165,11 +13281,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         if (response.status === 200) {
           $this.createduser = response.data;
           $this.loaderState = false;
-          setTimeout(function () {
-            $('#usertable').DataTable({
-              pageLength: 5
-            });
-          }, 500);
+          /*setTimeout(function() {
+             	 $('#usertable').DataTable({
+          	pageLength : 5,
+          });
+             }, 500);*/
         } else {}
       }, function (e) {
         if (e.response.status === 401) {
@@ -13190,7 +13306,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       html += "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Select csv file</legend>" + '<input id="swal-file1" type="file" class="mt-1 mx-auto"  >';
       $('#system-loader').hide();
       Swal.fire({
-        title: "Upload bulk user",
+        title: "Upload Bulk User",
         html: html,
         focusConfirm: false,
         preConfirm: function preConfirm() {
@@ -13328,7 +13444,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     deleteuser: function deleteuser(id) {
-      Swal.fire('delete');
+      var _this = this;
+
+      Swal.fire({
+        title: 'confirm delete',
+        icon: 'warning',
+        confirmButtonText: 'Continue',
+        cancelButtonText: 'Cancel',
+        cancelButtonColor: '#dd000f',
+        confirmButtonColor: '#00b96b',
+        showCancelButton: true,
+        showLoaderOnConfirm: true
+      }).then(function (result) {
+        if (result.value) {
+          _this.axiosDelete('api/users/delete', {
+            'user_id': id
+          });
+        }
+      });
     },
     singleValidate: function singleValidate(id) {
       $('#' + id).css('border', '1px solid #e45');
@@ -13340,10 +13473,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var $this = this;
       setTimeout(function () {
         $('#faculty_id').change(function () {
-          var _this = this;
+          var _this2 = this;
 
           var departmentsX = $this.faculties.filter(function (item) {
-            return item.id === $(_this).val();
+            return item.id === $(_this2).val();
           })[0].department;
           var opt = "";
           departmentsX.forEach(function (item, idex) {
@@ -13354,23 +13487,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, 50);
     },
     axiosGetFacultyHtml: function axiosGetFacultyHtml(update, faculty_id) {
-      var _this2 = this;
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!(_this2.faculties === null)) {
+                if (!(_this3.faculties === null)) {
                   _context.next = 4;
                   break;
                 }
 
                 _context.next = 3;
-                return _this2.axiosGet('api/faculties/faculties');
+                return _this3.axiosGet('api/faculties/faculties');
 
               case 3:
-                _this2.faculties = _context.sent;
+                _this3.faculties = _context.sent;
 
               case 4:
                 //method 2 
@@ -13379,24 +13512,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 //it might slow down operation
 
                 /*this.faculties =  await this.axiosGet('api/faculties/faculties');*/
-                _this2.facultiesHTML = "<select id='swal-input0' class='swal2-input mt-1'>";
+                _this3.facultiesHTML = "<select id='swal-input0' class='swal2-input mt-1'>";
 
-                _this2.faculties.forEach(function (item, idex) {
+                _this3.faculties.forEach(function (item, idex) {
                   if (update) {
-                    _this2.facultiesHTML += "<option value='" + item.id + "'";
+                    _this3.facultiesHTML += "<option value='" + item.id + "'";
 
                     if (item.id == faculty_id) {
-                      _this2.facultiesHTML += "selected=selected";
+                      _this3.facultiesHTML += "selected=selected";
                     }
 
-                    _this2.facultiesHTML += ">" + item.code + "</option>";
+                    _this3.facultiesHTML += ">" + item.code + "</option>";
                   } else {
-                    _this2.facultiesHTML += "<option value='" + item.id + "'>" + item.code + "</option>";
+                    _this3.facultiesHTML += "<option value='" + item.id + "'>" + item.code + "</option>";
                   }
                 });
 
-                _this2.facultiesHTML += "</select>";
-                _this2.watchfacultyHtml.value = Math.random(1, 1000);
+                _this3.facultiesHTML += "</select>";
+                _this3.watchfacultyHtml.value = Math.random(1, 1000);
 
               case 8:
               case "end":
@@ -13408,7 +13541,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   created: function created() {
-    var _this3 = this;
+    var _this4 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
@@ -13416,29 +13549,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return _this3.axiosGet('api/faculties/faculties');
+              return _this4.axiosGet('api/faculties/faculties');
 
             case 2:
-              _this3.faculties = _context2.sent;
+              _this4.faculties = _context2.sent;
               _context2.next = 5;
-              return _this3.axiosGet('api/departments/departments');
+              return _this4.axiosGet('api/departments/departments');
 
             case 5:
-              _this3.departments = _context2.sent;
+              _this4.departments = _context2.sent;
               _context2.next = 8;
-              return _this3.axiosGet('api/users/users');
+              return _this4.axiosGet('api/users/users');
 
             case 8:
-              _this3.createduser = _context2.sent;
+              _this4.createduser = _context2.sent;
               _context2.next = 11;
-              return _this3.axiosGet('api/session/all_session');
+              return _this4.axiosGet('api/session/all_session');
 
             case 11:
-              _this3.sessions = _context2.sent;
-              _this3.facultiesHTML = _this3.selectHtmlGen(_this3.faculties, 'code', 'faculty_id');
-              _this3.departmentsHTML = _this3.selectHtmlGen(_this3.departments, 'code', 'department_id');
-              _this3.loaderState = false;
-              _this3.tableLoaded = false;
+              _this4.sessions = _context2.sent;
+              _this4.facultiesHTML = _this4.selectHtmlGen(_this4.faculties, 'code', 'faculty_id');
+              _this4.departmentsHTML = _this4.selectHtmlGen(_this4.departments, 'code', 'department_id');
+              _this4.loaderState = false;
+              _this4.tableLoaded = false;
               /*initialize datatable */
 
               setTimeout(function () {
@@ -13720,6 +13853,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -13743,7 +13877,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       title: "",
       id: "",
       rolename: '',
-      urole: ''
+      urole: '',
+      sent: 0
     };
   },
   methods: {
@@ -13766,42 +13901,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }*/
 
       if (!this.update) {
-        this.axios.post('api/users/create', formData, {
-          headers: this.axiosHeader
-        }).then(function (response) {
-          $this.hide_loader();
+        this.sent += 1;
 
-          if (response.status == 200) {
-            Swal.fire({
-              title: 'created succefully',
-              icon: 'success',
-              confirmButtonText: 'Ok',
-              confirmButtonColor: '#00b96b'
-            }).then(function (result) {
-              location.reload();
-            });
-          } else {
-            Swal.fire({
-              title: 'something went wrong',
-              icon: 'error',
-              confirmButtonText: 'Ok',
-              confirmButtonColor: '#00b96b'
-            });
-          }
-        })["catch"](function (error) {
-          $this.hide_loader();
+        if (this.sent == 1) {
+          this.axios.post('api/users/create', formData, {
+            headers: this.axiosHeader
+          }).then(function (response) {
+            $this.hide_loader();
 
-          if (error.response) {
-            if (error.response.status == 409) {
+            if (response.status == 200) {
               Swal.fire({
-                title: 'already exist user',
-                text: 'email or matric number',
-                icon: 'warning',
+                title: 'created succefully',
+                icon: 'success',
                 confirmButtonText: 'Ok',
                 confirmButtonColor: '#00b96b'
+              }).then(function (result) {
+                location.reload();
               });
-            } else if (error.response.status == 401) {
-              location.reload();
             } else {
               Swal.fire({
                 title: 'something went wrong',
@@ -13810,47 +13926,51 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 confirmButtonColor: '#00b96b'
               });
             }
-          }
-        });
+          })["catch"](function (error) {
+            $this.hide_loader();
+
+            if (error.response) {
+              if (error.response.status == 409) {
+                Swal.fire({
+                  title: 'already exist user',
+                  text: 'email or matric number',
+                  icon: 'warning',
+                  confirmButtonText: 'Ok',
+                  confirmButtonColor: '#00b96b'
+                });
+              } else if (error.response.status == 401) {
+                location.reload();
+              } else {
+                Swal.fire({
+                  title: 'something went wrong',
+                  icon: 'error',
+                  confirmButtonText: 'Ok',
+                  confirmButtonColor: '#00b96b'
+                });
+              }
+            }
+          });
+        }
       }
 
       if (this.update) {
-        this.axios.post('api/users/update', formData, {
-          headers: this.axiosHeader
-        }).then(function (response) {
-          $this.hide_loader();
+        this.sent += 1;
 
-          if (response.status == 200) {
-            Swal.fire({
-              title: 'updated succefully',
-              icon: 'success',
-              confirmButtonText: 'Ok',
-              confirmButtonColor: '#00b96b'
-            }).then(function (result) {
-              location.reload();
-            });
-          } else {
-            Swal.fire({
-              title: 'something went wrong',
-              icon: 'error',
-              confirmButtonText: 'Ok',
-              confirmButtonColor: '#00b96b'
-            });
-          }
-        })["catch"](function (error) {
-          $this.hide_loader();
+        if (this.sent == 1) {
+          this.axios.post('api/users/update', formData, {
+            headers: this.axiosHeader
+          }).then(function (response) {
+            $this.hide_loader();
 
-          if (error.response) {
-            if (error.response.status == 409) {
+            if (response.status == 200) {
               Swal.fire({
-                title: 'already exist user',
-                text: 'email or matric number',
-                icon: 'warning',
+                title: 'updated succefully',
+                icon: 'success',
                 confirmButtonText: 'Ok',
                 confirmButtonColor: '#00b96b'
+              }).then(function (result) {
+                location.reload();
               });
-            } else if (error.response.status == 401) {
-              location.reload();
             } else {
               Swal.fire({
                 title: 'something went wrong',
@@ -13859,8 +13979,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 confirmButtonColor: '#00b96b'
               });
             }
-          }
-        });
+          })["catch"](function (error) {
+            $this.hide_loader();
+
+            if (error.response) {
+              if (error.response.status == 409) {
+                Swal.fire({
+                  title: 'already exist user',
+                  text: 'email or matric number',
+                  icon: 'warning',
+                  confirmButtonText: 'Ok',
+                  confirmButtonColor: '#00b96b'
+                });
+              } else if (error.response.status == 401) {
+                location.reload();
+              } else {
+                Swal.fire({
+                  title: 'something went wrong',
+                  icon: 'error',
+                  confirmButtonText: 'Ok',
+                  confirmButtonColor: '#00b96b'
+                });
+              }
+            }
+          });
+        }
       }
     }
   },
@@ -13964,6 +14107,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     roles: {
       type: String
     }
+  },
+  mounted: function mounted() {
+    this.$nextTick(function () {
+      var $this = this;
+      $('#faculty_id').change(function () {
+        var _this2 = this;
+
+        var departmentsX = $this.faculties.filter(function (item) {
+          return item.id === $(_this2).val();
+        })[0].department;
+        var opt = "";
+        departmentsX.forEach(function (item, idex) {
+          opt += "<option value='" + item.id + "'>" + item.code + "</option>";
+        });
+        $('#department_id').html(opt);
+      });
+      setTimeout(function () {
+        if ($('#faculty_id').val() != "") {
+          var departmentsX = $this.faculties.filter(function (item) {
+            return item.id === $('#faculty_id').val();
+          })[0].department;
+          var opt = "";
+          departmentsX.forEach(function (item, idex) {
+            if (item.id == $this.department_id) {
+              opt += "<option value='" + item.id + "' selected>" + item.code + "</option>";
+            } else {
+              opt += "<option value='" + item.id + "' >" + item.code + "</option>";
+            }
+          });
+          $('#department_id').html(opt);
+        }
+      }, 500);
+    });
   }
 });
 
@@ -15301,9 +15477,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_4__.default({
       alert();
     }
   },
-  beforeCreated: function beforeCreated() {
-    document.getElementsByTagName('');
-  },
+  beforeCreated: function beforeCreated() {},
   mounted: function mounted() {
     $('body').append("\n          <a class=\"flex-wrap forBug\" style=\" width:50px; height:50px; display:flex; justify-content:center;\"><span class=\"fa fa-bug text-danger fs8 p-0\"></span></a>\n          ");
     $('body').append("\n          <div class=\"flex-wrap justify-between forThumb d-flex\">\n          <span>Did you like this page?</span>\n              <span>\n              <i class=\"fa fa-thumbs-o-down likeThisPage\" rel=\"no\" style=\"font-size:1.3em;\"></i>          \n              <i class=\"fa fa-thumbs-o-up likeThisPage\"   rel=\"yes\"  style=\"font-size:1.3em;\"></i>          \n              </span>\n          </div>\n          <div style=\"position:absolute;top:135%;height:30px;width:100%;\"></div>\n          ");
@@ -15823,6 +15997,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         axiosGet: function () {
           var _axiosGet = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(url) {
             var feedback,
+                forSession,
                 retryCount,
                 $this,
                 attemptsFailsV,
@@ -15833,14 +16008,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 switch (_context.prev = _context.next) {
                   case 0:
                     feedback = _args.length > 1 && _args[1] !== undefined ? _args[1] : false;
+                    forSession = _args.length > 2 && _args[2] !== undefined ? _args[2] : "";
                     //console.log(url)
                     retryCount = 0;
                     $this = _this; //console.log($this);
 
                     attemptsFailsV = function attemptsFailsV() {
+                      var msgErr = 'something went wrong';
+
+                      if (forSession != '') {
+                        msgErr = forSession;
+                      }
+
                       Swal.fire({
-                        text: 'something went wrong',
-                        title: 'click Ok to retry',
+                        text: 'click Ok to retry',
+                        title: msgErr,
                         icon: 'error',
                         showClass: {
                           popup: 'animate__animated animate__fadeInDown'
@@ -15850,6 +16032,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                         }
                       }).then(function (result) {
                         /* Read more about isConfirmed, isDenied below */
+                        if (forSession != '') {
+                          location.reload();
+                        }
+
                         if (result.isConfirmed) {
                           location.reload();
                         } else if (result.isDenied) {
@@ -15911,7 +16097,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                     return _context.abrupt("return", AxiosFetchData());
 
-                  case 6:
+                  case 7:
                   case "end":
                     return _context.stop();
                 }
@@ -16432,6 +16618,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         					};	     		
         	      		}
               		}*/
+
+        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+            while (1) {
+              switch (_context6.prev = _context6.next) {
+                case 0:
+                case "end":
+                  return _context6.stop();
+              }
+            }
+          }, _callee6);
+        }))();
       },
       mounted: function mounted() {
         var $vm = this;
@@ -16512,13 +16710,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           if (localStorage.hasOwnProperty('LoggedUser')) {
             this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token;
             this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;
-
-            if (pathname === 'login') {
-              location.href = '/';
-            }
-            /*doing front end login checking*/
+            /*if(pathname === 'login'){
+             	location.href = '/';
+            }	      */
             //user might have token expired but still logged in. 
-
 
             $.post('/ajax-check-login', {
               "_token": $('meta[name="csrf-token"]').attr('content')
@@ -16542,12 +16737,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   $this.launch_toast('you are logged out');
                 }
               });
-              /*.done(function(){}).fail(function(e){	      			
-              }).always(function(){});*/
-
-              /*	if (pathname != 'login'){
-                	this.frontendLogout();
-              	}*/
             } catch (err) {}
           }
 
@@ -46871,6 +47060,15 @@ var render = function() {
             _c(
               "a",
               {
+                class: { btnActive: _vm.checkActive("session") },
+                attrs: { href: "/manage-session" }
+              },
+              [_c("span", { staticClass: "iconOV fa fa-calendar" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
                 class: { btnActive: _vm.checkActive("explore") },
                 attrs: { href: "/explore" }
               },
@@ -46966,25 +47164,12 @@ var render = function() {
               "a",
               {
                 staticClass: "nChildV",
-                class: { btnActive: _vm.checkActive("explore") },
-                attrs: { href: "/explore" }
+                class: { btnActive: _vm.checkActive("session") },
+                attrs: { href: "/manage-session" }
               },
               [
-                _c("span", { staticClass: "iconV fa fa-spinner" }),
-                _c("div", { staticClass: "labelV" }, [_vm._v("Explore")])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "nChildV",
-                class: { btnActive: _vm.checkActive("department") },
-                attrs: { href: _vm.department }
-              },
-              [
-                _c("span", { staticClass: "iconV fa fa-institution" }),
-                _c("div", { staticClass: "labelV" }, [_vm._v("Manage Dept.")])
+                _c("span", { staticClass: "iconV fa fa-calendar" }),
+                _c("div", { staticClass: "labelV" }, [_vm._v("Manage Session")])
               ]
             ),
             _vm._v(" "),
@@ -47005,12 +47190,12 @@ var render = function() {
               "a",
               {
                 staticClass: "nChildV",
-                class: { btnActive: _vm.checkActive("user") },
-                attrs: { href: _vm.user }
+                class: { btnActive: _vm.checkActive("department") },
+                attrs: { href: _vm.department }
               },
               [
-                _c("span", { staticClass: "iconV fa fa-users" }),
-                _c("div", { staticClass: "labelV" }, [_vm._v("Manage User")])
+                _c("span", { staticClass: "iconV fa fa-institution" }),
+                _c("div", { staticClass: "labelV" }, [_vm._v("Manage Depts.")])
               ]
             ),
             _vm._v(" "),
@@ -47018,12 +47203,12 @@ var render = function() {
               "a",
               {
                 staticClass: "nChildV",
-                class: { btnActive: _vm.checkActive("session") },
-                attrs: { href: "/manage-session" }
+                class: { btnActive: _vm.checkActive("user") },
+                attrs: { href: _vm.user }
               },
               [
-                _c("span", { staticClass: "iconV fa fa-calendar" }),
-                _c("div", { staticClass: "labelV" }, [_vm._v("Manage Session")])
+                _c("span", { staticClass: "iconV fa fa-users" }),
+                _c("div", { staticClass: "labelV" }, [_vm._v("Manage Users")])
               ]
             ),
             _vm._v(" "),
@@ -47037,6 +47222,19 @@ var render = function() {
               [
                 _c("span", { staticClass: "iconV fa fa-gear" }),
                 _c("div", { staticClass: "labelV" }, [_vm._v("Settings")])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "nChildV",
+                class: { btnActive: _vm.checkActive("explore") },
+                attrs: { href: "/explore" }
+              },
+              [
+                _c("span", { staticClass: "iconV fa fa-spinner" }),
+                _c("div", { staticClass: "labelV" }, [_vm._v("Explore")])
               ]
             ),
             _vm._v(" "),
@@ -48781,20 +48979,22 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "w-100 mt-2 py-3" }, [
-    _c(
-      "a",
-      {
-        staticClass:
-          "btn py-3 mb-5 mr-2 px-4 text-white fs1 font1 p-success btn-lg pull-right",
-        staticStyle: { "border-radius": "0.6rem" },
-        attrs: { href: "#" },
-        on: { click: _vm.createdepartment }
-      },
-      [
-        _vm._v("Create New "),
-        _c("span", { staticClass: "text-white fa fa-chevron-down" })
-      ]
-    ),
+    !_vm.tableLoaded
+      ? _c(
+          "a",
+          {
+            staticClass:
+              "btn py-3 mb-5 mr-2 px-4 text-white fs1 font1 p-success btn-lg pull-right",
+            staticStyle: { "border-radius": "0.6rem" },
+            attrs: { href: "#" },
+            on: { click: _vm.createdepartment }
+          },
+          [
+            _vm._v("Create New "),
+            _c("span", { staticClass: "text-white fa fa-chevron-down" })
+          ]
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c("br"),
     _vm._v(" "),
@@ -48805,7 +49005,7 @@ var render = function() {
         [
           _vm._m(0),
           _vm._v(" "),
-          _vm.tableLoaded
+          !_vm.tableLoaded
             ? _c(
                 "tbody",
                 _vm._l(_vm.createddepartment, function(department, index) {
@@ -51479,6 +51679,7 @@ var render = function() {
                       _c("span", {
                         staticClass: "ml-2 fa fa-edit pl-3  fs01 cursor-1",
                         staticStyle: { "border-left": "1px solid #ccc" },
+                        attrs: { title: "Edit " + session.session },
                         on: {
                           click: function($event) {
                             return _vm.editsession(session)
@@ -51490,7 +51691,10 @@ var render = function() {
                         staticClass:
                           "ml-2 fa fa-check pl-3 text-success fs01 cursor-1",
                         staticStyle: { "border-left": "1px solid #ccc" },
-                        attrs: { title: "set as current session" },
+                        attrs: {
+                          title:
+                            "set " + session.session + " as current session"
+                        },
                         on: {
                           click: function($event) {
                             return _vm.setsession(session)
@@ -51500,6 +51704,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("span", {
                         staticClass: "ml-2 fa fa-trash pl-3  fs01 cursor-1",
+                        attrs: { title: "Delete " + session.session },
                         on: {
                           click: function($event) {
                             return _vm.deletesession(session.id)
@@ -53280,64 +53485,60 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
-    !_vm.loaderState
-      ? _c("div", { staticClass: "notification-table forUser" }, [
-          _c(
-            "table",
-            { staticClass: "table table-hover", attrs: { id: "usertable" } },
-            [
-              _vm._m(0),
-              _vm._v(" "),
-              !_vm.loaderState
-                ? _c(
-                    "tbody",
-                    _vm._l(_vm.createduser, function(user, index) {
-                      return _c("tr", { key: index }, [
-                        _c("td", { attrs: { width: "30%" } }, [
-                          _vm._v(
-                            _vm._s(user.first_name) +
-                              " " +
-                              _vm._s(user.other_names)
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "20%" } }, [
-                          _vm._v(_vm._s(_vm.getRoleName(user.role_id)))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "20%" } }, [
-                          _vm._v(_vm._s(user.department.code))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "15%" } }, [
-                          _c("span", {
-                            staticClass: "ml-2 fa fa-edit pl-3  fs01 cursor-1",
-                            staticStyle: { "border-left": "1px solid #ccc" },
-                            on: {
-                              click: function($event) {
-                                return _vm.edituser(user)
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("span", {
-                            staticClass: "ml-2 fa fa-trash pl-3  fs01 cursor-1",
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteuser(user.id)
-                              }
-                            }
-                          })
-                        ])
-                      ])
-                    }),
-                    0
-                  )
-                : _vm._e()
-            ]
-          )
-        ])
-      : _vm._e()
+    _c("div", { staticClass: "notification-table forUser" }, [
+      _c(
+        "table",
+        { staticClass: "table table-hover", attrs: { id: "usertable" } },
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          !_vm.loaderState
+            ? _c(
+                "tbody",
+                _vm._l(_vm.createduser, function(user, index) {
+                  return _c("tr", { key: index }, [
+                    _c("td", { attrs: { width: "30%" } }, [
+                      _vm._v(
+                        _vm._s(user.first_name) + " " + _vm._s(user.other_names)
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { width: "20%" } }, [
+                      _vm._v(_vm._s(_vm.getRoleName(user.role_id)))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { width: "20%" } }, [
+                      _vm._v(_vm._s(user.department.code))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { width: "15%" } }, [
+                      _c("span", {
+                        staticClass: "ml-2 fa fa-edit pl-3  fs01 cursor-1",
+                        staticStyle: { "border-left": "1px solid #ccc" },
+                        on: {
+                          click: function($event) {
+                            return _vm.edituser(user)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", {
+                        staticClass: "ml-2 fa fa-trash pl-3  fs01 cursor-1",
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteuser(user.id)
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                }),
+                0
+              )
+            : _vm._e()
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -53449,20 +53650,7 @@ var render = function() {
                           ])
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
-                          _c("div", { staticClass: "px-1" }, [
-                            _c("p", { staticClass: "fs001 my-1" }, [
-                              _vm._v("Department *")
-                            ]),
-                            _vm._v(" "),
-                            _c("span", {
-                              staticClass: "w-100",
-                              domProps: {
-                                innerHTML: _vm._s(_vm.departmentHTML)
-                              }
-                            })
-                          ])
-                        ]),
+                        _vm._m(0),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
                           _c("div", { staticClass: "px-1" }, [
@@ -53660,7 +53848,7 @@ var render = function() {
                                 staticStyle: { position: "relative" }
                               },
                               [
-                                _vm._m(0),
+                                _vm._m(1),
                                 _vm._v(" "),
                                 _c("input", {
                                   staticClass: "draginto form-control",
@@ -53726,20 +53914,7 @@ var render = function() {
                           ])
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
-                          _c("div", { staticClass: "px-1" }, [
-                            _c("p", { staticClass: "fs001 my-1" }, [
-                              _vm._v("Department *")
-                            ]),
-                            _vm._v(" "),
-                            _c("span", {
-                              staticClass: "w-100",
-                              domProps: {
-                                innerHTML: _vm._s(_vm.departmentHTML)
-                              }
-                            })
-                          ])
-                        ]),
+                        _vm._m(2),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
                           _c("div", { staticClass: "px-1" }, [
@@ -53945,6 +54120,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
+      _c("div", { staticClass: "px-1" }, [
+        _c("p", { staticClass: "fs001 my-1" }, [_vm._v("Department *")]),
+        _vm._v(" "),
+        _c("select", {
+          staticClass: "form-control w-100",
+          attrs: { id: "department_id", name: "department_id" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("span", { staticClass: "d-flex w-100 cursor-1" }, [
       _c(
         "span",
@@ -53963,6 +54153,21 @@ var staticRenderFns = [
         },
         [_vm._v("Upload File")]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
+      _c("div", { staticClass: "px-1" }, [
+        _c("p", { staticClass: "fs001 my-1" }, [_vm._v("Department *")]),
+        _vm._v(" "),
+        _c("select", {
+          staticClass: "form-control w-100",
+          attrs: { id: "department_id", name: "department_id" }
+        })
+      ])
     ])
   }
 ]

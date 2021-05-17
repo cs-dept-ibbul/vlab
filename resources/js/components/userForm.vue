@@ -19,7 +19,7 @@
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Department *</p>		            				
-							<span v-html="departmentHTML" class="w-100"></span>		            											
+					  		<select id='department_id' name='department_id' class='form-control w-100'></select>									  	
 						</div>
 					</div>
 				  	<div class="col-lg-6 col-md-6 m-0">
@@ -104,8 +104,9 @@
 					</div>
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
-							<p class="fs001 my-1">Department *</p>		            				
-							<span v-html="departmentHTML" class="w-100"></span>		            											
+							<p class="fs001 my-1">Department *</p>		            										
+					  		<select id='department_id' name='department_id' class='form-control w-100'></select>									  	
+
 						</div>
 					</div>		      		
 		          	<div class="col-lg-6 col-md-6 m-0">
@@ -191,7 +192,8 @@
 				title:"",				
 				id:"",
 				rolename:'',
-				urole:''
+				urole:'',
+				sent:0
 			}
 		},
 		methods:{
@@ -210,57 +212,63 @@
 					 	kn = formD[m].split('=')[1];
 						formData.append(ky,kn);
 					}*/
-					if (!this.update) {						
-						this.axios.post('api/users/create',formData,{headers:this.axiosHeader})
-				      	.then(response => {		
+					if (!this.update) {
+						this.sent += 1;	
+						if (this.sent == 1) {
+						    this.axios.post('api/users/create',formData,{headers:this.axiosHeader})
+					      	.then(response => {		
 
-				      		$this.hide_loader();											  
-				      		if (response.status==200) {				      			
-						        Swal.fire({
-						        	title: 'created succefully',
-						        	icon: 'success',
-						        	confirmButtonText:'Ok',
-						      		confirmButtonColor:'#00b96b',	
-						        }).then((result)=>{
-						        	location.reload();
-						        })
-				      		}else{
-				      			Swal.fire({
-					        		title: 'something went wrong',
-						        	icon: 'error',
-						        	confirmButtonText:'Ok',
-				      				confirmButtonColor:'#00b96b',	
-						        })		  
-				      		}
-				      	})
-				      	.catch(error => {
-				      		$this.hide_loader();
-					      	if (error.response) {
-						      	if (error.response.status == 409) {					      	
+					      		$this.hide_loader();											  
+					      		if (response.status==200) {				      			
 							        Swal.fire({
-							        	title: 'already exist user',
-							        	text: 'email or matric number',
-							        	icon: 'warning',
-					        			confirmButtonText:'Ok',
-					      				confirmButtonColor:'#00b96b',	
-
-					      			})					      		
-						      	}else if(error.response.status == 401){
-						      		location.reload();
-						      	}else{
-
-						      		Swal.fire({
+							        	title: 'created succefully',
+							        	icon: 'success',
+							        	confirmButtonText:'Ok',
+							      		confirmButtonColor:'#00b96b',	
+							        }).then((result)=>{
+							        	location.reload();
+							        })
+					      		}else{
+					      			Swal.fire({
 						        		title: 'something went wrong',
 							        	icon: 'error',
 							        	confirmButtonText:'Ok',
 					      				confirmButtonColor:'#00b96b',	
-							        })		      		
-						      	}
-					      	}	
-					    })					  
+							        })		  
+					      		}
+					      	})
+					      	.catch(error => {
+					      		$this.hide_loader();
+						      	if (error.response) {
+							      	if (error.response.status == 409) {					      	
+								        Swal.fire({
+								        	title: 'already exist user',
+								        	text: 'email or matric number',
+								        	icon: 'warning',
+						        			confirmButtonText:'Ok',
+						      				confirmButtonColor:'#00b96b',	
+
+						      			})					      		
+							      	}else if(error.response.status == 401){
+							      		location.reload();
+							      	}else{
+
+							      		Swal.fire({
+							        		title: 'something went wrong',
+								        	icon: 'error',
+								        	confirmButtonText:'Ok',
+						      				confirmButtonColor:'#00b96b',	
+								        })		      		
+							      	}
+						      	}	
+						    })					  
+						}
 					}
 
-					if (this.update) {					
+					if (this.update) {
+						this.sent += 1;	
+
+						if (this.sent == 1) {				
 						this.axios.post('api/users/update',formData,{headers:this.axiosHeader})
 				      	.then(response => {	
 				      		$this.hide_loader();					      		
@@ -306,6 +314,7 @@
 						      	}
 					      	}	
 					    })					  
+						}
 					}
 				}							
 		},
@@ -373,6 +382,36 @@
 	     	roles:{
 	     		type:String
 	     	}
+		},
+		mounted(){
+			
+			this.$nextTick(function(){ 
+				  var $this = this;					    
+			    	$('#faculty_id').change(function(){
+			    		
+			    		var departmentsX = $this.faculties.filter((item)=>{return item.id === $(this).val()})[0].department;
+			    		var opt="";
+			    		departmentsX.forEach((item, idex)=>{
+								opt += "<option value='"+item.id+"'>"+ item.code +"</option>";
+						});	
+			    		$('#department_id').html(opt);						
+					})
+			    	setTimeout(function() {			    		
+						if( $('#faculty_id').val()!= ""){
+							
+						  	var departmentsX = $this.faculties.filter((item)=>{return item.id === $('#faculty_id').val()})[0].department;
+				    		var opt="";
+				    		departmentsX.forEach((item, idex)=>{
+				    			if(item.id == $this.department_id){
+									opt += "<option value='"+item.id+"' selected>"+ item.code +"</option>";
+				    			}else{
+									opt += "<option value='"+item.id+"' >"+ item.code +"</option>";
+				    			}
+							});	
+				    		$('#department_id').html(opt);						  
+						}
+			    	}, 500);
+			})
 		}
 	}
 </script>

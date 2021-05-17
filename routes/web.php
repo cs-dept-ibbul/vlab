@@ -14,8 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/login', 'App\Http\Controllers\loginController@index')->name('login');
-Route::post('/proccess-login', 'App\Http\Controllers\loginController@process_login');
+
 Route::get('/', 'App\Http\Controllers\PagesController@index')->name('home');
 Route::get('/explore', 'App\Http\Controllers\ExploreController@index')->name('explore');
 Route::get('/logout', 'App\Http\Controllers\loginController@logout')->name('logout');
@@ -25,7 +24,10 @@ Route::get('/feedbacks', function(){
 
 Route::post('/ajax-logout', 'App\Http\Controllers\loginController@ajaxlogout');
 Route::post('/ajax-check-login', 'App\Http\Controllers\loginController@ajaxchecklogin');
-Route::middleware(['allowaccess'])->group(function(){
+
+Route::middleware(['is_loggedin'])->group(function(){
+	Route::get('/login', 'App\Http\Controllers\loginController@index')->name('login');
+	Route::post('/proccess-login', 'App\Http\Controllers\loginController@process_login');
 });
 
 

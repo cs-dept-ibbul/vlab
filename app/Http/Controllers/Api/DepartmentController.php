@@ -39,7 +39,7 @@ class DepartmentController extends Controller
         $department->id = $id;
         $department->name = $departmentName;
         $department->code = $departmentCode;
-        $department->school_id = $this->schoolId;
+        //$department->school_id = $this->schoolId;
         $department->faculty_id = $facultyId;
         $department->status = $status;
 

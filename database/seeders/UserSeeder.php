@@ -17,16 +17,24 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        // DB::table('users')->insert([
-        //     'name' => Str::random(10),
-        //     'email' => Str::random(10).'@gmail.com',
-        //     'password' => Hash::make('password'),
-        // ]);
-
-        User::factory()
-            ->count(10)
-            // ->hasPosts(1)
-            ->create();
+        $email = 'admin@vlab.com';
+        $uuids = config('calculations.default_uuids');
+        $id = $uuids['user_id'];
+        DB::table('users')->insert([
+            'id' => $id,
+            'first_name' => 'admin',
+            'other_names' => 'admin',
+            'email' => $email,
+            'username' => $email,
+            'session_id'=> $uuids['session_id'],
+            'faculty_id'=> $uuids['faculty_id'],
+            'school_id'=> $uuids['school_id'],
+            'department_id'=> $uuids['department_id'],
+            'role_id'=>$uuids['role_id'],                    
+            'status'=>'Active',
+            'user_ip_address'=>'-',
+            'password' => md5('12345678'),
+        ]);    
     }
 }
 

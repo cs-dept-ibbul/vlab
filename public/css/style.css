@@ -993,7 +993,7 @@ input.login-input{
 
 /* Track */
 ::-webkit-scrollbar-track {
-  width: 50px;
+  width: 10px;
   border-radius: 5px;
 }
 
@@ -1288,6 +1288,7 @@ span.no-border-right,.no-border-right{
   width: 100%;  
   height: 64vh;
   overflow-y: scroll;  
+  overflow-x: hidden;
 }
 
 /* Create a custom checkbox */
@@ -1573,6 +1574,9 @@ span.no-border-right,.no-border-right{
 thead tr#cheadV th{
     font-weight: 500;
   }
+thead tr td, thead th{
+  text-transform: capitalize;
+}
   table.dataTable.no-footer#coursetable {
         border-bottom:  3px solid #aaa;
     }
@@ -2026,6 +2030,10 @@ span.ripple {
       }
     }
     @media (max-width: 497px) {
+      .login-left .d-flex{
+       flex-direction: column;
+
+      }
       .forThumb{
         left: 5%;
         font-size: 0.95em;
@@ -2186,4 +2194,12 @@ span.ripple {
 }
 .form-control{
  
+}
+.UpperCase{
+  text-transform: uppercase;
+}
+.forLoginMsg{
+  white-space: nowrap;
+  font-size: 0.87em !important;
+  padding: 2px !important;
 }

@@ -40,39 +40,10 @@
                         return true;
                     }
                 }
-            }
-        },
-
-
-        created:function(){		  
-        
-        	
-        },
-        mounted(){
-            let $vm = this;
-            this.$nextTick(function(){
-                    $('#username, #password').keyup(function(){
-                        $(this).css('border','1px solid #bbb');
-                        $(this).next('.requiredv').remove();
-                    });
-                try{
-
-                }catch(err){
-                    
-                }
-
-                $('#togglePwDisplay').click(function(){
-                    var contX = $(this).text();
-                    if (contX==='show') {
-                        $(this).prev().attr('type','text');
-                        $(this).text('hide')
-                    }else if(contX === 'hide'){
-                        $(this).prev().attr('type','password');                        
-                        $(this).text('show');                        
-                    }
-                });
-                    $('#login-btn').click(function(){                        
-                        $vm.username = $vm.validateI('username');
+            },
+            submitNow(){
+                let $vm  = this;
+                $vm.username = $vm.validateI('username');
                         $vm.password = $vm.validateI('password');                    
 
                         if ($vm.username != "" && $vm.password != "") {
@@ -119,7 +90,47 @@
                                 $('#login-err2').show();
                             }                 
                         }
-                    })
+            }
+        },
+
+
+        created:function(){		  
+        
+        	
+        },
+        mounted(){
+            let $vm = this;
+            this.$nextTick(function(){
+                    $('#username, #password').keyup(function(){
+                        $(this).css('border','1px solid #bbb');
+                        $(this).next('.requiredv').remove();
+                    });
+                try{
+
+                }catch(err){
+                    
+                }
+
+
+                $('#togglePwDisplay').click(function(){
+                    var contX = $(this).text();
+                    if (contX==='show') {
+                        $(this).prev().attr('type','text');
+                        $(this).text('hide')
+                    }else if(contX === 'hide'){
+                        $(this).prev().attr('type','password');                        
+                        $(this).text('show');                        
+                    }
+                });
+                
+                $('#password').keyup(function(e){                    
+                    if(e.key === 'Enter' || e.keyCode === 13){
+                        $vm.submitNow();
+                    }                    
+                })
+                $('#login-btn').click(function(){     
+                    $vm.submitNow()
+                })
 
             })
         }

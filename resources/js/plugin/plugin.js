@@ -19,7 +19,7 @@ export default {
       		currentWidth:100,
       		currentUser:'',
       		startExperiment: false,
-      		navbarState:false,
+      		navbarState:false,      		
       		freePath:['','explore','feedbacks'],
       		baseApiUrl : 'api/'      		
 
@@ -284,15 +284,19 @@ export default {
 					}
 				})		
   		},
-  		axiosGet: async(url,feedback=false) => {
+  		axiosGet: async(url,feedback=false, forSession="") => {
   			//console.log(url)
   				let retryCount = 0;			
 				var $this = this;
 				//console.log($this);
 				let attemptsFailsV = function(){
+					let msgErr = 'something went wrong';					    
+					    if (forSession != '') {
+					    	msgErr = forSession;					    	
+					    }
 						Swal.fire({
-						  text: 'something went wrong',
-						  title: 'click Ok to retry',
+						  text: 'click Ok to retry',
+						  title: msgErr,
 						  icon:'error',
 						  showClass: {
 						    popup: 'animate__animated animate__fadeInDown'
@@ -302,6 +306,9 @@ export default {
 						  }
 						}).then((result) => {
 							  /* Read more about isConfirmed, isDenied below */
+							  if (forSession!= '') {
+							    location.reload();							  	
+							  }
 							  if (result.isConfirmed) {
 							    location.reload();
 							  } else if (result.isDenied) {
@@ -715,7 +722,9 @@ export default {
       	}
 
       },
-      created: function(){
+      async created(){
+
+
       		/*goes global*/      	      		      	
       				
 /*
@@ -739,6 +748,7 @@ export default {
       		}*/
       },
       mounted: function(){
+      	 
       	let $vm = this;
       	this.$nextTick(function(){
 	      	
@@ -811,13 +821,12 @@ export default {
       		let $this = this;      
       		let pathname = location.pathname.split('/')[1];       		
 
-	      		if(localStorage.hasOwnProperty('LoggedUser')){     	      				      
+	      	if(localStorage.hasOwnProperty('LoggedUser')){     	      				      
 	      			this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
 	      			this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;
-	      			if(pathname === 'login'){
+	      			/*if(pathname === 'login'){
 			        	location.href = '/';
-	      			}
-	      			/*doing front end login checking*/ 
+	      			}	      */		
 	      			//user might have token expired but still logged in. 
 	      			$.post('/ajax-check-login',{"_token": $('meta[name="csrf-token"]').attr('content')},function(data){      				
 	      				if (data.status == 200){
@@ -838,11 +847,8 @@ export default {
 	      				if (data.status == 200){      					
 	      					$this.launch_toast('you are logged out');
 	      				}
-	      			})/*.done(function(){}).fail(function(e){	      			
-	      			}).always(function(){});*/
-	      		/*	if (pathname != 'login'){
-			        	this.frontendLogout();
-	      			}*/
+	      			})
+	      		
 	      		}catch(err){
 	      			
 	      		}

@@ -14,6 +14,10 @@
 				<a :href="dashboard"   v-bind:class="{btnActive:checkActive('dashboard')}">
 					<span class="iconOV  fa fa-dashboard"></span>
 				</a>	
+				<a href="/manage-session"   v-bind:class="{btnActive:checkActive('session')}">
+					<span class="iconOV fa fa-calendar"></span>
+				</a>	
+			
 				<a href="/explore"   v-bind:class="{btnActive:checkActive('explore')}">
 					<span class="iconOV  fa fa-spinner"></span>
 				</a>	
@@ -47,32 +51,33 @@
 				<a :href="dashboard" class="nChildV"  v-bind:class="{btnActive:checkActive('dashboard')}">
 					<span class="iconV fa fa-dashboard"></span><div class="labelV">Dashboard</div>
 				</a>	
-				<a href="/explore" class="nChildV"  v-bind:class="{btnActive:checkActive('explore')}">
-					<span class="iconV fa fa-spinner"></span><div class="labelV">Explore</div>
-				</a>	
-				
-				<!-- manage department -->
-				<a :href="department" class="nChildV"  v-bind:class="{btnActive:checkActive('department')}">
-					<span class="iconV fa fa-institution"></span><div class="labelV">Manage Dept.</div>
-				</a>	
-				
-				<!-- manage faculty -->
-				<a :href="faculty" class="nChildV"  v-bind:class="{btnActive:checkActive('faculty')}">
-					<span class="iconV fa fa-institution"></span><div class="labelV">Manage Faculty</div>
-				</a>	
-			
-				<!-- manage user -->
-				<a :href="user" class="nChildV"  v-bind:class="{btnActive:checkActive('user')}">
-					<span class="iconV fa fa-users"></span><div class="labelV">Manage User</div>
-				</a>	
 				<a href="/manage-session" class="nChildV"  v-bind:class="{btnActive:checkActive('session')}">
 					<span class="iconV fa fa-calendar"></span><div class="labelV">Manage Session</div>
 				</a>	
 			
+				<!-- manage faculty -->
+				<a :href="faculty" class="nChildV"  v-bind:class="{btnActive:checkActive('faculty')}">
+					<span class="iconV fa fa-institution"></span><div class="labelV">Manage Faculty</div>
+				</a>	
 	
+				<!-- manage department -->
+				<a :href="department" class="nChildV"  v-bind:class="{btnActive:checkActive('department')}">
+	   				<span class="iconV fa fa-institution"></span><div class="labelV">Manage Depts.</div>
+				</a>	
+				
+			
+				<!-- manage user -->
+				<a :href="user" class="nChildV"  v-bind:class="{btnActive:checkActive('user')}">
+					<span class="iconV fa fa-users"></span><div class="labelV">Manage Users</div>
+				</a>	
 				<a :href="settings"  class="nChildV" v-bind:class="{btnActive:checkActive('settings')}">
 					<span class="iconV fa fa-gear"></span><div class="labelV">Settings</div>
-				</a>					
+				</a>		
+
+				<a href="/explore" class="nChildV"  v-bind:class="{btnActive:checkActive('explore')}">
+					<span class="iconV fa fa-spinner"></span><div class="labelV">Explore</div>
+				</a>	
+				
 				<a href="/logout"  class="nChildV">				
 					<span class="iconV fa fa-arrow-circle-left"></span><div class="labelV">Logout</div>
 				</a>				
@@ -90,7 +95,7 @@
             hide:true,
             show1:true,
             hide1:false,
-           
+           currentSession:[],
 		    	}
         },
         methods:{
@@ -118,9 +123,10 @@
         	}
         },
         computed:{
-        },
-
-        created:function(){
+        },      
+        async created(){
+          this.currentSession = await this.axiosGet('api/current_session',false, 'Please set a Session');          
+          window.sessionNow = this.currentSession;          
 		  this.$eventBus.$on('toggleFromSysTopNav', data => {
 		  	this.toggleMenu();
 		  })		          

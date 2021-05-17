@@ -41,7 +41,9 @@ class loginController extends Controller
     {
         //\Auth::logout();
         $request->session()->flush();
-        $route = app('router')->getRoutes(url()->previous())->match(app('request')->create(url()->previous()))->getName();        
+        $route = app('router')->getRoutes(url()->previous())->match(app('request')->create(url()->previous()))->getName();   
+        route('login');
+
         if ($route == 'home') {
             return redirect('/');        
         }

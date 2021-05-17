@@ -34,6 +34,17 @@ class SessionController extends Controller
         $checksession = Session::where(['session' => $_session])->first();
         if (empty($checksession)) {
             if ($session->save()) {
+
+                 $is_current = $request->get('is_current');
+
+                 if ($is_current != 0) {                     
+                    $getSessionId = Session::where(['session' => $_session])->first()->id;
+                    $is_current = Session::find($getSessionId);
+                    $is_current->is_current = 1;
+                    Session::whereNotIn('id', [$getSessionId])->update(['is_current' => 0]);
+                    $is_current->save();
+                 }
+
                 return response()->json(['success' => true], 200);
             }
             return response()->json(['success' => false], 400);
@@ -59,7 +70,15 @@ class SessionController extends Controller
             $request->get('session') != null ? $session->session = $request->get('session') : null;
             $request->get('is_current') != null ? $session->is_current = $request->get('is_current') : null;
 
-            if($session->save()){
+            if($session->save()){                
+
+                $is_current = $request->get('is_current');
+                if ($is_current != 0) {                    
+                    $is_current = Session::find($sessionId);
+                    $is_current->is_current = 1;
+                    Session::whereNotIn('id', [$sessionId])->update(['is_current' => 0]);
+                    $is_current->save();
+                }
                 return response()->json(['success' => true], 200);
             }
         } else {
@@ -115,11 +134,21 @@ class SessionController extends Controller
         return response()->json($session, 200);
     }
 
-    static public function getCurrentSessionId()
+    static public function getCurrentSession()
     {
-        $currentSession = Session::where('is_current', '1')->first();
+        $currentSession = Session::where(['is_current'=>'1','status'=>'Active'])->first();
+        if(!empty($currentSession)){
+            return $currentSession;
+        }
+        return response()->json(['error' => 'Session not found'], 404);
+
+    }
+    static public function getCurrentSessionId($value='')
+    {
+        $currentSession = Session::where(['is_current'=>'1','status'=>'Active'])->first();
         if(!empty($currentSession)){
             return $currentSession->id;
         }
     }
+
 }
