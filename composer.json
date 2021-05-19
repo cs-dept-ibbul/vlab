@@ -15,7 +15,6 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
-        "rachidlaasri/laravel-installer": "^4.1",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {

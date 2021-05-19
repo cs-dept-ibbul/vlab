@@ -3,6 +3,7 @@
 /public/storage
 /storage/*.key
 /vendor
+!vendor/rachidlaasri/
 .env
 .env.backup
 .phpunit.result.cache
@@ -11,4 +12,3 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-!/vendor/rachidlaasri/

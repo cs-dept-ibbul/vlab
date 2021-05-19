@@ -13,7 +13,13 @@ class Feedback extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('feedback', function (Blueprint $table) {
+            //$this->down();
+            $table->string('id',36)->primary();
+            $table->string('message',2000);
+            $table->string('like',10);
+            $table->enum('pagename');                    
+        });
     }
 
     /**

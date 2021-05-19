@@ -49,13 +49,13 @@
 	            			<div class="col-lg-6 col-md-6 m-0">
 	            				<div class="px-1">	            					
 		            				<p class="fs001 my-1">Experiment Title *</p>
-		            				<input type="text" @keyup="normalize" class="form-control vI" id="etitle">
+		            				<input type="text" @keyup="normalize" class="form-control w-100 vI" id="etitle">
 	            				</div>
 	            			</div>
 	            			<!-- <div class="col-lg-6 col-md-6 m-0">
 	            				<div class="px-1" >	            					
 		            				<p class="fs001 my-1">Experiment Number * <span class="fs01 fw5" style="color: #888;">I, II, III ...</span></p>		            				
-		            				<input type="text" @keyup="normalize" class="form-control vI" id="enumber">
+		            				<input type="text" @keyup="normalize" class="form-control w-100 vI" id="enumber">
 	            				</div>
 	            			</div> -->
 	            			<div class="col-lg-6 col-md-6 m-0">
@@ -63,26 +63,26 @@
 		            				<p class="fs001 my-1">Experiment Diagram</p>		            				
 		            				<div class="w-100  p-0 file-cover" style="position: relative;">
 		            					<span class="d-flex w-100 cursor-1">		            						
-			            					<span class="form-control fw2 font w-60 r-right-none p-text-secondary no-border-right" id="imageName" >.jpg, .png</span>
-			            					<span class="form-control  fw2 font w-40 r-left-none p-text-success">Upload File</span>
+			            					<span class="form-control w-100 fw2 font w-60 r-right-none p-text-secondary no-border-right" id="imageName" >.jpg, .png</span>
+			            					<span class="form-control w-100  fw2 font w-40 r-left-none p-text-success">Upload File</span>
 		            					</span>
-		            					<input @change="onFileChange($event)"  type="file" style="position: absolute;top: 0; left: 0;" name="files" class="draginto form-control" id="fileI">
+		            					<input @change="onFileChange($event)"  type="file" style="position: absolute;top: 0; left: 0;" name="files" class="draginto form-control w-100" id="fileI">
 		            				</div>
 	            				</div>
 	            			</div>	      
 	            			<div class="col-lg-12 col-md-12 m-0 mt-3">
 	            				<div class="px-1">	            					
 		            				<p class="fs001 my-1">Experiment Video <span class="fs01 fw5" style="color: #888;">video url/link</span></p>		            				
-		            				<input type="text" @keyup="normalize" placeholder="https://" class="form-control " id="elink">
+		            				<input type="text" @keyup="normalize" placeholder="https://" class="form-control w-100 " id="elink">
 	            				</div>
 	            			</div>	      	      
 	            			<div class="col-lg-12 col-md-12 mt-3">
 	            				<p class="fs001 my-1">Aim*</p>            				
-	            				<textarea @keyup="normalize" class="form-control vI" rows="4" id="aim"></textarea>
+	            				<textarea @keyup="normalize" class="form-control w-100 vI" rows="4" id="aim"></textarea>
 	            			</div>
 	            			<div class="col-lg-12 col-md-12 mt-3">
 	            				<p class="fs001 my-1">Required*</p>            				
-	            				<div @keyup="normalize" class="form-control required-container p-0"  id="required-cover" style="height: 250px;">
+	            				<div @keyup="normalize" class="form-control w-100 required-container p-0"  id="required-cover" style="height: 250px;">
 	            				<textarea id="editor-1" style="height: 250px;"></textarea>
 	            				<!-- <div class="adjoined-bottom m-0 p-0">
 									<div class="grid-container m-0 p-0">
@@ -97,15 +97,15 @@
 	            			</div>
 	            			<div class="col-lg-12 col-md-12 mt-3">
 	            				<p class="fs001 my-1">apparatus</p>            				
-	            				<textarea @keyup="normalize" class="form-control " rows="4" id="apparatus"></textarea>
+	            				<textarea @keyup="normalize" class="form-control w-100 " rows="4" id="apparatus"></textarea>
 	            			</div>
 	            			<div class="col-lg-12 col-md-12 mt-3">
 	            				<p class="fs001 my-1">procedure</p>            				
-	            				<textarea @keyup="normalize" class="form-control " rows="4" id="procedure"></textarea>
+	            				<textarea @keyup="normalize" class="form-control w-100 " rows="4" id="procedure"></textarea>
 	            			</div>
 	            			<div class="col-lg-12 col-md-12 mt-3">
 	            				<p class="fs001 my-1">Exercise</p>            				
-	            				<div @keyup="normalize" class="form-control editor-container p-0"  id="exercise" style="height: 250px;">
+	            				<div @keyup="normalize" class="form-control w-100 editor-container p-0"  id="exercise" style="height: 250px;">
 	            				<div class="adjoined-bottom m-0 p-0">
 									<div class="grid-container m-0 p-0">
 										<div class="grid-width-100 m-0 p-0">
@@ -119,7 +119,7 @@
 	            			</div>
 	            			<div class="col-lg-12 col-md-12 mt-3">
 	            				<p class="fs001 my-1">Resourses</p>            				
-	            				<textarea @keyup="normalize" class="form-control" rows="6" id="resources"></textarea>
+	            				<textarea @keyup="normalize" class="form-control w-100" rows="6" id="resources"></textarea>
 	            			</div>
 	            		</div>
 	            	</div>
@@ -129,12 +129,12 @@
 		            			<div class="col-lg-12 col-md-12 m-0">
 		            				<p class="fs001 my-1">Select Experiment</p>
 		            				<div class="d-flex">
-		            					<select @keyup="normalize" class="form-control vI" id="selectExperiment">
+		            					<select @keyup="normalize" v-model="selectedExperiment" class="form-control w-100 vI" id="selectExperiment">
 		            						<option ></option>
 		            						<option v-for="experiment in experiments" :value="experiment.value">{{experiment.name}}</option>
 		            					</select>
-		            					<button class=" ml-2 sysbtn p-success text-white" @click="addEBox">Add</button>
-		            				</div>
+		            					<!-- <button class=" ml-2 sysbtn p-success text-white" @click="addEBox">Add</button> -->
+		            			<!-- 	</div>
 		            				<br><br>
 		            					<div class="d-flex  justify-content-between w-100">
 				        					<div class="hr w-100"></div>
@@ -146,10 +146,11 @@
 		            					<tbody id="addEBox">
 		            						
 		            					</tbody>		            					
-		            				</table><!-- 
+		            				</table> --><!-- 
 		            				<div id="addEBox" class="" style="height: 200px;">
 		            					
-		            				</div> -->
+		            			-->
+		            				</div> 
 		            			</div>
 	            			</div>       			
 	            	</div>
@@ -383,7 +384,7 @@
 
 
 			},
-			addEBox:function(){			
+			/*addEBox:function(){			
 				let evalue = $('#selectExperiment').val();
 				this.validateState =false;
 				let oldvalue = this.selectedExperiment;
@@ -395,11 +396,11 @@
 					if(this.selectedExperiment != oldvalue){												
 						alert('only experiment can be added')
 						this.selectedExperiment = oldvalue;
-					/*	Swal.bindClickHandler()	
+						Swal.bindClickHandler()	
 						Swal.mixin({
 						  toast: true,
 						}).bindClickHandler('swal_templater_event');		
-						document.getElementById('swal-id').click();*/
+						document.getElementById('swal-id').click();
 						return 0;
 					}else{
 					   $('#ar000').remove();
@@ -418,7 +419,7 @@
 					obj.after('<span class="text-danger requiredv">Required !</span>');	
 					obj.css('border','1px solid #e45');
 				}			
-			},
+			},*/
 			reiterateSelectedExp(){
 				$('#addEBox').html("");			
 				$('#addEBox').append(`
@@ -518,8 +519,8 @@
 				    	this.stagetwo = true;
 					}
 				}else if (this.sectionState === 2){					
-					if (this.selectedExperiment.length == 0){
-					 this.singleValidate('addEBox');
+					if (this.selectedExperiment == ''){
+					 this.singleValidate('selectExperiment');
 					}else{
 						this.stagetwo= false;
 				    	this.stagetwop = true;
@@ -527,7 +528,7 @@
 				    	this.sectionState = 3;				    	
 				    	this.alldata[1]= {				    		
 				    		'experiment_url': this.selectedExperiment
-				    	};
+				    	};			    			
 					}								
 				}				
 
@@ -569,12 +570,11 @@
 							  icon:'success',
 							  showDenyButton: true,
 							  showCancelButton: true,
-							  confirmButtonText: `view created courses`,
+							  confirmButtonText: `View Created Experiments`,
 							  denyButtonText: `Ok, refresh the page`,
-							}).then((result) => {
-							  
+							}).then((result) => {							  
 							  if (result.isConfirmed) {
-							    location.href = "/view-created-course";
+							    location.href = "/view-created-experiment";
 							  } else if (result.isDenied) {
 							    location.reload();
 							  }
@@ -739,7 +739,7 @@
 		border-radius: 50% !important;
 		padding: 2px !important;
 	}
-	.form-control:focus{
+	.form-control w-100:focus{
 		outline: none !important;
 		box-shadow: none !important;
 		border: 1px solid #aaa;

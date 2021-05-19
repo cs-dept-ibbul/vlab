@@ -392,13 +392,13 @@
 			    		var departmentsX = $this.faculties.filter((item)=>{return item.id === $(this).val()})[0].department;
 			    		var opt="";
 			    		departmentsX.forEach((item, idex)=>{
-								opt += "<option value='"+item.id+"'>"+ item.code +"</option>";
+							opt += "<option value='"+item.id+"'>"+ item.code +"</option>";
 						});	
 			    		$('#department_id').html(opt);						
 					})
 			    	setTimeout(function() {			    		
 						if( $('#faculty_id').val()!= ""){
-							
+
 						  	var departmentsX = $this.faculties.filter((item)=>{return item.id === $('#faculty_id').val()})[0].department;
 				    		var opt="";
 				    		departmentsX.forEach((item, idex)=>{

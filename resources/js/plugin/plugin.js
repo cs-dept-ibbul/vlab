@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'http://localhost:8000' : 'http://localhost:8000';
+axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'http://192.168.43.206:8000' : 'https://demo.vlabnigeria.org';
 import loader from '../components/skeletalLoaderA.vue'; 
 export default {
   install(Vue, options) {
@@ -594,10 +594,10 @@ export default {
 				return AxiosFetchData();				
                     
   		},
-  		attemptsFailsV:function(){
+  		attemptsFailsV:function(title="click Ok to retry", text="something went wrong", state=false, route='/'){
 			Swal.fire({
-			  text: 'something went wrong',
-			  title: 'click Ok to retry',
+			  title: title,
+			  text: text,
 			  icon:'error',
 			  showClass: {
 			    popup: 'animate__animated animate__fadeInDown'
@@ -607,10 +607,14 @@ export default {
 			  }
 			}).then((result) => {
 				  /* Read more about isConfirmed, isDenied below */
-				  if (result.isConfirmed) {
-				    location.reload();
-				  } else if (result.isDenied) {
-				    Swal.fire('please reload the page', '', 'info')
+				  if (state) {
+				  	  window.location.replace(route);
+				  }else{				  	
+					  if (result.isConfirmed) {
+					    location.reload();
+					  } else if (result.isDenied) {
+					    Swal.fire('please reload the page', '', 'info')
+					  }
 				  }
 			});
 		},		

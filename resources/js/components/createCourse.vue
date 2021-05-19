@@ -634,7 +634,7 @@
 						formData.append('deletedCourseExperimentId', JSON.stringify(this.deletedCourseExperimentId));
 						formData.append('addedExperimentId',JSON.stringify(this.addedExperimentId));
 						formData.append('deletedResources',JSON.stringify(this.deletedResources));
-						
+
 						formData.append('course_experiment_id',JSON.stringify(this.course_experiment_id));
 					   	let sizeCount = 0;
 					   	if (this.caption1 != '' && this.file1 != ''){
@@ -883,7 +883,9 @@
 		},
 		async created(){			
 		    this.experiments  = await this.axiosGet('api/experiments/experiments');
-		   
+		   if (this.experiments.length< 1) {
+		   	this.attemptsFailsV('No Experiment is available', 'to proceed on add Experiment, Click Ok', true,'/add-experiment');
+		   }
 		    /*initialize datatable */           
 			if (this.update) {
 				let $this = this;

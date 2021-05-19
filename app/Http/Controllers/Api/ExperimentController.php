@@ -40,12 +40,10 @@ class ExperimentController extends Controller
 
     public function create(Request $request)
     {
-        $experiment = new Experiment();
-
+        $experiment = new Experiment();        
         $validator = Validator::make($request->all(), [
             'name' => 'required',       
-            'experiment_goal' => 'required',           
-            'procedures' => 'required',
+            'experiment_goal' => 'required',                     
             'required' => 'required',
         ]);
 

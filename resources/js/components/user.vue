@@ -1,26 +1,30 @@
 <template>	
 		<div class="w-100 mt-2 py-3 position-relative">
-          <a v-if="!loaderState"  href="#" @click="createuser" class="btn-admin-user btn py-3 mb-5 mr-2 px-4 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 0.6rem">Create user <span class="text-white fa fa-chevron-down"></span></a>
-          <a v-if="!loaderState" href="#" @click="uploadstudent" class="btn-admin-user btn py-3 mb-5 mr-2 px-4 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 0.6rem">Upload Student <span class="text-white fa fa-chevron-down"></span></a>
+          <a v-if="!loaderState"  href="#" @click="createuser" class="btn-admin-user btn py-1 mb-5 mr-2 px-2 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 3px;">Create user <span class="text-white fa fa-chevron-down"></span></a>
+          <a v-if="!loaderState" href="#" @click="uploadstudent" class="btn-admin-user btn py-1 mb-5 mr-2 px-2 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 3px;">Upload Student <span class="text-white fa fa-cloud-upload"></span></a>
+          <a href="templateFiles/userupload_template.csv" target="_self" class="btn-admin-user btn py-1 mb-5 mr-2 px-2 text-white fs01 font1 bg-dark btn-lg pull-right" style="border-radius: 3px;">Download Template<span class="text-white fa fa-cloud-download"></span></a>
+          
           <br>
-      	<div class="w-100 user-search-box">
+
+      	<div class="w-100 user-search-box"> 
 		    <div class="py-2 d-inline-block">		        
 		        <select id="sessionid" class="form-control d-inline-block"  placeholder="select session">
-		        	<option value=""></option>
+		        	<option value="">By Session</option>
 		        	<option v-for="(session,index) in sessions" :value="session.id">{{session.session}}</option>
 		        </select>	        
 		        <select id="roleid" class="form-control  d-inline-block">
-		        	<option value=""></option>		        	
+		        	<option value="">By Role</option>		        	
 		        	<option v-for="(role,index) in JSON.parse(roles)" :value="role">{{index}}</option>
 		        </select>
 		        <select id="departmentid" class="form-control  d-inline-block"  placeholder="department">
-		        	<option value=""></option>		        	
+		        	<option value="">Department</option>		        	
 		        	<option v-for="(department,index) in departments" :value="department.id">{{department.code}}</option>
 		        </select>
 		        <button class="button" @click="fetchUser">Go</button>
 		    </div>
 
 		</div>
+		<br>
 		<div v-if="loaderState">
 			<br><br><br><br><br><br>
           	<v-loader count="2"></v-loader>
@@ -148,6 +152,10 @@
 					  title: "Upload Bulk User",
 					  html:html,
 					  focusConfirm: false,
+					  cancelButtonText:'Cancel',				      				      
+				      cancelButtonColor:'#dd000f',					      
+				      confirmButtonColor:'#00b96b',					      
+				      showCancelButton:true,
 					  preConfirm: () => {
 					  	var faculty = document.getElementById('faculty_id').value,
 					  		department = document.getElementById('department_id').value,

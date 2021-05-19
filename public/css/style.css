@@ -1954,7 +1954,7 @@ span.ripple {
     .user-search-box{
       height: 40px;
       position:absolute; 
-      top:100px;
+      top:85px;
       display:flex;
       justify-content:center;
       z-index:10;
@@ -1987,6 +1987,9 @@ span.ripple {
       }
     }    
     @media (max-width: 720px  ) {
+      .btn-admin-user{
+        margin-bottom: 10px !important;
+      }
       div#login-box-120{        
         margin-top: 10px !important;
         padding-top: 10px !important;
