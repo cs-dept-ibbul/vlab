@@ -1,7 +1,8 @@
 import axios from 'axios';
+axios.defaults.baseURL = 'https://demo.vlabnigeria.org';
 import loader from '../components/skeletalLoaderA.vue'; 
-export default { 
-  install(Vue, options) { 
+export default {
+  install(Vue, options) {
     Vue.mixin({
     	components:{		
 			'v-loader':loader,
