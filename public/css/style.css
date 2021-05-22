@@ -1738,6 +1738,21 @@ span.ripple {
   margin-top:50px;  
   width: 230px;
 }
+#leftNavbarCover{
+  height: 100vh;
+  background: #f0f0f0; 
+  transition: width 0.4s; 
+  width: 260px;
+}
+.forLeftSideBarLogo{
+  position: absolute; 
+  left: 30px; 
+  top: -10px;
+  border-radius: 4px;   
+  margin-right:4px;
+  display:inline-block;
+  transition: all 0.4s;
+}
 
 
     .task-container {
@@ -1987,6 +2002,9 @@ span.ripple {
       }
     }    
     @media (max-width: 720px  ) {
+      #leftNavbarCover{
+        display: none;
+      }
       .btn-admin-user{
         margin-bottom: 10px !important;
       }
@@ -2033,6 +2051,23 @@ span.ripple {
       }
     }
     @media (max-width: 497px) {
+      .addExperimentForm > div{
+        padding: 0px !important;
+      }
+      .expr-uploads-header h4{
+        font-size: 1em !important;
+      }
+      .dataTables_length label{
+          display: flex;
+          text-align: left;
+      }
+      .dataTables_filter label{
+          display: flex;
+          text-align: left;
+      }
+      .file-cover span{
+          font-size: 0.85em;
+      }
       .login-left .d-flex{
        flex-direction: column;
 
@@ -2205,4 +2240,15 @@ span.ripple {
   white-space: nowrap;
   font-size: 0.87em !important;
   padding: 2px !important;
+}
+.forSessionOnNav{
+  background: #2F274E;
+  height:69px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 18px 0px 18px 10px;
+}
+.bg-content{
+  background: #f7f7f7;
 }

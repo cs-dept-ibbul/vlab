@@ -19,6 +19,7 @@ class CreateWeeklyWorkTable extends Migration
 			$table->string('date_open', 225)->nullable()->default('NULL');
 			$table->string('date_close', 225)->nullable()->default('NULL');
 			$table->string('access_code', 225)->nullable()->default('NULL');
+			$table->enum('mode', ['0', '1'])->default('1');
 			$table->enum('limitation', ['0', '1'])->default('0');
 			$table->enum('status', ['Active', 'Inactive'])->default('Active');
 			$table->rememberToken();

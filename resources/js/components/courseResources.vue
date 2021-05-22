@@ -27,16 +27,23 @@
 					
 					<div class="w-100 rounded shadow-sm bg-white p-2" v-if="resoursType(resource.resourceUrl)=='image'" >
 						<center>
-							<img :src="'/'+resource.resourceUrl" width="80%" height="150px">							
+							<img :src="'/'+resource.resourceUrl" width="80%" height="150px">						
 						</center>
-					<div class="position-relative w-100 rounded d-flex flex-wrap  shadow-sm bg-white" v-if="resoursType(resource.resourceUrl)=='doc'" >
-						<a :href="resource.resourceUrl">Document File</a>
 					</div>
-					<div class="w-100 rounded d-flex flex-wrap shadow-sm bg-white " v-if="resoursType(resource.resourceUrl)=='vid'" >
-						<a :href="resource.resourceUrl">video File</a>
+					<div class="w-100 rounded shadow-sm bg-white p-2" v-if="resoursType(resource.resourceUrl)=='doc'" >
+						<center>
+							<img src="/images/docx.png" width="80%" height="150px">						
+						</center>
 					</div>
-					<div class="w-100 rounded d-flex flex-wrap  shadow-sm bg-white" v-if="resoursType(resource.resourceUrl)=='other'" >
+					<div class="w-100 rounded shadow-sm bg-white p-2" v-if="resoursType(resource.resourceUrl)=='vid'" >
+						<center>
+							<img src="/images/vid.jpg" width="80%" height="150px">						
+						</center>
 					</div>
+					<div class="w-100 rounded shadow-sm bg-white p-2" v-if="resoursType(resource.resourceUrl)=='other'" >
+						<center>
+							<img src="/images/file.png" width="80%" height="150px">						
+						</center>
 					</div>
 
 					<div class="resource-caption text-center py-2 font fw5 w-100">

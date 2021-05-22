@@ -323,8 +323,8 @@ class CourseController extends Controller
             return response()->json(['error' => "faculty_id is required"], 400);
         }
 
-        $facultyId = $request->get('faculty_id');
-        $courses = Course::where('faculty_id', $facultyId)->with('experiments')->withCount('experiments')->get();
+        $facultyId = $request->get('faculty_id');        
+        $courses = Course::with('experiments')->withCount('experiments')->where('faculty_id', $facultyId)->get();
 
         if (!empty($courses)) {
             return response()->json($courses, 200);
@@ -425,6 +425,7 @@ class CourseController extends Controller
     {
         $sessionId = $this->currentSession;
         $course_id = $request->get('course_id');
+        $faculty_id = $request->get('faculty_id');
         $user_id   = $request->get('user_id');
         
 
@@ -444,7 +445,7 @@ class CourseController extends Controller
         $userCourses->course_id = $course_id;
         $userCourses->user_id = $user_id;
         $userCourses->school_id = $this->schoolId;
-        $userCourses->faculty_id = $this->facultyId;
+        $userCourses->faculty_id = $faculty_id;
         $userCourses->session_id = $sessionId;
 
         if ($userCourses->save()) {
@@ -670,10 +671,17 @@ class CourseController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => "id field is required"], 400);
         }
-
         $course_experiment_id = $request->get('course_experiment_id');
-        CourseExperiment::where('id', $course_experiment_id)->delete();      
-        return response()->json(['success' => true], 200);
+        $check = DB::table('course_experiment','c')->join('user_courses','user_courses.course_id','c.course_id')->join('weekly_works','weekly_works.course_id','c.course_id')->where(['c.id'=>$course_experiment_id,'user_courses.status'=>'Inactive','weekly_works.status'=>'Inactive'])->first();
+
+        if (is_null($check)) {
+            //delete
+            CourseExperiment::where('id', $course_experiment_id)->delete();      
+            return response()->json(['success' => true], 200);
+        }else{
+            //cant delete 
+            return response()->json(['error' => "can't delete this faculty"], 409);                    
+        }
         
     }
 

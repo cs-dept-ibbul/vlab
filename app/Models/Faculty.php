@@ -41,4 +41,9 @@ class Faculty extends Model
     {
         return $this->hasMany(User::class)->where('role_id', $this->roleId['student']);;
     }
+    public function courses_students()
+    {
+        return $this->hasMany(CourseStudents::class);
+    }
+    
 }

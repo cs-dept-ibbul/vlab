@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL = 'https://demo.vlabnigeria.org';
+axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'http://192.168.43.206:8001' : '';
 import loader from '../components/skeletalLoaderA.vue'; 
 export default {
   install(Vue, options) {
@@ -48,10 +48,11 @@ export default {
 					})
 				}
 				if (sel=== 1) {
-					if($('#'+id+ 'option:selected').text()==""){
+					if($('#'+id+ 'option:selected').text()=="" || $('#'+id).val() == ""){
 						$('#'+id).css('border','1px solid #e45');
 						$('.requiredv').remove();
-						$('#'+id).after('<span class="text-danger requiredv">Required !</span>');						
+						$('#'+id).after('<span class="text-danger requiredv">Required !</span>');	
+						return false;					
 						this.validateState = false;						
 					}else{						
 						this.validateState = true;	
@@ -107,7 +108,7 @@ export default {
 		    swal.fire({
 		        html: '<div id="VueSweetAlert2" class="text-left"></div>',
 		        showConfirmButton: false,
-		        width: '97%',
+		        width: '97%',		        
 		        onBeforeOpen: () => {
 		            let ComponentClass = Vue.extend(Vue.component(component));
 		            let instance = new ComponentClass({
@@ -241,7 +242,8 @@ export default {
                             	$this.hide_loader();                                	
                             	Swal.fire({
                             		title:'deleted successfuly',
-                            		icon: 'success',                            		
+                            		icon: 'success',   
+                            		confirmButtonColor:'#00b96b',	                         		
                             	}).then((result)=>{
                             		location.reload();
                             	});
@@ -260,7 +262,15 @@ export default {
                              if(e.response.status === 401 ){
                                  localStorage.removeItem("LoggedUser");
   								 location.href = "/logout";
-                             }else{
+                             }else if(e.response.status === 409){
+                             	$this.hide_loader();
+                            	Swal.fire({
+                            		title:"This Operation Cannot be Completed",
+                            		text: 'Please Contact the Administrator',
+                            		icon: 'warning',  
+                            		confirmButtonColor:'#00b96b',	
+                            	});
+                            }else{
                                attemptsFailsV()                                           
                              }                                                                   
                         })                             
@@ -330,10 +340,9 @@ export default {
 							'Content-Type':'application/json',
 							'Authorization':AuthAxios
 					};
-                   return axios.get(url,{headers: axiosHeader}).then(function(response, status, request) {        
+                   return axios.get(url,{headers: axiosHeader}).then(function(response, status, request) {                     			
                             if (response.status === 200) {                                     	
-                            	let i,j;                  
-                               //console.log(response.data.map((a,b)=>{j = []; for(i in a) {j.push(a[i])} return j; }));                               
+                            	let i,j;                                                 
                                return response.data;                                                                
                             }else{
                             	if (retryCount < 4) {
@@ -487,7 +496,18 @@ export default {
                    return axios.post(url,formdata,{headers: axiosHeader}).then(function(response, status, request) {        
                             if (response.status === 200) {                                     	
                             	let i,j;                  
+                            	//console.log($this.currentUser)
                                //console.log(response.data.map((a,b)=>{j = []; for(i in a) {j.push(a[i])} return j; }));                               
+                               if (response.data.length <1) {
+                               		if (retryCount < 4) {
+                            		setTimeout(function() {
+                            			AxiosFetchData();
+                            		}, 5000);
+                            		}else{
+                               			return response.data;                                                                
+
+                            		}
+                               }
                                return response.data;                                                                
                             }else{
                             	if (retryCount < 4) {
@@ -698,7 +718,7 @@ export default {
 					})			
       			},
       	naviconToggler: function(e){      		
-      		if ($(window).width() <751) {
+      		if ($(window).width() <720) {
 
 	      		if (this.navbarState === false) {
 	      			
@@ -728,6 +748,19 @@ export default {
       },
       async created(){
 
+		if(localStorage.hasOwnProperty('LoggedUser')){     	      			      
+  			this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
+  			this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;	 
+  			let AuthAxios = 'Bearer '+this.userLoggedInOld;
+			this.axiosHeader ={
+					'Content-Type':'application/json',
+					'Authorization':AuthAxios
+			};
+			this.axiosHeaderWithFiles ={
+					'Content-Type':'multipart/form-data',
+					'Authorization':AuthAxios
+			};	     		
+  		}
 
       		/*goes global*/      	      		      	
       				
@@ -736,19 +769,6 @@ export default {
       		if (!this.freePath.includes(pathname) || pathname == 'login') {
       			
       		}else{
-      			if(localStorage.hasOwnProperty('LoggedUser')){     	      			      
-	      			this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
-	      			this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;	 
-	      			let AuthAxios = 'Bearer '+this.userLoggedInOld;
-					this.axiosHeader ={
-							'Content-Type':'application/json',
-							'Authorization':AuthAxios
-					};
-					this.axiosHeaderWithFiles ={
-							'Content-Type':'multipart/form-data',
-							'Authorization':AuthAxios
-					};	     		
-	      		}
       		}*/
       },
       mounted: function(){
@@ -776,7 +796,7 @@ export default {
 	      		}        	 	
       		},5);
       		let mobileS = function(size) {
-      			if(size < 751) {      				
+      			if(size < 720) {      				
       				/*hide wide screen element*/
 	      				$('.MenuLContainer').addClass('removeMenu');
 	      				$('.menuBtnToggler').addClass('removeMenu');      				
@@ -803,6 +823,27 @@ export default {
       		$(window).resize(function(){
       			mobileS($(this).width())
       		})
+
+      		/*btn slider for left side bar */
+        	var $this = this;
+	 		$(window).resize(function() {
+     			$('.listVMenu').not($(this).next()).addClass('slideout');
+    			$('.listVMenu').not($(this).next()).removeClass('slidein');
+    			let elt = $(this).parent().find('ul.listMenu');
+         		if($(this).width() > 750){
+         			if(!$this.iconStateFromSysTopNav && !elt.hasClass('slidein') ){
+	        			elt.addClass('slideout');
+	 					elt.removeClass('slidin');        				
+         			}else{
+         				elt.removeClass('slideout');
+	 					elt.addClass('slidin');
+         			}	    
+         		}
+         	});  
+         	/*end*/   		
+
+	 		var $this = this;
+
       		$(document).ready(function(){      			
       			window.rippleButton = function(){      				
 					$('.button').click(function(event){
@@ -822,7 +863,7 @@ export default {
 
 
       		/*login checking and validation*/
-      		let $this = this;      
+      		
       		let pathname = location.pathname.split('/')[1];       		
 
 	      	if(localStorage.hasOwnProperty('LoggedUser')){     	      				      

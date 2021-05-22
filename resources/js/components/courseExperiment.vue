@@ -30,7 +30,7 @@
 					
 					<div class="w-100 rounded shadow-sm bg-white p-2 d-flex justify-between" >
 						<span>{{experiment.experiments.name}}</span>
-						<button class="bg-warning text-white button btn-sm" @click="deleteResource(experiment.id)">delete</button>
+						<span class="fa fa-trash text-danger cursor-1" @click="deleteResource(experiment.id)"></span>						
 					</div>
 
 				</div>

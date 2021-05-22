@@ -76,7 +76,7 @@ Route::group([
             Route::post('faculty', [FacultyController::class, 'getFaculty']);
             Route::get('faculties', [FacultyController::class, 'getAllFaculties']);
             Route::get('faculty_courses', [FacultyController::class, 'facultiesWithCourses']);
-            Route::get('check', [FacultyController::class, 'check']);
+            Route::get('check', [FacultyController::class, 'checkFacultyExist']);
             Route::get('faculty_course_student', [FacultyController::class, 'getFacultyWithCourseAndStudentCount']);
         });
 
@@ -96,6 +96,7 @@ Route::group([
             
             Route::post('create', [ExperimentController::class, 'create']);
             Route::post('update', [ExperimentController::class, 'updateExperiment']);
+            Route::post('delete', [ExperimentController::class, 'deleteExperiment']);
             Route::post('save_experiment_result', [ExperimentController::class, 'saveExperimentResult']);
             Route::post('experiment_results_esid', [ExperimentController::class, 'getExperimentResultsByExpSessId']);
             Route::post('experiment_results_csid', [ExperimentController::class, 'getExperimentResultsByCourseSessId']);
@@ -126,6 +127,7 @@ Route::group([
             Route::post('weekly_work', [WeeklyWorkController::class, 'getWeeklyWork']);
             Route::get('weekly_works', [WeeklyWorkController::class, 'getWeeklyWorks']);
             Route::post('student_task', [WeeklyWorkController::class, 'getStudentWeeklyWork']);
+            Route::post('student_task2', [WeeklyWorkController::class, 'getStudentWeeklyWork2']);
             
             Route::post('delete_work_expetiment', [WeeklyWorkController::class, 'deleteWorkExperiment']);
             Route::post('update_work_experiment', [WeeklyWorkController::class, 'updateWorkExperiment']);

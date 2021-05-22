@@ -87,7 +87,6 @@ export default {
 
     },
   exp2:{
-
     //###################################zero covered###########################################################  
       arr1v1:[
             {source: "v_Dot", target: "s_Dot", tid: "solar_cell1", sid: "voltmeterRead"},
@@ -155,13 +154,51 @@ export default {
       arr5c: 0,              
   
     },
+    experiment_data_format:{   
+        'vernier-caliper':`<table class="table-stripped" style="width:80%; min-width:300px;">
+               <tr>
+                <td class="v-template p-1 text-center fs01 fw5" width="25%">External size</td>
+                <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>
+                <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>
+                <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>
+                <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>                    
+                <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>                    
+              </tr>
+              <tr>
+                <td class="v-template p-1 text-center fs01 fw5" width="25%">Internal size</td>
+                <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>
+                <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>
+                <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>
+                <td class="v-template" width="16%"><input type="number" class="valueReading form-control h-100 bg-white"></td>                    
+                <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>                    
+              </tr>
+              <tr>
+                <td class="v-template p-1 text-center fs01 fw5" width="25%">Depth size</td>
+                <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>
+                <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>
+                <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>
+                <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>                    
+                <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>                    
+              </tr>
+              <tr>
+            </table>`,
+            'micrometer':`<table class="table-stripped" style="width:80%; min-width:300px;">
+                 <tr>
+                  <td class="v-template p-1 text-center fs01 fw5" width="25%">sizes</td>
+                  <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>
+                  <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>
+                  <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>
+                  <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>                    
+                  <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>                    
+                </tr>
+              </table>
+            `      
+    },
     
-  },
   loggedIn:null,
-
-
+  },
    mutations: {
-      updateUser(state, user) {
+      updateUser(state, user) {    
         state.loggedIn = user; 
       }
   },

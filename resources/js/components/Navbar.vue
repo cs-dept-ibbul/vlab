@@ -1,5 +1,5 @@
 <template>
-  <nav id="navbarId" class="navbar py-3" :style="'width:'+currentWidth+'%;'" >
+  <nav id="navbarId" class="navbar py-3 w-100" :style="'width:'+currentWidth+'%;'" >
     <div class="container align-items-center mb-0">
       <div class="navbar__logo">
         <img src="/vlab.png"  width="100" class="mt-2" alt="vlab-logo" />

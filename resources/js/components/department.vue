@@ -208,7 +208,7 @@
 							      confirmButtonText:'Ok',
 				      			  confirmButtonColor:'#00b96b',	
 							    }).then((result)=>{
-							       location.reload();
+							    location.reload();
 							    })
 							  }
 					    })

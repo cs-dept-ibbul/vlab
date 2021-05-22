@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use \DB;
 class SessionController extends Controller
 {
     public function create(Request $request)
@@ -115,16 +115,24 @@ class SessionController extends Controller
 
         $sessionId = $request->get('session_id');
         $session = Session::find($sessionId);
+        $check  = DB::table('users')->where('session_id', $sessionId)->first();
+        $check1 = DB::table('courses')->where('session_id',$sessionId)->first();
 
-         if(!empty($session)){
-            
-            $session->status = 'Inactive';
+        if (is_null($check) && is_null($check1)) {
+            //delete
+            if(!empty($session)){
+                
+                $session->status = 'Inactive';
 
-            if($session->save()){
-                return response()->json(['success' => true], 200);
+                if($session->save()){
+                    return response()->json(['success' => true], 200);
+                }
+            } else {
+                return response()->json(['error' => 'Session not found'], 404);
             }
-        } else {
-            return response()->json(['error' => 'Session not found'], 404);
+        }else{
+            //cant delete
+            return response()->json(['error' => "can't delete this faculty"], 409);        
         }
     }
 

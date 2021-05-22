@@ -4,18 +4,18 @@
           <div class="m-0 row  p-3 form-body">
           	 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-4" id="titleForm">
           	 	<label>Title</label>
-          	 	<input type="text" name="title" id="titleD" :value="title" class="form-control vI">
+          	 	<input type="text" name="title" id="titleD" :value="title" class="form-control w-100 vI">
           	 </div>
           	 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4">
           	 	<label>Course</label>
-          	 	<select class="form-control" id="courseD" @change="loadExperiment($event.target)">
+          	 	<select class="form-control w-100" id="courseD"  @change="loadExperiment($event.target)">
           	 		<option value="-"></option>
           	 		<option v-for="course in faculty_courses" :selected="ucourse.code == course.code" :value="course.id">{{course.code}}</option>
           	 	</select>          	 	
           	 </div>
           	 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4" id="experimentDForm">
           	 	<label>Experiment</label>
-          	 	<select id="experimentD" @change="experimentInputSelectField($event.target)" data-style="btn-new" class="form-control selectpicker" multiple title="Select Experiments">
+          	 	<select id="experimentD" @change="experimentInputSelectField($event.target)" data-style="btn-new" class="form-control w-100 selectpicker" multiple title="Select Experiments">
                       <option value="-">-</option>
                       <option>-</option>
                       <option>-</option>
@@ -24,20 +24,42 @@
           	 </div>
           	 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4" id="accessCodeForm">
           	 	<label>Access Code</label>
-          	 	<input type="password" name="code" id="codeD" :value="access_code" class="form-control vI">
+          	 	<input type="password" name="code" id="codeD" :value="access_code" class="form-control w-100 vI">
+              <div class="mt-2">
+                <input id="swal-input2" type="checkbox" class="mr-1 mt-2 d-inline-block"><label class="mb-1 d-inline-block">Activate Test Mode</label>
+              </div>                    
           	 </div>
           	 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4" id="openForm">
-          	 	<label>open</label>
-          	 	<input type="text" name="title" id="openD" :value="open" date-format='dd-mm-yyyy'  autocomplete="off" class="form-control vI datepicker2">
+          	 	<label>Open</label>
+          	 	<input type="text" name="title" id="openD" :value="open" date-format='dd-mm-yyyy'  autocomplete="off" class="form-control w-100 vI datepicker2">
           	 </div>
           	 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4" id="closeForm">
           	 	<label>Close</label>
-          	 	<input type="text" name="title" id="closeD" :value="close" date-format='dd-mm-yyyy' autocomplete="off" class="form-control vI datepicker2">
-          	 </div>                
-                <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12  mt-4">
+          	 	<input type="text" name="title" id="closeD" :value="close" date-format='dd-mm-yyyy' autocomplete="off" class="form-control w-100 vI datepicker2">
+          	 </div>                 
+              <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12  mt-4">
+                  <label class="fs1 fw5 font form-header">Select Experiment to Set Data</label>
+                  <span v-if="flipNow" class="w-100">                
+                    <div v-for="exp in experiments" class="w-100">
+                        <span v-if="selectedExerpiment.includes(exp.id)">                      
+                        <input @click="InputData(exp.id)" value="exp.id" type="radio" name="exp_t11" class="mr-1 mt-2 d-inline-block"><label class="mb-1 d-inline-block text-capitalize">{{exp.name}}</label>                  
+                        </span>
+                        <span v-if="experiment_data_format[exp.page] !== undefined" class="w-100">
+                          <div :id="exp.id" class="formExp w-100" v-html="experiment_data_format[exp.page]">      
+                          </div>                          
+                        </span>
+                        <span v-else class="w-100">                          
+                            <span  :id="exp.id" class="formExp w-100 fs01 fw6 text-dark">No Form Available For this Experiment</span>
+                        </span>
+                    </div>       
+                  </span>
+                  
+             
                 </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12  mt-4">
-                    <button @click="createTask" class="button bg-success text-white w-100 px-3 py-3">
+              <div class="col-lg-2 col-md-7 col-sm-6 col-xs-12 mt-4" style="visibility: hidden;">hidden
+              </div>
+                <div class="col-lg-2 col-md-5 col-sm-6 col-xs-12  mt-4" style="position: relative;">
+                    <button @click="createTask" class="button bg-success text-white w-75 px-3 py-3" style="position: absolute;bottom: 0;">
                          <span v-if="!update">Create</span>
                          <span v-if="update">Update</span>
                     </button>
@@ -61,12 +83,14 @@
                     close:"",
                     ucourse:"",
                     experiment:"",
+                    flipNow:true,
+                    setdata:{},
 
                }
           },
           methods:{
                experimentInputSelectField: function(e){
-                    
+                    this.flipNow = false;                
                     let selected = $('#experimentDForm .dropdown-menu.inner').find('.selected .text');
                     let $this = this, experimentname="";
                     this.selectedExerpiment = [];                         
@@ -80,9 +104,17 @@
                               }                              
                          }
                     })                       
+                    this.flipNow = true;
                },   
-               
+               InputData:function(id){
+                  $('.formExp').not('#'+id).slideUp(50);
+                  $('#'+id).slideDown(50);                                 
+               },
                createTask: function(){
+                    var ActivateMode = '0';
+                    if($('#swal-input2').prop('checked')){
+                        ActivateMode = '1';                   
+                    }
                     let title  = $('#titleForm').find('.vI'),
                     access = $('#accessCodeForm').find('.vI'),
                     open   = $('#openForm').find('.vI'),
@@ -122,13 +154,61 @@
                          return 0;
                     }               
 
-                    this.show_loader();
-                    console.log(this.update)
+                    /*get set data*/
+                    let state = true;
+                    let thisID, values = [],rowCounter=0;
+                    for(let j=0; j<this.selectedExerpiment.length; j++){
+                        thisID = this.selectedExerpiment[j];
+                        this.setdata[thisID] = [];
+                          rowCounter = 0;
+                        if ($('#'+thisID+'>table').find('tr').length>1){
+                          $('#'+thisID+'>table').find('tr').each(function(index){                            
+
+                            values = [];
+                            $(this).find('.valueReading').each(function(index2){
+                              if (index == 0) { //to get equal data for all rows dependent on first row count
+                                if ($(this).val() != '') {
+                                  rowCounter += 1;
+                                  values.push($(this).val());
+                                }                                   
+                              }else{                              
+                                if (index2 < rowCounter) {
+                                   $(this).css({'border':'1px solid #ccc'});
+
+                                  if ($(this).val() != '') {                                  
+                                    values.push($(this).val());
+                                  }else{
+                                    alert('All Field in Red Border is Required !')
+                                    $(this).css({'border':'1px solid red'});                                  
+                                    state =false;
+                                    return false;
+                                  }     
+                                 }
+                              }
+                            });     
+                            if (values.length != 0) {
+                              $this.setdata[thisID].push(values);
+                            }                       
+                          })                          
+                        }else{
+                          values = [];
+                          $('#'+thisID+'>table tr').find('.valueReading').each(function(index){
+                                if ($(this).val() != '') {                                  
+                                  values.push($(this).val());
+                                }                                                                                  
+                          });
+                          if (values.length != 0) {
+                            $this.setdata[thisID]= values;
+                          }                       
+                        }
+                    }
+                  if (state) {                      
+                    this.show_loader();                    
                     let route = 'create';
-                   let success_msg = $this.createdMessage
-                    let formData = {title:title.val(), date_open:open.val(), date_close:close.val(), experiment_ids:this.selectedExerpiment,access_code:access.val()}
-                     if (this.update === true){
-                        formData = {work_id: this.alldata.id, title:title.val(), date_open:open.val(), date_close:close.val(), experiment_ids:this.selectedExerpiment,access_code:access.val()}
+                    let success_msg = $this.createdMessage                    
+                    let formData = { setdata: JSON.stringify(this.setdata), mode:ActivateMode, course_id:this.selectedCourse,title:title.val(), date_open:open.val(), date_close:close.val(), experiment_ids:this.selectedExerpiment,access_code:access.val()}
+                     if (this.update === true){ 
+                        formData = {setdata: JSON.stringify(this.setdata), mode:ActivateMode, course_id:this.selectedCourse,work_id: this.alldata.id, title:title.val(), date_open:open.val(), date_close:close.val(), experiment_ids:JSON.stringify(this.selectedExerpiment),access_code:access.val()}
                          route = 'update';                         
                         success_msg = "updated successfully";
                      }
@@ -149,7 +229,7 @@
                                    Swal.fire({
                                      title: $this.errorSessionMessage,                                       
                                      icon:'error',                                                                 
-                                    confirmButtonText: `Ok`,                                                                         
+                                     confirmButtonText: `Ok`,                                                                         
                                    }).then((result) => {                                         
                                      if (result.isConfirmed) {
                                        $this.frontendLogout();
@@ -170,7 +250,7 @@
                                    errMsg = e.response.data.error;
                                   }                             
                            });
-
+                  }
                },
                loadExperiment:function(e){    
                     let course_id;
@@ -193,12 +273,13 @@
                          //console.log(this.experiments);
                }
           },
-          created(){                                    
+          created(){               
                if (this.update) {
                     this.title = this.alldata.title;                    
                     this.open = this.alldata.date_open;                    
                     this.close = this.alldata.date_close;                    
                     this.access_code = this.alldata.access_code;                    
+                    
                     let $this = this;
                     this.ucourse  = this.faculty_courses.filter(function(item){
                          return item.code === $this.alldata.course.code;
@@ -211,6 +292,7 @@
                         exp = this.alldata.weekly_work_experiments[i];
                         experimentids.push(exp.experiment_id);
                     }
+                    console.log($this.selectedExerpiment);
                     //console.log(experimentids);
                     $this.selectedExerpiment = experimentids;// from alldata.experiments
                     let selectedexp = [];
@@ -222,9 +304,15 @@
                     }, 100);
                }
                   
-          }
-         ,
-          props:{
+          },
+      computed: {
+        
+        experimentDataFormat() {               
+          return  this.experiment_data_format;
+        },
+  
+      },
+      props:{
                update:{
                     type:Boolean,
                     default:function () {
@@ -236,6 +324,12 @@
                     default:function () {
                          return '';
                     }
+               },
+               experiment_data_format:{
+                  type:Object,
+                  default: function(){
+                    return {}
+                  }
                },
                alldata:{
                     type:Object              
@@ -254,12 +348,19 @@
                }
           },
           mounted(){
+            var $this = this;
                this.$nextTick(function() {
-                    $(document).ready(function(){
-
-                    $('.datepicker2').datepicker({});
-                    })
+                  $(document).ready(function(){
+                      if ($this.update){
+                        if($this.alldata.mode == '1'){
+                            $('#swal-input2').attr('checked','checked');
+                        }                 
+                      }
+                    $('.datepicker2').datepicker({});                      
+                  
+                  })
                })
+
         
           }
      }
@@ -272,7 +373,7 @@
           font-size: 0.9em;
           font-weight: 400;
      }
-     .bootstrap-select .dropdown-toggle, .form-control{
+     .bootstrap-select .dropdown-toggle, .form-control w-100{
           background: white !important;
           border: 1px solid #ccc !important;          
      }
@@ -280,7 +381,7 @@
     .bootstrap-select .dropdown-toggle:focus{
      outline: 0 !important;
     }
-    .form-control:focus{
+    .form-control w-100:focus{
 
      box-shadow: none;
     }
@@ -290,5 +391,36 @@
     .btn:focus, .btn.focus{
      box-shadow: none;
      outline: 0;
+    }
+    .swal2-popup{      
+      overflow-x: scroll;
+      overflow-y: scroll;
+      max-height: 90vh;
+    }
+    .formExp{       
+      min-width: 300px;
+      overflow-x: scroll;
+      display: none;
+    }
+    .w-96{
+      width: 95% !important;
+    }
+    .valueReading {
+      border-radius: 0px !important;
+      width: 85%!important;
+      padding: 0px;      
+    }
+    .v-template{      
+      padding: 2px;
+      margin-bottom: 3px;      
+    }
+    table.table-stripped tr:nth-child(odd){
+      background: rgba(5,90,20,.1);
+    }
+    .text-capitalize{
+      text-transform: capitalize;
+    }
+    input[type='radio']{
+      cursor: pointer;
     }
 </style>

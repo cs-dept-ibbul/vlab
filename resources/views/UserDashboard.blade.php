@@ -23,10 +23,11 @@
    
    <!-- end main side bar -->
 
-   <div style="width: 100%; " class="sysbg">
-     <v-systopnave title="Dashboard" username='said'></v-systopnave>     
-   	<v-dashb></v-dashb>
+    <div style="width: 100%; " class="sysbg">
+       <v-systopnave title="Dashboard" username='said'></v-systopnave>     
+   	   <v-dashb></v-dashb>
+	</div>
+</div>
 @endsection
-
 <!-- use this it will give you animate play icon  on embeded video-->
 

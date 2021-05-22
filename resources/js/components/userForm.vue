@@ -5,10 +5,10 @@
       	<span class="d-none">
       		<input type="text" name="user_id" :value="id">
       	</span>
-		<div class="row py-4 px-4 m-0 r2 bg-white vh-70 scroll-y " >     					    					
-			<h5>Add New User</h5>
+		<div class="row py-4 px-4 m-0 r2 bg-white vh-78 scroll-y " >     					    					
+			<h5 class="form-header" >{{typex}}</h5>
 		  <!-- user form -->
-			<div v-if="rolename != 'student'" class="m-0">
+			<div v-if="rolename != 'student'" class="m-0 form-body">
 				<div v-if="watchfacultyHtml.value == true" class="row m-0">				
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
@@ -19,7 +19,7 @@
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Department *</p>		            				
-					  		<select id='department_id' name='department_id' class='form-control w-100'></select>									  	
+					  		<select id='department_id' name='department_id' class='form-control w-100 vI'></select>									  	
 						</div>
 					</div>
 				  	<div class="col-lg-6 col-md-6 m-0">
@@ -33,31 +33,31 @@
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1">	            					
 							<p class="fs001 my-1">First Name *</p>		            				
-							<input type="text" @keyup="normalize" class="form-control" :value="first_name" name="first_name" id="first_name">
+							<input type="text" @keyup="normalize" class="form-control w-100 vI" :value="first_name" name="first_name" id="first_name">
 						</div>
 					</div>	 
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1">	            					
 							<p class="fs001 my-1">Last Name *</p>		            				
-							<input type="text" @keyup="normalize" class="form-control" :value="other_names" name="other_names" id="other_names">
+							<input type="text" @keyup="normalize" class="form-control w-100 vI" :value="other_names" name="other_names" id="other_names">
 						</div>
 					</div>	
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1">	            					
 							<p class="fs001 my-1">Email *</p>		            				
-							<input type="text" @keyup="normalize" class="form-control" :value="email" name="email" id="email">
+							<input type="text" @keyup="normalize" class="form-control w-100" :value="email" name="email" id="email">
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1">	            					
 							<p class="fs001 my-1">Phone *</p>		            				
-							<input type="text" @keyup="normalize" class="form-control" :value="phone" name="phone" id="phone">
+							<input type="text" @keyup="normalize" class="form-control w-100" :value="phone" name="phone" id="phone">
 						</div>
 					</div>	       
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Role*</p>		            				
-							<select type="text" @keyup="normalize" class="form-control" name="role" id="role">
+							<select type="text" @keyup="normalize" class="form-control w-100" name="role" id="role">
 								<option v-for="(role,index) in JSON.parse(roles)" :selected="role==urole" :value="role">{{index}}</option>		            					
 								 							            				
 							</select>
@@ -94,7 +94,7 @@
 				</div>
 	      	</div>
 	      	<!-- student form -->
-	      	<div v-if="rolename == 'student'">
+	      	<div v-if="rolename == 'student'" class="form-body">
 				<div v-if="watchfacultyHtml.value == true" class="row m-0">			
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
@@ -105,32 +105,32 @@
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Department *</p>		            										
-					  		<select id='department_id' name='department_id' class='form-control w-100'></select>									  	
+					  		<select id='department_id' name='department_id'  class='form-control w-100 vI'></select>									  	
 
 						</div>
 					</div>		      		
 		          	<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Matric No *</p>	
-							<input type="text" @keyup="normalize" class="form-control" :value="matric_number" name="matric_number" id="matric_number">
+							<input type="text" @keyup="normalize" class="form-control w-100" :value="matric_number" name="matric_number" id="matric_number">
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1">	            					
 							<p class="fs001 my-1">First Name *</p>		            				
-							<input type="text" @keyup="normalize" class="form-control" :value="first_name" name="first_name" id="first_name">
+							<input type="text" @keyup="normalize" class="form-control w-100 vI" :value="first_name" name="first_name" id="first_name">
 						</div>
 					</div>	 
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1">	            					
 							<p class="fs001 my-1">Last Name *</p>		            				
-							<input type="text" @keyup="normalize" class="form-control" :value="other_names" name="other_names" id="other_names">
+							<input type="text" @keyup="normalize" class="form-control w-100 vI" :value="other_names" name="other_names" id="other_names">
 						</div>
 					</div>	
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1">	            					
 							<p class="fs001 my-1">Email *</p>		            				
-							<input type="text" @keyup="normalize" class="form-control" :value="email" name="email" id="email">
+							<input type="text" @keyup="normalize" class="form-control w-100" :value="email" name="email" id="email">
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 m-0">
@@ -193,7 +193,8 @@
 				id:"",
 				rolename:'',
 				urole:'',
-				sent:0
+				sent:0,
+				typex:'Add New User',
 			}
 		},
 		methods:{
@@ -202,10 +203,20 @@
 				$('.requiredv').remove();
 			},
 			submitForm: function(){	
-				this.validateI('myform')				
+				this.validateI('myform');											
+				if($('#department_id').val() == ""){
+					$('.requiredv').remove();					
+					$('#department_id').after('<span class="text-danger requiredv">Required !</span>');	
+					return false
+				}				
+				if($('#faculty_id').val() == ""){
+					$('.requiredv').remove();					
+					$('#department_id').after('<span class="text-danger requiredv">Required !</span>');	
+					return false
+				}				
 					this.show_loader();
 					var formD = $('#myform').serialize().split('&'),ky,kn, $this= this;
-					const formData = new FormData(document.getElementById('myform'));											 
+					const formData = new FormData(document.getElementById('myform'));				
 
 					/*for (var m in formD) {
 					 	ky = formD[m].split('=')[0];
@@ -321,17 +332,18 @@
 		async created(){
 			
 			if (this.update) {
+					this.typex = "Update User";
 					this.first_name = 	this.alldata.first_name;
 					this.other_names = 	this.alldata.other_names;
-					this.matric_number = 	this.alldata.matric_number;
-					this.email = 	this.alldata.email;
-					this.gender = 	this.alldata.gender;
-					this.department_id = 	this.alldata.department_id;
-					this.faculty_id = 	this.alldata.faculty_id;
-					this.role_id = 	this.alldata.role_id;
+					this.matric_number =this.alldata.matric_number;
+					this.email = 		this.alldata.email;
+					this.gender = 		this.alldata.gender;
+					this.department_id =this.alldata.department_id;
+					this.faculty_id=	this.alldata.faculty_id;
+					this.role_id = 		this.alldata.role_id;
 					this.title = 		this.alldata.title;
-					this.id = 		this.alldata.id;
-					this.phone = 		this.phone;
+					this.id = 			this.alldata.id;
+					this.phone = 		this.alldata.phone;
 					this.urole = 		this.alldata.role_id;					
 					for(var k in JSON.parse(this.roles)){
 						if (JSON.parse(this.roles)[k]==this.urole) {
@@ -396,6 +408,9 @@
 						});	
 			    		$('#department_id').html(opt);						
 					})
+					$(document).ready(function(){
+						$('#faculty_id').addClass('vI');
+					});
 			    	setTimeout(function() {			    		
 						if( $('#faculty_id').val()!= ""){
 

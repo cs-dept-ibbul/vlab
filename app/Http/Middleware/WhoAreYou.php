@@ -36,8 +36,10 @@ class WhoAreYou
                         'user_courses.user_id'=>$user_id,   
                         'user_courses.session_id'=>$currentSession                     
                     ])->first();
-
+                
                 session(['access_code'=>$existInDB->access_code]);                
+                session(['experimentMode'=>$existInDB->mode]);                
+                session(['setdata'=>$existInDB->setdata]);         
                 $expired = $existInDB->expired?? true;
                 if(!$expired){
                     return $next($request);        

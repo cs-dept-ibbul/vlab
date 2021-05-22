@@ -53,11 +53,10 @@ class ExperimentController extends Controller
 
         $id = Util::uuid();
         $name = $request->get('name');
-        //$experiment_number = $request->get('experiment_number');
+        
         $experiment_intro = $request->get('experiment_intro')??'-';
         $experiment_goal = $request->get('experiment_goal')??'-';    
-        $experiment_diagram = $request->experiment_diagram;
-        return dd($experiment_diagram);
+        $experiment_diagram = $request->experiment_diagram;        
         $apparatus = $request->get('apparatus')??'-';
         $experiment_resource = $request->get('experiment_resource')??'-';
         $procedures = $request->get('procedures')??'-';
@@ -69,7 +68,7 @@ class ExperimentController extends Controller
         $graph = $request->get('graph')??'false';
         $status = $request->get('status') ?? 'Active';
         $experiment_diagram_url = "-";
-        if ($experiment_diagram != '-') {            
+        if ($experiment_diagram != null) {            
             $file = $experiment_diagram;                      
             //$file_size = round($file->getSize() / 1024);
             $file_ex = $file->getClientOriginalExtension();
@@ -108,17 +107,29 @@ class ExperimentController extends Controller
     public function deleteExperiment(Request $request)
     {
         $experimentId = $request->get('experiment_id');
-        $experiment = Experiment::find($experimentId);
-        if ($experiment) {
-            $experiment->status = 'Inactive';
-            $save = $experiment->save();
-            if ($save) {
-                return response()->json(['success' => true], 200);
+
+        $check = DB::table('course_experiment')->where('experiment_id',$experimentId)->first();
+
+        if (is_null($check)) {
+            //delete
+            $experiment = Experiment::find($experimentId);
+
+            if ($experiment) {
+                $experiment->status = 'Inactive';
+                $save = $experiment->save();
+                if ($save) {
+                    return response()->json(['success' => true], 200);
+                }
+            } else {
+                return response()->json(['error' => 'No Experiment with this id'], 404);
             }
-        } else {
-            return response()->json(['error' => 'No Experiment with this id'], 404);
+            return response()->json(['success' => false], 400);
+
+        }else{
+            //cant delete
+            return response()->json(['error' => "can't delete this faculty"], 409);                    
         }
-        return response()->json(['success' => false], 400);
+        
     }
 
     public function updateExperiment(Request $request)
@@ -165,7 +176,7 @@ class ExperimentController extends Controller
 
     public function getAllExperiment()
     {
-        $experiments = Experiment::all();
+        $experiments = Experiment::where('status', 'Active')->get();
         return response()->json($experiments, 200);
     }
 
@@ -368,5 +379,39 @@ class ExperimentController extends Controller
 
         return response()->json(['success' => false], 400);
     }
+  /*    public function deleteExperiment(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'experiment_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "experiment_id field is required"], 400);
+        }
+
+        $experiment_id = $request->get('experiment_id');
+        $check = DB::table('course_experiment')->where('experiment_id',$experiment_id)->first();
+
+        if (is_null($check)) {
+            $experiment = Experiment::find($experiment_id);
+            //delete
+            if ($experiment) {
+                $experiment->status = 'Inactive';
+                $save = $experiment->save();
+                if ($save){
+                    return response()->json(['success' => true], 200);
+                }
+            } else{
+                return response()->json(['error' => 'No experiment with this id'], 404);
+            }
+            return response()->json(['success' => false], 400);
+        }else{
+            //cant delete
+            return response()->json(['error' => "can't delete this experiment"], 409);                    
+        }
+    }*/
+
+    
     
 }

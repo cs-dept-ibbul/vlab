@@ -1,6 +1,7 @@
 <template>
 	<div class="mx-auto">
-		  <a href="#" @click="create" class="btn py-3 mb-5 mr-2 px-4 text-white fs1 font1 p-success btn-lg" style="border-radius: 0.6rem">Create New <span class="text-white fa fa-chevron-down"></span></a>
+		<v-loader v-if="loadederState" type="line"></v-loader>
+		  <a v-if="!loadederState" href="#" @click="create" class="btn py-3 mb-5 mr-2 px-4 text-white fs1 font1 p-success btn-lg" style="border-radius: 0.6rem">Create New <span class="text-white fa fa-chevron-down"></span></a>
          <div class="task-container" style="width: 100%;">
 			<div v-for="weeklywork in weeklyworks" class="task-item1 " v-bind:class="{'task-not-active':weeklywork.expired,'task-active':!weeklywork.expired}" tabindex="1">
 				<span class="">				
@@ -23,9 +24,9 @@
 				</div>
 			</div>		
         </div>
-        <template id='code-toast'>
+<!--         <template id='code-toast'>
 		  <swal-title></swal-title>
-		</template>
+		</template> -->
 	</div>
 </template>
 
@@ -41,12 +42,7 @@
 				faculty_courses: null,
 				loadederState: true,
 				weeklyworks:[
-					{id: 1, date_open:'12/02/2021', date_close:'12/04/2021', access_code:'1235', title: 'week 1',course_code:'phy 106',is_expired:true, experiments:[{id:1,name:'Vernier Caliper'},{id:2,name:'micrometer Screw Guage'}] },
-					{id: 2, date_open:'12/02/2021', date_close:'12/04/2021', access_code:'1235', title: 'week 2',course_code:'phy 107',is_expired:true, experiments:[{id:1,name:'Simple Pendulum'}] },
-					{id: 3, date_open:'12/02/2021', date_close:'12/04/2021', access_code:'1235', title: 'week 3',course_code:'phy 107',is_expired:true, experiments:[{id:1,name:'Vernier Caliper'}] },
-					{id: 4, date_open:'12/02/2021', date_close:'12/04/2021', access_code:'1235', title: 'week 4',course_code:'phy 107',is_expired:true, experiments:[{id:1,name:'Micrometer Screw Guage'}] },
-					{id: 5, date_open:'12/02/2021', date_close:'12/04/2021', access_code:'1235', title: 'week 6',course_code:'phy 107',is_expired:false, experiments:[{id:2,name:'micrometer Screw Guage'}] },
-					{id: 6, date_open:'12/02/2021', date_close:'12/04/2021', access_code:'1235', title: 'Exam',course_code:'phy 107',is_expired:false, experiments:[{id:2,name:'micrometer Screw Guage'}] },
+					{id: 1, date_open:'12/02/2021', date_close:'12/04/2021', access_code:'1235', title: 'week 1',course_code:'phy 106',is_expired:true,course:{id:12,code:''}, experiments:[{id:1,name:'Vernier Caliper'},{id:2,name:'micrometer Screw Guage'}] }
 				] 
 			}
 		},
@@ -55,7 +51,8 @@
 				this.VueSweetAlert2('v-taskform',{
 						faculty_courses:this.faculty_courses,
 						courses_experiments:this.courses_experiments,
-						update:false
+						update:false,
+						experiment_data_format:this.$store.state.experiment_data_format
 					})
 			},
 			 deletework:function(id){			 	
@@ -66,7 +63,9 @@
 						faculty_courses:this.faculty_courses,
 						courses_experiments:this.courses_experiments,
 						update:true,
-						alldata:obj
+						alldata:obj,
+						experiment_data_format:this.$store.state.experiment_data_format
+						
 
 					})
 			},
@@ -121,7 +120,7 @@
 		 async created(){        
          let faculty_id = this.currentUser.faculty_id;
          this.faculty_courses  = await this.axiosGetById('api/courses/faculty_courses','faculty_id', faculty_id);
-         this.weeklyworks  = await this.axiosGet(this.baseApiUrl+'works/weekly_works');
+         this.weeklyworks  = await this.axiosGet(this.baseApiUrl+'works/weekly_works');          
          
          //this.courses_experiments  = await this.axiosGet('api/courses/course_experiments');
          

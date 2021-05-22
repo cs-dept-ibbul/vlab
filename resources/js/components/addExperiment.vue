@@ -1,9 +1,9 @@
 <template>
 	<div class="m-0 p-0" style="height: 87.8vh;">
 		
-	<div class="row bg-light m-0 px-2">
+	<div class="row m-0 px-2 addExperimentForm" v-bind:class="{'bg-light':!update,'form-body':update,}">
             <div class="col-lg-4 col-md-5 col-sm-12 m-0 vh-76 p-4 mt-2 ">            	
-            	<div  class="w-100 bg-white r2 px-4 py-4 shadow-sm vh-76"><!-- loop weekly -->
+            	<div  class="w-100 bg-white r2 px-4 py-4 shadow-sm vh-33"><!-- loop weekly -->
 	            	<p class="fs1 fw8  font mb-1  ml-1">
 	            		<span style="color: #777;" v-if="!update">Add Experiment</span>
 	            		<span style="color: #777;" v-if="update">Update Experiment</span>

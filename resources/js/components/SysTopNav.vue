@@ -101,6 +101,6 @@
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
-		background: #f0f0f0;
+		background: #f0f0f0; 
 	}
 </style>

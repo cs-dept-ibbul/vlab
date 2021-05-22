@@ -27,7 +27,7 @@ import storedata from "./store/exp1";
 const store = new Vuex.Store(
    storeData
 )*/
-const store = new Vuex.Store(   storedata )
+const store = new Vuex.Store(storedata)
 /*const store2 = new Vuex.Store(   expvicelab3 )*/
 
 /*global event bus and communication*/
@@ -142,7 +142,7 @@ Vue.component('v-feedback', require('./components/feedback.vue').default);
               <i class="fa fa-thumbs-o-up likeThisPage"   rel="yes"  style="font-size:1.3em;"></i>          
               </span>
           </div>
-          <div style="position:absolute;top:135%;height:30px;width:100%;"></div>
+          <div style="position:absolute;top:103%;height:30px;width:100%;"></div>
           `); 
 
 

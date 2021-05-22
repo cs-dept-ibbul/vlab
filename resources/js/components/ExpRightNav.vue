@@ -13,8 +13,14 @@
 		   	<span v-if="othertools==true">	
 		   		<span v-if= "type=='measurement' && startExperiment == true">		   		
 				   	<span class="fa fa-align-justify bg-white rightnavexpander" @click="rightnavexpander"></span>
-		            <div v-for="i in toolsizes[0].length"  :key="i" @click="addactivate;changeApparatus(toolsizes[0][i],toolsizes[1][i],toolsizes[2][i])"  v-bind:style="{width:+'150px'}" class="box">
+		            <div v-for="i in toolsizes_r[0].length"  :key="i" @click="addactivate($event);changeApparatus(toolsizes_r[0][i-1],toolsizes_r[1][i-1],toolsizes_r[2][i-1])"  v-bind:style="{width:+'150px'}" class="box">
 		            		Size {{i}}
+		        	</div>                  
+		   		</span>
+		   		<span v-if= "type=='micrometer' && startExperiment == true">		   		
+				   	<span class="fa fa-align-justify bg-white rightnavexpander" @click="rightnavexpander"></span>
+		            <div v-for="j in toolsizes_r.length"  :key="j" @click="addactivate($event);changeApparatusForMicrometer(toolsizes_r[j-1])"  v-bind:style="{width:+'150px'}" class="box">
+		            		Size {{j}}
 		        	</div>                  
 		   		</span>
 		   	</span>
@@ -66,7 +72,7 @@
 		    	show:false,
             	hide:true,
             	control:false,     
-            	toolsizesArr:[],             	            
+            	toolsizes_r:[],             	            
             	toolnstate:false,
             	rightNavState:false,
             	activeRightNav:'tools'		            
@@ -79,19 +85,29 @@
         	},
         	addactivate(e){
         	
-        		let box = document.getElementsByClassName('box');
+        		/*let box = document.getElementsByClassName('box');
         		for (let i = 0; i < box.length; i++) {
         			box[i].classList.remove('boxActive');
-        		}
-        		e.target.classList.add('boxActive');
+        		}*/
+        		$('.box').removeClass('boxActive');
+        		$(e.target).addClass('boxActive');
 
         	},
         	changeApparatus(t1,t2,t3){
-
-        		//let  experimentSheet = document.getElementById('experimentSheet');
-        		let  experimentSheet = $('#experimentSheet');
-        		 experimentSheet.attr('src',this.url+t1+'-'+t2+'-'+t3); //tool is value
-
+        		if (t1 != undefined && t2 != undefined && t3 != undefined  ) {
+        			t1 = Number(t1);
+        			t2 = Number(t2);
+        			t3 = Number(t3);
+        			let  experimentSheet = $('#experimentSheet');
+        		    experimentSheet.attr('src',this.url+t1+'-'+t2+'-'+t3); //tool is value
+        		}
+        	},
+        	changeApparatusForMicrometer(t1){
+        		if (t1 != undefined) {
+        			t1 = Number(t1);
+	        		let  experimentSheet = $('#experimentSheet');
+	        		 experimentSheet.attr('src',this.url+t1); //tool is value        			
+        		}
         	},
         	toggleNavOnHover: function(value){          
         		
@@ -113,7 +129,8 @@
         computed: {
     		// a computed getter		  
 		  },
-        created: function () {      
+        created: function () {  
+        	this.toolsizes_r = JSON.parse(this.toolsizes);         
           this.$eventBus.$on('startExperiment',data=>{
           	this.startExperiment = true;          	
           })
@@ -141,9 +158,9 @@
 
         props:{
             toolsizes:{
-            	type:Array,
+            	type:String,
             	default:function(){
-            		return [];
+            		return "[]";
             	}
             },
             url:String,
@@ -265,7 +282,7 @@
 	cursor: pointer !important;
 }
 .boxActive{
-	background: #2F274E;
+	background: #2F274E;	
 }
 .containerR{
 	height: 537px;

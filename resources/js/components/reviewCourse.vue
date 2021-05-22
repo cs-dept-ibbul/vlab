@@ -20,7 +20,7 @@
 	    </div>
      	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-5">
      		<div style="width: 90%;height: 150px;border-radius: 9px;background: #333;" class="mx-auto shadow">
-     			<div class="videoContainer" v-if="!loaderState" id="smallArea">
+     			<div class="videoContainer" v-if="!loaderState && course_with_exp.video_url != null" id="smallArea">
 					<video class="mx-auto" :data-id="youtubeID(course_with_exp.video_url)"></video>
 				</div>
      		</div>
@@ -35,9 +35,9 @@
 	     		<div class="col-lg-7 col-md-12 col-sm-12 col-xs-12 m-0 p-0 d-flex  justify-content-between text-md-center text-sm-center">
 	     			<span class="toberemoved" ></span>
 	     			<div class="m-0 p-0 w-100 text-md-center text-sm-center">
-	     				<p class="fw6 font2">In Progress</p>
+	     				<p class="fw6 font2"><span style="text-transform: uppercase;">{{course_with_exp.code}}</span> In Progress</p>
 	     				<div class="fw8 font mt-4 py-0 w-100 d-flex justify-content-between">	     			
-     						<div class="lg-flex lg-flex-wrap sm-justify-center">
+     						<div class="lg-flex lg-flex-wrap sm-justify-center"> 
      							<span class="small-box"></span>
      							<div class="p-0 my-0 mx-2 d-flex flex-column">
      								<p class="fw8 font mt-0 mb-1">2/4</p>
@@ -97,7 +97,7 @@
 									<div class="p-3  bg-white shadow-sm mb-3 timelineBoxContainer" style="border-radius: 9px;">
 										<div class="d-flex justify-content-between align-items-center">
 											<div class="font">
-											<span class="fw4 fs1 p-2 rounded" v-bind:class="{'sys-bg-success':dateCheck(weeks.date_open,weeks.date_close)>=0,'sys-bg-danger':dateCheck(weeks.date_open,weeks.date_close)<0}">{{weeks.course.code}}
+											<span class="fw4 fs1 p-2 rounded" v-bind:class="{'sys-bg-success':!weeks.expired,'sys-bg-danger':weeks.expired}">{{weeks.course.code}}
 												</span>
 												<p class="fw4 pt-2 pb-0 mb-1" >Experiment {{innerindex+1}}</p>
 												<div class="fs1 font2" style="color: #888;">
@@ -112,7 +112,7 @@
 												<span class="timeline-name-status" v-if="checkStatus(experiment)">Completed
 												</span>	
 												<span v-else>
-													<a v-if="dateCheck(weeks.date_open,weeks.date_close)>=0" :href="'/'+experiment.page+'/'+experiment.weekly_experiment_work_id" class="text-success fs1 fw3 timeline-name-status">Start</a>
+													<a v-if="!weeks.expired" :href="'/'+experiment.page+'/'+experiment.weekly_experiment_work_id" class="text-success fs1 fw3 timeline-name-status">Start</a>
 													<span v-else class="closeMsg text-right">Closed</span>
 												</span>
 												<!-- on mobile -->
@@ -135,22 +135,36 @@
 
 					</div>
 			</div>
-			<div v-show="minitab=='resources'" class="row" style="min-height: 400px;">
-				<div v-for="resource in course_with_exp.course_resources" class="col-lg-4 col-md-3 col-sm-6 col-sm-12 resource">
-					<div class="position-relative w-100 rounded shadow-sm bg-white p-2" v-if="resoursType(resource.resourceUrl)=='image'" >
+			<div v-show="minitab=='resources'" class="row" style="min-height: 500px;">
+				<div v-for="resource in weeksExp[0].course.course_resources" tabindex="1" class="col-lg-4 col-md-3 col-sm-6 col-sm-12 resource">
+					
+					<div class="w-100 rounded shadow-sm bg-white p-2" v-if="resoursType(resource.resourceUrl)=='image'" >
 						<center>
-							<img :src="'/'+resource.resourceUrl" width="80%">							
+							<img :src="'/'+resource.resourceUrl" width="80%" height="150px">						
 						</center>
-					<div class="position-relative w-100 rounded d-flex flex-wrap  shadow-sm bg-white" v-if="resoursType(resource.resourceUrl)=='doc'" >
-						<a :href="resource.resourceUrl">Document File</a>
 					</div>
-					<div class="w-100 rounded d-flex flex-wrap shadow-sm bg-white " v-if="resoursType(resource.resourceUrl)=='vid'" >
-						<a :href="resource.resourceUrl">video File</a>
+					<div class="w-100 rounded shadow-sm bg-white p-2" v-if="resoursType(resource.resourceUrl)=='doc'" >
+						<center>
+							<img src="/images/docx.png" width="80%" height="150px">						
+						</center>
 					</div>
-					<div class="w-100 rounded d-flex flex-wrap  shadow-sm bg-white" v-if="resoursType(resource.resourceUrl)=='other'" >
-						<a :href="resource.resourceUrl">Other File</a>
+					<div class="w-100 rounded shadow-sm bg-white p-2" v-if="resoursType(resource.resourceUrl)=='vid'" >
+						<center>
+							<img src="/images/vid.jpg" width="80%" height="150px">						
+						</center>
 					</div>
-					<div class="resource-caption text-center py-2 font fw5 w-100 position-absolute bottom-0 left-0">{{resource.caption}}</div>
+					<div class="w-100 rounded shadow-sm bg-white p-2" v-if="resoursType(resource.resourceUrl)=='other'" >
+						<center>
+							<img src="/images/file.png" width="80%" height="150px">						
+						</center>
+					</div>
+
+					<div class="resource-caption text-center py-2 font fw5 w-100">
+						<div class="overlaytext">
+							{{resource.caption}}							
+							<br>
+							<a class="bg-warning text-white button btn-sm" :href="resource.resourceUrl">Download <i class="fa fa-cloud-download text-white"></i> </a>
+						</div>		
 					</div>
 				</div>
 			</div>
@@ -212,7 +226,7 @@
 			changeTab:function(tab){					
 				this.mintab = tab;
 			},
-			resoursType(url){
+			resoursType(url){				
 				let urltype = url.split('.')[url.split('.').length -1];
 				
 				let image = ['jpg', 'png','gif', 'jpeg'];
@@ -295,8 +309,7 @@
 			
 			let pathname = location.pathname.split('/');
         	let course_id = pathname[pathname.length -1];
-        	console.log(this.currentUser);
-			this.weeksExp = await this.axiosGetByParams('api/works/student_task',{'user_id':2, 'course_id':course_id});		
+			this.weeksExp = await this.axiosGetByParams('api/works/student_task2',{'user_id':this.currentUser.id, 'course_id':course_id});		        	
 			this.course_with_exp = await this.axiosPost('api/courses/course_experiments',{course_id:course_id});			
 			for (let i = 0; i < this.weeksExp.length; i++) {				
 				this.threadTrends[i] = [
@@ -326,33 +339,50 @@
 	}
 </script>
 <style>	
-	.closeMsg{			
+
+.cover-template{
+		position: relative;		
+	}
+		.closeMsg{			
 		font-size: 0.9em;
 		color: #b56;		
 	}
+	.resource{
+		position: relative;
+		cursor: pointer;
+		height: 170px;
+	}
 	.resource-caption{
-		display: none;
-		transition: all 0.4s;		
-		bottom: -50px;
-		left: 0px;
-		position: absolute;
-		background: rgba(0,0,0,.5);
-		font-weight: 500;
-		color: white;
-		opacity: 0;
-		animation: move 0.4s;
+	  position: absolute;
+	  top: 60%;
+	  left: 0;
+	  right: 0;
+	  background-color: rgba(0,0,50,.6);
+	  overflow: hidden;
+	  width: 100%;
+	  height:0;
+	  transition: .5s ease;
+	  z-index: 100;
+	  opacity: 0;
 	}
-	@keyframes move {
-	0% {
-	     transform: translateY(20px);
-	  }
-	  100% {
-	     transform: translateY(0px);
-	  }
+	
+.overlaytext {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -40%);
+  text-align: center;
+}
+	.resource:focus .resource-caption{
+		 top: 0;
+		 opacity: 1;
+  		height: 100%;
 	}
-	.resource:hover .resource-caption{
-		display: block;
-		opacity: 1;	
-		bottom: 0px;
+	.button:focus{
+		box-shadow: none !important;
 	}
 </style>

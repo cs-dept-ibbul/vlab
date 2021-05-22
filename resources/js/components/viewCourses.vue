@@ -90,7 +90,7 @@
                         <span v-if="course.enrollment_code != ''">
                           <!-- if enrollment code is required  -->
                           <button @click="viewEnrolledCourse(course.id)" class="fw5 fs01 button shadow-sm bg-success px-3 py-2 text-white p-display-none">View Course</button>
-                          <button @click="enrollmentCode" class="fw5 fs01 button shadow-sm bg-dark px-3 py-2 text-white d-inline-block">Enroll</button>
+                          <button @click="enrollmentCode(course.enrollment_code, course.id)" class="fw5 fs01 button shadow-sm bg-dark px-3 py-2 text-white d-inline-block">Enroll</button>
                           <input type="text" name="enrollment_code" @keyup="compare(course.enrollment_code,$event.target.value,course.id, $event)" :placeholder="ecode" class="formControl ">
                           <span class="fa fa-check text-success display-none"></span>
                           <span class="fa fa-plus text-danger display-none"></span>
@@ -141,6 +141,7 @@
       return{
         faculty_courses:null,
         faculty:null,
+        faculty_id:'',
         total_courses:0,
         loadederState:true,
         ecode: '',
@@ -192,7 +193,7 @@
         this.courseProp = course;*/
     },
     compare:function(code,value,course_id, event){                  
-      let e = event.target.parentNode.children;
+     /* let e = event.target.parentNode.children;
    
       this.removeError(event.target);
         let $this = this;        
@@ -202,11 +203,12 @@
               setTimeout(function() {
                 $this.show_loader();                        
                 $this.axios.post('api/courses/add_student_course', {user_id:$this.currentUser.id, course_id: course_id},{headers: $this.axiosHeader},function(response,status){
+                  $this.hide_loader();     
                   if (response.status) {
                     //pass.style.display  = 'inline-block';                    
                     location.reload();
-                    /*setTimeout(function() {e[1].style.display= 'none';}, 10);
-                    $this.hide_loader();*/
+                    setTimeout(function() {e[1].style.display= 'none';}, 10);
+                    $this.hide_loader();
                   }else{
 
                   }
@@ -227,9 +229,57 @@
               this.addError(event.target);
               //pass.style.display= 'none';              
             }
-        }
+        }*/ 
     },
-    
+    enrollmentCode:function(code,course_id){      
+        let $this = this;
+          Swal.fire({
+            title: 'Enter your Enrollment Code',
+            html: `<p class="font1 fs01 fw6">Enter you password</p>
+            <input type="password" id="swal-input1" class="swal2-input mt-1" value="">`,
+            confirmButtonText:'Ok',               
+                cancelButtonText:'Cancel',                            
+                cancelButtonColor:'#dd000f',                
+                confirmButtonColor:'#00b96b',               
+                showCancelButton:true,                
+                showLoaderOnConfirm: true,  
+                focusConfirm: false,            
+              preConfirm: () => {     
+              let value = $('#swal-input1').val();   
+                 if(value == code){         
+                  return $this.axios.post('api/courses/add_student_course', {faculty_id:$this.faculty_id,user_id:$this.currentUser.id, course_id: course_id},{headers: $this.axiosHeader}).then(response => {  
+                          if (!response.data.sucess) {
+                             throw new Error(response.statusText) 
+                          }              
+                          return response.data.success;
+                    }).catch(error => {                                     
+                        if (error.response) {
+                          if (error.response.status == 409) {
+                            Swal.showValidationMessage('256 Failed: something went wrong');
+                          }else if(error.response.status == 401){
+                            location.reload();
+                          }else{
+                            Swal.showValidationMessage('260 Failed: something went wrong');                                           
+                          }
+                        }
+                    })  
+                }else{
+                  Swal.showValidationMessage('Failed: Incorrect Code');                                           
+                }
+              },
+          }).then((result)=>{
+            if (result.value){
+              Swal.fire({
+                title: 'success',
+                icon: 'success',                
+                confirmButtonColor:'#00b96b', 
+              }).then((result)=>{
+                location.reload();
+              })
+            
+            }
+          })
+      }/*,
   enrollmentCode:function(e){
         this.ecode= '';
         e.target.nextElementSibling.style.visibility = 'visible';
@@ -247,28 +297,28 @@
             clearInterval(interval);
           }
         }, 50)
-    }
+    }*/
   },
   computed:{
     
   },
   async created(){
         let pathname = location.pathname.split('/')
-        let faculty_id = pathname[pathname.length -1];
-         this.faculty_courses  = await this.axiosGetById('api/courses/faculty_courses','faculty_id', faculty_id);
+        this.faculty_id = pathname[pathname.length -1];
+         this.faculty_courses  = await this.axiosGetById('api/courses/faculty_courses','faculty_id', this.faculty_id);
          this.student_courses  = await this.axiosGetById('api/courses/student_courses','user_id', this.currentUser.id);
          this.student_courses = this.student_courses[0].courses;
-         this.faculty  = await this.axiosGetById('api/faculties/faculty','faculty_id', faculty_id);
+         this.faculty  = await this.axiosGetById('api/faculties/faculty','faculty_id', this.faculty_id);
          //this.student_courses = this.student_courses.courses;
           //console.log(this.student_courses)
          this.loadederState = false;
          let $this = this;
          let interval = setInterval(function () {
-          if ($this.total_courses <= $this.faculty_courses.length) {
+          if ($this.total_courses < $this.faculty_courses.length) {
             $this.total_courses +=1;
           }else{
               clearInterval(interval);
-          }
+          } 
          },400);
           
           /*initialize datatable */

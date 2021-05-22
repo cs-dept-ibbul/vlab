@@ -38,13 +38,13 @@ class DepartmentController extends Controller
         $department = new Department();
         $department->id = $id;
         $department->name = $departmentName;
-        $department->code = $departmentCode;
-        //$department->school_id = $this->schoolId;
+        $department->code = $departmentCode;    
         $department->faculty_id = $facultyId;
         $department->status = $status;
 
 
-        $checkDepartment = Department::where(['name' => $departmentName])->first();
+        $checkDepartment = Department::where(['name' => $departmentName,'status'=>'Active'])->first();
+        //$checkDepartment1 = Department::where(['name' => $departmentName,'status'=>'Inactive'])->first();
         if (empty($checkDepartment)) {
             if ($department->save()) {
                 return response()->json(['success' => true], 201);
@@ -66,17 +66,26 @@ class DepartmentController extends Controller
         }
 
         $departmentId = $request->get('department_id');
-        $department = Department::find($departmentId);
-        if ($department) {
-            $department->status = 'Inactive';
-            $save = $department->save();
-            if ($save) {
-                return response()->json(['success' => true], 200);
+        $check = DB::table('users')->where('department_id',$departmentId)->first();
+
+        if (is_null($check)) {
+            //delete
+            $department = Department::find($departmentId);
+            if ($department) {
+                $department->status = 'Inactive';
+                $save = $department->save();
+                if ($save) {
+                    return response()->json(['success' => true], 200);
+                }
+            } else {
+                return response()->json(['error' => 'No department with this id'], 404);
             }
-        } else {
-            return response()->json(['error' => 'No department with this id'], 404);
+            return response()->json(['success' => false], 400);
+        }else{
+            //cant delete
+            return response()->json(['error' => "can't delete this department"], 409);        
         }
-        return response()->json(['success' => false], 400);
+
     }
 
     public function updateDepartment(Request $request)

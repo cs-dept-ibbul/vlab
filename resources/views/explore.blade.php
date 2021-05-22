@@ -1,6 +1,5 @@
 <?php
-  $instructorRole =  config('calculations.default_roles.instructor');
-  echo $instructorRole;
+  $instructorRole =  config('calculations.default_roles.instructor');  
  ?>
 @extends('layouts/main')
 @section('content-body')

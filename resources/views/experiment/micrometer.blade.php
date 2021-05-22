@@ -1,10 +1,20 @@
 <?php
 $tools = 5;
-$toolSizes = [80,54,69,70,90];
+if(Session::has('setdata')){
+    if (session('setdata') != '[]') {
+      $toolSizes = json_decode(session('setdata'));
+      $default = false;  
+    }
+}
+if ($default) {
+   $toolSizes = [80,54,69,70,90];   
+}
+
 $ct = 1;
 $started = 0; //this will be from database
 $true = true;
 $false = false;
+$access_code = session('access_code');
 ?>
 @extends('layouts/main')
 
@@ -61,7 +71,7 @@ $false = false;
             </div>
             <!-- end experiment -->
             <div  class="zero-space exprightNav" id="rightNav">               
-               <v-rightnav :toolstate=true :othertools=true :toolsizes="{{json_encode($toolSizes)}}" url="{{route('micrometerEquipment').'?size='}}" ></v-rightnav>
+               <v-rightnav :toolstate=true :othertools=true type='micrometer' toolsizes="{{json_encode($toolSizes)}}" url="{{route('micrometerEquipment').'?size='}}" ></v-rightnav>
             </div>
             <!-- experiment footer -->
             <div class="position-absolute bottom-0 w-100">
