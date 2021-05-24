@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'http://192.168.43.206:8001' : '';
+axios.defaults.baseURL = 'https://demo.vlabnigeria.org'; 
 import loader from '../components/skeletalLoaderA.vue'; 
 export default {
   install(Vue, options) {
