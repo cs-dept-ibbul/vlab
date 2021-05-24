@@ -14,7 +14,7 @@ class EnrollmentAccess
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
      * @return mixed
-     */
+     *///update
     public function handle(Request $request, Closure $next)
     {
         $course_id =  $request->route()->parameter('id');
