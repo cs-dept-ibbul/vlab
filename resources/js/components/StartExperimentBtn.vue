@@ -135,12 +135,18 @@ mounted() {
     },
     
   },
-  props:[    
-        'hourdata',
-        'munitedata',
-        'starteddata',
-        'access_code'
-          ],
+  props:{
+      hourdata:String,
+      munitedata:String,
+      starteddata:{
+        type:String,
+        default:function(){
+          return '0'
+        }
+      },
+      access_code:String
+  }
+          ,
   computed: {
     dateInMilliseconds() {      
       if (parseInt(this.starteddata) == 0 || parseInt(this.starteddata)==null) {      	

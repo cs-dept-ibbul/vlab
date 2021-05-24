@@ -105,6 +105,8 @@ Route::group([
             Route::post('experiment', [ExperimentController::class, 'getExperiment']);
             Route::get('experiments', [ExperimentController::class, 'getAllExperiment']);
             Route::post('experiment_by_weekly_experiment_id', [ExperimentController::class, 'getExperimentByWeeklyExperimentId']);
+            Route::post('allow_reattempt_by_result_id', [ExperimentController::class, 'reattemptExperimentbyrid']);
+
         });
 
         Route::group([

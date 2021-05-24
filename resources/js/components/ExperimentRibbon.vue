@@ -148,7 +148,7 @@
 									time_started:$this.timeStart,
 									time_submitted:new Date().toLocaleString(),
 									time_left:$this.timeleft}*/
-									this.storedata(JSON.stringify($this.resultData), new Date().toLocaleString(),true,fortimer=0);
+									this.storedata(JSON.stringify($this.resultData), new Date().toLocaleString(),true,0);
 									//$this.axiosGetByParamsWithMessage($this.baseApiUrl+'experiments/save_experiment_result',formobj, $this,'Saved !');
 							}
 

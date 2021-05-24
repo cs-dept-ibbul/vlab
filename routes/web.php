@@ -80,6 +80,7 @@ Route::middleware(['instructorauth'])->group(function(){
 Route::middleware(['twouserauth'])->group(function(){
 	Route::get('/unauthorized-e', function(){return view('unAuthorized.NotEnrolled');});
 	Route::get('/no-access', function(){return view('unAuthorized.noAccess');});
+	Route::get('/closed-409', function(){return view('unAuthorized.closed-409');});
 	 /*series and parallel*/
 	Route::get('/circuitconnection-sap','App\Http\Controllers\experimentController@circuitconnection1')->name('circuitconnection1');
 	Route::get('/simpleCircuit', function (){return view('experiment.simpleCircuit');})->name('simpleCircuit');

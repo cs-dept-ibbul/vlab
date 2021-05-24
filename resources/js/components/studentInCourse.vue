@@ -33,11 +33,14 @@
 						<table class="table table-bordered iresult">
 							<thead v-html="returnHeader(result.result_json)" class="bg-white p-2 mx-auto mt-2"></thead>
 							<tbody> 
-								<tr v-for="tr in JSON.parse(result.result_json)[0].data">
+								<tr v-for="tr in getTR(JSON.parse(result.result_json))">
 									<td v-for="td in tr">{{td}}</td>
 								</tr>								
 							</tbody>
-						</table>						
+						</table>	
+						<button class="btn-info button" @click="AllowReattempt(result.id)">Allow Reattempt</button>			
+              			<input type="time" name="title" v-model="limitation" min="00:00" class="form-control py-2 d-inline-block vI without_ampm">
+
 					</div>
 				</div>									
 			</div>
@@ -81,13 +84,14 @@
 	    					</li>
 	    				</ul>
 	    			</div>	
-
+	    			
 	    		    	
 		    		
 		    	</div>
 		    	<!--
 		    		<button class="px-4 py-2 button btn btn-light text-dark w-100 fw6 font fs1 my-2 " style="font-weight: 500;" v-for="task in experiments" :key="experiment.id" @click="fetchExperimentResult(experiment.id)">{{experiment.name}}</button>
 		    	-->
+	    				}
 		    </div>
 		</div>
 		
@@ -107,6 +111,7 @@
 				section:true,
 				iconchange:false,
 				course_code:'',
+				limitation:'01:00',
 				students: [
 					{id:1,first_name:'ismail',other_names:'hamza',gender:'male',matric_number:'u15/fns/csc/1011'},
 					{id:2,first_name:'ismail',other_names:'hamza',gender:'male',matric_number:'u15/fns/csc/1011'},
@@ -136,8 +141,68 @@
 			viewstudent:function(){
 				
 			},
-			returnHeader:function(json){				
-				return JSON.parse(json)[0].mhead;
+			getTR(rs){				
+				if (rs != null){
+					return rs[0].data;
+				}else{
+					return [];
+				}
+			},
+			returnHeader:function(json){			
+				let parser = JSON.parse(json);
+
+				if(parser != null){
+					return JSON.parse(json)[0].mhead;
+				}else{
+					return [];
+				}
+			},
+			AllowReattempt(rid){
+				const formdata  = new FormData();						  
+				formdata.append('result_id', rid);		    	    
+				formdata.append('time_left', this.limitation);					
+				this.axios.post('api/experiments/allow_reattempt_by_result_id', formdata, {headers:this.axiosHeader}).then(function(response, status, request) {        
+                    if (response.status === 200) {  	                                       
+                      		const Toast = Swal.mixin({
+		                    toast: true,
+		                    position: 'top-end',
+		                    showConfirmButton: false,
+		                    timer: 3000,
+		                    timerProgressBar: true,
+		                    didOpen: (toast) => {
+		                      toast.addEventListener('mouseenter', Swal.stopTimer)
+		                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+		                    }
+		                  })
+
+		                  Toast.fire({
+		                    icon: 'success',
+		                    title: 'Student can now reattempt experiment'
+		                  })
+                    }else{
+                    	$this.attemptsFailsV();
+                    }
+                });
+			},
+			attemptsFailsV(){
+				Swal.fire({
+				  text: 'something went wrong',
+				  title: 'click Ok to retry',
+				  icon:'error',
+				  showClass: {
+				    popup: 'animate__animated animate__fadeInDown'
+				  },
+				  hideClass: {
+				    popup: 'animate__animated animate__fadeOutUp'
+				  }
+				}).then((result) => {
+					  /* Read more about isConfirmed, isDenied below */
+					  if (result.isConfirmed) {
+					    location.reload();
+					  } else if (result.isDenied) {
+					    Swal.fire('please reload the page', '', 'info')
+					  }
+				});
 			},
 			showResult:function(weekly_work_experiment_id,root){				
 				let id = weekly_work_experiment_id;							
@@ -147,47 +212,15 @@
 				let retryCount = 0;			
 				var $this = this;
 				
-					let attemptsFailsV = function(){
-							Swal.fire({
-							  text: 'something went wrong',
-							  title: 'click Ok to retry',
-							  icon:'error',
-							  showClass: {
-							    popup: 'animate__animated animate__fadeInDown'
-							  },
-							  hideClass: {
-							    popup: 'animate__animated animate__fadeOutUp'
-							  }
-							}).then((result) => {
-								  /* Read more about isConfirmed, isDenied below */
-								  if (result.isConfirmed) {
-								    location.reload();
-								  } else if (result.isDenied) {
-								    Swal.fire('please reload the page', '', 'info')
-								  }
-							});
-					}
+					
 					let AxiosFetchData = function(){
 						let datafetched = '0';						
-						retryCount +=1;		
-						let userLoggedInOld;
-						if(localStorage.hasOwnProperty('LoggedUser')){		      			
-			      			userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
-			      		}else{
-					        localStorage.removeItem("LoggedUser");
-			      		}
-			      		let AuthAxios = 'Bearer '+userLoggedInOld;
-						let axiosHeader ={
-								'Content-Type':'application/json',
-								'Authorization':AuthAxios
-						};
+						retryCount +=1;							
 											
 					    const formdata  = new FormData();						  
 					    formdata .append('weekly_experiment_id', id)			    	    
-	                    $this.axios.post($this.baseApiUrl+'experiments/experiment_results_esid',formdata,{headers: axiosHeader}).then(function(response, status, request) {        
-	                            if (response.status === 200) {                                     	
-	                            	let i,j;                  
-	                           
+	                    $this.axios.post($this.baseApiUrl+'experiments/experiment_results_esid',formdata,{headers: $this.axiosHeader}).then(function(response, status, request) {        
+	                            if (response.status === 200) {  	                                       
 	                               $this.results = response.data
 	                               $this.showresults = true;	
 	                            }else{
@@ -197,7 +230,7 @@
 	                            		}, 5000);
 	                            	}else{
 	                            		/*when all attempts fails inform the user what to do*/
-	                            		attemptsFailsV();
+	                            		$this.attemptsFailsV();
 	                            	}
 	                            }
 	                        }, function(e) {        
@@ -206,7 +239,7 @@
 	                             	 localStorage.removeItem("LoggedUser");
 	                                location.href = "/logout";
 	                             }else{
-	                               attemptsFailsV()                                           
+	                               $this.attemptsFailsV()                                           
 	                             }                                                                   
 	                        })                             
 						try{
@@ -223,8 +256,26 @@
 				$('.btn-spec').click(function(){
 					$(this).find('.spanIconM').toggleClass('spanIcon');
 					$(this).next().slideToggle(200);
-				});
+				});				
 			})
+			var $this = this;
+			$(document).ready(function(){
+				if ($this.tasks != null) {
+					try{						
+						$this.limitation = $this.tasks[0].limitation;
+						let expt = $this.limitation.split(':');
+						if (expt[0].length == 1) {
+							expt[0] = '0'+expt[0]
+						}
+						if (expt[1].length == 1) {
+							expt[1] = '0'+expt[1]
+						}
+						$this.limitation = expt[0]+':'+expt[1];					
+					}catch(err){
+						console.log(err);
+					}
+				}
+			});
 			this.$eventBus.$on('viewStudentExperiment',data=>{
 				this.loaderState2 = true;
 				this.section = false;
@@ -235,11 +286,12 @@
 			course:{
 				type:Object,				
 			}
-		},
+		},	
 		async created(){
 			this.students 	 = this.course.course_student;
 			this.tasks		 = this.course.weekly_work;
 			this.course_code = this.course.code;
+			
 
 		    let $this = this;
 		    this.$eventBus.$on('viewstudentBtn2',data=>{				

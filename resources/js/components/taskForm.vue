@@ -449,15 +449,5 @@
     input[type='radio']{
       cursor: pointer;
     }
-    .without_ampm::-webkit-datetime-edit-ampm-field {
-   display: none !important;
- }
- input[type=time]::-webkit-clear-button {
-   -webkit-appearance: none;
-   -moz-appearance: none;
-   -o-appearance: none;
-   -ms-appearance:none;
-   appearance: none;
-   margin: -10px; 
- }
+ 
 </style>

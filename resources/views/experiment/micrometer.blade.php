@@ -23,6 +23,31 @@ if ($time_default) {
 
 $ct = 1;
 $access_code = session('access_code');
+$resultTable ='
+    <div id="result_table" class="bg-white p-2 mx-auto mt-2" style="border-radius:10px;width:450px;overflow:auto;"> 
+      <h4 class="text-warning font2 mb-0"> Measurement of the diameter of the wire</h4>
+      <h5 class="text-dark font2 fs1 fw6 mt-2">Length of Cylinder</h5>
+      <table class="table table-bordered result-table main_result_table"> 
+          <thead>
+            <th class="p-1 fs01 text-center" width="12%">No. Of Readings</th>
+            <th class="p-1 fs01 text-center" width="22%">Linear Scale Reading (mm)</th>
+            <th class="p-1 fs01 text-center" width="22%">Linear Scale Reading (n)</th>
+            <th class="p-1 fs01 text-center" width="22%">Diameter <code>M + n x L.C. (mm)</code></th>            
+          </thead>
+          <tbody>';
+   for ($i=1; $i < 6 ; $i++) { 
+         $resultTable .= '<tr>
+              <td class="r-template p-1 text-center" width="12%"><input type="text" class="resultReading form-control h-100 bg-white" value="'.$i.'." disabled> </td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control h-100 bg-white"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control h-100 bg-white"></td>
+              <td class="r-template p-0" width="22%"><input type="text" class="resultReading form-control h-100 bg-white"></td>            
+            </tr>';         
+      
+   }
+   $resultTable .= '</tbody>
+                  </table>      
+                </div>
+            ';
 ?>
 @extends('layouts/main')
 
@@ -78,7 +103,7 @@ $access_code = session('access_code');
             </div>
             <!-- end experiment -->
             <div  class="zero-space exprightNav" id="rightNav">               
-               <v-rightnav :toolstate=true :othertools=true type='micrometer' toolsizes="{{json_encode($toolSizes)}}" url="{{route('micrometerEquipment').'?size='}}" ></v-rightnav>
+               <v-rightnav result="{{$resultTable}}" :toolstate=true :othertools=true type='micrometer' toolsizes="{{json_encode($toolSizes)}}" url="{{route('micrometerEquipment').'?size='}}" ></v-rightnav>
             </div>
             <!-- experiment footer -->
             <div class="position-absolute bottom-0 w-100">

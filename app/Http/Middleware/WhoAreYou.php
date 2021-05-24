@@ -38,7 +38,7 @@ class WhoAreYou
                         'user_courses.user_id'=>$user_id,   
                         'user_courses.session_id'=>$currentSession                     
                     ])->first();
-                
+                                
                 if ($existInDB->completion_status != null) {
                     $time= explode(':', $existInDB->time_left);                    
                 }else{
@@ -48,7 +48,6 @@ class WhoAreYou
                     'hour'=> (int)($time[0]),
                     'minute'=>(int)($time[1])
                 ];
-                ;
                 session(['time_left'=>$time_left]);                
                 session(['access_code'=>$existInDB->access_code]);                
                 session(['experimentMode'=>$existInDB->mode]);                
@@ -60,14 +59,15 @@ class WhoAreYou
                         return $next($request);                                                                                
                     }else{
                         //does not allow re-attempt except if reset from instructor to reatempt
-                        if ($existInDB->time_left != '00:00') {
-                            return $next($request);                                                            
-                        }else{
-                            if ($existInDB->restart == 'Allow') {
+                        if($existInDB->restart == "Allow") {
+                            if ($existInDB->time_left != '00:00') {
                                 return $next($request);                                                        
                             }else{
-                                redirect('/closed-409');                            
-                            }                            
+                                return redirect('/closed-409')->with(['weekly_work_id'=>$existInDB->weekly_work_id, 'reattempt_page'=>$existInDB->page]);                                                                                                               
+                            }                                                     
+                        }else{
+                            return redirect('/closed-409')->with(['weekly_work_id'=>$existInDB->weekly_work_id, 'reattempt_page'=>$existInDB->page]);                                                                                                               
+                                                                                    
                         }
                     }
                 }else{

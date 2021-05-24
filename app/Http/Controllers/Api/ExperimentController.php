@@ -440,5 +440,27 @@ class ExperimentController extends Controller
     }*/
 
     
-    
+    public function reattemptExperimentbyrid(Request $request)
+    {
+            
+        $validator = Validator::make($request->all(), [
+            'result_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "result id is required"], 400);
+        }
+
+        $result_id = $request->get('result_id');
+
+
+        $ExperimentResult = ExperimentResult::find($result_id);
+        $ExperimentResult->restart = 'Allow';
+        $ExperimentResult->time_left = $request->get('time_left');
+        $ExperimentResult->completion_status = 'Started';
+        $save = $ExperimentResult->save();
+        if ($save){
+            return response()->json(['success' => true], 200);
+        }
+    }    
 }
