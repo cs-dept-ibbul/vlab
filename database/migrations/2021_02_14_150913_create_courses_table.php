@@ -18,7 +18,7 @@ class CreateCoursesTable extends Migration
             $table->string('school_id');
             $table->string('faculty_id');
             $table->string('session_id');
-            $table->string('enrollment_code');
+            $table->string('enrollment_code')->nullable();
             $table->string('title');
             $table->string('code');
             $table->string('video_url')->nullable();

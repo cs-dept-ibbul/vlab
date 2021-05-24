@@ -33,7 +33,7 @@ class Course extends Model
 
     public function weekly_work()
     {
-        return $this->hasMany(weeklyWork::class,'course_id');
+        return $this->hasMany(WeeklyWork::class,'course_id');
     }
 
     public function course_student()
