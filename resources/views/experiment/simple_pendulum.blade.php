@@ -1,12 +1,25 @@
 <?php
-$tools = 5;
-$toolSizes = [80,54,69,70,90];
-$ct = 1;
-$started = 0; //this will be from database
+$default = true;
+$time_default = true;
+if(Session::has('time_left')){
+    $time_left = session('time_left');
+    $time_default = false;
+}
+
+if ($default) {
+   $toolSizes = [80,54,69,70,90];   
+}
+if ($time_default) {
+   $time_left = [
+      'hour'=>1,
+      'minute'=>30
+   ];
+}
+$access_code = session('access_code');
+
+
 $experimentName= "Simple Pendulum";
 $experimentNum = "Experiment I";
-$started = '0'; //this will be from database*/
-$access_code = session('access_code');
 $resultTable ='
     <div id="result_table" class="bg-white p-2 mx-auto mt-2" style="border-radius:10px;width:450px;overflow:auto;"> 
       <h4 class="text-warning font2 mb-0">Table of Measurements</h4>
@@ -48,11 +61,10 @@ $resultTable ='
 
 @section('head')
 <script>
-   var toolSizes = <?php echo json_encode($toolSizes); ?>;
 
-   //localStorage.setItem('objectSize',{{$toolSizes[0]}});
    var experimentSheet;
-   var url = '{{route('simplependulumEquipment').'?size='.$toolSizes[0] }} ' //localStorage.getItem('objectSize');
+   var url = '{{route('simplependulumEquipment')}} ' //localStorage.getItem('objectSize');
+   /*var url = '{{route('simplependulumEquipment').'?size='.$toolSizes[0] }} ' //localStorage.getItem('objectSize');*/
    
    window.onload = function(){
     experimentSheet = document.getElementById('experimentSheet');
@@ -87,8 +99,7 @@ $resultTable ='
             <div id="mainExp">
                <v-ribbon></v-ribbon>
                 <iframe width="100%" height="480px"  frameborder="0" style="display: none;" src="" id="experimentSheet"></iframe>
-             
-               <v-start access_code="{{$access_code}}" hourdata="1" munitedata="30" starteddata="{{$started}}" ></v-start>
+               <v-start access_code="{{$access_code}}" hourdata="{{$time_left[0]}}" munitedata="{{$time_left[1]}}"></v-start>
             </div>
             <!-- end experiment -->
             <div  class="zero-space exprightNav" id="rightNav">       

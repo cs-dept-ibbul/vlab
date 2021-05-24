@@ -1,5 +1,18 @@
 <?php
-$started = 0; //this will be from database
+$tools = 5;
+$time_default = true;
+if(Session::has('time_left')){
+    $time_left = session('time_left');
+    $time_default = false;
+}
+
+if ($time_default) {
+   $time_left = [
+      'hour'=>1,
+      'minute'=>30
+   ];
+}
+$access_code = session('access_code');
 ?>
 @extends('layouts/main')
 
@@ -37,7 +50,7 @@ $started = 0; //this will be from database
    			    <div id="mainExp">
                <v-ribbon></v-ribbon>
                <v-circuitconnection1 style="display: none;" id="experimentSheet"></v-circuitconnection1>
-               <v-start hourdata="1" munitedata="30" starteddata="{{$started}}" ></v-start>               
+               <v-start access_code="{{$access_code}}" hourdata="{{$time_left[0]}}" munitedata="{{$time_left[1]}}"></v-start>
    			    </div>
    			    <!-- end experiment -->
 

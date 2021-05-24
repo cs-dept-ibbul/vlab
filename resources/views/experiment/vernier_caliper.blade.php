@@ -6,9 +6,11 @@ if(Session::has('setdata')){
     if (session('setdata') != '[]') {
       $toolSizes = json_decode(session('setdata'));
       $default = false;  
-    }
+    }    
+    $time_left = session('time_left');
+    $time_default = false;
 }
-
+$access_code = session('access_code');
 if ($default) {
   $toolSizes = [
     [50,60],//'size'
@@ -16,8 +18,14 @@ if ($default) {
     [80,54],//'sizeD'
   ];  
 }
-$ct = 1;
-$started = '0'; //this will be from database
+if ($time_default) {
+   $time_left = [
+      'hour'=>1,
+      'minute'=>30
+   ];
+}
+
+
 $resultTable ='
     <div id="result_table" class="bg-white p-2 mx-auto mt-2" style="border-radius:10px;width:450px;overflow:auto;"> 
       <h4 class="text-warning font2 mb-0">Table of Measurements</h4>
@@ -123,7 +131,7 @@ $resultTable ='
 
     </div>
 ';
-$access_code = session('access_code');
+
 ?>
 @extends('layouts/main')
 
@@ -167,8 +175,7 @@ $access_code = session('access_code');
             <div  id="mainExp">
                <v-ribbon></v-ribbon>
                 <iframe width="100%" height="480px"  frameborder="0" style="display: none;" src="" id="experimentSheet"></iframe>
-             
-               <v-start access_code="{{$access_code}}" hourdata="0" munitedata="30" starteddata="{{$started}}" ></v-start>
+               <v-start access_code="{{$access_code}}" hourdata="{{$time_left['hour']}}" munitedata="{{$time_left['minute']}}"></v-start>
             </div>
             <!-- end experiment -->
             <div  class="zero-space exprightNav" id="rightNav">               

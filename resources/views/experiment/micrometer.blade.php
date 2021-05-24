@@ -1,19 +1,27 @@
 <?php
 $tools = 5;
+$default = true;
+$time_default = true;
 if(Session::has('setdata')){
     if (session('setdata') != '[]') {
       $toolSizes = json_decode(session('setdata'));
       $default = false;  
     }
+    $time_left = session('time_left');
+    $time_default = false;
 }
+
 if ($default) {
    $toolSizes = [80,54,69,70,90];   
 }
+if ($time_default) {
+   $time_left = [
+      'hour'=>1,
+      'minute'=>30
+   ];
+}
 
 $ct = 1;
-$started = 0; //this will be from database
-$true = true;
-$false = false;
 $access_code = session('access_code');
 ?>
 @extends('layouts/main')
@@ -66,8 +74,7 @@ $access_code = session('access_code');
             <div  id="mainExp">
                <v-ribbon></v-ribbon>
                 <iframe width="100%" height="480px"  frameborder="0" style="display: none;" src="" id="experimentSheet"></iframe>
-             
-               <v-start access_code="{{$access_code}}" hourdata="1" munitedata="30" starteddata="{{$started}}" ></v-start>
+               <v-start access_code="{{$access_code}}" starteddata="0" hourdata="{{$time_left['hour']}}" munitedata="{{$time_left['minute']}}"></v-start>             
             </div>
             <!-- end experiment -->
             <div  class="zero-space exprightNav" id="rightNav">               

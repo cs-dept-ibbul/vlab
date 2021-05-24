@@ -42,6 +42,22 @@
 			   */
 			    //this.newTodoText = ''
 			},
+			storedata:function(result='', time_submitted='',msg=false, fortimer=1){
+				var formobj = {
+				user_id: this.currentUser.id,
+				weekly_work_id: this.weekly_work_id,
+				result_json: result,
+				time_started: this.timeStart,
+				time_submitted: time_submitted,
+				time_left:this.timeleft, 			
+				fortimer:fortimer,	
+				}
+				if (msg) {
+					this.axiosGetByParamsWithMessage('api/experiments/save_experiment_result',formobj, this,'Saved !');
+				}else{
+					this.axios.post('api/experiments/save_experiment_result',this.createFormData(formobj),{headers: this.axiosHeader});
+				}
+			},
 			toggleRightNav2: function(e){
 				$('.fa-ico').removeClass('activeIco');
 				var rel;
@@ -124,15 +140,16 @@
 						cancelButtonColor: '#666'
 					}).then(result=>{
 						if(result.value){
-							if ($this.weekly_work_id != null){
+							if ($this.weekly_work_id != null){/*
 								var formobj = {
 									user_id:$this.currentUser.id,
 									weekly_work_id:$this.weekly_work_id,
 									result_json: JSON.stringify($this.resultData),
 									time_started:$this.timeStart,
 									time_submitted:new Date().toLocaleString(),
-									time_left:$this.timeleft}
-								$this.axiosGetByParamsWithMessage($this.baseApiUrl+'experiments/save_experiment_result',formobj, $this,'Saved !');
+									time_left:$this.timeleft}*/
+									this.storedata(JSON.stringify($this.resultData), new Date().toLocaleString(),true,fortimer=0);
+									//$this.axiosGetByParamsWithMessage($this.baseApiUrl+'experiments/save_experiment_result',formobj, $this,'Saved !');
 							}
 
 						}
@@ -156,18 +173,21 @@
          },
          mounted(){	
          	this.$nextTick(function(){         	
-	         
-	         	if (this.startExperiment){	         	
-		         	
-	         	}         			         	
-         	})
+	         	var $this = this;
+	         	setInterval(function(){
+	         		console.log($this.timeleft);
+		         	if ($this.startExperiment){	         	
+						$this.storedata();			         	
+		         	}         			         	
+	         	}, 10000);
+         	});
          },
           created: function () {
 		 	var pathname = location.pathname.split('/')
         	this.weekly_work_id = pathname[pathname.length -1];
 	  		
 	  		this.$eventBus.$on('listeningToTimeLeft', data => {	  			
-	  			this.timeleft = data;
+	  			this.timeleft = data;	  			
 	  		});
         	
 		  this.$eventBus.$on('startExperiment', data => {

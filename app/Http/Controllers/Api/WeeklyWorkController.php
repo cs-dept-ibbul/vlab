@@ -52,7 +52,7 @@ class WeeklyWorkController extends Controller
         $accessCode = $request->get('access_code');
         $mode = $request->get('mode');
         $setdata = json_decode($request->get('setdata'));
-        $limitation = $request->get('limitation') ?? '0';
+        $limitation = $request->get('limitation');
 
         $experimentIds = explode(',', $experimentIds);
         
@@ -90,7 +90,7 @@ class WeeklyWorkController extends Controller
 
         $workId = $request->get('work_id');
         $weeklyWork = WeeklyWork::find($workId);
-        $mode = $request->get('mode');
+        $mode = $request->get('mode');        
         $setdata = json_decode($request->get('setdata'));        
 
         if ($weeklyWork) {
@@ -101,7 +101,8 @@ class WeeklyWorkController extends Controller
             $request->get('date_close') != null ? $weeklyWork->date_close = $request->get('date_close') : null;
             $request->get('access_code') != null ? $weeklyWork->access_code = $request->get('access_code') : null;
             $request->get('limitation') != null ? $weeklyWork->limitation = $request->get('limitation') : null;
-            $weeklyWork->mode = $mode;
+            $weeklyWork->mode = $mode;            
+
             $save = $weeklyWork->save();
             $experimentIds = json_decode($request->get('experiment_ids'));            
             if ($save) {

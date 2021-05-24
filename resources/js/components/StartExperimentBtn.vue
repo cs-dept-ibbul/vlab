@@ -92,13 +92,15 @@ mounted() {
       } )
   		this.start = true;
       this.startTime=Math.trunc((new Date()).getTime() / 1000);
-      document.getElementById('experimentSheet').style.display = 'block'
+      document.getElementById('experimentSheet').style.display = 'block';
+      this.tickT();      
       let $this = this;   
   	},
     sendTimeLeft:function(){
       let $this = this
       let interval;      
       interval = setInterval(function(){
+      
         if(!$this.timeexpires){
           $this.timeleft = $this.hours+':'+$this.minutes+':'+$this.seconds;
           $this.$eventBus.$emit('listeningToTimeLeft',$this.timeleft);
@@ -140,7 +142,7 @@ mounted() {
         'access_code'
           ],
   computed: {
-    dateInMilliseconds() {
+    dateInMilliseconds() {      
       if (parseInt(this.starteddata) == 0 || parseInt(this.starteddata)==null) {      	
       	return Math.trunc( ( this.startTime + (parseInt(this.hourdata)*3600) + (parseInt(this.munitedata)*60) ) );
       }else{

@@ -29,7 +29,9 @@ class WhoAreYou
 
 
                 $currentSession = DB::table('session')->where(['is_current'=>1,'status'=>'Active'])->first()->id;
-                $existInDB = WeeklyWork::join('weekly_work_experiments','weekly_work_experiments.weekly_work_id', 'weekly_works.id')->join('experiments', 'weekly_work_experiments.experiment_id','experiments.id')->join('user_courses', 'user_courses.course_id','weekly_works.course_id')->where([
+                $existInDB = WeeklyWork::join('weekly_work_experiments','weekly_work_experiments.weekly_work_id', 'weekly_works.id')->join('experiments', 'weekly_work_experiments.experiment_id','experiments.id')->join('user_courses', 'user_courses.course_id','weekly_works.course_id')->leftJoin('experiment_results', function($query){
+                    $query->on(['user_courses.user_id'=>'experiment_results.user_id','weekly_work_experiments.id'=>'experiment_results.weekly_work_id']);
+                })->where([
                         'weekly_works.session_id'=>$currentSession,                        
                         'weekly_work_experiments.id'=>$weeklyExperimentWorkId,
                         'experiments.page'=>$page,
@@ -37,12 +39,37 @@ class WhoAreYou
                         'user_courses.session_id'=>$currentSession                     
                     ])->first();
                 
+                if ($existInDB->completion_status != null) {
+                    $time= explode(':', $existInDB->time_left);                    
+                }else{
+                    $time= explode(':', $existInDB->limitation);                                        
+                }
+                $time_left = [
+                    'hour'=> (int)($time[0]),
+                    'minute'=>(int)($time[1])
+                ];
+                ;
+                session(['time_left'=>$time_left]);                
                 session(['access_code'=>$existInDB->access_code]);                
                 session(['experimentMode'=>$existInDB->mode]);                
                 session(['setdata'=>$existInDB->setdata]);         
                 $expired = $existInDB->expired?? true;
                 if(!$expired){
-                    return $next($request);        
+                    if ($existInDB->mode != 1) {
+                        //allow re-attempt
+                        return $next($request);                                                                                
+                    }else{
+                        //does not allow re-attempt except if reset from instructor to reatempt
+                        if ($existInDB->time_left != '00:00') {
+                            return $next($request);                                                            
+                        }else{
+                            if ($existInDB->restart == 'Allow') {
+                                return $next($request);                                                        
+                            }else{
+                                redirect('/closed-409');                            
+                            }                            
+                        }
+                    }
                 }else{
                     return redirect('/no-access');
                 }

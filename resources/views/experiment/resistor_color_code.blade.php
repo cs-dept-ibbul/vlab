@@ -1,13 +1,31 @@
 <?php
 $tools = 5;
-$toolSizes = [80,54,69,70,90];
-$ct = 1;
-$started = 0; //this will be from database
 
+$default = true;
+$time_default = true;
+if(Session::has('setdata')){
+    if (session('setdata') != '[]') {
+      $toolSizes = json_decode(session('setdata'));
+      $default = false;  
+    }
+    $time_left = session('time_left');
+    $time_default = false;
+}
+
+if ($default) {
+   $toolSizes = [80,54,69,70,90];
+     
+}
+if ($time_default) {
+   $time_left = [
+      'hour'=>1,
+      'minute'=>30
+   ];
+}
+$access_code = session('access_code');
 ?>
+
 @extends('layouts/main')
-
-
 @section('head')
    <script>
       var toolSizes = <?php echo json_encode($toolSizes); ?>;
@@ -41,7 +59,7 @@ $started = 0; //this will be from database
                <div class="w-100" style="height: 480px;display: none;position: relative;" id="experimentSheet">
                                  
                </div>             
-               <v-start access_code="{{$access_code}}" hourdata="1" munitedata="30" starteddata="{{$started}}" ></v-start>
+               <v-start access_code="{{$access_code}}" hourdata="{{$time_left[0]}}" munitedata="{{$time_left[1]}}"></v-start>
             </div>
             <!-- end experiment -->
             <div  class="zero-space exprightNav" id="rightNav">               

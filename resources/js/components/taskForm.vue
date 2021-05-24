@@ -25,9 +25,6 @@
           	 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4" id="accessCodeForm">
           	 	<label>Access Code</label>
           	 	<input type="password" name="code" id="codeD" :value="access_code" class="form-control w-100 vI">
-              <div class="mt-2">
-                <input id="swal-input2" type="checkbox" class="mr-1 mt-2 d-inline-block"><label class="mb-1 d-inline-block">Activate Test Mode</label>
-              </div>                    
           	 </div>
           	 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4" id="openForm">
           	 	<label>Open</label>
@@ -36,9 +33,18 @@
           	 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4" id="closeForm">
           	 	<label>Close</label>
           	 	<input type="text" name="title" id="closeD" :value="close" date-format='dd-mm-yyyy' autocomplete="off" class="form-control w-100 vI datepicker2">
-          	 </div>                 
+          	 </div>   
+            
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4" id="closeForm">
+              <label>Timing</label>
+              <input type="time" name="title" v-model="limitation" min="00:00" class="form-control w-100 vI without_ampm">
+            </div>                 
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4" id="closeForm">
+              <input id="swal-input2" type="checkbox" class="mr-1 mt-2 d-inline-block"><label class="mb-1 d-inline-block">Activate Test Mode</label>
+            </div>  
               <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12  mt-4">
-                  <label class="fs1 fw5 font form-header">Select Experiment to Set Data</label>
+                  <label class="fs1 fw5 font form-header">Select Experiment to Set Data  
+                   </label>
                   <span v-if="flipNow" class="w-100">                
                     <div v-for="exp in experiments" class="w-100">
                         <span v-if="selectedExerpiment.includes(exp.id)">                      
@@ -56,6 +62,9 @@
                   
              
                 </div>
+          </div>
+          <br>
+          <div class="row">            
               <div class="col-lg-2 col-md-7 col-sm-6 col-xs-12 mt-4" style="visibility: hidden;">hidden
               </div>
                 <div class="col-lg-2 col-md-5 col-sm-6 col-xs-12  mt-4" style="position: relative;">
@@ -85,6 +94,7 @@
                     experiment:"",
                     flipNow:true,
                     setdata:{},
+                    limitation:'01:30'
 
                }
           },
@@ -206,9 +216,9 @@
                     this.show_loader();                    
                     let route = 'create';
                     let success_msg = $this.createdMessage                    
-                    let formData = { setdata: JSON.stringify(this.setdata), mode:ActivateMode, course_id:this.selectedCourse,title:title.val(), date_open:open.val(), date_close:close.val(), experiment_ids:this.selectedExerpiment,access_code:access.val()}
+                    let formData = { setdata: JSON.stringify(this.setdata), mode:ActivateMode, course_id:this.selectedCourse,title:title.val(), date_open:open.val(), date_close:close.val(), experiment_ids:this.selectedExerpiment,access_code:access.val(), limitation:this.limitation}
                      if (this.update === true){ 
-                        formData = {setdata: JSON.stringify(this.setdata), mode:ActivateMode, course_id:this.selectedCourse,work_id: this.alldata.id, title:title.val(), date_open:open.val(), date_close:close.val(), experiment_ids:JSON.stringify(this.selectedExerpiment),access_code:access.val()}
+                        formData = {setdata: JSON.stringify(this.setdata), mode:ActivateMode, course_id:this.selectedCourse,work_id: this.alldata.id, title:title.val(), date_open:open.val(), date_close:close.val(), experiment_ids:JSON.stringify(this.selectedExerpiment),access_code:access.val(),limitation:this.limitation}
                          route = 'update';                         
                         success_msg = "updated successfully";
                      }
@@ -279,20 +289,22 @@
                     this.open = this.alldata.date_open;                    
                     this.close = this.alldata.date_close;                    
                     this.access_code = this.alldata.access_code;                    
-                    
+                    this.limitation = this.alldata.limitation;
+                                       
                     let $this = this;
                     this.ucourse  = this.faculty_courses.filter(function(item){
                          return item.code === $this.alldata.course.code;
                     })
                     this.experiments = this.ucourse[0].experiments;
+
                     
                     let experimentids = [];                    
                     let exp;
                     for (var i = 0; i < this.alldata.weekly_work_experiments.length; i++) {
                         exp = this.alldata.weekly_work_experiments[i];
                         experimentids.push(exp.experiment_id);
-                    }
-                    console.log($this.selectedExerpiment);
+                        this.setdata[exp.experiment_id]= JSON.parse(exp.setdata);
+                    }                  
                     //console.log(experimentids);
                     $this.selectedExerpiment = experimentids;// from alldata.experiments
                     let selectedexp = [];
@@ -354,7 +366,21 @@
                       if ($this.update){
                         if($this.alldata.mode == '1'){
                             $('#swal-input2').attr('checked','checked');
-                        }                 
+                        }            
+
+
+                        let thisID;
+                        for(let j=0; j<$this.selectedExerpiment.length; j++){
+                            thisID = $this.selectedExerpiment[j];                                                        
+                              $('#'+thisID+'>table').find('tr').each(function(index){   
+                                $(this).find('.valueReading').each(function(index2){                                  
+                                  if (typeof $this.setdata[thisID] != undefined && typeof $this.setdata[thisID][index2] != undefined) {                                                                    
+                                      $(this).val($this.setdata[thisID][index2]);
+
+                                  }
+                                })                         
+                              })
+                        }     
                       }
                     $('.datepicker2').datepicker({});                      
                   
@@ -423,4 +449,15 @@
     input[type='radio']{
       cursor: pointer;
     }
+    .without_ampm::-webkit-datetime-edit-ampm-field {
+   display: none !important;
+ }
+ input[type=time]::-webkit-clear-button {
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   -o-appearance: none;
+   -ms-appearance:none;
+   appearance: none;
+   margin: -10px; 
+ }
 </style>

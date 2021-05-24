@@ -28,7 +28,7 @@
 						
 						<!-- Requirment -->
 						<h3 class="accordion accordBtnV" >Requirement<span class="fa fa-chevron-right fontType-ico" style=""></span> </h3>
-						<div class="panel accordBodyV" v-html="experiment.required">						    		
+						<div class="panel accordBodyV bg-white" v-html="experiment.required">						    		
 						</div>		
 						<p class="fontType-ico mt-2" style="font-size: 1.3em;padding: 0px 14px;">Instructor's Mock Experiment</p>
 						<div class="mt-1" id="smallArea" style="padding: 0px 14px;">
@@ -203,7 +203,7 @@
 		margin-bottom: 5px;
 		background: rgba(40,35,65,.4);
 		font-size: 0.95em;
-		color: #fff;
+        
 	}
 
 	.holder{

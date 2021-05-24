@@ -2483,6 +2483,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       */
       //this.newTodoText = ''
     },
+    storedata: function storedata() {
+      var result = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var time_submitted = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      var msg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+      var fortimer = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+      var formobj = {
+        user_id: this.currentUser.id,
+        weekly_work_id: this.weekly_work_id,
+        result_json: result,
+        time_started: this.timeStart,
+        time_submitted: time_submitted,
+        time_left: this.timeleft,
+        fortimer: fortimer
+      };
+
+      if (msg) {
+        this.axiosGetByParamsWithMessage('api/experiments/save_experiment_result', formobj, this, 'Saved !');
+      } else {
+        this.axios.post('api/experiments/save_experiment_result', this.createFormData(formobj), {
+          headers: this.axiosHeader
+        });
+      }
+    },
     toggleRightNav2: function toggleRightNav2(e) {
       $('.fa-ico').removeClass('activeIco');
       var rel;
@@ -2509,6 +2532,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }); //this.newTodoText = ''
     },
     submit: function submit(a) {
+      var _this = this;
+
       var $this = this;
       var value,
           header,
@@ -2577,15 +2602,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }).then(function (result) {
           if (result.value) {
             if ($this.weekly_work_id != null) {
+              /*
               var formobj = {
-                user_id: $this.currentUser.id,
-                weekly_work_id: $this.weekly_work_id,
-                result_json: JSON.stringify($this.resultData),
-                time_started: $this.timeStart,
-                time_submitted: new Date().toLocaleString(),
-                time_left: $this.timeleft
-              };
-              $this.axiosGetByParamsWithMessage($this.baseApiUrl + 'experiments/save_experiment_result', formobj, $this, 'Saved !');
+              user_id:$this.currentUser.id,
+              weekly_work_id:$this.weekly_work_id,
+              result_json: JSON.stringify($this.resultData),
+              time_started:$this.timeStart,
+              time_submitted:new Date().toLocaleString(),
+              time_left:$this.timeleft}*/
+              _this.storedata(JSON.stringify($this.resultData), new Date().toLocaleString(), true, fortimer = 0); //$this.axiosGetByParamsWithMessage($this.baseApiUrl+'experiments/save_experiment_result',formobj, $this,'Saved !');
+
             }
           }
         });
@@ -2607,19 +2633,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   'toggleClick': 'toggleClick'
 }), _defineProperty(_data$methods$props$e, "mounted", function mounted() {
   this.$nextTick(function () {
-    if (this.startExperiment) {}
+    var $this = this;
+    setInterval(function () {
+      console.log($this.timeleft);
+
+      if ($this.startExperiment) {
+        $this.storedata();
+      }
+    }, 10000);
   });
 }), _defineProperty(_data$methods$props$e, "created", function created() {
-  var _this = this;
+  var _this2 = this;
 
   var pathname = location.pathname.split('/');
   this.weekly_work_id = pathname[pathname.length - 1];
   this.$eventBus.$on('listeningToTimeLeft', function (data) {
-    _this.timeleft = data;
+    _this2.timeleft = data;
   });
   this.$eventBus.$on('startExperiment', function (data) {
-    _this.startExperiment = true;
-    _this.timeStart = new Date().toLocaleString();
+    _this2.startExperiment = true;
+    _this2.timeStart = new Date().toLocaleString();
   });
 }), _defineProperty(_data$methods$props$e, "beforeDestroy", function beforeDestroy() {
   this.eventBus.$off('toggleClick', this.toggleNavOnHover);
@@ -3479,6 +3512,7 @@ __webpack_require__.r(__webpack_exports__);
       this.start = true;
       this.startTime = Math.trunc(new Date().getTime() / 1000);
       document.getElementById('experimentSheet').style.display = 'block';
+      this.tickT();
       var $this = this;
     },
     sendTimeLeft: function sendTimeLeft() {
@@ -12815,6 +12849,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -12898,7 +12943,8 @@ __webpack_require__.r(__webpack_exports__);
       ucourse: "",
       experiment: "",
       flipNow: true,
-      setdata: {}
+      setdata: {},
+      limitation: '01:30'
     };
   },
   methods: {
@@ -13047,7 +13093,8 @@ __webpack_require__.r(__webpack_exports__);
           date_open: open.val(),
           date_close: close.val(),
           experiment_ids: this.selectedExerpiment,
-          access_code: access.val()
+          access_code: access.val(),
+          limitation: this.limitation
         };
 
         if (this.update === true) {
@@ -13060,7 +13107,8 @@ __webpack_require__.r(__webpack_exports__);
             date_open: open.val(),
             date_close: close.val(),
             experiment_ids: JSON.stringify(this.selectedExerpiment),
-            access_code: access.val()
+            access_code: access.val(),
+            limitation: this.limitation
           };
           route = 'update';
           success_msg = "updated successfully";
@@ -13139,6 +13187,7 @@ __webpack_require__.r(__webpack_exports__);
       this.open = this.alldata.date_open;
       this.close = this.alldata.date_close;
       this.access_code = this.alldata.access_code;
+      this.limitation = this.alldata.limitation;
       var $this = this;
       this.ucourse = this.faculty_courses.filter(function (item) {
         return item.code === $this.alldata.course.code;
@@ -13150,9 +13199,9 @@ __webpack_require__.r(__webpack_exports__);
       for (var i = 0; i < this.alldata.weekly_work_experiments.length; i++) {
         exp = this.alldata.weekly_work_experiments[i];
         experimentids.push(exp.experiment_id);
-      }
+        this.setdata[exp.experiment_id] = JSON.parse(exp.setdata);
+      } //console.log(experimentids);
 
-      console.log($this.selectedExerpiment); //console.log(experimentids);
 
       $this.selectedExerpiment = experimentids; // from alldata.experiments
 
@@ -13214,9 +13263,24 @@ __webpack_require__.r(__webpack_exports__);
     this.$nextTick(function () {
       $(document).ready(function () {
         if ($this.update) {
-          if ($this.alldata.mode == '1') {
-            $('#swal-input2').attr('checked', 'checked');
-          }
+          (function () {
+            if ($this.alldata.mode == '1') {
+              $('#swal-input2').attr('checked', 'checked');
+            }
+
+            var thisID;
+
+            for (var j = 0; j < $this.selectedExerpiment.length; j++) {
+              thisID = $this.selectedExerpiment[j];
+              $('#' + thisID + '>table').find('tr').each(function (index) {
+                $(this).find('.valueReading').each(function (index2) {
+                  if (_typeof($this.setdata[thisID]) != undefined && _typeof($this.setdata[thisID][index2]) != undefined) {
+                    $(this).val($this.setdata[thisID][index2]);
+                  }
+                });
+              });
+            }
+          })();
         }
 
         $('.datepicker2').datepicker({});
@@ -22268,7 +22332,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n/*@import url(\"https://use.fontawesome.com/releases/v5.13.0/css/all.css\");*/\n.fontType-ico[data-v-50575fba]{\t\t\n\t\tfont-weight: 100;\n}\n.accordBtnV[data-v-50575fba]{\n\t\tdisplay: flex;\n\t\tjustify-content: space-between;\n\t\twidth: 100%;\n\t\tpadding: 10px 20px 10px 20px;\n\t\tfont-family: 'Roboto';\n\t\tfont-weight: 300;\n\t\tmargin-bottom: 5px;\n\t\tbackground: rgba(40,35,65,.4);\n\t\tfont-size: 0.95em;\n\t\tcolor: #fff;\n}\n.holder[data-v-50575fba]{\n\t\tcolor: #eee;\n\t\tfont-family: 'Roboto', sans-serif;\n\t\tfont-weight: 300; \n\t\tfont-size: 0.8em;\n\t\theight: 500px;\t\t\n\t\twidth: 100%;\n\t\tmargin: 0px;\n\t\tpadding: 0px !important;\n\t\toverflow-y: scroll;\n}\ndiv[data-v-50575fba]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.slidewr[data-v-50575fba] {\n    position: absolute;\n    width: 100px;\n    height: 100px;    \n    transform: translateX(-100%);\n    -webkit-transform: translateX(-100%);\n}\n.slidein[data-v-50575fba] {\n    animation: slide-in-data-v-50575fba 0.5s forwards;\n    -webkit-animation: slide-in-data-v-50575fba 0.5s forwards;\n}\n.slideout[data-v-50575fba] {\n    animation: slide-out-data-v-50575fba 0.5s forwards;\n    -webkit-animation: slide-out-data-v-50575fba 0.5s forwards;\n}\n@keyframes slide-in-data-v-50575fba {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@-webkit-keyframes slide-in-data-v-50575fba {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@keyframes slide-out-data-v-50575fba {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.1); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:0;\n}\n}\n@-webkit-keyframes slide-out-data-v-50575fba {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.5); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:-10;\n}\n}\n.addSize[data-v-50575fba]{\n\twidth: 300px !important;\n\ttransition: width 0.5s;\n}\n.btnV[data-v-50575fba]{\t\t\n\t\tcolor:#eee;\n\t\tfont-family: calibri;\n\t\tfont-size: 1em;\n\t\tcursor: pointer;\n\t\tborder-bottom: 3px solid #2F274E;\n}\n.btnV[data-v-50575fba]:nth-child(odd){\n\t\tpadding: 5px 20px;\n}\n.btnV[data-v-50575fba]:nth-child(even){\n\t\tpadding: 5px 0px;\n}\n.btnVActive[data-v-50575fba]{\n\t   border-bottom: 3px solid #fff;\n\t   transition: border-bottom 0.8s;\n}\n\t/* width */\n[data-v-50575fba]::-webkit-scrollbar {\n  width: 9px; \n  cursor: pointer;\n}\n\n/* Track */\n[data-v-50575fba]::-webkit-scrollbar-track {\n\twidth: 50px;\n  border-radius: 5px;\n}\n \n/* Handle */\n[data-v-50575fba]::-webkit-scrollbar-thumb {\n  background: #eee; \n  border-radius: 10px;\n  cursor: pointer;\n}\n\n/* Handle on hover */\n[data-v-50575fba]::-webkit-scrollbar-thumb:hover {\n  background: #fff; \n  cursor: pointer;\n}\np[data-v-50575fba]{\n\ttext-align: justify;\n}\n.venobox[data-v-50575fba]{\n\tposition: relative;\n}\n.accordion[data-v-50575fba] {\n  outline: none;\n  transition: 0.4s;\n  cursor: pointer;\n  display: flex;\n  justify-content: space-between;\n}\n.accordion[data-v-50575fba]:hover {\n  background-color: #ADAABB !important; \n  color:#fff !important;\n  text-shadow: 1px 2px 3px #000;\n  font-weight: 500 !important;\n}\n.accordActiv[data-v-50575fba]{\nbackground-color: #ADAABB !important; \n  color:#fff !important;\n  text-shadow: 1px 2px 3px #000;\n  font-weight: 500 !important;\n}\n.panel[data-v-50575fba] {\n  max-height: 0;\n  overflow: hidden;\n  transition: 0.2s ease-out;\n  padding: 0px 20px;\n  text-align: justify;\n}\n.cardcontainer img[data-v-50575fba] {\n}\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/*@import url(\"https://use.fontawesome.com/releases/v5.13.0/css/all.css\");*/\n.fontType-ico[data-v-50575fba]{\t\t\n\t\tfont-weight: 100;\n}\n.accordBtnV[data-v-50575fba]{\n\t\tdisplay: flex;\n\t\tjustify-content: space-between;\n\t\twidth: 100%;\n\t\tpadding: 10px 20px 10px 20px;\n\t\tfont-family: 'Roboto';\n\t\tfont-weight: 300;\n\t\tmargin-bottom: 5px;\n\t\tbackground: rgba(40,35,65,.4);\n\t\tfont-size: 0.95em;\n}\n.holder[data-v-50575fba]{\n\t\tcolor: #eee;\n\t\tfont-family: 'Roboto', sans-serif;\n\t\tfont-weight: 300; \n\t\tfont-size: 0.8em;\n\t\theight: 500px;\t\t\n\t\twidth: 100%;\n\t\tmargin: 0px;\n\t\tpadding: 0px !important;\n\t\toverflow-y: scroll;\n}\ndiv[data-v-50575fba]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.slidewr[data-v-50575fba] {\n    position: absolute;\n    width: 100px;\n    height: 100px;    \n    transform: translateX(-100%);\n    -webkit-transform: translateX(-100%);\n}\n.slidein[data-v-50575fba] {\n    animation: slide-in-data-v-50575fba 0.5s forwards;\n    -webkit-animation: slide-in-data-v-50575fba 0.5s forwards;\n}\n.slideout[data-v-50575fba] {\n    animation: slide-out-data-v-50575fba 0.5s forwards;\n    -webkit-animation: slide-out-data-v-50575fba 0.5s forwards;\n}\n@keyframes slide-in-data-v-50575fba {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@-webkit-keyframes slide-in-data-v-50575fba {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@keyframes slide-out-data-v-50575fba {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.1); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:0;\n}\n}\n@-webkit-keyframes slide-out-data-v-50575fba {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.5); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:-10;\n}\n}\n.addSize[data-v-50575fba]{\n\twidth: 300px !important;\n\ttransition: width 0.5s;\n}\n.btnV[data-v-50575fba]{\t\t\n\t\tcolor:#eee;\n\t\tfont-family: calibri;\n\t\tfont-size: 1em;\n\t\tcursor: pointer;\n\t\tborder-bottom: 3px solid #2F274E;\n}\n.btnV[data-v-50575fba]:nth-child(odd){\n\t\tpadding: 5px 20px;\n}\n.btnV[data-v-50575fba]:nth-child(even){\n\t\tpadding: 5px 0px;\n}\n.btnVActive[data-v-50575fba]{\n\t   border-bottom: 3px solid #fff;\n\t   transition: border-bottom 0.8s;\n}\n\t/* width */\n[data-v-50575fba]::-webkit-scrollbar {\n  width: 9px; \n  cursor: pointer;\n}\n\n/* Track */\n[data-v-50575fba]::-webkit-scrollbar-track {\n\twidth: 50px;\n  border-radius: 5px;\n}\n \n/* Handle */\n[data-v-50575fba]::-webkit-scrollbar-thumb {\n  background: #eee; \n  border-radius: 10px;\n  cursor: pointer;\n}\n\n/* Handle on hover */\n[data-v-50575fba]::-webkit-scrollbar-thumb:hover {\n  background: #fff; \n  cursor: pointer;\n}\np[data-v-50575fba]{\n\ttext-align: justify;\n}\n.venobox[data-v-50575fba]{\n\tposition: relative;\n}\n.accordion[data-v-50575fba] {\n  outline: none;\n  transition: 0.4s;\n  cursor: pointer;\n  display: flex;\n  justify-content: space-between;\n}\n.accordion[data-v-50575fba]:hover {\n  background-color: #ADAABB !important; \n  color:#fff !important;\n  text-shadow: 1px 2px 3px #000;\n  font-weight: 500 !important;\n}\n.accordActiv[data-v-50575fba]{\nbackground-color: #ADAABB !important; \n  color:#fff !important;\n  text-shadow: 1px 2px 3px #000;\n  font-weight: 500 !important;\n}\n.panel[data-v-50575fba] {\n  max-height: 0;\n  overflow: hidden;\n  transition: 0.2s ease-out;\n  padding: 0px 20px;\n  text-align: justify;\n}\n.cardcontainer img[data-v-50575fba] {\n}\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -22832,7 +22896,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\ndiv.datepicker{\n      padding: 10px !important;\n}\ntd.day{\n      font-size: 0.9em;\n      font-weight: 400;\n}\n.bootstrap-select .dropdown-toggle, .form-control w-100{\n      background: white !important;\n      border: 1px solid #ccc !important;\n}\n.bootstrap-select .dropdown-toggle:focus{\n outline: 0 !important;\n}\n.form-control w-100:focus{\n\n box-shadow: none;\n}\n.dropdown-item.active, .dropdown-item:active{\n background: white;\n}\n.btn:focus, .btn.focus{\n box-shadow: none;\n outline: 0;\n}\n.swal2-popup{      \n  overflow-x: scroll;\n  overflow-y: scroll;\n  max-height: 90vh;\n}\n.formExp{       \n  min-width: 300px;\n  overflow-x: scroll;\n  display: none;\n}\n.w-96{\n  width: 95% !important;\n}\n.valueReading {\n  border-radius: 0px !important;\n  width: 85%!important;\n  padding: 0px;\n}\n.v-template{      \n  padding: 2px;\n  margin-bottom: 3px;\n}\ntable.table-stripped tr:nth-child(odd){\n  background: rgba(5,90,20,.1);\n}\n.text-capitalize{\n  text-transform: capitalize;\n}\ninput[type='radio']{\n  cursor: pointer;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\ndiv.datepicker{\n         padding: 10px !important;\n}\ntd.day{\n         font-size: 0.9em;\n         font-weight: 400;\n}\n.bootstrap-select .dropdown-toggle, .form-control w-100{\n         background: white !important;\n         border: 1px solid #ccc !important;\n}\n.bootstrap-select .dropdown-toggle:focus{\n    outline: 0 !important;\n}\n.form-control w-100:focus{\n\n    box-shadow: none;\n}\n.dropdown-item.active, .dropdown-item:active{\n    background: white;\n}\n.btn:focus, .btn.focus{\n    box-shadow: none;\n    outline: 0;\n}\n.swal2-popup{      \n     overflow-x: scroll;\n     overflow-y: scroll;\n     max-height: 90vh;\n}\n.formExp{       \n     min-width: 300px;\n     overflow-x: scroll;\n     display: none;\n}\n.w-96{\n     width: 95% !important;\n}\n.valueReading {\n     border-radius: 0px !important;\n     width: 85%!important;\n     padding: 0px;\n}\n.v-template{      \n     padding: 2px;\n     margin-bottom: 3px;\n}\ntable.table-stripped tr:nth-child(odd){\n     background: rgba(5,90,20,.1);\n}\n.text-capitalize{\n     text-transform: capitalize;\n}\ninput[type='radio']{\n     cursor: pointer;\n}\n.without_ampm::-webkit-datetime-edit-ampm-field {\n  display: none !important;\n}\ninput[type=time]::-webkit-clear-button {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  -o-appearance: none;\n  appearance: none;\n  margin: -10px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -45076,7 +45140,7 @@ var render = function() {
                         _vm._m(2),
                         _vm._v(" "),
                         _c("div", {
-                          staticClass: "panel accordBodyV",
+                          staticClass: "panel accordBodyV bg-white",
                           domProps: {
                             innerHTML: _vm._s(_vm.experiment.required)
                           }
@@ -53685,9 +53749,7 @@ var render = function() {
             staticClass: "form-control w-100 vI",
             attrs: { type: "password", name: "code", id: "codeD" },
             domProps: { value: _vm.access_code }
-          }),
-          _vm._v(" "),
-          _vm._m(0)
+          })
         ]
       ),
       _vm._v(" "),
@@ -53739,10 +53801,45 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
+        {
+          staticClass: "col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4",
+          attrs: { id: "closeForm" }
+        },
+        [
+          _c("label", [_vm._v("Timing")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.limitation,
+                expression: "limitation"
+              }
+            ],
+            staticClass: "form-control w-100 vI without_ampm",
+            attrs: { type: "time", name: "title", min: "00:00" },
+            domProps: { value: _vm.limitation },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.limitation = $event.target.value
+              }
+            }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
         { staticClass: "col-lg-8 col-md-12 col-sm-12 col-xs-12  mt-4" },
         [
           _c("label", { staticClass: "fs1 fw5 font form-header" }, [
-            _vm._v("Select Experiment to Set Data")
+            _vm._v("Select Experiment to Set Data  \n                   ")
           ]),
           _vm._v(" "),
           _vm.flipNow
@@ -53804,8 +53901,12 @@ var render = function() {
               )
             : _vm._e()
         ]
-      ),
-      _vm._v(" "),
+      )
+    ]),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
       _c(
         "div",
         {
@@ -53845,15 +53946,22 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mt-2" }, [
-      _c("input", {
-        staticClass: "mr-1 mt-2 d-inline-block",
-        attrs: { id: "swal-input2", type: "checkbox" }
-      }),
-      _c("label", { staticClass: "mb-1 d-inline-block" }, [
-        _vm._v("Activate Test Mode")
-      ])
-    ])
+    return _c(
+      "div",
+      {
+        staticClass: "col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4",
+        attrs: { id: "closeForm" }
+      },
+      [
+        _c("input", {
+          staticClass: "mr-1 mt-2 d-inline-block",
+          attrs: { id: "swal-input2", type: "checkbox" }
+        }),
+        _c("label", { staticClass: "mb-1 d-inline-block" }, [
+          _vm._v("Activate Test Mode")
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true

@@ -230,49 +230,79 @@ class ExperimentController extends Controller
     {
         $validator = Validator::make($request->all(), [            
             'user_id' => 'required',
-            'weekly_work_id' => 'required',
-            'result_json' => 'required',
+            'weekly_work_id' => 'required',            
         ]);
 
         if ($validator->fails()) {
             return response()->json(['error' => "All fields are required"], 400);
         }
-
-        $experimentResult = new ExperimentResult();
-        
+        $user_id = $request->get('user_id');
+        $fortimer = $request->get('fortimer');
+        $weekly_work_id = $request->get('weekly_work_id');
+        $sessionId = $this->currentSession;                     
         $timeStarted = $request->get('time_started');
+        $timeLeft = $request->get('time_left');            
         $timeSubmitted = $request->get('time_submitted');
-        $timeLeft = $request->get('time_left');
-        $sessionId = $this->currentSession;
-        $weeklyWorkExperimentId = $request->get('weekly_work_id'); //not this id is for weekly work experiment id
         $resultJson = $request->get('result_json');
+        $weeklyWorkExperimentId = $request->get('weekly_work_id'); //not this id is for weekly work experiment id
+                
+
+
+
+
 
         $userDetail = Course::join('weekly_works', 'courses.id','weekly_works.course_id')->join('weekly_work_experiments','weekly_work_experiments.weekly_work_id','weekly_works.id')->where(['weekly_works.session_id'=>$this->currentSession, 'weekly_work_experiments.id'=>$weeklyWorkExperimentId])->first();
         $experimentId = $userDetail->experiment_id;
         $course_id = $userDetail->course_id;
 
-        $completionStatus = $request->get('completion_status');
-
+        $completionStatus = $request->get('completion_status');        
         $checkDuplicate = ExperimentResult::where([
             'user_id' => $this->userId,
             'session_id' => $sessionId,
             'weekly_work_id' => $weeklyWorkExperimentId
         ])->first();                
         if (!is_null($checkDuplicate)) {
-
             $experimentResultId = $checkDuplicate->id;
             $upsertResult = ExperimentResult::find($experimentResultId);
-            $upsertResult->result_json = $resultJson;
-            $upsertResult->weekly_work_id = $weeklyWorkExperimentId; //weekly_work_experiment_id
-            
-            $upsertResult->time_submited = $timeSubmitted;
-            $upsertResult->course_id = $course_id;
+
+            if ($fortimer == 0) {
+                $upsertResult->result_json = $resultJson;
+                $upsertResult->weekly_work_id = $weeklyWorkExperimentId; //weekly_work_experiment_id
+                
+                $upsertResult->time_submited = $timeSubmitted;
+                $upsertResult->course_id = $course_id;
+                $upsertResult->restart = 'Deny';
+                $upsertResult->completion_status = 'Completed';
+            }
+
+            if ($timeLeft == '00:00') {
+                //submit if time elapsed
+                $upsertResult->restart = 'Deny';                
+                $experimentResult->completion_status = 'Completed';            
+            }
+
             $upsertResult->time_left = $timeLeft;
-            $upsertResult->completion_status = 'Completed';
 
             if($upsertResult->save()){
                 return response()->json(['message' => "Experiment Result has been updated"], 200);
             }
+        }
+        //end update
+
+        //insert
+        $experimentResult = new ExperimentResult;
+        if ($fortimer == 0) {
+            //when submitting
+            $experimentResult->result_json = $resultJson;
+            $experimentResult->time_submited = $timeSubmitted;
+            $experimentResult->completion_status = 'Completed';
+            $upsertResult->restart = 'Deny';
+        }
+
+        if ($timeLeft == '00:00') {
+            //submit if time elapsed
+            $upsertResult->restart = 'Deny';            
+            $experimentResult->completion_status = 'Completed';            
         }
 
         $experimentResult->id = Util::uuid();
@@ -281,13 +311,10 @@ class ExperimentController extends Controller
 
         $experimentResult->time_started = $timeStarted;
         $experimentResult->course_id = $course_id;
-        $experimentResult->time_submited = $timeSubmitted;
         $experimentResult->time_left = $timeLeft;
         $experimentResult->weekly_work_id = $weeklyWorkExperimentId;
 
         $experimentResult->session_id = $sessionId;
-        $experimentResult->result_json = $resultJson;
-        $experimentResult->completion_status = 'Completed';
 
         $saveResult = $experimentResult->save();
         if ($saveResult) {
