@@ -1,10 +1,10 @@
 import axios from 'axios';
-axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'http://192.168.43.206:8001' : '';
-import loader from '../components/skeletalLoaderA.vue'; 
+axios.defaults.baseURL = 'https://demo.vlabnigeria.org'; 
+import loader from '../components/skeletalLoaderA.vue';  
 export default {
   install(Vue, options) {
     Vue.mixin({
-    	components:{		
+    	components:{		 
 			'v-loader':loader,
 		},
       data(){
