@@ -59,7 +59,7 @@
 	            			</div>
 	            		</div>
 	            	</div>
-	            	<div id="addExperiment" v-show="sectionState==2" class="m-0 p-0 shineA" style="min-height: 250px;">     
+	            	<div v-if="!update" id="addExperiment" v-show="sectionState==2" class="m-0 p-0 shineA" style="min-height: 250px;">     
 	            			<p class="fw8 fs1 font" style="color: #777;">Add Experiment</p>
 	            			<div class="row">            			
 		            			<div class="col-lg-12 col-md-12 m-0">
@@ -89,7 +89,7 @@
 		            			</div>
 	            			</div>       			
 	            	</div>
-	            	<div id="uploadResources" v-show="sectionState==3" class="m-0 p-0 shineA row">  
+	            	<div v-if="!update" id="uploadResources" v-show="sectionState==3" class="m-0 p-0 shineA row">  
 	            		<p class="fw8 fs1 font col-12" style="color: #777;">Add Resources</p>    
 	            		<div class="row w-100">		            			
 	            			<div class="col-lg-6 col-md-6 col-sm-12 m-0 mb-1">
@@ -156,7 +156,7 @@
 	            		 -->
 	            	</div>
 
-	            	<div id="addInstructors" v-show="sectionState==4" class="m-0 p-0 shineA">  
+	            	<div v-if="!update" id="addInstructors" v-show="sectionState==4" class="m-0 p-0 shineA">  
 	            		<p class="fw8 fs1 font" style="color: #777;">Add Instructor</p>   
 	            		<div class="d-flex">
     					<select @keyup="normalize" class="form-control vI w-100" id="selectedInstructor">
@@ -183,7 +183,7 @@
 	        			<div id="addIBox" class="r1" style="height: 200px;">        					
         				</div> -->
 	            	</div>
-	            	<div id="reviews" v-show="sectionState==5" class="m-0 p-0 px-2 shineA" style="overflow-y: scroll;height: 55vh; ">  
+	            	<div v-if="update" id="reviews" v-show="sectionState==5" class="m-0 p-0 px-2 shineA" style="overflow-y: scroll;height: 55vh; ">  
 	            		<div v-for="(aitem,i) in alldata">
 	            			<div v-if="i==0" class="m-0">
 		            			<div class="fw8 text-success fs01">Course Detailed</div>
@@ -396,7 +396,12 @@
 				}
 			},
 			prevSection:function(){
-				this.sectionState--;
+				if (this.update) {
+					this.sectionState = 1;
+				}else{
+					this.sectionState--;
+
+				}
 				let $nv = this;
 				if (this.sectionState ===1) {					
 					setTimeout(function() {
@@ -566,7 +571,11 @@
 							enrollment_code:$('#ecode').val(),
 							description:$('#cdescription').val()
 						};						
-						this.sectionState = 2;						
+						if (this.update){
+							this.sectionState = 5;	
+						}else{
+							this.sectionState = 2;	
+						}					
 						this.stageone= false;
 				    	this.stageonep = true;
 				    	this.stagetwo = true;
@@ -616,6 +625,7 @@
 				}
 			},
 			submitProcess:function(){
+
 				let $vm = this;
 				   try{
 				   		const formData = new FormData();				   	
@@ -623,47 +633,49 @@
 					   	formData.append('code',this.course_code);
 					   	formData.append('enrollment_code',this.enrollment_code);
 					   	formData.append('description',this.alldata[0].description);
-					   	formData.append('experiment_id',this.alldata[1].id);
-					   	formData.append('instructor_id',this.alldata[2].id);
-					   	formData.append('video_url',this.video_url);
+					   	if (!this.update) {					   		
+						   	formData.append('experiment_id',this.alldata[1].id);
+						   	formData.append('instructor_id',this.alldata[2].id);
+						   	formData.append('video_url',this.video_url);
+						   	formData.append('resource_id1',this.resource_id1);
+							formData.append('resource_id2',this.resource_id2);
+							formData.append('resource_id3',this.resource_id3);
+							formData.append('resource_id4',this.resource_id4);
+							formData.append('deletedCourseExperimentId', JSON.stringify(this.deletedCourseExperimentId));
+							formData.append('addedExperimentId',JSON.stringify(this.addedExperimentId));
+							formData.append('deletedResources',JSON.stringify(this.deletedResources));
 
-					   	formData.append('resource_id1',this.resource_id1);
-						formData.append('resource_id2',this.resource_id2);
-						formData.append('resource_id3',this.resource_id3);
-						formData.append('resource_id4',this.resource_id4);
-						formData.append('deletedCourseExperimentId', JSON.stringify(this.deletedCourseExperimentId));
-						formData.append('addedExperimentId',JSON.stringify(this.addedExperimentId));
-						formData.append('deletedResources',JSON.stringify(this.deletedResources));
+							formData.append('course_experiment_id',JSON.stringify(this.course_experiment_id));
+						   	let sizeCount = 0;
+						   	if (this.caption1 != '' && this.file1 != ''){
+						   		sizeCount++;
+						   		formData.append('file1',this.file1);					   	
+						   		formData.append('caption1',this.caption1);					   	
+						   		formData.append('resources_path1',this.resources_path1 );
+						   	}
+						   	if (this.caption2 != '' && this.file2 != ''){
+						   		sizeCount++;
+						   		formData.append('file2',this.file2);					   	
+						   		formData.append('caption2',this.caption2);					   	
+						   		formData.append('resources_path2',this.resources_path2 );
+						   	}
+						   	if (this.caption3 != '' && this.file3 != ''){
+						   		sizeCount++;
+						   		formData.append('file3',this.file3);					   	
+						   		formData.append('caption3',this.caption3);
+						   		formData.append('resources_path3',this.resources_path3 );
+						   	} 
 
-						formData.append('course_experiment_id',JSON.stringify(this.course_experiment_id));
-					   	let sizeCount = 0;
-					   	if (this.caption1 != '' && this.file1 != ''){
-					   		sizeCount++;
-					   		formData.append('file1',this.file1);					   	
-					   		formData.append('caption1',this.caption1);					   	
-					   		formData.append('resources_path1',this.resources_path1 );
+						   	if (this.caption4 != '' && this.file4 != ''){
+						   		sizeCount++;
+						   		formData.append('file4',this.file4);					   	
+						   		formData.append('caption4',this.caption4);					   	
+						   		formData.append('resources_path4',this.resources_path4 );
+						   	}
+					   		formData.append('resource_size', sizeCount);					   	
 					   	}
-					   	if (this.caption2 != '' && this.file2 != ''){
-					   		sizeCount++;
-					   		formData.append('file2',this.file2);					   	
-					   		formData.append('caption2',this.caption2);					   	
-					   		formData.append('resources_path2',this.resources_path2 );
-					   	}
-					   	if (this.caption3 != '' && this.file3 != ''){
-					   		sizeCount++;
-					   		formData.append('file3',this.file3);					   	
-					   		formData.append('caption3',this.caption3);
-					   		formData.append('resources_path3',this.resources_path3 );
-					   	} 
 
-					   	if (this.caption4 != '' && this.file4 != ''){
-					   		sizeCount++;
-					   		formData.append('file4',this.file4);					   	
-					   		formData.append('caption4',this.caption4);					   	
-					   		formData.append('resources_path4',this.resources_path4 );
-					   	}
 
-					   	formData.append('resource_size', sizeCount);					   	
 				   		$('#system-loader').css('display','flex');
 				   			$('#system-loader').css('display','flex');
 			   				let route = 'create';
@@ -697,6 +709,7 @@
 								  }
 								})
 				   			}else if(response.status == 401){
+
 				   				Swal.fire({
 								  title: $vm.errorSessionMessage,								  
 								  icon:'success',
@@ -714,6 +727,8 @@
 			            	//console.log(response);			   				           
 			            }, function(e) {		  
 			            	//console.log(e.status)
+			            	
+			            	
 					   		$('#system-loader').css('display','none');
 					   		let errMsg = $vm.errorSessionMessage;					   		
 					   	    if (e.response.status == 409) {					   	    	
@@ -732,9 +747,8 @@
 			            });
 
 			        }catch(err){
-				   		$('#system-loader').css('display','none');
-
-			           vt.error($vm.errorNetworkMessage,{
+				   		$('#system-loader').css('display','none');				   	    
+			            vt.error($vm.errorNetworkMessage,{
 							  title: undefined,
 							  position: "bottom-right",
 							  duration: 10000,

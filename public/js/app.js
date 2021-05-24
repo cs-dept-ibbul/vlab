@@ -5740,7 +5740,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     prevSection: function prevSection() {
-      this.sectionState--;
+      if (this.update) {
+        this.sectionState = 1;
+      } else {
+        this.sectionState--;
+      }
+
       var $nv = this;
 
       if (this.sectionState === 1) {
@@ -5916,7 +5921,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             enrollment_code: $('#ecode').val(),
             description: $('#cdescription').val()
           };
-          this.sectionState = 2;
+
+          if (this.update) {
+            this.sectionState = 5;
+          } else {
+            this.sectionState = 2;
+          }
+
           this.stageone = false;
           this.stageonep = true;
           this.stagetwo = true;
@@ -5969,48 +5980,52 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         formData.append('code', this.course_code);
         formData.append('enrollment_code', this.enrollment_code);
         formData.append('description', this.alldata[0].description);
-        formData.append('experiment_id', this.alldata[1].id);
-        formData.append('instructor_id', this.alldata[2].id);
-        formData.append('video_url', this.video_url);
-        formData.append('resource_id1', this.resource_id1);
-        formData.append('resource_id2', this.resource_id2);
-        formData.append('resource_id3', this.resource_id3);
-        formData.append('resource_id4', this.resource_id4);
-        formData.append('deletedCourseExperimentId', JSON.stringify(this.deletedCourseExperimentId));
-        formData.append('addedExperimentId', JSON.stringify(this.addedExperimentId));
-        formData.append('deletedResources', JSON.stringify(this.deletedResources));
-        formData.append('course_experiment_id', JSON.stringify(this.course_experiment_id));
-        var sizeCount = 0;
 
-        if (this.caption1 != '' && this.file1 != '') {
-          sizeCount++;
-          formData.append('file1', this.file1);
-          formData.append('caption1', this.caption1);
-          formData.append('resources_path1', this.resources_path1);
+        if (!this.update) {
+          formData.append('experiment_id', this.alldata[1].id);
+          formData.append('instructor_id', this.alldata[2].id);
+          formData.append('video_url', this.video_url);
+          formData.append('resource_id1', this.resource_id1);
+          formData.append('resource_id2', this.resource_id2);
+          formData.append('resource_id3', this.resource_id3);
+          formData.append('resource_id4', this.resource_id4);
+          formData.append('deletedCourseExperimentId', JSON.stringify(this.deletedCourseExperimentId));
+          formData.append('addedExperimentId', JSON.stringify(this.addedExperimentId));
+          formData.append('deletedResources', JSON.stringify(this.deletedResources));
+          formData.append('course_experiment_id', JSON.stringify(this.course_experiment_id));
+          var sizeCount = 0;
+
+          if (this.caption1 != '' && this.file1 != '') {
+            sizeCount++;
+            formData.append('file1', this.file1);
+            formData.append('caption1', this.caption1);
+            formData.append('resources_path1', this.resources_path1);
+          }
+
+          if (this.caption2 != '' && this.file2 != '') {
+            sizeCount++;
+            formData.append('file2', this.file2);
+            formData.append('caption2', this.caption2);
+            formData.append('resources_path2', this.resources_path2);
+          }
+
+          if (this.caption3 != '' && this.file3 != '') {
+            sizeCount++;
+            formData.append('file3', this.file3);
+            formData.append('caption3', this.caption3);
+            formData.append('resources_path3', this.resources_path3);
+          }
+
+          if (this.caption4 != '' && this.file4 != '') {
+            sizeCount++;
+            formData.append('file4', this.file4);
+            formData.append('caption4', this.caption4);
+            formData.append('resources_path4', this.resources_path4);
+          }
+
+          formData.append('resource_size', sizeCount);
         }
 
-        if (this.caption2 != '' && this.file2 != '') {
-          sizeCount++;
-          formData.append('file2', this.file2);
-          formData.append('caption2', this.caption2);
-          formData.append('resources_path2', this.resources_path2);
-        }
-
-        if (this.caption3 != '' && this.file3 != '') {
-          sizeCount++;
-          formData.append('file3', this.file3);
-          formData.append('caption3', this.caption3);
-          formData.append('resources_path3', this.resources_path3);
-        }
-
-        if (this.caption4 != '' && this.file4 != '') {
-          sizeCount++;
-          formData.append('file4', this.file4);
-          formData.append('caption4', this.caption4);
-          formData.append('resources_path4', this.resources_path4);
-        }
-
-        formData.append('resource_size', sizeCount);
         $('#system-loader').css('display', 'flex');
         $('#system-loader').css('display', 'flex');
         var route = 'create';
@@ -48755,64 +48770,423 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                directives: [
+            !_vm.update
+              ? _c(
+                  "div",
                   {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.sectionState == 2,
-                    expression: "sectionState==2"
-                  }
-                ],
-                staticClass: "m-0 p-0 shineA",
-                staticStyle: { "min-height": "250px" },
-                attrs: { id: "addExperiment" }
-              },
-              [
-                _c(
-                  "p",
-                  {
-                    staticClass: "fw8 fs1 font",
-                    staticStyle: { color: "#777" }
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.sectionState == 2,
+                        expression: "sectionState==2"
+                      }
+                    ],
+                    staticClass: "m-0 p-0 shineA",
+                    staticStyle: { "min-height": "250px" },
+                    attrs: { id: "addExperiment" }
                   },
-                  [_vm._v("Add Experiment")]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-lg-12 col-md-12 m-0" }, [
-                    _c("p", { staticClass: "fs001 my-1" }, [
-                      _vm._v("Select Experiment")
+                  [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "fw8 fs1 font",
+                        staticStyle: { color: "#777" }
+                      },
+                      [_vm._v("Add Experiment")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-lg-12 col-md-12 m-0" }, [
+                        _c("p", { staticClass: "fs001 my-1" }, [
+                          _vm._v("Select Experiment")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "d-flex" }, [
+                          _c(
+                            "select",
+                            {
+                              staticClass: "form-control vI w-100",
+                              attrs: { id: "selectExperiment" },
+                              on: { keyup: _vm.normalize }
+                            },
+                            [
+                              _c("option"),
+                              _vm._v(" "),
+                              _vm._l(_vm.experiments, function(experiment) {
+                                return _c(
+                                  "option",
+                                  { domProps: { value: experiment.id } },
+                                  [_vm._v(_vm._s(experiment.name))]
+                                )
+                              })
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: " ml-2 sysbtn p-success text-white",
+                              on: { click: _vm.addEBox }
+                            },
+                            [_vm._v("Add")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("br"),
+                        _c("br"),
+                        _vm._v(" "),
+                        _vm._m(0),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _vm._m(1)
+                      ])
+                    ])
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.update
+              ? _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.sectionState == 3,
+                        expression: "sectionState==3"
+                      }
+                    ],
+                    staticClass: "m-0 p-0 shineA row",
+                    attrs: { id: "uploadResources" }
+                  },
+                  [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "fw8 fs1 font col-12",
+                        staticStyle: { color: "#777" }
+                      },
+                      [_vm._v("Add Resources")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row w-100" }, [
+                      _c(
+                        "div",
+                        { staticClass: "col-lg-6 col-md-6 col-sm-12 m-0 mb-1" },
+                        [
+                          _c("p", { staticClass: "fs001 my-1" }, [
+                            _vm._v("Caption")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.caption1,
+                                expression: "caption1"
+                              }
+                            ],
+                            staticClass: "form-control vI",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.caption1 },
+                            on: {
+                              keyup: _vm.normalize,
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.caption1 = $event.target.value
+                              }
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-lg-6 col-md-6 col-sm-12" },
+                        [
+                          _vm._m(2),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "dragbox dgbox" }, [
+                            _c(
+                              "span",
+                              {
+                                staticClass: "fileIX",
+                                staticStyle: { opacity: "1", color: "#999" }
+                              },
+                              [_vm._v("Select file")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "draginto vI",
+                              attrs: { type: "file", name: "files1[]" },
+                              on: {
+                                change: function($event) {
+                                  return _vm.getDragedInFile(1, $event)
+                                }
+                              }
+                            })
+                          ])
+                        ]
+                      )
                     ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row w-100" }, [
+                      _c(
+                        "div",
+                        { staticClass: "col-lg-6 col-md-6 col-sm-12 m-0 mb-1" },
+                        [
+                          _c("p", { staticClass: "fs001 my-1" }, [
+                            _vm._v("Caption")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.caption2,
+                                expression: "caption2"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.caption2 },
+                            on: {
+                              keyup: _vm.normalize,
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.caption2 = $event.target.value
+                              }
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-lg-6 col-md-6 col-sm-12" },
+                        [
+                          _vm._m(3),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "dragbox dgbox" }, [
+                            _c(
+                              "span",
+                              {
+                                staticClass: "fileIX",
+                                staticStyle: { opacity: "1", color: "#999" }
+                              },
+                              [_vm._v("Select file")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "draginto",
+                              attrs: { type: "file", name: "files2[]" },
+                              on: {
+                                change: function($event) {
+                                  return _vm.getDragedInFile(2, $event)
+                                }
+                              }
+                            })
+                          ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row w-100" }, [
+                      _c(
+                        "div",
+                        { staticClass: "col-lg-6 col-md-6 col-sm-12" },
+                        [
+                          _c("p", { staticClass: "fs001 my-1" }, [
+                            _vm._v("Caption")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.caption3,
+                                expression: "caption3"
+                              }
+                            ],
+                            staticClass: "form-control vI",
+                            attrs: { type: "text", id: "captionx" },
+                            domProps: { value: _vm.caption3 },
+                            on: {
+                              keyup: _vm.normalize,
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.caption3 = $event.target.value
+                              }
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-lg-6 col-md-6 col-sm-12" },
+                        [
+                          _vm._m(4),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "dragbox dgbox" }, [
+                            _c(
+                              "span",
+                              {
+                                staticClass: "fileIX",
+                                staticStyle: { opacity: "1", color: "#999" }
+                              },
+                              [_vm._v("Select file")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "draginto",
+                              attrs: { type: "file", name: "files3[]" },
+                              on: {
+                                change: function($event) {
+                                  return _vm.getDragedInFile(3, $event)
+                                }
+                              }
+                            })
+                          ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row w-100" }, [
+                      _c(
+                        "div",
+                        { staticClass: "col-lg-6 col-md-6 col-sm-12 m-0 mb-1" },
+                        [
+                          _c("p", { staticClass: "fs001 my-1" }, [
+                            _vm._v("Caption")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.caption4,
+                                expression: "caption4"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.caption4 },
+                            on: {
+                              keyup: _vm.normalize,
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.caption4 = $event.target.value
+                              }
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-lg-6 col-md-6 col-sm-12" },
+                        [
+                          _vm._m(5),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "dragbox dgbox" }, [
+                            _c(
+                              "span",
+                              {
+                                staticClass: "fileIX",
+                                staticStyle: { opacity: "1", color: "#999" }
+                              },
+                              [_vm._v("Select file")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "draginto",
+                              attrs: { type: "file", name: "files4[]" },
+                              on: {
+                                change: function($event) {
+                                  return _vm.getDragedInFile(4, $event)
+                                }
+                              }
+                            })
+                          ])
+                        ]
+                      )
+                    ])
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.update
+              ? _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.sectionState == 4,
+                        expression: "sectionState==4"
+                      }
+                    ],
+                    staticClass: "m-0 p-0 shineA",
+                    attrs: { id: "addInstructors" }
+                  },
+                  [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "fw8 fs1 font",
+                        staticStyle: { color: "#777" }
+                      },
+                      [_vm._v("Add Instructor")]
+                    ),
                     _vm._v(" "),
                     _c("div", { staticClass: "d-flex" }, [
                       _c(
                         "select",
                         {
                           staticClass: "form-control vI w-100",
-                          attrs: { id: "selectExperiment" },
+                          attrs: { id: "selectedInstructor" },
                           on: { keyup: _vm.normalize }
                         },
                         [
                           _c("option"),
                           _vm._v(" "),
-                          _vm._l(_vm.experiments, function(experiment) {
-                            return _c(
-                              "option",
-                              { domProps: { value: experiment.id } },
-                              [_vm._v(_vm._s(experiment.name))]
-                            )
-                          })
-                        ],
-                        2
+                          _c("option", { attrs: { value: "1" } }, [
+                            _vm._v("Mr. name Caliper")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "3" } }, [
+                            _vm._v("Mrs. Screw Guage")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2" } }, [
+                            _vm._v("Dr. Simple Pendulum")
+                          ])
+                        ]
                       ),
                       _vm._v(" "),
                       _c(
                         "button",
                         {
                           staticClass: " ml-2 sysbtn p-success text-white",
-                          on: { click: _vm.addEBox }
+                          on: { click: _vm.addIBox }
                         },
                         [_vm._v("Add")]
                       )
@@ -48821,527 +49195,220 @@ var render = function() {
                     _c("br"),
                     _c("br"),
                     _vm._v(" "),
-                    _vm._m(0),
+                    _vm._m(6),
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
-                    _vm._m(1)
-                  ])
-                ])
-              ]
-            ),
+                    _vm._m(7)
+                  ]
+                )
+              : _vm._e(),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                directives: [
+            _vm.update
+              ? _c(
+                  "div",
                   {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.sectionState == 3,
-                    expression: "sectionState==3"
-                  }
-                ],
-                staticClass: "m-0 p-0 shineA row",
-                attrs: { id: "uploadResources" }
-              },
-              [
-                _c(
-                  "p",
-                  {
-                    staticClass: "fw8 fs1 font col-12",
-                    staticStyle: { color: "#777" }
-                  },
-                  [_vm._v("Add Resources")]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "row w-100" }, [
-                  _c(
-                    "div",
-                    { staticClass: "col-lg-6 col-md-6 col-sm-12 m-0 mb-1" },
-                    [
-                      _c("p", { staticClass: "fs001 my-1" }, [
-                        _vm._v("Caption")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.caption1,
-                            expression: "caption1"
-                          }
-                        ],
-                        staticClass: "form-control vI",
-                        attrs: { type: "text" },
-                        domProps: { value: _vm.caption1 },
-                        on: {
-                          keyup: _vm.normalize,
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.caption1 = $event.target.value
-                          }
-                        }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-lg-6 col-md-6 col-sm-12" }, [
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "dragbox dgbox" }, [
-                      _c(
-                        "span",
-                        {
-                          staticClass: "fileIX",
-                          staticStyle: { opacity: "1", color: "#999" }
-                        },
-                        [_vm._v("Select file")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "draginto vI",
-                        attrs: { type: "file", name: "files1[]" },
-                        on: {
-                          change: function($event) {
-                            return _vm.getDragedInFile(1, $event)
-                          }
-                        }
-                      })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row w-100" }, [
-                  _c(
-                    "div",
-                    { staticClass: "col-lg-6 col-md-6 col-sm-12 m-0 mb-1" },
-                    [
-                      _c("p", { staticClass: "fs001 my-1" }, [
-                        _vm._v("Caption")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.caption2,
-                            expression: "caption2"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text" },
-                        domProps: { value: _vm.caption2 },
-                        on: {
-                          keyup: _vm.normalize,
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.caption2 = $event.target.value
-                          }
-                        }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-lg-6 col-md-6 col-sm-12" }, [
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "dragbox dgbox" }, [
-                      _c(
-                        "span",
-                        {
-                          staticClass: "fileIX",
-                          staticStyle: { opacity: "1", color: "#999" }
-                        },
-                        [_vm._v("Select file")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "draginto",
-                        attrs: { type: "file", name: "files2[]" },
-                        on: {
-                          change: function($event) {
-                            return _vm.getDragedInFile(2, $event)
-                          }
-                        }
-                      })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row w-100" }, [
-                  _c("div", { staticClass: "col-lg-6 col-md-6 col-sm-12" }, [
-                    _c("p", { staticClass: "fs001 my-1" }, [_vm._v("Caption")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.caption3,
-                          expression: "caption3"
-                        }
-                      ],
-                      staticClass: "form-control vI",
-                      attrs: { type: "text", id: "captionx" },
-                      domProps: { value: _vm.caption3 },
-                      on: {
-                        keyup: _vm.normalize,
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.caption3 = $event.target.value
-                        }
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.sectionState == 5,
+                        expression: "sectionState==5"
                       }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-lg-6 col-md-6 col-sm-12" }, [
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "dragbox dgbox" }, [
-                      _c(
-                        "span",
-                        {
-                          staticClass: "fileIX",
-                          staticStyle: { opacity: "1", color: "#999" }
-                        },
-                        [_vm._v("Select file")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "draginto",
-                        attrs: { type: "file", name: "files3[]" },
-                        on: {
-                          change: function($event) {
-                            return _vm.getDragedInFile(3, $event)
-                          }
-                        }
-                      })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row w-100" }, [
-                  _c(
-                    "div",
-                    { staticClass: "col-lg-6 col-md-6 col-sm-12 m-0 mb-1" },
-                    [
-                      _c("p", { staticClass: "fs001 my-1" }, [
-                        _vm._v("Caption")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.caption4,
-                            expression: "caption4"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text" },
-                        domProps: { value: _vm.caption4 },
-                        on: {
-                          keyup: _vm.normalize,
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.caption4 = $event.target.value
-                          }
-                        }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-lg-6 col-md-6 col-sm-12" }, [
-                    _vm._m(5),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "dragbox dgbox" }, [
-                      _c(
-                        "span",
-                        {
-                          staticClass: "fileIX",
-                          staticStyle: { opacity: "1", color: "#999" }
-                        },
-                        [_vm._v("Select file")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "draginto",
-                        attrs: { type: "file", name: "files4[]" },
-                        on: {
-                          change: function($event) {
-                            return _vm.getDragedInFile(4, $event)
-                          }
-                        }
-                      })
-                    ])
-                  ])
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.sectionState == 4,
-                    expression: "sectionState==4"
-                  }
-                ],
-                staticClass: "m-0 p-0 shineA",
-                attrs: { id: "addInstructors" }
-              },
-              [
-                _c(
-                  "p",
-                  {
-                    staticClass: "fw8 fs1 font",
-                    staticStyle: { color: "#777" }
+                    ],
+                    staticClass: "m-0 p-0 px-2 shineA",
+                    staticStyle: { "overflow-y": "scroll", height: "55vh" },
+                    attrs: { id: "reviews" }
                   },
-                  [_vm._v("Add Instructor")]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "d-flex" }, [
-                  _c(
-                    "select",
-                    {
-                      staticClass: "form-control vI w-100",
-                      attrs: { id: "selectedInstructor" },
-                      on: { keyup: _vm.normalize }
-                    },
-                    [
-                      _c("option"),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "1" } }, [
-                        _vm._v("Mr. name Caliper")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "3" } }, [
-                        _vm._v("Mrs. Screw Guage")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "2" } }, [
-                        _vm._v("Dr. Simple Pendulum")
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: " ml-2 sysbtn p-success text-white",
-                      on: { click: _vm.addIBox }
-                    },
-                    [_vm._v("Add")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("br"),
-                _c("br"),
-                _vm._v(" "),
-                _vm._m(6),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _vm._m(7)
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.sectionState == 5,
-                    expression: "sectionState==5"
-                  }
-                ],
-                staticClass: "m-0 p-0 px-2 shineA",
-                staticStyle: { "overflow-y": "scroll", height: "55vh" },
-                attrs: { id: "reviews" }
-              },
-              _vm._l(_vm.alldata, function(aitem, i) {
-                return _c("div", [
-                  i == 0
-                    ? _c("div", { staticClass: "m-0" }, [
-                        _c("div", { staticClass: "fw8 text-success fs01" }, [
-                          _vm._v("Course Detailed")
-                        ]),
-                        _vm._v(" "),
-                        _c("table", { staticClass: "table table-bordered" }, [
-                          _c(
-                            "tbody",
-                            _vm._l(aitem, function(edatavalue, j, k) {
-                              return _c("tr", { staticClass: "p-1" }, [
-                                k == 0
-                                  ? _c(
-                                      "td",
-                                      {
-                                        staticClass:
-                                          "text-left fs01 fw6 text-dark",
-                                        attrs: { width: "40%" }
-                                      },
-                                      [_vm._v("Title")]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                k == 1
-                                  ? _c(
-                                      "td",
-                                      {
-                                        staticClass:
-                                          "text-left fs01 fw6 text-dark",
-                                        attrs: { width: "40%" }
-                                      },
-                                      [_vm._v("Course Code")]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                k == 2
-                                  ? _c(
-                                      "td",
-                                      {
-                                        staticClass:
-                                          "text-left fs01 fw6 text-dark",
-                                        attrs: { width: "40%" }
-                                      },
-                                      [_vm._v("access code")]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                k == 3
-                                  ? _c(
-                                      "td",
-                                      {
-                                        staticClass:
-                                          "text-left fs01 fw6 text-dark",
-                                        attrs: { width: "40%" }
-                                      },
-                                      [_vm._v("Course Description")]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
+                  _vm._l(_vm.alldata, function(aitem, i) {
+                    return _c("div", [
+                      i == 0
+                        ? _c("div", { staticClass: "m-0" }, [
+                            _c(
+                              "div",
+                              { staticClass: "fw8 text-success fs01" },
+                              [_vm._v("Course Detailed")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "table",
+                              { staticClass: "table table-bordered" },
+                              [
                                 _c(
-                                  "td",
-                                  {
-                                    staticClass: "text-left fs01 text-dark",
-                                    attrs: { width: "60%" }
-                                  },
-                                  [_vm._v(" " + _vm._s(edatavalue))]
+                                  "tbody",
+                                  _vm._l(aitem, function(edatavalue, j, k) {
+                                    return _c("tr", { staticClass: "p-1" }, [
+                                      k == 0
+                                        ? _c(
+                                            "td",
+                                            {
+                                              staticClass:
+                                                "text-left fs01 fw6 text-dark",
+                                              attrs: { width: "40%" }
+                                            },
+                                            [_vm._v("Title")]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      k == 1
+                                        ? _c(
+                                            "td",
+                                            {
+                                              staticClass:
+                                                "text-left fs01 fw6 text-dark",
+                                              attrs: { width: "40%" }
+                                            },
+                                            [_vm._v("Course Code")]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      k == 2
+                                        ? _c(
+                                            "td",
+                                            {
+                                              staticClass:
+                                                "text-left fs01 fw6 text-dark",
+                                              attrs: { width: "40%" }
+                                            },
+                                            [_vm._v("access code")]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      k == 3
+                                        ? _c(
+                                            "td",
+                                            {
+                                              staticClass:
+                                                "text-left fs01 fw6 text-dark",
+                                              attrs: { width: "40%" }
+                                            },
+                                            [_vm._v("Course Description")]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        {
+                                          staticClass:
+                                            "text-left fs01 text-dark",
+                                          attrs: { width: "60%" }
+                                        },
+                                        [_vm._v(" " + _vm._s(edatavalue))]
+                                      )
+                                    ])
+                                  }),
+                                  0
                                 )
-                              ])
-                            }),
-                            0
-                          )
-                        ])
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  i == 1
-                    ? _c(
-                        "div",
-                        { staticClass: "col-lg-6 col-md-6 my-2 mx-0 px-0 " },
-                        [
-                          _c(
+                              ]
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      i == 1
+                        ? _c(
                             "div",
-                            { staticClass: "fw8 m-0 text-success fs01" },
-                            [_vm._v("Selected Experiment")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "p-2  m-0" },
-                            _vm._l(aitem.names, function(edatavalue, j, inde) {
-                              return _c(
-                                "p",
-                                { staticClass: "fs01 text-dark" },
-                                [
-                                  _c("b", [_vm._v(_vm._s(inde) + ".")]),
-                                  _vm._v(
-                                    " " +
-                                      _vm._s(edatavalue) +
-                                      "\n\t\t\t\t\t            \t\t"
+                            {
+                              staticClass: "col-lg-6 col-md-6 my-2 mx-0 px-0 "
+                            },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "fw8 m-0 text-success fs01" },
+                                [_vm._v("Selected Experiment")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "p-2  m-0" },
+                                _vm._l(aitem.names, function(
+                                  edatavalue,
+                                  j,
+                                  inde
+                                ) {
+                                  return _c(
+                                    "p",
+                                    { staticClass: "fs01 text-dark" },
+                                    [
+                                      _c("b", [_vm._v(_vm._s(inde) + ".")]),
+                                      _vm._v(
+                                        " " +
+                                          _vm._s(edatavalue) +
+                                          "\n\t\t\t\t\t            \t\t"
+                                      )
+                                    ]
                                   )
-                                ]
+                                }),
+                                0
                               )
-                            }),
-                            0
+                            ]
                           )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  i == 2
-                    ? _c(
-                        "div",
-                        { staticClass: " col-lg-5 col-md-5 mx-0 px-0 " },
-                        [
-                          _c(
+                        : _vm._e(),
+                      _vm._v(" "),
+                      i == 2
+                        ? _c(
                             "div",
-                            { staticClass: "fw8 m-0 text-success fs01" },
-                            [_vm._v("Selected Instructor")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "p-2  m-0" },
-                            _vm._l(aitem.names, function(edatavalue, j, inde) {
-                              return _c(
-                                "p",
-                                { staticClass: "fs01 text-dark" },
-                                [
-                                  _c("b", [_vm._v(_vm._s(inde) + ".")]),
-                                  _vm._v(
-                                    " " +
-                                      _vm._s(edatavalue) +
-                                      "\n\t\t\t\t\t            \t\t"
+                            { staticClass: " col-lg-5 col-md-5 mx-0 px-0 " },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "fw8 m-0 text-success fs01" },
+                                [_vm._v("Selected Instructor")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "p-2  m-0" },
+                                _vm._l(aitem.names, function(
+                                  edatavalue,
+                                  j,
+                                  inde
+                                ) {
+                                  return _c(
+                                    "p",
+                                    { staticClass: "fs01 text-dark" },
+                                    [
+                                      _c("b", [_vm._v(_vm._s(inde) + ".")]),
+                                      _vm._v(
+                                        " " +
+                                          _vm._s(edatavalue) +
+                                          "\n\t\t\t\t\t            \t\t"
+                                      )
+                                    ]
                                   )
-                                ]
+                                }),
+                                0
                               )
-                            }),
-                            0
+                            ]
                           )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  i == 3
-                    ? _c("div", { staticClass: "m-0 mt-2" }, [
-                        _c("div", { staticClass: "fw8 text-success fs01" }, [
-                          _vm._v("image to Upload")
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c("img", {
-                            attrs: { width: "200px", src: aitem.image }
-                          }),
-                          _vm._v(" "),
-                          _c("img", {
-                            attrs: { width: "200px", src: _vm.imagetoupload }
-                          })
-                        ])
-                      ])
-                    : _vm._e()
-                ])
-              }),
-              0
-            )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      i == 3
+                        ? _c("div", { staticClass: "m-0 mt-2" }, [
+                            _c(
+                              "div",
+                              { staticClass: "fw8 text-success fs01" },
+                              [_vm._v("image to Upload")]
+                            ),
+                            _vm._v(" "),
+                            _c("div", [
+                              _c("img", {
+                                attrs: { width: "200px", src: aitem.image }
+                              }),
+                              _vm._v(" "),
+                              _c("img", {
+                                attrs: {
+                                  width: "200px",
+                                  src: _vm.imagetoupload
+                                }
+                              })
+                            ])
+                          ])
+                        : _vm._e()
+                    ])
+                  }),
+                  0
+                )
+              : _vm._e()
           ])
         ]
       )

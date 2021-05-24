@@ -178,16 +178,6 @@ class CourseController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => "course_id field is required"], 400);
         }
-        $resource_id1 = $request->get('resource_id1');
-        $resource_id2 = $request->get('resource_id2');
-        $resource_id3 = $request->get('resource_id3');
-        $resource_id4 = $request->get('resource_id4');
-        $resources_path1 = $request->get('resources_path1');
-        $resources_path2 = $request->get('resources_path2');
-        $resources_path3 = $request->get('resources_path3');
-        $resources_path4 = $request->get('resources_path4');
-        $experiments_to_add = json_decode($request->get('addedExperimentId'));
-        $course_experiment_to_delete = json_decode($request->get('deletedCourseExperimentId'));
         //return dd($experiments_to_add);        
         $courseId = $request->get('course_id');        
         $course = Course::find($courseId);
@@ -196,83 +186,7 @@ class CourseController extends Controller
             $request->get('code') != null ? $course->code = $request->get('code') : null;
             $request->get('description') != null ? $course->description = $request->get('description') : null;
             $request->get('enrollment_code') != null ? $course->enrollment_code = $request->get('enrollment_code') : null;
-
-            if (empty($request->get('title')) && empty($request->get('code'))) {
-                return response()->json(['error' => 'All field is null'], 400);
-            } else {
-
-                $resource = array();
-
-                for ($i=0; $i < $request->get('resource_size'); $i++) {  
-                    
-                    
-                    $file = null;
-                    if ($i == 0 &&  $request->file('file1') != null) {
-                        $path = public_path('images/resources').$resources_path1;
-
-                        if(file_exists($path)){
-                            unlink($path);
-                        }                            
-                        $caption = $request->get('caption1');                        
-                        $file = $request->file('file1');                                  
-                    }
-                    if ($i == 1 && $request->file2 != null) {
-                        $path =public_path('images/resources').$resources_path2;
-                        if(file_exists($path)){
-                            unlink($path);
-                        }      
-                        $caption = $request->get('caption2');                    
-                        $file = $request->file2;                                  
-                    }
-                    if ($i == 2 && $request->file3 != null) {
-                        $path =public_path('images/resources').$resources_path3;
-                        if(file_exists($path)){
-                            unlink($path);
-                        }      
-                        $file = $request->file3;                                  
-                        $caption = $request->get('caption3');                    
-                    }
-                    if ($i == 3 && $request->file4 != null) {
-                        $path =public_path('images/resources').$resources_path4;
-                        if(file_exists($path)){
-                            unlink($path);
-                        }      
-                        $file = $request->file4;                                  
-                        $caption = $request->get('caption4');                    
-                    }
-                    if($file != null){                        
-                        $CourseResources = CourseResources::find($resource_id1);             
-                        $file_ex = explode('.', $file->getClientOriginalName());                    
-                        $ext = $file_ex[sizeof($file_ex)-1];                            
-                        $name = $i.'_'.date('m-d-Y-ha');
-                        $resourceName = $name.'.'.$ext;                    
-                        $resourceUrl= 'images/resources/'.$resourceName;
-                        $file->move(public_path('images/resources'), $resourceName);
-                        $CourseResources->caption = $caption;
-                        $CourseResources->resourceUrl = $resourceName;
-                        $CourseResources->save();    
-                    }
-                }
-            }
-
-
-            if (sizeof($experiments_to_add)>0) {
-                for ($x = 0; $x < sizeof($experiments_to_add); $x++) {
-                    $experimentUpdate = new CourseExperiment;
-                    $experimentUpdate->id = Util::uuid();
-                    $experimentUpdate->experiment_id = $experiments_to_add[$x];
-                    $experimentUpdate->course_id = $courseId;
-                    $experimentUpdate->save();
-                };                
-            }
-
-            if (sizeof($course_experiment_to_delete)>0) {
-                for ($x = 0; $x < sizeof($course_experiment_to_delete); $x++) {
-                    CourseExperiment::where('id',$course_experiment_to_delete[$x])->delete();
-                }               
-            }           
-
-            $save = $course->save();
+            $save = $course->save();                
         }
 
         if ($save) {
