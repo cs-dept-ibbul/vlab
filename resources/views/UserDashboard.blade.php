@@ -1,20 +1,4 @@
-
 @extends('layouts/main')
-@section('head')
-<script src="{{ asset('js/jquery-1.11.3.min.js')}}"></script>
-
-<script>	
-	 setInterval(function() {
-	 	if ($(window).width() <1000) {
-	 		$('.toberemoved').hide();
-	 	}else{
-	 		$('.toberemoved').show();	 		
-	 	}
-	 }, 1000);
-		//console.log(<?php// echo json_encode($weeksExp);?>);
-</script>
-
-@endsection
 @section('content-body')
 <div style="display: flex;">   
 <!-- <v-userauth></v-userauth> -->
