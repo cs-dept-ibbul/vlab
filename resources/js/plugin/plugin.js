@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL = 'https://demo.vlabnigeria.org'; 
+axios.defaults.baseURL = 'https://demo.vlabnigeria.org';
 import loader from '../components/skeletalLoaderA.vue'; 
 export default {
   install(Vue, options) {

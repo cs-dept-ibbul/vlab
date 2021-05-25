@@ -59,15 +59,20 @@ class WhoAreYou
                         return $next($request);                                                                                
                     }else{
                         //does not allow re-attempt except if reset from instructor to reatempt
-                        if($existInDB->restart == "Allow") {
-                            if ($existInDB->time_left != '00:00') {
-                                return $next($request);                                                        
+                        if ($existInDB->restart??'' != '') {
+                            # code...
+                            if($existInDB->restart == "Allow") {
+                                if ($existInDB->time_left != '00:00') {
+                                    return $next($request);                                                        
+                                }else{
+                                    return redirect('/closed-409')->with(['weekly_work_id'=>$existInDB->weekly_work_id, 'reattempt_page'=>$existInDB->page]);                                                                                                               
+                                }                                                     
                             }else{
                                 return redirect('/closed-409')->with(['weekly_work_id'=>$existInDB->weekly_work_id, 'reattempt_page'=>$existInDB->page]);                                                                                                               
-                            }                                                     
+                                                                                        
+                            }
                         }else{
-                            return redirect('/closed-409')->with(['weekly_work_id'=>$existInDB->weekly_work_id, 'reattempt_page'=>$existInDB->page]);                                                                                                               
-                                                                                    
+                            return $next($request);
                         }
                     }
                 }else{
