@@ -7,7 +7,7 @@
   <script type="text/javascript" src="digitalmultimeter.js"></script>
   <script type="text/javascript" src="initJsplumb.js"></script>
   <script type="text/javascript" src="resistorjs.js"></script>
-	 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script type="text/javascript" src="dragjs.js"></script>
   <script type="text/javascript" src="jsPlumb.js"></script>
@@ -23,7 +23,23 @@
   <div id="container" style="height: 500px;"></div>
   <!-- <div id="container" class="draggable_wp">    
   </div> -->
- 
+  <div style="width: 300px;">
+      <div style="width: 30%; height: 50px;border-radius: 5px;border: 3px solid black;position: relative;">
+        <div style="width: 10%;height: 18%; background: white;border:3px solid black; border-radius: 5px 5px 0px 0px;position: absolute;top: -30%; left: 10%"></div>
+        <div style="width: 10%;height: 18%; background: white;border:3px solid black; border-radius:5px 5px 0px 0px; position: absolute;top: -30%; right:  10%"></div>
+        <div style="width:120%;border:3px solid black;height: 15%; border-radius: 5px; position: absolute;top: 10%;left: -13.5%;background: white;display: flex;flex-wrap: wrap;align-items: center; justify-content: center; font-weight: bolder;font-size: 1.5em;line-height: 0;padding: 0px;">
+          <span>&#183 &#183 &#183 &#183 &#183 &#183 &#183 &#183</span>
+        </div>
+        <div style="position: absolute;top: 45%;width: 100%; display: flex;justify-content: space-between;">
+          <span style="margin-left: 5px;color: red;">&plus;</span>
+          <span style="color:#296;font-family: arial;font-weight: bolder;">12V</span>
+          <span style="margin-right: 5px;font-weight: bold;">&minus;</span>
+        </div>
+        <div style="width:120%;border:3px solid black;height: 10%; border-radius: 5px; position: absolute;bottom: -12%;left: -13.5%;background: white;display: flex;flex-wrap: wrap;align-items: center; justify-content: center; font-weight: bolder;font-size: 1.5em;line-height: 0;padding: 0px;"></div>
+        
+      </div>
+    
+  </div>
    <button onclick="chn()">clickme 2</button>
 
 	<script>

@@ -9,6 +9,10 @@ class initJsplumb{
 			data:[],
 		};
 		window.digitalComponentsData = {
+			components:{
+				series:[],
+				parallel:[]
+			},
 			resistors: {
 				parallel:[],
 				series:[]
@@ -27,6 +31,9 @@ class initJsplumb{
 				ohms:0
 			}
 		};
+		/*window.connectionBank ={
+			ri
+		};*/
 		this.initConnection = 1;
 		this.ArrConn =  [];
 		this.instance = jsPlumb.getInstance({
@@ -186,6 +193,89 @@ class initJsplumb{
                 hideConnectionInfo = function () {
                     listDiv.style.display = "none";
                 },
+                objectType = function(elementConnections){      
+	                        console.log(elementConnections);                     
+
+                	var elementSourceType ='',elementTargetType='', elementSourceName='',
+                	elementTargetName='', sourceId='', targetId='',series,parallel,sr=-1,pr=-1;
+                	//if (elementConnections.length  < 5){
+                			//alert('me')
+                		//if (elementConnections.length < 3) {
+                			//alert('you me')
+                			for (var e = 0; e < elementConnections.length; e++) {                				
+                				//alert('me 111')
+	                			sourceId = elementConnections[e].sourceId;
+	                			targetId = elementConnections[e].targetId;
+	                			elementSourceName = sourceId.split('_')[0];
+	                			elementSourceType = elementConnections[e].sourceType
+	                			elementTargetType = elementConnections[e].targetType
+                				//elementConnections[i]
+
+	                			//if (elementSourceName == 'resistor'){	                				
+	                				if (elementTargetType != elementSourceType) {	                				
+
+	                					//push to series bank
+	                					series = window.digitalComponentsData.components.series
+	                					if (series.length >0) {	                				
+	                						sr =-1;	                						
+		                					for (var s = 0; s < series.length; s++) {	   
+		                						if (series[s].includes(targetId) || series[s].includes(sourceId)) {
+		                							sr = s;
+		                							s =series.length;
+		                						}
+		                					}
+		                					if (sr != -1) { 		                						
+		                						//series connection already started
+		                						if (!series[sr].includes(targetId)){
+		                							series[sr].push(targetId); //add to series bank
+		                						}
+		                						if (!series[sr].includes(sourceId)){
+		                							series[sr].push(sourceId); //add to series bank
+		                						}
+		                					}else{
+		                						//new series connection 
+	                							series.push([sourceId, targetId]) //add new series connection to bank
+		                					}
+
+	                					}else{
+	                						//new series connection 
+	                							series.push([sourceId, targetId]) //add new series connection to bank
+	                					}
+	                				}else{
+	                					//push to parallel bank
+	                					parallel = window.digitalComponentsData.components.parallel
+	                					if (parallel.length >0) {
+	                						pr =-1;
+		                					for (var p = 0; p < parallel.length; p++) {
+		                						if (parallel[p].includes(targetId) || parallel[i].includes(sourceId)) {
+		                							pr = p;
+		                							s = parallel.length;;
+		                						}
+		                					}
+		                					if (pr != -1) { 
+		                						//parallel connection already started
+		                						if (!parallel[sr].includes(targetId)){
+		                							parallel[sr].push(targetId); //add to parallel bank
+		                						}
+		                						if (!parallel[sr].includes(sourceId)){
+		                							parallel[sr].push(sourceId); //add to parallel bank
+		                						}
+		                					}else{
+		                						//new parallel connection 
+	                							parallel.push([sourceId, targetId]) //add new parallel connection to bank
+		                					}
+
+	                					}else{
+	                						//new parallel connection 
+	                							parallel.push([sourceId, targetId]) //add new parallel connection to bank
+	                					}
+	                				}
+	                			//}
+                			}
+
+                		//}
+                	///}
+                },
                 updateConnections = function (conn, remove) {
 
                    try{	
@@ -222,14 +312,15 @@ class initJsplumb{
 		                        if ( endpointType2 == "Rectangle"){
 		                        	type2 = "positive";
 		                        }
+		                       		                        	                        
 
 	                            $vm.ArrConn.push({'sourceType':type,'targetType':type2, 'sourceId': connections[j].sourceId, 'targetId':connections[j].targetId});
 	                            s = s + "<tr><td>" + connections[j].scope + "</td>" + "<td>" + connections[j].sourceId + "</td><td>" + connections[j].targetId + "</td></tr>";
 	                        } 
-	                        console.log({name:$vm.ArrConn});                     
+	                        objectType($vm.ArrConn)
 	                        //showConnectionInfo(s);
 	                        $vm.check_connection($vm.ArrConn, $vm);
-	                    } else{
+	                    }else{
 	                       // hideConnectionInfo();
 	                    }
                     }catch(err){

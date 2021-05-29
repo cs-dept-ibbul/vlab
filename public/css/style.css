@@ -2087,7 +2087,8 @@ span.ripple {
             margin:5px auto !important;            
             float: none !important;
         }
-      .user-search-box div{        
+      .user-search-box div{      
+        margin-top: 70px;  
         display: flex !important;
         flex-direction: column !important;        
         align-items: center;

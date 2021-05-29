@@ -2,19 +2,22 @@
 <template>
 	<div class="m-0 p-0">
 		<div class="close" style="color: red;position: fixed;top: 0px;right: 5px;font-size: 2em;pointer-events: none;cursor: pointer;">&times</div>
-      <form @submit.prevent="submitForm" id="myform" class="m-0 p-0">
+      <form id="myform" class="m-0 p-0">
       	<span class="d-none">
       		<input type="text" name="user_id" :value="id">
       	</span>
 		<div class="row py-4 px-4 m-0 r2 bg-white vh-78 scroll-y " >     					    					
-			<h5 class="form-header">{{typex}}</h5>
+			<h5 class="form-header">
+				<span class="d-inline-block">{{typex}}</span>
+				<span v-if="ErrorMsg != ''" class="d-inline-block alert alert-danger">{{ErrorMsg}}</span>
+			</h5>
 		  <!-- user form -->
 			<div class="m-0 form-body">
 				<div v-if="watchfacultyHtml.value == true" class="row m-0">		
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Role*</p>		            				
-							<select type="text" @keyup="normalize"  @change="roleName($event.target)" v-model="role" class="form-control w-100" name="role" id="role">
+							<select type="text" @keyup="normalize"  @change="roleName($event.target)" v-model="role" class="form-control w-100 vI" name="role" id="role">
 								<option v-for="(role,index) in JSON.parse(roles)" :data-role="index" :selected="role==urole" :value="role">{{index}}</option>		            					
 								 							            				
 							</select>
@@ -31,19 +34,19 @@
 					<div class="col-lg-6 col-md-6 m-0" v-if="!whatrole">
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Matric No *</p>	
-							<input type="text" @keyup="normalize" class="form-control w-100" :value="matric_number" name="matric_number" id="matric_number">
+							<input type="text" @keyup="normalize" class="form-control w-100" v-model="matric_number"  name="matric_number" id="matric_number">
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1">	            					
 							<p class="fs001 my-1">First Name *</p>		            				
-							<input type="text" @keyup="normalize" class="form-control w-100 vI" :value="first_name" name="first_name" id="first_name">
+							<input type="text" @keyup="normalize" class="form-control w-100 vI"  v-model="first_name" name="first_name" id="first_name">
 						</div>
 					</div>	 
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1">	            					
 							<p class="fs001 my-1">Last Name *</p>		            				
-							<input type="text" @keyup="normalize" class="form-control w-100 vI" :value="other_names" name="other_names" id="other_names">
+							<input type="text" @keyup="normalize" class="form-control w-100 vI"  v-model="other_names"  name="other_names" id="other_names">
 						</div>
 					</div>	
 					<div class="col-lg-6 col-md-6 m-0">
@@ -61,13 +64,13 @@
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1">	            					
 							<p class="fs001 my-1">Email *</p>		            				
-							<input type="text" @keyup="normalize" class="form-control w-100" :value="email" name="email" id="email">
+							<input type="text" @keyup="normalize" class="form-control w-100" v-model="email" name="email" id="email">
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1">	            					
 							<p class="fs001 my-1">Phone *</p>		            				
-							<input type="text" @keyup="normalize" class="form-control w-100" :value="phone" name="phone" id="phone">
+							<input type="text" @keyup="normalize" class="form-control w-100" v-model="phone" name="phone" id="phone">
 						</div>
 					</div>	       
 					
@@ -79,7 +82,10 @@
 							</select>
 						</div>
 					</div> 
-					<div class="col-lg-6 col-md-6 m-0">
+				 	<div class="col-lg-6 col-md-6 m-0">
+				 		<label class="fs1 font pl-1"><code>Note:</code> phone number is the default password</label>
+				 	</div>
+				<!-- 	<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1">	            					
 							<p class="fs001 my-1">Picture</p>		            				
 							<div class="w-100  p-0" style="position: relative;">
@@ -90,10 +96,10 @@
 								<input @change=""  type="file" style="position: absolute;top: 0; left: 0;" name="files" class="draginto form-control" id="fileI">
 							</div>
 						</div>
-					</div>	      	            	
+					</div>	     -->  	            	
 					<div class="col-12">    				
 						<center>
-							<button type="submit" @click="submitForm" class="btn py-2 mb-5 mr-2 mt-3 px-4 text-white fs1 font1 p-success btn-sm" >
+							<button type="button"  @click="submitUserForm" class="btn py-2 mb-5 mr-2 mt-3 px-4 text-white fs1 font1 p-success btn-sm" >
 								<span v-if="update">Update</span>
 								<span v-else>Submit</span>
 							</button>			    			
@@ -101,84 +107,13 @@
 					</div>
 				</div>
 	      	</div>
-	      	<!-- student form -->
-	      	<!-- <div v-if="rolename == 'student'" class="form-body">
-				<div v-if="watchfacultyHtml.value == true" class="row m-0">			
-					<div class="col-lg-6 col-md-6 m-0">
-						<div class="px-1">	            					
-							<p class="fs001 my-1">First Name *</p>		            				
-							<input type="text" @keyup="normalize" class="form-control w-100 vI" :value="first_name" name="first_name" id="first_name">
-						</div>
-					</div>	 
-					<div class="col-lg-6 col-md-6 m-0">
-						<div class="px-1">	            					
-							<p class="fs001 my-1">Last Name *</p>		            				
-							<input type="text" @keyup="normalize" class="form-control w-100 vI" :value="other_names" name="other_names" id="other_names">
-						</div>
-					</div>	
-					<div class="col-lg-6 col-md-6 m-0">
-						<div class="px-1" >	            					
-							<p class="fs001 my-1">Faculty *</p>
-							<span v-html="facultiesHTML" class="w-100"></span>		            				
-						</div>
-					</div>
-					<div class="col-lg-6 col-md-6 m-0">
-						<div class="px-1" >	            					
-							<p class="fs001 my-1">Department *</p>		            										
-					  		<select id='department_id' name='department_id'  class='form-control w-100 vI'></select>									  	
-
-						</div>
-					</div>		      		
-		          	<div class="col-lg-6 col-md-6 m-0">
-						<div class="px-1" >	            					
-							<p class="fs001 my-1">Matric No *</p>	
-							<input type="text" @keyup="normalize" class="form-control w-100" :value="matric_number" name="matric_number" id="matric_number">
-						</div>
-					</div>
-					<div class="col-lg-6 col-md-6 m-0">
-						<div class="px-1">	            					
-							<p class="fs001 my-1">Email *</p>		            				
-							<input type="text" @keyup="normalize" class="form-control w-100" :value="email" name="email" id="email">
-						</div>
-					</div>
-					<div class="col-lg-6 col-md-6 m-0">
-						<div class="px-1">	            					
-							<p class="fs001 my-1">Phone *</p>		            				
-							<input type="text" @keyup="normalize" class="form-control" :value="phone" name="phone" id="phone">
-						</div>
-					</div>	     
-					<div class="col-lg-6 col-md-6 m-0">
-						<div class="px-1" >	            					
-							<p class="fs001 my-1">Role*</p>		            				
-							<select type="text" @keyup="normalize" @change="roleName($event.target)" v-model="role" class="form-control" name="role" id="role_id">
-								<option v-for="(role,index) in JSON.parse(roles)" :data-role="index" v-bind:selected="role==urole" :value="role">{{index}}</option>		            					
-							</select>
-						</div>
-					</div> 
-					<div class="col-lg-6 col-md-6 m-0">
-						<div class="px-1" >	            					
-							<p class="fs001 my-1">Gender *</p>		            				
-							<select type="text" @keyup="normalize" class="form-control" name="gender" id="gender">
-								<option v-for="mgender in genderCont" :value="mgender" v-bind:selected="mgender==gender"  >{{mgender}}</option>									            				
-							</select>
-						</div>
-					</div> 			      	            
-					<div class="col-12">    				
-						<center>
-							<button type="submit" @click="submitForm" class="btn py-2 mb-5 mr-2 mt-3 px-4 text-white fs1 font1 p-success btn-sm" >
-								<span v-if="update">Update</span>
-								<span v-else>Submit</span>
-							</button>			    			
-					</center>
-					</div> 
-				</div>	
-	        </div> -->
+	      
         </div>
       </form>
 	</div>
 </template>
-
 <script>
+import axios_x from 'axios';
 	export default{
 		data(){
 			return{
@@ -205,9 +140,14 @@
 				typex:'Add New User',
 				role:'',
 				whatrole: true,
+				ErrorMsg:'',				
 			}
 		},
 		methods:{
+			timeoutError(){
+				var $this = this;
+			  setTimeout(()=>{$this.ErrorMsg =''},7000);	    				
+			},
 			normalize:function(el){
 				el.target.style.border = "1px solid #eee";
 				$('.requiredv').remove();
@@ -217,37 +157,45 @@
 				rolename = $(e).find('option:selected').attr('data-role');
 				if (rolename != 'student' ) {
 					this.whatrole =  true;
+					if (this.update){
+						this.title = this.alldata.title;
+					}
 				}else{
 					this.whatrole = false;
+					if (this.update){
+						setTimeout(function() {
+							$this.matric_number = $this.alldata.matric_number;
+						}, 100);
+					}
 				}
 			},
-			submitForm: function(){	
+			submitUserForm: function(){	
 				this.validateI('myform');											
 				if($('#department_id').val() == ""){
 					$('.requiredv').remove();					
-					$('#department_id').after('<span class="text-danger requiredv">Required !</span>');	
-					return false
-				}				
-				if($('#faculty_id').val() == ""){
+					$('#department_id').after('<span class="text-danger requiredv">Required !</span>');					
+				}else if($('#faculty_id').val() == ""){
 					$('.requiredv').remove();					
 					$('#department_id').after('<span class="text-danger requiredv">Required !</span>');	
 					return false
-				}				
+				}else if(this.role == '' ){
+					$('.requiredv').remove();					
+					$('#role').after('<span class="text-danger requiredv">Required !</span>');	
+					return false;
+				}
+				else{
+					$('.requiredv').remove();	
 					this.show_loader();
 					var formD = $('#myform').serialize().split('&'),ky,kn, $this= this;
 					const formData = new FormData(document.getElementById('myform'));				
-
-					/*for (var m in formD) {
-					 	ky = formD[m].split('=')[0];
-					 	kn = formD[m].split('=')[1];
-						formData.append(ky,kn);
-					}*/
+				
+					this.sent = 0;							
 					if (!this.update) {
+
 						this.sent += 1;	
 						if (this.sent == 1) {
 						    this.axios.post('api/users/create',formData,{headers:this.axiosHeader})
 					      	.then(response => {		
-
 					      		$this.hide_loader();											  
 					      		if (response.status==200) {				      			
 							        Swal.fire({
@@ -259,36 +207,21 @@
 							        	location.reload();
 							        })
 					      		}else{
-					      			Swal.fire({
-						        		title: 'something went wrong',
-							        	icon: 'error',
-							        	confirmButtonText:'Ok',
-					      				confirmButtonColor:'#00b96b',	
-							        })		  
+					      			$this.ErrorMsg ='something went wrong : try again';	
+							      	$this.timeoutError()	
 					      		}
 					      	})
 					      	.catch(error => {
 					      		$this.hide_loader();
 						      	if (error.response) {
-							      	if (error.response.status == 409) {					      	
-								        Swal.fire({
-								        	title: 'already exist user',
-								        	text: 'email or matric number',
-								        	icon: 'warning',
-						        			confirmButtonText:'Ok',
-						      				confirmButtonColor:'#00b96b',	
-
-						      			})					      		
+							      	if (error.response.status == 409) {								      
+							      	$this.ErrorMsg =error.response.data.error;	
+							      	$this.timeoutError()			      									    
 							      	}else if(error.response.status == 401){
 							      		location.reload();
-							      	}else{
-
-							      		Swal.fire({
-							        		title: 'something went wrong',
-								        	icon: 'error',
-								        	confirmButtonText:'Ok',
-						      				confirmButtonColor:'#00b96b',	
-								        })		      		
+							      	}else{							      	
+							      		$this.ErrorMsg ='something went wrong : try again';	
+							      		$this.timeoutError()		      		
 							      	}
 						      	}	
 						    })					  
@@ -297,7 +230,6 @@
 
 					if (this.update) {
 						this.sent += 1;	
-
 						if (this.sent == 1) {				
 						this.axios.post('api/users/update',formData,{headers:this.axiosHeader})
 				      	.then(response => {	
@@ -312,41 +244,29 @@
 						        	location.reload();
 						        })
 				      		}else{
-				      			Swal.fire({
-					        		title: 'something went wrong',
-						        	icon: 'error',
-						        	confirmButtonText:'Ok',
-					      			confirmButtonColor:'#00b96b',	
-						        })	
+				      			$this.ErrorMsg ='something went wrong : try again';	
+							    $this.timeoutError()	
 				      		}				      						  
 				      	})
 				      	.catch(error => {
 				      		$this.hide_loader();
 
 					      	if (error.response) {
-						      	if (error.response.status == 409) {					      	
-							        Swal.fire({
-							        	title: 'already exist user',
-							        	text: 'email or matric number',
-							        	icon: 'warning',
-							        	confirmButtonText:'Ok',
-					      				confirmButtonColor:'#00b96b',	
-					      			})					      		
+						      	if (error.response.status == 409) {	
+							      	$this.timeoutError()			      									    
+							      	$this.ErrorMsg =error.response.data.error;				      						
 						      	}else if(error.response.status == 401){
 						      		location.reload();
 						      	}else{
-						      		Swal.fire({
-						        		title: 'something went wrong',
-							        	icon: 'error',
-							        	confirmButtonText:'Ok',
-					      				confirmButtonColor:'#00b96b',	
-							        })		      		
+						      		$this.ErrorMsg ='something went wrong : try again';	
+							      	$this.timeoutError()	
 						      	}
 					      	}	
 					    })					  
 						}
 					}
 				}							
+			}
 		},
 		async created(){
 			
@@ -375,10 +295,10 @@
 			
 			if (this.update) {						
 				this.facultiesHTML = this.selectHtmlGen(this.faculties,'code', 'faculty_id',this.faculty_id, true )				
-				this.departmentHTML = this.selectHtmlGen(this.departments,'code', 'department_id',this.department_id, true )				
+				//this.departmentHTML = this.selectHtmlGen(this.departments,'code', 'department_id',this.department_id, true )				
 			}else{
 				this.facultiesHTML = this.selectHtmlGen(this.faculties,'code','faculty_id' )				
-				this.departmentHTML = this.selectHtmlGen(this.departments,'code','department_id')				
+				//this.departmentHTML = this.selectHtmlGen(this.departments,'code','department_id')				
 			}
 			
 			this.watchfacultyHtml.value = true;			
@@ -417,15 +337,27 @@
 		mounted(){
 			
 			this.$nextTick(function(){ 
-				  var $this = this;					    
+				  var $this = this;				
 			    	$('#faculty_id').change(function(){
 			    		
-			    		var departmentsX = $this.faculties.filter((item)=>{return item.id === $(this).val()})[0].department;
-			    		var opt="";
-			    		departmentsX.forEach((item, idex)=>{
-							opt += "<option value='"+item.id+"'>"+ item.code +"</option>";
-						});	
-			    		$('#department_id').html(opt);						
+			    		if ($(this).val()!='') {
+
+				    		var departmentsX = $this.faculties.filter((item)=>{return item.id === $(this).val()})[0].department;
+				    		var opt="";
+				    		if (departmentsX !='') {				    			
+					    		departmentsX.forEach((item, idex)=>{
+					    			if (item.code !='VLAB-A') {
+										opt += "<option value='"+item.id+"'>"+ item.code +"</option>";
+					    			}
+								});	
+					    		$('#department_id').html(opt);						
+				    		}else{
+			    				$('#department_id').html(`<option value="">No Department in this Faculty</option>`);				
+				    		}
+
+			    		}else{
+			    			$('#department_id').html(`<option value="">Please Select Faculty</option>`);					
+			    		}
 					})
 					$(document).ready(function(){
 						$('#faculty_id').addClass('vI');
@@ -455,4 +387,5 @@
 		width: 100% !important;
 	}
 
+	
 </style>

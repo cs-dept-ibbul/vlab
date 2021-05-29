@@ -8,7 +8,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use \DB;
+use Illuminate\Support\Facades\DB;
+use App\Models\Role;
 class UserController extends Controller
 {
 
@@ -47,8 +48,7 @@ class UserController extends Controller
         }
 
         $id = Util::uuid();
-        $email = $request->get('email');
-        $password = md5($request->get('password'));
+        $email = $request->get('email');    
         $matric_number = $request->get('matric_number')??'';
         $first_name = $request->get('first_name');
         $other_names = $request->get('other_names');
@@ -56,41 +56,60 @@ class UserController extends Controller
         $department_id = $request->get('department_id');
         $gender = $request->get('gender');
         $phone = $request->get('phone');        
+        $password = $phone=='' ? md5('123456'): md5($phone);                
         $salute = $request->get('title')??'';
         $user_ip_address = (new Util())->ip();
         $status = $request->get('status') ?? 'Active';
         $role = $request->get('role')??'';        
+    
 
-        $checkDuplicate = User::where('email', $email)->first();
-
-        if (empty($checkDuplicate)) {
-            $user->id = $id;
-            $user->username = $user->email = $email;
-            $user->password = $password;
-            $user->first_name = $first_name;
-            $user->other_names = $other_names;
-            $user->gender = $gender;
-            $user->user_ip_address = $user_ip_address;
-            $user->role_id = $role;
-            $user->school_id = $this->schoolId;
-            $user->faculty_id = $faculty_id;
-            $user->department_id = $department_id;
-            $user->phone = $phone;
-            $user->matric_number = $matric_number;
-            $user->salute = $salute;
-            $user->session_id = $this->currentSession;
-            
-
-
-            $user->status = $status;
-
-            if ($user->save()) {
-                return response()->json(['success' => true], 200);
+        $roleName = DB::table('role')->where('id',$role)->first()->title;
+        $msg ='user exists with that email';
+        if($roleName != 'Student'){
+            $user =  User::where('email',$email)->first();
+            if (!is_null($user)) {
+                return response()->json(['error' => 'Email Already Exist'], 409);                
             }
-            return response()->json(['success' => false], 400);
-        } else {
-            return response()->json(['error' => "user already exsit"], 409);
+            $username = $email;
+        }else{
+            $msg ='user exists with that matric number';
+            $matric =  User::where('matric_number',$matric_number)->first();            
+            
+            if (!is_null($matric)) {
+                return response()->json(['error' => 'Matric Already Exist'], 409);                
+            }
+
+            $user =  User::where('email',$email)->first();
+            if (!is_null($user)) {
+                return response()->json(['error' => 'Email Already Exist'], 409);                
+            }
+            $username = $matric_number;
         }
+
+        //if (empty($checkDuplicate)) {
+        $user = new User;
+        $user->id = $id;
+        $user->username = $username;
+        $user->password = $password;
+        $user->first_name = $first_name;
+        $user->other_names = $other_names;
+        $user->gender = $gender;
+        $user->user_ip_address = $user_ip_address;
+        $user->role_id = $role;
+        $user->school_id = $this->schoolId;
+        $user->faculty_id = $faculty_id;
+        $user->department_id = $department_id;
+        $user->phone = $phone;
+        $user->matric_number = $matric_number;            
+        $user->salute = $salute;
+        $user->session_id = $this->currentSession;
+        
+        $user->status = $status;
+
+        if ($user->save()) {
+            return response()->json(['success' => true], 200);
+        }
+            //return response()->json(['success' => false], 400);       
     }
 
     public function update(Request $request)
@@ -105,58 +124,59 @@ class UserController extends Controller
 
         $userId = $request->get('user_id');
         $email = $request->get('email');
-        $password = md5($request->get('phone'));
+        $phone = $request->get('phone');        
+        $password = $phone=='' ? md5('123456'): md5($phone);        
         $matric_number = $request->get('matric_number')??'';
         $first_name = $request->get('first_name');
         $other_names = $request->get('other_names');
         $faculty_id = $request->get('faculty_id');
         $department_id = $request->get('department_id');
         $gender = $request->get('gender');
-        $phone = $request->get('phone');
         $salute = $request->get('title')??'';
         $role = $request->get('role')??'';
         $user_ip_address = (new Util())->ip();        
         
         
+        $roleName = DB::table('role')->where('id',$role)->first()->title;
         $msg ='user exists with that email';
-        $user =  User::where('email',$email)->whereNotIn('id', [$userId])->first();
-
-        if ($matric_number != '') {
+        if($roleName !=  'Student'){
+            $user =  User::where('email',$email)->whereNotIn('id', [$userId])->first();
+            if (!is_null($user)) {
+                return response()->json(['error' => 'Email Already Exist'], 409);                
+            }
+            $username = $email;
+        }else{
             $msg ='user exists with that matric number';
-            $user =  User::where('matric_number',$matric_number)->whereNotIn('id', [$userId])->first();            
-        }
-        if (is_null($user)) {
-            $user = User::find($userId);
-            if ($email != null) {
-                $checkEmail = User::where('email', $email)->first();
-                if (!$checkEmail) {
-                    $user->email = $user->username = $email;
-                }
+            $matric =  User::where('matric_number',$matric_number)->whereNotIn('id', [$userId])->first();            
+            
+            if (!is_null($matric)) {
+                return response()->json(['error' => 'Matric Already Exist'], 409);                
             }
-            $user->username = $user->email = $email;
-            $user->password = $password;
-            $user->first_name = $first_name;
-            $user->other_names = $other_names;
-            $user->gender = $gender;
-            $user->user_ip_address = $user_ip_address;
-            $user->role_id = $role;
-            $user->school_id = $this->schoolId;
-            $user->faculty_id = $faculty_id;
-            $user->department_id = $department_id;
-            $user->phone = $phone;
-            $user->matric_number = $matric_number;
-            $user->salute = $salute;
-    
-            $save = $user->save();
 
-            if ($save) {
-                return response()->json(['success' => true], 200);
+            $user =  User::where('email',$email)->whereNotIn('id', [$userId])->first();
+            if (!is_null($user)) {
+                return response()->json(['error' => 'Email Already Exist'], 409);                
             }
-        } else {
-            return response()->json(['error' => $msg], 409);
+            $username = $matric_number;
         }
 
-        return response()->json(['success' => false], 400);
+        $user = User::find($userId);
+        $user->username = $username;
+        $user->password = $password;
+        $user->first_name = $first_name;
+        $user->other_names = $other_names;
+        $user->gender = $gender;
+        $user->user_ip_address = $user_ip_address;
+        $user->role_id = $role;
+        $user->school_id = $this->schoolId;
+        $user->faculty_id = $faculty_id;
+        $user->department_id = $department_id;
+        $user->phone = $phone;
+        $user->matric_number = $matric_number;
+        $user->salute = $salute;
+
+        $save = $user->save();
+        return response()->json(['success' => true], 200);            
     }
 
     public function delete(Request $request)

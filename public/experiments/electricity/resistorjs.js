@@ -111,7 +111,7 @@
          for (var i = 0; i < this.config.totalBand; i++) {
             if (this.config.band.length == 6) {
               if (i<4){ 
-                colorValue = this.searchObject(this.config.noramalBandColor, this.config.band[i]);
+                colorValue = this.searchObject(this.config.noramalBandColor, this.config.band[i])
                 if (colorValue != null) {
                   rValue += colorValue;
                 }
@@ -130,7 +130,7 @@
                   //tolerance
                     colorValue = this.searchObject(this.config.toleranceColor, this.config.tolerance);
                     result['html_code'] = 177;
-                    result['tolerance']= tolerance:colorValue;
+                    result['tolerance']= colorValue;
                     /*result.push({html_code:177});
                     result.push({tolerance:colorValue});*/
                  }
@@ -161,7 +161,7 @@
                   //tolerance
                     colorValue = this.searchObject(this.config.toleranceColor, this.config.tolerance);
                     result['html_code'] = 177;
-                    result['tolerance']= tolerance:colorValue;
+                    result['tolerance']= colorValue;
                     /*result.push({html_code:177});
                     result.push({tolerance:colorValue});*/
                  }

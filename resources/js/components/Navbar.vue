@@ -206,7 +206,7 @@ export default {
       a {
         color: #2f2651;
         &:hover {
-          color: rgba($color: #2f2651, $alpha: 0.8);
+          color: rgba($color: #2f2651, $alpha: 0.8) !important; 
         }
       }
 

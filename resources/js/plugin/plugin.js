@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL = 'https://demo.vlabnigeria.org';
+axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'http://127.0.0.1:8000' : '';
 import loader from '../components/skeletalLoaderA.vue'; 
 export default {
   install(Vue, options) {
@@ -86,7 +86,8 @@ export default {
             	}, 500);     	
             },   
 		selectHtmlGen: function(obj,name,idname="idname001",selected_id, update=false){
-			let html = "<select id='"+idname+"' name='"+idname+"' class='form-control w-100'><option value=''></option>"
+			//let html = "<select id='"+idname+"' name='"+idname+"' class='form-control w-100'><option value=''>Select</option>"
+			let html = `<select id='${idname}' name='${idname}' class='form-control w-100'><option value=''>Select ${idname.split('_')[0]}</option>`			
 			if (!update) {
 				obj.forEach((item, idex)=>{
 					html += "<option value='"+item.id+"'>"+ item[name] +"</option>";							
