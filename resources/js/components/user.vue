@@ -186,10 +186,10 @@
 						if (result.value) {
 					    const answers = {faculty_id:result.value[0], user_name:result.value[1], csv:result.value[2],role_id:result.value[5]}
 					    Swal.fire({
-					      title: 'click on proceed',
+					      title: 'Click on Proceed to Continue',
 					      text: 'you can also click on cancel to restart',
 					      html: `faculty: ${result.value[3]}<br>Department: ${result.value[4]}`,					     
-					      confirmButtonText:'Process',					      
+					      confirmButtonText:'Proceeed',					      
 					      cancelButtonText:'Cancel',					      
 					      showCancelButton:true,					      
 					      showLoaderOnConfirm: true,
@@ -242,15 +242,14 @@
 					      		if ($vm.response != ''){
 							    	clearInterval(interval);					      		
 							    	let html = `<div>
-							    					<button class="button btn-info py-2 px-3 mb-2" id="PrintAreaUXP">Print</button>
-							    					<div id="resultuploadidX" style="overflow-y:scroll; height:250px;">
-							    					<table class="table table-stripped table-hover">
-							    				<thead>
-							    					<th class="bg-success fs1 text-white p-1 w-50">uploaded</th>
-							    					<th class="bg-danger fs1 text-white p-1 w-50">Error: already exists</th>
-							    				</thead>
-							    				<tbody>
-							    				
+					    					<button class="button btn-info py-2 px-3 mb-2" id="PrintAreaUXP">Print</button>
+					    					<div id="resultuploadidX" style="overflow-y:scroll; height:250px;">
+					    					<table class="table table-stripped table-hover">
+					    				<thead>
+					    					<th class="bg-success fs1 text-white p-1 w-50">uploaded</th>
+					    					<th class="bg-danger fs1 text-white p-1 w-50">Error: already exists</th>
+					    				</thead>
+					    				<tbody>							    				
 							    	`;
 
 							    	let uploaded = $vm.response.data.uploaded,failed = $vm.response.data.failed, maxRow =  Math.max(uploaded.length,failed.length),

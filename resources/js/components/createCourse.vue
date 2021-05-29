@@ -1,6 +1,6 @@
 <template>
 	<div class="m-0 p-0">
-		
+			<div v-if="update" class="close" style="color: red;position: fixed;top: 0px;right: 5px;font-size: 2em;pointer-events: none;cursor: pointer;">&times</div>
 	<div class="row bg-light m-0 px-2 pt-4">
             <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 m-0 ">
             	<p class="fs2 fw8 font">

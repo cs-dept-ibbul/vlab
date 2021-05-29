@@ -1,5 +1,6 @@
 <template>
 	<div class="mx-auto p-5 taskForm">         
+      <div class="close" style="color: red;position: fixed;top: 0px;right: 5px;font-size: 2em;pointer-events: none;cursor: pointer;">&times</div>
           <h3 class="form-header">Create Task</h3>
           <div class="m-0 row  p-3 form-body">
           	 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-4" id="titleForm">

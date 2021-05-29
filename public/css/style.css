@@ -1089,8 +1089,7 @@ span.w-60, .w-60{
 }
 .exprightNav {
   position: absolute;
-  right: 0px;
-  top: 13vh ;
+  right: 0px;  
   width: 200px;    
   transition: width 0.4s;  
 
@@ -2253,7 +2252,7 @@ span.ripple {
   background: #f7f7f7;
 }
 
-   .without_ampm::-webkit-datetime-edit-ampm-field {
+.without_ampm::-webkit-datetime-edit-ampm-field {
    display: none !important;
  }
  input[type=time]::-webkit-clear-button {

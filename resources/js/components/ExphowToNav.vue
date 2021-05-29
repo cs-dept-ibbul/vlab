@@ -1,7 +1,7 @@
 <template>
 	<div style="display: flex;width:0px;" id="expSideBar">
 		
-		<div   v-bind:class="{slidein:show, slideout:hide}" style="width: 300px;" >	
+		<div   v-bind:class="{slidein:show, slideout:hide}" style="width: 35%;" >	
 
 		<div style="display: flex;background: #2F274E;" >
 			<div v-bind:class="{btnVActive:proced}" class="btnV"  @click="toggller('procedure')">Procedure</div>
@@ -203,7 +203,7 @@
 		margin-bottom: 5px;
 		background: rgba(40,35,65,.4);
 		font-size: 0.95em;
-        
+
 	}
 
 	.holder{
@@ -265,7 +265,7 @@
     100% { transform:translateX(-300%); opacity:-10; }
 }
 .addSize{
-	width: 300px !important;
+	width: 35% !important;
 	transition: width 0.5s;
 
 }

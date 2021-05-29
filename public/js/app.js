@@ -9959,7 +9959,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -9985,9 +9984,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (update) {
         topic = 'Update session';
         popbtn = 'Update';
-        html = "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Session Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" value="' + obj.session + '" >' + '<input id="swal-input2" type="checkbox" class="mr-1 mt-2 d-inline-block"><label class="mb-1 d-inline-block">set as current session</label>';
+        html = "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Session Name</legend>" + '<input id="swal-input1" placeholder="e.g. 2021/2022" class="swal2-input mt-1" value="' + obj.session + '" >' + '<input id="swal-input2" type="checkbox" class="mr-1 mt-2 d-inline-block"><label class="mb-1 d-inline-block">set as current session</label>';
       } else {
-        html = "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Session Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" >' + '<input id="swal-input2" type="checkbox" class="mr-1 mt-2 d-inline-block"><label class="mb-1 d-inline-block">set as current session</label>';
+        html = "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Session Name</legend>" + '<input id="swal-input1" placeholder="e.g. 2021/2022" class="swal2-input mt-1" >' + '<input id="swal-input2" type="checkbox" class="mr-1 mt-2 d-inline-block"><label class="mb-1 d-inline-block">set as current session</label>';
         ;
       }
 
@@ -12525,6 +12524,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -12615,6 +12615,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       } else {
         return [];
       }
+    },
+    generatePdf: function generatePdf() {
+      var genPdf = "\n\t\t\t\t\t<style>\n\t\t\t\t\ttable, th, td {\n\t\t\t\t\t  border: 1px solid black;\n\t\t\t\t\t  border-collapse: collapse;\n\t\t\t\t\t}\n\t\t\t\t\t.w-100{width:100%;}\n\t\t\t\t\t.rounded{border-radius:.25rem!important}\n\t\t\t\t\t.bg-white{background:white;}.p-2{padding:.5rem!important}\n\t\t\t\t\t.row{display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-15px;margin-left:-15px}\n\t\t\t\t\t.row{display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-15px;margin-left:-15px}.no-gutters{margin-right:0;margin-left:0}.no-gutters>.col,.no-gutters>[class*=col-]{padding-right:0;padding-left:0}.col,.col-1,.col-10,.col-11,.col-12,.col-2,.col-3,.col-4,.col-5,.col-6,.col-7,.col-8,.col-9,.col-auto,.col-lg,.col-lg-1,.col-lg-10,.col-lg-11,.col-lg-12,.col-lg-2,.col-lg-3,.col-lg-4,.col-lg-5,.col-lg-6,.col-lg-7,.col-lg-8,.col-lg-9,.col-lg-auto,.col-md,.col-md-1,.col-md-10,.col-md-11,.col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9,.col-md-auto,.col-sm,.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-sm-auto,.col-xl,.col-xl-1,.col-xl-10,.col-xl-11,.col-xl-12,.col-xl-2,.col-xl-3,.col-xl-4,.col-xl-5,.col-xl-6,.col-xl-7,.col-xl-8,.col-xl-9,.col-xl-auto{position:relative;width:100%;min-height:1px;padding-right:15px;padding-left:15px}.col{-ms-flex-preferred-size:0;flex-basis:0;-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;max-width:100%}.col-auto{-webkit-box-flex:0;-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-1{-webkit-box-flex:0;-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-2{-webkit-box-flex:0;-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-3{-webkit-box-flex:0;-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-4{-webkit-box-flex:0;-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-5{-webkit-box-flex:0;-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-6{-webkit-box-flex:0;-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-7{-webkit-box-flex:0;-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-8{-webkit-box-flex:0;-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-9{-webkit-box-flex:0;-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-10{-webkit-box-flex:0;-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-11{-webkit-box-flex:0;-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-12{-webkit-box-flex:0;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-first{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-last{-webkit-box-ordinal-group:14;-ms-flex-order:13;order:13}.order-0{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.order-1{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.order-2{-webkit-box-ordinal-group:3;-ms-flex-order:2;order:2}.order-3{-webkit-box-ordinal-group:4;-ms-flex-order:3;order:3}.order-4{-webkit-box-ordinal-group:5;-ms-flex-order:4;order:4}.order-5{-webkit-box-ordinal-group:6;-ms-flex-order:5;order:5}.order-6{-webkit-box-ordinal-group:7;-ms-flex-order:6;order:6}.order-7{-webkit-box-ordinal-group:8;-ms-flex-order:7;order:7}.order-8{-webkit-box-ordinal-group:9;-ms-flex-order:8;order:8}.order-9{-webkit-box-ordinal-group:10;-ms-flex-order:9;order:9}.order-10{-webkit-box-ordinal-group:11;-ms-flex-order:10;order:10}.order-11{-webkit-box-ordinal-group:12;-ms-flex-order:11;order:11}.order-12{-webkit-box-ordinal-group:13;-ms-flex-order:12;order:12}.offset-1{margin-left:8.333333%}.offset-2{margin-left:16.666667%}.offset-3{margin-left:25%}.offset-4{margin-left:33.333333%}.offset-5{margin-left:41.666667%}.offset-6{margin-left:50%}.offset-7{margin-left:58.333333%}.offset-8{margin-left:66.666667%}.offset-9{margin-left:75%}.offset-10{margin-left:83.333333%}.offset-11{margin-left:91.666667%}@media (min-width:576px){.col-sm{-ms-flex-preferred-size:0;flex-basis:0;-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;max-width:100%}.col-sm-auto{-webkit-box-flex:0;-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-sm-1{-webkit-box-flex:0;-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-sm-2{-webkit-box-flex:0;-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-sm-3{-webkit-box-flex:0;-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-sm-4{-webkit-box-flex:0;-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-sm-5{-webkit-box-flex:0;-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-sm-6{-webkit-box-flex:0;-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-sm-7{-webkit-box-flex:0;-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-sm-8{-webkit-box-flex:0;-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-sm-9{-webkit-box-flex:0;-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-sm-10{-webkit-box-flex:0;-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-sm-11{-webkit-box-flex:0;-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-sm-12{-webkit-box-flex:0;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-sm-first{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-sm-last{-webkit-box-ordinal-group:14;-ms-flex-order:13;order:13}.order-sm-0{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.order-sm-1{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.order-sm-2{-webkit-box-ordinal-group:3;-ms-flex-order:2;order:2}.order-sm-3{-webkit-box-ordinal-group:4;-ms-flex-order:3;order:3}.order-sm-4{-webkit-box-ordinal-group:5;-ms-flex-order:4;order:4}.order-sm-5{-webkit-box-ordinal-group:6;-ms-flex-order:5;order:5}.order-sm-6{-webkit-box-ordinal-group:7;-ms-flex-order:6;order:6}.order-sm-7{-webkit-box-ordinal-group:8;-ms-flex-order:7;order:7}.order-sm-8{-webkit-box-ordinal-group:9;-ms-flex-order:8;order:8}.order-sm-9{-webkit-box-ordinal-group:10;-ms-flex-order:9;order:9}.order-sm-10{-webkit-box-ordinal-group:11;-ms-flex-order:10;order:10}.order-sm-11{-webkit-box-ordinal-group:12;-ms-flex-order:11;order:11}.order-sm-12{-webkit-box-ordinal-group:13;-ms-flex-order:12;order:12}.offset-sm-0{margin-left:0}.offset-sm-1{margin-left:8.333333%}.offset-sm-2{margin-left:16.666667%}.offset-sm-3{margin-left:25%}.offset-sm-4{margin-left:33.333333%}.offset-sm-5{margin-left:41.666667%}.offset-sm-6{margin-left:50%}.offset-sm-7{margin-left:58.333333%}.offset-sm-8{margin-left:66.666667%}.offset-sm-9{margin-left:75%}.offset-sm-10{margin-left:83.333333%}.offset-sm-11{margin-left:91.666667%}}@media (min-width:768px){.col-md{-ms-flex-preferred-size:0;flex-basis:0;-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;max-width:100%}.col-md-auto{-webkit-box-flex:0;-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-md-1{-webkit-box-flex:0;-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-md-2{-webkit-box-flex:0;-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-md-3{-webkit-box-flex:0;-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-md-4{-webkit-box-flex:0;-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-md-5{-webkit-box-flex:0;-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-md-6{-webkit-box-flex:0;-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-md-7{-webkit-box-flex:0;-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-md-8{-webkit-box-flex:0;-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-md-9{-webkit-box-flex:0;-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-md-10{-webkit-box-flex:0;-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-md-11{-webkit-box-flex:0;-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-md-12{-webkit-box-flex:0;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-md-first{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-md-last{-webkit-box-ordinal-group:14;-ms-flex-order:13;order:13}.order-md-0{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.order-md-1{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.order-md-2{-webkit-box-ordinal-group:3;-ms-flex-order:2;order:2}.order-md-3{-webkit-box-ordinal-group:4;-ms-flex-order:3;order:3}.order-md-4{-webkit-box-ordinal-group:5;-ms-flex-order:4;order:4}.order-md-5{-webkit-box-ordinal-group:6;-ms-flex-order:5;order:5}.order-md-6{-webkit-box-ordinal-group:7;-ms-flex-order:6;order:6}.order-md-7{-webkit-box-ordinal-group:8;-ms-flex-order:7;order:7}.order-md-8{-webkit-box-ordinal-group:9;-ms-flex-order:8;order:8}.order-md-9{-webkit-box-ordinal-group:10;-ms-flex-order:9;order:9}.order-md-10{-webkit-box-ordinal-group:11;-ms-flex-order:10;order:10}.order-md-11{-webkit-box-ordinal-group:12;-ms-flex-order:11;order:11}.order-md-12{-webkit-box-ordinal-group:13;-ms-flex-order:12;order:12}.offset-md-0{margin-left:0}.offset-md-1{margin-left:8.333333%}.offset-md-2{margin-left:16.666667%}.offset-md-3{margin-left:25%}.offset-md-4{margin-left:33.333333%}.offset-md-5{margin-left:41.666667%}.offset-md-6{margin-left:50%}.offset-md-7{margin-left:58.333333%}.offset-md-8{margin-left:66.666667%}.offset-md-9{margin-left:75%}.offset-md-10{margin-left:83.333333%}.offset-md-11{margin-left:91.666667%}}@media (min-width:992px){.col-lg{-ms-flex-preferred-size:0;flex-basis:0;-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;max-width:100%}.col-lg-auto{-webkit-box-flex:0;-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-lg-1{-webkit-box-flex:0;-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-lg-2{-webkit-box-flex:0;-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-lg-3{-webkit-box-flex:0;-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-lg-4{-webkit-box-flex:0;-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-lg-5{-webkit-box-flex:0;-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-lg-6{-webkit-box-flex:0;-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-lg-7{-webkit-box-flex:0;-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-lg-8{-webkit-box-flex:0;-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-lg-9{-webkit-box-flex:0;-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-lg-10{-webkit-box-flex:0;-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-lg-11{-webkit-box-flex:0;-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-lg-12{-webkit-box-flex:0;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-lg-first{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-lg-last{-webkit-box-ordinal-group:14;-ms-flex-order:13;order:13}.order-lg-0{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.order-lg-1{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.order-lg-2{-webkit-box-ordinal-group:3;-ms-flex-order:2;order:2}.order-lg-3{-webkit-box-ordinal-group:4;-ms-flex-order:3;order:3}.order-lg-4{-webkit-box-ordinal-group:5;-ms-flex-order:4;order:4}.order-lg-5{-webkit-box-ordinal-group:6;-ms-flex-order:5;order:5}.order-lg-6{-webkit-box-ordinal-group:7;-ms-flex-order:6;order:6}.order-lg-7{-webkit-box-ordinal-group:8;-ms-flex-order:7;order:7}.order-lg-8{-webkit-box-ordinal-group:9;-ms-flex-order:8;order:8}.order-lg-9{-webkit-box-ordinal-group:10;-ms-flex-order:9;order:9}.order-lg-10{-webkit-box-ordinal-group:11;-ms-flex-order:10;order:10}.order-lg-11{-webkit-box-ordinal-group:12;-ms-flex-order:11;order:11}.order-lg-12{-webkit-box-ordinal-group:13;-ms-flex-order:12;order:12}.offset-lg-0{margin-left:0}.offset-lg-1{margin-left:8.333333%}.offset-lg-2{margin-left:16.666667%}.offset-lg-3{margin-left:25%}.offset-lg-4{margin-left:33.333333%}.offset-lg-5{margin-left:41.666667%}.offset-lg-6{margin-left:50%}.offset-lg-7{margin-left:58.333333%}.offset-lg-8{margin-left:66.666667%}.offset-lg-9{margin-left:75%}.offset-lg-10{margin-left:83.333333%}.offset-lg-11{margin-left:91.666667%}}@media (min-width:1200px){.col-xl{-ms-flex-preferred-size:0;flex-basis:0;-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;max-width:100%}.col-xl-auto{-webkit-box-flex:0;-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-xl-1{-webkit-box-flex:0;-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-xl-2{-webkit-box-flex:0;-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-xl-3{-webkit-box-flex:0;-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-xl-4{-webkit-box-flex:0;-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-xl-5{-webkit-box-flex:0;-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-xl-6{-webkit-box-flex:0;-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-xl-7{-webkit-box-flex:0;-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-xl-8{-webkit-box-flex:0;-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-xl-9{-webkit-box-flex:0;-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-xl-10{-webkit-box-flex:0;-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-xl-11{-webkit-box-flex:0;-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-xl-12{-webkit-box-flex:0;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-xl-first{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-xl-last{-webkit-box-ordinal-group:14;-ms-flex-order:13;order:13}.order-xl-0{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.order-xl-1{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.order-xl-2{-webkit-box-ordinal-group:3;-ms-flex-order:2;order:2}.order-xl-3{-webkit-box-ordinal-group:4;-ms-flex-order:3;order:3}.order-xl-4{-webkit-box-ordinal-group:5;-ms-flex-order:4;order:4}.order-xl-5{-webkit-box-ordinal-group:6;-ms-flex-order:5;order:5}.order-xl-6{-webkit-box-ordinal-group:7;-ms-flex-order:6;order:6}.order-xl-7{-webkit-box-ordinal-group:8;-ms-flex-order:7;order:7}.order-xl-8{-webkit-box-ordinal-group:9;-ms-flex-order:8;order:8}.order-xl-9{-webkit-box-ordinal-group:10;-ms-flex-order:9;order:9}.order-xl-10{-webkit-box-ordinal-group:11;-ms-flex-order:10;order:10}.order-xl-11{-webkit-box-ordinal-group:12;-ms-flex-order:11;order:11}.order-xl-12{-webkit-box-ordinal-group:13;-ms-flex-order:12;order:12}.offset-xl-0{margin-left:0}.offset-xl-1{margin-left:8.333333%}.offset-xl-2{margin-left:16.666667%}.offset-xl-3{margin-left:25%}.offset-xl-4{margin-left:33.333333%}.offset-xl-5{margin-left:41.666667%}.offset-xl-6{margin-left:50%}.offset-xl-7{margin-left:58.333333%}.offset-xl-8{margin-left:66.666667%}.offset-xl-9{margin-left:75%}.offset-xl-10{margin-left:83.333333%}.offset-xl-11{margin-left:91.666667%}}.table{width:100%;max-width:100%;margin-bottom:1rem;background-color:transparent}.table td,.table th{padding:.75rem;vertical-align:top;border-top:1px solid #dee2e6}.table thead th{vertical-align:bottom;border-bottom:2px solid #dee2e6}.table tbody+tbody{border-top:2px solid #dee2e6}.table .table{background-color:#fff}.table-sm td,.table-sm th{padding:.3rem}.table-bordered{border:1px solid #dee2e6}.table-bordered td,.table-bordered th{border:1px solid #dee2e6}.table-bordered thead td,.table-bordered thead th{border-bottom-width:2px}.table-striped tbody tr:nth-of-type(odd){background-color:rgba(0,0,0,.05)}.table-hover tbody tr:hover{background-color:rgba(0,0,0,.075)}.table-primary,.table-primary>td,.table-primary>th{background-color:#b8daff}.table-hover .table-primary:hover{background-color:#9fcdff}.table-hover .table-primary:hover>td,.table-hover .table-primary:hover>th{background-color:#9fcdff}.table-secondary,.table-secondary>td,.table-secondary>th{background-color:#d6d8db}.table-hover .table-secondary:hover{background-color:#c8cbcf}.table-hover .table-secondary:hover>td,.table-hover .table-secondary:hover>th{background-color:#c8cbcf}.table-success,.table-success>td,.table-success>th{background-color:#c3e6cb}.table-hover .table-success:hover{background-color:#b1dfbb}.table-hover .table-success:hover>td,.table-hover .table-success:hover>th{background-color:#b1dfbb}.table-info,.table-info>td,.table-info>th{background-color:#bee5eb}.table-hover .table-info:hover{background-color:#abdde5}.table-hover .table-info:hover>td,.table-hover .table-info:hover>th{background-color:#abdde5}.table-warning,.table-warning>td,.table-warning>th{background-color:#ffeeba}.table-hover .table-warning:hover{background-color:#ffe8a1}.table-hover .table-warning:hover>td,.table-hover .table-warning:hover>th{background-color:#ffe8a1}.table-danger,.table-danger>td,.table-danger>th{background-color:#f5c6cb}.table-hover .table-danger:hover{background-color:#f1b0b7}.table-hover .table-danger:hover>td,.table-hover .table-danger:hover>th{background-color:#f1b0b7}.table-light,.table-light>td,.table-light>th{background-color:#fdfdfe}.table-hover .table-light:hover{background-color:#ececf6}.table-hover .table-light:hover>td,.table-hover .table-light:hover>th{background-color:#ececf6}.table-dark,.table-dark>td,.table-dark>th{background-color:#c6c8ca}.table-hover .table-dark:hover{background-color:#b9bbbe}.table-hover .table-dark:hover>td,.table-hover .table-dark:hover>th{background-color:#b9bbbe}.table-active,.table-active>td,.table-active>th{background-color:rgba(0,0,0,.075)}.table-hover .table-active:hover{background-color:rgba(0,0,0,.075)}.table-hover .table-active:hover>td,.table-hover .table-active:hover>th{background-color:rgba(0,0,0,.075)}.table .thead-dark th{color:#fff;background-color:#212529;border-color:#32383e}.table .thead-light th{color:#495057;background-color:#e9ecef;border-color:#dee2e6}.table-dark{color:#fff;background-color:#212529}.table-dark td,.table-dark th,.table-dark thead th{border-color:#32383e}.table-dark.table-bordered{border:0}.table-dark.table-striped tbody tr:nth-of-type(odd){background-color:rgba(255,255,255,.05)}.table-dark.table-hover tbody tr:hover{background-color:rgba(255,255,255,.075)}@media (max-width:575.98px){.table-responsive-sm{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:-ms-autohiding-scrollbar}.table-responsive-sm>.table-bordered{border:0}}@media (max-width:767.98px){.table-responsive-md{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:-ms-autohiding-scrollbar}.table-responsive-md>.table-bordered{border:0}}@media (max-width:991.98px){.table-responsive-lg{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:-ms-autohiding-scrollbar}.table-responsive-lg>.table-bordered{border:0}}@media (max-width:1199.98px){.table-responsive-xl{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:-ms-autohiding-scrollbar}.table-responsive-xl>.table-bordered{border:0}}.table-responsive{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:-ms-autohiding-scrollbar}.table-responsive>.table-bordered{border:0}.form-control{display:block;width:100%;padding:.375rem .75rem;font-size:1rem;line-height:1.5;color:#495057;background-color:#fff;background-clip:padding-box;border:1px solid #ced4da;border-radius:.25rem;transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out}.form-control::-ms-expand{background-color:transparent;border:0}.form-control:focus{color:#495057;background-color:#fff;border-color:#80bdff;outline:0;box-shadow:0 0 0 .2rem rgba(0,123,255,.25)}.form-control::-webkit-input-placeholder{color:#6c757d;opacity:1}.form-control::-moz-placeholder{color:#6c757d;opacity:1}.form-control:-ms-input-placeholder{color:#6c757d;opacity:1}.form-control::-ms-input-placeholder{color:#6c757d;opacity:1}.form-control::placeholder{color:#6c757d;opacity:1}.form-control:disabled,.form-control[readonly]{background-color:#e9ecef;opacity:1}select.form-control:not([size]):not([multiple]){height:calc(2.25rem + 2px)}select.form-control:focus::-ms-value{color:#495057;background-color:#fff}.form-control-file,.form-control-range{display:block;width:100%}.col-form-label{padding-top:calc(.375rem + 1px);padding-bottom:calc(.375rem + 1px);margin-bottom:0;font-size:inherit;line-height:1.5}.col-form-label-lg{padding-top:calc(.5rem + 1px);padding-bottom:calc(.5rem + 1px);font-size:1.25rem;line-height:1.5}.col-form-label-sm{padding-top:calc(.25rem + 1px);padding-bottom:calc(.25rem + 1px);font-size:.875rem;line-height:1.5}.form-control-plaintext{display:block;width:100%;padding-top:.375rem;padding-bottom:.375rem;margin-bottom:0;line-height:1.5;background-color:transparent;border:solid transparent;border-width:1px 0}.form-control-plaintext.form-control-lg,.form-control-plaintext.form-control-sm,.input-group-lg>.form-control-plaintext.form-control,.input-group-lg>.input-group-append>.form-control-plaintext.btn,.input-group-lg>.input-group-append>.form-control-plaintext.input-group-text,.input-group-lg>.input-group-prepend>.form-control-plaintext.btn,.input-group-lg>.input-group-prepend>.form-control-plaintext.input-group-text,.input-group-sm>.form-control-plaintext.form-control,.input-group-sm>.input-group-append>.form-control-plaintext.btn,.input-group-sm>.input-group-append>.form-control-plaintext.input-group-text,.input-group-sm>.input-group-prepend>.form-control-plaintext.btn,.input-group-sm>.input-group-prepend>.form-control-plaintext.input-group-text{padding-right:0;padding-left:0}.form-control-sm,.input-group-sm>.form-control,.input-group-sm>.input-group-append>.btn,.input-group-sm>.input-group-append>.input-group-text,.input-group-sm>.input-group-prepend>.btn,.input-group-sm>.input-group-prepend>.input-group-text{padding:.25rem .5rem;font-size:.875rem;line-height:1.5;border-radius:.2rem}.input-group-sm>.input-group-append>select.btn:not([size]):not([multiple]),.input-group-sm>.input-group-append>select.input-group-text:not([size]):not([multiple]),.input-group-sm>.input-group-prepend>select.btn:not([size]):not([multiple]),.input-group-sm>.input-group-prepend>select.input-group-text:not([size]):not([multiple]),.input-group-sm>select.form-control:not([size]):not([multiple]),select.form-control-sm:not([size]):not([multiple]){height:calc(1.8125rem + 2px)}.form-control-lg,.input-group-lg>.form-control,.input-group-lg>.input-group-append>.btn,.input-group-lg>.input-group-append>.input-group-text,.input-group-lg>.input-group-prepend>.btn,.input-group-lg>.input-group-prepend>.input-group-text{padding:.5rem 1rem;font-size:1.25rem;line-height:1.5;border-radius:.3rem}.input-group-lg>.input-group-append>select.btn:not([size]):not([multiple]),.input-group-lg>.input-group-append>select.input-group-text:not([size]):not([multiple]),.input-group-lg>.input-group-prepend>select.btn:not([size]):not([multiple]),.input-group-lg>.input-group-prepend>select.input-group-text:not([size]):not([multiple]),.input-group-lg>select.form-control:not([size]):not([multiple]),select.form-control-lg:not([size]):not([multiple]){height:calc(2.875rem + 2px)}.form-group{margin-bottom:1rem}.form-text{display:block;margin-top:.25rem}.form-row{display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-5px;margin-left:-5px}.form-row>.col,.form-row>[class*=col-]{padding-right:5px;padding-left:5px}.form-check{position:relative;display:block;padding-left:1.25rem}.form-check-input{position:absolute;margin-top:.3rem;margin-left:-1.25rem}.form-check-input:disabled~.form-check-label{color:#6c757d}.form-check-label{margin-bottom:0}\t\t\t\t\n\t\t\t\t\t.table{background-color:#fff}.table-sm td,.table-sm th{padding:.3rem}.table-bordered{border:1px solid #dee2e6}.table-bordered td,.table-bordered th{border:1px solid #dee2e6}.table-bordered thead td,.table-bordered thead th{border-bottom-width:2px}.table-striped tbody tr:nth-of-type(odd){background-color:rgba(0,0,0,.05)}.table-hover tbody tr:hover{background-color:rgba(0,0,0,.075)}.table-primary,.table-primary>td,.table-primary>th{background-color:#b8daff}.table-hover .table-primary:hover{background-color:#9fcdff}.table-hover .table-primary:hover>td,.table-hover .table-primary:hover>th{background-color:#9fcdff}.table-secondary,.table-secondary>td,.table-secondary>th{background-color:#d6d8db}.table-hover .table-secondary:hover{background-color:#c8cbcf}.table-hover .table-secondary:hover>td,.table-hover .table-secondary:hover>th{background-color:#c8cbcf}.table-success,.table-success>td,.table-success>th{background-color:#c3e6cb}.table-hover .table-success:hover{background-color:#b1dfbb}.table-hover .table-success:hover>td,.table-hover .table-success:hover>th{background-color:#b1dfbb}.table-info,.table-info>td,.table-info>th{background-color:#bee5eb}.table-hover .table-info:hover{background-color:#abdde5}.table-hover .table-info:hover>td,.table-hover .table-info:hover>th{background-color:#abdde5}\t\n\t\t\t\t\t.p-danger {\n\t\t\t\t\t  background: #dd000f !important;\n\t\t\t\t\t}\n\t\t\t\t\t.p-warning {\n\t\t\t\t\t  background: orange !important;\n\t\t\t\t\t}\n\t\t\t\t\t.p-success {\n\t\t\t\t\t  background: #00b96b !important;\n\t\t\t\t\t}\n\t\t\t\t\t.p-transparent-warning{\n\t\t\t\t\t  background: #FFDBB5;\n\t\t\t\t\t}\n\t\t\t\t\t.p-transparent-dark{\n\t\t\t\t\t  background: rgba(0,0,0,.4);\n\t\t\t\t\t}\n\t\t\t\t\t.p-light {\n\t\t\t\t\t  background: rgba(0, 190, 70, 0.1) !important;\n\t\t\t\t\t}\n\t\t\t\t\t.p-secondary {\n\t\t\t\t\t  background: #f0f0f0 !important;\n\t\t\t\t\t}\n\t\t\t\t\t.p-text-warning{\n\t\t\t\t\t  color: #FF8200;\n\t\t\t\t\t}\n\t\t\t\t\tspan.p-text-success,.p-text-success,p.p-text-success{\n\t\t\t\t\t  color: #00b96b;\n\t\t\t\t\t}\n\t\t\t\t\tspan.p-text-secondary,.p-text-secondary{\n\t\t\t\t\t  color: #bbb;\n\t\t\t\t\t}\n\t\t\t\t\t.p-dark{\n\t\t\t\t\t  background: #20154e !important;\n\t\t\t\t\t}\n\t\t\t\t\t.sys-submit-btn{\n\t\t\t\t\t    box-shadow: inset 1px -3px 6px rgb(145,95,200) ;\n\t\t\t\t\t    cursor: pointer ;  \n\t\t\t\t\t    border:none;  \n\t\t\t\t\t    z-index: 5;\n\t\t\t\t\t    position: relative;\n\t\t\t\t\t    border-radius: 5px;\n\t\t\t\t\t}\n\t\t\t\t\tbutton:focus{\n\t\t\t\t\t  outline: 0 !important;\n\t\t\t\t\t}\n\t\t\t\t\t.sys-submit-btn:active{\n\t\t\t\t\t    user-select: none;\n\t\t\t\t\t     box-shadow: none;\n\t\t\t\t\t}\n\n\t\t\t\t\t.p-text-dark{\n\t\t\t\t\t  color: #20154e;\n\t\t\t\t\t}\n\t\t\t\t\t.px-6 {\n\t\t\t\t\t  padding-left: 90px;\n\t\t\t\t\t  padding-right: 90px;\n\t\t\t\t\t}\n\t\t\t\t\t.ftag {\n\t\t\t\t\t  background: rgba(0, 190, 70, 0.1) !important;\n\t\t\t\t\t  color: #00b96b !important;\n\t\t\t\t\t  padding: 4px 7px;\n\t\t\t\t\t  margin: 1px 2px;\n\t\t\t\t\t  border-radius: 5px;\n\t\t\t\t\t}\n\t\t\t\t\t.h1 {\n\t\t\t\t\t  height: 26px;\n\t\t\t\t\t}\n\t\t\t\t\t.h2{\n\t\t\t\t\t  height: 50px !important;\n\t\t\t\t\t}\n\t\t\t\t\t.h500 {\n\t\t\t\t\t  height: 500px;\n\t\t\t\t\t}\n\t\t\t\t\t.h100 {\n\t\t\t\t\t  height: 100px;\n\t\t\t\t\t}\n\t\t\t\t\t.h-100{\n\t\t\t\t\t  height: 100%;\n\t\t\t\t\t}\n\t\t\t\t\t.cadin {\n\t\t\t\t\t  transition: all 1s;\n\t\t\t\t\t}\n\t\t\t\t\t.cadin:after {\n\t\t\t\t\t  content: '';\n\t\t\t\t\t  display: block;\n\t\t\t\t\t  position: relative;\n\t\t\t\t\t  transition: all 1s;\n\t\t\t\t\t}\n\t\t\t\t\t.cadin:hover:after {\n\t\t\t\t\t  content: '';\n\t\t\t\t\t  display: block;\n\t\t\t\t\t  justify-content: center;\n\t\t\t\t\t  position: relative;\n\t\t\t\t\t  background: rgba(10, 10, 10, 0.1);\n\t\t\t\t\t  width: 100%;\n\t\t\t\t\t  height: 100%;\n\t\t\t\t\t  top: -100%;\n\t\t\t\t\t  z-index: 5;\n\t\t\t\t\t  border-radius: 8px;\n\t\t\t\t\t}\n\t\t\t\t\t</style>\n\n\t\t\t\t";
+
+      for (var i = 0; i < this.results.length; i++) {
+        var result = this.results[i];
+        genPdf += " <div class=\"w-100 rounded shadow-sm bg-white p-2\">\n\t\t\t\t\t\t<div class=\"row\">\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"font  col-lg-8 col-md-12\">\n\t\t\t\t\t\t\t\t<span class=\" no-break\">\n\t\t\t\t\t\t\t\t\t<span class=\"fw5 p-text-success\">Matric No.: </span>\n\t\t\t\t\t\t\t\t\t<span class=\"mr-1\"> ".concat(this.results[i].student.matric_number, " </span>\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t<span class=\"no-break\">\n\t\t\t\t\t\t\t\t\t<span class=\"fw5 p-text-success\"> Name: </span> ").concat(result.student.first_name + ' ' + result.student.other_names, "\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\" font fs01 col-lg-4 col-md-12\">\n\t\t\t\t\t\t\t\t<span class=\" no-break\"><span class=\"fw5 p-text-success\">Started:</span>").concat(result.time_started.split(',')[0], " </span>\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<span class=\" no-break\"><span class=\"fw5 p-text-success\">Submitted:</span>").concat(result.time_submited.split(',')[0], "</span>\t\t\t\t\t\t\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<table class=\"table table-bordered iresult\">\n\t\t\t\t\t\t\t<thead class=\"bg-white p-2 mx-auto mt-2\">\n\t\t\t\t\t\t\t\t").concat(this.returnHeader(result.result_json), "\n\t\t\t\t\t\t\t</thead>\n\t\t\t\t\t\t\t<tbody>");
+
+        for (var j = 0; j < this.getTR(JSON.parse(result.result_json)).length; j++) {
+          var tr = this.getTR(JSON.parse(result.result_json))[j];
+          genPdf += '<tr>';
+
+          for (var k = 0; k < tr.length; k++) {
+            var td = tr[k];
+            genPdf += "<td v-for=\"td in tr\">".concat(td, "</td>");
+          }
+
+          genPdf += "</tr>";
+        }
+
+        genPdf += "\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t\t\t</table>\t\n\t\t\t\t\t\t\t</div>";
+      }
+
+      var printWin = window.open();
+      printWin.document.write(genPdf);
+      printWin.document.close();
+      printWin.focus();
+      printWin.print();
+      printWin.close();
     },
     AllowReattempt: function AllowReattempt(rid) {
       var formdata = new FormData();
@@ -13003,6 +13032,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+//
 //
 //
 //
@@ -13763,10 +13793,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             role_id: result.value[5]
           };
           Swal.fire({
-            title: 'click on proceed',
+            title: 'Click on Proceed to Continue',
             text: 'you can also click on cancel to restart',
             html: "faculty: ".concat(result.value[3], "<br>Department: ").concat(result.value[4]),
-            confirmButtonText: 'Process',
+            confirmButtonText: 'Proceeed',
             cancelButtonText: 'Cancel',
             showCancelButton: true,
             showLoaderOnConfirm: true,
@@ -13814,7 +13844,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             var interval = setInterval(function () {
               if ($vm.response != '') {
                 clearInterval(interval);
-                var _html = "<div>\n\t\t\t\t\t\t\t    \t\t\t\t\t<button class=\"button btn-info py-2 px-3 mb-2\" id=\"PrintAreaUXP\">Print</button>\n\t\t\t\t\t\t\t    \t\t\t\t\t<div id=\"resultuploadidX\" style=\"overflow-y:scroll; height:250px;\">\n\t\t\t\t\t\t\t    \t\t\t\t\t<table class=\"table table-stripped table-hover\">\n\t\t\t\t\t\t\t    \t\t\t\t<thead>\n\t\t\t\t\t\t\t    \t\t\t\t\t<th class=\"bg-success fs1 text-white p-1 w-50\">uploaded</th>\n\t\t\t\t\t\t\t    \t\t\t\t\t<th class=\"bg-danger fs1 text-white p-1 w-50\">Error: already exists</th>\n\t\t\t\t\t\t\t    \t\t\t\t</thead>\n\t\t\t\t\t\t\t    \t\t\t\t<tbody>\n\t\t\t\t\t\t\t    \t\t\t\t\n\t\t\t\t\t\t\t    \t";
+                var _html = "<div>\n\t\t\t\t\t    \t\t\t\t\t<button class=\"button btn-info py-2 px-3 mb-2\" id=\"PrintAreaUXP\">Print</button>\n\t\t\t\t\t    \t\t\t\t\t<div id=\"resultuploadidX\" style=\"overflow-y:scroll; height:250px;\">\n\t\t\t\t\t    \t\t\t\t\t<table class=\"table table-stripped table-hover\">\n\t\t\t\t\t    \t\t\t\t<thead>\n\t\t\t\t\t    \t\t\t\t\t<th class=\"bg-success fs1 text-white p-1 w-50\">uploaded</th>\n\t\t\t\t\t    \t\t\t\t\t<th class=\"bg-danger fs1 text-white p-1 w-50\">Error: already exists</th>\n\t\t\t\t\t    \t\t\t\t</thead>\n\t\t\t\t\t    \t\t\t\t<tbody>\t\t\t\t\t\t\t    \t\t\t\t\n\t\t\t\t\t\t\t    \t";
                 var uploaded = $vm.response.data.uploaded,
                     failed = $vm.response.data.failed,
                     maxRow = Math.max(uploaded.length, failed.length),
@@ -14280,6 +14310,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -14305,13 +14343,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       rolename: '',
       urole: '',
       sent: 0,
-      typex: 'Add New User'
+      typex: 'Add New User',
+      role: '',
+      whatrole: true
     };
   },
   methods: {
     normalize: function normalize(el) {
       el.target.style.border = "1px solid #eee";
       $('.requiredv').remove();
+    },
+    roleName: function roleName(e) {
+      var rol = JSON.parse(this.roles),
+          $this = this,
+          rolename;
+      rolename = $(e).find('option:selected').attr('data-role');
+
+      if (rolename != 'student') {
+        this.whatrole = true;
+      } else {
+        this.whatrole = false;
+      }
     },
     submitForm: function submitForm() {
       this.validateI('myform');
@@ -22484,7 +22536,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n/*@import url(\"https://use.fontawesome.com/releases/v5.13.0/css/all.css\");*/\n.fontType-ico[data-v-50575fba]{\t\t\n\t\tfont-weight: 100;\n}\n.accordBtnV[data-v-50575fba]{\n\t\tdisplay: flex;\n\t\tjustify-content: space-between;\n\t\twidth: 100%;\n\t\tpadding: 10px 20px 10px 20px;\n\t\tfont-family: 'Roboto';\n\t\tfont-weight: 300;\n\t\tmargin-bottom: 5px;\n\t\tbackground: rgba(40,35,65,.4);\n\t\tfont-size: 0.95em;\n}\n.holder[data-v-50575fba]{\n\t\tcolor: #eee;\n\t\tfont-family: 'Roboto', sans-serif;\n\t\tfont-weight: 300; \n\t\tfont-size: 0.8em;\n\t\theight: 500px;\t\t\n\t\twidth: 100%;\n\t\tmargin: 0px;\n\t\tpadding: 0px !important;\n\t\toverflow-y: scroll;\n}\ndiv[data-v-50575fba]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.slidewr[data-v-50575fba] {\n    position: absolute;\n    width: 100px;\n    height: 100px;    \n    transform: translateX(-100%);\n    -webkit-transform: translateX(-100%);\n}\n.slidein[data-v-50575fba] {\n    animation: slide-in-data-v-50575fba 0.5s forwards;\n    -webkit-animation: slide-in-data-v-50575fba 0.5s forwards;\n}\n.slideout[data-v-50575fba] {\n    animation: slide-out-data-v-50575fba 0.5s forwards;\n    -webkit-animation: slide-out-data-v-50575fba 0.5s forwards;\n}\n@keyframes slide-in-data-v-50575fba {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@-webkit-keyframes slide-in-data-v-50575fba {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@keyframes slide-out-data-v-50575fba {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.1); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:0;\n}\n}\n@-webkit-keyframes slide-out-data-v-50575fba {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.5); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:-10;\n}\n}\n.addSize[data-v-50575fba]{\n\twidth: 300px !important;\n\ttransition: width 0.5s;\n}\n.btnV[data-v-50575fba]{\t\t\n\t\tcolor:#eee;\n\t\tfont-family: calibri;\n\t\tfont-size: 1em;\n\t\tcursor: pointer;\n\t\tborder-bottom: 3px solid #2F274E;\n}\n.btnV[data-v-50575fba]:nth-child(odd){\n\t\tpadding: 5px 20px;\n}\n.btnV[data-v-50575fba]:nth-child(even){\n\t\tpadding: 5px 0px;\n}\n.btnVActive[data-v-50575fba]{\n\t   border-bottom: 3px solid #fff;\n\t   transition: border-bottom 0.8s;\n}\n\t/* width */\n[data-v-50575fba]::-webkit-scrollbar {\n  width: 9px; \n  cursor: pointer;\n}\n\n/* Track */\n[data-v-50575fba]::-webkit-scrollbar-track {\n\twidth: 50px;\n  border-radius: 5px;\n}\n \n/* Handle */\n[data-v-50575fba]::-webkit-scrollbar-thumb {\n  background: #eee; \n  border-radius: 10px;\n  cursor: pointer;\n}\n\n/* Handle on hover */\n[data-v-50575fba]::-webkit-scrollbar-thumb:hover {\n  background: #fff; \n  cursor: pointer;\n}\np[data-v-50575fba]{\n\ttext-align: justify;\n}\n.venobox[data-v-50575fba]{\n\tposition: relative;\n}\n.accordion[data-v-50575fba] {\n  outline: none;\n  transition: 0.4s;\n  cursor: pointer;\n  display: flex;\n  justify-content: space-between;\n}\n.accordion[data-v-50575fba]:hover {\n  background-color: #ADAABB !important; \n  color:#fff !important;\n  text-shadow: 1px 2px 3px #000;\n  font-weight: 500 !important;\n}\n.accordActiv[data-v-50575fba]{\nbackground-color: #ADAABB !important; \n  color:#fff !important;\n  text-shadow: 1px 2px 3px #000;\n  font-weight: 500 !important;\n}\n.panel[data-v-50575fba] {\n  max-height: 0;\n  overflow: hidden;\n  transition: 0.2s ease-out;\n  padding: 0px 20px;\n  text-align: justify;\n}\n.cardcontainer img[data-v-50575fba] {\n}\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/*@import url(\"https://use.fontawesome.com/releases/v5.13.0/css/all.css\");*/\n.fontType-ico[data-v-50575fba]{\t\t\n\t\tfont-weight: 100;\n}\n.accordBtnV[data-v-50575fba]{\n\t\tdisplay: flex;\n\t\tjustify-content: space-between;\n\t\twidth: 100%;\n\t\tpadding: 10px 20px 10px 20px;\n\t\tfont-family: 'Roboto';\n\t\tfont-weight: 300;\n\t\tmargin-bottom: 5px;\n\t\tbackground: rgba(40,35,65,.4);\n\t\tfont-size: 0.95em;\n}\n.holder[data-v-50575fba]{\n\t\tcolor: #eee;\n\t\tfont-family: 'Roboto', sans-serif;\n\t\tfont-weight: 300; \n\t\tfont-size: 0.8em;\n\t\theight: 500px;\t\t\n\t\twidth: 100%;\n\t\tmargin: 0px;\n\t\tpadding: 0px !important;\n\t\toverflow-y: scroll;\n}\ndiv[data-v-50575fba]{\n\t\tfont-family: 'Roboto', sans-serif;\n}\n.slidewr[data-v-50575fba] {\n    position: absolute;\n    width: 100px;\n    height: 100px;    \n    transform: translateX(-100%);\n    -webkit-transform: translateX(-100%);\n}\n.slidein[data-v-50575fba] {\n    animation: slide-in-data-v-50575fba 0.5s forwards;\n    -webkit-animation: slide-in-data-v-50575fba 0.5s forwards;\n}\n.slideout[data-v-50575fba] {\n    animation: slide-out-data-v-50575fba 0.5s forwards;\n    -webkit-animation: slide-out-data-v-50575fba 0.5s forwards;\n}\n@keyframes slide-in-data-v-50575fba {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@-webkit-keyframes slide-in-data-v-50575fba {\n0%   { transform:scale(0.5); opacity:0.0; left:0}\n50%  { transform:scale(1.2); opacity:0.5; left:100px}\n100% { transform:scale(1.0); opacity:1.0; left:200px}\n}\n@keyframes slide-out-data-v-50575fba {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.1); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:0;\n}\n}\n@-webkit-keyframes slide-out-data-v-50575fba {\n0%   { transform:scale(1); opacity:1;\n}\n50%  { transform:scale(0.5); opacity:0.5;}\n100% { transform:translateX(-300%); opacity:-10;\n}\n}\n.addSize[data-v-50575fba]{\n\twidth: 35% !important;\n\ttransition: width 0.5s;\n}\n.btnV[data-v-50575fba]{\t\t\n\t\tcolor:#eee;\n\t\tfont-family: calibri;\n\t\tfont-size: 1em;\n\t\tcursor: pointer;\n\t\tborder-bottom: 3px solid #2F274E;\n}\n.btnV[data-v-50575fba]:nth-child(odd){\n\t\tpadding: 5px 20px;\n}\n.btnV[data-v-50575fba]:nth-child(even){\n\t\tpadding: 5px 0px;\n}\n.btnVActive[data-v-50575fba]{\n\t   border-bottom: 3px solid #fff;\n\t   transition: border-bottom 0.8s;\n}\n\t/* width */\n[data-v-50575fba]::-webkit-scrollbar {\n  width: 9px; \n  cursor: pointer;\n}\n\n/* Track */\n[data-v-50575fba]::-webkit-scrollbar-track {\n\twidth: 50px;\n  border-radius: 5px;\n}\n \n/* Handle */\n[data-v-50575fba]::-webkit-scrollbar-thumb {\n  background: #eee; \n  border-radius: 10px;\n  cursor: pointer;\n}\n\n/* Handle on hover */\n[data-v-50575fba]::-webkit-scrollbar-thumb:hover {\n  background: #fff; \n  cursor: pointer;\n}\np[data-v-50575fba]{\n\ttext-align: justify;\n}\n.venobox[data-v-50575fba]{\n\tposition: relative;\n}\n.accordion[data-v-50575fba] {\n  outline: none;\n  transition: 0.4s;\n  cursor: pointer;\n  display: flex;\n  justify-content: space-between;\n}\n.accordion[data-v-50575fba]:hover {\n  background-color: #ADAABB !important; \n  color:#fff !important;\n  text-shadow: 1px 2px 3px #000;\n  font-weight: 500 !important;\n}\n.accordActiv[data-v-50575fba]{\nbackground-color: #ADAABB !important; \n  color:#fff !important;\n  text-shadow: 1px 2px 3px #000;\n  font-weight: 500 !important;\n}\n.panel[data-v-50575fba] {\n  max-height: 0;\n  overflow: hidden;\n  transition: 0.2s ease-out;\n  padding: 0px 20px;\n  text-align: justify;\n}\n.cardcontainer img[data-v-50575fba] {\n}\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -45319,7 +45371,7 @@ var render = function() {
         "div",
         {
           class: { slidein: _vm.show, slideout: _vm.hide },
-          staticStyle: { width: "300px" }
+          staticStyle: { width: "35%" }
         },
         [
           _c(
@@ -48778,6 +48830,25 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "m-0 p-0" }, [
+    _vm.update
+      ? _c(
+          "div",
+          {
+            staticClass: "close",
+            staticStyle: {
+              color: "red",
+              position: "fixed",
+              top: "0px",
+              right: "5px",
+              "font-size": "2em",
+              "pointer-events": "none",
+              cursor: "pointer"
+            }
+          },
+          [_vm._v("×")]
+        )
+      : _vm._e(),
+    _vm._v(" "),
     _c("div", { staticClass: "row bg-light m-0 px-2 pt-4" }, [
       _c("div", { staticClass: "col-lg-4 col-md-5 col-sm-12 col-xs-12 m-0 " }, [
         _c("p", { staticClass: "fs2 fw8 font" }, [
@@ -50703,9 +50774,7 @@ var render = function() {
               [_c("span", { staticClass: "iconOV fa fa-tasks" })]
             ),
             _vm._v(" "),
-            _c("a", { attrs: { href: "'#'" }, on: { click: _vm.logout } }, [
-              _c("span", { staticClass: "iconOV fa fa-arrow-circle-left" })
-            ])
+            _vm._m(0)
           ]
         ),
         _vm._v(" "),
@@ -50949,25 +51018,32 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "nChildV",
-                attrs: { href: "'#'" },
-                on: { click: _vm.logout }
-              },
-              [
-                _c("span", { staticClass: "iconV fa fa-arrow-circle-left" }),
-                _c("div", { staticClass: "labelV" }, [_vm._v("Logout")])
-              ]
-            )
+            _vm._m(1)
           ]
         )
       ]
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { attrs: { href: "/logout" } }, [
+      _c("span", { staticClass: "iconOV fa fa-arrow-circle-left" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "nChildV", attrs: { href: "/logout" } }, [
+      _c("span", { staticClass: "iconV fa fa-arrow-circle-left" }),
+      _c("div", { staticClass: "labelV" }, [_vm._v("Logout")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -53612,156 +53688,173 @@ var render = function() {
                     : _c(
                         "div",
                         { staticClass: "p-2" },
-                        _vm._l(_vm.results, function(result) {
-                          return _c(
-                            "div",
+                        [
+                          _c(
+                            "button",
                             {
                               staticClass:
-                                "w-100 rounded shadow-sm bg-white p-2"
+                                "btn btn-warning text-white py-1 px-3 mb-2",
+                              on: { click: _vm.generatePdf }
                             },
-                            [
-                              _c("div", { staticClass: "row" }, [
-                                _c(
-                                  "div",
-                                  { staticClass: "font  col-lg-8 col-md-12" },
-                                  [
-                                    _c("span", { staticClass: " no-break" }, [
-                                      _c(
-                                        "span",
-                                        { staticClass: "fw5 p-text-success" },
-                                        [_vm._v("Matric No.: ")]
-                                      ),
+                            [_vm._v("Print")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.results, function(result) {
+                            return _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "w-100 rounded shadow-sm bg-white p-2"
+                              },
+                              [
+                                _c("div", { staticClass: "row" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "font  col-lg-8 col-md-12" },
+                                    [
+                                      _c("span", { staticClass: " no-break" }, [
+                                        _c(
+                                          "span",
+                                          { staticClass: "fw5 p-text-success" },
+                                          [_vm._v("Matric No.: ")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("span", { staticClass: "mr-1" }, [
+                                          _vm._v(
+                                            _vm._s(result.student.matric_number)
+                                          )
+                                        ])
+                                      ]),
                                       _vm._v(" "),
-                                      _c("span", { staticClass: "mr-1" }, [
+                                      _c("span", { staticClass: "no-break" }, [
+                                        _c(
+                                          "span",
+                                          { staticClass: "fw5 p-text-success" },
+                                          [_vm._v(" Name: ")]
+                                        ),
                                         _vm._v(
-                                          _vm._s(result.student.matric_number)
+                                          " " +
+                                            _vm._s(
+                                              result.student.first_name +
+                                                " " +
+                                                result.student.other_names
+                                            ) +
+                                            "\n\t\t\t\t\t\t\t\t"
                                         )
                                       ])
-                                    ]),
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        " font fs01 col-lg-4 col-md-12"
+                                    },
+                                    [
+                                      _c("span", { staticClass: " no-break" }, [
+                                        _c(
+                                          "span",
+                                          { staticClass: "fw5 p-text-success" },
+                                          [_vm._v("Started:")]
+                                        ),
+                                        _vm._v(" 3/23/43 ")
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("span", { staticClass: " no-break" }, [
+                                        _c(
+                                          "span",
+                                          { staticClass: "fw5 p-text-success" },
+                                          [_vm._v("Submitted:")]
+                                        ),
+                                        _vm._v(" 3/23/43")
+                                      ])
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "table",
+                                  {
+                                    staticClass: "table table-bordered iresult"
+                                  },
+                                  [
+                                    _c("thead", {
+                                      staticClass: "bg-white p-2 mx-auto mt-2",
+                                      domProps: {
+                                        innerHTML: _vm._s(
+                                          _vm.returnHeader(result.result_json)
+                                        )
+                                      }
+                                    }),
                                     _vm._v(" "),
-                                    _c("span", { staticClass: "no-break" }, [
-                                      _c(
-                                        "span",
-                                        { staticClass: "fw5 p-text-success" },
-                                        [_vm._v(" Name: ")]
+                                    _c(
+                                      "tbody",
+                                      _vm._l(
+                                        _vm.getTR(
+                                          JSON.parse(result.result_json)
+                                        ),
+                                        function(tr) {
+                                          return _c(
+                                            "tr",
+                                            _vm._l(tr, function(td) {
+                                              return _c("td", [
+                                                _vm._v(_vm._s(td))
+                                              ])
+                                            }),
+                                            0
+                                          )
+                                        }
                                       ),
-                                      _vm._v(
-                                        " " +
-                                          _vm._s(
-                                            result.student.first_name +
-                                              " " +
-                                              result.student.other_names
-                                          ) +
-                                          "\n\t\t\t\t\t\t\t\t"
-                                      )
-                                    ])
+                                      0
+                                    )
                                   ]
                                 ),
                                 _vm._v(" "),
                                 _c(
-                                  "div",
+                                  "button",
                                   {
-                                    staticClass: " font fs01 col-lg-4 col-md-12"
-                                  },
-                                  [
-                                    _c("span", { staticClass: " no-break" }, [
-                                      _c(
-                                        "span",
-                                        { staticClass: "fw5 p-text-success" },
-                                        [_vm._v("Started:")]
-                                      ),
-                                      _vm._v(" 3/23/43 ")
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("span", { staticClass: " no-break" }, [
-                                      _c(
-                                        "span",
-                                        { staticClass: "fw5 p-text-success" },
-                                        [_vm._v("Submitted:")]
-                                      ),
-                                      _vm._v(" 3/23/43")
-                                    ])
-                                  ]
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "table",
-                                { staticClass: "table table-bordered iresult" },
-                                [
-                                  _c("thead", {
-                                    staticClass: "bg-white p-2 mx-auto mt-2",
-                                    domProps: {
-                                      innerHTML: _vm._s(
-                                        _vm.returnHeader(result.result_json)
-                                      )
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "tbody",
-                                    _vm._l(
-                                      _vm.getTR(JSON.parse(result.result_json)),
-                                      function(tr) {
-                                        return _c(
-                                          "tr",
-                                          _vm._l(tr, function(td) {
-                                            return _c("td", [
-                                              _vm._v(_vm._s(td))
-                                            ])
-                                          }),
-                                          0
-                                        )
+                                    staticClass: "btn-info button",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.AllowReattempt(result.id)
                                       }
-                                    ),
-                                    0
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn-info button",
+                                    }
+                                  },
+                                  [_vm._v("Allow Reattempt")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.limitation,
+                                      expression: "limitation"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "form-control py-2 d-inline-block vI without_ampm",
+                                  attrs: {
+                                    type: "time",
+                                    name: "title",
+                                    min: "00:00"
+                                  },
+                                  domProps: { value: _vm.limitation },
                                   on: {
-                                    click: function($event) {
-                                      return _vm.AllowReattempt(result.id)
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.limitation = $event.target.value
                                     }
                                   }
-                                },
-                                [_vm._v("Allow Reattempt")]
-                              ),
-                              _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.limitation,
-                                    expression: "limitation"
-                                  }
-                                ],
-                                staticClass:
-                                  "form-control py-2 d-inline-block vI without_ampm",
-                                attrs: {
-                                  type: "time",
-                                  name: "title",
-                                  min: "00:00"
-                                },
-                                domProps: { value: _vm.limitation },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.limitation = $event.target.value
-                                  }
-                                }
-                              })
-                            ]
-                          )
-                        }),
-                        0
+                                })
+                              ]
+                            )
+                          })
+                        ],
+                        2
                       )
                 ],
                 1
@@ -53903,9 +53996,7 @@ var render = function() {
                   })
                 ],
                 2
-              ),
-              _vm._v(" "),
-              _vm._v("\n\t    \t\t\t\t}\n\t\t    ")
+              )
             ]
           )
         ]
@@ -54116,6 +54207,23 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "mx-auto p-5 taskForm" }, [
+    _c(
+      "div",
+      {
+        staticClass: "close",
+        staticStyle: {
+          color: "red",
+          position: "fixed",
+          top: "0px",
+          right: "5px",
+          "font-size": "2em",
+          "pointer-events": "none",
+          cursor: "pointer"
+        }
+      },
+      [_vm._v("×")]
+    ),
+    _vm._v(" "),
     _c("h3", { staticClass: "form-header" }, [_vm._v("Create Task")]),
     _vm._v(" "),
     _c("div", { staticClass: "m-0 row  p-3 form-body" }, [
@@ -54830,6 +54938,23 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "m-0 p-0" }, [
     _c(
+      "div",
+      {
+        staticClass: "close",
+        staticStyle: {
+          color: "red",
+          position: "fixed",
+          top: "0px",
+          right: "5px",
+          "font-size": "2em",
+          "pointer-events": "none",
+          cursor: "pointer"
+        }
+      },
+      [_vm._v("×")]
+    ),
+    _vm._v(" "),
+    _c(
       "form",
       {
         staticClass: "m-0 p-0",
@@ -54857,26 +54982,71 @@ var render = function() {
               _vm._v(_vm._s(_vm.typex))
             ]),
             _vm._v(" "),
-            _vm.rolename != "student"
-              ? _c("div", { staticClass: "m-0 form-body" }, [
-                  _vm.watchfacultyHtml.value == true
-                    ? _c("div", { staticClass: "row m-0" }, [
-                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
-                          _c("div", { staticClass: "px-1" }, [
-                            _c("p", { staticClass: "fs001 my-1" }, [
-                              _vm._v("Faculty *")
-                            ]),
-                            _vm._v(" "),
-                            _c("span", {
-                              staticClass: "w-100",
-                              domProps: { innerHTML: _vm._s(_vm.facultiesHTML) }
-                            })
-                          ])
+            _c("div", { staticClass: "m-0 form-body" }, [
+              _vm.watchfacultyHtml.value == true
+                ? _c("div", { staticClass: "row m-0" }, [
+                    _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
+                      _c("div", { staticClass: "px-1" }, [
+                        _c("p", { staticClass: "fs001 my-1" }, [
+                          _vm._v("Role*")
                         ]),
                         _vm._v(" "),
-                        _vm._m(0),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.role,
+                                expression: "role"
+                              }
+                            ],
+                            staticClass: "form-control w-100",
+                            attrs: { type: "text", name: "role", id: "role" },
+                            on: {
+                              keyup: _vm.normalize,
+                              change: [
+                                function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.role = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                },
+                                function($event) {
+                                  return _vm.roleName($event.target)
+                                }
+                              ]
+                            }
+                          },
+                          _vm._l(JSON.parse(_vm.roles), function(role, index) {
+                            return _c(
+                              "option",
+                              {
+                                attrs: { "data-role": index },
+                                domProps: {
+                                  selected: role == _vm.urole,
+                                  value: role
+                                }
+                              },
+                              [_vm._v(_vm._s(index))]
+                            )
+                          }),
+                          0
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm.whatrole
+                      ? _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
                           _c("div", { staticClass: "px-1" }, [
                             _c("p", { staticClass: "fs001 my-1" }, [
                               _vm._v("Title *")
@@ -54910,237 +55080,11 @@ var render = function() {
                               0
                             )
                           ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
-                          _c("div", { staticClass: "px-1" }, [
-                            _c("p", { staticClass: "fs001 my-1" }, [
-                              _vm._v("First Name *")
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              staticClass: "form-control w-100 vI",
-                              attrs: {
-                                type: "text",
-                                name: "first_name",
-                                id: "first_name"
-                              },
-                              domProps: { value: _vm.first_name },
-                              on: { keyup: _vm.normalize }
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
-                          _c("div", { staticClass: "px-1" }, [
-                            _c("p", { staticClass: "fs001 my-1" }, [
-                              _vm._v("Last Name *")
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              staticClass: "form-control w-100 vI",
-                              attrs: {
-                                type: "text",
-                                name: "other_names",
-                                id: "other_names"
-                              },
-                              domProps: { value: _vm.other_names },
-                              on: { keyup: _vm.normalize }
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
-                          _c("div", { staticClass: "px-1" }, [
-                            _c("p", { staticClass: "fs001 my-1" }, [
-                              _vm._v("Email *")
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              staticClass: "form-control w-100",
-                              attrs: {
-                                type: "text",
-                                name: "email",
-                                id: "email"
-                              },
-                              domProps: { value: _vm.email },
-                              on: { keyup: _vm.normalize }
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
-                          _c("div", { staticClass: "px-1" }, [
-                            _c("p", { staticClass: "fs001 my-1" }, [
-                              _vm._v("Phone *")
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              staticClass: "form-control w-100",
-                              attrs: {
-                                type: "text",
-                                name: "phone",
-                                id: "phone"
-                              },
-                              domProps: { value: _vm.phone },
-                              on: { keyup: _vm.normalize }
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
-                          _c("div", { staticClass: "px-1" }, [
-                            _c("p", { staticClass: "fs001 my-1" }, [
-                              _vm._v("Role*")
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "select",
-                              {
-                                staticClass: "form-control w-100",
-                                attrs: {
-                                  type: "text",
-                                  name: "role",
-                                  id: "role"
-                                },
-                                on: { keyup: _vm.normalize }
-                              },
-                              _vm._l(JSON.parse(_vm.roles), function(
-                                role,
-                                index
-                              ) {
-                                return _c(
-                                  "option",
-                                  {
-                                    domProps: {
-                                      selected: role == _vm.urole,
-                                      value: role
-                                    }
-                                  },
-                                  [_vm._v(_vm._s(index))]
-                                )
-                              }),
-                              0
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
-                          _c("div", { staticClass: "px-1" }, [
-                            _c("p", { staticClass: "fs001 my-1" }, [
-                              _vm._v("Gender *")
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "select",
-                              {
-                                staticClass: "form-control ",
-                                attrs: {
-                                  type: "text",
-                                  name: "gender",
-                                  id: "gender"
-                                },
-                                on: { keyup: _vm.normalize }
-                              },
-                              _vm._l(_vm.genderCont, function(mgender) {
-                                return _c(
-                                  "option",
-                                  {
-                                    domProps: {
-                                      value: mgender,
-                                      selected: mgender == _vm.gender
-                                    }
-                                  },
-                                  [_vm._v(_vm._s(mgender))]
-                                )
-                              }),
-                              0
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
-                          _c("div", { staticClass: "px-1" }, [
-                            _c("p", { staticClass: "fs001 my-1" }, [
-                              _vm._v("Picture")
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticClass: "w-100  p-0",
-                                staticStyle: { position: "relative" }
-                              },
-                              [
-                                _vm._m(1),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "draginto form-control",
-                                  staticStyle: {
-                                    position: "absolute",
-                                    top: "0",
-                                    left: "0"
-                                  },
-                                  attrs: {
-                                    type: "file",
-                                    name: "files",
-                                    id: "fileI"
-                                  },
-                                  on: { change: function($event) {} }
-                                })
-                              ]
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "col-12" },
-                          [
-                            _c("center", [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn py-2 mb-5 mr-2 mt-3 px-4 text-white fs1 font1 p-success btn-sm",
-                                  attrs: { type: "submit" },
-                                  on: { click: _vm.submitForm }
-                                },
-                                [
-                                  _vm.update
-                                    ? _c("span", [_vm._v("Update")])
-                                    : _c("span", [_vm._v("Submit")])
-                                ]
-                              )
-                            ])
-                          ],
-                          1
-                        )
-                      ])
-                    : _vm._e()
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.rolename == "student"
-              ? _c("div", { staticClass: "form-body" }, [
-                  _vm.watchfacultyHtml.value == true
-                    ? _c("div", { staticClass: "row m-0" }, [
-                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
-                          _c("div", { staticClass: "px-1" }, [
-                            _c("p", { staticClass: "fs001 my-1" }, [
-                              _vm._v("Faculty *")
-                            ]),
-                            _vm._v(" "),
-                            _c("span", {
-                              staticClass: "w-100",
-                              domProps: { innerHTML: _vm._s(_vm.facultiesHTML) }
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _vm._m(2),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    !_vm.whatrole
+                      ? _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
                           _c("div", { staticClass: "px-1" }, [
                             _c("p", { staticClass: "fs001 my-1" }, [
                               _vm._v("Matric No *")
@@ -55157,182 +55101,186 @@ var render = function() {
                               on: { keyup: _vm.normalize }
                             })
                           ])
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
+                      _c("div", { staticClass: "px-1" }, [
+                        _c("p", { staticClass: "fs001 my-1" }, [
+                          _vm._v("First Name *")
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
-                          _c("div", { staticClass: "px-1" }, [
-                            _c("p", { staticClass: "fs001 my-1" }, [
-                              _vm._v("First Name *")
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              staticClass: "form-control w-100 vI",
-                              attrs: {
-                                type: "text",
-                                name: "first_name",
-                                id: "first_name"
-                              },
-                              domProps: { value: _vm.first_name },
-                              on: { keyup: _vm.normalize }
-                            })
-                          ])
+                        _c("input", {
+                          staticClass: "form-control w-100 vI",
+                          attrs: {
+                            type: "text",
+                            name: "first_name",
+                            id: "first_name"
+                          },
+                          domProps: { value: _vm.first_name },
+                          on: { keyup: _vm.normalize }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
+                      _c("div", { staticClass: "px-1" }, [
+                        _c("p", { staticClass: "fs001 my-1" }, [
+                          _vm._v("Last Name *")
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
-                          _c("div", { staticClass: "px-1" }, [
-                            _c("p", { staticClass: "fs001 my-1" }, [
-                              _vm._v("Last Name *")
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              staticClass: "form-control w-100 vI",
-                              attrs: {
-                                type: "text",
-                                name: "other_names",
-                                id: "other_names"
-                              },
-                              domProps: { value: _vm.other_names },
-                              on: { keyup: _vm.normalize }
-                            })
-                          ])
+                        _c("input", {
+                          staticClass: "form-control w-100 vI",
+                          attrs: {
+                            type: "text",
+                            name: "other_names",
+                            id: "other_names"
+                          },
+                          domProps: { value: _vm.other_names },
+                          on: { keyup: _vm.normalize }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
+                      _c("div", { staticClass: "px-1" }, [
+                        _c("p", { staticClass: "fs001 my-1" }, [
+                          _vm._v("Faculty *")
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
-                          _c("div", { staticClass: "px-1" }, [
-                            _c("p", { staticClass: "fs001 my-1" }, [
-                              _vm._v("Email *")
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              staticClass: "form-control w-100",
-                              attrs: {
-                                type: "text",
-                                name: "email",
-                                id: "email"
-                              },
-                              domProps: { value: _vm.email },
-                              on: { keyup: _vm.normalize }
-                            })
-                          ])
+                        _c("span", {
+                          staticClass: "w-100",
+                          domProps: { innerHTML: _vm._s(_vm.facultiesHTML) }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
+                      _c("div", { staticClass: "px-1" }, [
+                        _c("p", { staticClass: "fs001 my-1" }, [
+                          _vm._v("Email *")
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
-                          _c("div", { staticClass: "px-1" }, [
-                            _c("p", { staticClass: "fs001 my-1" }, [
-                              _vm._v("Phone *")
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "text",
-                                name: "phone",
-                                id: "phone"
-                              },
-                              domProps: { value: _vm.phone },
-                              on: { keyup: _vm.normalize }
-                            })
-                          ])
+                        _c("input", {
+                          staticClass: "form-control w-100",
+                          attrs: { type: "text", name: "email", id: "email" },
+                          domProps: { value: _vm.email },
+                          on: { keyup: _vm.normalize }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
+                      _c("div", { staticClass: "px-1" }, [
+                        _c("p", { staticClass: "fs001 my-1" }, [
+                          _vm._v("Phone *")
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
-                          _c("div", { staticClass: "px-1" }, [
-                            _c("p", { staticClass: "fs001 my-1" }, [
-                              _vm._v("Role*")
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "select",
+                        _c("input", {
+                          staticClass: "form-control w-100",
+                          attrs: { type: "text", name: "phone", id: "phone" },
+                          domProps: { value: _vm.phone },
+                          on: { keyup: _vm.normalize }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
+                      _c("div", { staticClass: "px-1" }, [
+                        _c("p", { staticClass: "fs001 my-1" }, [
+                          _vm._v("Gender *")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            staticClass: "form-control ",
+                            attrs: {
+                              type: "text",
+                              name: "gender",
+                              id: "gender"
+                            },
+                            on: { keyup: _vm.normalize }
+                          },
+                          _vm._l(_vm.genderCont, function(mgender) {
+                            return _c(
+                              "option",
                               {
-                                staticClass: "form-control ",
-                                attrs: {
-                                  type: "text",
-                                  name: "role",
-                                  id: "role_id"
-                                },
-                                on: { keyup: _vm.normalize }
+                                domProps: {
+                                  value: mgender,
+                                  selected: mgender == _vm.gender
+                                }
                               },
-                              _vm._l(JSON.parse(_vm.roles), function(
-                                role,
-                                index
-                              ) {
-                                return _c(
-                                  "option",
-                                  {
-                                    domProps: {
-                                      selected: role == _vm.urole,
-                                      value: role
-                                    }
-                                  },
-                                  [_vm._v(_vm._s(index))]
-                                )
-                              }),
-                              0
+                              [_vm._v(_vm._s(mgender))]
                             )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
-                          _c("div", { staticClass: "px-1" }, [
-                            _c("p", { staticClass: "fs001 my-1" }, [
-                              _vm._v("Gender *")
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "select",
-                              {
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "text",
-                                  name: "gender",
-                                  id: "gender"
-                                },
-                                on: { keyup: _vm.normalize }
-                              },
-                              _vm._l(_vm.genderCont, function(mgender) {
-                                return _c(
-                                  "option",
-                                  {
-                                    domProps: {
-                                      value: mgender,
-                                      selected: mgender == _vm.gender
-                                    }
-                                  },
-                                  [_vm._v(_vm._s(mgender))]
-                                )
-                              }),
-                              0
-                            )
-                          ])
+                          }),
+                          0
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
+                      _c("div", { staticClass: "px-1" }, [
+                        _c("p", { staticClass: "fs001 my-1" }, [
+                          _vm._v("Picture")
                         ]),
                         _vm._v(" "),
                         _c(
                           "div",
-                          { staticClass: "col-12" },
+                          {
+                            staticClass: "w-100  p-0",
+                            staticStyle: { position: "relative" }
+                          },
                           [
-                            _c("center", [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn py-2 mb-5 mr-2 mt-3 px-4 text-white fs1 font1 p-success btn-sm",
-                                  attrs: { type: "submit" },
-                                  on: { click: _vm.submitForm }
-                                },
-                                [
-                                  _vm.update
-                                    ? _c("span", [_vm._v("Update")])
-                                    : _c("span", [_vm._v("Submit")])
-                                ]
-                              )
-                            ])
-                          ],
-                          1
+                            _vm._m(1),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "draginto form-control",
+                              staticStyle: {
+                                position: "absolute",
+                                top: "0",
+                                left: "0"
+                              },
+                              attrs: {
+                                type: "file",
+                                name: "files",
+                                id: "fileI"
+                              },
+                              on: { change: function($event) {} }
+                            })
+                          ]
                         )
                       ])
-                    : _vm._e()
-                ])
-              : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-12" },
+                      [
+                        _c("center", [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn py-2 mb-5 mr-2 mt-3 px-4 text-white fs1 font1 p-success btn-sm",
+                              attrs: { type: "submit" },
+                              on: { click: _vm.submitForm }
+                            },
+                            [
+                              _vm.update
+                                ? _c("span", [_vm._v("Update")])
+                                : _c("span", [_vm._v("Submit")])
+                            ]
+                          )
+                        ])
+                      ],
+                      1
+                    )
+                  ])
+                : _vm._e()
+            ])
           ]
         )
       ]
@@ -55377,21 +55325,6 @@ var staticRenderFns = [
         },
         [_vm._v("Upload File")]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
-      _c("div", { staticClass: "px-1" }, [
-        _c("p", { staticClass: "fs001 my-1" }, [_vm._v("Department *")]),
-        _vm._v(" "),
-        _c("select", {
-          staticClass: "form-control w-100 vI",
-          attrs: { id: "department_id", name: "department_id" }
-        })
-      ])
     ])
   }
 ]

@@ -81,7 +81,7 @@
 				<a href="/manage-task"   v-bind:class="{btnActive:checkActive('task')}">
 					<span class="iconOV fa fa-tasks"></span>
 				</a>					
-				<a @click="logout" href="'#'"  >				
+				<a href="/logout"  >				
 					<span class="iconOV fa fa-arrow-circle-left"></span>
 				</a>	
 			</div>
@@ -172,7 +172,7 @@
 				<a href="/manage-task"  class="nChildV" v-bind:class="{btnActive:checkActive('task')}">
 					<span class="iconV fa fa-tasks"></span><div class="labelV">Manage Task</div>
 				</a>					
-				<a @click="logout" href="'#'"  class="nChildV">				
+				<a  href="/logout"  class="nChildV">				
 					<span class="iconV fa fa-arrow-circle-left"></span><div class="labelV">Logout</div>
 				</a>				
 			</div>

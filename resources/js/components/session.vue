@@ -5,11 +5,10 @@
           <div class="notification-table ">
 				<table id="sessiontable" class="table table-hover">
 					<thead>
-						<tr id="cheadV">
-							
-						<th width="40%">session name</th>			               			            
-			            <th width="20%">status</th>
-			            <th width="40%">Action</th>
+						<tr id="cheadV">							
+							<th width="40%">session name</th>			               			            
+				            <th width="20%">status</th>
+				            <th width="40%">Action</th>
 						</tr>
 					</thead>
 					<tbody v-if="tableLoaded">
@@ -50,12 +49,12 @@
 					popbtn = 'Update';
 					html = 			
 				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Session Name</legend>"+					  		   
-				    '<input id="swal-input1" class="swal2-input mt-1" value="'+obj.session+'" >'  +
+				    '<input id="swal-input1" placeholder="e.g. 2021/2022" class="swal2-input mt-1" value="'+obj.session+'" >'  +
 				    '<input id="swal-input2" type="checkbox" class="mr-1 mt-2 d-inline-block"><label class="mb-1 d-inline-block">set as current session</label>' ;		 
 				}else{
 					html =
 				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Session Name</legend>"+					  		   
-				    '<input id="swal-input1" class="swal2-input mt-1" >' +
+				    '<input id="swal-input1" placeholder="e.g. 2021/2022" class="swal2-input mt-1" >' +
 				    '<input id="swal-input2" type="checkbox" class="mr-1 mt-2 d-inline-block"><label class="mb-1 d-inline-block">set as current session</label>' ;			 				    
 				    ;
 				}										

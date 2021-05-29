@@ -1,10 +1,11 @@
    const defaultConfig = {
-        totalBand: 6,
+        totalBand: 5,
         tolerance: "gold",
         multiplier: "red",
+        temperature: "red",
         width: 200,
         height: 50,
-        band: ["grey","green","yellow", "violet"],
+        band: ["grey","green","yellow"],
         noramalBandColor: {
                   "black": 0,
                   "brown": 1,
@@ -45,7 +46,13 @@
                   "grey": 0.05,
                   "white":null,
                   "gold": 5,
-                  "silver":10}
+                  "silver":10},
+        temperatureColor:{                  
+                  "brown": '100ppm',
+                  "red"  : '50ppm',
+                  "orange":'15ppm',
+                  "yellow":'25ppm'
+                }
         
     }
     class Resistor{
@@ -55,7 +62,22 @@
         window.digitalResistorId = -1;
         if (!containerID2) throw new Error("invalid container id");            
         this.#container_id	 = containerID2;
-        this.config = {...defaultConfig, ...configi};
+        this.config = {...defaultConfig, ...configi}
+
+        if (configi.totalBand>7 || defaultConfig.totalBand>7){
+          throw new Error('totalBand cannot be more than 7')
+          return false;
+        }
+
+        if (configi.totalBand==7){
+          throw new Error('totalBand cannot be more than 7')
+          return false;
+        }
+
+        if (configi.totalBand<3 || defaultConfig.totalBand<3){
+           throw new Error('totalBand cannot be less than 3')
+           return false;
+        }
         this.#dynamic_id = "resistor_";
           var $vm = this;
          //console.log(this.instance);
@@ -87,26 +109,63 @@
          let rValue='', result=[],colorValue;
          checkmate = 0;
          for (var i = 0; i < this.config.totalBand; i++) {
-            if (i<this.config.band.length){ 
-              colorValue = this.searchObject(this.config.noramalBandColor, this.config.band[i]);
-              if (colorValue != null) {
-                rValue += colorValue;
+            if (this.config.band.length == 6) {
+              if (i<4){ 
+                colorValue = this.searchObject(this.config.noramalBandColor, this.config.band[i]);
+                if (colorValue != null) {
+                  rValue += colorValue;
+                }
+              }else{
+                checkmate++;
+                rValue = Number(rValue);
+                 if (checkmate===1) {
+                    colorValue = this.searchObject(this.config.multimeterColor, this.config.multiplier);
+                    if (colorValue != null) {
+                      rValue *= colorValue;
+                    }
+                    result['value']= rValue;
+                    //result.push({value:rValue});
+                 }
+                 if(checkmate===2){
+                  //tolerance
+                    colorValue = this.searchObject(this.config.toleranceColor, this.config.tolerance);
+                    result['html_code'] = 177;
+                    result['tolerance']= tolerance:colorValue;
+                    /*result.push({html_code:177});
+                    result.push({tolerance:colorValue});*/
+                 }
+                 if (checkmate===3){
+                    colorValue = this.searchObject(this.config.temperatureColor, this.config.temperature);                    
+                    result['temperature']= colorValue;
+                    //result.push({temperature:colorValue});
+                 }
               }
-            }else{
-              checkmate++;
-              rValue = Number(rValue);
-               if (checkmate===1) {
-                  colorValue = this.searchObject(this.config.multimeterColor, this.config.multiplier);
-                  if (colorValue != null) {
-                    rValue *= colorValue;
-                  }
-                  result.push({value:rValue});
-               }else{
-                //tolerance
-                  colorValue = this.searchObject(this.config.toleranceColor, this.config.tolerance);
-                  result.push({html_code:177});
-                  result.push({tolerance:colorValue});
-               }
+            }else{        
+              if (i<this.config.band.length){ 
+                colorValue = this.searchObject(this.config.noramalBandColor, this.config.band[i]);
+                if (colorValue != null) {
+                  rValue += colorValue;
+                }
+              }else{
+                checkmate++;
+                rValue = Number(rValue);
+                 if (checkmate===1) {
+                    colorValue = this.searchObject(this.config.multimeterColor, this.config.multiplier);
+                    if (colorValue != null) {
+                      rValue *= colorValue;
+                    }
+                    result.push({value:rValue});
+                    result['value']= rValue;
+
+                 }else{
+                  //tolerance
+                    colorValue = this.searchObject(this.config.toleranceColor, this.config.tolerance);
+                    result['html_code'] = 177;
+                    result['tolerance']= tolerance:colorValue;
+                    /*result.push({html_code:177});
+                    result.push({tolerance:colorValue});*/
+                 }
+              }
             }
          }
 

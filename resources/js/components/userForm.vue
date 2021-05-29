@@ -1,33 +1,37 @@
 
 <template>
 	<div class="m-0 p-0">
+		<div class="close" style="color: red;position: fixed;top: 0px;right: 5px;font-size: 2em;pointer-events: none;cursor: pointer;">&times</div>
       <form @submit.prevent="submitForm" id="myform" class="m-0 p-0">
       	<span class="d-none">
       		<input type="text" name="user_id" :value="id">
       	</span>
 		<div class="row py-4 px-4 m-0 r2 bg-white vh-78 scroll-y " >     					    					
-			<h5 class="form-header" >{{typex}}</h5>
+			<h5 class="form-header">{{typex}}</h5>
 		  <!-- user form -->
-			<div v-if="rolename != 'student'" class="m-0 form-body">
-				<div v-if="watchfacultyHtml.value == true" class="row m-0">				
+			<div class="m-0 form-body">
+				<div v-if="watchfacultyHtml.value == true" class="row m-0">		
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
-							<p class="fs001 my-1">Faculty *</p>
-							<span v-html="facultiesHTML" class="w-100"></span>		            				
+							<p class="fs001 my-1">Role*</p>		            				
+							<select type="text" @keyup="normalize"  @change="roleName($event.target)" v-model="role" class="form-control w-100" name="role" id="role">
+								<option v-for="(role,index) in JSON.parse(roles)" :data-role="index" :selected="role==urole" :value="role">{{index}}</option>		            					
+								 							            				
+							</select>
 						</div>
-					</div>
-					<div class="col-lg-6 col-md-6 m-0">
-						<div class="px-1" >	            					
-							<p class="fs001 my-1">Department *</p>		            				
-					  		<select id='department_id' name='department_id' class='form-control w-100 vI'></select>									  	
-						</div>
-					</div>
-				  	<div class="col-lg-6 col-md-6 m-0">
+					</div> 		
+				  	<div class="col-lg-6 col-md-6 m-0" v-if="whatrole">
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Title *</p>		            				
 							<select type="text" @keyup="normalize" class="form-control w-100" name="utitle" id="utitle">
 								<option v-for="mtitle in titleCont" :value="mtitle" v-bind:selected="{selected:mtitle==title}"  >{{mtitle}}</option>
 							</select>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 m-0" v-if="!whatrole">
+						<div class="px-1" >	            					
+							<p class="fs001 my-1">Matric No *</p>	
+							<input type="text" @keyup="normalize" class="form-control w-100" :value="matric_number" name="matric_number" id="matric_number">
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 m-0">
@@ -43,6 +47,18 @@
 						</div>
 					</div>	
 					<div class="col-lg-6 col-md-6 m-0">
+						<div class="px-1" >	            					
+							<p class="fs001 my-1">Faculty *</p>
+							<span v-html="facultiesHTML" class="w-100"></span>		            				
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 m-0">
+						<div class="px-1" >	            					
+							<p class="fs001 my-1">Department *</p>		            				
+					  		<select id='department_id' name='department_id' class='form-control w-100 vI'></select>									  	
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1">	            					
 							<p class="fs001 my-1">Email *</p>		            				
 							<input type="text" @keyup="normalize" class="form-control w-100" :value="email" name="email" id="email">
@@ -54,15 +70,7 @@
 							<input type="text" @keyup="normalize" class="form-control w-100" :value="phone" name="phone" id="phone">
 						</div>
 					</div>	       
-					<div class="col-lg-6 col-md-6 m-0">
-						<div class="px-1" >	            					
-							<p class="fs001 my-1">Role*</p>		            				
-							<select type="text" @keyup="normalize" class="form-control w-100" name="role" id="role">
-								<option v-for="(role,index) in JSON.parse(roles)" :selected="role==urole" :value="role">{{index}}</option>		            					
-								 							            				
-							</select>
-						</div>
-					</div> 
+					
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Gender *</p>		            				
@@ -94,8 +102,20 @@
 				</div>
 	      	</div>
 	      	<!-- student form -->
-	      	<div v-if="rolename == 'student'" class="form-body">
+	      	<!-- <div v-if="rolename == 'student'" class="form-body">
 				<div v-if="watchfacultyHtml.value == true" class="row m-0">			
+					<div class="col-lg-6 col-md-6 m-0">
+						<div class="px-1">	            					
+							<p class="fs001 my-1">First Name *</p>		            				
+							<input type="text" @keyup="normalize" class="form-control w-100 vI" :value="first_name" name="first_name" id="first_name">
+						</div>
+					</div>	 
+					<div class="col-lg-6 col-md-6 m-0">
+						<div class="px-1">	            					
+							<p class="fs001 my-1">Last Name *</p>		            				
+							<input type="text" @keyup="normalize" class="form-control w-100 vI" :value="other_names" name="other_names" id="other_names">
+						</div>
+					</div>	
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Faculty *</p>
@@ -117,18 +137,6 @@
 					</div>
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1">	            					
-							<p class="fs001 my-1">First Name *</p>		            				
-							<input type="text" @keyup="normalize" class="form-control w-100 vI" :value="first_name" name="first_name" id="first_name">
-						</div>
-					</div>	 
-					<div class="col-lg-6 col-md-6 m-0">
-						<div class="px-1">	            					
-							<p class="fs001 my-1">Last Name *</p>		            				
-							<input type="text" @keyup="normalize" class="form-control w-100 vI" :value="other_names" name="other_names" id="other_names">
-						</div>
-					</div>	
-					<div class="col-lg-6 col-md-6 m-0">
-						<div class="px-1">	            					
 							<p class="fs001 my-1">Email *</p>		            				
 							<input type="text" @keyup="normalize" class="form-control w-100" :value="email" name="email" id="email">
 						</div>
@@ -142,8 +150,8 @@
 					<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1" >	            					
 							<p class="fs001 my-1">Role*</p>		            				
-							<select type="text" @keyup="normalize" class="form-control " name="role" id="role_id">
-								<option v-for="(role,index) in JSON.parse(roles)" v-bind:selected="role==urole" :value="role">{{index}}</option>		            					
+							<select type="text" @keyup="normalize" @change="roleName($event.target)" v-model="role" class="form-control" name="role" id="role_id">
+								<option v-for="(role,index) in JSON.parse(roles)" :data-role="index" v-bind:selected="role==urole" :value="role">{{index}}</option>		            					
 							</select>
 						</div>
 					</div> 
@@ -164,7 +172,7 @@
 					</center>
 					</div> 
 				</div>	
-	        </div>
+	        </div> -->
         </div>
       </form>
 	</div>
@@ -195,12 +203,23 @@
 				urole:'',
 				sent:0,
 				typex:'Add New User',
+				role:'',
+				whatrole: true,
 			}
 		},
 		methods:{
 			normalize:function(el){
 				el.target.style.border = "1px solid #eee";
 				$('.requiredv').remove();
+			},
+			roleName(e){
+				var rol = JSON.parse(this.roles), $this = this, rolename;				
+				rolename = $(e).find('option:selected').attr('data-role');
+				if (rolename != 'student' ) {
+					this.whatrole =  true;
+				}else{
+					this.whatrole = false;
+				}
 			},
 			submitForm: function(){	
 				this.validateI('myform');											
