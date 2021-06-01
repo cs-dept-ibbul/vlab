@@ -1,5 +1,5 @@
 <template>
-	<div style="display: flex;justify-content: space-between; background: #40356E;">		
+	<div style="display: flex;justify-content: space-between; background: #40356E;position: relative;z-index: 100000000;">		
 		<span style=" width: 30%;display: flex;flex-wrap: wrap;align-items: center; ">			
 			<span class="fa fa-chevron-right text-dark ml-4 pl-2 tbtn" v-if="btnState==true" @click="toggleExperimentGuider"></span>
 			<span class="fa fa-chevron-left text-dark ml-4  tbtn" @click="toggleExperimentGuider" v-else></span>
@@ -203,7 +203,7 @@
 	}
 
 </script>
-<style scoped>
+<style scoped="">
 	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 	/*@import url("https://use.fontawesome.com/releases/v5.13.0/css/all.css");*/
     .tbtn:active{

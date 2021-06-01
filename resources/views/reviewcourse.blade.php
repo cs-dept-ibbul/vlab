@@ -32,7 +32,7 @@
 <div style="display: flex;">   	
 
    <!-- main side bar -->
-   <v-msidebar incourse="1" active="mycoursereview"  ></v-msidebar>   
+   <v-msidebar active="courses"  ></v-msidebar>   
    
    <!-- end main side bar -->
 

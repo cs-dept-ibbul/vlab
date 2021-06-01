@@ -145,6 +145,7 @@ Route::group([
             Route::post('delete', [CourseController::class, 'deleteCourse']);
             Route::post('course', [CourseController::class, 'getCourse']);
             Route::get('courses', [CourseController::class, 'getAllCourses']);
+            Route::get('allcourses', [CourseController::class, 'allCourses']);            
             Route::post('enroll_student', [CourseController::class, 'enrollStudent']);
             Route::get('courses_students', [CourseController::class, 'courseStudents']);
             Route::post('course_students', [CourseController::class, 'courseStudentById']);//consume

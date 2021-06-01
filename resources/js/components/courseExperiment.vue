@@ -4,13 +4,12 @@
 		<div class="w-100 row px-2 py-3 border" style="border-left: 3px solid #00b96b !important; border-right:3px solid #00b96b!important; ">
 			<div class="col-lg-4 col-md-3 col-sm-6 col-xs-8">
 				<div class="w-100">Select Course</div>
-				<select class="form-control w-100" v-model="selectedcourse">	
+				<select class="form-control w-100" v-model="selectedcourse" @change="FetchCourseResources">	
 					<option></option>				
 					<option v-for="course in courses" :value="course.id">{{course.code}}</option>
 				</select>								
 			</div>
-			<div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 position-relative">				
-				<button class="button bg-light text-center text-dark w-75 py-2 mt-2" @click="FetchCourseResources" style="position: absolute;bottom: 0; left: 0;">Select</button>
+			<div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 position-relative">					
 			</div>
 			<div class="col-lg-4 col-md-3 col-sm-6 col-xs-8">				
 				<p class="fs001 my-1">Select Experiment</p>
@@ -28,7 +27,7 @@
 			<div class="row w-100 py-3" v-if="!toload">				
 				<div v-for="experiment in courseexperiments" class="col-lg-4 col-md-3 col-sm-6 col-sm-12 resource">
 					
-					<div class="w-100 rounded shadow-sm bg-white p-2 d-flex justify-between" >
+					<div class="w-100 rounded shadow-sm bg-white p-2 d-flex justify-between" style="border: 1px solid #eee;" >
 						<span>{{experiment.experiments.name}}</span>
 						<span class="fa fa-trash text-danger cursor-1" @click="deleteResource(experiment.id)"></span>						
 					</div>
@@ -173,7 +172,7 @@
 	}
 </script>
 
-<style>
+<style scoped="">
 	.cover-template{
 		position: relative;		
 	}
@@ -183,6 +182,7 @@
 	}
 	.resource{
 		position: relative;
+		height: 60px;
 	}
 	.resource-caption{
 	  position: absolute;

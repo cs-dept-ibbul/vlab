@@ -40,8 +40,7 @@ class CourseController extends Controller
             'title' => 'required',
             'code' => 'required',
             'resource_size' => 'required',
-            'experiment_id' => 'required',
-            'instructor_id' => 'required',
+            'experiment_id' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(['error' => "All fields are required"], 400);
@@ -202,11 +201,19 @@ class CourseController extends Controller
     public function getAllCourses()
     {
         $course = Course::with(['faculty','weekly_work.weekly_work_experiments.experiments','course_experiment'=>function($query){
-                               $query->with('experiments:id,name,page');
-                  },'course_resources','course_student.students'])->where(['session_id'=>$this->currentSession, 'faculty_id'=>$this->facultyId])->get();
+                     $query->with('experiments:id,name,page');
+                  },'course_resources','course_student.students'])->where(['faculty_id'=>$this->facultyId])->get();
         return response()->json($course, 200);
     }
 
+    public function allCourses()
+    {
+        $course = Course::with(['faculty','weekly_work.weekly_work_experiments.experiments','course_experiment'=>function($query){
+                               $query->with('experiments:id,name,page');
+                  },'course_resources','course_student.students'])->get();
+        return response()->json($course, 200);
+    }
+    
     public function getCourse(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -431,7 +438,7 @@ class CourseController extends Controller
         $enrolledCourses = CourseStudents::with(['course','weekly_work_experiment'=>function($query) use($user_id){
                     $query->with(['result'=>function($query){
                         $query->where('user_id',$this->userId);
-                    }]);
+                    }])->where('weekly_work_experiments.status','Active');
                 }])->where('user_id', $this->userId)->get();        
         return response()->json($enrolledCourses, 200);
     }
@@ -564,7 +571,8 @@ class CourseController extends Controller
 
 
         $course_id = $request->get('course_id');
-        $experiment_id = $request->get('experiment_id');
+        $experiment_id = $request->get('experiment_id');        
+        //return response()->json(['error' => [$experiment_id,$course_id]], 400);
 
          $CourseExperiment = new CourseExperiment;
          $CourseExperiment->id = Util::uuid();

@@ -60,7 +60,7 @@ $access_code = session('access_code');
    			    <div id="mainExp">
                <v-ribbon></v-ribbon>
                 <iframe width="100%"   frameborder="0" style="display: none;height: 77vh;" src="" id="experimentSheet"></iframe>
-               <v-start access_code="{{$access_code}}" hourdata="{{$time_left[0]}}" munitedata="{{$time_left[1]}}"></v-start>
+               <v-start access_code="{{$access_code}}" hourdata="{{$time_left['hour']}}" munitedata="{{$time_left['minute']}}"></v-start>               
    			    </div>
    			    <!-- end experiment -->
 

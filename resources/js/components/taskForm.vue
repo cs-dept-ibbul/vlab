@@ -1,6 +1,5 @@
 <template>
 	<div class="mx-auto p-5 taskForm">         
-      <div class="close" style="color: red;position: fixed;top: 0px;right: 5px;font-size: 2em;pointer-events: none;cursor: pointer;">&times</div>
           <h3 class="form-header">Create Task</h3>
           <div class="m-0 row  p-3 form-body">
           	 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-4" id="titleForm">
@@ -16,7 +15,7 @@
           	 </div>
           	 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4" id="experimentDForm">
           	 	<label>Experiment</label>
-          	 	<select id="experimentD" @change="experimentInputSelectField($event.target)" data-style="btn-new" class="form-control w-100 selectpicker" multiple title="Select Experiments">
+          	 	<select id="experimentD" @change="experimentInputSelectField($event.target)" data-style="btn-new" class="form-control w-100 selectpicker  text-danger " multiple title="Select Experiments">
                       <option value="-">-</option>
                       <option>-</option>
                       <option>-</option>
@@ -158,10 +157,11 @@
                          $('.requiredv').remove();
                          course.after('<span class="text-danger requiredv">Required !</span>');
                          return 0;
-                    }
+                    }                              
                     if (this.selectedExerpiment == "") {                         
                          $('.requiredv').remove();
-                         $('.btn-new')[0].after('Required');
+                         $('.btn-new')[0].after('Please Select Experiment!');
+                        $('.btn-new')[0].css({'border':'1px solid red'});
                          return 0;
                     }               
 
@@ -279,6 +279,9 @@
                    for (var i = 0; i < this.experiments.length; i++) {
                         opthtml += `<option value="${this.experiments[i].id}">${this.experiments[i].name}</option>`;
                    }
+                   if (this.experiments.length <1) {
+                        opthtml = `<option value="">No Experiment in Selected Course</option>`;                    
+                   }
                    $('#experimentD').html(opthtml);
                    $('#experimentD').selectpicker('refresh');
                          //console.log(this.experiments);
@@ -375,7 +378,8 @@
                             thisID = $this.selectedExerpiment[j];                                                        
                               $('#'+thisID+'>table').find('tr').each(function(index){   
                                 $(this).find('.valueReading').each(function(index2){                                  
-                                  if (typeof $this.setdata[thisID] != undefined && typeof $this.setdata[thisID][index2] != undefined) {                                                                    
+                                  if (typeof $this.setdata[thisID] != undefined && typeof $this.setdata[thisID][index2] != undefined) {                                
+                                    console.log($this.setdata[thisID][index2])
                                       $(this).val($this.setdata[thisID][index2]);
 
                                   }
@@ -450,5 +454,15 @@
     input[type='radio']{
       cursor: pointer;
     }
- 
+    .without_ampm::-webkit-datetime-edit-ampm-field {
+   display: none !important;
+ }
+ input[type=time]::-webkit-clear-button {
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   -o-appearance: none;
+   -ms-appearance:none;
+   appearance: none;
+   margin: -10px; 
+ }
 </style>

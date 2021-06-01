@@ -53,7 +53,7 @@
           <div class="some-input-field-class col-lg-8 col-md-9 d-flex justify-content-between p-0 mb-5 row" >          
             <div class="col-lg-6 col-md-none"></div>
             <div class="col-lg-3 p-0 m-0 col-md-6 col-sm-6">
-              <input name="filter" id="filter" class="input-search3 w-100" placeholder="Search V-labs">
+              <input name="filter" id="filter" class="input-search3 w-100" autocomplete="off" placeholder="Search V-labs">
               <span class="fa fa-search serachicon2"></span>                        
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 d-flex flex-wrap pr-0" style="justify-content: space-between;">
@@ -271,10 +271,22 @@
             if (result.value){
               Swal.fire({
                 title: 'success',
-                icon: 'success',                
-                confirmButtonColor:'#00b96b', 
+                icon: 'success',
+                text: 'you have been enrolled',
+                confirmButtonText: `View Course`,                        
+                denyButtonText: `Ok, refresh the page`,
+                confirmButtonColor:'#00b96b',   
+                denyButtonColor:'#dd000f',                    
+                showDenyButton: true,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                closeOnClickOutside:false,
               }).then((result)=>{
-                location.reload();
+                if (result.isConfirmed) {
+                    location.href = '/my-course-review/'+course_id;                  
+                } else if (result.isDenied){
+                    location.reload();
+                }
               })
             
             }

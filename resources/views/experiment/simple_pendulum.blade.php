@@ -99,7 +99,7 @@ $resultTable ='
             <div id="mainExp">
                <v-ribbon></v-ribbon>
                 <iframe width="100%" height="480px"  frameborder="0" style="display: none;" src="" id="experimentSheet"></iframe>
-               <v-start access_code="{{$access_code}}" hourdata="{{$time_left[0]}}" munitedata="{{$time_left[1]}}"></v-start>
+               <v-start access_code="{{$access_code}}" hourdata="{{$time_left['hour']}}" munitedata="{{$time_left['minute']}}"></v-start>               
             </div>
             <!-- end experiment -->
             <div  class="zero-space exprightNav" id="rightNav">       

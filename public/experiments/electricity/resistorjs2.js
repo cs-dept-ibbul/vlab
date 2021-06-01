@@ -106,12 +106,12 @@
         var $vm = this,checkmate=0;
 
         //resistor capacity calculator
-         let rValue='', result=[],colorValue;
+         var rValue='', result={},colorValue;
          checkmate = 0;
          for (var i = 0; i < this.config.totalBand; i++) {
-            if (this.config.band.length == 7) {
+            if (this.config.band.length == 6) {
               if (i<4){ 
-                colorValue = this.searchObject(this.config.noramalBandColor, this.config.band[i]);
+                colorValue = this.searchObject(this.config.noramalBandColor, this.config.band[i])
                 if (colorValue != null) {
                   rValue += colorValue;
                 }
@@ -123,18 +123,21 @@
                     if (colorValue != null) {
                       rValue *= colorValue;
                     }
-                    result.push({value:rValue});
+                    result['value']= rValue;
                     //result.push({value:rValue});
                  }
                  if(checkmate===2){
                   //tolerance
                     colorValue = this.searchObject(this.config.toleranceColor, this.config.tolerance);
-                    result.push({html_code:177});
-                    result.push({tolerance:colorValue});
+                    result['html_code'] = 177;
+                    result['tolerance']= colorValue;
+                    /*result.push({html_code:177});
+                    result.push({tolerance:colorValue});*/
                  }
                  if (checkmate===3){
                     colorValue = this.searchObject(this.config.temperatureColor, this.config.temperature);                    
-                    result.push({temperature:colorValue});
+                    result['temperature']= colorValue;
+                    //result.push({temperature:colorValue});
                  }
               }
             }else{        
@@ -151,12 +154,16 @@
                     if (colorValue != null) {
                       rValue *= colorValue;
                     }
-                    result.push({value:rValue});
+                    //result.push({value:rValue});
+                    result['value']= rValue;
+
                  }else{
                   //tolerance
                     colorValue = this.searchObject(this.config.toleranceColor, this.config.tolerance);
-                    result.push({html_code:177});
-                    result.push({tolerance:colorValue});
+                    result['html_code'] = 177;
+                    result['tolerance']= colorValue;
+                    /*result.push({html_code:177});
+                    result.push({tolerance:colorValue});*/
                  }
               }
             }

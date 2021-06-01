@@ -132,7 +132,9 @@ class WeeklyWorkController extends Controller
         $weeklyWork = WeeklyWork::find($workId);
 
         if ($weeklyWork) {            
-            $weeklyWork->status = 'Inactive';
+
+            $weeklyWork->status = 'Inactive';            
+            WeeklyWorkExperiment::where('weekly_work_id',$workId)->update(['status'=>'Inactive']);
             if ($weeklyWork->save()) {
                 return response()->json(['success' => true], 200);
             }

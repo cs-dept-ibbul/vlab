@@ -23,8 +23,9 @@ class WhoAreYou
             $user_id = $userData->id;
             $role = $userData->role_id ?? '';            
             $weeklyExperimentWorkId =  $request->route()->parameter('id');
-            $page =$request->route()->action['as'];
-            //if its instructor allow experiment without saving;
+            $page = explode('/', $request->route()->uri)[0];
+            //if its instructor allow experiment without saving;                
+
             if ($role == config('calculations.default_roles.student')) {    
 
 
@@ -37,8 +38,7 @@ class WhoAreYou
                         'experiments.page'=>$page,
                         'user_courses.user_id'=>$user_id,   
                         'user_courses.session_id'=>$currentSession                     
-                    ])->first();
-                                
+                    ])->first();                
                 if ($existInDB->completion_status != null) {
                     $time= explode(':', $existInDB->time_left);                    
                 }else{
@@ -58,7 +58,7 @@ class WhoAreYou
                         //allow re-attempt
                         return $next($request);                                                                                
                     }else{
-                        //does not allow re-attempt except if reset from instructor to reatempt
+                        //does not allow re-attempt except if reset from instructor to reatempt                        
                         if ($existInDB->restart??'' != '') {
                             # code...
                             if($existInDB->restart == "Allow") {

@@ -26,13 +26,19 @@
      		</div>
      	</div>
      	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row ml-3"> 
-     		<div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 shadow bg-white p-4 pd-sm-2  row" style="border-radius: 24px;">     			
-	     		<div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 mx-0 mt-0 mb-4 p-0 md-center ">
-	     			<p class="fw6 font2">Summary</p>
-					<h1 class="fw8 font mt-4 py-0" style="font-size: 6em;line-height: 0.8;">20</h1>	
-					<p class="font fw3 mt-0 mb-0 py-0">Point Scored</p>
+     		<div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 px-0 row bg-white shadow" style="border-radius: 24px;">     			
+	     		<div class="col-lg-12 text-center bg-info text-white rounded ">
+	     			<span class="fw6 font2">Summary</span>
 	     		</div>
-	     		<div class="col-lg-7 col-md-12 col-sm-12 col-xs-12 m-0 p-0 d-flex  justify-content-between text-md-center text-sm-center">
+	     		<div class="col-lg-6 col-md-6 p-3 mb-3 col-sm-6 col-xs-6 mx-0 mt-0 p-0 md-center ">
+					<h1 class="fw8 font py-0 text-center" style="font-size: 3em;line-height: 0.8;">{{weeksExp.length}}</h1>	
+					<p class="font fw3 mt-0 mb-0 py-0 text-center">Total Task</p>
+	     		</div>
+	     		<div class="col-lg-6 col-md-6 p-3 mb-3 col-sm-6 col-xs-6 mx-0 mt-0 p-0 md-center ">	     			
+					<h1 class="fw8 font py-0 text-center" style="font-size: 3em;line-height: 0.8;">{{avalue}}</h1>	
+					<p class="font fw3 mt-0 mb-0 py-0 text-center">Total Experiments</p>
+	     		</div>
+	     		<!-- <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12 m-0 p-0 d-flex  justify-content-between text-md-center text-sm-center">
 	     			<span class="toberemoved" ></span>
 	     			<div class="m-0 p-0 w-100 text-md-center text-sm-center">
 	     				<p class="fw6 font2"><span style="text-transform: uppercase;">{{course_with_exp.code}}</span> In Progress</p>
@@ -69,9 +75,10 @@
      						</div>	     					
 	     				</div>	     				     			
 	     			</div>
-	     		</div>
-	     		<div class="w-100">
-	     			<v-progress evalue='2' avalue='4'></v-progress>	
+	     		</div> -->
+	     		<div class="col-lg-12" style="position:absolute; bottom:10px;">
+					<v-progress :evalue="evalue" :avalue="avalue" v-if="avalue !=0" ></v-progress>					
+	     			<!-- <v-progress evalue='2' avalue='4'></v-progress>	 -->
 	     		</div>
      		</div>
      	</div>
@@ -82,16 +89,16 @@
      			<div class="font2 fw4 systab" v-bind:class="{systabActive:minitab=='resources'}" @click="minitab ='resources'" >Resources</div>
      		</div>
      		<br><br>
-     		<div class="d-flex" v-if="minitab=='experiments'">
-     			<!-- start thread  -->
+     		<div class="d-flex" v-if="minitab=='experiments' && weeksExp.length >0">
+     			<!-- start thread  -->     			
 				<div class="p-0 thread" v-if="threadReady" >
 					<v-thread :weeks="threadTrends" key='noew'></v-thread>
 				</div>
      			<!-- end thread  -->
 
      			<!-- start thread joint  -->     		
-     				<div class="timelineContainer">
-     					<div v-for="(weeks, index) in weeksExp">     					     			     	  	
+     				<div class="timelineContainer" >
+     					<div v-for="(weeks, index) in weeksExp">     					     			     	  	     						
 	     					<div  :style="[index == 0? {'margin-top':'30px'}:{'margin-top':'70px'}]">	         				     							
 								<div v-for="(experiment,innerindex) in weeks.experiments"  v-bind:class="{'my-0':innerindex ==0, 'my-3':index !=0}" class="d-flex align-items-center timelineBox">     					     			
 									<div class="p-3  bg-white shadow-sm mb-3 timelineBoxContainer" style="border-radius: 9px;">
@@ -135,7 +142,7 @@
 
 					</div>
 			</div>
-			<div v-show="minitab=='resources'" class="row" style="min-height: 500px;">
+			<div v-if="weeksExp.length >0" v-show="minitab=='resources'" class="row" style="min-height: 500px;">
 				<div v-for="resource in weeksExp[0].course.course_resources" tabindex="1" class="col-lg-4 col-md-3 col-sm-6 col-sm-12 resource">
 					
 					<div class="w-100 rounded shadow-sm bg-white p-2" v-if="resoursType(resource.resourceUrl)=='image'" >
@@ -188,8 +195,10 @@
 				loaderState:true,
 				course_with_exp:[],
 				minitab:'experiments',
+				evalue:0,
+				avalue:0,
 				weeksExp:[
-					{
+					/*{
 						title:'week 1',
 						date_open:'11-12-2020',
 						date_close:'16-12-2020',
@@ -217,7 +226,7 @@
 				 			},
 			 			]
 			 		},
-			 				 
+			 			*/	 
 				 ]
 				
 			}
@@ -241,8 +250,8 @@
 				}else {
 					return 'other'
 				}
-			},
-			checkStatus: function(experiment){
+			},		
+			checkStatus: function(experiment){				
 				if(experiment.experiment_results.length!=0){					
 					if (experiment.experiment_results.completion_status =='Completed'){
 						return true;
@@ -303,6 +312,7 @@
 				 		$('.toberemoved').show();	 		
 				 	}
 				 }, 1000);
+
 			})
 		},
 		async created(){
@@ -329,6 +339,18 @@
 						$this.expandVideo();
 					});
 				}, 500);
+				var count =0, t=0;
+				for(var i =0; i< this.weeksExp.length; i++){								
+					for (var j= 0; j < this.weeksExp[i].experiments.length; j++) {											
+						t++;
+						if(this.weeksExp[i].experiments[j].experiment_results.length > 0){							
+							count+=1;							
+						}
+					}
+				}				
+				this.evalue = count;
+				this.avalue = t;
+
 			//console.log(this.threadTrends)
 			/*[1,1,[1,1,1]],//sub array is for exercises in the week 1=>completed, 0=> not completed
 	 	 	[2,1,[1,0]],

@@ -58,8 +58,8 @@ $access_code = session('access_code');
                <v-ribbon></v-ribbon>
                <div class="w-100" style="height: 480px;display: none;position: relative;" id="experimentSheet">
                                  
-               </div>             
-               <v-start access_code="{{$access_code}}" hourdata="{{$time_left[0]}}" munitedata="{{$time_left[1]}}"></v-start>
+               </div>          
+               <v-start access_code="{{$access_code}}" hourdata="{{$time_left['hour']}}" munitedata="{{$time_left['minute']}}"></v-start>               
             </div>
             <!-- end experiment -->
             <div  class="zero-space exprightNav" id="rightNav">               

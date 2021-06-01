@@ -20,13 +20,13 @@
 						</div>
 						<div class="d-flex flex-wrap-center mb-4 ">	
 							<span class="ncircle"  v-bind:class="{tactive:stagethree,tsuccess:stagethreep}">3</span>
-							<span class="tline" v-bind:class="{tlactive:stagethree,tlsuccess:stagethreep}"></span>
+							<!-- <span class="tline" v-bind:class="{tlactive:stagethree,tlsuccess:stagethreep}"></span> -->
 							<div class="fs1 w10 no-break ml-3">Add Resources</div>
 						</div>
-						<div class="d-flex flex-wrap-center mb-4 ">	
+					<!-- 	<div class="d-flex flex-wrap-center mb-4 d-none ">	
 							<span class="ncircle"  v-bind:class="{tactive:stagefour,tsuccess:stagefourp}">4</span>							
 							<div class="fs1 w10 no-break ml-3">Add Instruction</div>
-						</div>
+						</div> -->
 				</div>
             			   	
             </div>
@@ -156,12 +156,12 @@
 	            		 -->
 	            	</div>
 
-	            	<div v-if="!update" id="addInstructors" v-show="sectionState==4" class="m-0 p-0 shineA">  
+	            	<div v-if="!update" id="addInstructors"  v-show="sectionState==4" class="m-0 p-0 shineA d-none">  
 	            		<p class="fw8 fs1 font" style="color: #777;">Add Instructor</p>   
 	            		<div class="d-flex">
     					<select @keyup="normalize" class="form-control vI w-100" id="selectedInstructor">
     						<option></option>
-    						<option value="1">Mr. name Caliper</option>
+    						<option selected="" value="1">Mr. name Caliper</option>
     						<option value="3">Mrs. Screw Guage</option>
     						<option value="2">Dr. Simple Pendulum</option>
     					</select>
@@ -183,7 +183,11 @@
 	        			<div id="addIBox" class="r1" style="height: 200px;">        					
         				</div> -->
 	            	</div>
-	            	<div v-if="update" id="reviews" v-show="sectionState==5" class="m-0 p-0 px-2 shineA" style="overflow-y: scroll;height: 55vh; ">  
+	            	<div v-if="!update"  id="reviews" v-show="sectionState==4" class="m-0 p-0 px-2 shineA" style="overflow-y: scroll;height: 55vh; ">  
+	            		<h2 class="text-success text-center">Proccess Completed</h2>
+	            		<h6 class="text-center">click on submit to complete this process</h6>
+	            	</div>
+	            	<!-- <div v-if="update" id="reviews" v-show="sectionState==5" class="m-0 p-0 px-2 shineA" style="overflow-y: scroll;height: 55vh; ">  
 	            		<div v-for="(aitem,i) in alldata">
 	            			<div v-if="i==0" class="m-0">
 		            			<div class="fw8 text-success fs01">Course Detailed</div>
@@ -224,7 +228,7 @@
 		            			</div>				
 	            			</div>	            			
 	            		</div>
-	            	</div>
+	            	</div> -->
             	</div>
             
             </div> 
@@ -234,8 +238,8 @@
             </div>
             <div class="col-lg-4 col-md-3 col-sm-12 mx-auto py-2 d-flex">            	
             	<button v-show="sectionState >1" class="btn p-success button text-white py-2 px-3 mr-3" @click="prevSection" ><span class="fa fa-arrow-left"></span> Previous </button>            	
-            	<button v-show="sectionState < 5" class="btn p-success button text-white py-2 px-3" @click="nextSection" > Continue <span class="fa fa-arrow-right"></span></button>
-            	<button v-show="sectionState == 5" class="btn p-success button text-white py-2 px-3" @click="submitProcess" > 
+            	<button v-show="sectionState < 4" class="btn p-success button text-white py-2 px-3" @click="nextSection" > Continue <span class="fa fa-arrow-right"></span></button>
+            	<button v-show="sectionState == 4" class="btn p-success button text-white py-2 px-3" @click="submitProcess" > 
             		<span v-if="!update">Submit</span>
             		<span v-if="update">Update</span> 
             		<span class="fa fa-arrow-right"></span>
@@ -299,8 +303,8 @@
 	    	 validateState:false,
 	    	 selectedExperiment:[],
 	    	 selectedExperimentName:[],
-	    	 selectedInstructor:[],
-	    	 selectedInstructorName:[],
+	    	 selectedInstructor:[1],
+	    	 selectedInstructorName:['n'],
 	    	 deletedCourseExperimentId:[],
 	    	 addedExperimentId:[],
 	    	 deletedResources:[],
@@ -635,7 +639,7 @@
 					   	formData.append('description',this.alldata[0].description);
 					   	if (!this.update) {					   		
 						   	formData.append('experiment_id',this.alldata[1].id);
-						   	formData.append('instructor_id',this.alldata[2].id);
+						   	//formData.append('instructor_id',this.alldata[2].id);
 						   	formData.append('video_url',this.video_url);
 						   	formData.append('resource_id1',this.resource_id1);
 							formData.append('resource_id2',this.resource_id2);
@@ -747,6 +751,7 @@
 			            });
 
 			        }catch(err){
+			        	console.log(err)
 				   		$('#system-loader').css('display','none');				   	    
 			            vt.error($vm.errorNetworkMessage,{
 							  title: undefined,

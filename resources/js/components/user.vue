@@ -35,14 +35,20 @@
 					<thead>
 						<tr id="cheadV">							
 							<th width="30%">user name</th>
-				            <th width="20%">role</th>	            
-							<th width="20%">Department</th>				            			           
-				            <th width="15%">Action</th>
+				            <th width="40%">Email/Matric Number</th>	            
+				            <th width="10%">role</th>	            
+							<th width="10%">Department</th>				            			           
+				            <th width="10%">Action</th>
 						</tr>
 					</thead>
 					<tbody v-if="!loaderState">
 				        <tr v-for="(user, index) in createduser" :key="index">	         
 				            <td width="30%">{{user.first_name}} {{user.other_names}}</td>
+				            <td width="40%" style="white-space: nowrap;">
+				            	<code v-if="user.email !=''">{{user.email}}</code>
+				            	<span v-if="user.email != '' && user.matric_number !=''">-</span>
+				            	<span v-if="user.matric_number !=''">{{user.matric_number}}</span>
+				            </td>	           
 				            <td width="20%">{{ getRoleName(user.role_id) }}</td>	           
 				            <td width="20%">{{user.department.code}}</td>	           			                  
 				            <td width="15%" >
@@ -72,6 +78,7 @@
 				sessions:[],
 				loaderState:true,
 				response:'',
+				dTable:'',
 
 			}
 		},
@@ -114,11 +121,12 @@
                             if (response.status === 200) {                                     	
                                $this.createduser = response.data;
 							   $this.loaderState = false;
-							     /*setTimeout(function() {
-						         	 $('#usertable').DataTable({
-								    	pageLength : 5,
-								    });
-						         }, 500);*/
+							     setTimeout(function() {
+						         	$this.dTable = $('#usertable').DataTable({
+						         			destroy:true,
+									    	pageLength : 5,
+									    });
+						         }, 500);
                             }else{
                             }
                         }, function(e) {                                	
@@ -388,8 +396,9 @@
 			this.loaderState = false;
 			this.tableLoaded = false;
 			    /*initialize datatable */
+			    var $this = this;
 	        setTimeout(function() {
-	         	 $('#usertable').DataTable({
+	         	$this.dTable = $('#usertable').DataTable({
 			    	pageLength : 5,
 			    });
 	         }, 50);

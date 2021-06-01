@@ -27,7 +27,7 @@
 
 					<!-- experiment box -->
 				<div v-for="course in mycourses" class="p-4 w-100 bg-white shadow-sm my-3 fholder" style="border-radius: 9px;">
-					<div class="d-flex justify-content-between align-items-center mb-2">
+					<div v-if="course.course != null" class="d-flex justify-content-between align-items-center mb-2">
 						<div class="font ">
 							<h3 class="fw6 fdata">{{course.course.code}}</h3>
 							<p class="my-1 font2 " style="color:#888;font-size: 0.85em;">{{course.course.description}}</p>
@@ -37,7 +37,18 @@
 							<a :href="'my-course-review/'+course.course.id" class="sysbtn-md p-success text-white">View <i class="fa fa-arrow-right text-white"></i></a>
 						</div>
 					</div>
-					<v-progress :evalue="experimentDone(course.weekly_work_experiment)" :avalue="course.weekly_work_experiment.length" ></v-progress>
+					<div v-if="course.course == null" class="d-flex justify-content-between align-items-center mb-2">
+						<div class="font ">
+							<h3 class="fw6 fdata">{{getCourseCode(course.course_id)}}</h3>
+							<p class="my-1 font2 " style="color:#888;font-size: 0.85em;">{{getCourseDesc(course.course_id)}}</p>
+							<p class="my-0 fw5" style="font-size: 0.9em;">0 Practicals</p>
+						</div>
+						<div>							
+							<a href="#" @click="noExperiment" class="sysbtn-md p-success text-white">View <i class="fa fa-arrow-right text-white"></i></a>
+						</div>
+					</div>						
+					<v-progress v-if="course.course != null" :evalue="experimentDone(course.weekly_work_experiment)" :avalue="course.weekly_work_experiment.length" ></v-progress>
+					<v-progress v-else evalue="0" avalue="1" ></v-progress>
 					
 				</div>
 				<!-- end experiment box -->
@@ -60,9 +71,44 @@
 			return {
 				loaderState:true,
 				mycourses:{},
+				courses:null,
 			}
 		},
 		methods:{
+			getCourseCode(course_id){
+				var course;
+				if (this.courses != null){
+					course = this.courses.filter((item)=>{
+						if (item.id == course_id) {							
+							return item;
+						}
+					});
+					return course[0].code;
+				}else{
+					return "Can't get Course";
+				}
+			},
+			getCourseDesc(course_id){
+				var course;
+				if (this.courses != null){
+					course = this.courses.filter((item)=>{
+						if (item.id == course_id) {
+							return item;
+						}
+					});
+					return course[0].description;
+				}else{
+					return "can't get Description"
+				}
+			},
+			noExperiment(){
+				 Swal.fire({                  
+		          title: 'No Experiment is Available',                   
+		          text:'Please inquire from your course instructor',          
+		          confirmButtonText:'Ok',
+		            confirmButtonColor:'#00b96b', 
+		        })
+			},
 			experimentDone(expAll){
 				//console.log(expAll);
 				let count =0;
@@ -99,9 +145,29 @@
 			})
 		},
 		async created(){
-			this.mycourses  = await this.axiosGetById('api/courses/enrolledCourses','user_id', this.currentUser.id);
+			this.mycourses = await this.axiosGetById('api/courses/enrolledCourses','user_id', this.currentUser.id);
+			this.courses   = await this.axiosGet('api/courses/allcourses');
 			this.loaderState = false;
 		      //change request to merge expeiment_tbl with user_course_table
+		     if (this.mycourses.length<1) {
+		     	Swal.fire({
+		     		title:'No Course Found',
+		     		text:'You have not been enrolled on any course',
+		     		icon:'warning',
+		     		showDenyButton: false,
+				    showCancelButton: false,				    
+	      		    confirmButtonColor:'#00b96b',		
+				    confirmButtonText: `Find Courses`,		
+				    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    closeOnClickOutside:false,		    
+				}).then((result) => {
+				  
+				  if (result.isConfirmed) {
+				    location.href = "/explore";
+				  }
+				})
+		     }
 			
 		}
 	}
