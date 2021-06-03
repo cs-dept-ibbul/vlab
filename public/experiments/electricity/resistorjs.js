@@ -55,6 +55,7 @@
                 }
         
     }
+
     class Resistor{
       #container_id	 ="";      
       #dynamic_id = "";
@@ -109,7 +110,7 @@
          let rValue='', result=[],colorValue;
          checkmate = 0;
          for (var i = 0; i < this.config.totalBand; i++) {
-            if (this.config.band.length == 7) {
+            if (this.config.band.length == 6) {
               if (i<4){ 
                 colorValue = this.searchObject(this.config.noramalBandColor, this.config.band[i]);
                 if (colorValue != null) {
@@ -163,7 +164,7 @@
          }
 
 
-        let resistorComponent = '<div id="'+this.#dynamic_id+'" data-value=\''+JSON.stringify(result)+'\' class="dragme" style="display: flex;flex-wrap: wrap;position: absolute;height: '+h+'px;width: '+wt+'px;align-items: center;"><div class="turnhandle" style="width: 100%; height: 10px;background: #efefef; box-shadow: -2.3px 0.5px 0.2px 1.2px #555;border-radius: 2px;"></div>';
+        let resistorComponent = '<div id="'+this.#dynamic_id+'" data-value=\''+JSON.stringify(result)+'\' class="dragme" style="display: flex;flex-wrap: wrap;position: absolute;height: '+h+'px;width: '+wt+'px;align-items: center;z-index:1;"><div class="turnhandle" style="width: 100%; height: 10px;background: #efefef; box-shadow: -2.3px 0.5px 0.2px 1.2px #555;border-radius: 2px;"></div>';
           resistorComponent += '<div style="border-radius: 10px;height: '+h+'px;width: 70%;background: #edd;position: absolute;left: 12%;"></div>';
           resistorComponent += '<div class="remover"   style="cursor:pointer;background:red;color:white;display:none;position:absolute;top:-35px;left:20%;border-radius:50%;flex-wrap:wrap;justify-content:center;align-items:center; width:25px;height:25px;font-size:1.3em;z-index:2;">&times</div>';
           resistorComponent += '<div class="remover2" rel="'+this.#dynamic_id+'"   style="cursor:pointer;background:red;color:white;display:none;position:absolute;top:-35px;left:50%;border-radius:50%;flex-wrap:wrap;justify-content:center;align-items:center; width:25px;height:25px;font-size:1em;z-index:2;">&#x2702;</div>';
@@ -180,10 +181,11 @@
             space = 10;
           }
           
-
-          if (this.config.totalBand != this.config.band.length+2) {
-            console.log("invalid number of band (number of band mismatch): totalBand must be === number of color band provided in band array ");
-            return false;
+          if(this.config.totalBand != 6){            
+            if (this.config.totalBand != this.config.band.length+2) {
+              console.log("invalid number of band (number of band mismatch): totalBand must be === number of color band provided in band array ");
+              return false;
+            }
           }
           let w = 4;
           if (wt<40) {
@@ -191,7 +193,7 @@
           }
 
           for (var i = 0; i < this.config.totalBand; i++) {
-            if (i<this.config.band.length){              
+            if (i<this.config.band.length){                            
               if (i==0) {
                 resistorComponent  +='<span title="'+this.config.band[i]+'" style="width: '+w+'%;height: '+h+'px;background: '+this.config.band[i]+';position: absolute;z-index: 1;left: '+startSpace+'%;"></span>';
                 mSpace += space+startSpace;
@@ -203,12 +205,20 @@
               checkmate++;
               if (checkmate===1) {
                 //multiplier
-                resistorComponent  +='<span title="'+this.config.multiplier+'" style="width: '+w+'%;height: '+h+'px;background: '+this.config.multiplier+';position: absolute;z-index: 1;right: '+mSpace+'%;"></span>';       
+                mSpace +=15;
+                resistorComponent  +='<span title="'+this.config.multiplier+'" style="width: '+w+'%;height: '+h+'px;background: '+this.config.multiplier+';position: absolute;z-index: 1;left: '+mSpace+'%;"></span>';       
                 mSpace = space+mSpace;
               }else if(checkmate===2){
-                //tolerance
-                resistorComponent  +='<span title="'+this.config.tolerance+'" style="width: '+w+'%;height: '+h+'px;background: '+this.config.tolerance+';position: absolute;z-index: 1;right: '+mSpace+'%;"></span>';       
+                //tolerance                
+                resistorComponent  +='<span title="'+this.config.tolerance+'" style="width: '+w+'%;height: '+h+'px;background: '+this.config.tolerance+';position: absolute;z-index: 1;left: '+mSpace+'%;"></span>';       
+                mSpace = space+mSpace;                
                 //mSpace = startSpace+ mSpace;
+              }else if(checkmate === 3 && this.config.temperature != 1 && this.config.temperature != '-'){
+                //temperature
+                //resistorComponent  +='<span title="'+this.config.multiplier+'" style="width: '+w+'%;height: '+h+'px;background: '+this.config.multiplier+';position: absolute;z-index: 1;right: '+mSpace+'%;"></span>';                       
+                //resistorComponent  +='<span title="'+this.config.tolerance+'" style="width: '+w+'%;height: '+h+'px;background: '+this.config.tolerance+';position: absolute;z-index: 1;right: '+mSpace+'%;"></span>';                       
+                resistorComponent  +='<span title="'+this.config.temperature+'" style="width: '+w+'%;height: '+h+'px;background: '+this.config.temperature+';position: absolute;z-index: 1;left: '+mSpace+'%;"></span>';       
+                //mSpace = startSpace+ mSpace;                
               }
             }
           }

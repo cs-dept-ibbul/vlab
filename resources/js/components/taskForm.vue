@@ -1,5 +1,6 @@
 <template>
 	<div class="mx-auto p-5 taskForm">         
+    <br>
           <h3 class="form-header">Create Task</h3>
           <div class="m-0 row  p-3 form-body">
           	 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-4" id="titleForm">
@@ -48,7 +49,19 @@
                   <span v-if="flipNow" class="w-100">                
                     <div v-for="exp in experiments" class="w-100">
                         <span v-if="selectedExerpiment.includes(exp.id)">                      
-                        <input @click="InputData(exp.id)" value="exp.id" type="radio" name="exp_t11" class="mr-1 mt-2 d-inline-block"><label class="mb-1 d-inline-block text-capitalize">{{exp.name}}</label>                  
+                        <input @click="InputData(exp.id)" :value="exp.id" type="radio" name="exp_t11" class="mr-1 mt-2 d-inline-block">
+                        <label class="mb-1 d-inline-block text-capitalize">{{exp.name}}</label>                  
+                        <span v-if="update" class="">
+                          <a class="venobox text-primary" data-vbtype="inline" :href="'#x'+exp.id">view</a>
+
+                            <div :id="'x'+exp.id" style="display:none;">
+                              <table v-for="tr in setdata[exp.id]" class="table table-stripped table-bordered"> 
+                                 <tr>
+                                    <td v-for="(td, i) in tr">{{i}} : {{td}}</td>
+                                 </tr>
+                              </table>
+                            </div>
+                        </span>
                         </span>
                         <span v-if="experiment_data_format[exp.page] !== undefined" class="w-100">
                           <div :id="exp.id" class="formExp w-100" v-html="experiment_data_format[exp.page]">      
@@ -71,7 +84,8 @@
                     <button @click="createTask" class="button bg-success text-white w-75 px-3 py-3" style="position: absolute;bottom: 0;">
                          <span v-if="!update">Create</span>
                          <span v-if="update">Update</span>
-                    </button>
+                    </button>                    
+                    <button onclick="Swal.close()"  class="button bg-danger text-white w-75 px-3 py-3" style="position: absolute;bottom: 0;left: 160px">Cancel</button>
                 </div>
           </div>
 	</div>
@@ -94,6 +108,7 @@
                     experiment:"",
                     flipNow:true,
                     setdata:{},
+                    resistorData:[],
                     limitation:'01:30'
 
                }
@@ -108,9 +123,8 @@
                     selected.each(function(){
                          experimentname = $(this).text(); 
                          for (j= 0; j < $this.experiments.length; j++) {
-
                               if ($this.experiments[j].name === experimentname ){
-                                   $this.selectedExerpiment.push($this.experiments[j].id);                              
+                                $this.selectedExerpiment.push($this.experiments[j].id);                              
                               }                              
                          }
                     })                       
@@ -118,8 +132,32 @@
                },   
                InputData:function(id){
                   $('.formExp').not('#'+id).slideUp(50);
-                  $('#'+id).slideDown(50);                                 
-               },
+                  $('#'+id).slideDown(50);  
+                    var $this = this;
+                    setTimeout(function() {                      
+                      $this.resistorBtn()
+                        $(".chosen-select").chosen({
+                        no_results_text: "Oops, nothing found!"
+                    })
+                    }, 300);
+                /*    var setdata =  JSON.parse(JSON.stringifythis.setdata);
+                    console.log(this.setdata);
+                  for (var i = 0; i < setdata.length ; i++) {
+                    var detectResitor = 0;
+                    setdata[i].forEach((item,dx)=>{
+                      alert(dx);
+                      if (typeof item.totalBand != undefined) {
+                          detectResitor = 1;
+                      }
+                    })
+                    if(detectResitor ==1){
+                      this.resistorData = setdata[i];
+                      resistorTable();
+                      console.log(this.resistorData)
+                      console.log(setdata[i])
+                    }
+                  }    */                                
+               },         
                createTask: function(){
                     var ActivateMode = '0';
                     if($('#swal-input2').prop('checked')){
@@ -172,6 +210,9 @@
                         thisID = this.selectedExerpiment[j];
                         this.setdata[thisID] = [];
                           rowCounter = 0;
+                      if ($('#'+thisID+'>table').hasClass('resistor')){ 
+                        this.setdata[thisID] = this.resistorData;                       
+                      }else{
                         if ($('#'+thisID+'>table').find('tr').length>1){
                           $('#'+thisID+'>table').find('tr').each(function(index){                            
 
@@ -212,6 +253,7 @@
                             $this.setdata[thisID]= values;
                           }                       
                         }
+                      }
                     }
                   if (state) {                      
                     this.show_loader();                    
@@ -284,8 +326,108 @@
                    }
                    $('#experimentD').html(opthtml);
                    $('#experimentD').selectpicker('refresh');
+
                          //console.log(this.experiments);
-               }
+               },
+            resistorTable: function(){
+              var $this = this;
+                 $('table.resistor >tbody').html('');
+                      for (var i = 0; i < $this.resistorData.length; i++) {
+                        $('table.resistor >tbody').append(`
+                            <tr id="arra_${i}">
+                              <td class="fs01">${$this.resistorData[i].band}</td>
+                              <td class="fs01">${$this.resistorData[i].tolerance}</td>
+                              <td class="fs01">${$this.resistorData[i].multiplier}</td>
+                              <td class="fs01">${$this.resistorData[i].temperature}</td>
+                              <td class="fs01"><span onclick="(function(){})()" class="text-danger remove_resistor cursor-1" rel="${i}">remove</span></td>
+                            </tr>
+
+                          `);
+                      }
+            },
+            resistorBtn: function(){
+                var $this = this;                      
+                $('#normalBand_r').change('click', function(){
+                       if($("#normalBand_r option:selected").length > 3) {
+                            alert('maximum to select is 3');
+                        }                      
+                    })
+
+               $('#addResistor').on('click', function(e){
+                    e.stopImmediatePropagation();
+                      var band = $("#normalBand_r option:selected");
+                      var bands = $("#normalBand_r").val();
+                      var tolerance = $("#tolerance_r").val();
+                      var multiplier = $("#multiplier_r").val();
+                      var temperature = $("#temperature_r").val();
+                      var totalBand = 0;
+                      if (band.length == 0) {
+                        alert('Please select resistor bands');
+                        return false;
+                      }else{
+                       totalBand += band.length;                      
+                      }
+
+                      if (tolerance != '1') {
+                       totalBand += 1;
+                      }else{
+                        alert('please select tolerance');
+                        return false;
+                      }
+
+                      if (multiplier != '1') {
+                       totalBand += 1;
+                      }else{
+                        alert('please select multiplier');
+                        return false
+                      }                    
+
+                      if (totalBand == 5){
+                        if (temperature != 1) {
+                          totalBand +=1;                          
+                        }else{
+                          temperature ='-'
+                        }
+                      }else if (totalBand <5){
+                        temperature = '-'
+                        if (temperature == 1) {
+                          alert("Note: temperature won't be added. Total band must be 5 to add temperature");
+                        }
+                      }
+                   
+                      if (totalBand <3){
+                        alert('select atleast 3 band including multiplier and tolerance')
+                        return false;
+                      }
+                      if(band.length >3){
+                        bands = bands.slice(0,3);
+                      }
+ 
+                      $this.resistorData.push({
+                        totalBand: totalBand,
+                        tolerance: tolerance,
+                        multiplier: multiplier,
+                        temperature: temperature,
+                        width:90,
+                        height:30,
+                        band: bands,
+                      });
+                      $this.resistorTable();
+                      $this.resistorRemover();
+                    });      
+                
+            },
+            resistorRemover: function(){
+              var $this = this;                      
+                $('.remove_resistor').on('click', function(){                        
+                  var index = $(this).attr('rel');
+                  $this.resistorData.splice(index,1);
+                  if ($this.resistorData.length == 1) {
+                    $this.resistorData = []
+                  }
+                  $('#arra_'+index).remove();
+                  })
+              }
           },
           created(){               
                if (this.update) {
@@ -294,7 +436,7 @@
                     this.close = this.alldata.date_close;                    
                     this.access_code = this.alldata.access_code;                    
                     this.limitation = this.alldata.limitation;
-                                       
+                                     
                     let $this = this;
                     this.ucourse  = this.faculty_courses.filter(function(item){
                          return item.code === $this.alldata.course.code;
@@ -366,30 +508,47 @@
           mounted(){
             var $this = this;
                this.$nextTick(function() {
+                $('.venobox').venobox();
                   $(document).ready(function(){
-                      if ($this.update){
-                        if($this.alldata.mode == '1'){
-                            $('#swal-input2').attr('checked','checked');
-                        }            
+                    if ($this.update){
+                      if($this.alldata.mode == '1'){
+                          $('#swal-input2').attr('checked','checked');
+                      }            
 
 
-                        let thisID;
-                        for(let j=0; j<$this.selectedExerpiment.length; j++){
-                            thisID = $this.selectedExerpiment[j];                                                        
-                              $('#'+thisID+'>table').find('tr').each(function(index){   
-                                $(this).find('.valueReading').each(function(index2){                                  
-                                  if (typeof $this.setdata[thisID] != undefined && typeof $this.setdata[thisID][index2] != undefined) {                                
-                                    console.log($this.setdata[thisID][index2])
-                                      $(this).val($this.setdata[thisID][index2]);
+                      let thisID;
+                      for(let j=0; j<$this.selectedExerpiment.length; j++){
+                          thisID = $this.selectedExerpiment[j];                                                        
+                            $('#'+thisID+'>table').find('tr').each(function(index){   
+                              $(this).find('.valueReading').each(function(index2){                                  
+                                if (typeof $this.setdata[thisID] != undefined && typeof $this.setdata[thisID][index2] != undefined) {                                                                  
+                                    $(this).val($this.setdata[thisID][index2]);
 
-                                  }
-                                })                         
-                              })
-                        }     
+                                }
+                              })                         
+                            })
+                      }     
+                    }
+                    $('.datepicker2').datepicker({});      
+                    var clickState = 0; 
+                    $(".chosen-select").chosen({
+                        no_results_text: "Oops, nothing found!"
+                    })               
+                /*    $('#normalBand_r').on('click', function(){
+                      if (clickState == 0) {                        
+                        $(".chosen-select").chosen({
+                          no_results_text: "Oops, nothing found!"
+                        })
+                        clickState = 1;
                       }
-                    $('.datepicker2').datepicker({});                      
+                    })*/
                   
-                  })
+                    
+                   $this.resistorBtn();       
+                   
+                  });
+
+                 
                })
 
         
@@ -465,4 +624,30 @@
    appearance: none;
    margin: -10px; 
  }
+ .chosen-container{
+  width: 100% !important;  
+ }
+ .chosen-choices{
+  width: 100% !important;
+  padding: 0.375rem 0.75rem !important;
+  border: 1px solid #ced4da !important;
+  border-radius: 0.25rem !important;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+ }
+ .search-choice-close{
+  content: 'x' !important;
+  color:red !important;
+  font-size: 0.8em;
+ }
+ .search-choice-close:after{
+    content: 'x';
+    color: red !important;   
+    display: block;
+    width: 10px;
+    height: 10px;
+    position: relative;
+    z-index: 5;
+    background: #aaa;
+    border-radius: 50px;
+  }
 </style>

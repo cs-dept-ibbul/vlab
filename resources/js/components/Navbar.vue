@@ -71,8 +71,9 @@ export default {
     }
   },
   created(){        
+
       if(localStorage.hasOwnProperty('LoggedUser')){                                
-        let role_id =  JSON.parse(localStorage.getItem('LoggedUser')).user.role_id;          
+        let role_id =  JSON.parse(localStorage.getItem('LoggedUser')).user.role_id;                     
         if (this.all_roles !== '') {
          let RoleName = this.getKeyByValue(JSON.parse(this.all_roles),role_id)
          if (RoleName != undefined) {
@@ -83,7 +84,7 @@ export default {
             this.mydashboard = '/view-student';
            }
            if (RoleName == 'student'){
-            this.mydashboard = '/userDashboard';
+            this.mydashboard = '/my-courses';
            }
          }    
 

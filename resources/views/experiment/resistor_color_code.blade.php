@@ -11,9 +11,8 @@ if(Session::has('setdata')){
     $time_left = session('time_left');
     $time_default = false;
 }
-
 if ($default) {
-   $toolSizes = [80,54,69,70,90];
+   $toolSizes = null;
      
 }
 if ($time_default) {
@@ -23,6 +22,36 @@ if ($time_default) {
    ];
 }
 $access_code = session('access_code');
+$user_type = session('user_type');
+$resultTable ='
+    <div id="result_table" class="bg-white p-2 mx-auto mt-2" style="border-radius:10px;width:450px;overflow:auto;"> 
+      <h4 class="text-warning font2 mb-0"> Measurement of the diameter of the wire</h4>
+      <h5 class="text-dark font2 fs1 fw6 mt-2">Length of Cylinder</h5>
+      <table class="table table-bordered result-table main_result_table"> 
+          <thead>
+            <th class="p-1 fs01 text-center" width="12%">No.</th>
+            <th class="p-1 fs01 text-center" width="16.5%">Resistance value through color codes (Ω)</th>
+            <th class="p-1 fs01 text-center" width="16.5%">Tolerance (%)</th>
+            <th class="p-1 fs01 text-center" width="16.5%">Range (Ω)</th>            
+            <th class="p-1 fs01 text-center" width="16.5%">Value of Resistance measured by the DMM (Ω)</th>            
+            <th class="p-1 fs01 text-center" width="16.5%">Error (%)</th>                        
+          </thead>
+          <tbody>';
+   for ($i=1; $i < 6 ; $i++) { 
+         $resultTable .= '<tr>
+              <td class="r-template p-1 text-center" width="12%"><input type="text" class="resultReading form-control h-100 bg-white" value="'.$i.'." disabled> </td>
+              <td class="r-template p-0" width="16.5%"><input type="text" class="resultReading form-control h-100 bg-white"></td>
+              <td class="r-template p-0" width="16.5%"><input type="text" class="resultReading form-control h-100 bg-white"></td>
+              <td class="r-template p-0" width="16.5%"><input type="text" class="resultReading form-control h-100 bg-white"></td>            
+              <td class="r-template p-0" width="16.5%"><input type="text" class="resultReading form-control h-100 bg-white"></td>            
+              <td class="r-template p-0" width="16.5%"><input type="text" class="resultReading form-control h-100 bg-white"></td>            
+            </tr>';         
+      
+   }
+   $resultTable .= '</tbody>
+                  </table>      
+                </div>
+            ';
 ?>
 
 @extends('layouts/main')
@@ -59,11 +88,15 @@ $access_code = session('access_code');
                <div class="w-100" style="height: 480px;display: none;position: relative;" id="experimentSheet">
                                  
                </div>          
-               <v-start access_code="{{$access_code}}" hourdata="{{$time_left['hour']}}" munitedata="{{$time_left['minute']}}"></v-start>               
+               <v-start access_code="{{$access_code}}" user_type="{{$user_type}}" hourdata="{{$time_left['hour']}}" munitedata="{{$time_left['minute']}}"></v-start>               
             </div>
             <!-- end experiment -->
-            <div  class="zero-space exprightNav" id="rightNav">               
-               <v-rightnav :toolState=false :electricitytools=true  url="{{route('micrometerEquipment').'?size='}}"></v-rightnav>
+            <div  class="zero-space exprightNav" id="rightNav">         
+                  @if($toolSizes == '')      
+                     <v-rightnav result="{{$resultTable}}" config="{{json_encode($toolSizes)}}" :toolState=false :electricitytools=true  url=""></v-rightnav>
+                  @else                  
+                     <v-rightnav result="{{$resultTable}}" :config="{{json_encode($toolSizes)}}" :toolState=false :electricitytools=true  url="wwww"></v-rightnav>                  
+                  @endif
             </div>
             <!-- experiment footer -->
             <div class="position-absolute bottom-0 w-100">

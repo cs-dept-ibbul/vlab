@@ -12,6 +12,7 @@ if ($time_default) {
    ];
 }
 $access_code = session('access_code');
+$user_type = session('user_type');
 ?>
 @extends('layouts/main')
 @section('head')
@@ -60,7 +61,7 @@ $access_code = session('access_code');
    			    <div id="mainExp">
                <v-ribbon></v-ribbon>
                 <iframe width="100%"   frameborder="0" style="display: none;height: 77vh;" src="" id="experimentSheet"></iframe>
-               <v-start access_code="{{$access_code}}" hourdata="{{$time_left['hour']}}" munitedata="{{$time_left['minute']}}"></v-start>               
+               <v-start access_code="{{$access_code}}" user_type="{{$user_type}}" hourdata="{{$time_left['hour']}}" munitedata="{{$time_left['minute']}}"></v-start>               
    			    </div>
    			    <!-- end experiment -->
 

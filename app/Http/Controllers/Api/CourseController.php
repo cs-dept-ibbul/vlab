@@ -245,7 +245,9 @@ class CourseController extends Controller
         }
 
         $facultyId = $request->get('faculty_id');        
-        $courses = Course::with('experiments')->withCount('experiments')->where('faculty_id', $facultyId)->get();
+        $courses = Course::with(['experiments','weekly_work'=>function($query){
+                    $query->where('session_id',$this->currentSession);
+                }])->withCount('experiments')->where('faculty_id', $facultyId)->get();
 
         if (!empty($courses)) {
             return response()->json($courses, 200);

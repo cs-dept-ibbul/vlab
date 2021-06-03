@@ -156,6 +156,14 @@ export default {
     },
     experiment_data_format:{   
         'vernier-caliper':`<table class="table-stripped" style="width:80%; min-width:300px;">
+                <thead class="bg-dark text-white fs01">
+                    <th >#</th>
+                    <th>Object 1</th>                    
+                    <th>Object 2</th>                    
+                    <th>Object 3</th>                    
+                    <th>Object 4</th>                    
+                    <th>Object 5</th>                    
+                </thead>
                <tr>
                 <td class="v-template p-1 text-center fs01 fw5" width="25%">External size</td>
                 <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>
@@ -183,6 +191,14 @@ export default {
               <tr>
             </table>`,
             'micrometer':`<table class="table-stripped" style="width:80%; min-width:300px;">
+                 <thead class="bg-dark text-white fs01">
+                    <th >#</th>
+                    <th>Object 1</th>                    
+                    <th>Object 2</th>                    
+                    <th>Object 3</th>                    
+                    <th>Object 4</th>                    
+                    <th>Object 5</th>                    
+                  </thead>
                  <tr>
                   <td class="v-template p-1 text-center fs01 fw5" width="25%">sizes</td>
                   <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>
@@ -191,6 +207,56 @@ export default {
                   <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>                    
                   <td class="v-template" width="15%"><input type="number" class="valueReading form-control h-100 bg-white"></td>                    
                 </tr>
+              </table>
+            `,
+            'resistor-color-code':`
+              <div class="row mx-auto" style="width:96%;">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 pl-3 pr-1">
+                  <div class="fs01">Normal Bands</div>
+                  <select class="form-control w-100 py-2 chosen-select" id="normalBand_r" multiple>               
+                    <option value="black"> black</option><option value="brown"> brown</option><option value="red"> red</option>
+                    <option value="orange"> orange</option><option value="yellow"> yellow</option><option value="green"> green</option><option value="blue"> blue</option>
+                    <option value="violet"> violet</option><option value="grey"> grey</option><option value="white"> white</option><option value="gold"> gold</option><option value="silver"> silver</option>
+                  </select>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 px-1">
+                  <div class="fs01">Tolerance</div>
+                  <select class="form-control w-100 py-2" id="tolerance_r">
+                    <option value="1">select tolerance</option>
+                    <option value="black"> black</option><option value="brown"> brown</option><option value="red"> red</option>
+                    <option value="orange"> orange</option><option value="yellow"> yellow</option><option value="green"> green</option><option value="blue"> blue</option>
+                    <option value="violet"> violet</option><option value="grey"> grey</option><option value="white"> white</option><option value="gold"> gold</option><option value="silver"> silver</option>
+                  </select>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 px-1">
+                  <div class="fs01 w-100">Multiplier</div>
+                  <select class="form-control w-100 py-2" id="multiplier_r">
+                    <option value="1">select multiplier</option>
+                    <option value="black"> black</option><option value="brown"> brown</option><option value="red"> red</option>
+                    <option value="orange"> orange</option><option value="yellow"> yellow</option><option value="green"> green</option><option value="blue"> blue</option>
+                    <option value="violet"> violet</option><option value="grey"> grey</option><option value="white"> white</option><option value="gold"> gold</option><option value="silver"> silver</option>
+                  </select>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 px-1">
+                  <div class="fs01">Temperature</div>
+                  <div style="display:flex; width:100%">
+                    <select class="form-control py-2" id="temperature_r" style="width:70%;">
+                      <option value="1">select temperature</option>
+                      <option value="brown">brown</option><option value="red">red</option><option value="orange">orange</option><option value="yellow">yellow</option>
+                    </select>
+                    <button id="addResistor" style="width:30%;" class="button py-1 px-1 fs01">Add</button>
+                  </div>
+                </div>
+              </div>              
+              <table class="table-stripped resistor mt-2" style="width:100%; min-width:300px;">
+                  <thead class="bg-dark text-white fs01">
+                    <th >Bands</th>
+                    <th>Tolerance</th>
+                    <th>Multiplier</th>
+                    <th>Temperature</th>
+                    <th>#</th>
+                  </thead>
+                  <tbody></tbody>
               </table>
             `      
     },

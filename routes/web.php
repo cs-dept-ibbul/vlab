@@ -24,6 +24,9 @@ Route::get('/feedbacks', function(){
 
 Route::post('/ajax-logout', 'App\Http\Controllers\loginController@ajaxlogout');
 Route::post('/ajax-check-login', 'App\Http\Controllers\loginController@ajaxchecklogin');
+/*Route::middleware(['cors'])->group(function(){
+});*/
+Route::post('/get_user_department', 'App\Http\Controllers\PagesController@getFacultyName');
 
 Route::middleware(['is_loggedin'])->group(function(){
 	Route::get('/login', 'App\Http\Controllers\loginController@index')->name('login');

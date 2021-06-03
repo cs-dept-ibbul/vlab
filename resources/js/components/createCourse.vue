@@ -239,12 +239,20 @@
             <div class="col-lg-4 col-md-3 col-sm-12 mx-auto py-2 d-flex">            	
             	<button v-show="sectionState >1" class="btn p-success button text-white py-2 px-3 mr-3" @click="prevSection" ><span class="fa fa-arrow-left"></span> Previous </button>            	
             	<button v-show="sectionState < 4" class="btn p-success button text-white py-2 px-3" @click="nextSection" > Continue <span class="fa fa-arrow-right"></span></button>
-            	<button v-show="sectionState == 4" class="btn p-success button text-white py-2 px-3" @click="submitProcess" > 
-            		<span v-if="!update">Submit</span>
-            		<span v-if="update">Update</span> 
+            	
+            	<button v-if="!update" v-show="sectionState == 4" class="btn p-success button text-white py-2 px-3" @click="submitProcess" >
+            		<span>Submit</span>
             		<span class="fa fa-arrow-right"></span>
             		
             	</button>
+            	<div v-if="update">
+	            	<button v-show="sectionState > 1" class="btn p-success button text-white py-2 px-3" @click="submitProcess" >
+	            		<span >Update</span>             		
+	            		<span class="fa fa-arrow-right"></span>
+	            	</button> 
+
+	            	<button onclick="Swal.close()"  class="button bg-danger text-white px-3 py-2 ml-3">Cancel</button>            		
+            	</div>
             </div>
             <div class="col-md-1 col-sm-12 mx-auto">
             </div>

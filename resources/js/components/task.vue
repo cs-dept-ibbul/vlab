@@ -64,10 +64,13 @@
 						courses_experiments:this.courses_experiments,
 						update:true,
 						alldata:obj,
-						experiment_data_format:this.$store.state.experiment_data_format
-						
-
+						experiment_data_format:this.$store.state.experiment_data_format						
 					})
+					setTimeout(function() {
+						$('.swal2-cancel').click(function(){
+							alert();
+						})
+					}, 2000);
 			},
 			taskCode:function(code){
 			
@@ -138,3 +141,6 @@
 		
 	}
 </script>
+<style scoped="">
+	    ul li{line-height: 1em;}
+</style>

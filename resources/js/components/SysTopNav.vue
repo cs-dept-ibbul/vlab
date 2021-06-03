@@ -14,6 +14,7 @@
 			</div>
 			<span style="font-weight: 500;font-size: 1em;" class="ml-2">{{title}}</span>
 		</div>		
+		<div>{{department}}</div>
 		<div style="display: flex;flex-wrap: wrap;align-items: center;">
 			<span class="fa fa-user mr-2"></span>
 			<span style="font-size: 0.9em; font-weight: 300;">{{username}}</span>
@@ -29,7 +30,8 @@
 	    	return{
 	    	 navState:false,
 	    	 icon:false,
-	    	 username:''
+	    	 username:'',
+	    	 department: '',
 	    	}
         },
         methods:{
@@ -54,6 +56,7 @@
          props: ['title'],
          created(){	        
          	this.username =  JSON.parse(localStorage.getItem('LoggedUser')).user.first_name; 	
+         	
          },        
          events :{
          	'toggleClick':'toggleClick'
@@ -61,6 +64,25 @@
          mounted(){
          	let $this = this;
          	this.$nextTick(function(){
+
+         	try{
+ 				const formData = new FormData();      
+                    formData.append('faculty_id',$this.currentUser.faculty_id);
+                    formData.append("_token", $('meta[name="csrf-token"]').attr('content'));                    
+                $.ajax({
+                    url: "/get_user_department", 
+                    type: 'POST',
+                    data: formData,                                       
+                    success: function(result) {
+                    	console.log(result);
+                    	$this.department = data.department;
+                    }
+                })      			      			
+      		
+      		}catch(err){
+      			
+      		}
+
 	         	$(window).resize(function() {
 	         		if($(this).width() < 751){	         			
 	         			$this.icon = false;

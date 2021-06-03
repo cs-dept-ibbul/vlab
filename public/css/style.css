@@ -632,7 +632,16 @@ button:focus{
   width:80%; border-radius: 15px; height: 60vh; background: white;margin: 11px auto;
 }
 .login-left{
-  width: 80%; border-radius: 15px;height: 60vh;background: rgba(255,255,255,.2);margin: 10px auto;
+  width: 80%;
+  border-radius: 15px;
+  height: 60vh;
+  background: rgba(255,255,255,.2);
+  margin: 10px auto;
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: center; */
+  justify-content: center;
+  align-items: center;
 }
 input.login-input{
   font-size: 1.2em !important;
@@ -2016,7 +2025,10 @@ span.ripple {
       .login-left{
        height: 100px;
        margin-bottom: 10px !important; 
-
+       padding: 5px;
+      }
+      .login-left img{
+        width: 200px !important;
       }
        #login-box-119{
         padding-left: 2px !important;

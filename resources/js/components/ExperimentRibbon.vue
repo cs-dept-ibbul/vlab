@@ -13,8 +13,8 @@
 				<span class="fa fa-file-text-o fa-ico" @click="toggleRightNav" rel="tools"></span>
 			</div>
 			<div style="padding: 6px;margin-right: 60px;" v-if="startExperiment">				
-				<span @click="submit('test')" v-if="mode=='test'" class="fa fa-save fa-ico"></span>				
-				<span @click="submit('test')"  v-if="mode=='practice'" class="text-white submit">Submit</span>				
+				<span @click.stop="submit('test')" v-if="mode=='test'" class="fa fa-save fa-ico"></span>				
+				<span @click.stop="submit('test')"  v-if="mode=='practice'" class="text-white submit">Submit</span>				
 			</div>
 		</div>
 	</div>
@@ -71,24 +71,25 @@
 			   this.$eventBus.$emit('toggleRightNav2',{text:e});
 			},
 			toggleExperimentGuider: function () {
-//        		alert(this.navState);
+				//alert(this.navState);
 				this.btnState = !this.btnState;
         		this.navState = !this.navState;
-			   this.$eventBus.$emit('toggleClick',{text:this.navState});
+			    this.$eventBus.$emit('toggleClick',{text:this.navState});
 			    //this.newTodoText = ''
 			},			
 			submit(a){
 				var $this = this;
-				var value, header, bdy,emptyChk='',
-				resultData = {};
+				var value, header, bdy,emptyChk='';
 				this.resultData = [];
 
 				/*get result data*/				
-
-				$('.main_result_table').each(function(index){
+				var x = 0
+				$('#result_table').find('.main_result_table').each(function(index){
+					var resultData = {};
+					//console.log($(this).prev().text())
 					resultData.title = $(this).prev().text();
-					resultData.head=  [];
-					resultData.mhead=  '';
+					resultData.head =  [];
+					resultData.mhead= '';
 					resultData.data=  [];		
 					
 					/*get table headers*/
@@ -112,7 +113,6 @@
 						resultData.data[index2] = bdy;
 					});
 					$this.resultData.push(resultData);
-
 				});
 
 				/*console.log(JSON.stringify(this.resultData).length);

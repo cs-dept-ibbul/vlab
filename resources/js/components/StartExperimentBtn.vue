@@ -138,6 +138,7 @@ mounted() {
   props:{
       hourdata:String,
       munitedata:String,
+      user_type:String,      
       starteddata:{
         type:String,
         default:function(){
@@ -199,6 +200,9 @@ mounted() {
   },
   created(){
       this.sendTimeLeft();    
+      if (this.user_type == 'instructor') {
+        this.accessCode = true;
+      }
   }
 }
 

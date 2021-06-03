@@ -7,6 +7,7 @@
 
 <!-- <link rel="stylesheet" href="{{ asset('js/datepicker.css')}}"> -->
  <link href="{{ asset('css/datatable.css')}}" rel="stylesheet" media="all">
+ <link href="{{ asset('css/choose.css')}}" rel="stylesheet" >
  <link href="{{ asset('css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" media="all">
  <link href="{{ asset('js/sweetalert2.css')}}" rel="stylesheet" media="all">
  <link href="{{ asset('css/animate.min.css')}}" rel="stylesheet" media="all">

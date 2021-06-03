@@ -23,6 +23,7 @@ if ($time_default) {
 
 $ct = 1;
 $access_code = session('access_code');
+$user_type = session('user_type');
 $resultTable ='
     <div id="result_table" class="bg-white p-2 mx-auto mt-2" style="border-radius:10px;width:450px;overflow:auto;"> 
       <h4 class="text-warning font2 mb-0"> Measurement of the diameter of the wire</h4>
@@ -99,7 +100,7 @@ $resultTable ='
             <div  id="mainExp">
                <v-ribbon></v-ribbon>
                 <iframe width="100%" height="480px"  frameborder="0" style="display: none;" src="" id="experimentSheet"></iframe>
-               <v-start access_code="{{$access_code}}" starteddata="0" hourdata="{{$time_left['hour']}}" munitedata="{{$time_left['minute']}}"></v-start>             
+               <v-start access_code="{{$access_code}}" user_type="{{$user_type}}" starteddata="0" hourdata="{{$time_left['hour']}}" munitedata="{{$time_left['minute']}}"></v-start>             
             </div>
             <!-- end experiment -->
             <div  class="zero-space exprightNav" id="rightNav">               

@@ -31,14 +31,18 @@
 								<span class=" no-break"><span class="fw5 p-text-success">Submitted:</span> 3/23/43</span>						
 							</div>
 						</div>
-						<table class="table table-bordered iresult">
-							<thead v-html="returnHeader(result.result_json)" class="bg-white p-2 mx-auto mt-2"></thead>
-							<tbody> 
-								<tr v-for="tr in getTR(JSON.parse(result.result_json))">
-									<td v-for="td in tr">{{td}}</td>
-								</tr>								
-							</tbody>
-						</table>	
+
+						<div v-for="mresult in JSON.parse(result.result_json)">							
+							<h6 class="text-secondary">{{mresult.title}}</h6>
+							<table class="table table-bordered iresult" >
+								<thead v-html="mresult.mhead" class="bg-white p-2 mx-auto mt-2"></thead>
+								<tbody>  
+									<tr v-for="tr in mresult.data">
+										<td v-for="td in tr">{{td}}</td>
+									</tr>								
+								</tbody>
+							</table>	
+						</div>
 						<button class="btn-info button" @click="AllowReattempt(result.id)">Allow Reattempt</button>			
               			<input type="time" name="title" v-model="limitation" min="00:00" class="form-control py-2 d-inline-block vI without_ampm">
 
@@ -274,9 +278,13 @@
 
 				`;				 
 				 for (var i = 0; i < this.results.length; i++) {
-				 	var result = this.results[i];				 
+				 	var result = JSON.parse(this.results[i].result_json);				 
 
-					genPdf += ` <div class="w-100 rounded shadow-sm bg-white p-2">
+					genPdf += `
+
+					
+
+					 <div class="w-100 rounded shadow-sm bg-white p-2">
 						<div class="row">							
 							<div class="font  col-lg-8 col-md-12">
 								<span class=" no-break">
@@ -284,33 +292,37 @@
 									<span class="mr-1"> ${ this.results[i].student.matric_number } </span>
 								</span>
 								<span class="no-break">
-									<span class="fw5 p-text-success"> Name: </span> ${result.student.first_name + ' '+result.student.other_names}
+									<span class="fw5 p-text-success"> Name: </span> ${this.results[i].student.first_name + ' '+this.results[i].student.other_names}
 								</span>
 							</div>
 							<div class=" font fs01 col-lg-4 col-md-12">
-								<span class=" no-break"><span class="fw5 p-text-success">Started:</span>${result.time_started.split(',')[0]} </span>						
-								<span class=" no-break"><span class="fw5 p-text-success">Submitted:</span>${result.time_submited.split(',')[0]}</span>						
+								<span class=" no-break"><span class="fw5 p-text-success">Started:</span>${this.results[i].time_started.split(',')[0]} </span>						
+								<span class=" no-break"><span class="fw5 p-text-success">Submitted:</span>${this.results[i].time_submited.split(',')[0]}</span>						
 							</div>
 						</div>
-						<table class="table table-bordered iresult">
-							<thead class="bg-white p-2 mx-auto mt-2">
-								${this.returnHeader(result.result_json)}
-							</thead>
-							<tbody>`;
-							for (var j = 0; j < this.getTR(JSON.parse(result.result_json)).length; j++) {
-								var tr = this.getTR(JSON.parse(result.result_json))[j];
+						`;
 
-								genPdf += '<tr>';
+						for (var t = 0; t < result.length; t++) {
+						genPdf += `<h4 style="margin-bottom:1px; margin-top:4px;">${result[t].title}</h4>
+								        <table class="table table-bordered iresult">
+											<thead class="bg-white p-1 mx-auto mt-2">
+												${result[t].mhead}
+											</thead>
+							<tbody>`;								
+							for (var j = 1; j < result[t].data.length; j++) {
+								var tr = result[t].data[j];
+								genPdf += '<tr class="p-0">';
 								for (var k= 0; k < tr.length; k++) {
 									var td = tr[k]
-									genPdf +=`<td v-for="td in tr">${td}</td>`;
+									genPdf +=`<td  class="px-2 py-0" >${td}</td>`;
 								}
 								genPdf +=`</tr>`;
 							}
 							genPdf +=`								
 							</tbody>
-								</table>	
-							</div>`;
+								</table>`;
+							}
+							genPdf += `</div>`;
 						}
 					   var printWin = window.open();					   					   
 					   printWin.document.write(genPdf);
@@ -384,7 +396,7 @@
 					    formdata .append('weekly_experiment_id', id)			    	    
 	                    $this.axios.post($this.baseApiUrl+'experiments/experiment_results_esid',formdata,{headers: $this.axiosHeader}).then(function(response, status, request) {        
 	                            if (response.status === 200) {  	                                       
-	                               $this.results = response.data
+	                               $this.results = response.data	                               
 	                               $this.showresults = true;	
 	                            }else{
 	                            	if (retryCount < 4) {

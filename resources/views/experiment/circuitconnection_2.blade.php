@@ -14,6 +14,7 @@ if ($time_default) {
 }
 
 $access_code = session('access_code');
+$user_type = session('user_type');
 ?>
 
 @extends('layouts/main')
@@ -52,7 +53,7 @@ $access_code = session('access_code');
    			    <div id="mainExp">
                <v-ribbon></v-ribbon>
                <v-circuitconnection2 style="display: none;" id="experimentSheet"></v-circuitconnection2>
-               <v-start access_code="{{$access_code}}" hourdata="{{$time_left[0]}}" munitedata="{{$time_left[1]}}"></v-start>
+               <v-start access_code="{{$access_code}}" user_type="{{$user_type}}" hourdata="{{$time_left[0]}}" munitedata="{{$time_left[1]}}"></v-start>
    			    </div>
    			    <!-- end experiment -->
 

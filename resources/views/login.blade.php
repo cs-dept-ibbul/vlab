@@ -9,11 +9,19 @@
     			<a href="/login" class="font fs2 fw3 text-white mx-1">Login</a>
     		</div>
     	</div>
+        <div class="col-lg-12">
+            @if (\Session::has('login_fail'))
+     <p class="text-center text-white font alert" style="background: rgba(255,255,255,.4);">{{ \Session::get('login_fail') }} </p>
+            @endif
+        </div>
     	<div class="col-lg-6 col-md-6 mt-5" id="login-box-119">
-    		<h1 class="text-center text-white font2 fw6">Welcome to Vlab</h1>
-    		<div class="login-left"></div>
+    		<h1 class="text-center text-white font2 fw6">Welcome to Virtual Laboratory</h1>
+    		<div class="login-left bg-light" style="">
+            <img src="{{asset('vlab-nobg.png')}}" style="width: 80%;">      
+            </div>
     	</div>
     	<div class="col-lg-6 col-md-6 mt-5 pt-5 " id="login-box-120">       	 	
+
     		<div class="p-5 login-right">
     		
     		<div class="d-flex">
@@ -25,7 +33,7 @@
 				        <span class="dot-flashing  ml-4"></span>	    				
 	    			</span>
 	    			<span id="login-msg-success" class="p-display-none">
-	    				<span class='p-text-success  tenor-text forLoginMsg' >you have sucessfully logged in</span><span class=' ml-4'><img width="10%" class="tenor" src="{{asset('images/tenor.gif')}}"></span>
+	    				<span class='p-text-success ml-2 tenor-text forLoginMsg' >you have sucessfully logged in</span><span class='ml-5'><img width="10%" class="tenor" src="{{asset('images/tenor.gif')}}"></span>
 	    			</span>
 	    		</div>
 	    		<div id="login-err" class="mt-3 ml-2 p-display-none">

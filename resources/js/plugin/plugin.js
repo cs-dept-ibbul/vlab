@@ -887,17 +887,8 @@ export default {
 	      					}
 	      				}
 	      			}).done(function(){}).fail(function(){}).always(function(){});
+      			
 	      	}else{	
-      			try{
-	      			$.post('/ajax-logout',{"_token": $('meta[name="csrf-token"]').attr('content')},function(data){      				
-	      				if (data.status == 200){      					
-	      					$this.launch_toast('you are logged out');
-	      				}
-	      			})
-	      		
-	      		}catch(err){
-	      			
-	      		}
 	      	}
 
       		let AuthAxios = 'Bearer '+this.userLoggedInOld;

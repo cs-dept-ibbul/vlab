@@ -82,7 +82,7 @@
                     </div>
                     <h3 class="fw6 fdata">{{course.title}}</h3>
                     <p class="my-1 font2 fs01 text-secondary" >{{course.description.slice(0,60)}}...</p>
-                    <p class="my-0 fw5 fs1">{{course.experiments_count}} Practicals</p>
+                    <p class="my-0 fw5 fs1">{{course.weekly_work.length}} Task</p>
                   </div> 
                   <div>
                       <div v-if="!checkEnrollment(course.id)">  
@@ -103,7 +103,8 @@
                         </span>                 
                       </div>
                       <div v-else>
-                          <button @click="viewEnrolledCourse(course.id)" class="fw5 fs01 button shadow-sm bg-success px-3 py-2 text-white d-inline-block">View Course</button>
+                          <button v-if="course.weekly_work.length>0" @click="viewEnrolledCourse(course.id)" class="fw5 fs01 button shadow-sm bg-success px-3 py-2 text-white d-inline-block">View Course</button>
+                          <button v-else @click="noExperiment" class="fw5 fs01 button shadow-sm bg-success px-3 py-2 text-white d-inline-block">View Course</button>
                           <!-- maintain design -->
                           <input type="text" name="enrollment_code" :placeholder="ecode" class="formControl">
                       </div>
@@ -112,10 +113,13 @@
                 </div>
               </div>
               <div class="more-detail">
-                <h6 class="text-warning font2 fw6 m-0 pl-2">Exerpiment</h6>
-                <ul v-for="experiment in course.experiments" class="mt-1 text-dark d-flex flex-column">
-                  <li>{{experiment.name}}</li>
-                </ul>
+                <h6 class="text-warning font2 fw6 m-0 pl-2">Tasks</h6>
+                <div v-if="course.weekly_work.length > 0">
+                  <ul v-for="task in course.weekly_work" class="mt-1 text-dark d-flex flex-column">
+                    <li>{{task.title}}</li>
+                  </ul>                  
+                </div>                
+                <div v-if="course.weekly_work.length < 1" class="text-dark">No Task has been created for this course</div>
                 <hr>
                 <h6 class="text-info font2 fw6 ml-0 mt-2 mb-0 pl-2">Description</h6>                
                 <p>{{course.description}}</p>
@@ -159,6 +163,14 @@
             $(this).closest('.fholder').next().slideToggle(200);
           })
     },
+    noExperiment(){
+         Swal.fire({                  
+              title: 'No Task is Available',                   
+              text:'Please inquire from your course instructor',          
+              confirmButtonText:'Ok',
+                confirmButtonColor:'#00b96b', 
+            })
+      },
     enroll:function(course_id){
        this.show_loader();            
         this.axios.post('api/courses/add_student_course/'+this.currentUser.id, {user_id:this.currentUser.id, course_id: course_id},{headers: this.axiosHeader},function(response,status){

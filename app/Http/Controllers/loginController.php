@@ -24,7 +24,6 @@ class loginController extends Controller
         $instructorRole =  config('calculations.default_roles.instructor');            
         $adminRole = config('calculations.default_roles.admin');      
         $studentRole =  config('calculations.default_roles.student');
-        
         $info = json_decode($request->get('data'));      
         session(['info' => $info]);          
         $role = $info->data->user->role_id;
@@ -33,8 +32,9 @@ class loginController extends Controller
         }else if($role == $instructorRole){
             return redirect('/view-student');
         }else if($role == $studentRole){
-            return redirect('/UserDashboard');
+            return redirect('/my-courses');
         }
+        
     }
 
     public function logout(Request $request)

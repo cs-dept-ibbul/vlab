@@ -11,6 +11,7 @@ if(Session::has('setdata')){
     $time_default = false;
 }
 $access_code = session('access_code');
+$user_type = session('user_type');
 if ($default) {
   $toolSizes = [
     [50,60],//'size'
@@ -175,7 +176,7 @@ $resultTable ='
             <div  id="mainExp">
                <v-ribbon></v-ribbon>
                 <iframe width="100%" height="480px"  frameborder="0" style="display: none;" src="" id="experimentSheet"></iframe>
-               <v-start access_code="{{$access_code}}" hourdata="{{$time_left['hour']}}" munitedata="{{$time_left['minute']}}"></v-start>
+               <v-start access_code="{{$access_code}}" user_type="{{$user_type}}" hourdata="{{$time_left['hour']}}" munitedata="{{$time_left['minute']}}"></v-start>
             </div>
             <!-- end experiment -->
             <div  class="zero-space exprightNav" id="rightNav">               

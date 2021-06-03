@@ -19,10 +19,8 @@
      		<!-- <p class="fw6 font2" style="font-size: 0.9em;">{{course_with_exp.course_experiment.length}} Prcaticals</p> -->
 	    </div>
      	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-5">
-     		<div style="width: 90%;height: 150px;border-radius: 9px;background: #333;" class="mx-auto shadow">
-     			<div class="videoContainer" v-if="!loaderState && course_with_exp.video_url != null" id="smallArea">
-					<video class="mx-auto" :data-id="youtubeID(course_with_exp.video_url)"></video>
-				</div>
+     		<div style="width: 90%;height: 150px;border-radius: 9px;background: #333;" class="mx-auto shadow" v-if="!loaderState && course_with_exp.video_url != null" >     			
+            		<a href="https://youtu.be/IaDbk6MvQPs?rel=0&autoplay=1" data-overlay="rgba(15,14,100,0.8)" class="venobox 		play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>					     			
      		</div>
      	</div>
      	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row ml-3"> 
@@ -31,11 +29,11 @@
 	     			<span class="fw6 font2">Summary</span>
 	     		</div>
 	     		<div class="col-lg-6 col-md-6 p-3 mb-3 col-sm-6 col-xs-6 mx-0 mt-0 p-0 md-center ">
-					<h1 class="fw8 font py-0 text-center" style="font-size: 3em;line-height: 0.8;">{{weeksExp.length}}</h1>	
+					<h1 class="fw8 font py-0 text-center text-warning" style="font-size: 3em;line-height: 0.8;">{{weeksExp.length}}</h1>	
 					<p class="font fw3 mt-0 mb-0 py-0 text-center">Total Task</p>
 	     		</div>
 	     		<div class="col-lg-6 col-md-6 p-3 mb-3 col-sm-6 col-xs-6 mx-0 mt-0 p-0 md-center ">	     			
-					<h1 class="fw8 font py-0 text-center" style="font-size: 3em;line-height: 0.8;">{{avalue}}</h1>	
+					<h1 class="fw8 font py-0 text-center text-warning" style="font-size: 3em;line-height: 0.8;">{{avalue}}</h1>	
 					<p class="font fw3 mt-0 mb-0 py-0 text-center">Total Experiments</p>
 	     		</div>
 	     		<!-- <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12 m-0 p-0 d-flex  justify-content-between text-md-center text-sm-center">
@@ -313,6 +311,20 @@
 				 	}
 				 }, 1000);
 
+
+				  $(document).ready(function(){
+				        $('.venobox').venobox({
+				          framewidth : '75%',                            // default: ''
+				        frameheight: '400px',                            // default: ''
+				        border     : '0px',                             // default: '0'
+				        bgcolor    : '#5d44ae',                          // default: '#fff'
+				        titleattr  : 'data-title',                       // default: 'title'
+				        numeratio  : true,                               // default: false
+				        infinigall : true,                               // default: false
+				        share      : [] // default: []
+				        }); 
+				    });
+
 			})
 		},
 		async created(){
@@ -332,13 +344,7 @@
 				}
 			}
 			this.loaderState = false;
-				let $this = this;
-				setTimeout(function() {					
-					$this.web_player();
-					$('.videoContainer').dblclick(function(){						
-						$this.expandVideo();
-					});
-				}, 500);
+				let $this = this;				
 				var count =0, t=0;
 				for(var i =0; i< this.weeksExp.length; i++){								
 					for (var j= 0; j < this.weeksExp[i].experiments.length; j++) {											
