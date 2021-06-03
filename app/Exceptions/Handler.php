@@ -39,7 +39,7 @@ class Handler extends ExceptionHandler
         });
     }
 
-     public function render($request, Exception $e)
+   /*  public function render($request, Exception $e)
     {
         if ($e instanceof TokenMismatchException){
             // Redirect to a form. Here is an example of how I handle mine
@@ -47,5 +47,5 @@ class Handler extends ExceptionHandler
         }
 
         return parent::render($request, $e);
-    }
+    }*/
 }
