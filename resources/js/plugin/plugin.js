@@ -762,15 +762,7 @@ export default {
 					'Authorization':AuthAxios
 			};	     		
   		}
-
-      		/*goes global*/      	      		      	
-      				
-/*
-
-      		if (!this.freePath.includes(pathname) || pathname == 'login') {
-      			
-      		}else{
-      		}*/
+      
       },
       mounted: function(){
       	 
@@ -865,15 +857,12 @@ export default {
 
       		/*login checking and validation*/
       		
-      		let pathname = location.pathname.split('/')[1];       		
+   /*   		let pathname = location.pathname.split('/')[1];       		
 
 	      	if(localStorage.hasOwnProperty('LoggedUser')){     	      				      
 	      			this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
 	      			this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;
-	      			/*if(pathname === 'login'){
-			        	location.href = '/';
-	      			}	      */		
-	      			//user might have token expired but still logged in. 
+	     
 	      			$.post('/ajax-check-login',{"_token": $('meta[name="csrf-token"]').attr('content')},function(data){      				
 	      				if (data.status == 200){
 	      					
@@ -888,9 +877,8 @@ export default {
 	      				}
 	      			}).done(function(){}).fail(function(){}).always(function(){});
       			
-	      	}else{	
 	      	}
-
+*/
       		let AuthAxios = 'Bearer '+this.userLoggedInOld;
 			this.axiosHeader ={
 					'Content-Type':'application/json',

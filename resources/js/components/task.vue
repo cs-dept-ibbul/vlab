@@ -22,8 +22,11 @@
 						<div class="task-btn" @click="taskCode(weeklywork.access_code)">show Code</div>
 					</div>
 				</div>
-			</div>		
+			</div>
         </div>
+			<div v-if="weeklyworks.length < 1" style="display: flex;flex-wrap: wrap;justify-content: center;align-items: center; width: 100%" >
+            	<h3 style="color: #bbbbbc;" class="font">No Task Has Been Created</h3>
+            </div> 		
 <!--         <template id='code-toast'>
 		  <swal-title></swal-title>
 		</template> -->
@@ -126,7 +129,17 @@
          this.weeklyworks  = await this.axiosGet(this.baseApiUrl+'works/weekly_works');          
          
          //this.courses_experiments  = await this.axiosGet('api/courses/course_experiments');
-         
+          if (this.weeklyworks.length<1) {
+		     	Swal.fire({
+		     		title:'No Task Found',
+		     		text:"You have not created any task, click on the 'create new' button on the page",
+		     		icon:'warning',
+		     		showDenyButton: false,
+				    showCancelButton: true,				    
+	      		    confirmButtonColor:'#00b96b',		
+	      		    cancelButtonColor:'#d33',		
+				})
+		     }
          this.loadederState = false;
          let $this = this;
    

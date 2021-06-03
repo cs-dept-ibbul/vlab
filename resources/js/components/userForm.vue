@@ -1,7 +1,7 @@
 
 <template>
 	<div class="m-0 p-0">
-		<div class="close" style="color: red;position: fixed;top: 0px;right: 5px;font-size: 2em;pointer-events: none;cursor: pointer;">&times</div>
+	
       <form id="myform" class="m-0 p-0">
       	<span class="d-none">
       		<input type="text" name="user_id" :value="id">
@@ -83,7 +83,11 @@
 						</div>
 					</div> 
 				 	<div class="col-lg-6 col-md-6 m-0">
-				 		<label class="fs1 font pl-1"><code>Note:</code> phone number is the default password</label>
+				 		<code>Note:</code>
+				 		<ul>
+				 			<li><label class="fs01 font pl-1">Matric Number is the username for student and email for other users</label></li>
+				 			<li><label class="fs01 font pl-1">phone number is the default password</label></li>
+				 		</ul>				 		
 				 	</div>
 				<!-- 	<div class="col-lg-6 col-md-6 m-0">
 						<div class="px-1">	            					
@@ -99,10 +103,11 @@
 					</div>	     -->  	            	
 					<div class="col-12">    				
 						<center>
-							<button type="button"  @click="submitUserForm" class="btn py-2 mb-5 mr-2 mt-3 px-4 text-white fs1 font1 p-success btn-sm" >
+							<button type="button"  @click="submitUserForm" class="btn py-2 mb-5 mr-2 mt-3 px-4 button text-white fs1 font1 p-success btn-sm" >
 								<span v-if="update">Update</span>
 								<span v-else>Submit</span>
-							</button>			    			
+							</button>	
+	            			<button onclick="Swal.close()"  class="btn mb-5 mt-3 fs1 font1 btn-sm button bg-danger text-white px-4 py-2 ml-3">Cancel</button>
 						</center>
 					</div>
 				</div>

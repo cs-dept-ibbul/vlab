@@ -22,10 +22,10 @@ class CreateExperimentsTable extends Migration
             $table->string('experiment_goal');
             $table->string('experiment_diagram');
             $table->string('apparatus');
-            $table->string('experiment_resource');
+            $table->string('experiment_resource',3000);
             $table->string('procedures');
             $table->string('exercise', 3000);
-            $table->string('required');
+            $table->string('required',3000);
             $table->string('video_url');
             $table->string('faculty_id');
             $table->string('page',100);

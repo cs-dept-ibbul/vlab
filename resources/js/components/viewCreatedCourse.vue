@@ -28,7 +28,7 @@
 			            <td width="10%">{{course.code}}</td>
 			            <td width="25%" :title="course.description">{{course.description.slice(0,20)}} ...</td>
 			            <td width="25%">
-			            	<a class="bullets line-h01 text-primary" v-for="(course_experiment,index) in course.course_experiment" :href="'/'+course_experiment.experiments.page"> {{course_experiment.experiments.name}}</a>
+			            	<a class="bullets line-h01 text-primary" v-for="(course_experiment,index) in course.course_experiment" href="#" @click="checktaskcreated(course_experiment.experiments.id,course_experiment.experiments.page,)"> {{course_experiment.experiments.name}}</a>
 			            </td>
 			            <!-- <td width="15%">500L</td>	 -->		            
 			            <td width="10%">
@@ -53,11 +53,59 @@
 				tableLoaded:false,
 				loaderState:true,
 				counter:0,
+				weeklyworks:[],
 			}
 		},
 		methods: {
 
 			 	//<createcourse update='${true}' alldata='${[]}'></createcourse>
+				checktaskcreated:function(id,pagename){					
+					if(this.weeklyworks.length >0){						
+						var find = 0;
+						for(var i=0; i<this.weeklyworks.length;i++){
+							if(this.weeklyworks[i].experiment_id == id){								
+								find = 1;
+							}							
+						}
+						if (find==1) {
+							window.location.replace('/'+pagename);
+						}else{
+							Swal.fire({
+					     		title:'No Task Created for this Experiments',
+					     		text:'You have not created any Task',
+					     		icon:'warning',
+					     		showDenyButton: false,
+							    showCancelButton: true,				    
+				      		    confirmButtonColor:'#00b96b',		
+				      		    cancelButtonColor:'#d33',		
+							    confirmButtonText: `Goto Manage Task`,						       
+							}).then((result) => {
+							  
+							  if (result.isConfirmed) {
+							    location.href = "/manage-task";
+							  }
+							})	
+						}
+
+					}else{
+						Swal.fire({
+				     		title:'No Task Created for this Experiments',
+				     		text:'You have not created any Task',
+				     		icon:'warning',
+				     		showDenyButton: false,
+						    showCancelButton: true,				    
+			      		    confirmButtonColor:'#00b96b',		
+			      		    cancelButtonColor:'#d33',		
+						    confirmButtonText: `Goto Manage Task`,						       
+						}).then((result) => {
+						  
+						  if (result.isConfirmed) {
+						    location.href = "/manage-task";
+						  }
+						})	
+					}
+								
+				},
 				editCourse:function(obj,id){
 					this.VueSweetAlert2('v-createcourse',{
 						update:true,
@@ -105,6 +153,7 @@
 		async created(){
 
 		    this.createdCourses  = await this.axiosGet('api/courses/courses'); //this endpoint is not returning foriegn data
+		    this.weeklyworks  = await this.axiosGet('api/works/weekly_works_only'); //this endpoint is not returning foriegn data
 		    //console.log(this.createdCourses)
 		    this.tableLoaded = true;
 		    

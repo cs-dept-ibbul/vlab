@@ -2962,10 +2962,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       link: '/viewCourse/',
+      roletype: 'guest',
       courseCate: [{
         'id': 1,
         'name': 'Applied Science',
@@ -2997,6 +3018,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         confirmButtonText: 'Ok',
         confirmButtonColor: '#00b96b'
       });
+    },
+    onlyStudent: function onlyStudent() {
+      Swal.fire({
+        title: 'You have not been registered',
+        text: 'Only user registered as student can access this page',
+        confirmButtonText: 'Ok',
+        confirmButtonColor: '#00b96b'
+      });
     }
   },
   created: function created() {
@@ -3009,20 +3038,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _this.axiosGet('api/faculties/check', false, 'Constact the Administrator to create faculties');
+              return _this.axiosGet('api/check', 'Constact the Administrator to create faculties');
 
             case 2:
               coux = _context.sent;
-              _context.next = 5;
-              return _this.axiosGet('api/faculties/faculty_course_student');
 
-            case 5:
+              if (_this.currentUser.role_id == _this.roles.student) {
+                _this.roletype = 'student';
+              }
+              /*    
+                  if (this.currentUser.role_id == this.instructorRole) {      
+                      this.link = '/view-course/'
+                  }
+                    */
+
+
+              _context.next = 6;
+              return _this.axiosGet('api/faculty_course_student');
+
+            case 6:
               _this.courseCate = _context.sent;
               //console.log(this.createdFaculty)
               _this.tableLoaded = true;
               /*initialize datatable */
 
-            case 7:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -3030,7 +3070,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee);
     }))();
   },
-  props: ['instructorRole']
+  props: ['roles']
 });
 
 /***/ }),
@@ -4116,6 +4156,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -4175,10 +4223,11 @@ __webpack_require__.r(__webpack_exports__);
       console.log(event);
       this.ediagram = event.target.files[0];
       $('#imageName').text(this.ediagram.name);
-      var ext = ['image/jpeg', 'image/png'];
+      var ext = ['image/jpeg', 'image/png', 'png', 'jpg', 'jpeg'];
 
-      if (!includes(this.ediagram)) {
+      if (!ext.includes(this.ediagram.type)) {
         $('.requiredv').remove();
+        this.ediagram = '';
         $('.file-cover').after('<span class="text-danger requiredv" id="ar001">invalid file type</span>');
         return false;
       }
@@ -4437,16 +4486,16 @@ __webpack_require__.r(__webpack_exports__);
       try {
         var formData = new FormData();
         formData.append('experiment_id', this.experiment_id_to_update);
-        formData.append('name', this.alldata[0].title);
-        formData.append('experiment_intro', this.alldata[0].experiment_intro);
-        formData.append('video_url', this.alldata[0].video_url);
-        formData.append('required', this.required);
-        formData.append('experiment_goal', this.alldata[0].aim);
+        formData.append('name', this.alldata[0].title.replace(/<script>/g, ''));
+        formData.append('experiment_intro', this.alldata[0].experiment_intro.replace(/<script>/g, ''));
+        formData.append('video_url', this.alldata[0].video_url.replace(/<script>/g, ''));
+        formData.append('required', this.required.replace(/<script>/g, ''));
+        formData.append('experiment_goal', this.alldata[0].aim.replace(/<script>/g, ''));
         formData.append('experiment_diagram', this.ediagram);
-        formData.append('experiment_resource', this.alldata[0].resources);
-        formData.append('exercise', this.exercise);
-        formData.append('apparatus', this.alldata[0].apparatus);
-        formData.append('procedures', this.alldata[0].procedure);
+        formData.append('experiment_resource', this.alldata[0].resources.replace(/<script>/g, ''));
+        formData.append('exercise', this.exercise.replace(/<script>/g, ''));
+        formData.append('apparatus', this.alldata[0].apparatus.replace(/<script>/g, ''));
+        formData.append('procedures', this.alldata[0].procedure.replace(/<script>/g, ''));
         formData.append('page', this.alldata[1].experiment_url); //formData.append('config',this.alldata[2].config);
 
         $('#system-loader').css('display', 'flex');
@@ -6260,7 +6309,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               _this.experiments = _context.sent;
 
               if (_this.experiments.length < 1) {
-                _this.attemptsFailsV('No Experiment is available', 'to proceed on add Experiment, Click Ok', true, '/add-experiment');
+                Swal.fire({
+                  title: 'No Experiment Found ',
+                  text: 'You have to add experiments to create a course',
+                  icon: 'warning',
+                  showDenyButton: false,
+                  showCancelButton: false,
+                  confirmButtonColor: '#00b96b',
+                  confirmButtonText: "Goto manage experiment",
+                  allowOutsideClick: false,
+                  allowEscapeKey: false,
+                  closeOnClickOutside: false
+                }).then(function (result) {
+                  if (result.isConfirmed) {
+                    location.href = "/add-experiment";
+                  }
+                }); //this.attemptsFailsV('', 'to proceed on add Experiment, Click Ok', true,'/add-experiment');
               }
               /*initialize datatable */
 
@@ -12886,6 +12950,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var genPdf = "\n\t\t\t\t\t<style>\n\t\t\t\t\ttable, th, td {\n\t\t\t\t\t  border: 1px solid black;\n\t\t\t\t\t  border-collapse: collapse;\n\t\t\t\t\t}\n\t\t\t\t\t.w-100{width:100%;}\n\t\t\t\t\t.rounded{border-radius:.25rem!important}\n\t\t\t\t\t.bg-white{background:white;}.p-2{padding:.5rem!important}\n\t\t\t\t\t.row{display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-15px;margin-left:-15px}\n\t\t\t\t\t.row{display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-15px;margin-left:-15px}.no-gutters{margin-right:0;margin-left:0}.no-gutters>.col,.no-gutters>[class*=col-]{padding-right:0;padding-left:0}.col,.col-1,.col-10,.col-11,.col-12,.col-2,.col-3,.col-4,.col-5,.col-6,.col-7,.col-8,.col-9,.col-auto,.col-lg,.col-lg-1,.col-lg-10,.col-lg-11,.col-lg-12,.col-lg-2,.col-lg-3,.col-lg-4,.col-lg-5,.col-lg-6,.col-lg-7,.col-lg-8,.col-lg-9,.col-lg-auto,.col-md,.col-md-1,.col-md-10,.col-md-11,.col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9,.col-md-auto,.col-sm,.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-sm-auto,.col-xl,.col-xl-1,.col-xl-10,.col-xl-11,.col-xl-12,.col-xl-2,.col-xl-3,.col-xl-4,.col-xl-5,.col-xl-6,.col-xl-7,.col-xl-8,.col-xl-9,.col-xl-auto{position:relative;width:100%;min-height:1px;padding-right:15px;padding-left:15px}.col{-ms-flex-preferred-size:0;flex-basis:0;-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;max-width:100%}.col-auto{-webkit-box-flex:0;-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-1{-webkit-box-flex:0;-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-2{-webkit-box-flex:0;-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-3{-webkit-box-flex:0;-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-4{-webkit-box-flex:0;-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-5{-webkit-box-flex:0;-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-6{-webkit-box-flex:0;-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-7{-webkit-box-flex:0;-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-8{-webkit-box-flex:0;-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-9{-webkit-box-flex:0;-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-10{-webkit-box-flex:0;-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-11{-webkit-box-flex:0;-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-12{-webkit-box-flex:0;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-first{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-last{-webkit-box-ordinal-group:14;-ms-flex-order:13;order:13}.order-0{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.order-1{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.order-2{-webkit-box-ordinal-group:3;-ms-flex-order:2;order:2}.order-3{-webkit-box-ordinal-group:4;-ms-flex-order:3;order:3}.order-4{-webkit-box-ordinal-group:5;-ms-flex-order:4;order:4}.order-5{-webkit-box-ordinal-group:6;-ms-flex-order:5;order:5}.order-6{-webkit-box-ordinal-group:7;-ms-flex-order:6;order:6}.order-7{-webkit-box-ordinal-group:8;-ms-flex-order:7;order:7}.order-8{-webkit-box-ordinal-group:9;-ms-flex-order:8;order:8}.order-9{-webkit-box-ordinal-group:10;-ms-flex-order:9;order:9}.order-10{-webkit-box-ordinal-group:11;-ms-flex-order:10;order:10}.order-11{-webkit-box-ordinal-group:12;-ms-flex-order:11;order:11}.order-12{-webkit-box-ordinal-group:13;-ms-flex-order:12;order:12}.offset-1{margin-left:8.333333%}.offset-2{margin-left:16.666667%}.offset-3{margin-left:25%}.offset-4{margin-left:33.333333%}.offset-5{margin-left:41.666667%}.offset-6{margin-left:50%}.offset-7{margin-left:58.333333%}.offset-8{margin-left:66.666667%}.offset-9{margin-left:75%}.offset-10{margin-left:83.333333%}.offset-11{margin-left:91.666667%}@media (min-width:576px){.col-sm{-ms-flex-preferred-size:0;flex-basis:0;-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;max-width:100%}.col-sm-auto{-webkit-box-flex:0;-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-sm-1{-webkit-box-flex:0;-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-sm-2{-webkit-box-flex:0;-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-sm-3{-webkit-box-flex:0;-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-sm-4{-webkit-box-flex:0;-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-sm-5{-webkit-box-flex:0;-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-sm-6{-webkit-box-flex:0;-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-sm-7{-webkit-box-flex:0;-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-sm-8{-webkit-box-flex:0;-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-sm-9{-webkit-box-flex:0;-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-sm-10{-webkit-box-flex:0;-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-sm-11{-webkit-box-flex:0;-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-sm-12{-webkit-box-flex:0;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-sm-first{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-sm-last{-webkit-box-ordinal-group:14;-ms-flex-order:13;order:13}.order-sm-0{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.order-sm-1{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.order-sm-2{-webkit-box-ordinal-group:3;-ms-flex-order:2;order:2}.order-sm-3{-webkit-box-ordinal-group:4;-ms-flex-order:3;order:3}.order-sm-4{-webkit-box-ordinal-group:5;-ms-flex-order:4;order:4}.order-sm-5{-webkit-box-ordinal-group:6;-ms-flex-order:5;order:5}.order-sm-6{-webkit-box-ordinal-group:7;-ms-flex-order:6;order:6}.order-sm-7{-webkit-box-ordinal-group:8;-ms-flex-order:7;order:7}.order-sm-8{-webkit-box-ordinal-group:9;-ms-flex-order:8;order:8}.order-sm-9{-webkit-box-ordinal-group:10;-ms-flex-order:9;order:9}.order-sm-10{-webkit-box-ordinal-group:11;-ms-flex-order:10;order:10}.order-sm-11{-webkit-box-ordinal-group:12;-ms-flex-order:11;order:11}.order-sm-12{-webkit-box-ordinal-group:13;-ms-flex-order:12;order:12}.offset-sm-0{margin-left:0}.offset-sm-1{margin-left:8.333333%}.offset-sm-2{margin-left:16.666667%}.offset-sm-3{margin-left:25%}.offset-sm-4{margin-left:33.333333%}.offset-sm-5{margin-left:41.666667%}.offset-sm-6{margin-left:50%}.offset-sm-7{margin-left:58.333333%}.offset-sm-8{margin-left:66.666667%}.offset-sm-9{margin-left:75%}.offset-sm-10{margin-left:83.333333%}.offset-sm-11{margin-left:91.666667%}}@media (min-width:768px){.col-md{-ms-flex-preferred-size:0;flex-basis:0;-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;max-width:100%}.col-md-auto{-webkit-box-flex:0;-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-md-1{-webkit-box-flex:0;-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-md-2{-webkit-box-flex:0;-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-md-3{-webkit-box-flex:0;-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-md-4{-webkit-box-flex:0;-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-md-5{-webkit-box-flex:0;-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-md-6{-webkit-box-flex:0;-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-md-7{-webkit-box-flex:0;-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-md-8{-webkit-box-flex:0;-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-md-9{-webkit-box-flex:0;-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-md-10{-webkit-box-flex:0;-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-md-11{-webkit-box-flex:0;-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-md-12{-webkit-box-flex:0;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-md-first{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-md-last{-webkit-box-ordinal-group:14;-ms-flex-order:13;order:13}.order-md-0{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.order-md-1{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.order-md-2{-webkit-box-ordinal-group:3;-ms-flex-order:2;order:2}.order-md-3{-webkit-box-ordinal-group:4;-ms-flex-order:3;order:3}.order-md-4{-webkit-box-ordinal-group:5;-ms-flex-order:4;order:4}.order-md-5{-webkit-box-ordinal-group:6;-ms-flex-order:5;order:5}.order-md-6{-webkit-box-ordinal-group:7;-ms-flex-order:6;order:6}.order-md-7{-webkit-box-ordinal-group:8;-ms-flex-order:7;order:7}.order-md-8{-webkit-box-ordinal-group:9;-ms-flex-order:8;order:8}.order-md-9{-webkit-box-ordinal-group:10;-ms-flex-order:9;order:9}.order-md-10{-webkit-box-ordinal-group:11;-ms-flex-order:10;order:10}.order-md-11{-webkit-box-ordinal-group:12;-ms-flex-order:11;order:11}.order-md-12{-webkit-box-ordinal-group:13;-ms-flex-order:12;order:12}.offset-md-0{margin-left:0}.offset-md-1{margin-left:8.333333%}.offset-md-2{margin-left:16.666667%}.offset-md-3{margin-left:25%}.offset-md-4{margin-left:33.333333%}.offset-md-5{margin-left:41.666667%}.offset-md-6{margin-left:50%}.offset-md-7{margin-left:58.333333%}.offset-md-8{margin-left:66.666667%}.offset-md-9{margin-left:75%}.offset-md-10{margin-left:83.333333%}.offset-md-11{margin-left:91.666667%}}@media (min-width:992px){.col-lg{-ms-flex-preferred-size:0;flex-basis:0;-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;max-width:100%}.col-lg-auto{-webkit-box-flex:0;-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-lg-1{-webkit-box-flex:0;-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-lg-2{-webkit-box-flex:0;-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-lg-3{-webkit-box-flex:0;-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-lg-4{-webkit-box-flex:0;-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-lg-5{-webkit-box-flex:0;-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-lg-6{-webkit-box-flex:0;-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-lg-7{-webkit-box-flex:0;-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-lg-8{-webkit-box-flex:0;-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-lg-9{-webkit-box-flex:0;-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-lg-10{-webkit-box-flex:0;-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-lg-11{-webkit-box-flex:0;-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-lg-12{-webkit-box-flex:0;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-lg-first{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-lg-last{-webkit-box-ordinal-group:14;-ms-flex-order:13;order:13}.order-lg-0{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.order-lg-1{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.order-lg-2{-webkit-box-ordinal-group:3;-ms-flex-order:2;order:2}.order-lg-3{-webkit-box-ordinal-group:4;-ms-flex-order:3;order:3}.order-lg-4{-webkit-box-ordinal-group:5;-ms-flex-order:4;order:4}.order-lg-5{-webkit-box-ordinal-group:6;-ms-flex-order:5;order:5}.order-lg-6{-webkit-box-ordinal-group:7;-ms-flex-order:6;order:6}.order-lg-7{-webkit-box-ordinal-group:8;-ms-flex-order:7;order:7}.order-lg-8{-webkit-box-ordinal-group:9;-ms-flex-order:8;order:8}.order-lg-9{-webkit-box-ordinal-group:10;-ms-flex-order:9;order:9}.order-lg-10{-webkit-box-ordinal-group:11;-ms-flex-order:10;order:10}.order-lg-11{-webkit-box-ordinal-group:12;-ms-flex-order:11;order:11}.order-lg-12{-webkit-box-ordinal-group:13;-ms-flex-order:12;order:12}.offset-lg-0{margin-left:0}.offset-lg-1{margin-left:8.333333%}.offset-lg-2{margin-left:16.666667%}.offset-lg-3{margin-left:25%}.offset-lg-4{margin-left:33.333333%}.offset-lg-5{margin-left:41.666667%}.offset-lg-6{margin-left:50%}.offset-lg-7{margin-left:58.333333%}.offset-lg-8{margin-left:66.666667%}.offset-lg-9{margin-left:75%}.offset-lg-10{margin-left:83.333333%}.offset-lg-11{margin-left:91.666667%}}@media (min-width:1200px){.col-xl{-ms-flex-preferred-size:0;flex-basis:0;-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;max-width:100%}.col-xl-auto{-webkit-box-flex:0;-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-xl-1{-webkit-box-flex:0;-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-xl-2{-webkit-box-flex:0;-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-xl-3{-webkit-box-flex:0;-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-xl-4{-webkit-box-flex:0;-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-xl-5{-webkit-box-flex:0;-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-xl-6{-webkit-box-flex:0;-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-xl-7{-webkit-box-flex:0;-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-xl-8{-webkit-box-flex:0;-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-xl-9{-webkit-box-flex:0;-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-xl-10{-webkit-box-flex:0;-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-xl-11{-webkit-box-flex:0;-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-xl-12{-webkit-box-flex:0;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-xl-first{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-xl-last{-webkit-box-ordinal-group:14;-ms-flex-order:13;order:13}.order-xl-0{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.order-xl-1{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.order-xl-2{-webkit-box-ordinal-group:3;-ms-flex-order:2;order:2}.order-xl-3{-webkit-box-ordinal-group:4;-ms-flex-order:3;order:3}.order-xl-4{-webkit-box-ordinal-group:5;-ms-flex-order:4;order:4}.order-xl-5{-webkit-box-ordinal-group:6;-ms-flex-order:5;order:5}.order-xl-6{-webkit-box-ordinal-group:7;-ms-flex-order:6;order:6}.order-xl-7{-webkit-box-ordinal-group:8;-ms-flex-order:7;order:7}.order-xl-8{-webkit-box-ordinal-group:9;-ms-flex-order:8;order:8}.order-xl-9{-webkit-box-ordinal-group:10;-ms-flex-order:9;order:9}.order-xl-10{-webkit-box-ordinal-group:11;-ms-flex-order:10;order:10}.order-xl-11{-webkit-box-ordinal-group:12;-ms-flex-order:11;order:11}.order-xl-12{-webkit-box-ordinal-group:13;-ms-flex-order:12;order:12}.offset-xl-0{margin-left:0}.offset-xl-1{margin-left:8.333333%}.offset-xl-2{margin-left:16.666667%}.offset-xl-3{margin-left:25%}.offset-xl-4{margin-left:33.333333%}.offset-xl-5{margin-left:41.666667%}.offset-xl-6{margin-left:50%}.offset-xl-7{margin-left:58.333333%}.offset-xl-8{margin-left:66.666667%}.offset-xl-9{margin-left:75%}.offset-xl-10{margin-left:83.333333%}.offset-xl-11{margin-left:91.666667%}}.table{width:100%;max-width:100%;margin-bottom:1rem;background-color:transparent}.table td,.table th{padding:.75rem;vertical-align:top;border-top:1px solid #dee2e6}.table thead th{vertical-align:bottom;border-bottom:2px solid #dee2e6}.table tbody+tbody{border-top:2px solid #dee2e6}.table .table{background-color:#fff}.table-sm td,.table-sm th{padding:.3rem}.table-bordered{border:1px solid #dee2e6}.table-bordered td,.table-bordered th{border:1px solid #dee2e6}.table-bordered thead td,.table-bordered thead th{border-bottom-width:2px}.table-striped tbody tr:nth-of-type(odd){background-color:rgba(0,0,0,.05)}.table-hover tbody tr:hover{background-color:rgba(0,0,0,.075)}.table-primary,.table-primary>td,.table-primary>th{background-color:#b8daff}.table-hover .table-primary:hover{background-color:#9fcdff}.table-hover .table-primary:hover>td,.table-hover .table-primary:hover>th{background-color:#9fcdff}.table-secondary,.table-secondary>td,.table-secondary>th{background-color:#d6d8db}.table-hover .table-secondary:hover{background-color:#c8cbcf}.table-hover .table-secondary:hover>td,.table-hover .table-secondary:hover>th{background-color:#c8cbcf}.table-success,.table-success>td,.table-success>th{background-color:#c3e6cb}.table-hover .table-success:hover{background-color:#b1dfbb}.table-hover .table-success:hover>td,.table-hover .table-success:hover>th{background-color:#b1dfbb}.table-info,.table-info>td,.table-info>th{background-color:#bee5eb}.table-hover .table-info:hover{background-color:#abdde5}.table-hover .table-info:hover>td,.table-hover .table-info:hover>th{background-color:#abdde5}.table-warning,.table-warning>td,.table-warning>th{background-color:#ffeeba}.table-hover .table-warning:hover{background-color:#ffe8a1}.table-hover .table-warning:hover>td,.table-hover .table-warning:hover>th{background-color:#ffe8a1}.table-danger,.table-danger>td,.table-danger>th{background-color:#f5c6cb}.table-hover .table-danger:hover{background-color:#f1b0b7}.table-hover .table-danger:hover>td,.table-hover .table-danger:hover>th{background-color:#f1b0b7}.table-light,.table-light>td,.table-light>th{background-color:#fdfdfe}.table-hover .table-light:hover{background-color:#ececf6}.table-hover .table-light:hover>td,.table-hover .table-light:hover>th{background-color:#ececf6}.table-dark,.table-dark>td,.table-dark>th{background-color:#c6c8ca}.table-hover .table-dark:hover{background-color:#b9bbbe}.table-hover .table-dark:hover>td,.table-hover .table-dark:hover>th{background-color:#b9bbbe}.table-active,.table-active>td,.table-active>th{background-color:rgba(0,0,0,.075)}.table-hover .table-active:hover{background-color:rgba(0,0,0,.075)}.table-hover .table-active:hover>td,.table-hover .table-active:hover>th{background-color:rgba(0,0,0,.075)}.table .thead-dark th{color:#fff;background-color:#212529;border-color:#32383e}.table .thead-light th{color:#495057;background-color:#e9ecef;border-color:#dee2e6}.table-dark{color:#fff;background-color:#212529}.table-dark td,.table-dark th,.table-dark thead th{border-color:#32383e}.table-dark.table-bordered{border:0}.table-dark.table-striped tbody tr:nth-of-type(odd){background-color:rgba(255,255,255,.05)}.table-dark.table-hover tbody tr:hover{background-color:rgba(255,255,255,.075)}@media (max-width:575.98px){.table-responsive-sm{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:-ms-autohiding-scrollbar}.table-responsive-sm>.table-bordered{border:0}}@media (max-width:767.98px){.table-responsive-md{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:-ms-autohiding-scrollbar}.table-responsive-md>.table-bordered{border:0}}@media (max-width:991.98px){.table-responsive-lg{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:-ms-autohiding-scrollbar}.table-responsive-lg>.table-bordered{border:0}}@media (max-width:1199.98px){.table-responsive-xl{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:-ms-autohiding-scrollbar}.table-responsive-xl>.table-bordered{border:0}}.table-responsive{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:-ms-autohiding-scrollbar}.table-responsive>.table-bordered{border:0}.form-control{display:block;width:100%;padding:.375rem .75rem;font-size:1rem;line-height:1.5;color:#495057;background-color:#fff;background-clip:padding-box;border:1px solid #ced4da;border-radius:.25rem;transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out}.form-control::-ms-expand{background-color:transparent;border:0}.form-control:focus{color:#495057;background-color:#fff;border-color:#80bdff;outline:0;box-shadow:0 0 0 .2rem rgba(0,123,255,.25)}.form-control::-webkit-input-placeholder{color:#6c757d;opacity:1}.form-control::-moz-placeholder{color:#6c757d;opacity:1}.form-control:-ms-input-placeholder{color:#6c757d;opacity:1}.form-control::-ms-input-placeholder{color:#6c757d;opacity:1}.form-control::placeholder{color:#6c757d;opacity:1}.form-control:disabled,.form-control[readonly]{background-color:#e9ecef;opacity:1}select.form-control:not([size]):not([multiple]){height:calc(2.25rem + 2px)}select.form-control:focus::-ms-value{color:#495057;background-color:#fff}.form-control-file,.form-control-range{display:block;width:100%}.col-form-label{padding-top:calc(.375rem + 1px);padding-bottom:calc(.375rem + 1px);margin-bottom:0;font-size:inherit;line-height:1.5}.col-form-label-lg{padding-top:calc(.5rem + 1px);padding-bottom:calc(.5rem + 1px);font-size:1.25rem;line-height:1.5}.col-form-label-sm{padding-top:calc(.25rem + 1px);padding-bottom:calc(.25rem + 1px);font-size:.875rem;line-height:1.5}.form-control-plaintext{display:block;width:100%;padding-top:.375rem;padding-bottom:.375rem;margin-bottom:0;line-height:1.5;background-color:transparent;border:solid transparent;border-width:1px 0}.form-control-plaintext.form-control-lg,.form-control-plaintext.form-control-sm,.input-group-lg>.form-control-plaintext.form-control,.input-group-lg>.input-group-append>.form-control-plaintext.btn,.input-group-lg>.input-group-append>.form-control-plaintext.input-group-text,.input-group-lg>.input-group-prepend>.form-control-plaintext.btn,.input-group-lg>.input-group-prepend>.form-control-plaintext.input-group-text,.input-group-sm>.form-control-plaintext.form-control,.input-group-sm>.input-group-append>.form-control-plaintext.btn,.input-group-sm>.input-group-append>.form-control-plaintext.input-group-text,.input-group-sm>.input-group-prepend>.form-control-plaintext.btn,.input-group-sm>.input-group-prepend>.form-control-plaintext.input-group-text{padding-right:0;padding-left:0}.form-control-sm,.input-group-sm>.form-control,.input-group-sm>.input-group-append>.btn,.input-group-sm>.input-group-append>.input-group-text,.input-group-sm>.input-group-prepend>.btn,.input-group-sm>.input-group-prepend>.input-group-text{padding:.25rem .5rem;font-size:.875rem;line-height:1.5;border-radius:.2rem}.input-group-sm>.input-group-append>select.btn:not([size]):not([multiple]),.input-group-sm>.input-group-append>select.input-group-text:not([size]):not([multiple]),.input-group-sm>.input-group-prepend>select.btn:not([size]):not([multiple]),.input-group-sm>.input-group-prepend>select.input-group-text:not([size]):not([multiple]),.input-group-sm>select.form-control:not([size]):not([multiple]),select.form-control-sm:not([size]):not([multiple]){height:calc(1.8125rem + 2px)}.form-control-lg,.input-group-lg>.form-control,.input-group-lg>.input-group-append>.btn,.input-group-lg>.input-group-append>.input-group-text,.input-group-lg>.input-group-prepend>.btn,.input-group-lg>.input-group-prepend>.input-group-text{padding:.5rem 1rem;font-size:1.25rem;line-height:1.5;border-radius:.3rem}.input-group-lg>.input-group-append>select.btn:not([size]):not([multiple]),.input-group-lg>.input-group-append>select.input-group-text:not([size]):not([multiple]),.input-group-lg>.input-group-prepend>select.btn:not([size]):not([multiple]),.input-group-lg>.input-group-prepend>select.input-group-text:not([size]):not([multiple]),.input-group-lg>select.form-control:not([size]):not([multiple]),select.form-control-lg:not([size]):not([multiple]){height:calc(2.875rem + 2px)}.form-group{margin-bottom:1rem}.form-text{display:block;margin-top:.25rem}.form-row{display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-5px;margin-left:-5px}.form-row>.col,.form-row>[class*=col-]{padding-right:5px;padding-left:5px}.form-check{position:relative;display:block;padding-left:1.25rem}.form-check-input{position:absolute;margin-top:.3rem;margin-left:-1.25rem}.form-check-input:disabled~.form-check-label{color:#6c757d}.form-check-label{margin-bottom:0}\t\t\t\t\n\t\t\t\t\t.table{background-color:#fff}.table-sm td,.table-sm th{padding:.3rem}.table-bordered{border:1px solid #dee2e6}.table-bordered td,.table-bordered th{border:1px solid #dee2e6}.table-bordered thead td,.table-bordered thead th{border-bottom-width:2px}.table-striped tbody tr:nth-of-type(odd){background-color:rgba(0,0,0,.05)}.table-hover tbody tr:hover{background-color:rgba(0,0,0,.075)}.table-primary,.table-primary>td,.table-primary>th{background-color:#b8daff}.table-hover .table-primary:hover{background-color:#9fcdff}.table-hover .table-primary:hover>td,.table-hover .table-primary:hover>th{background-color:#9fcdff}.table-secondary,.table-secondary>td,.table-secondary>th{background-color:#d6d8db}.table-hover .table-secondary:hover{background-color:#c8cbcf}.table-hover .table-secondary:hover>td,.table-hover .table-secondary:hover>th{background-color:#c8cbcf}.table-success,.table-success>td,.table-success>th{background-color:#c3e6cb}.table-hover .table-success:hover{background-color:#b1dfbb}.table-hover .table-success:hover>td,.table-hover .table-success:hover>th{background-color:#b1dfbb}.table-info,.table-info>td,.table-info>th{background-color:#bee5eb}.table-hover .table-info:hover{background-color:#abdde5}.table-hover .table-info:hover>td,.table-hover .table-info:hover>th{background-color:#abdde5}\t\n\t\t\t\t\t.p-danger {\n\t\t\t\t\t  background: #dd000f !important;\n\t\t\t\t\t}\n\t\t\t\t\t.p-warning {\n\t\t\t\t\t  background: orange !important;\n\t\t\t\t\t}\n\t\t\t\t\t.p-success {\n\t\t\t\t\t  background: #00b96b !important;\n\t\t\t\t\t}\n\t\t\t\t\t.p-transparent-warning{\n\t\t\t\t\t  background: #FFDBB5;\n\t\t\t\t\t}\n\t\t\t\t\t.p-transparent-dark{\n\t\t\t\t\t  background: rgba(0,0,0,.4);\n\t\t\t\t\t}\n\t\t\t\t\t.p-light {\n\t\t\t\t\t  background: rgba(0, 190, 70, 0.1) !important;\n\t\t\t\t\t}\n\t\t\t\t\t.p-secondary {\n\t\t\t\t\t  background: #f0f0f0 !important;\n\t\t\t\t\t}\n\t\t\t\t\t.p-text-warning{\n\t\t\t\t\t  color: #FF8200;\n\t\t\t\t\t}\n\t\t\t\t\tspan.p-text-success,.p-text-success,p.p-text-success{\n\t\t\t\t\t  color: #00b96b;\n\t\t\t\t\t}\n\t\t\t\t\tspan.p-text-secondary,.p-text-secondary{\n\t\t\t\t\t  color: #bbb;\n\t\t\t\t\t}\n\t\t\t\t\t.p-dark{\n\t\t\t\t\t  background: #20154e !important;\n\t\t\t\t\t}\n\t\t\t\t\t.sys-submit-btn{\n\t\t\t\t\t    box-shadow: inset 1px -3px 6px rgb(145,95,200) ;\n\t\t\t\t\t    cursor: pointer ;  \n\t\t\t\t\t    border:none;  \n\t\t\t\t\t    z-index: 5;\n\t\t\t\t\t    position: relative;\n\t\t\t\t\t    border-radius: 5px;\n\t\t\t\t\t}\n\t\t\t\t\tbutton:focus{\n\t\t\t\t\t  outline: 0 !important;\n\t\t\t\t\t}\n\t\t\t\t\t.sys-submit-btn:active{\n\t\t\t\t\t    user-select: none;\n\t\t\t\t\t     box-shadow: none;\n\t\t\t\t\t}\n\n\t\t\t\t\t.p-text-dark{\n\t\t\t\t\t  color: #20154e;\n\t\t\t\t\t}\n\t\t\t\t\t.px-6 {\n\t\t\t\t\t  padding-left: 90px;\n\t\t\t\t\t  padding-right: 90px;\n\t\t\t\t\t}\n\t\t\t\t\t.ftag {\n\t\t\t\t\t  background: rgba(0, 190, 70, 0.1) !important;\n\t\t\t\t\t  color: #00b96b !important;\n\t\t\t\t\t  padding: 4px 7px;\n\t\t\t\t\t  margin: 1px 2px;\n\t\t\t\t\t  border-radius: 5px;\n\t\t\t\t\t}\n\t\t\t\t\t.h1 {\n\t\t\t\t\t  height: 26px;\n\t\t\t\t\t}\n\t\t\t\t\t.h2{\n\t\t\t\t\t  height: 50px !important;\n\t\t\t\t\t}\n\t\t\t\t\t.h500 {\n\t\t\t\t\t  height: 500px;\n\t\t\t\t\t}\n\t\t\t\t\t.h100 {\n\t\t\t\t\t  height: 100px;\n\t\t\t\t\t}\n\t\t\t\t\t.h-100{\n\t\t\t\t\t  height: 100%;\n\t\t\t\t\t}\n\t\t\t\t\t.cadin {\n\t\t\t\t\t  transition: all 1s;\n\t\t\t\t\t}\n\t\t\t\t\t.cadin:after {\n\t\t\t\t\t  content: '';\n\t\t\t\t\t  display: block;\n\t\t\t\t\t  position: relative;\n\t\t\t\t\t  transition: all 1s;\n\t\t\t\t\t}\n\t\t\t\t\t.cadin:hover:after {\n\t\t\t\t\t  content: '';\n\t\t\t\t\t  display: block;\n\t\t\t\t\t  justify-content: center;\n\t\t\t\t\t  position: relative;\n\t\t\t\t\t  background: rgba(10, 10, 10, 0.1);\n\t\t\t\t\t  width: 100%;\n\t\t\t\t\t  height: 100%;\n\t\t\t\t\t  top: -100%;\n\t\t\t\t\t  z-index: 5;\n\t\t\t\t\t  border-radius: 8px;\n\t\t\t\t\t}\n\t\t\t\t\t</style>\n\n\t\t\t\t";
 
       for (var i = 0; i < this.results.length; i++) {
+        if (this.results[i].result_json == null) {
+          continue;
+        }
+
         var result = JSON.parse(this.results[i].result_json);
         genPdf += "\n\n\t\t\t\t\t\n\n\t\t\t\t\t <div class=\"w-100 rounded shadow-sm bg-white p-2\">\n\t\t\t\t\t\t<div class=\"row\">\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"font  col-lg-8 col-md-12\">\n\t\t\t\t\t\t\t\t<span class=\" no-break\">\n\t\t\t\t\t\t\t\t\t<span class=\"fw5 p-text-success\">Matric No.: </span>\n\t\t\t\t\t\t\t\t\t<span class=\"mr-1\"> ".concat(this.results[i].student.matric_number, " </span>\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t<span class=\"no-break\">\n\t\t\t\t\t\t\t\t\t<span class=\"fw5 p-text-success\"> Name: </span> ").concat(this.results[i].student.first_name + ' ' + this.results[i].student.other_names, "\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\" font fs01 col-lg-4 col-md-12\">\n\t\t\t\t\t\t\t\t<span class=\" no-break\"><span class=\"fw5 p-text-success\">Started:</span>").concat(this.results[i].time_started.split(',')[0], " </span>\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<span class=\" no-break\"><span class=\"fw5 p-text-success\">Submitted:</span>").concat(this.results[i].time_submited.split(',')[0], "</span>\t\t\t\t\t\t\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t");
 
@@ -13146,6 +13214,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -13275,7 +13346,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 6:
               _this.weeklyworks = _context.sent;
+
               //this.courses_experiments  = await this.axiosGet('api/courses/course_experiments');
+              if (_this.weeklyworks.length < 1) {
+                Swal.fire({
+                  title: 'No Task Found',
+                  text: "You have not created any task, click on the 'create new' button on the page",
+                  icon: 'warning',
+                  showDenyButton: false,
+                  showCancelButton: true,
+                  confirmButtonColor: '#00b96b',
+                  cancelButtonColor: '#d33'
+                });
+              }
+
               _this.loadederState = false;
               $this = _this;
               /*initialize datatable */
@@ -13284,7 +13368,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 $this.rippleButton();
               }, 200);
 
-            case 10:
+            case 11:
             case "end":
               return _context.stop();
           }
@@ -14699,6 +14783,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -15759,11 +15848,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       createdCourses: null,
       tableLoaded: false,
       loaderState: true,
-      counter: 0
+      counter: 0,
+      weeklyworks: []
     };
   },
   methods: {
     //<createcourse update='${true}' alldata='${[]}'></createcourse>
+    checktaskcreated: function checktaskcreated(id, pagename) {
+      if (this.weeklyworks.length > 0) {
+        var find = 0;
+
+        for (var i = 0; i < this.weeklyworks.length; i++) {
+          if (this.weeklyworks[i].experiment_id == id) {
+            find = 1;
+          }
+        }
+
+        if (find == 1) {
+          window.location.replace('/' + pagename);
+        } else {
+          Swal.fire({
+            title: 'No Task Created for this Experiments',
+            text: 'You have not created any Task',
+            icon: 'warning',
+            showDenyButton: false,
+            showCancelButton: true,
+            confirmButtonColor: '#00b96b',
+            cancelButtonColor: '#d33',
+            confirmButtonText: "Goto Manage Task"
+          }).then(function (result) {
+            if (result.isConfirmed) {
+              location.href = "/manage-task";
+            }
+          });
+        }
+      } else {
+        Swal.fire({
+          title: 'No Task Created for this Experiments',
+          text: 'You have not created any Task',
+          icon: 'warning',
+          showDenyButton: false,
+          showCancelButton: true,
+          confirmButtonColor: '#00b96b',
+          cancelButtonColor: '#d33',
+          confirmButtonText: "Goto Manage Task"
+        }).then(function (result) {
+          if (result.isConfirmed) {
+            location.href = "/manage-task";
+          }
+        });
+      }
+    },
     editCourse: function editCourse(obj, id) {
       this.VueSweetAlert2('v-createcourse', {
         update: true,
@@ -15826,6 +15961,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 2:
               _this2.createdCourses = _context.sent;
+              _context.next = 5;
+              return _this2.axiosGet('api/works/weekly_works_only');
+
+            case 5:
+              _this2.weeklyworks = _context.sent;
               //this endpoint is not returning foriegn data
               //console.log(this.createdCourses)
               _this2.tableLoaded = true;
@@ -15839,7 +15979,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 $this.loaderState = false;
               }, 200);
 
-            case 6:
+            case 9:
             case "end":
               return _context.stop();
           }
@@ -16063,6 +16203,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -16106,55 +16251,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         departments: 'physics education',
         total: 50
       }],
-      students: [{
-        fname: 'ibrahim',
-        lname: 'amisu',
-        matric: 'u15/fns/csc/1030'
-      }, {
-        fname: 'ibrahim',
-        lname: 'amisu',
-        matric: 'u15/fns/csc/1030'
-      }, {
-        fname: 'ibrahim',
-        lname: 'amisu',
-        matric: 'u15/fns/csc/1030'
-      }, {
-        fname: 'ibrahim',
-        lname: 'amisu',
-        matric: 'u15/fns/csc/1030'
-      }, {
-        fname: 'ibrahim',
-        lname: 'amisu',
-        matric: 'u15/fns/csc/1030'
-      }, {
-        fname: 'ibrahim',
-        lname: 'amisu',
-        matric: 'u15/fns/csc/1030'
-      }, {
-        fname: 'ibrahim',
-        lname: 'amisu',
-        matric: 'u15/fns/csc/1030'
-      }, {
-        fname: 'ibrahim',
-        lname: 'amisu',
-        matric: 'u15/fns/csc/1030'
-      }, {
-        fname: 'ibrahim',
-        lname: 'amisu',
-        matric: 'u15/fns/csc/1030'
-      }, {
-        fname: 'ibrahim',
-        lname: 'amisu',
-        matric: 'u15/fns/csc/1030'
-      }, {
-        fname: 'ibrahim',
-        lname: 'amisu',
-        matric: 'u15/fns/csc/1030'
-      }, {
-        fname: 'ibrahim',
-        lname: 'amisu',
-        matric: 'u15/fns/csc/1030'
-      }]
+      students: []
     };
   },
   methods: {
@@ -16171,73 +16268,71 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         $this.section--;
       }, 200);
     },
-    couseDetail: function couseDetail(d) {
-      var table = "<table class='table r2 shadow-sm table-hover'><thead><tr>	<th >Department</th>	<th >No of Student</th> </tr></thead><tbody>";
 
-      for (var i = 0; i < d.length; i++) {
-        table += "<tr>";
-        table += "<td >" + d[i]['departments'] + "</td>";
-        table += "<td >" + d[i]['total'] + "</td>";
-        table += "</tr>";
-      }
-
-      table += "</tbody></table>";
-      Swal.fire({
-        html: table,
-        width: '90%',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Print',
-        cancelButtonText: 'exit'
-      }).then(function (result) {
-        if (result.isConfirmed) {
-          var printWin = window.open();
-          printWin.document.write(table);
-          printWin.document.close();
-          printWin.focus();
-          printWin.print();
-          printWin.close();
-        }
-      });
-    },
+    /*	couseDetail:function(d){
+    		let table = "<table class='table r2 shadow-sm table-hover'><thead><tr>	<th >Department</th>	<th >No of Student</th> </tr></thead><tbody>";
+    			for (var i = 0; i < d.length; i++) {
+    				table += "<tr>";
+    				table += "<td >"+d[i]['departments'] + "</td>";
+    				table += "<td >"+d[i]['total'] + "</td>";
+    				table += "</tr>";
+    			}
+    			table += "</tbody></table>";
+    		Swal.fire({					
+    			html: table,
+    			width:'90%',
+    			showCancelButton: true,
+    			confirmButtonColor: '#3085d6',
+    			cancelButtonColor: '#3085d6',
+    			confirmButtonText: 'Print',
+    			cancelButtonText: 'exit'
+    		}).then((result) => {
+    		  if (result.isConfirmed) {
+    		  	let printWin = window.open();
+    			   printWin.document.write(table);
+    			   printWin.document.close();
+    			   printWin.focus();
+    			   printWin.print();
+    			   printWin.close();				    
+    		  }
+    		})
+    	},*/
     viewstudentBtn: function viewstudentBtn() {
       this.$eventBus.$emit('viewstudentBtn2', {
         data: true
       });
       this.stepBack = 1;
-    },
-    studentDetail: function studentDetail(d) {
-      var table = "<table class='table r2 shadow-sm table-hover'><thead><tr><th class='text-left'>matric</th>	<th  class='text-left'>first name</th ><th class='text-left'>last name</th> </tr></thead><tbody>";
-
-      for (var i = 0; i < d.length; i++) {
-        table += "<tr>";
-        table += "<td class='text-left' >" + d[i]['matric'] + "</td>";
-        table += "<td  class='text-left'>" + d[i]['fname'] + "</td>";
-        table += "<td class='text-left' >" + d[i]['lname'] + "</td>";
-        table += "</tr>";
-      }
-
-      table += "</tbody></table>";
-      Swal.fire({
-        html: table,
-        width: '90%',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Print',
-        cancelButtonText: 'exit'
-      }).then(function (result) {
-        if (result.isConfirmed) {
-          var printWin = window.open();
-          printWin.document.write(table);
-          printWin.document.close();
-          printWin.focus();
-          printWin.print();
-          printWin.close();
-        }
-      });
     }
+    /*studentDetail:function(d){
+    	let table = "<table class='table r2 shadow-sm table-hover'><thead><tr><th class='text-left'>matric</th>	<th  class='text-left'>first name</th ><th class='text-left'>last name</th> </tr></thead><tbody>";
+    		for (var i = 0; i < d.length; i++) {
+    			table += "<tr>";
+    			table += "<td class='text-left' >"+d[i]['matric'] + "</td>";
+    			table += "<td  class='text-left'>"+d[i]['fname'] + "</td>";
+    			table += "<td class='text-left' >"+d[i]['lname'] + "</td>";
+    			table += "</tr>";
+    		}
+    		table += "</tbody></table>";
+    	Swal.fire({					
+    		html: table,
+    		width:'90%',
+    		showCancelButton: true,
+    		confirmButtonColor: '#3085d6',
+    		cancelButtonColor: '#3085d6',
+    		confirmButtonText: 'Print',
+    		cancelButtonText: 'exit'
+    	}).then((result) => {
+    	  if (result.isConfirmed) {
+    	  	let printWin = window.open();
+    		   printWin.document.write(table);
+    		   printWin.document.close();
+    		   printWin.focus();
+    		   printWin.print();
+    		   printWin.close();				    
+    	  }
+    	})
+    }*/
+
   },
   created: function created() {
     var _this = this;
@@ -16262,6 +16357,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               /*initialize datatable */
 
               $this = _this;
+
+              if (_this.courses.length < 1) {
+                Swal.fire({
+                  title: 'No Course Found',
+                  text: 'You have not created any course',
+                  icon: 'warning',
+                  showDenyButton: false,
+                  showCancelButton: true,
+                  confirmButtonColor: '#00b96b',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: "Goto Create Course"
+                }).then(function (result) {
+                  if (result.isConfirmed) {
+                    location.href = "/created-course";
+                  }
+                });
+              }
+
               setTimeout(function () {
                 $this.loaderState = false;
                 $this.rippleButton();
@@ -16270,7 +16383,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
               }, 200);
 
-            case 7:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -17617,15 +17730,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       'Authorization': AuthAxios
                     };
                   }
-                  /*goes global*/
-
-                  /*
-                  
-                        		if (!this.freePath.includes(pathname) || pathname == 'login') {
-                        			
-                        		}else{
-                        		}*/
-
 
                 case 1:
                 case "end":
@@ -17729,30 +17833,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           });
           /*login checking and validation*/
 
-          var pathname = location.pathname.split('/')[1];
-
-          if (localStorage.hasOwnProperty('LoggedUser')) {
-            this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token;
-            this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;
-            /*if(pathname === 'login'){
-             	location.href = '/';
-            }	      */
-            //user might have token expired but still logged in. 
-
-            $.post('/ajax-check-login', {
-              "_token": $('meta[name="csrf-token"]').attr('content')
-            }, function (data) {
-              if (data.status == 200) {} else {
-                if (this.freePath.includes(pathname)) {
-                  localStorage.removeItem("LoggedUser");
-                  $this.launch_toast('logged out!');
-                } else {
-                  localStorage.removeItem("LoggedUser");
-                  location.href = '/login';
-                }
-              }
-            }).done(function () {}).fail(function () {}).always(function () {});
-          } else {}
+          /*   		let pathname = location.pathname.split('/')[1];       		
+                	if(localStorage.hasOwnProperty('LoggedUser')){     	      				      
+              			this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
+              			this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;
+             
+              			$.post('/ajax-check-login',{"_token": $('meta[name="csrf-token"]').attr('content')},function(data){      				
+              				if (data.status == 200){
+              					
+              				}else{
+              					if(this.freePath.includes(pathname)){
+               					localStorage.removeItem("LoggedUser");  
+               					$this.launch_toast('logged out!');      				
+              					}else{
+               					localStorage.removeItem("LoggedUser");        						
+          		        	location.href = '/login';
+              					}
+              				}
+              			}).done(function(){}).fail(function(){}).always(function(){});
+             			
+              	}
+          */
 
           var AuthAxios = 'Bearer ' + this.userLoggedInOld;
           this.axiosHeader = {
@@ -46092,7 +46193,7 @@ var render = function() {
       },
       _vm._l(_vm.courseCate.faculties, function(cat) {
         return _c("div", { staticClass: "col-12 col-md-6 col-lg-4 mt-5" }, [
-          cat.courses_count > 0
+          cat.courses_count > 0 && _vm.roletype == "student"
             ? _c(
                 "a",
                 {
@@ -46233,7 +46334,81 @@ var render = function() {
                     ]
                   )
                 ]
+              ),
+          _vm._v(" "),
+          cat.courses_count > 0 && _vm.roletype != "student"
+            ? _c(
+                "a",
+                {
+                  staticClass: "w-100 cadin",
+                  staticStyle: { "text-decoration": "none" },
+                  attrs: { href: "#" },
+                  on: { click: _vm.onlyStudent }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "w-100 r2 shadow bg-white",
+                      staticStyle: { height: "230px", position: "relative" }
+                    },
+                    [
+                      _c("div", { staticClass: "p-3 rounded" }, [
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("h5", { staticClass: "fw5 text-dark" }, [
+                          _vm._v(_vm._s(cat.name))
+                        ]),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "d-flex justify-content-between text-dark",
+                            staticStyle: {
+                              position: "absolute",
+                              bottom: "0",
+                              padding: "20px 0px",
+                              width: "85%"
+                            }
+                          },
+                          [
+                            _c(
+                              "div",
+                              { staticClass: "d-flex flex-wrap fs01 font fw4" },
+                              [
+                                _c("span", { staticClass: "fa fa-table" }),
+                                _vm._v(" "),
+                                _c("span", [
+                                  _vm._v(_vm._s(cat.courses_count) + " Course")
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "d-flex flex-wrap fs01 font fw4" },
+                              [
+                                _c("span", { staticClass: "fa fa-user" }),
+                                _vm._v(" "),
+                                _c("span", [
+                                  _vm._v(
+                                    _vm._s(cat.courses_students_count) +
+                                      " students"
+                                  )
+                                ])
+                              ]
+                            )
+                          ]
+                        )
+                      ])
+                    ]
+                  )
+                ]
               )
+            : _vm._e()
         ])
       }),
       0
@@ -47888,6 +48063,28 @@ var render = function() {
                           { staticClass: "col-lg-12 col-md-12 m-0 mt-3" },
                           [
                             _c("div", { staticClass: "px-1" }, [
+                              _c("p", { staticClass: "fs001 my-1" }, [
+                                _vm._v("Introduction")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                staticClass: "form-control w-100 ",
+                                attrs: {
+                                  type: "text",
+                                  placeholder: "",
+                                  id: "experiment_intro"
+                                },
+                                on: { keyup: _vm.normalize }
+                              })
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-lg-12 col-md-12 m-0 mt-3" },
+                          [
+                            _c("div", { staticClass: "px-1" }, [
                               _vm._m(1),
                               _vm._v(" "),
                               _c("input", {
@@ -48172,7 +48369,16 @@ var render = function() {
                       _c("span", { staticClass: "fa fa-arrow-right" })
                     ]
                   )
-                : _vm._e()
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "button bg-danger text-white px-3 py-2 ml-3",
+                  attrs: { onclick: "Swal.close()" }
+                },
+                [_vm._v("Cancel")]
+              )
             ]
           ),
           _vm._v(" "),
@@ -54338,7 +54544,29 @@ var render = function() {
           )
         }),
         0
-      )
+      ),
+      _vm._v(" "),
+      _vm.weeklyworks.length < 1
+        ? _c(
+            "div",
+            {
+              staticStyle: {
+                display: "flex",
+                "flex-wrap": "wrap",
+                "justify-content": "center",
+                "align-items": "center",
+                width: "100%"
+              }
+            },
+            [
+              _c(
+                "h3",
+                { staticClass: "font", staticStyle: { color: "#bbbbbc" } },
+                [_vm._v("No Task Has Been Created")]
+              )
+            ]
+          )
+        : _vm._e()
     ],
     1
   )
@@ -55176,23 +55404,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "m-0 p-0" }, [
-    _c(
-      "div",
-      {
-        staticClass: "close",
-        staticStyle: {
-          color: "red",
-          position: "fixed",
-          top: "0px",
-          right: "5px",
-          "font-size": "2em",
-          "pointer-events": "none",
-          cursor: "pointer"
-        }
-      },
-      [_vm._v("×")]
-    ),
-    _vm._v(" "),
     _c("form", { staticClass: "m-0 p-0", attrs: { id: "myform" } }, [
       _c("span", { staticClass: "d-none" }, [
         _c("input", {
@@ -55540,7 +55751,7 @@ var render = function() {
                           "button",
                           {
                             staticClass:
-                              "btn py-2 mb-5 mr-2 mt-3 px-4 text-white fs1 font1 p-success btn-sm",
+                              "btn py-2 mb-5 mr-2 mt-3 px-4 button text-white fs1 font1 p-success btn-sm",
                             attrs: { type: "button" },
                             on: { click: _vm.submitUserForm }
                           },
@@ -55549,6 +55760,16 @@ var render = function() {
                               ? _c("span", [_vm._v("Update")])
                               : _c("span", [_vm._v("Submit")])
                           ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "btn mb-5 mt-3 fs1 font1 btn-sm button bg-danger text-white px-4 py-2 ml-3",
+                            attrs: { onclick: "Swal.close()" }
+                          },
+                          [_vm._v("Cancel")]
                         )
                       ])
                     ],
@@ -55583,9 +55804,22 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-lg-6 col-md-6 m-0" }, [
-      _c("label", { staticClass: "fs1 font pl-1" }, [
-        _c("code", [_vm._v("Note:")]),
-        _vm._v(" phone number is the default password")
+      _c("code", [_vm._v("Note:")]),
+      _vm._v(" "),
+      _c("ul", [
+        _c("li", [
+          _c("label", { staticClass: "fs01 font pl-1" }, [
+            _vm._v(
+              "Matric Number is the username for student and email for other users"
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("label", { staticClass: "fs01 font pl-1" }, [
+            _vm._v("phone number is the default password")
+          ])
+        ])
       ])
     ])
   }
@@ -56529,9 +56763,14 @@ var render = function() {
                                 "a",
                                 {
                                   staticClass: "bullets line-h01 text-primary",
-                                  attrs: {
-                                    href:
-                                      "/" + course_experiment.experiments.page
+                                  attrs: { href: "#" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.checktaskcreated(
+                                        course_experiment.experiments.id,
+                                        course_experiment.experiments.page
+                                      )
+                                    }
                                   }
                                 },
                                 [
@@ -56848,12 +57087,7 @@ var render = function() {
                           "p",
                           {
                             staticClass:
-                              "fs2 fw7 mb-2 mt-4 fs10 font2 p-text-dark line-height-none show-student-detail cursor-1",
-                            on: {
-                              click: function($event) {
-                                return _vm.studentDetail(_vm.students)
-                              }
-                            }
+                              "fs2 fw7 mb-2 mt-4 fs10 font2 p-text-dark line-height-none show-student-detail cursor-1"
                           },
                           [_vm._v(_vm._s(course.course_student.length))]
                         ),
@@ -56871,12 +57105,7 @@ var render = function() {
                           "div",
                           {
                             staticClass:
-                              "font fs2 mt-4 p-text-warning cursor-1 show-course-detail r1",
-                            on: {
-                              click: function($event) {
-                                return _vm.couseDetail(_vm.departments)
-                              }
-                            }
+                              "font fs2 mt-4 p-text-warning cursor-1 show-course-detail r1"
                           },
                           [
                             _c("span", { staticClass: "fa fa-cube" }),
@@ -56894,6 +57123,34 @@ var render = function() {
             }),
             0
           )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.section == 0
+        ? _c("div", [
+            _vm.courses.length < 1
+              ? _c(
+                  "div",
+                  {
+                    staticStyle: {
+                      display: "flex",
+                      "flex-wrap": "wrap",
+                      "justify-content": "center",
+                      "align-items": "center"
+                    }
+                  },
+                  [
+                    _c(
+                      "h3",
+                      {
+                        staticClass: "font",
+                        staticStyle: { color: "#bbbbbc" }
+                      },
+                      [_vm._v("No Course Has Been Created")]
+                    )
+                  ]
+                )
+              : _vm._e()
+          ])
         : _vm._e(),
       _vm._v(" "),
       _vm.section == 1

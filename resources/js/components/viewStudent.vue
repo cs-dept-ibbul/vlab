@@ -19,9 +19,9 @@
                     <div @click="selectCourse(course)" class="shadow-sm r2 button bg-white d-flex flex-wrap justify-content-between w-100 pl-0 py-4 pr-4">                
                         <div class="p-0 image-bg-1"></div>
                         <div class="my-2">
-                            <p class="fs2 fw7 mb-2 mt-4 fs10 font2 p-text-dark line-height-none show-student-detail cursor-1" @click='studentDetail(students)'>{{course.course_student.length}}</p>
+                            <p class="fs2 fw7 mb-2 mt-4 fs10 font2 p-text-dark line-height-none show-student-detail cursor-1" >{{course.course_student.length}}</p>
                             <p class="mt-0 pt-0 p-text-dark font2 fw4 fs2 pl-2 ">Students</p>
-                            <div class="font fs2 mt-4 p-text-warning cursor-1 show-course-detail r1" @click="couseDetail(departments)">
+                            <div class="font fs2 mt-4 p-text-warning cursor-1 show-course-detail r1" >
                                 <span class="fa fa-cube"></span>
                                 <span class="" >{{course.code}}</span>
                             </div>
@@ -33,7 +33,12 @@
     
                 </div>              
 
-            </div>        
+            </div>     
+            <div v-if="section==0">            
+	            <div v-if="courses.length < 1" style="display: flex;flex-wrap: wrap;justify-content: center;align-items: center;" >
+	            	<h3 style="color: #bbbbbc;" class="font">No Course Has Been Created</h3>
+	            </div>   
+	        </div>
             <div v-if="section==1">
             	<v-viewstudentbycourse :course="selectedCourse"></v-viewstudentbycourse>
             </div>
@@ -68,21 +73,7 @@
 					{departments: 'physics education', total:50},
 					{departments: 'physics education', total:50},				
 				],
-				students:[
-					{fname: 'ibrahim', lname:'amisu', matric:'u15/fns/csc/1030'},
-					{fname: 'ibrahim', lname:'amisu', matric:'u15/fns/csc/1030'},
-					{fname: 'ibrahim', lname:'amisu', matric:'u15/fns/csc/1030'},
-					{fname: 'ibrahim', lname:'amisu', matric:'u15/fns/csc/1030'},
-					{fname: 'ibrahim', lname:'amisu', matric:'u15/fns/csc/1030'},
-					{fname: 'ibrahim', lname:'amisu', matric:'u15/fns/csc/1030'},
-					{fname: 'ibrahim', lname:'amisu', matric:'u15/fns/csc/1030'},
-					{fname: 'ibrahim', lname:'amisu', matric:'u15/fns/csc/1030'},
-					{fname: 'ibrahim', lname:'amisu', matric:'u15/fns/csc/1030'},
-					{fname: 'ibrahim', lname:'amisu', matric:'u15/fns/csc/1030'},
-					{fname: 'ibrahim', lname:'amisu', matric:'u15/fns/csc/1030'},
-					{fname: 'ibrahim', lname:'amisu', matric:'u15/fns/csc/1030'},
-					
-				],
+				students:[],
 			}
 		},
 		methods: {
@@ -100,7 +91,7 @@
 					$this.section--;
 				},200)
 			},
-			couseDetail:function(d){
+		/*	couseDetail:function(d){
 				let table = "<table class='table r2 shadow-sm table-hover'><thead><tr>	<th >Department</th>	<th >No of Student</th> </tr></thead><tbody>";
 					for (var i = 0; i < d.length; i++) {
 						table += "<tr>";
@@ -127,12 +118,12 @@
 					   printWin.close();				    
 				  }
 				})
-			},
+			},*/
 			viewstudentBtn: function(){				
 				this.$eventBus.$emit('viewstudentBtn2', {data:true});
 				this.stepBack =1;
 			},
-			studentDetail:function(d){
+			/*studentDetail:function(d){
 				let table = "<table class='table r2 shadow-sm table-hover'><thead><tr><th class='text-left'>matric</th>	<th  class='text-left'>first name</th ><th class='text-left'>last name</th> </tr></thead><tbody>";
 					for (var i = 0; i < d.length; i++) {
 						table += "<tr>";
@@ -160,7 +151,7 @@
 					   printWin.close();				    
 				  }
 				})
-			}
+			}*/
 		},
 		async created(){
 			this.$eventBus.$on('viewStudentExperiment',data=>{
@@ -171,6 +162,23 @@
 		    this.tableLoaded = true;
 		    /*initialize datatable */
 		    let $this = this;
+		    if (this.courses.length<1) {
+		     	Swal.fire({
+		     		title:'No Course Found',
+		     		text:'You have not created any course',
+		     		icon:'warning',
+		     		showDenyButton: false,
+				    showCancelButton: true,				    
+	      		    confirmButtonColor:'#00b96b',		
+	      		    cancelButtonColor:'#d33',		
+				    confirmButtonText: `Goto Create Course`,						       
+				}).then((result) => {
+				  
+				  if (result.isConfirmed) {
+				    location.href = "/created-course";
+				  }
+				})
+		     }
 
              setTimeout(function() {
              	$this.loaderState =false;

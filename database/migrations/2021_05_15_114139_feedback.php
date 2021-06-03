@@ -18,7 +18,7 @@ class Feedback extends Migration
             $table->string('id',36)->primary();
             $table->string('message',2000);
             $table->string('like',10);
-            $table->enum('pagename');                    
+            $table->string('pagename');                    
         });
     }
 

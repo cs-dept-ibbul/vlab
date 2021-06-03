@@ -911,7 +911,24 @@
 		async created(){			
 		    this.experiments  = await this.axiosGet('api/experiments/experiments');
 		   if (this.experiments.length< 1) {
-		   	this.attemptsFailsV('No Experiment is available', 'to proceed on add Experiment, Click Ok', true,'/add-experiment');
+		   	Swal.fire({
+		     		title:'No Experiment Found ',
+		     		text:'You have to add experiments to create a course',
+		     		icon:'warning',
+		     		showDenyButton: false,
+				    showCancelButton: false,				    
+	      		    confirmButtonColor:'#00b96b',		
+				    confirmButtonText: `Goto manage experiment`,						       
+				    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    closeOnClickOutside:false,	                    
+				}).then((result) => {
+				  
+				  if (result.isConfirmed) {
+				    location.href = "/add-experiment";
+				  }
+				})
+		   	//this.attemptsFailsV('', 'to proceed on add Experiment, Click Ok', true,'/add-experiment');
 		   }
 		    /*initialize datatable */           
 			if (this.update) {

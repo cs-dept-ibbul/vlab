@@ -91,6 +91,7 @@ class UserController extends Controller
         $user->id = $id;
         $user->username = $username;
         $user->password = $password;
+        $user->email = $email;
         $user->first_name = $first_name;
         $user->other_names = $other_names;
         $user->gender = $gender;
@@ -163,6 +164,7 @@ class UserController extends Controller
         $user = User::find($userId);
         $user->username = $username;
         $user->password = $password;
+        $user->email = $email;
         $user->first_name = $first_name;
         $user->other_names = $other_names;
         $user->gender = $gender;

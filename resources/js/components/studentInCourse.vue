@@ -278,6 +278,9 @@
 
 				`;				 
 				 for (var i = 0; i < this.results.length; i++) {
+				 	if (this.results[i].result_json == null) {
+				 		continue;
+				 	}
 				 	var result = JSON.parse(this.results[i].result_json);				 
 
 					genPdf += `
@@ -301,8 +304,10 @@
 							</div>
 						</div>
 						`;
+							
 
 						for (var t = 0; t < result.length; t++) {
+							
 						genPdf += `<h4 style="margin-bottom:1px; margin-top:4px;">${result[t].title}</h4>
 								        <table class="table table-bordered iresult">
 											<thead class="bg-white p-1 mx-auto mt-2">

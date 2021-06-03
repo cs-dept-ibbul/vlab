@@ -35,6 +35,7 @@ Route::group([
     Route::post('login', [AuthController::class, 'login']);
     Route::post('feedback', [FeedbackController::class, 'feedback']);
     Route::get('getfeedbacks', [FeedbackController::class, 'getFeedback']);
+    Route::get('check', [FacultyController::class, 'checkFacultyExist']);
 
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
@@ -76,7 +77,6 @@ Route::group([
             Route::post('faculty', [FacultyController::class, 'getFaculty']);
             Route::get('faculties', [FacultyController::class, 'getAllFaculties']);
             Route::get('faculty_courses', [FacultyController::class, 'facultiesWithCourses']);
-            Route::get('check', [FacultyController::class, 'checkFacultyExist']);
             Route::get('faculty_course_student', [FacultyController::class, 'getFacultyWithCourseAndStudentCount']);
         });
 
@@ -128,6 +128,7 @@ Route::group([
             Route::post('assign_work_experiment', [WeeklyWorkController::class, 'assignWeeklyWorkExperiment']);
             Route::post('weekly_work', [WeeklyWorkController::class, 'getWeeklyWork']);
             Route::get('weekly_works', [WeeklyWorkController::class, 'getWeeklyWorks']);
+            Route::get('weekly_works_only', [WeeklyWorkController::class, 'getOnlyWeeklyWorks']);
             Route::post('student_task', [WeeklyWorkController::class, 'getStudentWeeklyWork']);
             Route::post('student_task2', [WeeklyWorkController::class, 'getStudentWeeklyWork2']);
             

@@ -411,4 +411,9 @@ class WeeklyWorkController extends Controller
             return response()->json(['error' => 'Weekly Work Experiment not found'], 404);
         }
     }
+    public function getOnlyWeeklyWorks(Request $request){
+        return WeeklyWorkExperiment::all();
+    }
+
+
 }

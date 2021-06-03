@@ -1,4 +1,12 @@
 @extends('layouts/main')
+@section('head')
+<style type="text/css">
+	#navbarId{
+		box-shadow: none !important;
+		border-bottom: 1px solid #eee;
+	}
+</style>
+@endsection
 @section('content-body')
     <div class="content">
 		<!-- <v-userauth></v-userauth> -->

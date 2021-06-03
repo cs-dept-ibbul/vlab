@@ -72,6 +72,12 @@
 	            			</div>	      
 	            			<div class="col-lg-12 col-md-12 m-0 mt-3">
 	            				<div class="px-1">	            					
+		            				<p class="fs001 my-1">Introduction</p>		            				
+		            				<input type="text" @keyup="normalize" placeholder="" class="form-control w-100 " id="experiment_intro">
+	            				</div>
+	            			</div>
+	            			<div class="col-lg-12 col-md-12 m-0 mt-3">
+	            				<div class="px-1">	            					
 		            				<p class="fs001 my-1">Experiment Video <span class="fs01 fw5" style="color: #888;">video url/link</span></p>		            				
 		            				<input type="text" @keyup="normalize" placeholder="https://" class="form-control w-100 " id="elink">
 	            				</div>
@@ -174,6 +180,8 @@
 	    		<span v-if="update">Update</span> 
 	    		<span class="fa fa-arrow-right"></span>
         	</button>
+	        <button onclick="Swal.close()"  class="button bg-danger text-white px-3 py-2 ml-3">Cancel</button>            		
+
 
         </div>
         <div class="col-md-1 col-sm-12 mx-auto">
@@ -241,9 +249,10 @@
 				console.log(event)
             	this.ediagram = event.target.files[0];
             	$('#imageName').text(this.ediagram.name)
-            	let ext = ['image/jpeg','image/png'];
-            	if (!includes(this.ediagram)) {
+            	let ext = ['image/jpeg','image/png','png','jpg','jpeg'];            	
+            	if (!ext.includes(this.ediagram.type)) {
             		$('.requiredv').remove();
+            		this.ediagram =  '';
             		$('.file-cover').after('<span class="text-danger requiredv" id="ar001">invalid file type</span>');
             		return false;
             	}
@@ -540,16 +549,16 @@
 
 			   		const formData = new FormData();					  
 				   	formData.append('experiment_id',this.experiment_id_to_update);
-				   	formData.append('name',this.alldata[0].title);
-				   	formData.append('experiment_intro',this.alldata[0].experiment_intro);
-				   	formData.append('video_url',this.alldata[0].video_url);
-				   	formData.append('required',this.required);
-				   	formData.append('experiment_goal',this.alldata[0].aim);
+				   	formData.append('name',this.alldata[0].title.replace(/<script>/g,''));
+				   	formData.append('experiment_intro',this.alldata[0].experiment_intro.replace(/<script>/g,''));
+				   	formData.append('video_url',this.alldata[0].video_url.replace(/<script>/g,''));
+				   	formData.append('required',this.required.replace(/<script>/g,''));
+				   	formData.append('experiment_goal',this.alldata[0].aim.replace(/<script>/g,''));
 				   	formData.append('experiment_diagram',this.ediagram);
-				   	formData.append('experiment_resource', this.alldata[0].resources);
-				   	formData.append('exercise',this.exercise);					   	
-				   	formData.append('apparatus',this.alldata[0].apparatus);
-				   	formData.append('procedures',this.alldata[0].procedure);				   	
+				   	formData.append('experiment_resource', this.alldata[0].resources.replace(/<script>/g,''));
+				   	formData.append('exercise',this.exercise.replace(/<script>/g,''));					   	
+				   	formData.append('apparatus',this.alldata[0].apparatus.replace(/<script>/g,''));
+				   	formData.append('procedures',this.alldata[0].procedure.replace(/<script>/g,''));				   	
 				   	formData.append('page',this.alldata[1].experiment_url);				   	
 				   	//formData.append('config',this.alldata[2].config);
 

@@ -85,12 +85,11 @@ class WhoAreYou
                     return redirect('/no-access');
                 }
             }else if($role == config('calculations.default_roles.instructor')){                                
-                $page = explode('/', $request->route()->uri);
+                $page = explode('/', $request->route()->uri);                
                 $weeklyExperimentWorkId = DB::table('experiments', 'e')->join('weekly_work_experiments', 'weekly_work_experiments.experiment_id', 'e.id')->select('weekly_work_experiments.id as weeklyExperimentWorkId')->where('e.page',$page[0])->first()->weeklyExperimentWorkId;                
                  $currentSession = DB::table('session')->where(['is_current'=>1,'status'=>'Active'])->first()->id;
-                 $existInDB = WeeklyWork::join('weekly_work_experiments','weekly_work_experiments.weekly_work_id', 'weekly_works.id')->join('experiments', 'weekly_work_experiments.experiment_id','experiments.id')->join('user_courses', 'user_courses.course_id','weekly_works.course_id')->leftJoin('experiment_results', function($query){
-                    $query->on(['user_courses.user_id'=>'experiment_results.user_id','weekly_work_experiments.id'=>'experiment_results.weekly_work_id']);
-                })->where([
+                 
+                 $existInDB = WeeklyWork::join('weekly_work_experiments','weekly_work_experiments.weekly_work_id', 'weekly_works.id')->join('experiments', 'weekly_work_experiments.experiment_id','experiments.id')->where([
                         'weekly_work_experiments.id'=>$weeklyExperimentWorkId,
                         'experiments.page'=>$page[0],                                                
                     ])->first();                    
@@ -100,7 +99,7 @@ class WhoAreYou
                 ];
                 session(['time_left'=>$time_left]);                
                 session(['access_code'=>'free']);                
-                session(['experimentMode'=>false]);                
+                session(['experimentMode'=>false]);                                
                 session(['setdata'=>$existInDB->setdata]);    
                 session(['time_left'=>$time_left]);          
                 session(['user_type'=>'instructor']);          
