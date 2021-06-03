@@ -75,7 +75,7 @@ Vue.component('v-tlb2', require('./components/title-left-bar.vue').default);
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('v-tlb', require('./components/title-left-bar.vue').default);
 Vue.component('v-navb', require('./components/Navbar.vue').default);
-Vue.component('v-home', require('./components/home.vue').default);
+Vue.component('v-homex', require('./components/home.vue').default);
 Vue.component('v-sponsor', require('./components/SponsorSection.vue').default);
 Vue.component('v-explore', require('./components/ExploreSection.vue').default);
 Vue.component('v-avlc', require('./components/AvailableCourses.vue').default);

@@ -16514,7 +16514,7 @@ vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-tlb2', __webpack_require__
 
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-tlb', __webpack_require__(/*! ./components/title-left-bar.vue */ "./resources/js/components/title-left-bar.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-navb', __webpack_require__(/*! ./components/Navbar.vue */ "./resources/js/components/Navbar.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-home', __webpack_require__(/*! ./components/home.vue */ "./resources/js/components/home.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-homex', __webpack_require__(/*! ./components/home.vue */ "./resources/js/components/home.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-sponsor', __webpack_require__(/*! ./components/SponsorSection.vue */ "./resources/js/components/SponsorSection.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-explore', __webpack_require__(/*! ./components/ExploreSection.vue */ "./resources/js/components/ExploreSection.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_4__.default.component('v-avlc', __webpack_require__(/*! ./components/AvailableCourses.vue */ "./resources/js/components/AvailableCourses.vue").default);
