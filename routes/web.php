@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::view('forgot_password', 'reset_password')->name('password.reset');
 
 Route::get('/login', 'App\Http\Controllers\loginController@index')->name('login');
 Route::post('/proccess-login', 'App\Http\Controllers\loginController@process_login');
