@@ -1,22 +1,15 @@
 @extends('../layouts/main')
 @section('head')
- <link href="{{ asset('css/quill.css')}}" rel="stylesheet" media="all">
- <link href="{{ asset('css/katex.css')}}" rel="stylesheet" media="all">
- <link href="{{ asset('css/mathquill.css')}}" rel="stylesheet" media="all">
- <link href="{{ asset('css/mathquill_mix.css')}}" rel="stylesheet" media="all">
-<script src="{{ asset('js/jquery-1.11.3.min.js')}}"></script>
 
-<script src="{{ asset('js/quill.js')}}"></script>
-<script src="{{ asset('js/mathquill.js')}}"></script>
-<script src="{{ asset('js/katex.js')}}"></script>
-<script src="{{ asset('js/mathquill_mix.js')}}"></script>
+  <!-- <link rel="stylesheet" href="{{asset('css/ckeditor/samples/css/samples.css')}}"> -->
+  <!-- <link rel="stylesheet" href="{{asset('css/ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css')}}"> -->
+<script src="{{ asset('css/ckeditor/ckeditor.js')}}"></script>
 @endsection('head')
 @section('content-body')
 <div style="display: flex;">   
-<!--   <v-userauth></v-userauth> -->
-  
+
 	<!-- main side bar -->
-  <v-isidebar home="{{route('home')}}" dashboard="" explore="{{route('explore')}}" settings="{{route('home')}}" setexperiment="{{route('add-experiment')}}" viewexperiment="" student="{{route('view-student')}}"   active="student" activesub="student"></v-isidebar>   
+   <v-isidebar active="experiment" activesub="addexperiment"></v-isidebar>
    
 	
   <!-- end main side bar -->
@@ -26,7 +19,7 @@
    		<!-- end to nav bar -->
 
    	  <!-- content -->
-   		<v-addexperiment></v-addexperiment>
+   		<v-addexperiment class="scroll-y vh-87"></v-addexperiment>
    </div>
 
 

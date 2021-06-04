@@ -15,4 +15,14 @@ class ExperimentResult extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function experiments()
+    {
+    	return $this->belongsTo(Experiment::class, 'experiment_id');
+    }
+
+     public function student()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

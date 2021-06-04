@@ -37,6 +37,8 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            //\App\Http\Middleware\Installation::class,            
+
         ],
 
         'api' => [
@@ -53,7 +55,12 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'userauth' => \App\Http\Middleware\UserAuth::class,        
+        'is_enrolled' => \App\Http\Middleware\EnrollmentAccess::class,   
+        'is_loggedin' => \App\Http\Middleware\NextIfLoggedIn::class,   
+        'whoareyou' => \App\Http\Middleware\WhoAreYou::class,        
+        'twouserauth' => \App\Http\Middleware\TwoUserAuth::class,        
+        'studentauth' => \App\Http\Middleware\StudentAuth::class,        
+        'instructorauth' => \App\Http\Middleware\InstructorAuth::class,        
         'adminauth' => \App\Http\Middleware\AdminAuth::class,        
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
@@ -64,6 +71,6 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-
+        'cors' => \App\Http\Middleware\Cors::class, 
     ];
 }

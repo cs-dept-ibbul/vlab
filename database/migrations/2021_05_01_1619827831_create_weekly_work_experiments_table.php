@@ -13,6 +13,7 @@ class CreateWeeklyWorkExperimentsTable extends Migration
             $table->string('id', 36)->primary();
             $table->string('experiment_id', 36);
             $table->string('weekly_work_id', 36);
+            $table->json('setdata')->default(Null);
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->rememberToken();
             $table->timestamps();

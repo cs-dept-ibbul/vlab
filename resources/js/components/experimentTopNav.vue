@@ -6,7 +6,7 @@
 		</div>
 		<div style="display: flex;flex-wrap: wrap;align-items: center;">
 			<span class="fa fa-user mr-2"></span>
-			<span style="font-size: 0.9em; font-weight: 300;">Sa'id</span>
+			<span style="font-size: 0.9em; font-weight: 300;">{{username}}</span>
 			<span class="fa fa-chevron-down ml-2"></span>
 		</div>
 	</div>
@@ -17,7 +17,8 @@
 
 	 data:function() {
 	    	return{
-	    	 navState:false
+	    	 navState:false,
+	    	 username:'',
 	    	}
         },
         methods:{
@@ -28,6 +29,9 @@
 			    //this.newTodoText = ''
 			}
         },	
+        created(){
+        	this.username = this.currentUser.first_name;
+        },
         
          props: ['equipmentname','experimentnum'],
          mounted(){	         	

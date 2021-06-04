@@ -1,5 +1,5 @@
 <template>
-	<div class="vhE-2" id="rightNavigation">
+	<div class="vhE-2 " id="rightNavigation">
 		<div class="containerR" id="tools" style="height:100%;">	
 			
 		   	<div class="input-alt"></div>	
@@ -7,34 +7,45 @@
 		   	 	<circuitconnectiontools has='1'  ></circuitconnectiontools>
 		   	</span>	   
 		   	<span v-if="electricitytools==true">	
-			   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>		   		
-		   		<electricity></electricity>	   		
+			   	<span class="fa fa-align-justify bg-white rightnavexpander" @click="rightnavexpander"></span>		   		
+		   		<electricity :resistorConfig="config"></electricity>	   		
 		   	</span>
-		   	<span v-if="othertools==true">		   		
-			   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>
-	            <div v-for="tool in toolsizes"  :key="tool" @click="addactivate;changeApparatus(tool)"  v-bind:style="{width:tool+'px'}" class="box">
-	            		Size
-	        	</div>                  
+		   	<span v-if="othertools==true">	 
+		   		<span v-if= "type=='measurement' && startExperiment == true">		   		
+				   	<span class="fa fa-align-justify bg-white rightnavexpander" @click="rightnavexpander"></span>
+		            <div v-for="i in toolsizes_r[0].length"  :key="i" @click="addactivate($event);changeApparatus(toolsizes_r[0][i-1],toolsizes_r[1][i-1],toolsizes_r[2][i-1])"  v-bind:style="{width:+'150px'}" class="box">
+		            		Object {{i}}
+		        	</div>                  
+		   		</span>
+		   		<span v-if= "type=='micrometer' && startExperiment == true">		   		
+				   	<span class="fa fa-align-justify bg-white rightnavexpander" @click="rightnavexpander"></span>
+		            <div v-for="j in toolsizes_r.length"  :key="j" @click="addactivate($event);changeApparatusForMicrometer(toolsizes_r[j-1])"  v-bind:style="{width:+'150px'}" class="box">
+		            		Object {{j}}
+		        	</div>                  
+		   		</span>
 		   	</span>
 		<!-- <span v-if="toolstate==true">
 		</span>		
 		<span v-else>			
 		</span> -->
 		</div>
-		<div class="containerR" style="display: none;" id="resulttable">
+		<div class="containerR px-2" style="display: none;" id="resulttable">
 		   	<div class="input-alt"></div>
-		   <span class="fa fa-align-justify bg-white rightnavexpander"></span>
-		   <h1>Result table</h1>				                
+		   <span class="fa fa-align-justify bg-white rightnavexpander" @click="rightnavexpander"></span>
+		   
+		   <div v-html="result" v-if="startExperiment">
+		   	
+		   </div>				                
 		</div>
 		<div class="containerR" style="display: none;" id="resultgraph">				
 		   	<div class="input-alt"></div>
-		   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>
+		   	<span class="fa fa-align-justify bg-white rightnavexpander" @click="rightnavexpander"></span>
 
 		   <h1>Graph</h1>				                
 		</div>
 		<div class="containerR" style="display: none;" id="userhelp">		
 		   	<div class="input-alt"></div>		
-		   	<span class="fa fa-align-justify bg-white rightnavexpander"></span>			
+		   	<span class="fa fa-align-justify bg-white rightnavexpander" @click="rightnavexpander"></span>			
 		   <h1>Help</h1>				                
 		</div>
 		<!-- <div class="containerR" style="display: none;" id="unkl">			
@@ -61,7 +72,7 @@
 		    	show:false,
             	hide:true,
             	control:false,     
-            	toolsizesArr:[],             	            
+            	toolsizes_r:[],             	            
             	toolnstate:false,
             	rightNavState:false,
             	activeRightNav:'tools'		            
@@ -73,21 +84,30 @@
             	//control = false;
         	},
         	addactivate(e){
-        		console.log(e.target);
-        		alert(2);
-        		let box = document.getElementsByClassName('box');
+        	
+        		/*let box = document.getElementsByClassName('box');
         		for (let i = 0; i < box.length; i++) {
         			box[i].classList.remove('boxActive');
-        		}
-        		e.target.classList.add('boxActive');
+        		}*/
+        		$('.box').removeClass('boxActive');
+        		$(e.target).addClass('boxActive');
 
         	},
-        	changeApparatus(tool){
-
-        		//let  experimentSheet = document.getElementById('experimentSheet');
-        		let  experimentSheet = $('#experimentSheet');
-        		 experimentSheet.attr('src',this.url+tool); //tool is value
-
+        	changeApparatus(t1,t2,t3){
+        		if (t1 != undefined && t2 != undefined && t3 != undefined  ) {
+        			t1 = Number(t1);
+        			t2 = Number(t2);
+        			t3 = Number(t3);
+        			let  experimentSheet = $('#experimentSheet');
+        		    experimentSheet.attr('src',this.url+t1+'-'+t2+'-'+t3); //tool is value
+        		}
+        	},
+        	changeApparatusForMicrometer(t1){
+        		if (t1 != undefined) {
+        			t1 = Number(t1);
+	        		let  experimentSheet = $('#experimentSheet');
+	        		 experimentSheet.attr('src',this.url+t1); //tool is value        			
+        		}
         	},
         	toggleNavOnHover: function(value){          
         		
@@ -95,17 +115,29 @@
         	toggller(e){
 
         	},
+        	rightnavexpander:function(){
+        		if(this.rightNavState=== false){
+        			$('#rightNav').addClass('width50');
+        			this.rightNavState = true;
+        		}else if(this.rightNavState === true){
+        			$('#rightNav').removeClass('width50');
+        			this.rightNavState = false;
+        		}
+        	}
 
         },	
         computed: {
     		// a computed getter		  
 		  },
-        created: function () {      
-
+        created: function () {  
+          this.toolsizes_r = JSON.parse(this.toolsizes);          	        	
+          this.$eventBus.$on('startExperiment',data=>{
+          	this.startExperiment = true;          	
+          })
 		  this.$eventBus.$on('rightNavtoggleClick', data => {		  	
 		  	//this.toggleNavOnHover();
 		  	if(this.activeRightNav === data.text){		  		
-
+ 
 		  	}else{
 		  		$('.containerR').slideUp();
 		  		$('#'+data.text).slideDown(200);		  			  		
@@ -113,6 +145,11 @@
 		  	}
 		  })		  
 
+		  //invoke from toggleRightNav2() in ExperimentRibbon.vue;
+		  this.$eventBus.$on('toggleRightNav2', data=>{
+        		$('#rightNav').addClass('width50');
+        		this.rightNavState = true;
+		  })
 		},
 
 		beforeDestroy: function () {
@@ -120,30 +157,36 @@
 		},
 
         props:{
-            toolsizes: Array,
+            toolsizes:{
+            	type:String,
+            	default:function(){
+            		return "[]";
+            	}
+            },
             url:String,
+            result: String,
             toolstate:Boolean,
             circuitconnectiontools:Boolean,
             othertools:Boolean,
-            electricitytools:Boolean
+            electricitytools:Boolean,
+            type:{
+            	type:String,
+            	default: function(){
+            		return '';
+            	}
+            },
+		    config:Array,     		    
         },        
-        mounted(){
+        mounted(){        		
+
         	//console.log(this.toolsizes);
-        var $vm = this;	               	
+       		 //alert(this.resultTable)
+       		 var $vm = this;	               	
         	$('.box').click(function(){
         		$('.box').removeClass('boxActive');
         		$(this).addClass('boxActive');
 
-        	});
-        	$('.rightnavexpander').click(function(){
-        		if($vm.rightNavState=== false){
-        			$('#rightNav').addClass('width50');
-        			$vm.rightNavState = true;
-        		}else if($vm.rightNavState === true){
-        			$('#rightNav').removeClass('width50');
-        			$vm.rightNavState = false;
-        		}
-        	})
+        	});       
         }		
 	}
 
@@ -240,12 +283,12 @@
 	cursor: pointer !important;
 }
 .boxActive{
-	background: #2F274E;
+	background: #2F274E;	
 }
 .containerR{
 	height: 537px;
 	background: #40356E;
-	overflow-x: scroll;
+	overflow-x: hidden;
 	color: #fff;
 }
 .fa-align-justify{

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?php echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
   <head>
@@ -10,6 +10,21 @@
 .metadata { display: none; }
 </style>
 <script async="true" src="https://www.googletagmanager.com/gtag/js?id=UA-3326007-19"></script>
+<?php
+    $sizes = explode('-', $_GET['size']);
+    $size = $sizes[0];
+    $sizeI = $sizes[1];
+    $sizeD = $sizes[2];
+       if(Session::has('experimentMode')){
+          if (session('experimentMode') == 1) {
+              $mode  = true;            
+          }else{
+              $mode = false;
+          }
+        }else{
+          $mode = false;
+        }
+?>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -21,8 +36,10 @@
     <script src="{{ asset('experiments/_ejs_library/scripts/common_script.js')}}"></script>
     <script src="{{ asset('experiments/_ejs_library/scripts/textresizedetector.js')}}"></script>
     <script src="{{ asset('experiments/_ejs_library/ejsS.v1.min.js')}}"></script>
+    <script src="{{ asset('js/jquery-3.1.1.min.js')}}"></script>
 <script type="text/javascript"><!--//--><![CDATA[//><!--
-var testMode = false;
+var testMode = <?php echo json_encode($mode); ?>;
+
 function AAPTVernierCaliper(_topFrame,_libraryPath,_codebasePath, _inputParameters) {
   var _model = EJSS_CORE.createAnimationLMS();
   var _view;
@@ -675,10 +692,10 @@ var _stringProperties = {};
 
   function _unserialize(json) { return _model.unserialize(json); }
 
-    __pagesEnabled["drawlowernumbers"] = true;//hide and show numbers
   _model.addToReset(function() {
-    __pagesEnabled["MEssage"] = true;
+    __pagesEnabled["drawlowernumbers"] = true;
     __pagesEnabled["App"] = true;
+    __pagesEnabled["MEssage"] = true;
     __pagesEnabled["drawupperscale"] = true;
     __pagesEnabled["mode"] = true;
     __pagesEnabled["mode 2"] = true;
@@ -690,11 +707,7 @@ var _stringProperties = {};
     __pagesEnabled["Event 2"] = true;
     __pagesEnabled["object"] = true;
     __pagesEnabled["topscaleneedredrawing"] = true;
-      __pagesEnabled["answer"] = true;
- /*   if (testMode){
-      __pagesEnabled["answer"] = false;
-    }else{
-    }*/
+    __pagesEnabled["answer"] = true;
     __pagesEnabled["checkmm"] = true;
     __pagesEnabled["magnify"] = true;
   });
@@ -870,13 +883,13 @@ var _stringProperties = {};
     xy5 = [[x2-size/2,y1],[x2-size/2,y1+size/2],[x2,y1+size/2],[x2,y1+6*size2],[x2-size/2,y1+5*size2],[x2-size*1.5,y1],[x2,y1]]; // EjsS Model.Variables.topjaw.xy5
   });
 
-  _model.addToReset(function() {  
+  _model.addToReset(function() {
     shapetype = "RECTANGLE"; // EjsS Model.Variables.object.shapetype
     roundshapetype = false; // EjsS Model.Variables.object.roundshapetype
-    w =  <?php echo $_GET['size'];  ?> //Math.max(40*Math.random(),10); // EjsS Model.Variables.object.w //Object size variable
+    w = <?php echo $size;  ?>// EjsS Model.Variables.object.w
     oxmin = x2; // EjsS Model.Variables.object.oxmin
     oxmax = oxmin+x; // EjsS Model.Variables.object.oxmax
-    h = size*2; // EjsS Model.Variables.object.h, here we can resize object [object shaperesize]
+    h = size*2; // EjsS Model.Variables.object.h
     y0 = y3-h*1.5; // EjsS Model.Variables.object.y0
     ox = oxmin+w/2; // EjsS Model.Variables.object.ox
     ratio = (x2-x1)/60; // EjsS Model.Variables.object.ratio
@@ -885,7 +898,7 @@ var _stringProperties = {};
     oymax = y2; // EjsS Model.Variables.object.oymax
     oymin = y3; // EjsS Model.Variables.object.oymin
     xdmin = ox+d+w/2; // EjsS Model.Variables.object.xdmin
-    b = size*20*Math.random(); // EjsS Model.Variables.object.b
+    b =<?php echo $sizeI;  ?>;// EjsS Model.Variables.object.b
     a = size; // EjsS Model.Variables.object.a
     n8 = 8; // EjsS Model.Variables.object.n8
     x0 = x2-a; // EjsS Model.Variables.object.x0
@@ -894,11 +907,15 @@ var _stringProperties = {};
     px = [x0,x0+2*a+b,x0+2*a+b,x0+a+b,x0+a+b,x0+a,x0+a,x0]; // EjsS Model.Variables.object.px
     py = [ya,ya,yb,yb,ya-a,ya-a,yb,yb]; // EjsS Model.Variables.object.py
     pxy = [[x0,ya],[x0+2*a+b,ya],[x0+2*a+b,yb],[x0+a+b,yb],[x0+a+b,ya-a],[x0+a,ya-a],[x0+a,yb],[x0,yb]]; // EjsS Model.Variables.object.pxy
-    bottomdragmesizemax = 20; // EjsS Model.Variables.object.bottomdragmesizemax
+    bottomdragmesizemax = 0; // EjsS Model.Variables.object.bottomdragmesizemax
+    if (testMode){
+      bottomdragmesizemax = 0; // EjsS Model.Variables.object.bottomdragmesizemax
+    }
     bottomdragmesize = bottomdragmesizemax; // EjsS Model.Variables.object.bottomdragmesize
     bottomresizex = ox+w/2; // EjsS Model.Variables.object.bottomresizex
-    topresizex = b+(x0+2*a); // EjsS Model.Variables.object.topresizex
+    topresizex = b+(x0+2*a); // EjsS Model.Variables.object.topresizex    
     tailresizex = xmax+size; // EjsS Model.Variables.object.tailresizex
+
   });
 
   _model.addToReset(function() {
@@ -907,7 +924,7 @@ var _stringProperties = {};
     xytail = [[xmax,0],[xmax,size/2],[xmax-size*2,size/2],[xmax-size*2,size],[-size*16,size],[-size*16,0],[xmax,0]]; // EjsS Model.Variables.Tail.xytail
     x4 = xmax/1.5-size; // EjsS Model.Variables.Tail.x4
     y4 = -4*size; // EjsS Model.Variables.Tail.y4
-    td = xmax+((size+30)*Math.random()); // EjsS Model.Variables.Tail.td
+    td = xmax+<?php echo $sizeD;  ?>// EjsS Model.Variables.Tail.td
     td2 = td+size; // EjsS Model.Variables.Tail.td2
     h2 = size*1.2; // EjsS Model.Variables.Tail.h2
     oxtail = [xmax,xmax,xmax+td,xmax+td,xmax,xmax,xmax+td+size,xmax+td+size]; // EjsS Model.Variables.Tail.oxtail
@@ -1052,6 +1069,9 @@ var _stringProperties = {};
     return out;  // > CustomCode.ddvalue:19
   }  // > CustomCode.ddvalue:20
 
+  //https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Using_full_screen_mode  // > CustomCode.Lib Page:1
+  // does not work for iOS   // > CustomCode.Lib Page:2
+  /*jslint browser:true */  // > CustomCode.Lib Page:3
   function toggleFullScreen() {  // > CustomCode.Lib Page:4
     if (!document.fullscreenElement &&    // alternative standard method  // > CustomCode.Lib Page:5
         !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods  // > CustomCode.Lib Page:6
@@ -1078,12 +1098,14 @@ var _stringProperties = {};
   }  // > CustomCode.Lib Page:27
 
 
+
   //code reference: http://davidwalsh.name/detect-android  // > CustomCode.checkAndroid:1
   function checkAndroid () {  // > CustomCode.checkAndroid:2
     var ua = navigator.userAgent.toLowerCase();  // > CustomCode.checkAndroid:3
     return ua.indexOf("android") > -1; //&& ua.indexOf("mobile");  // > CustomCode.checkAndroid:4
   }  // > CustomCode.checkAndroid:5
 
+ 
   function changeOrientation() {  // > CustomCode.changeOrentiaition:5
      // > CustomCode.changeOrentiaition:6
   var k =1 ; // k control height 1 is for full screen, 0.9 shorten etc  // > CustomCode.changeOrentiaition:7
@@ -1367,10 +1389,10 @@ var _stringProperties = {};
        // > Initialization.undefined:15
      //show  // > Initialization.undefined:16
      if (show==undefined){  // > Initialization.undefined:17
-      show=true;  // > Initialization.undefined:18
+      show=false;  // > Initialization.undefined:18
       }   // > Initialization.undefined:19
       if (showhint==undefined){  // > Initialization.undefined:20
-      showhint=true;  // > Initialization.undefined:21
+      showhint=false;  // > Initialization.undefined:21
       }  // > Initialization.undefined:22
         // > Initialization.undefined:23
       //objects  // > Initialization.undefined:24
@@ -1411,7 +1433,7 @@ var _stringProperties = {};
     var container = document.createElement('div');  // > Initialization.svg:21
     var svggradient = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1"><defs>'+  // > Initialization.svg:22
       '  <radialGradient id="mygrandient2" cx="50%" cy="50%" r="80%" fx="30%" fy="30%">'+  // > Initialization.svg:23
-      '    <stop offset="0%" style="stop-color:rgb(128,128,128); stop-opacity:1" />'+  // > Initialization.svg:24
+      '    <stop offset="0%" style="stop-color:rgb(128,128,138); stop-opacity:1" />'+  // > Initialization.svg:24
       '    <stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:1" />'+  // > Initialization.svg:25
       '  </radialGradient>'+  // > Initialization.svg:26
       '</defs></svg>';  // > Initialization.svg:27
@@ -1421,7 +1443,7 @@ var _stringProperties = {};
     var container = document.createElement('div');  // > Initialization.svg:31
     var svggradient = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1"><defs>'+  // > Initialization.svg:32
       '  <radialGradient id="mygrandient3" cx="50%" cy="50%" r="80%" fx="30%" fy="30%">'+  // > Initialization.svg:33
-      '    <stop offset="0%" style="stop-color:rgb(200,220,208); stop-opacity:1" />'+  // > Initialization.svg:34
+      '    <stop offset="0%" style="stop-color:rgb(200,208,228); stop-opacity:1" />'+  // > Initialization.svg:34
       '    <stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:1" />'+  // > Initialization.svg:35
       '  </radialGradient>'+  // > Initialization.svg:36
       '</defs></svg>';  // > Initialization.svg:37
@@ -1431,7 +1453,7 @@ var _stringProperties = {};
     var container = document.createElement('div');  // > Initialization.svg:41
     var svggradient = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1"><defs>'+  // > Initialization.svg:42
       '  <radialGradient id="mygrandient4" cx="50%" cy="50%" r="80%" fx="30%" fy="30%">'+  // > Initialization.svg:43
-      '    <stop offset="0%" style="stop-color:rgb(192,192,192); stop-opacity:1" />'+  // > Initialization.svg:44
+      '    <stop offset="0%" style="stop-color:rgb(192,192,202); stop-opacity:1" />'+  // > Initialization.svg:44
       '    <stop offset="100%" style="stop-color:rgb(255,255,255);stop-opacity:1" />'+  // > Initialization.svg:45
       '  </radialGradient>'+  // > Initialization.svg:46
       '</defs></svg>';  // > Initialization.svg:47
@@ -1443,7 +1465,7 @@ var _stringProperties = {};
     var svggradient = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1"><defs>'+  // > Initialization.svg:53
       '  <radialGradient id="mygrandientgolden" cx="50%" cy="50%" r="80%" fx="30%" fy="30%">'+  // > Initialization.svg:54
       '    <stop offset="0%" style="stop-color:rgb(255,255,255); stop-opacity:1" />'+  // > Initialization.svg:55
-      '    <stop offset="100%" style="stop-color:rgb(255,255,0);stop-opacity:0" />'+  // > Initialization.svg:56
+      '    <stop offset="100%" style="stop-color:rgb(0,250,255);stop-opacity:0" />'+  // > Initialization.svg:56
       '  </radialGradient>'+  // > Initialization.svg:57
       '</defs></svg>';  // > Initialization.svg:58
     container.innerHTML = svggradient;  // > Initialization.svg:59
@@ -1464,7 +1486,9 @@ var _stringProperties = {};
   _model.addToFixedRelations(function() {
     if (!__pagesEnabled["object"]) return;
     oxmax=oxmin+x;  // > FixedRelations.object:1
-    bottomresizex = ox+w/2; // sync drag resize added by lookang  // > FixedRelations.object:2
+    bottomresizex = w; // sync drag resize added by lookang  // > FixedRelations.object:2
+
+    //bottomresizex = ox+w/2; // sync drag resize added by lookang  // > FixedRelations.object:2
     // to check boundary of blue object with the parts of the vernier caliper  // > FixedRelations.object:3
     if((ox-w/2>oxmin-20) && (ox+w/2<oxmax+20) && (oy+h/2>oymin))  // > FixedRelations.object:4
       outobject=false;  // > FixedRelations.object:5
@@ -1517,7 +1541,12 @@ var _stringProperties = {};
     if(tail) {  // > FixedRelations.object:52
       oxytail[2][0] = oxytail[3][0] = oxtail[2]=oxtail[3]=td;   // > FixedRelations.object:53
       oxytail[6][0] = oxytail[7][0] = oxtail[6]=oxtail[7]=td+size;  // > FixedRelations.object:54
-     tailresizex= td ; // force sync between td and resizetail   // > FixedRelations.object:55
+      if (testMode) {
+        tailresizex=  xmax+<?php echo $sizeD;  ?>; // force sync between td and resizetail   // > FixedRelations.object:55
+      }else{
+        tailresizex = td;
+      }
+     //console.log(tailresizex,td)
       if(x>=td-xmax) {   // > FixedRelations.object:56
         x=td-xmax;  // > FixedRelations.object:57
         xdrag=-160+x; // added code to force alignment between  x and xdrag used in new implementation  // > FixedRelations.object:58
@@ -1586,25 +1615,43 @@ var _stringProperties = {};
      xp=xm2[vs]; // this is the way to determine position of lower scale pointer  // > FixedRelations.answer:38
     }  // > FixedRelations.answer:39
     if(vs>51)vs=0; // vs greater 51 than reset to 0 becuase 50 tickers  // > FixedRelations.answer:40
- 
+    //hints working  // > FixedRelations.answer:41
+    //xpt is magenta hint  // > FixedRelations.answer:42
+     //xpt=xm[Math.floor(out+error * unit)]; // new codes by lookang in javascript to work for hints without show/answer  // > FixedRelations.answer:43
+     //xpt=xm[parseInt(out+error * unit)];  // > FixedRelations.answer:44
      xpt=xm[parseInt(answer+error * unit)];  // > FixedRelations.answer:45
       text2 = dvalue(vs*unit,unit);  // > FixedRelations.answer:46
     //  text2cm = dvalue(vs*unit/10,unit);  // > FixedRelations.answer:47
       text2cm = (dvalue(vs*unit,unit)/10).toFixed(2);  // > FixedRelations.answer:48
     if(show){  // > FixedRelations.answer:49
       l_unit2=l_unit;   // > FixedRelations.answer:50
-     
+       // > FixedRelations.answer:51
+      //pointer  // > FixedRelations.answer:52
+     // vss = parseInt((x / dxm + error * unit + 2.0e-2)); // introduce to point to include zero error and debug need + 1.0e-2 for cases where there may be error is calculation  // > FixedRelations.answer:53
+       // > FixedRelations.answer:54
+     //   vss = parseInt((x / dxm + error * unit )); // introduce to point to include zero error and debug need + 1.0e-2 for cases where there may be error is calculation  // > FixedRelations.answer:55
       vss = parseInt((x / dxm + error * unit ));  // > FixedRelations.answer:56
-      
+      //vss = (int)(x/dxm); // old code without zero error  // > FixedRelations.answer:57
+     // if (vss > -1 && vss < nm) vssidarray = vss;  // > FixedRelations.answer:58
+     // else vssidarray = 0; // or other valid values.  // > FixedRelations.answer:59
+    //  xpt=xm[vss]; // x point  // > FixedRelations.answer:60
+    //   xpt=xm[Math.floor(out+error * unit)]; // new codes by lookang in javascript  // > FixedRelations.answer:61
+     // xpt=xm[vssidarray];   // > FixedRelations.answer:62
+     // if (!cmshow){  // > FixedRelations.answer:63
+     // text2 = dvalue(vs*unit,unit);  // > FixedRelations.answer:64
+    //  text2cm = dvalue(vs*unit/10,unit);  // > FixedRelations.answer:65
+    //  text2cm = (dvalue(vs*unit,unit)/10).toFixed(2);  // > FixedRelations.answer:66
+    //}  // > FixedRelations.answer:67
+    //else if (cmshow){  // > FixedRelations.answer:68
+     // text2 = dvalue(vs*unit/10,unit);  // > FixedRelations.answer:69
+     // }  // > FixedRelations.answer:70
     if (cmshow==false){  // > FixedRelations.answer:71
     // l_x="d=" + _view._format(dvalue(parseInt(x/dxm+error * unit),unit),"0.00")+ "+" +_view._format(vs*unit,"0.00")+ "-(" + _view._format(dvalue(+error*unit,unit),"0.00")+ ") = " +_view._format(dvalue(x/dxm,unit),"0.00")+"mm";  // > FixedRelations.answer:72
     l_x="d=" + _view._format(Math.floor(answer+error*unit),"0.0")+ "+" +_view._format(vs*unit,"0.00")+ "-(" + _view._format(dvalue(+error*unit,unit),"0.00")+ ") = " +_view._format(dvalue(x/dxm,unit),"0.00")+"mm";  // > FixedRelations.answer:73
     }  // > FixedRelations.answer:74
     else if (cmshow=true){  // > FixedRelations.answer:75
-   
-    if (testMode){      
-      l_x="d=" + _view._format(Math.floor(answer+error*unit)/10,"0.0")+ "+" +_view._format(vs*unit/10,"0.00")+ "-(" + _view._format(dvalue(+error*unit,unit)/10,"0.00")+ ") = " +_view._format(dvalue(x/dxm,unit)/10,"0.00")+"cm";  // > FixedRelations.answer:77
-    }
+    //  l_x="d=" + _view._format(dvalue(parseInt(x/dxm+error * unit),unit)/10,"0.00")+ "+" +_view._format(vs*unit/10,"0.00")+ "-(" + _view._format(dvalue(+error*unit,unit)/10,"0.00")+ ") = " +_view._format(dvalue(x/dxm,unit)/10,"0.00")+"cm";  // > FixedRelations.answer:76
+    l_x="d=" + _view._format(Math.floor(answer+error*unit)/10,"0.0")+ "+" +_view._format(vs*unit/10,"0.00")+ "-(" + _view._format(dvalue(+error*unit,unit)/10,"0.00")+ ") = " +_view._format(dvalue(x/dxm,unit)/10,"0.00")+"cm";  // > FixedRelations.answer:77
     //  // > FixedRelations.answer:78
       }  // > FixedRelations.answer:79
           // > FixedRelations.answer:80
@@ -1680,7 +1727,10 @@ var _stringProperties = {};
 
   _model.addToFixedRelations(function() {
     if (!__pagesEnabled["magnify"]) return;
-
+    //xmin = (xmin-0)*zoom;  // > FixedRelations.magnify:1
+    //xmax = (xmax-0)*zoom;  // > FixedRelations.magnify:2
+    //ymin = (ymin-0)*zoom;  // > FixedRelations.magnify:3
+    //ymax =  (ymax-0)*zoom;  // > FixedRelations.magnify:4
     if (showmagnify ===true) // to make magnify enable only after show ==true  // > FixedRelations.magnify:5
     {  // > FixedRelations.magnify:6
       //xmagnify=xp;  // > FixedRelations.magnify:7
@@ -2315,46 +2365,41 @@ var _stringProperties = {};
   }
 
 }); // HtmlView Page setting action 'OnDrag' for element 'bottomDragme'
-          //w=48;
-          redrawObject(w);
-          function redrawObject(wid){
-            _view.bottomObject2.linkProperty("SizeX",  function() { return wid; }, function(_v) { wid = _v; } ); // HtmlView Page linking property 'SizeX' for element 'bottomObject2'
-            _view.bottomObject2.linkProperty("X",  function() { return ox; }, function(_v) { ox = _v; } ); // HtmlView Page linking property 'X' for element 'bottomObject2'
-            _view.bottomObject2.setAction("OnEnter", function(_data,_info) {
-    bottomresizex= ox+w/2;
+          _view.bottomObject2.linkProperty("SizeX",  function() { return w; }, function(_v) { w = _v; } ); // HtmlView Page linking property 'SizeX' for element 'bottomObject2'
+          _view.bottomObject2.linkProperty("X",  function() { return ox; }, function(_v) { ox = _v; } ); // HtmlView Page linking property 'X' for element 'bottomObject2'
+          _view.bottomObject2.setAction("OnEnter", function(_data,_info) {
+  bottomresizex= ox+w/2;
 
-  }); // HtmlView Page setting action 'OnEnter' for element 'bottomObject2'
-            _view.bottomObject2.linkProperty("Y",  function() { return oy; }, function(_v) { oy = _v; } ); // HtmlView Page linking property 'Y' for element 'bottomObject2'
-            _view.bottomObject2.linkProperty("Visibility",  function() { return botone&&roundshapetype==false; } ); // HtmlView Page linking property 'Visibility' for element 'bottomObject2'
-            _view.bottomObject2.linkProperty("SizeY",  function() { return h; }, function(_v) { h = _v; } ); // HtmlView Page linking property 'SizeY' for element 'bottomObject2'
-            _view.bottomObject2.setAction("OnDrag", function(_data,_info) {
-    oxmax=oxmin+x;
-    if(wid>x){ // if width of blue object larger than jaws gap
-      if(oy>oymin-h/2)oy=oymin-h/2; // if blue object try to move in the jaws, block it with oy=oymin-h/2
-      outobject=true; // outside object is true 
-    }else{// object is smaller than the width
-     if(outobject){ // if outisde object is true
-       if(ox-wid/2>oxmin && ox+w/2<oxmax && oy+h/2>oymin){// move inside
-         outobject=false; // blue object is inside jaws
-       }else{
-         if(ox-wid/2<oxmin || ox+wid/2>oxmax){ // if blue object is force outwards
-           if(oy+h/2>oymin)oy=oymin-h/2; // if also inside jaws, then block with oy=oymin-h/2
-         }
-       }
+}); // HtmlView Page setting action 'OnEnter' for element 'bottomObject2'
+          _view.bottomObject2.linkProperty("Y",  function() { return oy; }, function(_v) { oy = _v; } ); // HtmlView Page linking property 'Y' for element 'bottomObject2'
+          _view.bottomObject2.linkProperty("Visibility",  function() { return botone&&roundshapetype==false; } ); // HtmlView Page linking property 'Visibility' for element 'bottomObject2'
+          _view.bottomObject2.linkProperty("SizeY",  function() { return h; }, function(_v) { h = _v; } ); // HtmlView Page linking property 'SizeY' for element 'bottomObject2'
+          _view.bottomObject2.setAction("OnDrag", function(_data,_info) {
+  oxmax=oxmin+x;
+  if(w>x){ // if width of blue object larger than jaws gap
+    if(oy>oymin-h/2)oy=oymin-h/2; // if blue object try to move in the jaws, block it with oy=oymin-h/2
+    outobject=true; // outside object is true 
+  }else{// object is smaller than the width
+   if(outobject){ // if outisde object is true
+     if(ox-w/2>oxmin && ox+w/2<oxmax && oy+h/2>oymin){// move inside
+       outobject=false; // blue object is inside jaws
      }else{
-      if(oy+h/2<oymin)outobject=true;// move outside again
-      else{
-       if(oy+h/2>oymax)oy=oymax-h/2; // top limit reach, block
-       if(ox-w/2<oxmin)ox=oxmin+w/2; // left limit reach,block
-       else if(ox+wid/2>oxmax)ox=oxmax-wid/2; //right limit reach, block
-      }
-     }  
+       if(ox-w/2<oxmin || ox+w/2>oxmax){ // if blue object is force outwards
+         if(oy+h/2>oymin)oy=oymin-h/2; // if also inside jaws, then block with oy=oymin-h/2
+       }
+     }
+   }else{
+    if(oy+h/2<oymin)outobject=true;// move outside again
+    else{
+     if(oy+h/2>oymax)oy=oymax-h/2; // top limit reach, block
+     if(ox-w/2<oxmin)ox=oxmin+w/2; // left limit reach,block
+     else if(ox+w/2>oxmax)ox=oxmax-w/2; //right limit reach, block
     }
+   }  
+  }
 
-  }); // HtmlView Page setting action 'OnDrag' for element 'bottomObject2'
-
-          }
-          _view.bottomObject.linkProperty("SizeX",  function() { return 100; }, function(_v) { w = _v; } ); // HtmlView Page linking property 'SizeX' for element 'bottomObject'
+}); // HtmlView Page setting action 'OnDrag' for element 'bottomObject2'
+          _view.bottomObject.linkProperty("SizeX",  function() { return w; }, function(_v) { w = _v; } ); // HtmlView Page linking property 'SizeX' for element 'bottomObject'
           _view.bottomObject.linkProperty("X",  function() { return ox; }, function(_v) { ox = _v; } ); // HtmlView Page linking property 'X' for element 'bottomObject'
           _view.bottomObject.setAction("OnEnter", function(_data,_info) {
   bottomresizex= ox+w/2;
@@ -2388,14 +2433,15 @@ var _stringProperties = {};
   }
 
 }); // HtmlView Page setting action 'OnDrag' for element 'bottomObject'
-      //    _view.bottomresize.linkProperty("SizeX",  function() { return bottomdragmesize; }, function(_v) { bottomdragmesize = _v; } ); // HtmlView Page linking property 'SizeX' for element 'bottomresize'
-        //  _view.bottomresize.linkProperty("X",  function() { return bottomresizex; }, function(_v) { bottomresizex = _v; } ); // HtmlView Page linking property 'X' for element 'bottomresize'
-        //  _view.bottomresize.linkProperty("Y",  function() { return oy+h/2; } ); // HtmlView Page linking property 'Y' for element 'bottomresize'
-       //   _view.bottomresize.linkProperty("Visibility",  function() { return botone; }, function(_v) { botone = _v; } ); // HtmlView Page linking property 'Visibility' for element 'bottomresize'
-         // _view.bottomresize.linkProperty("SizeY",  function() { return bottomdragmesize; }, function(_v) { bottomdragmesize = _v; } ); // HtmlView Page linking property 'SizeY' for element 'bottomresize'
+          _view.bottomresize.linkProperty("SizeX",  function() { return bottomdragmesize; }, function(_v) { bottomdragmesize = _v; } ); // HtmlView Page linking property 'SizeX' for element 'bottomresize'
+          _view.bottomresize.linkProperty("X",  function() { return bottomresizex; }, function(_v) { bottomresizex = _v; } ); // HtmlView Page linking property 'X' for element 'bottomresize'
+          _view.bottomresize.linkProperty("Y",  function() { return oy+h/2; } ); // HtmlView Page linking property 'Y' for element 'bottomresize'
+          _view.bottomresize.linkProperty("Visibility",  function() { return botone; }, function(_v) { botone = _v; } ); // HtmlView Page linking property 'Visibility' for element 'bottomresize'
+          _view.bottomresize.linkProperty("SizeY",  function() { return bottomdragmesize; }, function(_v) { bottomdragmesize = _v; } ); // HtmlView Page linking property 'SizeY' for element 'bottomresize'
           _view.bottomresize.setAction("OnDrag", function(_data,_info) {
-  dragemetrue=true;
-  w = (bottomresizex -ox)*2;
+  /*dragemetrue=true;
+  w = (bottomresizex -ox)*2;*/
+  dragemetrue=false;  
   xdrag=-160+x; // added code to force alignment between  x and xdrag used in new implementation
   if (roundshapetype==true) h=w; // force height to be same as width;
 
@@ -2411,7 +2457,12 @@ var _stringProperties = {};
           _view.topObject.linkProperty("Points",  function() { return pxy; }, function(_v) { pxy = _v; } ); // HtmlView Page linking property 'Points' for element 'topObject'
           _view.topObject.linkProperty("Visibility",  function() { return topone; }, function(_v) { topone = _v; } ); // HtmlView Page linking property 'Visibility' for element 'topObject'
           _view.topresize.linkProperty("SizeX",  function() { return bottomdragmesize; }, function(_v) { bottomdragmesize = _v; } ); // HtmlView Page linking property 'SizeX' for element 'topresize'
-          _view.topresize.linkProperty("X",  function() { return topresizex; }, function(_v) { topresizex = _v; } ); // HtmlView Page linking property 'X' for element 'topresize'
+          //adjustment for internal measurement
+          if (testMode){
+              _view.topresize.linkProperty("X",  function() { return <?php echo $sizeI; ?> + 70; }, function(_v) { topresizex = _v; } ); // HtmlView Page linking property 'X' for element 'topresize'
+          }else{
+              _view.topresize.linkProperty("X",  function() { return topresizex; }, function(_v) { topresizex = _v; } ); // HtmlView Page linking property 'X' for element 'topresize'
+          }
           _view.topresize.linkProperty("Y",  function() { return yb; }, function(_v) { yb = _v; } ); // HtmlView Page linking property 'Y' for element 'topresize'
           _view.topresize.linkProperty("Visibility",  function() { return topone; }, function(_v) { topone = _v; } ); // HtmlView Page linking property 'Visibility' for element 'topresize'
           _view.topresize.linkProperty("SizeY",  function() { return bottomdragmesize; }, function(_v) { bottomdragmesize = _v; } ); // HtmlView Page linking property 'SizeY' for element 'topresize'
@@ -2750,10 +2801,31 @@ var _stringProperties = {};
    error =1; 
      }
    
+  //_initialize(); // need this for zero error correctly shown
+  /*
+  if(parent.cordova) { // check it is running in Android
+         parent.TTS.speak(option, function () {
+              // success
+          }, function (reason) {
+              // error
+          });
+      }
+      else {
+    var msg = new SpeechSynthesisUtterance(option);
+  window.speechSynthesis.speak(msg);
+  }
+  */
+  //_initialize();
 
 }); // HtmlView Page setting action 'OnChange' for element 'comboBox'
           _view.comboBox.linkProperty("Font",  function() { return font; }, function(_v) { font = _v; } ); // HtmlView Page linking property 'Font' for element 'comboBox'
+          if (!testMode) {
+
           _view.comboBox2.linkProperty("Options",  function() { return ["hint show","hint off","answer show","answer off","object show","object off","External diameter","Internal diameter","Depth"]; } ); // HtmlView Page linking property 'Options' for element 'comboBox2'
+          }else{
+          _view.comboBox2.linkProperty("Options",  function() { return ["object show","object off","External diameter","Internal diameter","Depth"]; } ); // HtmlView Page linking property 'Options' for element 'comboBox2'
+
+          }
           _view.comboBox2.setAction("OnChange", function(_data,_info) {
   var opts = _view.comboBox2.getProperty("SelectedOptions");  // array of options
       var option = (opts.length > 0)? opts[0]:""; // selected option 
@@ -2772,7 +2844,10 @@ var _stringProperties = {};
     dycst=0.;
     nmode=2;
     L=10*dxm+size; // control length of veriner
-
+    // added by wee for left right button
+    // increment = 0.25718*2;// take 257.16 divide 50 mm divide 10
+    // increment = dxm/10 ;
+    // l_unit="0.1mm";
     unit=0.1;
     increment = dxm/(1/unit);
     cmshow=true;
@@ -2872,7 +2947,6 @@ var _stringProperties = {};
   tail=false;
   topone=false;
   roundshapetype=true;
-  
   h=w; // make as circle
   _view.plottingPanel.setProperty("MinimumX",-175);
   _view.plottingPanel.setProperty("MaximumX",75);
@@ -2938,11 +3012,8 @@ var _stringProperties = {};
   ratiomagnify=wmagnify/factor;
     }
     else if(option=="answer show") {
-      if (testMode){
-        show=true;
-      }else{
-        alert('not available in this mode');
-      }
+   
+  show=true;
     }
     else if(option=="answer off") {
     
@@ -2996,7 +3067,22 @@ var _stringProperties = {};
      else if(option=="z err=1") {
    error =1; 
      }
-  
+   
+  //_initialize(); // need this for zero error correctly shown
+  /*
+  if(parent.cordova) { // check it is running in Android
+         parent.TTS.speak(option, function () {
+              // success
+          }, function (reason) {
+              // error
+          });
+      }
+      else {
+    var msg = new SpeechSynthesisUtterance(option);
+  window.speechSynthesis.speak(msg);
+  }
+  */
+  //_initialize();
 
 }); // HtmlView Page setting action 'OnChange' for element 'comboBox2'
           _view.comboBox2.linkProperty("Font",  function() { return font; }, function(_v) { font = _v; } ); // HtmlView Page linking property 'Font' for element 'comboBox2'
@@ -3080,7 +3166,10 @@ var _stringProperties = {};
     dycst=1.;
     nmode=2;
     L=20*dxm+size;
-   
+    // added by wee for left right button
+    // increment = 0.25718;// take 257.16 divide 50 mm divide 20
+    //  increment = dxm/20 ;
+    // l_unit="0.05mm";
     unit=0.05;
     increment = dxm/(1/unit);
     cmshow=false;
@@ -3091,7 +3180,10 @@ var _stringProperties = {};
     dycst=0.;
     nmode=2;
     L=20*dxm+size;
-
+    // added by wee for left right button
+    // increment = 0.25718*2;// take 257.16 divide 50 mm divide 10
+    // increment = dxm/10 ;
+    // l_unit="0.1mm";
     unit=0.1;
     increment = dxm/(1/unit);
     cmshow=false;
@@ -3103,7 +3195,10 @@ var _stringProperties = {};
     dycst=0.;
     nmode=2;
     L=10*dxm+size; // control length of veriner
-
+    // added by wee for left right button
+    // increment = 0.25718*2;// take 257.16 divide 50 mm divide 10
+    // increment = dxm/10 ;
+    // l_unit="0.1mm";
     unit=0.1;
     increment = dxm/(1/unit);
     cmshow=false;
@@ -3259,7 +3354,20 @@ var _stringProperties = {};
      }
    
   _initialize(); // need this for zero error correctly shown
-
+  /*
+  if(parent.cordova) { // check it is running in Android
+         parent.TTS.speak(option, function () {
+              // success
+          }, function (reason) {
+              // error
+          });
+      }
+      else {
+    var msg = new SpeechSynthesisUtterance(option);
+  window.speechSynthesis.speak(msg);
+  }
+  */
+  //_initialize();
 
 }); // HtmlView Page setting action 'OnChange' for element 'comboBox3'
           _view.comboBox3.linkProperty("Font",  function() { return font; }, function(_v) { font = _v; } ); // HtmlView Page linking property 'Font' for element 'comboBox3'
@@ -3689,7 +3797,7 @@ function AAPTVernierCaliper_View_0 (_topFrame) {
       ;
 
     _view._addElement(EJSS_DRAWING2D.shape,"xreplacedrag", _view.bottom3) // EJsS HtmlView.HtmlView Page: declaration of element 'xreplacedrag'
-      .setProperty("FillColor","rgba(200,200,0,1.0)") // EJsS HtmlView.HtmlView Page: setting property 'FillColor' for element 'xreplacedrag'
+      .setProperty("FillColor","rgba(200,200,200,1.0)") // EJsS HtmlView.HtmlView Page: setting property 'FillColor' for element 'xreplacedrag'
       .setProperty("SizeX",20) // EJsS HtmlView.HtmlView Page: setting property 'SizeX' for element 'xreplacedrag'
       .setProperty("ShapeType","WHEEL") // EJsS HtmlView.HtmlView Page: setting property 'ShapeType' for element 'xreplacedrag'
       .setProperty("Visibility",false) // EJsS HtmlView.HtmlView Page: setting property 'Visibility' for element 'xreplacedrag'
@@ -3835,7 +3943,7 @@ function AAPTVernierCaliper_View_0 (_topFrame) {
       ;
 
     _view._addElement(EJSS_DRAWING2D.shape,"tailresize", _view.plottingPanel) // EJsS HtmlView.HtmlView Page: declaration of element 'tailresize'
-      .setProperty("FillColor","rgba(200,175,175,1.0)") // EJsS HtmlView.HtmlView Page: setting property 'FillColor' for element 'tailresize'
+      .setProperty("FillColor","rgba(175,175,200,1.0)") // EJsS HtmlView.HtmlView Page: setting property 'FillColor' for element 'tailresize'
       .setProperty("SizeX",20) // EJsS HtmlView.HtmlView Page: setting property 'SizeX' for element 'tailresize'
       .setProperty("ShapeType","RECTANGLE") // EJsS HtmlView.HtmlView Page: setting property 'ShapeType' for element 'tailresize'
       .setProperty("PixelSize",true) // EJsS HtmlView.HtmlView Page: setting property 'PixelSize' for element 'tailresize'
@@ -3901,7 +4009,7 @@ function AAPTVernierCaliper_View_0 (_topFrame) {
 
     _view._addElement(EJSS_INTERFACE.twoStateButton,"collate", _view.control) // EJsS HtmlView.HtmlView Page: declaration of element 'collate'
       .setProperty("TextOn","☰") // EJsS HtmlView.HtmlView Page: setting property 'TextOn' for element 'collate'
-      .setProperty("CSS",{"position": "fixed", "display": "block", "top":"0px","right": "30px"}) // EJsS HtmlView.HtmlView Page: setting property 'CSS' for element 'collate'
+      .setProperty("CSS",{"position": "fixed", "display": "block", "top":"0px","right": "45px"}) // EJsS HtmlView.HtmlView Page: setting property 'CSS' for element 'collate'
       .setProperty("TextOff","◀") // EJsS HtmlView.HtmlView Page: setting property 'TextOff' for element 'collate'
       .setProperty("Font","normal normal 3vw ") // EJsS HtmlView.HtmlView Page: setting property 'Font' for element 'collate'
       ;
@@ -3974,11 +4082,8 @@ function AAPTVernierCaliper_View_0 (_topFrame) {
       ;
 
     _view._addElement(EJSS_INTERFACE.panel,"text", _view._topFrame) // EJsS HtmlView.HtmlView Page: declaration of element 'text'
-      .setProperty("CSS",{   "position" : "absolute",   "top" : "100%",    "margin-left":"0px",    "left":"0%" }) // EJsS 
-      ;
-
-  };
-
+      .setProperty("CSS",{   "position" : "absolute",   "top" : "100%",    "margin-left":"0px",    "left":"0%" }) // EJsS HtmlView.HtmlView Page: setting property 'CSS' for element 'text'
+        };
   return _view;
 }
 
@@ -4005,6 +4110,22 @@ function AAPTVernierCaliper_View_0 (_topFrame) {
           };
           _model.onload();
         }, false);
+      $(document).ready(function(){          
+    
+        $('body').load("svg#plottingPanel", function() {
+            setTimeout(function(){
+              $('#comboBox2').on('change', function(){                
+                if ($(this).val()=='Depth') {
+                    $('path#tailresize').remove();
+                }
+              })
+            }, 1000);
+        });
+    
+          //setTimeout(function() {}, 10);      
+          
+      });
+
     //--><!]]></script>
   </body>
 </html>

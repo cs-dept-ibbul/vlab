@@ -1,27 +1,27 @@
 <template>
-	<div class="w-100">
-		<div v-for="(week,index) in weeks" class=""><!-- loop weekly -->
-			<div class="d-flex flex-wrap-center timelineSM" style="margin-bottom: 20px;" v-if="weeks[index][1] != 0">
-				<span class="fs1 w10">Week {{week[0]}} </span>
-				<span class="fa fa-check-circle fs3 text-success"></span>				
-			</div>
-			<div class="d-flex flex-wrap-center timelineSM-o" style="margin-bottom: 20px;"  v-else>				
-				<span class="fs1 w10">Week {{index+1}}</span>
-				<span class="syscircle-o-l"></span>				
-			</div>
-			
-			<div v-for="(exp, i) in weeks[index][2]"> 
-				<div class="d-flex flex-wrap-center">		
-					<span class="fs1 w10"></span>
-					<span v-if="exp==1">
-						<span class="syscircle timelineX"></span>						
-					</span>
-					<span v-else>
-						<span class="syscircle-o timelineX-o"></span>												
-					</span>
+	<div class="w-100" style="min-width: 100px;" >
+		<div v-for="(week,index) in weeks" :key="'week'+index"><!-- loop weekly -->
+				<div class="d-flex flex-wrap-center timelineSM" style="margin-bottom: 20px;" v-if="weeks[index][1] != 0">
+					<span class="fs1 w10">{{week[0]}} </span>
+					<span class="fa fa-check-circle fs3 text-success"></span>				
 				</div>
-			</div>
-		</div>
+				<div class="d-flex flex-wrap-center timelineSM-o" style="margin-bottom: 20px;"  v-else>				
+					<span class="fs1 w10">{{week[0]}} </span>
+					<span class="syscircle-o-l"></span>				
+				</div>
+				
+				<div v-for="(exp, i) in weeks[index][2]" :key="'exp'+i"> 
+					<div class="d-flex flex-wrap-center">		
+						<span class="fs1 w10"></span>
+						<span v-if="exp==1">
+							<span class="syscircle timelineX"></span>						
+						</span>
+						<span v-else>
+							<span class="syscircle-o timelineX-o"></span>												
+						</span>
+					</div>
+				</div>
+			</div>		
 	</div>
 </template>
 <script>
@@ -29,7 +29,8 @@
 
 	 data:function() {
 		    return{
-		    	numC:0,		                
+		    	numC:0,	
+		    	weekworks:null,			    	
 		   	}
         },
         methods:{
@@ -50,7 +51,11 @@
         	toggller(e){
 
         	},
-
+        	methodThatForcesUpdate() {
+		      // ...
+		      this.$forceUpdate();  // Notice we have to use a $ here
+		      // ...
+		    }
         },	
         
         created: function () {
@@ -64,8 +69,10 @@
         props:{
            weeks: Array,
         },        
-        mounted(){
-        	console.log(this.weeks);
+        mounted(){        	      
+          this.$nextTick(function(){
+
+          })
         }		
 	}
 

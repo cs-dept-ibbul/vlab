@@ -46,16 +46,37 @@
 			}
 		},
 		methods: {
-				editexperiment:function(obj){
-					this.VueSweetAlert2('v-addexperiment',{
-						update:true,
-						alldata: [], //obj
-						experiment_id:2 //id
-					})
-					},
-					deleteexperiment: function(id){
-						Swal.fire('delete');					
+			editexperiment:function(obj){
+				this.show_loader();
+				this.VueSweetAlert2('v-addexperiment',{
+					update:true,
+					alldata1: obj, //obj
+					experiment_id:2 //id
+				})
+				let $this = this;
+				setTimeout(function() {
+					$this.hide_loader();
+				}, 3000);
+				$('.swal2-modal').addClass('scroll-y');
+				$('.swal2-content').addClass('vh-95');
+				},
+				deleteexperiment: function(id){
+					Swal.fire({
+					title: 'confirm delete',
+					icon:'warning',
+					confirmButtonText:'Continue',					      
+			      cancelButtonText:'Cancel',				      				      
+			      cancelButtonColor:'#dd000f',					      
+			      confirmButtonColor:'#00b96b',					      
+			      showCancelButton:true,					      
+			      showLoaderOnConfirm: true,
+				}).then((result)=>{
+					if (result.value) {
+						this.axiosDelete('api/experiments/delete',{'experiment_id': id})					
+
 					}
+				})					
+				}
 		},
 		async created(){
 

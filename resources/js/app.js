@@ -10,7 +10,8 @@ import plugin from "./plugin/plugin";
 //import App from './views/app.vue'
 
 /*experiment page component*/
- window.Vue = require('vue');
+ //window.Vue = require('vue');
+ window.Vue = Vue;
 /*Vue.prototype.$http = axios*/
 //vuex
 Vue.use(Vuex)
@@ -26,7 +27,7 @@ import storedata from "./store/exp1";
 const store = new Vuex.Store(
    storeData
 )*/
-const store = new Vuex.Store(   storedata )
+const store = new Vuex.Store(storedata)
 /*const store2 = new Vuex.Store(   expvicelab3 )*/
 
 /*global event bus and communication*/
@@ -55,21 +56,33 @@ Vue.component('v-circuitconnectiontools', require('./components/circuitconnectio
 Vue.component('v-viewcreatedcourse', require('./components/viewCreatedCourse.vue').default); 
 Vue.component('v-faculty', require('./components/faculty.vue').default); 
 Vue.component('v-department', require('./components/department.vue').default); 
+Vue.component('v-session', require('./components/session.vue').default); 
+Vue.component('v-user', require('./components/user.vue').default); 
+Vue.component('v-userform', require('./components/userForm.vue').default); 
 Vue.component('v-addexperiment', require('./components/addExperiment.vue').default); 
 Vue.component('v-viewcreatedexperiment', require('./components/viewCreatedExperiment.vue').default); 
 
 /*end admin component*/
+
+/*instructor component*/
+Vue.component('v-viewcoursesinstructor', require('./components/viewCoursesInstructor.vue').default);
+Vue.component('v-task', require('./components/task.vue').default);
+Vue.component('v-taskform', require('./components/taskForm.vue').default);
+/*end instructor component*/
 
 Vue.component('v-tlb2', require('./components/title-left-bar.vue').default);
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('v-tlb', require('./components/title-left-bar.vue').default);
 Vue.component('v-navb', require('./components/Navbar.vue').default);
-Vue.component('v-t', require('./components/Section.vue').default);
+Vue.component('v-homex', require('./components/home.vue').default);
 Vue.component('v-sponsor', require('./components/SponsorSection.vue').default);
-Vue.component('v-avl', require('./components/ExploreSection.vue').default);
+Vue.component('v-explore', require('./components/ExploreSection.vue').default);
 Vue.component('v-avlc', require('./components/AvailableCourses.vue').default);
-//Vue.component('v-viewcourses', require('./components/ViewCourse.vue').default);// VewCourse change to ViewCourse
+
+Vue.component('v-viewcourses', require('./components/viewCourses.vue').default);
+Vue.component('v-courseexperiment', require('./components/courseExperiment.vue').default);
+Vue.component('v-courseresources', require('./components/courseResources.vue').default);
 
 Vue.component('v-logintopnavbar', require('./components/NavbarLogin.vue').default);
 Vue.component('v-loginbox', require('./components/loginBox.vue').default);
@@ -81,6 +94,8 @@ Vue.component('v-topnav', require('./components/TopNav.vue').default);
 Vue.component('v-lactivity', require('./components/Lastactivity.vue').default);
 Vue.component('v-practicaltimeline', require('./components/PracticalTimeLine.vue').default);
 Vue.component('v-viewstudent', require('./components/viewStudent.vue').default);
+Vue.component('v-mycourses', require('./components/mycourses.vue').default);
+Vue.component('v-reviewcourse', require('./components/reviewCourse.vue').default);
 
 Vue.component('v-enrolledpracticals', require('./components/EnrolledPractical.vue').default);
 
@@ -88,6 +103,8 @@ Vue.component('v-coursestab', require('./components/CoursesTab.vue').default);
 Vue.component('v-electricityscript', require('./components/electricityScript.vue').default);
 Vue.component('v-loginscript', require('./components/loginScript.vue').default);
 Vue.component('v-userauth', require('./components/userAuthentication.vue').default);
+Vue.component('v-feedback', require('./components/feedback.vue').default);
+Vue.component('v-errorpage', require('./components/errorPage.vue').default);
 
 
 
@@ -107,12 +124,133 @@ Vue.component('v-userauth', require('./components/userAuthentication.vue').defau
     methods:{
             toggleClass(){              
                 this.isLoading=!this.isLoading;                
+            },
+            likeThisPage(){
+              alert();
             }
         },
-        beforeCreated(){
-            document.getElementsByTagName('')
-        },
-          mounted(){            
+    beforeCreated(){          
+     },
+      mounted(){     
+        $('body').append(`
+          <a class="flex-wrap forBug" style=" width:50px; height:50px; display:flex; justify-content:center;"><span class="fa fa-bug text-danger fs8 p-0"></span></a>
+          `);
+        $('body').append(`
+          <div class="flex-wrap justify-between forThumb d-flex">
+          <span>Did you like this page?</span>
+              <span>
+              <i class="fa fa-thumbs-o-down likeThisPage" rel="no" style="font-size:1.3em;"></i>          
+              <i class="fa fa-thumbs-o-up likeThisPage"   rel="yes"  style="font-size:1.3em;"></i>          
+              </span>
+          </div>
+          <div style="position:absolute;top:103%;height:30px;width:100%;"></div>
+          `); 
+
+
+        $('.likeThisPage').on('click', function(){
+          let res = $(this).attr('rel');
+          let $vm = this;      
+          let pathname = location.pathname.split('/')[1];           
+          if (pathname == "") {
+            pathname = 'home'
+          }
+          if (res == 'no') {            
+            Swal.fire({              
+              title: 'Please can you tell us why?',
+              html: `<input type="text" class="form-control" id="feedbackmsgx">`,              
+              confirmButtonText:'Send',
+              confirmButtonColor:'#00b96b', 
+              showConfirmButton: true,
+              preConfirm: (login) => {
+
+                let msg = $('#feedbackmsgx').val();
+                const formData = new FormData();
+                formData.append('message', msg);
+                formData.append('like',res);
+                formData.append('page_name',pathname);                
+                    return axios.post('api/feedback',formData,{headers:$vm.axiosHeader})
+                    .then(response => {                   
+                      if (!response.data.sucess) {
+                        throw new Error(response.statusText)
+                      }              
+                      return response.json()
+                    })
+                    .catch(error => {
+                      if (error.response) {
+                        if (error.response.status == 409) {                                        
+                        }else if(error.response.status == 401){}                     
+                      }
+                    });
+              }              
+            }).then((result)=>{
+
+              if (result.isConfirmed){
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+                })
+
+              Toast.fire({
+                icon: 'success',
+                title: 'Thanks for your feedback'
+              })
+            }
+              /*
+                Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  heightAuto: false,
+                  title: 'Than you for your feedback',
+                  showConfirmButton: false,
+                  timer: 1500
+
+                })*/
+            })
+          }else{
+
+              const formData = new FormData();
+                formData.append('message', '-');
+                formData.append('like',res); 
+                formData.append('page_name',pathname);  
+              axios.post('api/feedback',formData,{headers:$vm.axiosHeader})
+              .then(response => {                   
+                if (response.data.success) {
+                    const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+
+                  Toast.fire({
+                    icon: 'success',
+                    title: 'Thanks for your feedback'
+                  })
+                }              
+                
+              })
+              .catch(error => {
+                if (error.response) {
+                  if (error.response.status == 409) {                                        
+                  }else if(error.response.status == 401){}                     
+                }
+              });
+              
+             
+          }
+        })
     }
  });
 

@@ -31,8 +31,19 @@ class Faculty extends Model
     {
         return $this->hasMany(Course::class);
     }
+
+    public function department()
+    {
+        return $this->hasMany(Department::class);
+    }
+
     public function students()
     {
         return $this->hasMany(User::class)->where('role_id', $this->roleId['student']);;
     }
+    public function courses_students()
+    {
+        return $this->hasMany(CourseStudents::class);
+    }
+    
 }

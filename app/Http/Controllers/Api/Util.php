@@ -38,7 +38,7 @@ class Util extends Controller
         return $data;
     }
 
-    public function ip()
+    static public function ip()
     {
         return $_SERVER['REMOTE_ADDR'];
     }

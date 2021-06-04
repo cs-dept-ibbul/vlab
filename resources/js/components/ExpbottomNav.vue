@@ -1,9 +1,11 @@
 <template>
-	<div style="width:100%;background: #2F274E;color: #fff; padding: 7px 39px;">
-		<div style="display: flex; width: 400px;">
+	<div style="width:100%;background: #2F274E;color: #fff; padding: 0px 39px;"  class="d-flex flex-wrap">
+		<div class=" w-25">
 			<!-- <span class="fa fa-arrows-alt mr-5 pr-4" style="font-size: 1.4em;padding-top: 5px;"></span> -->
 			<span class="fa fa-arrows-alt mr-5 pr-4"  @click="expandVideo"  style="font-size: 1.5em;padding-top: 5px;color:white;cursor: pointer;"></span>			
 		</div>
+		<span  class="w-75">			
+		</span>
 	</div>
 </template>
 <script>
@@ -15,14 +17,21 @@
             show:false,
             hide:true,
             show1:true,
-            hide1:false,*/
+            hide1:false,*/            
 		    	}
         },
         methods:{
          expandVideo:function(){
-
+         		this.$eventBus.$emit('videoExpander', true);
+         },
+         submit: function(a){
+         		alert(a);
          }
+
         },	
+       created(){
+
+       }
 	}
 
 </script>

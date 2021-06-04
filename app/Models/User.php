@@ -10,6 +10,7 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Models\Session;
 
 class User extends Authenticatable implements JWTSubject, CanResetPasswordContract
 {
@@ -26,8 +27,9 @@ class User extends Authenticatable implements JWTSubject, CanResetPasswordContra
      *
      * @var array
      */
+
     protected $fillable = [
-        'email',
+        'username',
         'password',
     ];
 
@@ -45,8 +47,13 @@ class User extends Authenticatable implements JWTSubject, CanResetPasswordContra
 
     protected $appends = [
         'name',
+        'session_id'
     ];
-
+    public function newQuery($excludeDeleted = true) {
+        return parent::newQuery($excludeDeleted)
+            ->where('users.status', 'Active');
+    }
+    
     /**
      * The attributes that should be cast to native types.
      *
@@ -61,9 +68,25 @@ class User extends Authenticatable implements JWTSubject, CanResetPasswordContra
         return $this->other_names . ' ' . $this->first_name;
     }
 
+    public function getSessionIdAttribute(): string
+    {
+        return Session::where(['is_current'=>1, 'status'=>'Active'])->first()->id;
+    }
+
     public function courses()
     {
         return $this->belongsToMany(Course::class, 'user_courses');
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'department_id');
+    }    
+
+
+    public function result()
+    {
+        return $this->hasMany(ExperimentResult::class);
     }
 
     /**

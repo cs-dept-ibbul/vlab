@@ -12,6 +12,9 @@ class InstructorController extends Controller
     public function viewstudent(){
         return view('instructor.view_student');
     }
+    public function task(){
+        return view('instructor.manage_task');
+    }
 
     
 }
