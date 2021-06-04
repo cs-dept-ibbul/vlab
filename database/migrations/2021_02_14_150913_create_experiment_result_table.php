@@ -14,16 +14,19 @@ class CreateExperimentResultTable extends Migration
     public function up()
     {
         Schema::create('experiment_results', function (Blueprint $table) {
-            $table->string('id', 36)->primary();
+            //this->down();
+            $table->string('id',36)->primary();
             $table->string('user_id', 36);
-            $table->integer('experiment_id', 36);
+            $table->string('course_id', 36);
+            $table->string('experiment_id', 36);
             $table->string('session_id', 36);
             $table->string('weekly_work_id', 36);
-            $table->string('result_json', 3000);
-            $table->string('time_started', 10);
-            $table->string('time_submited', 10);
-            $table->string('time_left', 10);
-            $table->enum('completion_status', ['Not Started', 'Started', 'Completed'])->default('Not Started');
+            $table->string('result_json', 3000)->nullable();
+            $table->string('time_started', 25);
+            $table->string('time_submited', 25)->nullable();
+            $table->string('time_left', 25);
+            $table->enum('completion_status', ['Not Started', 'Started', 'Completed'])->default('Started');
+            $table->enum('restart', ['Allow', 'Deny'])->default('Allow');
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->rememberToken();
             $table->timestamps();

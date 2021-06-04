@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?php echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
   <head>
@@ -15,6 +15,15 @@
     $size = $sizes[0];
     $sizeI = $sizes[1];
     $sizeD = $sizes[2];
+       if(Session::has('experimentMode')){
+          if (session('experimentMode') == 1) {
+              $mode  = true;            
+          }else{
+              $mode = false;
+          }
+        }else{
+          $mode = false;
+        }
 ?>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -27,8 +36,10 @@
     <script src="{{ asset('experiments/_ejs_library/scripts/common_script.js')}}"></script>
     <script src="{{ asset('experiments/_ejs_library/scripts/textresizedetector.js')}}"></script>
     <script src="{{ asset('experiments/_ejs_library/ejsS.v1.min.js')}}"></script>
+    <script src="{{ asset('js/jquery-3.1.1.min.js')}}"></script>
 <script type="text/javascript"><!--//--><![CDATA[//><!--
-var testMode = false;
+var testMode = <?php echo json_encode($mode); ?>;
+
 function AAPTVernierCaliper(_topFrame,_libraryPath,_codebasePath, _inputParameters) {
   var _model = EJSS_CORE.createAnimationLMS();
   var _view;
@@ -902,8 +913,9 @@ var _stringProperties = {};
     }
     bottomdragmesize = bottomdragmesizemax; // EjsS Model.Variables.object.bottomdragmesize
     bottomresizex = ox+w/2; // EjsS Model.Variables.object.bottomresizex
-    topresizex = b+(x0+2*a); // EjsS Model.Variables.object.topresizex
+    topresizex = b+(x0+2*a); // EjsS Model.Variables.object.topresizex    
     tailresizex = xmax+size; // EjsS Model.Variables.object.tailresizex
+
   });
 
   _model.addToReset(function() {
@@ -1475,6 +1487,7 @@ var _stringProperties = {};
     if (!__pagesEnabled["object"]) return;
     oxmax=oxmin+x;  // > FixedRelations.object:1
     bottomresizex = w; // sync drag resize added by lookang  // > FixedRelations.object:2
+
     //bottomresizex = ox+w/2; // sync drag resize added by lookang  // > FixedRelations.object:2
     // to check boundary of blue object with the parts of the vernier caliper  // > FixedRelations.object:3
     if((ox-w/2>oxmin-20) && (ox+w/2<oxmax+20) && (oy+h/2>oymin))  // > FixedRelations.object:4
@@ -1528,7 +1541,12 @@ var _stringProperties = {};
     if(tail) {  // > FixedRelations.object:52
       oxytail[2][0] = oxytail[3][0] = oxtail[2]=oxtail[3]=td;   // > FixedRelations.object:53
       oxytail[6][0] = oxytail[7][0] = oxtail[6]=oxtail[7]=td+size;  // > FixedRelations.object:54
-     tailresizex= td ; // force sync between td and resizetail   // > FixedRelations.object:55
+      if (testMode) {
+        tailresizex=  xmax+<?php echo $sizeD;  ?>; // force sync between td and resizetail   // > FixedRelations.object:55
+      }else{
+        tailresizex = td;
+      }
+     //console.log(tailresizex,td)
       if(x>=td-xmax) {   // > FixedRelations.object:56
         x=td-xmax;  // > FixedRelations.object:57
         xdrag=-160+x; // added code to force alignment between  x and xdrag used in new implementation  // > FixedRelations.object:58
@@ -2439,7 +2457,12 @@ var _stringProperties = {};
           _view.topObject.linkProperty("Points",  function() { return pxy; }, function(_v) { pxy = _v; } ); // HtmlView Page linking property 'Points' for element 'topObject'
           _view.topObject.linkProperty("Visibility",  function() { return topone; }, function(_v) { topone = _v; } ); // HtmlView Page linking property 'Visibility' for element 'topObject'
           _view.topresize.linkProperty("SizeX",  function() { return bottomdragmesize; }, function(_v) { bottomdragmesize = _v; } ); // HtmlView Page linking property 'SizeX' for element 'topresize'
-          _view.topresize.linkProperty("X",  function() { return topresizex; }, function(_v) { topresizex = _v; } ); // HtmlView Page linking property 'X' for element 'topresize'
+          //adjustment for internal measurement
+          if (testMode){
+              _view.topresize.linkProperty("X",  function() { return <?php echo $sizeI; ?> + 70; }, function(_v) { topresizex = _v; } ); // HtmlView Page linking property 'X' for element 'topresize'
+          }else{
+              _view.topresize.linkProperty("X",  function() { return topresizex; }, function(_v) { topresizex = _v; } ); // HtmlView Page linking property 'X' for element 'topresize'
+          }
           _view.topresize.linkProperty("Y",  function() { return yb; }, function(_v) { yb = _v; } ); // HtmlView Page linking property 'Y' for element 'topresize'
           _view.topresize.linkProperty("Visibility",  function() { return topone; }, function(_v) { topone = _v; } ); // HtmlView Page linking property 'Visibility' for element 'topresize'
           _view.topresize.linkProperty("SizeY",  function() { return bottomdragmesize; }, function(_v) { bottomdragmesize = _v; } ); // HtmlView Page linking property 'SizeY' for element 'topresize'
@@ -4087,6 +4110,22 @@ function AAPTVernierCaliper_View_0 (_topFrame) {
           };
           _model.onload();
         }, false);
+      $(document).ready(function(){          
+    
+        $('body').load("svg#plottingPanel", function() {
+            setTimeout(function(){
+              $('#comboBox2').on('change', function(){                
+                if ($(this).val()=='Depth') {
+                    $('path#tailresize').remove();
+                }
+              })
+            }, 1000);
+        });
+    
+          //setTimeout(function() {}, 10);      
+          
+      });
+
     //--><!]]></script>
   </body>
 </html>

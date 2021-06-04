@@ -45,9 +45,12 @@
 				let formcount = 0;
 				let $vm = this, html='';
 				let topic = "Create Faculty";
-				console.log(obj);
+				let old = {name:"",code:""};
+				let btnName ="Create";				
 				//watch(this.watchfacultyHtml, 'value', function(){
-				if(update){			
+				if(update){
+					btnName= "Update";
+					old = {name:'<span class="text-danger">'+obj.name+'</span> <b class="text-success"> to </b> ', code: '<span class="text-danger">'+ obj.code+'</span> <b class="text-success"> to </b> ' };			
 					topic = 'Update Faculty';
 					html = 			
 				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Name</legend>"+					  		   
@@ -65,7 +68,7 @@
 				Swal.fire({
 				  title: topic,
 				  html:html,
-				  confirmButtonText:'Ok',					      
+				  confirmButtonText:btnName,					      
 			      cancelButtonText:'Cancel',				      				      
 			      cancelButtonColor:'#dd000f',					      
 			      confirmButtonColor:'#00b96b',					      
@@ -73,7 +76,7 @@
 			      showLoaderOnConfirm: true,
 				  focusConfirm: false,
 				  preConfirm: () => {					  	
-				  	 let  FacultyName = document.getElementById('swal-input1').value,
+				  	 let  FacultyName = document.getElementById('swal-input1').value.toUpperCase(),
 				      FacultyAbbr = document.getElementById('swal-input2').value;					      					  	  
 				  	if ( FacultyName == "" || FacultyAbbr == "") {					     
 				         Swal.showValidationMessage('All fields are required');
@@ -85,18 +88,19 @@
 				  } 
 				}).then((result)=>{
 					if (result.value) {
-				    const answers = {name:result.value[0], code:result.value[1]}
+				    const answers = {faculty_name:result.value[0], faculty_code:result.value[1]}
+
 				    Swal.fire({
 				      title: 'click on proceed',
 				      text: 'other cancel and restart',
 				      html: `<table class='table text-left'>						      		
 					      		<tr>
 					      			<td width='30%'><b>Faculty Abbr:</b></td>
-					      			<td width='70%'> ${answers.name},</td>
+					      			<td width='70%'>${old.name} ${answers.faculty_name}</td>
 					      		</tr>
 					      		<tr>
 					      		 	<td width='30%'><b>Abbr:</b></td>
-					      		 	<td width='70%'> ${answers.code} </td>
+					      		 	<td width='70%'>${old.code} ${answers.faculty_code} </td>
 					      		 <tr>
 				      		</table>`,
 				      confirmButtonText:'Continue',					      
@@ -109,8 +113,8 @@
 				        if (update){
 				        	const formData = new FormData();
 				        	formData.append("faculty_id",obj.id);
-				        	formData.append("name",result.value[0]);
-				        	formData.append("code",result.value[1]);				        	 
+				        	formData.append("faculty_name",result.value[0]);
+				        	formData.append("faculty_code",result.value[1]);				        	 
 				        	return $vm.axios.post($vm.baseApiUrl+'faculties/update',formData,{headers:$vm.axiosHeader})
 					      	.then(response => {						      	
 						        if (!response.data.sucess) {

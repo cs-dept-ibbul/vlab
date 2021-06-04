@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'http://localhost:8000' : 'http://localhost:8000';
+axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'https://demo.vlabnigeria.org/' : 'https://demo.vlabnigeria.org/';
 import loader from '../components/skeletalLoaderA.vue'; 
 export default {
   install(Vue, options) {
@@ -19,8 +19,9 @@ export default {
       		currentWidth:100,
       		currentUser:'',
       		startExperiment: false,
-      		navbarState:false,
-      		baseApiUrl : 'api/'
+      		navbarState:false,      		
+      		freePath:['','explore','feedbacks'],
+      		baseApiUrl : 'api/'      		
 
       	}
       },
@@ -47,18 +48,46 @@ export default {
 					})
 				}
 				if (sel=== 1) {
-					if($('#'+id+ 'option:selected').text()==""){
+					if($('#'+id+ 'option:selected').text()=="" || $('#'+id).val() == ""){
 						$('#'+id).css('border','1px solid #e45');
 						$('.requiredv').remove();
-						$('#'+id).after('<span class="text-danger requiredv">Required !</span>');						
+						$('#'+id).after('<span class="text-danger requiredv">Required !</span>');	
+						return false;					
 						this.validateState = false;						
 					}else{						
 						this.validateState = true;	
 					}
 				}
 			},
+			PrintArea(elem, title,length=400)
+			{
+			    var mywindow = window.open('', 'PRINT', 'height='+length+',width=600');
+
+			    mywindow.document.write('<html><head><title>' + title  + '</title>');
+			    mywindow.document.write('</head><body >');
+			    mywindow.document.write('<h1>' + title  + '</h1>');
+			    mywindow.document.write(document.getElementById(elem).innerHTML);
+			    mywindow.document.write('</body></html>');
+
+			    mywindow.document.close(); // necessary for IE >= 10
+			    mywindow.focus(); // necessary for IE >= 10*/
+
+			    mywindow.print();
+			    mywindow.close();
+
+			    return true;
+			},
+		expandVideo(){
+            	$('.videoContainer').detach().appendTo('#wideArea');
+            	this.web_player('70%', '70%');       
+            	setTimeout(function() {
+            		$('.videoContainer  iframe').addClass('h-75 w-75');            	
+            		$('.videoContainer').addClass('videContainerProp');
+            	}, 500);     	
+            },   
 		selectHtmlGen: function(obj,name,idname="idname001",selected_id, update=false){
-			let html = "<select id='"+idname+"' class='form-control'>"
+			//let html = "<select id='"+idname+"' name='"+idname+"' class='form-control w-100'><option value=''>Select</option>"
+			let html = `<select id='${idname}' name='${idname}' class='form-control w-100'><option value=''>Select ${idname.split('_')[0]}</option>`			
 			if (!update) {
 				obj.forEach((item, idex)=>{
 					html += "<option value='"+item.id+"'>"+ item[name] +"</option>";							
@@ -80,7 +109,7 @@ export default {
 		    swal.fire({
 		        html: '<div id="VueSweetAlert2" class="text-left"></div>',
 		        showConfirmButton: false,
-		        width: '97%',
+		        width: '97%',		        
 		        onBeforeOpen: () => {
 		            let ComponentClass = Vue.extend(Vue.component(component));
 		            let instance = new ComponentClass({
@@ -114,7 +143,7 @@ export default {
                         
                     });                                
                 }catch(err){
-                   console.log(err)
+                 //  console.log(err)
                 }                 
                         
 		},  
@@ -134,9 +163,55 @@ export default {
 		    localStorage.removeItem("LoggedUser");
   			location.href = "/logout";
   		},
+		addError(element) {                
+        	element.classList.add('errorshake');
+      	},
+      	removeError(e) {
+        	e.classList.remove('errorshake');
+      	},
+  		web_player(w='250px',h='140px',autoplay=1){
+  			let $this = this;
+  			const tag = document.createElement("script");
+		    tag.src = "https://www.youtube.com/player_api";
+		    const firstScriptTag = document.getElementsByTagName("script")[0];
+		    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+		    function onPlayerReady(evt) {
+			    const player = evt.target;
+			    player.setVolume(50); // percent
+			  }
+			 window.onYouTubePlayerAPIReady = function() {
+			    const video = document.querySelector("video");
+			    const videoId = video.getAttribute("data-id");
+			    new YT.Player(video, {
+			      width: w,
+			      height: h,
+			      videoId: videoId,
+			      origin: $this.BaseOrigin,
+			      playerVars: {
+			        autoplay: autoplay,
+			        controls: 1,
+			        rel: 0,
+			        iv_load_policy: 3,
+			        cc_load_policy: 0,
+			        fs: 0,
+			        disablekb: 1
+			      },
+			      events: {
+			        "onReady": onPlayerReady
+			      }
+			    });
+			  };						
+			
+  		},
+  		youtubeID(url){
+  			if (url == null) {
+  				throw ERROR('youtubeID(url): youtube link required');
+  			}
+  			return url.split('=')[1];
+  		},
   		axiosDelete:function(url, data){  			
 			let retryCount = 0;			
-				var $this = this;
+				let $this = this;
 				
 				
 				let attemptsFailsV = function(){
@@ -165,10 +240,11 @@ export default {
 					$this.show_loader();
                    	axios.post(url,$this.createFormData(data),{headers: $this.axiosHeader}).then(function(response, status, request) {        
                             if (response.status === 200) {     
-                            	this.hide_loader();                                	
+                            	$this.hide_loader();                                	
                             	Swal.fire({
                             		title:'deleted successfuly',
-                            		icon: 'success',                            		
+                            		icon: 'success',   
+                            		confirmButtonColor:'#00b96b',	                         		
                             	}).then((result)=>{
                             		location.reload();
                             	});
@@ -185,21 +261,122 @@ export default {
                         }, function(e) {        
                         	//console.log(e.response.status);
                              if(e.response.status === 401 ){
-                                location.href = "/logout";
+                                 localStorage.removeItem("LoggedUser");
+  								 location.href = "/logout";
+                             }else if(e.response.status === 409){
+                             	$this.hide_loader();
+                            	Swal.fire({
+                            		title:"This Operation Cannot be Completed",
+                            		text: 'Please Contact the Administrator',
+                            		icon: 'warning',  
+                            		confirmButtonColor:'#00b96b',	
+                            	});
+                            }else{
+                               attemptsFailsV()                                           
+                             }                                                                   
+                        })                             
+					try{
+					}catch(err){
+						//console.log(err)
+					}
+					//return datafetched;
+				}
+				Swal.fire({
+					title: 'Are you sure you want to delete',
+					cancelButtonText:'No',				      				      
+					confirmButtonText:'Yes',				      				      
+			        cancelButtonColor:'#dd000f',					      
+			        confirmButtonColor:'#00b96b',					      
+			      	showCancelButton:true,					      
+			      	icon:'warning'
+				}).then((result)=>{
+					if (result.value){
+						AxiosFetchData();									
+					}
+				})		
+  		},
+  		axiosGet: async(url,feedback=false, forSession="") => {
+  			//console.log(url)
+  				let retryCount = 0;			
+				var $this = this;
+				//console.log($this);
+				let attemptsFailsV = function(){
+					let msgErr = 'something went wrong';					    
+					    if (forSession != '') {
+					    	msgErr = forSession;					    	
+					    }
+						Swal.fire({
+						  text: 'click Ok to retry',
+						  title: msgErr,
+						  icon:'error',
+						  showClass: {
+						    popup: 'animate__animated animate__fadeInDown'
+						  },
+						  hideClass: {
+						    popup: 'animate__animated animate__fadeOutUp'
+						  }
+						}).then((result) => {
+							  /* Read more about isConfirmed, isDenied below */
+							  if (forSession!= '') {
+							    location.reload();							  	
+							  }
+							  if (result.isConfirmed) {
+							    location.reload();
+							  } else if (result.isDenied) {
+							    Swal.fire('please reload the page', '', 'info')
+							  }
+						});
+				}
+				let AxiosFetchData = function(){
+					let datafetched = '0';						
+					retryCount +=1;		
+					let userLoggedInOld = "";
+					if(localStorage.hasOwnProperty('LoggedUser')){		      			
+		      			userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
+		      		}else{
+				        localStorage.removeItem("LoggedUser");
+		      		}
+		      		let AuthAxios = 'Bearer '+userLoggedInOld;
+					let axiosHeader ={
+							'Content-Type':'application/json',
+							'Authorization':AuthAxios
+					};
+                   return axios.get(url,{headers: axiosHeader}).then(function(response, status, request) {                     			
+                            if (response.status === 200) {                                     	
+                            	let i,j;                                                 
+                               return response.data;                                                                
+                            }else{
+                            	if (retryCount < 4) {
+                            		setTimeout(function() {
+                            			AxiosFetchData();
+                            		}, 5000);
+                            	}else{
+                            		/*when all attempts fails inform the user what to do*/
+                            		attemptsFailsV();
+                            	}
+                            }
+                        }, function(e) {        
+                        	//console.log(e.response.status);
+                             if(e.response.status === 401 ){                             	
+                                 localStorage.removeItem("LoggedUser");
+                                 if(!feedback){
+  									location.href = "/logout";
+                                 }
                              }else{
                                attemptsFailsV()                                           
                              }                                                                   
                         })                             
 					try{
 					}catch(err){
-						console.log(err)
+						//console.log(err)
 					}
-					//return datafetched;
-				}		
-				AxiosFetchData();									
+					//return datafetched; 
+				}							
+				return AxiosFetchData();				
+                    
   		},
-  		axiosGet: async(url) => {
-  			console.log(url)
+  		axiosPost: async(url,obj) => {
+  			//console.log(url)
   				let retryCount = 0;			
 				var $this = this;
 				//console.log($this);
@@ -226,18 +403,21 @@ export default {
 				let AxiosFetchData = function(){
 					let datafetched = '0';						
 					retryCount +=1;		
-					let userLoggedInOld;
-					if(typeof localStorage.getItem('LoggedUser') != undefined){		      			
+					let userLoggedInOld = "";
+					if(localStorage.hasOwnProperty('LoggedUser')){		      			
 		      			userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
 		      		}else{
 				        localStorage.removeItem("LoggedUser");
 		      		}
-		      		let Auth_ = 'Bearer '+userLoggedInOld;
+		      		let AuthAxios = 'Bearer '+userLoggedInOld;
 					let axiosHeader ={
 							'Content-Type':'application/json',
-							'Authorization':Auth_
+							'Authorization':AuthAxios
 					};
-                   return axios.get(url,{headers: axiosHeader}).then(function(response, status, request) {        
+				    const formData = new FormData();
+		    		Object.keys(obj).forEach(key => formData.append(key, obj[key]));
+		    			
+                   return axios.post(url,formData,{headers: axiosHeader}).then(function(response, status, request) {        
                             if (response.status === 200) {                                     	
                             	let i,j;                  
                                //console.log(response.data.map((a,b)=>{j = []; for(i in a) {j.push(a[i])} return j; }));                               
@@ -254,17 +434,18 @@ export default {
                             }
                         }, function(e) {        
                         	//console.log(e.response.status);
-                             if(e.response.status === 401 ){
-                                location.href = "/logout";
+                             if(e.response.status === 401 ){                             	
+                                 localStorage.removeItem("LoggedUser");
+  								location.href = "/logout";
                              }else{
                                attemptsFailsV()                                           
                              }                                                                   
                         })                             
 					try{
 					}catch(err){
-						console.log(err)
+						//console.log(err)
 					}
-					//return datafetched;
+					//return datafetched; 
 				}							
 				return AxiosFetchData();				
                     
@@ -300,19 +481,107 @@ export default {
 					let datafetched = '0';						
 					retryCount +=1;		
 					let userLoggedInOld;
-					if(typeof localStorage.getItem('LoggedUser') != undefined){		      			
+					if(localStorage.hasOwnProperty('LoggedUser')){		      			
 		      			userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
 		      		}else{
 				        localStorage.removeItem("LoggedUser");
 		      		}
-		      		let Auth_ = 'Bearer '+userLoggedInOld;
+		      		let AuthAxios = 'Bearer '+userLoggedInOld;
 					let axiosHeader ={
 							'Content-Type':'application/json',
-							'Authorization':Auth_
+							'Authorization':AuthAxios
 					};
 					
 					let formdata = new FormData;
 					formdata.append(idname, idvalue);						
+                   return axios.post(url,formdata,{headers: axiosHeader}).then(function(response, status, request) {        
+                            if (response.status === 200) {                                     	
+                            	let i,j;                  
+                            	//console.log($this.currentUser)
+                               //console.log(response.data.map((a,b)=>{j = []; for(i in a) {j.push(a[i])} return j; }));                               
+                               if (response.data.length <1) {
+                               		if (retryCount < 4) {
+                            		setTimeout(function() {
+                            			AxiosFetchData();
+                            		}, 5000);
+                            		}else{
+                               			return response.data;                                                                
+
+                            		}
+                               }
+                               return response.data;                                                                
+                            }else{
+                            	if (retryCount < 4) {
+                            		setTimeout(function() {
+                            			AxiosFetchData();
+                            		}, 5000);
+                            	}else{
+                            		/*when all attempts fails inform the user what to do*/
+                            		attemptsFailsV();
+                            	}
+                            }
+                        }, function(e) {        
+                        	//console.log(e.response.status);
+                             if(e.response.status === 401 ){
+                             	 localStorage.removeItem("LoggedUser");
+                                location.href = "/logout";
+                             }else{
+                               attemptsFailsV()                                           
+                             }                                                                   
+                        })                             
+					try{
+					}catch(err){
+						console.log(err)
+					}
+					//return datafetched;
+				}							
+				return AxiosFetchData();				
+                    
+  		},
+  		axiosGetByParams: async(url,obj=null) => {
+  			if (obj== null) {
+  				throw Error('axiosGetById: all parameter data must be provided');
+  			}
+  				let retryCount = 0;			
+				var $this = this;
+				//console.log($this);
+				let attemptsFailsV = function(){
+						Swal.fire({
+						  text: 'something went wrong',
+						  title: 'click Ok to retry',
+						  icon:'error',
+						  showClass: {
+						    popup: 'animate__animated animate__fadeInDown'
+						  },
+						  hideClass: {
+						    popup: 'animate__animated animate__fadeOutUp'
+						  }
+						}).then((result) => {
+							  /* Read more about isConfirmed, isDenied below */
+							  if (result.isConfirmed) {
+							    location.reload();
+							  } else if (result.isDenied) {
+							    Swal.fire('please reload the page', '', 'info')
+							  }
+						});
+				}
+				let AxiosFetchData = function(){
+					let datafetched = '0';						
+					retryCount +=1;		
+					let userLoggedInOld;
+					if(localStorage.hasOwnProperty('LoggedUser')){		      			
+		      			userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
+		      		}else{
+				        localStorage.removeItem("LoggedUser");
+		      		}
+		      		let AuthAxios = 'Bearer '+userLoggedInOld;
+					let axiosHeader ={
+							'Content-Type':'application/json',
+							'Authorization':AuthAxios
+					};
+										
+					  const formdata  = new FormData();
+		    		  Object.keys(obj).forEach(key => formdata .append(key, obj[key]));
                    return axios.post(url,formdata,{headers: axiosHeader}).then(function(response, status, request) {        
                             if (response.status === 200) {                                     	
                             	let i,j;                  
@@ -331,6 +600,7 @@ export default {
                         }, function(e) {        
                         	//console.log(e.response.status);
                              if(e.response.status === 401 ){
+                             	 localStorage.removeItem("LoggedUser");
                                 location.href = "/logout";
                              }else{
                                attemptsFailsV()                                           
@@ -345,7 +615,95 @@ export default {
 				return AxiosFetchData();				
                     
   		},
-  		
+  		attemptsFailsV:function(title="click Ok to retry", text="something went wrong", state=false, route='/'){
+			Swal.fire({
+			  title: title,
+			  text: text,
+			  icon:'error',
+			  showClass: {
+			    popup: 'animate__animated animate__fadeInDown'
+			  },
+			  hideClass: {
+			    popup: 'animate__animated animate__fadeOutUp'
+			  }
+			}).then((result) => {
+				  /* Read more about isConfirmed, isDenied below */
+				  if (state) {
+				  	  window.location.replace(route);
+				  }else{				  	
+					  if (result.isConfirmed) {
+					    location.reload();
+					  } else if (result.isDenied) {
+					    Swal.fire('please reload the page', '', 'info')
+					  }
+				  }
+			});
+		},		
+  		axiosGetByParamsWithMessage: async(url,obj=null,pow,msg='created successfuly',) => {
+  			if (obj== null) {
+  				throw Error('axiosGetById: all parameter data must be provided');
+  			}
+  				let retryCount = 0;			
+				var $this = pow;
+				//console.log($this);				
+				let AxiosFetchData = function(){
+					let datafetched = '0';						
+					retryCount +=1;		
+					let userLoggedInOld;
+					if(localStorage.hasOwnProperty('LoggedUser')){		      			
+		      			userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
+		      		}else{
+				        localStorage.removeItem("LoggedUser");
+		      		}
+		      		let AuthAxios = 'Bearer '+userLoggedInOld;
+					let axiosHeader ={
+							'Content-Type':'application/json',
+							'Authorization':AuthAxios
+					};
+										
+		    		  $this.show_loader();
+					  const formdata  = new FormData();
+		    		  Object.keys(obj).forEach(key => formdata .append(key, obj[key]));
+                   return axios.post(url,formdata,{headers: axiosHeader}).then(function(response, status, request) {        
+                            if (response.status === 200) {                                     	
+                            	let i,j;  
+                            	$this.hide_loader();                
+                               //console.log(response.data.map((a,b)=>{j = []; for(i in a) {j.push(a[i])} return j; }));                               
+                               Swal.fire({
+                               	text: msg,                               	
+                               	icon: 'success',
+						      	confirmButtonText:'Ok',
+			      			  	confirmButtonColor:'#00b96b',	
+                               });                                                              
+                            }else{
+                            	$this.hide_loader();
+                            	if (retryCount < 4) {
+                            		setTimeout(function() {
+                            			AxiosFetchData();
+                            		}, 5000);
+                            	}else{
+                            		/*when all attempts fails inform the user what to do*/
+                            		$this.attemptsFailsV();
+                            	}
+                            }
+                        }, function(e) {        
+                        	//console.log(e.response.status);
+                             $this.hide_loader();
+                             if(e.response.status === 401 ){
+                             	 localStorage.removeItem("LoggedUser");
+                                location.href = "/logout";
+                             }else{
+                               $this.attemptsFailsV()                                           
+                             }                                                                   
+                        })                             
+					try{
+					}catch(err){					
+					}
+					//return datafetched;
+				}							
+				return AxiosFetchData();				
+                    
+  		},
   		rippleButton: function(){      				
 					$('.button').click(function(event){
 						var $this = $(this);
@@ -360,8 +718,8 @@ export default {
 					  $this.append("<span class='ripple b-warning' style='width:"+diameter+"px; height:"+diameter+"px; left:"+left+"px; top:"+top+"px;'></span>");
 					})			
       			},
-      	naviconToggler: function(e){
-      		if ($(window).width() <751) {
+      	naviconToggler: function(e){      		
+      		if ($(window).width() <720) {
 
 	      		if (this.navbarState === false) {
 	      			
@@ -389,28 +747,41 @@ export default {
       	}
 
       },
-      created: function(){
-      		/*goes global*/      		
-      		if(typeof localStorage.getItem('LoggedUser') != undefined){      			
-      			this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
-      			this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;
-      		}else{
-		        localStorage.removeItem("LoggedUser");
-      		}
-      		let Auth_ = 'Bearer '+this.userLoggedInOld;
+      async created(){
+
+		if(localStorage.hasOwnProperty('LoggedUser')){     	      			      
+  			this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
+  			this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;	 
+  			let AuthAxios = 'Bearer '+this.userLoggedInOld;
 			this.axiosHeader ={
 					'Content-Type':'application/json',
-					'Authorization':Auth_
+					'Authorization':AuthAxios
 			};
 			this.axiosHeaderWithFiles ={
 					'Content-Type':'multipart/form-data',
-					'Authorization':Auth_
-			};
+					'Authorization':AuthAxios
+			};	     		
+  		}
+      
       },
       mounted: function(){
-
+      	 
       	let $vm = this;
       	this.$nextTick(function(){
+	      	
+	      	$(document).ready(function(){
+	      		
+      			/*minimize vido player*/
+		      	$('#wideArea').not('.videoContainer iframe').click(function(){
+	         		$('.videoContainer').removeClass('videContainerProp');
+	            	$('.videoContainer  iframe').removeClass('h-75 w-75');            	
+	         		$('.videoContainer').detach().appendTo('#smallArea');
+	            	$vm.web_player();       
+
+	         	});
+		      	/*end minimize video*/
+	      	})
+
       		let windowWidth =	$(document).width();
       		setInterval(function(){
 	      		if ($('.scroll-y').innerWidth()) {
@@ -418,7 +789,7 @@ export default {
 	      		}        	 	
       		},5);
       		let mobileS = function(size) {
-      			if(size < 751) {      				
+      			if(size < 720) {      				
       				/*hide wide screen element*/
 	      				$('.MenuLContainer').addClass('removeMenu');
 	      				$('.menuBtnToggler').addClass('removeMenu');      				
@@ -445,6 +816,27 @@ export default {
       		$(window).resize(function(){
       			mobileS($(this).width())
       		})
+
+      		/*btn slider for left side bar */
+        	var $this = this;
+	 		$(window).resize(function() {
+     			$('.listVMenu').not($(this).next()).addClass('slideout');
+    			$('.listVMenu').not($(this).next()).removeClass('slidein');
+    			let elt = $(this).parent().find('ul.listMenu');
+         		if($(this).width() > 750){
+         			if(!$this.iconStateFromSysTopNav && !elt.hasClass('slidein') ){
+	        			elt.addClass('slideout');
+	 					elt.removeClass('slidin');        				
+         			}else{
+         				elt.removeClass('slideout');
+	 					elt.addClass('slidin');
+         			}	    
+         		}
+         	});  
+         	/*end*/   		
+
+	 		var $this = this;
+
       		$(document).ready(function(){      			
       			window.rippleButton = function(){      				
 					$('.button').click(function(event){
@@ -461,6 +853,41 @@ export default {
       			}
       			window.rippleButton();
       		})
+
+
+      		/*login checking and validation*/
+      		
+   /*   		let pathname = location.pathname.split('/')[1];       		
+
+	      	if(localStorage.hasOwnProperty('LoggedUser')){     	      				      
+	      			this.userLoggedInOld = JSON.parse(localStorage.getItem('LoggedUser')).access_token
+	      			this.currentUser = JSON.parse(localStorage.getItem('LoggedUser')).user;
+	     
+	      			$.post('/ajax-check-login',{"_token": $('meta[name="csrf-token"]').attr('content')},function(data){      				
+	      				if (data.status == 200){
+	      					
+	      				}else{
+	      					if(this.freePath.includes(pathname)){
+		      					localStorage.removeItem("LoggedUser");  
+		      					$this.launch_toast('logged out!');      				
+	      					}else{
+		      					localStorage.removeItem("LoggedUser");        						
+					        	location.href = '/login';
+	      					}
+	      				}
+	      			}).done(function(){}).fail(function(){}).always(function(){});
+      			
+	      	}
+*/
+      		let AuthAxios = 'Bearer '+this.userLoggedInOld;
+			this.axiosHeader ={
+					'Content-Type':'application/json',
+					'Authorization':AuthAxios
+			};
+			this.axiosHeaderWithFiles ={
+					'Content-Type':'multipart/form-data',
+					'Authorization':AuthAxios
+			};	
       		
         })
       }     		 

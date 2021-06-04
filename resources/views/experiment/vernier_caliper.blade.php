@@ -1,12 +1,32 @@
 <?php
 $tools = 5;
-$toolSizes = [
-  [50,60],//'size'
-  [40,54],//'sizeI'
-  [80,54],//'sizeD'
-];
-$ct = 1;
-$started = '0'; //this will be from database
+$default = true;
+
+if(Session::has('setdata')){
+    if (session('setdata') != '[]') {
+      $toolSizes = json_decode(session('setdata'));
+      $default = false;  
+    }    
+    $time_left = session('time_left');
+    $time_default = false;
+}
+$access_code = session('access_code');
+$user_type = session('user_type');
+if ($default) {
+  $toolSizes = [
+    [50,60],//'size'
+    [40,54],//'sizeI'
+    [80,54],//'sizeD'
+  ];  
+}
+if ($time_default) {
+   $time_left = [
+      'hour'=>1,
+      'minute'=>30
+   ];
+}
+
+
 $resultTable ='
     <div id="result_table" class="bg-white p-2 mx-auto mt-2" style="border-radius:10px;width:450px;overflow:auto;"> 
       <h4 class="text-warning font2 mb-0">Table of Measurements</h4>
@@ -112,6 +132,7 @@ $resultTable ='
 
     </div>
 ';
+
 ?>
 @extends('layouts/main')
 
@@ -121,7 +142,9 @@ $resultTable ='
    var toolSizes = <?php echo json_encode($toolSizes); ?>;
    
    var experimentSheet;
-   var url = '{{route("vernierEquipment")."?size=".$toolSizes[0][0]."-".$toolSizes[1][0]."-".$toolSizes[2][0] }} ' //localStorage.getItem('objectSize');   
+   var url = '{{route("vernierEquipment")."?size=".$toolSizes[0][0]."-".$toolSizes[1][0]."-".$toolSizes[2][0] }} ' 
+   //localStorage.getItem('objectSize');   
+   //var url = '{{route("vernierEquipment")}}"' ///localStorage.getItem('objectSize');   
    window.onload = function(){
     experimentSheet = document.getElementById('experimentSheet');
     experimentSheet.src= url;
@@ -153,12 +176,11 @@ $resultTable ='
             <div  id="mainExp">
                <v-ribbon></v-ribbon>
                 <iframe width="100%" height="480px"  frameborder="0" style="display: none;" src="" id="experimentSheet"></iframe>
-             
-               <v-start hourdata="0" munitedata="30" starteddata="{{$started}}" ></v-start>
+               <v-start access_code="{{$access_code}}" user_type="{{$user_type}}" hourdata="{{$time_left['hour']}}" munitedata="{{$time_left['minute']}}"></v-start>
             </div>
             <!-- end experiment -->
             <div  class="zero-space exprightNav" id="rightNav">               
-               <v-rightnav result="{{$resultTable}}" type='measurement' :toolstate=true :othertools=true :toolsizes="{{json_encode($toolSizes)}}" url="{{route('vernierEquipment').'?size='}}" ></v-rightnav>        
+               <v-rightnav result="{{$resultTable}}" type='measurement' :toolstate=true :othertools=true toolsizes="{{json_encode($toolSizes)}}" url="{{route('vernierEquipment').'?size='}}" ></v-rightnav>        
             </div>
             <!-- experiment footer -->
             <div class="position-absolute bottom-0 w-100">

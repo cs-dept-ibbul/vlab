@@ -12,6 +12,23 @@ use Illuminate\Support\Facades\Validator;
 
 class FacultyController extends Controller
 {
+    
+    private $currentUser;
+    private $schoolId;
+    private $facultyId;
+    private $userId;
+    private $currentSession;
+
+    public function __construct()
+    {
+        if (Auth::check()) {
+            $this->currentUser = Auth::user();
+            $this->schoolId = $this->currentUser->school_id;
+            $this->facultyId = $this->currentUser->faculty_id;
+            $this->userId = $this->currentUser->id;
+            $this->currentSession = SessionController::getCurrentSessionId();
+        }
+    }
 
     public function create(Request $request)
     {
@@ -38,6 +55,14 @@ class FacultyController extends Controller
         return response()->json(['error' => 'This faculty already exist'], 409);
     }
 
+    public function checkFacultyExist()
+    {
+        $faculties =  Faculty::all();
+        if (sizeof($faculties)>0) {
+            return response()->json(['success' => true], 200);            
+        }
+        return response()->json(['error' => 'Not found'], 404);                
+    }
     public function deleteFaculty(Request $request)
     {
 
@@ -51,14 +76,23 @@ class FacultyController extends Controller
 
         $facultyId = $request->get('faculty_id');
         $faculty = Faculty::find($facultyId);
-        if($faculty){
-            $faculty->status = 'Inactive';
-            $save = $faculty->save();
-            if ($save) {
-                return response()->json(['success' => true], 200);
-            }
-        } else {
-            return response()->json(['error' => 'No faculty with this id'], 404);
+        $check  = DB::table('departments')->where(['faculty_id'=> $facultyId, 'status'=>'Active'])->first();
+        $check1  = DB::table('courses')->where(['faculty_id'=> $facultyId, 'status'=>'Active'])->first();
+        if (is_null($check) && is_null($check1)) {
+            //delete
+            if($faculty){
+                $faculty->status = 'Inactive';
+                $save = $faculty->save();
+                if ($save) {
+                    return response()->json(['success' => true], 200);
+                }
+            } else {
+                return response()->json(['error' => 'No faculty with this id'], 404);
+            }          
+        }else{
+            //cant delete
+            return response()->json(['error' => "can't delete this faculty"], 409);
+            
         }
         return response()->json(['error' => 'something went wrong'], 400);
     }
@@ -80,7 +114,7 @@ class FacultyController extends Controller
         $faculty = Faculty::find($facultyId);
         if($faculty){
             $facultyName != null ? $faculty->name = $facultyName : null;
-            $facultyCode != null ? $faculty->faculty_code = $facultyCode : null;
+            $facultyCode != null ? $faculty->code = $facultyCode : null;
     
             if(empty($facultyName) && empty($facultyCode) && empty($schoolID)){
                 return response()->json(['message' => 'Nothing to update'], 200);
@@ -100,7 +134,7 @@ class FacultyController extends Controller
 
     public function getAllFaculties()
     {
-        $faculties =  Faculty::all();
+        $faculties =  Faculty::with('department')->get();
         return response()->json($faculties, 200);
     }
 
@@ -143,7 +177,9 @@ class FacultyController extends Controller
 
     public function getFacultyWithCourseAndStudentCount()
     {
-        $faculties = Faculty::withCount('courses')->withCount('students')->get();
+        $faculties = Faculty::withCount(['courses_students'=>function($query){
+            $query->where('session_id',$this->currentSession);
+        }])->withCount('courses')->withCount('students')->get();
         return response()->json(['faculties' => $faculties], 200);
     }
 }

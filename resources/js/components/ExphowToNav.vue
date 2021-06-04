@@ -1,47 +1,50 @@
 <template>
-	<div style="display: flex;width: 0px;" id="expSideBar">
+	<div style="display: flex;width:0px;" id="expSideBar">
 		
-		<div   v-bind:class="{slidein:show, slideout:hide}" >	
+		<div   v-bind:class="{slidein:show, slideout:hide}" style="width: 300px;" >	
 
 		<div style="display: flex;background: #2F274E;" >
 			<div v-bind:class="{btnVActive:proced}" class="btnV"  @click="toggller('procedure')">Procedure</div>
 			<div v-bind:class="{btnVActive:exerc}"  class="btnV" @click="toggller('exercise')">Exercise</div>
 			<div v-bind:class="{btnVActive:resour}"  class="btnV"  @click="toggller('resources')">Resources</div>
 		</div>
-		<div style="background: #40356E; padding-right: 9px;">
+		<div style="background: #40356E; padding-right: 9px;" v-if="!guide_loading">
 				<div class="holder">
 					<div id="procedure" class="m-0 p-0">	
 						<div style="padding: 10px 20px; font-family: 'Roboto';">
 							<p class="p-0 m-0" style="font-weight: 300;font-size: 0.95;">Title</p>
-					    	<p class="mt-2" style=" font-weight: 500;color:#fff;font-size: 1.3em;">Measurement With Vernier Caliper</p>
+					    	<p class="mt-2" style=" font-weight: 500;color:#fff;font-size: 1.3em;">{{experiment.experiment_intro}}</p>
 							
 						</div>
 						<!-- Aim -->
 						<h3 class="accordion accordBtnV" >Aim<span class="fa fa-chevron-right fontType-ico" style=""></span> </h3>
-						<div class="panel accordBodyV" v-html="aim"></div>						  								
+						<div class="panel accordBodyV" >{{experiment.experiment_goal}}</div>						  								
 						<!-- Aparatus -->
 						<h3 class="accordion accordBtnV" >Aparatus<span class="fa fa-chevron-right fontType-ico" style=""></span> </h3>
-						<div class="panel accordBodyV" v-html="aparatus">	
-						</div>					    		
+						<div class="panel accordBodyV" >{{experiment.apparatus}}</div>					    		
 						<!-- Theory -->
-						<h3 class="accordion accordBtnV">Theory<span class="fa fa-chevron-right fontType-ico" style=""></span> </h3>
-						<div class="panel accordBodyV" v-html="theory">						    		
-						</div>		
+				 		<!-- <h3 class="accordion accordBtnV">Theory<span class="fa fa-chevron-right fontType-ico" style=""></span> </h3>
+						<div class="panel accordBodyV" v-html="theory">		{{experiment.theory}}				    </div>		 -->
+						
 						<!-- Requirment -->
 						<h3 class="accordion accordBtnV" >Requirement<span class="fa fa-chevron-right fontType-ico" style=""></span> </h3>
-						<div class="panel accordBodyV" v-html="requirment">						    		
+						<div class="panel accordBodyV bg-white" v-html="experiment.required">						    		
 						</div>		
 						<p class="fontType-ico mt-2" style="font-size: 1.3em;padding: 0px 14px;">Instructor's Mock Experiment</p>
-						<div class="mt-1" style="padding: 0px 14px;">
-							<iframe width="100%" height="auto" src="https://www.youtube.com/embed/5Vc21hGJLpM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>														
+						<div class="mt-1" id="smallArea" style="padding: 0px 14px;">
+							<div class="videoContainer" v-if="!guide_loading" style="">
+								<video class="mx-auto" :data-id="youtubeID(experiment.video_url)"></video>
+							</div>							
 						</div>
 
 					</div>
-					<div id="exercise" style="display: none; padding: 10px 14px;" v-html="exercise"></div>
-					<div id="resources" style="display: none; padding: 10px 14px" v-html="resources" >resources</div>
+					<div id="exercise" style="display: none; padding: 10px 14px;" v-html="experiment.exercise"></div>
+					<div id="resources" style="display: none; padding: 10px 14px" v-html="experiment.experiment_resource" >resources</div>
 				</div>
 		</div>
 		</div>	
+		<div id="wideArea"></div>
+
 	
 </div>
 </template>
@@ -56,6 +59,8 @@
 		    	show:false,
             	hide:true,
             	control:false,
+            	experiment:null,
+            	guide_loading: true
             /*classObj:{ "color-red" : true } ,
             show:false,
             hide:true,
@@ -82,7 +87,7 @@
 	            	document.getElementById('expSideBar').classList.remove('addSize');  	
 	            		document.getElementById('mainExp').style.width= '88%';	
                 }  
-            },
+            },            
         	toggller(e){
         		if (e == 'procedure'){
         			document.getElementById('exercise').style.display ='none';
@@ -109,14 +114,57 @@
         	},
         	accordion(e){
         		console.log(e.target.nextElementSibling);
-        	}
-        },	
-        
-        created: function () {
-		 
-		  this.$eventBus.$on('toggleClick', data => {
-		  	this.toggleNavOnHover();
-		  })		  
+        	},
+        	guidesBtnAction(){
+         	var acc = document.getElementsByClassName("accordion");
+         			var i;
+         			for (i = 0; i < acc.length; i++) {
+         			  acc[i].addEventListener("click", function(ev) {
+         			    closeAll(ev.target);
+         			    this.classList.toggle("accordActiv");
+         			    var panel = this.nextElementSibling;
+         			    if (panel.style.maxHeight) {
+         			      panel.style.maxHeight = null;
+         			    } else {
+         			      panel.style.maxHeight = panel.scrollHeight + "px";
+         			    }
+         			  });
+         			}
+         				let $this = this; 
+         			$(document).ready(function(){				
+         			 	setTimeout(function() {
+         			 	}, 5000);
+         			})
+         			function closeAll(tar) {
+         			  var accs = document.querySelectorAll('.accordion');
+         			  for (var i = 0; i < accs.length; i++) {
+         			    if (accs[i] == tar) {
+         			      continue;
+         			    }
+         			    accs[i].classList.remove('accordActiv');
+         			    var panel = accs[i].nextElementSibling;
+         			    panel.style.maxHeight = null;
+         			  }
+         			} 
+         		}
+        },	        
+        async created(){
+		 	this.$eventBus.$on('toggleClick', data => {
+		  		this.toggleNavOnHover();
+		  	})		  
+		 	this.$eventBus.$on('videoExpander', data=>{
+		 		this.expandVideo();
+		 	});
+        	let pname = location.pathname.split('/');
+        	let weekly_work_id = pname[pname.length -1];
+		 	this.experiment = await this.axiosGetById(this.baseApiUrl+'experiments/experiment_by_weekly_experiment_id','weekly_work_id',weekly_work_id);
+		 	this.guide_loading = false;
+		 	this.web_player();
+		 	let $this = this;
+		 	setTimeout(function() {
+		 		$this.guidesBtnAction();
+		 	}, 3000);
+
 
 		},
 
@@ -127,33 +175,14 @@
          props: ['aim','aparatus','theory','requirment', 'exercise', 'resources'],
          mounted(){	       
          	
-         var acc = document.getElementsByClassName("accordion");
-			var i;
-
-			for (i = 0; i < acc.length; i++) {
-			  acc[i].addEventListener("click", function(ev) {
-			    closeAll(ev.target);
-			    this.classList.toggle("accordActiv");
-			    var panel = this.nextElementSibling;
-			    if (panel.style.maxHeight) {
-			      panel.style.maxHeight = null;
-			    } else {
-			      panel.style.maxHeight = panel.scrollHeight + "px";
-			    }
-			  });
-			}
-
-			function closeAll(tar) {
-			  var accs = document.querySelectorAll('.accordion');
-			  for (var i = 0; i < accs.length; i++) {
-			    if (accs[i] == tar) {
-			      continue;
-			    }
-			    accs[i].classList.remove('accordActiv');
-			    var panel = accs[i].nextElementSibling;
-			    panel.style.maxHeight = null;
-			  }
-			} 
+         	
+	/*		$('.accordion').click(function(){
+				$('.accordBodyV').slideUp()
+				$(this).next().slideToggle();
+				$('.accordion').removeClass('accordActiv')
+				$(this).addClass('accordActiv')
+			})*/
+         
          }
 	}
 
@@ -174,7 +203,7 @@
 		margin-bottom: 5px;
 		background: rgba(40,35,65,.4);
 		font-size: 0.95em;
-		color: #fff;
+
 	}
 
 	.holder{
@@ -236,7 +265,8 @@
     100% { transform:translateX(-300%); opacity:-10; }
 }
 .addSize{
-	width: 300px !important;
+    width: 300px !important;
+	/*width: 35% !important;*/
 	transition: width 0.5s;
 
 }
@@ -319,6 +349,8 @@ background-color: #ADAABB !important;
   text-align: justify;
 }
 
+.cardcontainer img {
+}
 
 
 </style>

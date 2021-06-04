@@ -4,18 +4,19 @@
       <div class="row hero__body d-flex align-items-center justify-content-between mx-auto">
         <div class="col-12 col-lg-7">
           <h1 class="hero__body__title">Virtual Laboratory (V-Lab)</h1>
-          <p class="hero__body__subtitle">
-            A virtual environment for Science and Engineering Practicals
+          <p class="hero__body__subtitle fs1 font text-secondary">
+            For Science and Engineering Experiments and Research.
+            Vlab give access to University students to practice and carryout practicals in virtual environment
           </p>
           <div class="hero__links">
-            <a href="/explore" class="btn btn--primary hero__body__cta mr-3">Explore V-lab</a>
-            <a href="/practice" class="practice my-2 my-sm-0 d-inline-block">Practice a Practical</a>
+            <a href="/explore" class="btn text-white bg-success hero__body__cta mr-3">Explore V-lab</a>
+            <!-- <a href="/practice" class="practice my-2 my-sm-0 d-inline-block">Practice a Practical</a> -->
           </div>
           <br>
         </div>
         <div class="col-12 col-lg-5">
           <div class="hero__video">
-            <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
+            <a href="https://youtu.be/IaDbk6MvQPs?rel=0&autoplay=1" data-overlay="rgba(15,14,100,0.8)" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
           </div>
         </div>
       </div>
@@ -27,6 +28,20 @@
 <script>
 export default {
   name: "Section",
+  mounted(){
+    $(document).ready(function(){
+        $('.venobox').venobox({
+          framewidth : '75%',                            // default: ''
+        frameheight: '400px',                            // default: ''
+        border     : '0px',                             // default: '0'
+        bgcolor    : '#5d44ae',                          // default: '#fff'
+        titleattr  : 'data-title',                       // default: 'title'
+        numeratio  : true,                               // default: false
+        infinigall : true,                               // default: false
+        share      : [] // default: []
+        }); 
+    });
+  }
 };
 </script>
 
@@ -52,12 +67,12 @@ export default {
 
     &__title {
       font-weight: 700;
-      font-size: 2.8rem;
+      font-size: 2.5rem;
     }
 
     &__subtitle {
       font-size: 1.1rem;
-      margin: 30px 0;
+      margin: 5px 0 30px 0px;
     }
 
     &__cta {
@@ -68,20 +83,19 @@ export default {
   }
   &__video {
     background-color: #2F2651;
-    width: 250px;
+    width:100%;
     border-radius: 20px;
-    height: 300px;
+    height: 350px !important;
     margin: 30px auto;
 
     @media screen and (min-width: 992px) {
       margin: 0 auto;
       height: 300px;
-      transform: translateY(25%);
+      transform: translateY(15%);
     }
   }
 }
 
-//section
 /* .custom-section {
   width: 99%;
   padding: 40px 0px;

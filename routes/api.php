@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Api\ExperimentController;
+use App\Http\Controllers\Api\FeedbackController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Api\SchoolController;
@@ -32,10 +33,15 @@ Route::group([
 
     Route::get('faculty_course_student', [FacultyController::class, 'getFacultyWithCourseAndStudentCount']);
     Route::post('login', [AuthController::class, 'login']);
+    Route::post('feedback', [FeedbackController::class, 'feedback']);
+    Route::get('getfeedbacks', [FeedbackController::class, 'getFeedback']);
+    Route::get('check', [FacultyController::class, 'checkFacultyExist']);
+
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
     Route::post('verify_user', [AuthController::class, 'verifyUser']);
+    Route::get('current_session', [SessionController::class, 'getCurrentSession']);
 
     Route::group(['middleware' => ['jwt.auth']], function () {
 
@@ -43,10 +49,13 @@ Route::group([
             'prefix' => 'users'
         ], function () {
             Route::post('students', [UserController::class, 'getStudents']);
+            Route::get('users', [UserController::class, 'getAllUsers']);
+            Route::post('by_search', [UserController::class, 'getAllUsersBySearch']);
+
             Route::post('faculty_admins', [UserController::class, 'getFacultyAdmins']);
             Route::post('delete', [UserController::class, 'delete']);
             Route::post('update', [UserController::class, 'update']);
-            Route::post('create_faculty_admin', [UserController::class, 'createFacultyAdmin']);
+            Route::post('create', [UserController::class, 'create']);
             Route::post('import_students', [UserController::class, 'importStudents']);
             Route::post('update_password', [UserController::class, 'updatePassword']);
         });
@@ -84,7 +93,10 @@ Route::group([
         Route::group([
             'prefix' => 'experiments'
         ], function () {
+            
             Route::post('create', [ExperimentController::class, 'create']);
+            Route::post('update', [ExperimentController::class, 'updateExperiment']);
+            Route::post('delete', [ExperimentController::class, 'deleteExperiment']);
             Route::post('save_experiment_result', [ExperimentController::class, 'saveExperimentResult']);
             Route::post('experiment_results_esid', [ExperimentController::class, 'getExperimentResultsByExpSessId']);
             Route::post('experiment_results_csid', [ExperimentController::class, 'getExperimentResultsByCourseSessId']);
@@ -92,6 +104,9 @@ Route::group([
             Route::post('course_experiments', [ExperimentController::class, 'getAllCourseExperiment']);
             Route::post('experiment', [ExperimentController::class, 'getExperiment']);
             Route::get('experiments', [ExperimentController::class, 'getAllExperiment']);
+            Route::post('experiment_by_weekly_experiment_id', [ExperimentController::class, 'getExperimentByWeeklyExperimentId']);
+            Route::post('allow_reattempt_by_result_id', [ExperimentController::class, 'reattemptExperimentbyrid']);
+
         });
 
         Route::group([
@@ -99,6 +114,7 @@ Route::group([
         ], function () {
             Route::post('create', [SessionController::class, 'create']);
             Route::post('update', [SessionController::class, 'update']);
+            Route::post('set_session', [SessionController::class, 'setSession']);
             Route::post('delete', [SessionController::class, 'delete']);
             Route::get('all_session', [SessionController::class, 'getAllSession']);
         });
@@ -112,6 +128,9 @@ Route::group([
             Route::post('assign_work_experiment', [WeeklyWorkController::class, 'assignWeeklyWorkExperiment']);
             Route::post('weekly_work', [WeeklyWorkController::class, 'getWeeklyWork']);
             Route::get('weekly_works', [WeeklyWorkController::class, 'getWeeklyWorks']);
+            Route::get('weekly_works_only', [WeeklyWorkController::class, 'getOnlyWeeklyWorks']);
+            Route::post('student_task', [WeeklyWorkController::class, 'getStudentWeeklyWork']);
+            Route::post('student_task2', [WeeklyWorkController::class, 'getStudentWeeklyWork2']);
             
             Route::post('delete_work_expetiment', [WeeklyWorkController::class, 'deleteWorkExperiment']);
             Route::post('update_work_experiment', [WeeklyWorkController::class, 'updateWorkExperiment']);
@@ -127,6 +146,7 @@ Route::group([
             Route::post('delete', [CourseController::class, 'deleteCourse']);
             Route::post('course', [CourseController::class, 'getCourse']);
             Route::get('courses', [CourseController::class, 'getAllCourses']);
+            Route::get('allcourses', [CourseController::class, 'allCourses']);            
             Route::post('enroll_student', [CourseController::class, 'enrollStudent']);
             Route::get('courses_students', [CourseController::class, 'courseStudents']);
             Route::post('course_students', [CourseController::class, 'courseStudentById']);//consume
@@ -139,8 +159,13 @@ Route::group([
             Route::post('assign_course_experiment', [CourseController::class, 'assignCourseExperiment']); //not requested
             Route::post('add_student_course', [CourseController::class, 'addStudentCourse']);//not clear
             Route::post('bulk_course_assign', [CourseController::class, 'bulkCourseAssign']); //not requested
-            Route::get('enrolledCourses', [CourseController::class, 'getStudentEnrolledCourses']);//not clear
+            Route::post('enrolledCourses', [CourseController::class, 'getStudentEnrolledCourses']);//not clear
             Route::post('course_experiments', [CourseController::class, 'courseExperiments']); //consume
+            Route::post('upload_resources', [CourseController::class, 'uploadResources']); //consume
+            Route::post('add_experiment', [CourseController::class, 'addExperiment']); //consume
+            Route::post('delete_resources', [CourseController::class, 'deleteResources']); //consume
+            Route::post('delete_experiment', [CourseController::class, 'deleteExperiment']); //consume
+
         });
     });
 });
