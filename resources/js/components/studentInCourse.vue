@@ -15,7 +15,8 @@
 				<v-loader v-if="!showresults"></v-loader>							
 				<div v-else class="p-2">
 					<button class="btn btn-warning text-white py-1 px-3 mb-2" @click="generatePdf">Print</button>
-					<div class="w-100 rounded shadow-sm bg-white p-2" v-for="result in results">
+					<div class="w-100 rounded shadow-sm bg-white p-2 my-2" v-for="result in results" v-show="result.student.matric_number != ''" >	
+										
 						<div class="row">							
 							<div class="font  col-lg-8 col-md-12">
 								<span class=" no-break">

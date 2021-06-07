@@ -12855,6 +12855,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -16773,6 +16774,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+ //axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'http://localhost:8000' : '';
 
 (axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.baseURL) = process.env.API_PATH !== 'production' ? 'https://demo.vlabnigeria.org/' : 'https://demo.vlabnigeria.org/';
 
@@ -54061,8 +54063,17 @@ var render = function() {
                             return _c(
                               "div",
                               {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: result.student.matric_number != "",
+                                    expression:
+                                      "result.student.matric_number != ''"
+                                  }
+                                ],
                                 staticClass:
-                                  "w-100 rounded shadow-sm bg-white p-2"
+                                  "w-100 rounded shadow-sm bg-white p-2 my-2"
                               },
                               [
                                 _c("div", { staticClass: "row" }, [

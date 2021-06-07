@@ -1,10 +1,11 @@
 import axios from 'axios';
+//axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'http://localhost:8000' : '';
 axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'https://demo.vlabnigeria.org/' : 'https://demo.vlabnigeria.org/';
 import loader from '../components/skeletalLoaderA.vue'; 
 export default {
   install(Vue, options) {
     Vue.mixin({
-    	components:{		
+    	components:{		 
 			'v-loader':loader,
 		},
       data(){
@@ -22,7 +23,6 @@ export default {
       		navbarState:false,      		
       		freePath:['','explore','feedbacks'],
       		baseApiUrl : 'api/'      		
-
       	}
       },
       methods:{
