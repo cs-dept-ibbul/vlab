@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use \DB;
 class SessionController extends Controller
 {
     public function create(Request $request)
@@ -34,6 +34,17 @@ class SessionController extends Controller
         $checksession = Session::where(['session' => $_session])->first();
         if (empty($checksession)) {
             if ($session->save()) {
+
+                 $is_current = $request->get('is_current');
+
+                 if ($is_current != 0) {                     
+                    $getSessionId = Session::where(['session' => $_session])->first()->id;
+                    $is_current = Session::find($getSessionId);
+                    $is_current->is_current = 1;
+                    Session::whereNotIn('id', [$getSessionId])->update(['is_current' => 0]);
+                    $is_current->save();
+                 }
+
                 return response()->json(['success' => true], 200);
             }
             return response()->json(['success' => false], 400);
@@ -59,12 +70,37 @@ class SessionController extends Controller
             $request->get('session') != null ? $session->session = $request->get('session') : null;
             $request->get('is_current') != null ? $session->is_current = $request->get('is_current') : null;
 
-            if($session->save()){
+            if($session->save()){                
+
+                $is_current = $request->get('is_current');
+                if ($is_current != 0) {                    
+                    $is_current = Session::find($sessionId);
+                    $is_current->is_current = 1;
+                    Session::whereNotIn('id', [$sessionId])->update(['is_current' => 0]);
+                    $is_current->save();
+                }
                 return response()->json(['success' => true], 200);
             }
         } else {
             return response()->json(['error' => 'Session not found'], 404);
         }
+    }
+    public function setSession(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+              'session_id' => 'required',
+        ]);
+
+        $session_id = $request->get('session_id');
+
+        $session = Session::find($session_id);
+        $session->is_current = 1;
+        Session::whereNotIn('id', [$session_id])->update(['is_current' => 0]);
+
+        if($session->save()){
+            return response()->json(['success' => true], 200);
+        }
+
     }
 
     public function delete(Request $request)
@@ -79,16 +115,24 @@ class SessionController extends Controller
 
         $sessionId = $request->get('session_id');
         $session = Session::find($sessionId);
+        $check  = DB::table('users')->where('session_id', $sessionId)->first();
+        $check1 = DB::table('courses')->where('session_id',$sessionId)->first();
 
-         if(!empty($session)){
-            
-            $session->status = 'Inactive';
+        if (is_null($check) && is_null($check1)) {
+            //delete
+            if(!empty($session)){
+                
+                $session->status = 'Inactive';
 
-            if($session->save()){
-                return response()->json(['success' => true], 200);
+                if($session->save()){
+                    return response()->json(['success' => true], 200);
+                }
+            } else {
+                return response()->json(['error' => 'Session not found'], 404);
             }
-        } else {
-            return response()->json(['error' => 'Session not found'], 404);
+        }else{
+            //cant delete
+            return response()->json(['error' => "can't delete this faculty"], 409);        
         }
     }
 
@@ -98,11 +142,21 @@ class SessionController extends Controller
         return response()->json($session, 200);
     }
 
-    static public function getCurrentSessionId()
+    static public function getCurrentSession()
     {
-        $currentSession = Session::where('is_current', '1')->first();
+        $currentSession = Session::where(['is_current'=>'1','status'=>'Active'])->first();
+        if(!empty($currentSession)){
+            return $currentSession;
+        }
+        return response()->json(['error' => 'Session not found'], 404);
+
+    }
+    static public function getCurrentSessionId($value='')
+    {
+        $currentSession = Session::where(['is_current'=>'1','status'=>'Active'])->first();
         if(!empty($currentSession)){
             return $currentSession->id;
         }
     }
+
 }

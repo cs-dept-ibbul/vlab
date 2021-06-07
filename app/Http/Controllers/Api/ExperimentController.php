@@ -10,6 +10,7 @@ use App\Models\ExperimentResult;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use \DB;
 
 class ExperimentController extends Controller
 {
@@ -31,19 +32,19 @@ class ExperimentController extends Controller
         }
     }
 
+    public function getCourseExperiments()
+    {
+        $experiments = DB::select('SELECT c.id as course_id, e.id as experiment_id,e.name as name FROM course_experiment AS c INNER JOIN experiments as e on c.experiment_id = e.id');
+        return response()->json($experiments, 200);
+    }
+
     public function create(Request $request)
     {
-        $experiment = new Experiment();
-
+        $experiment = new Experiment();        
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'experiment_number' => 'required',
-            'experiment_intro' => 'required',
-            'experiment_goal' => 'required',
-            'experiment_mock' => 'required',
-            'apparatus' => 'required',
-            'procedures' => 'required',
-            'exercise' => 'required',
+            'name' => 'required',       
+            'experiment_goal' => 'required',                     
+            'required' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -52,32 +53,46 @@ class ExperimentController extends Controller
 
         $id = Util::uuid();
         $name = $request->get('name');
-        $experiment_number = $request->get('experiment_number');
-        $experiment_intro = $request->get('experiment_intro');
-        $experiment_goal = $request->get('experiment_goal');
-        $experiment_mock = $request->get('experiment_mock');
-        $apparatus = $request->get('apparatus');
-        $experiment_resource = $request->get('experiment_resource');
-        $procedures = $request->get('procedures');
-        $exercise = $request->get('exercise');
-        $required = $request->get('required');
-        $theory = $request->get('theory');
-        $tables = $request->get('tables');
-        $graph = $request->get('graph');
+        
+        $experiment_intro = $request->get('experiment_intro')??'-';
+        $experiment_goal = $request->get('experiment_goal')??'-';    
+        $experiment_diagram = $request->experiment_diagram;        
+        $apparatus = $request->get('apparatus')??'-';
+        $experiment_resource = $request->get('experiment_resource')??'-';
+        $procedures = $request->get('procedures')??'-';
+        $exercise = $request->get('exercise')??'-';
+        $required = $request->get('required');    
+        $video_url = $request->get('video_url')??'-';
+        $page = $request->get('page')??'-';
+        $tables = $request->get('tables')??'false';
+        $graph = $request->get('graph')??'false';
         $status = $request->get('status') ?? 'Active';
+        $experiment_diagram_url = "-";
+        if ($experiment_diagram != null) {            
+            $file = $experiment_diagram;                      
+            //$file_size = round($file->getSize() / 1024);
+            $file_ex = $file->getClientOriginalExtension();
+            $file_mime = $file->getMimeType();
+
+            if (!in_array($file_ex, array('jpg', 'gif', 'png'))) return response()->json(['error' => 'invalid experiments diagram'], 401);
+                 $newname = $page.'.'.$file_ex;
+                 $path = 'images/resources/';
+                 $experiment_diagram_url=  $path.$newname;
+                 $file->move(base_path().$path, $newname);
+        }
 
         $experiment->id = $id;
-        $experiment->name = $name;
-        $experiment->experiment_number = $experiment_number;
+        $experiment->name = $name;        
         $experiment->experiment_intro = $experiment_intro;
         $experiment->experiment_goal = $experiment_goal;
-        $experiment->experiment_mock = $experiment_mock;
+        $experiment->experiment_diagram = $experiment_diagram_url;/*uploaded url*/
         $experiment->apparatus = $apparatus;
         $experiment->experiment_resource = $experiment_resource;
         $experiment->procedures = $procedures;
         $experiment->exercise = $exercise;
         $experiment->required = $required;
-        $experiment->theory = $theory;
+        $experiment->video_url = $video_url;
+        $experiment->page = $page;
         $experiment->faculty_id = $this->facultyId;
         $experiment->tables = $tables;
         $experiment->graph = $graph;
@@ -92,17 +107,29 @@ class ExperimentController extends Controller
     public function deleteExperiment(Request $request)
     {
         $experimentId = $request->get('experiment_id');
-        $experiment = Experiment::find($experimentId);
-        if ($experiment) {
-            $experiment->status = 'Inactive';
-            $save = $experiment->save();
-            if ($save) {
-                return response()->json(['success' => true], 200);
+
+        $check = DB::table('course_experiment')->where('experiment_id',$experimentId)->first();
+
+        if (is_null($check)) {
+            //delete
+            $experiment = Experiment::find($experimentId);
+
+            if ($experiment) {
+                $experiment->status = 'Inactive';
+                $save = $experiment->save();
+                if ($save) {
+                    return response()->json(['success' => true], 200);
+                }
+            } else {
+                return response()->json(['error' => 'No Experiment with this id'], 404);
             }
-        } else {
-            return response()->json(['error' => 'No Experiment with this id'], 404);
+            return response()->json(['success' => false], 400);
+
+        }else{
+            //cant delete
+            return response()->json(['error' => "can't delete this faculty"], 409);                    
         }
-        return response()->json(['success' => false], 400);
+        
     }
 
     public function updateExperiment(Request $request)
@@ -123,13 +150,13 @@ class ExperimentController extends Controller
             $request->get('experiment_number') != null ? $experiment->experiment_number = $request->get('experiment_number') : null;
             $request->get('experiment_intro') != null ? $experiment->experiment_intro = $request->get('experiment_intro') : null;
             $request->get('experiment_goal') != null ? $experiment->experiment_goal = $request->get('experiment_goal') : null;
-            $request->get('experiment_mock') != null ? $experiment->experiment_mock = $request->get('experiment_mock') : null;
+            $request->get('experiment_diagram') != null ? $experiment->experiment_diagram = $request->get('experiment_diagram') : null;
             $request->get('apparatus') != null ? $experiment->apparatus = $request->get('apparatus') : null;
             $request->get('experiment_resource') != null ? $experiment->experiment_resource = $request->get('experiment_resource') : null;
             $request->get('procedures') != null ? $experiment->procedures = $request->get('procedures') : null;
             $request->get('exercise') != null ? $experiment->exercise = $request->get('exercise') : null;
             $request->get('required') != null ? $experiment->required = $request->get('required') : null;
-            $request->get('theory') != null ? $experiment->theory = $request->get('theory') : null;
+            $request->get('video_url') != null ? $experiment->video_url = $request->get('video_url') : null;
             $request->get('tables') != null ? $experiment->tables = $request->get('tables') : null;
             $request->get('graph') != null ? $experiment->graph = $request->get('graph') : null;
             //$request->get('description') != null ? $experiment->description = $request->get('description') : null;
@@ -149,7 +176,7 @@ class ExperimentController extends Controller
 
     public function getAllExperiment()
     {
-        $experiments = Experiment::all();
+        $experiments = Experiment::where('status', 'Active')->get();
         return response()->json($experiments, 200);
     }
 
@@ -179,50 +206,103 @@ class ExperimentController extends Controller
         }
     }
 
+    public function getExperimentByWeeklyExperimentId(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'weekly_work_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "experiment_id field is required"], 400);
+        }
+
+        $weeklyWorkExperimentId = $request->get('weekly_work_id');
+       $experiment = DB::table('weekly_work_experiments','w')->join('experiments', 'w.experiment_id','experiments.id')->where('w.id',$weeklyWorkExperimentId)->first();
+        
+        if (!empty($experiment)) {
+            return response()->json($experiment, 200);
+        } else {
+            return response()->json(['error' => 'Experiment not found'], 404);
+        }
+    }
+
     public function saveExperimentResult(Request $request)
     {
-
-        $validator = Validator::make($request->all(), [
-            'experiment_id' => 'required',
-            'result_json' => 'required',
+        $validator = Validator::make($request->all(), [            
+            'user_id' => 'required',
+            'weekly_work_id' => 'required',            
         ]);
 
         if ($validator->fails()) {
             return response()->json(['error' => "All fields are required"], 400);
         }
-
-        $experimentResult = new ExperimentResult();
-
-        $experimentId = $request->get('experiment_id');
+        $user_id = $request->get('user_id');
+        $fortimer = $request->get('fortimer');
+        $weekly_work_id = $request->get('weekly_work_id');
+        $sessionId = $this->currentSession;                     
         $timeStarted = $request->get('time_started');
+        $timeLeft = $request->get('time_left');            
         $timeSubmitted = $request->get('time_submitted');
-        $timeLeft = $request->get('time_left');
-        $sessionId = $this->currentSession;
-        $weeklyWork = $request->get('weekly_work_id');
         $resultJson = $request->get('result_json');
+        $weeklyWorkExperimentId = $request->get('weekly_work_id'); //not this id is for weekly work experiment id
+                
 
-        $completionStatus = $request->get('completion_status');
 
+
+
+
+        $userDetail = Course::join('weekly_works', 'courses.id','weekly_works.course_id')->join('weekly_work_experiments','weekly_work_experiments.weekly_work_id','weekly_works.id')->where(['weekly_works.session_id'=>$this->currentSession, 'weekly_work_experiments.id'=>$weeklyWorkExperimentId])->first();
+        $experimentId = $userDetail->experiment_id;
+        $course_id = $userDetail->course_id;
+
+        $completionStatus = $request->get('completion_status');        
         $checkDuplicate = ExperimentResult::where([
             'user_id' => $this->userId,
             'session_id' => $sessionId,
-            'experiment_id' => $experimentId
-        ]);
-
-        if (!empty($checkDuplicate)) {
-
-            $experimentResultId = $checkDuplicate->first()->id;
+            'weekly_work_id' => $weeklyWorkExperimentId
+        ])->first();                
+        if (!is_null($checkDuplicate)) {
+            $experimentResultId = $checkDuplicate->id;
             $upsertResult = ExperimentResult::find($experimentResultId);
-            $upsertResult->result_json = $resultJson;
-            $upsertResult->weekly_work_id = $weeklyWork;
-            
-            $upsertResult->time_submitted = $timeSubmitted;
+
+            if ($fortimer == 0) {
+                $upsertResult->result_json = $resultJson;
+                $upsertResult->weekly_work_id = $weeklyWorkExperimentId; //weekly_work_experiment_id
+                
+                $upsertResult->time_submited = $timeSubmitted;
+                $upsertResult->course_id = $course_id;
+                $upsertResult->restart = 'Deny';
+                $upsertResult->completion_status = 'Completed';
+            }
+
+            if ($timeLeft == '00:00') {
+                //submit if time elapsed
+                $upsertResult->restart = 'Deny';                
+                $experimentResult->completion_status = 'Completed';            
+            }
+
             $upsertResult->time_left = $timeLeft;
-            $upsertResult->completion_status = $completionStatus;
 
             if($upsertResult->save()){
                 return response()->json(['message' => "Experiment Result has been updated"], 200);
             }
+        }
+        //end update
+
+        //insert
+        $experimentResult = new ExperimentResult;
+        if ($fortimer == 0) {
+            //when submitting
+            $experimentResult->result_json = $resultJson;
+            $experimentResult->time_submited = $timeSubmitted;
+            $experimentResult->completion_status = 'Completed';
+            $upsertResult->restart = 'Deny';
+        }
+
+        if ($timeLeft == '00:00') {
+            //submit if time elapsed
+            $upsertResult->restart = 'Deny';            
+            $experimentResult->completion_status = 'Completed';            
         }
 
         $experimentResult->id = Util::uuid();
@@ -230,11 +310,11 @@ class ExperimentController extends Controller
         $experimentResult->experiment_id = $experimentId;
 
         $experimentResult->time_started = $timeStarted;
-        $experimentResult->time_submited = $timeSubmitted;
+        $experimentResult->course_id = $course_id;
         $experimentResult->time_left = $timeLeft;
+        $experimentResult->weekly_work_id = $weeklyWorkExperimentId;
 
         $experimentResult->session_id = $sessionId;
-        $experimentResult->result_json = $resultJson;
 
         $saveResult = $experimentResult->save();
         if ($saveResult) {
@@ -247,24 +327,23 @@ class ExperimentController extends Controller
     public function getExperimentResultsByExpSessId(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'experiment_id' => 'required',
+            'weekly_experiment_id' => 'required',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => "experiment_id field is required"], 400);
+            return response()->json(['error' => "weekly work experiment id field is required"], 400);
         }
 
-        $experimentId = $request->get('experiment_id');
-
-        $experimentResult = ExperimentResult::where([
+        $experimentId = $request->get('weekly_experiment_id');        
+        $experimentResult = ExperimentResult::with('student')->where([
             'session_id' => $this->currentSession,
-            'experiment_id' => $experimentId
+            'weekly_work_id' => $experimentId
         ])->get();
 
         if (!empty($experimentResult)) {
             return response()->json($experimentResult, 200);
         } else {
-            return response()->json(['error' => 'Experiment not found'], 404);
+            return response()->json(['error' => 'result not found'], 404);
         }
     }
 
@@ -327,5 +406,61 @@ class ExperimentController extends Controller
 
         return response()->json(['success' => false], 400);
     }
+  /*    public function deleteExperiment(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'experiment_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "experiment_id field is required"], 400);
+        }
+
+        $experiment_id = $request->get('experiment_id');
+        $check = DB::table('course_experiment')->where('experiment_id',$experiment_id)->first();
+
+        if (is_null($check)) {
+            $experiment = Experiment::find($experiment_id);
+            //delete
+            if ($experiment) {
+                $experiment->status = 'Inactive';
+                $save = $experiment->save();
+                if ($save){
+                    return response()->json(['success' => true], 200);
+                }
+            } else{
+                return response()->json(['error' => 'No experiment with this id'], 404);
+            }
+            return response()->json(['success' => false], 400);
+        }else{
+            //cant delete
+            return response()->json(['error' => "can't delete this experiment"], 409);                    
+        }
+    }*/
+
     
+    public function reattemptExperimentbyrid(Request $request)
+    {
+            
+        $validator = Validator::make($request->all(), [
+            'result_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "result id is required"], 400);
+        }
+
+        $result_id = $request->get('result_id');
+
+
+        $ExperimentResult = ExperimentResult::find($result_id);
+        $ExperimentResult->restart = 'Allow';
+        $ExperimentResult->time_left = $request->get('time_left');
+        $ExperimentResult->completion_status = 'Started';
+        $save = $ExperimentResult->save();
+        if ($save){
+            return response()->json(['success' => true], 200);
+        }
+    }    
 }

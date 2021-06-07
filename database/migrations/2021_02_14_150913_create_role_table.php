@@ -18,8 +18,6 @@ class CreateRoleTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->enum('status', ['Active', 'Inactive']);
-            $table->string('date_added');
-            $table->string('date_modified');
             $table->rememberToken();
             $table->timestamps();
         });

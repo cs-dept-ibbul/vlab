@@ -7,7 +7,8 @@
   <script type="text/javascript" src="digitalmultimeter.js"></script>
   <script type="text/javascript" src="initJsplumb.js"></script>
   <script type="text/javascript" src="resistorjs.js"></script>
-	 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script type="text/javascript" src="battery.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script type="text/javascript" src="dragjs.js"></script>
   <script type="text/javascript" src="jsPlumb.js"></script>
@@ -23,8 +24,8 @@
   <div id="container" style="height: 500px;"></div>
   <!-- <div id="container" class="draggable_wp">    
   </div> -->
- 
-   <button onclick="chn()">clickme 2</button>
+
+   <button id="cell">clickme 2</button>
 
 	<script>
 $(document).ready(function(){   
@@ -64,15 +65,23 @@ $(document).ready(function(){
        dm.setValue(ndata);    
       jsInitArray.data.push(dm.getId());
       jsp.initdraggable();                        
+
       $("#button").click(function(){
-          console.log(obj.resistor());
+          obj.resistor();
           obj.assignRel();
           jsp.initdraggable();                        
-          jsInitArray.data.push(obj.getId());
+          jsInitArray.data.push(obj.getId());          
 
       });
 
 
+      var cell = new batteryJs('container');
+      $('#cell').click(function(){        
+        cell.battery(30);
+        jsInitArray.data.push(cell.getId());
+        jsp.initdraggable();                                
+
+      })
      /* window.chn = function(){
         ndata +=30;
         dm.setValue(ndata);  

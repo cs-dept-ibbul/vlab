@@ -8,7 +8,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\DB;
+use App\Models\Role;
 class UserController extends Controller
 {
 
@@ -28,57 +29,88 @@ class UserController extends Controller
             $this->departmentId = $this->currentUser->department_id;
             $this->userId = $this->currentUser->id;
             $this->roleId = Util::$roleId;
+            $this->currentSession = SessionController::getCurrentSessionId();            
         }
     }
 
-    public function createFacultyAdmin(Request $request)
+    public function create(Request $request)
     {
         $user = new User();
 
         $validator = Validator::make($request->all(), [
-            'email' => 'required',
-            'password' => 'required',
+            'email' => 'required',            
             'first_name' => 'required',
             'faculty_id' => 'required',
         ]);
-
+        
         if ($validator->fails()) {
             return response()->json(['error' => "All fields are required"], 400);
         }
 
         $id = Util::uuid();
-        $email = $request->get('email');
-        $password = md5($request->get('password'));
+        $email = $request->get('email');    
+        $matric_number = $request->get('matric_number')??'';
         $first_name = $request->get('first_name');
         $other_names = $request->get('other_names');
         $faculty_id = $request->get('faculty_id');
+        $department_id = $request->get('department_id');
         $gender = $request->get('gender');
+        $phone = $request->get('phone');        
+        $password = $phone=='' ? md5('123456'): md5($phone);                
+        $salute = $request->get('title')??'';
         $user_ip_address = (new Util())->ip();
         $status = $request->get('status') ?? 'Active';
+        $role = $request->get('role')??'';        
+    
 
-        $checkDuplicate = User::where('email', $email)->first();
-
-        if (empty($checkDuplicate)) {
-            $user->id = $id;
-            $user->username = $user->email = $email;
-            $user->password = $password;
-            $user->first_name = $first_name;
-            $user->other_names = $other_names;
-            $user->gender = $gender;
-            $user->user_ip_address = $user_ip_address;
-            $user->role_id = $this->roleId['faculty_admin'];
-            $user->school_id = $this->schoolId;
-            $user->faculty_id = $faculty_id;
-            $user->department_id = null;
-            $user->status = $status;
-
-            if ($user->save()) {
-                return response()->json(['success' => true], 200);
+        $roleName = DB::table('role')->where('id',$role)->first()->title;
+        $msg ='user exists with that email';
+        if($roleName != 'Student'){
+            $user =  User::where('email',$email)->first();
+            if (!is_null($user)) {
+                return response()->json(['error' => 'Email Already Exist'], 409);                
             }
-            return response()->json(['success' => false], 400);
-        } else {
-            return response()->json(['error' => "user already exsit"], 409);
+            $username = $email;
+        }else{
+            $msg ='user exists with that matric number';
+            $matric =  User::where('matric_number',$matric_number)->first();            
+            
+            if (!is_null($matric)) {
+                return response()->json(['error' => 'Matric Already Exist'], 409);                
+            }
+
+            $user =  User::where('email',$email)->first();
+            if (!is_null($user)) {
+                return response()->json(['error' => 'Email Already Exist'], 409);                
+            }
+            $username = $matric_number;
         }
+
+        //if (empty($checkDuplicate)) {
+        $user = new User;
+        $user->id = $id;
+        $user->username = $username;
+        $user->password = $password;
+        $user->email = $email;
+        $user->first_name = $first_name;
+        $user->other_names = $other_names;
+        $user->gender = $gender;
+        $user->user_ip_address = $user_ip_address;
+        $user->role_id = $role;
+        $user->school_id = $this->schoolId;
+        $user->faculty_id = $faculty_id;
+        $user->department_id = $department_id;
+        $user->phone = $phone;
+        $user->matric_number = $matric_number;            
+        $user->salute = $salute;
+        $user->session_id = $this->currentSession;
+        
+        $user->status = $status;
+
+        if ($user->save()) {
+            return response()->json(['success' => true], 200);
+        }
+            //return response()->json(['success' => false], 400);       
     }
 
     public function update(Request $request)
@@ -93,29 +125,60 @@ class UserController extends Controller
 
         $userId = $request->get('user_id');
         $email = $request->get('email');
-        $user = User::find($userId);
-
-        if ($user) {
-            if ($email != null) {
-                $checkEmail = User::where('email', $email)->first();
-                if (!$checkEmail) {
-                    $user->email = $user->username = $email;
-                }
+        $phone = $request->get('phone');        
+        $password = $phone=='' ? md5('123456'): md5($phone);        
+        $matric_number = $request->get('matric_number')??'';
+        $first_name = $request->get('first_name');
+        $other_names = $request->get('other_names');
+        $faculty_id = $request->get('faculty_id');
+        $department_id = $request->get('department_id');
+        $gender = $request->get('gender');
+        $salute = $request->get('title')??'';
+        $role = $request->get('role')??'';
+        $user_ip_address = (new Util())->ip();        
+        
+        
+        $roleName = DB::table('role')->where('id',$role)->first()->title;
+        $msg ='user exists with that email';
+        if($roleName !=  'Student'){
+            $user =  User::where('email',$email)->whereNotIn('id', [$userId])->first();
+            if (!is_null($user)) {
+                return response()->json(['error' => 'Email Already Exist'], 409);                
+            }
+            $username = $email;
+        }else{
+            $msg ='user exists with that matric number';
+            $matric =  User::where('matric_number',$matric_number)->whereNotIn('id', [$userId])->first();            
+            
+            if (!is_null($matric)) {
+                return response()->json(['error' => 'Matric Already Exist'], 409);                
             }
 
-            $request->get('first_name') != null ? $user->first_name = $request->get('first_name') : null;
-            $request->get('other_names') != null ? $user->other_names = $request->get('other_names') : null;
-
-            $save = $user->save();
-
-            if ($save) {
-                return response()->json(['success' => true], 200);
+            $user =  User::where('email',$email)->whereNotIn('id', [$userId])->first();
+            if (!is_null($user)) {
+                return response()->json(['error' => 'Email Already Exist'], 409);                
             }
-        } else {
-            return response()->json(['error' => 'user not found'], 404);
+            $username = $matric_number;
         }
 
-        return response()->json(['success' => false], 400);
+        $user = User::find($userId);
+        $user->username = $username;
+        $user->password = $password;
+        $user->email = $email;
+        $user->first_name = $first_name;
+        $user->other_names = $other_names;
+        $user->gender = $gender;
+        $user->user_ip_address = $user_ip_address;
+        $user->role_id = $role;
+        $user->school_id = $this->schoolId;
+        $user->faculty_id = $faculty_id;
+        $user->department_id = $department_id;
+        $user->phone = $phone;
+        $user->matric_number = $matric_number;
+        $user->salute = $salute;
+
+        $save = $user->save();
+        return response()->json(['success' => true], 200);            
     }
 
     public function delete(Request $request)
@@ -145,72 +208,126 @@ class UserController extends Controller
     public function getStudents()
     {
         $students = User::where('role_id', $this->roleId['student'])->get();
-
         return $students;
     }
 
+    
+    public function getAllUsersBySearch(Request $request)
+    {       
+
+        $department_id = $request->get('department_id');
+        $session_id = $request->get('session_id');
+        $role_id = $request->get('role_id');      
+
+        $search = ($session_id=='')?'':' users.session_id ="'. $session_id.'"';
+        $search .= ($department_id =='')?'':' and users.department_id="'. $department_id.'"';
+        $search .= ($role_id =='')?'':' and users.role_id="'. $role_id.'"';        
+
+        $users = User::with('department')->whereRaw($search)->get();          
+        return $users;    
+    }
+
+
+    public function getAllUsers()
+    {
+        $users = User::with('department')->take(2000)->get();            
+        return $users;
+    }
+    
+
     public function getFacultyAdmins()
     {
-        $facultyAdmins = User::where('role_id', $this->roleId['faculty_admin'])->get();
+        $facultyAdmins = User::orWhere('role_id', $this->roleId['faculty_admin'])->get();
 
         return $facultyAdmins;
     }
 
     public function importStudents(Request $request)
     {
-        $file = public_path($request->get('data_url'));
+        $file = $request->csv->path();
 
         $validator = Validator::make($request->all(), [
-            'data_url' => 'required',
+            'csv' => 'required',
         ]);
-
+        $departmentId = $request->get('department_id');
+        $facultyId = $request->get('faculty_id');
+        $roleId = $request->get('role_id');
         if ($validator->fails()) {
             return response()->json(['error' => "data_url field is required"], 400);
         }
 
-        $students = Util::csvToArray($file);
+        $users = Util::csvToArray($file);
+        //return dd($students);
+            
 
         $data = [];
         $exists = [];
         $newStudents = [];
         $password = md5(123456);
-        $roleId = '3e836670-a9d5-4c78-bfb8-0bdcda27263c';
 
-        foreach ($students as $student) {
+        foreach ($users as $user) {
 
-            $checkDuplicateMatricNumber = User::where(['matric_number' => $student['matric_number']])->first();
+            $checkDuplicateMatricNumber = User::where(['matric_number' => $user['matric_number']])->first();
+            $checkDuplicateEmail = User::where(['email' => $user['email']])->first();
 
-            if ($checkDuplicateMatricNumber == null) {
-                $data[] = [
-                    'id' => $this->uuid(),
-                    'matric_number' => $student['matric_number'],
-                    'username' => $student['matric_number'],
-                    'first_name' => $student['first_name'],
-                    'other_names' => $student['other_names'],
-                    'gender' => $student['gender'],
-                    'password' => $password,
-                    'role_id' => $roleId,
-                    'school_id' => $this->schoolId,
-                    'faculty_id' => $this->facultyId,
-                    'department_id' => $this->departmentId,
-                    'user_ip_address' => $this->ip(),
-                ];
-                $newStudents[] = [
-                    'matric_number' => $student['matric_number']
-                ];
-            } else {
-                $exists[] = [
-                    'matric_number' => $student['matric_number']
-                ];
+            if ($user['matric_number'] != '') {
+                if ($checkDuplicateMatricNumber == null) {                        
+                    $data[] = [
+                        'id' => Util::uuid(),
+                        'matric_number' => $user['matric_number'],
+                        'username' => $user['matric_number'] ?? $user['email'],
+                        'email' => $user['email'],
+                        'first_name' => $user['first_name'],
+                        'other_names' => $user['other_names'],
+                        'gender' => $user['gender'],
+                        'password' => md5($user['phone'])?? $password,
+                        'role_id' => $roleId,
+                        'phone' => $user['phone'],
+                        'salute'=>$user['salute'],
+                        'school_id' => $this->schoolId,
+                        'faculty_id' => $facultyId,
+                        'department_id' => $departmentId,
+                        'session_id' => $this->currentSession,
+                        'user_ip_address' => Util::ip()                        
+                    ];
+                    $newStudents[] = $user['matric_number'];
+                    
+                } else {
+                    $exists[] = $user['matric_number'];                    
+                }
+            }else if($user['email'] != ''){
+                 if ($checkDuplicateEmail == null) {                        
+                    $data[] = [
+                        'id' => Util::uuid(),
+                        'matric_number' => $user['matric_number'],
+                        'username' => $user['email'],
+                        'email' => $user['email'],
+                        'first_name' => $user['first_name'],
+                        'other_names' => $user['other_names'],
+                        'gender' => $user['gender'],
+                        'password' => md5($user['phone'])?? $password,
+                        'role_id' => $roleId,
+                        'phone' => $user['phone'],
+                        'salute'=>$user['salute'],
+                        'school_id' => $this->schoolId,
+                        'faculty_id' => $facultyId,
+                        'department_id' => $departmentId,
+                        'session_id' => $this->currentSession,
+                        'user_ip_address' => Util::ip()
+                    ];
+                    $newStudents[] = $user['email'];
+                } else {
+                    $exists[] = $user['email'];
+                }
+
+            }else{
+                //matric number and email cannot be empty
             }
+
         }
 
-        User::insert($data);
-
-        if (!empty($exists)) {
-            return response()->json(['error' => 'Some student already exist', 'new_students' => $newStudents, 'existing_students' => $exists], 409);
-        }
-        return response()->json(['success' => true], 200);
+        User::insert($data);        
+        return response()->json(['success' =>true, 'msg'=> 'upload successfully', 'uploaded' => $newStudents, 'failed' => $exists], 200);
     }
 
     public function updatePassword(Request $request)

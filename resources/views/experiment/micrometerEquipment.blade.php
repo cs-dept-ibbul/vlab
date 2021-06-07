@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?php echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
   <head>
@@ -7,12 +7,25 @@
     <meta charset="utf-8" />
     <title>Micrometer Model</title>
 <script async="true" src="https://www.googletagmanager.com/gtag/js?id=UA-3326007-19"></script>
+<?php
+   $sizes = $_GET['size'];
+       if(Session::has('experimentMode')){
+          if (session('experimentMode') == 1) {
+              $mode  = true;            
+          }else{
+              $mode = false;
+          }
+        }else{
+          $mode = false;
+        }
+?>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'UA-3326007-19');
-  var testMode = false;
+var testMode = <?php echo json_encode($mode); ?>;
+  
 </script>
 <script data-ad-client="ca-pub-0121577198857509" async="true" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>    
 <link rel="stylesheet" type="text/css" href="{{ asset('experiments/micrometerscrewguage/_ejs_library/css/ejss.css')}}"></link>

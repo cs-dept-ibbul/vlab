@@ -20,4 +20,13 @@ class Department extends Model
         return parent::newQuery($excludeDeleted)
             ->where('status', '=', 'Active');
     }
+
+    public function user()
+    {
+        return $this->hasMany(User::class);
+    }    
+    public function faculty()
+    {
+        return $this->belongsTo(Faculty::class);
+    }   
 }

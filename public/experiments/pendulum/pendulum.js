@@ -53,11 +53,11 @@ class Pendulum {
        $vm.timerValue = $vm.timerValue+1;         
     }, 1000);    
       $vm.timeholder('--:--');
-      print(true)
+     // print(true)
   }
 
   stopTimer(){
-       print(false)
+      // print(false)
       let $vm = this;
       clearInterval($vm.myTimer);         
   }
@@ -124,7 +124,7 @@ class Pendulum {
       let gravity = this.affect; // Arbitrary constant
       let k = (this.r/50)*20;
       this.aAcceleration = (-1  * sin(this.angle)/ k); 
-      print(this.aAcceleration);
+      //print(this.aAcceleration);
       if(this.aprev == 0){
         this.aprev = this.angle;        
       }else{
@@ -172,7 +172,7 @@ class Pendulum {
         
       this.aVelocity += this.aAcceleration; // Increment velocity
       this.aVelocity *= this.damping; // Arbitrary damping
-      print('velocity: '+this.aVelocity);
+      //print('velocity: '+this.aVelocity);
       this.angle += this.aVelocity; // Increment angle
         angleMode(DEGREES);
     let a = atan2(mouseY - height / 2, mouseX - width / 2);

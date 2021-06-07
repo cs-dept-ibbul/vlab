@@ -23,7 +23,22 @@ class Course extends Model
     
     public function course_experiment()
     {
-        return $this->hasMany(CourseExperiment::class);
+        return $this->hasMany(CourseExperiment::class,'course_id');
+    }
+
+    public function course_resources()
+    {
+        return $this->hasMany(CourseResources::class,'course_id');
+    }
+
+    public function weekly_work()
+    {
+        return $this->hasMany(WeeklyWork::class);
+    }
+
+    public function course_student()
+    {
+        return $this->hasMany(CourseStudents::class,'course_id');
     }
 
     public function school()
@@ -35,39 +50,36 @@ class Course extends Model
     {
         return $this->belongsTo(Faculty::class);
     }
-
-    public function students()
-    {
-        return $this->belongsToMany(User::class, 'user_courses');
+    public function weeklyWorkExperiment(){
+        return $this->hasMany(WeeklyWorkExperiment::class)->using(weeklyWork::class);        
     }
 
+/*    public function students()
+    {
+        return $this->belongsToMany(CourseStudents::class);
+    }
+*/
     public function experiments()
     {
         return $this->belongsToMany(Experiment::class, 'course_experiment');
     }
+
+    public function results(){
+        return $this->hasMany(ExperimentResult::class,'course_id');
+    }
     
 }
 
-class CourseResources extends Model
+class UserCourses extends Model
 {
     use HasFactory;
     public $incrementing = false;
-}
 
-class CourseExperiment extends Model
-{
-    use HasFactory;
-    protected $table = 'course_experiment';
-    public $incrementing = false;
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
 
-    public function experiments()
-    {
-        return $this->belongsTo(Experiment::class, 'experiment_id');
-    }
-    public function course()
-    {
-        return $this->belongsTo(Course::class, 'course_id');
-    }
 }
 
 class CourseInstructor extends Model
@@ -76,6 +88,7 @@ class CourseInstructor extends Model
     protected $table = 'course_instructor';
     public $incrementing = false;
 }
+/*
 class CourseStudents extends Model
 {
     use HasFactory;
@@ -85,8 +98,14 @@ class CourseStudents extends Model
     {
         return $this->hasMany(User::class, 'id');
     }
+    
+    public function course(){
+        $this->belongsTo(Course::class);
+    }
+
     protected $table = 'user_courses';
     protected $fillable = [
         'course_id',
     ];
 }
+*/

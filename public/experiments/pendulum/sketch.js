@@ -18,13 +18,13 @@
 
 // For a more substantial explanation, visit:
 
-let p;
-let btnstate = false;
-let ballSize = 30;
-let ropeLenght = 4;
+var p;
+var btnstate = false;
+var ballSize = 30;
+var ropeLenght = 4;
 var mode = 1;
-let myFontNormal;
-let elapseT;
+var myFontNormal;
+var elapseT;
 var cx,cy,cr,button, balltarget;
 function setup() {
   createCanvas(940, 360);

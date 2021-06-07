@@ -14,11 +14,13 @@ class CreateWeeklyWorkTable extends Migration
 			$table->string('title', 50);
 			$table->string('school_id', 36);
 			$table->string('faculty_id', 36);
+			$table->string('course_id', 36);
 			$table->string('session_id', 36)->nullable()->default('NULL');
 			$table->string('date_open', 225)->nullable()->default('NULL');
 			$table->string('date_close', 225)->nullable()->default('NULL');
 			$table->string('access_code', 225)->nullable()->default('NULL');
-			$table->enum('limitation', ['0', '1'])->default('0');
+			$table->enum('mode', ['0', '1'])->default('1');
+			$table->string('limitation', 25)->default('1:30');
 			$table->enum('status', ['Active', 'Inactive'])->default('Active');
 			$table->rememberToken();
             $table->timestamps();

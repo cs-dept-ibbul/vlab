@@ -17,19 +17,20 @@ class CreateExperimentsTable extends Migration
         Schema::create('experiments', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('name');
-            $table->integer('experiment_number');
+//            $table->integer('experiment_number');
             $table->string('experiment_intro');
             $table->string('experiment_goal');
-            $table->string('experiment_mock');
+            $table->string('experiment_diagram');
             $table->string('apparatus');
-            $table->string('experiment_resource');
+            $table->string('experiment_resource',3000);
             $table->string('procedures');
             $table->string('exercise', 3000);
-            $table->string('required');
-            $table->string('theory');
+            $table->string('required',3000);
+            $table->string('video_url');
             $table->string('faculty_id');
-            $table->enum('tables', [true, false]);
-            $table->enum('graph', [true, false]);
+            $table->string('page',100);
+            $table->enum('tables', ['true', 'false']);
+            $table->enum('graph', ['true', 'false']);
             $table->enum('status', ['Active', 'Inactive']);
             $table->rememberToken();
             $table->timestamps();
