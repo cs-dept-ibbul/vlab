@@ -1,80 +1,46 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts/main-login')
+@section('content-body')
+<div class="content row m-0 p-0">
 
-    <title>Vlab | Forgot Password</title>
+    <div class="col-lg-12 m-0 p-0">
+        <div class="pull-right p-3">
+            <a href="/" class="font fs2 fw3 text-white mx-1">Home</a>
+            <a href="/login" class="font fs2 fw3 text-white mx-1">Login</a>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 mt-5">
+        <h1 class="text-center text-white font2 fw6">&nbsp;</h1>
+        <div class="login-left"></div>
+    </div>
+    <div class="col-lg-6 col-md-6 mt-5 pt-5">
+        <div class="p-5 login-right">
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+            <div class="d-flex">
 
-    <!-- Styles -->
-    <style>
-        html, body {
-            background-color: #f1f1f1;
-            color: #636b6f;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 200;
-            height: 100vh;
-            margin: 0;
-        }
-        .full-height {
-            height: 100vh;
-        }
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-        }
-        .position-ref {
-            position: relative;
-        }
-        input {
-            padding: 10pt;
-            width: 60%;
-            font-size: 15pt;
-            border-radius: 5pt;
-            border: 1px solid lightgray;
-            margin: 10pt;
-        }
-        .form-container {
-            display: flex;
-            flex-direction: column;
-            width: 60%;
-            align-items: center;
-            margin: 20pt;
-            border: 1px solid lightgray;
-            padding: 20pt;
-            border-radius: 5pt;
-            background: white;
-        }
-        button {
-            border-radius: 5pt;
-            padding: 10pt 14pt;
-            background: white;
-            border: 1px solid gray;
-            font-size: 14pt;
-            margin: 20pt;
-        }
-        button:hover {
-            background: lightgray;
-        }
-    </style>
+                <p class="font2 fs8 fw6 p-text-dark">Reset Password</p>
+                <div id="login-msg" class="p-0 m-0 ml-4 p-display-none flex-wrap">
+                    <span>Hi, this will only take a munite</span>
+                    <span class="dot-flashing  ml-4"></span>
+                </div>
+                <div id="login-err" class="mt-3 ml-4 p-display-none">
+                    <span class="alert alert-danger">Invalid username or password</span>
+                </div>
+                <div id="login-err2" class="mt-3 ml-4 p-display-none ">
+                    <span class="alert alert-warning">No internet connection...</span>
+                </div>
+            </div>
 
-</head>
-<body>
-<div class="flex-center position-ref full-height">
-    <form class="form-container" action="api/password/reset" method="POST">
-        <h2>Forgot Password?</h2>
+            <form id="login-form" action="api/password/reset" method="POST">
 
-        <input name="email" placeholder="Enter email" value="{{request()->get('email')}}">
-        <input name="password" placeholder="Enter new password">
-        <input name="password_confirmation" placeholder="Confirm new password">
-        <input hidden name="token" placeholder="token" value="{{request()->get('token')}}">
+                <input class="form-control my-3 h2 login-input" name="email" placeholder="Enter email" value="{{request()->get('email')}}">
+                <input class="form-control my-3 h2 login-input" name="password" placeholder="Enter new password">
+                <input class="form-control my-3 h2 login-input" name="password_confirmation" placeholder="Confirm new password">
+                <input hidden name="token" placeholder="token" value="{{request()->get('token')}}">
 
-        <button type="submit">Submit</button>
-    </form>
+                <button class="p-dark text-white font fs8 fw2 w-100 h2" type="submit">Reset</button>
+            </form>
+
+        </div>
+    </div>
 </div>
-</body>
-</html>
+@endsection
