@@ -17,7 +17,7 @@
         </button>
         <li class="navbar__list__item"><a :href="home">Home</a></li>
         <li class="navbar__list__item"><a :href="explore">Explore</a></li>
-        <li class="navbar__list__item"><a href="#">Articles</a></li>
+        <li class="navbar__list__item"><a href="/contributors">Contributors</a></li>
         <li class="navbar__list__item"><a href="#">Videos</a></li>
         <div v-if="username == ''" class="d-inline-block d-lg-none">
           <li class="navbar__list__item"><a :href="login">Login</a></li>

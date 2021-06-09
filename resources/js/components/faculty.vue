@@ -8,18 +8,16 @@
 						<tr id="cheadV">
 							
 						<th width="40%">faculty name</th>
-			            <th width="20%">faculty abbr.</th>	            
-			            <th width="15%">date created</th>
-			            <th width="5%">status</th>
-			            <th width="20%">Action</th>
+			            <th width="20%">faculty abbr.</th>	            			            
+			            <th width="30%">Description</th>			            
+			            <th width="10%">Action</th>
 						</tr>
 					</thead>
 					<tbody v-if="tableLoaded">
 			        <tr v-for="(faculty, index) in createdFaculty" :key="index">	         
 			            <td width="40%" :title="faculty.title">{{faculty.name}}</td>
-			            <td width="20%">{{faculty.code}}</td>	           
-			            <td width="15%">{{faculty.updated_at}}</td>	            
-			            <td width="5%">{{faculty.status}}</td>	            
+			            <td width="20%">{{faculty.code}}</td>	           			            
+			            <td width="30%">{{faculty.description}}</td>	            
 			            <td width="10%">
 			            	<span class="ml-2 fa fa-edit pl-3  fs01 cursor-1" @click="editfaculty(faculty)" style="border-left: 1px solid #ccc;"></span>
 			            	<span class="ml-2 fa fa-trash pl-3  fs01 cursor-1" @click="deletefaculty(faculty.id)"></span>
@@ -40,7 +38,7 @@
 			}
 		},
 		methods: {
-			swal_form: function(update = false, obj={faculty_id:1, name:'Natural science', code: 'fns'}){	
+			swal_form: function(update = false, obj={faculty_id:1, name:'Natural science', code: 'fns',picture:'/picture',description:'description'}){	
 				$('#system-loader').css('display','flex');
 				let formcount = 0;
 				let $vm = this, html='';
@@ -50,19 +48,32 @@
 				//watch(this.watchfacultyHtml, 'value', function(){
 				if(update){
 					btnName= "Update";
-					old = {name:'<span class="text-danger">'+obj.name+'</span> <b class="text-success"> to </b> ', code: '<span class="text-danger">'+ obj.code+'</span> <b class="text-success"> to </b> ' };			
+					old = {name:'<span class="text-danger">'+obj.name+'</span> <b class="text-success"> to </b> ', code: '<span class="text-danger">'+ obj.code+'</span> <b class="text-success"> to </b> ',
+					description: '<span class="text-danger">'+ obj.description+'</span> <b class="text-success"> to </b> '
+					 };			
 					topic = 'Update Faculty';
 					html = 			
 				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Name</legend>"+					  		   
 				    '<input id="swal-input1" class="swal2-input mt-1" value="'+obj.name+'" >' +
 				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Abbr</legend>"+					  		   				    
-				    '<input id="swal-input2" class="swal2-input mt-1" value="'+obj.code+'">';
-				}else{
+				    '<input id="swal-input2" class="swal2-input mt-1" value="'+obj.code+'">'+
+
+				    "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Description</legend>"+					  	
+				    '<input id="swal-input3" class="swal2-input mt-1" value="'+obj.description+'">'+
+				    "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Picture</legend>"+					  	
+				    '<input id="swal-file4" type="file" class="mt-1 mx-auto" >' ;
+
+				}else{					
 					html =
-				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Name</legend>"+					  		   
+				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Name</legend>"+					  		  
 				    '<input id="swal-input1" class="swal2-input mt-1" >' +
-				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Abbr</legend>"+					  		   				    
-				    '<input id="swal-input2" class="swal2-input mt-1">';	
+				  	"<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Abbr</legend>"+					  	
+				    '<input id="swal-input2" class="swal2-input mt-1">'+
+				    "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Description</legend>"+					  	
+				    '<input id="swal-input3" class="swal2-input mt-1">'+
+				    "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Picture</legend>"+					  	
+				    '<input id="swal-file4" type="file" class="mt-1 mx-auto"  >' ;
+				    ;	
 				}										
 				$('#system-loader').hide();						
 				Swal.fire({
@@ -77,18 +88,33 @@
 				  focusConfirm: false,
 				  preConfirm: () => {					  	
 				  	 let  FacultyName = document.getElementById('swal-input1').value.toUpperCase(),
-				      FacultyAbbr = document.getElementById('swal-input2').value;					      					  	  
+				      FacultyAbbr = document.getElementById('swal-input2').value,					      					 
+				      description = document.getElementById('swal-input3').value,		
+				      pic = document.getElementById('swal-file4');				            					
+				      if (pic.files.length !=0 ) {				      	
+				      var picture = pic.files[0];
+				      var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpeg|.png|.jpg|.gif)$/;
+					      if (regex.test(pic.value.toLowerCase())) {					     
+						  } else {
+						           Swal.showValidationMessage('Error: please select a valid file (.csv file)');
+						  }
+				      }else{
+				      	picture = '/no-pic';
+				      }
+
 				  	if ( FacultyName == "" || FacultyAbbr == "") {					     
 				         Swal.showValidationMessage('All fields are required');
 				  	}
 				    return [					      
 				      FacultyName,
-				      FacultyAbbr					      
+				      FacultyAbbr,
+				      description,
+				      picture					      
 				    ]
 				  } 
 				}).then((result)=>{
 					if (result.value) {
-				    const answers = {faculty_name:result.value[0], faculty_code:result.value[1]}
+				    const answers = {faculty_name:result.value[0], faculty_code:result.value[1], description:result.value[2],file:result.value[3]}
 
 				    Swal.fire({
 				      title: 'click on proceed',
@@ -101,6 +127,10 @@
 					      		<tr>
 					      		 	<td width='30%'><b>Abbr:</b></td>
 					      		 	<td width='70%'>${old.code} ${answers.faculty_code} </td>
+					      		 <tr>
+					      		 <tr>
+					      		 	<td width='30%'><b>Description:</b></td>
+					      		 	<td width='70%'>${old.description} ${answers.description} </td>
 					      		 <tr>
 				      		</table>`,
 				      confirmButtonText:'Continue',					      
@@ -115,6 +145,8 @@
 				        	formData.append("faculty_id",obj.id);
 				        	formData.append("faculty_name",result.value[0]);
 				        	formData.append("faculty_code",result.value[1]);				        	 
+				        	formData.append("description",result.value[2]);				        	 
+				        	formData.append("file",result.value[3]);				        	 
 				        	return $vm.axios.post($vm.baseApiUrl+'faculties/update',formData,{headers:$vm.axiosHeader})
 					      	.then(response => {						      	
 						        if (!response.data.sucess) {

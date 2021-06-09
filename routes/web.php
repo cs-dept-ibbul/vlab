@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'App\Http\Controllers\PagesController@index')->name('home');
 Route::get('/explore', 'App\Http\Controllers\ExploreController@index')->name('explore');
 Route::get('/logout', 'App\Http\Controllers\loginController@logout')->name('logout');
+Route::get('/contributors', function(){
+	return view('contributors');
+})->name('contributors');
 Route::get('/feedbacks', function(){
 	return view('feedbacks');
 });

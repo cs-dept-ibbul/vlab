@@ -7238,8 +7238,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -7253,7 +7251,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var obj = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
         faculty_id: 1,
         name: 'Natural science',
-        code: 'fns'
+        code: 'fns',
+        picture: '/picture',
+        description: 'description'
       };
       $('#system-loader').css('display', 'flex');
       var formcount = 0;
@@ -7270,12 +7270,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         btnName = "Update";
         old = {
           name: '<span class="text-danger">' + obj.name + '</span> <b class="text-success"> to </b> ',
-          code: '<span class="text-danger">' + obj.code + '</span> <b class="text-success"> to </b> '
+          code: '<span class="text-danger">' + obj.code + '</span> <b class="text-success"> to </b> ',
+          description: '<span class="text-danger">' + obj.description + '</span> <b class="text-success"> to </b> '
         };
         topic = 'Update Faculty';
-        html = "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" value="' + obj.name + '" >' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Abbr</legend>" + '<input id="swal-input2" class="swal2-input mt-1" value="' + obj.code + '">';
+        html = "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" value="' + obj.name + '" >' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Abbr</legend>" + '<input id="swal-input2" class="swal2-input mt-1" value="' + obj.code + '">' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Description</legend>" + '<input id="swal-input3" class="swal2-input mt-1" value="' + obj.description + '">' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Picture</legend>" + '<input id="swal-file4" type="file" class="mt-1 mx-auto" >';
       } else {
-        html = "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" >' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Abbr</legend>" + '<input id="swal-input2" class="swal2-input mt-1">';
+        html = "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Name</legend>" + '<input id="swal-input1" class="swal2-input mt-1" >' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Abbr</legend>" + '<input id="swal-input2" class="swal2-input mt-1">' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Description</legend>" + '<input id="swal-input3" class="swal2-input mt-1">' + "<legend class='text-left mb-1 pb-0 fs1 p-text-success'>Faculty Picture</legend>" + '<input id="swal-file4" type="file" class="mt-1 mx-auto"  >';
+        ;
       }
 
       $('#system-loader').hide();
@@ -7291,24 +7293,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         focusConfirm: false,
         preConfirm: function preConfirm() {
           var FacultyName = document.getElementById('swal-input1').value.toUpperCase(),
-              FacultyAbbr = document.getElementById('swal-input2').value;
+              FacultyAbbr = document.getElementById('swal-input2').value,
+              description = document.getElementById('swal-input3').value,
+              pic = document.getElementById('swal-file4');
+
+          if (pic.files.length != 0) {
+            var picture = pic.files[0];
+            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpeg|.png|.jpg|.gif)$/;
+
+            if (regex.test(pic.value.toLowerCase())) {} else {
+              Swal.showValidationMessage('Error: please select a valid file (.csv file)');
+            }
+          } else {
+            picture = '/no-pic';
+          }
 
           if (FacultyName == "" || FacultyAbbr == "") {
             Swal.showValidationMessage('All fields are required');
           }
 
-          return [FacultyName, FacultyAbbr];
+          return [FacultyName, FacultyAbbr, description, picture];
         }
       }).then(function (result) {
         if (result.value) {
           var answers = {
             faculty_name: result.value[0],
-            faculty_code: result.value[1]
+            faculty_code: result.value[1],
+            description: result.value[2],
+            file: result.value[3]
           };
           Swal.fire({
             title: 'click on proceed',
             text: 'other cancel and restart',
-            html: "<table class='table text-left'>\t\t\t\t\t\t      \t\t\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>Faculty Abbr:</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'>".concat(old.name, " ").concat(answers.faculty_name, "</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t \t<td width='30%'><b>Abbr:</b></td>\n\t\t\t\t\t      \t\t \t<td width='70%'>").concat(old.code, " ").concat(answers.faculty_code, " </td>\n\t\t\t\t\t      \t\t <tr>\n\t\t\t\t      \t\t</table>"),
+            html: "<table class='table text-left'>\t\t\t\t\t\t      \t\t\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t\t<td width='30%'><b>Faculty Abbr:</b></td>\n\t\t\t\t\t      \t\t\t<td width='70%'>".concat(old.name, " ").concat(answers.faculty_name, "</td>\n\t\t\t\t\t      \t\t</tr>\n\t\t\t\t\t      \t\t<tr>\n\t\t\t\t\t      \t\t \t<td width='30%'><b>Abbr:</b></td>\n\t\t\t\t\t      \t\t \t<td width='70%'>").concat(old.code, " ").concat(answers.faculty_code, " </td>\n\t\t\t\t\t      \t\t <tr>\n\t\t\t\t\t      \t\t <tr>\n\t\t\t\t\t      \t\t \t<td width='30%'><b>Description:</b></td>\n\t\t\t\t\t      \t\t \t<td width='70%'>").concat(old.description, " ").concat(answers.description, " </td>\n\t\t\t\t\t      \t\t <tr>\n\t\t\t\t      \t\t</table>"),
             confirmButtonText: 'Continue',
             cancelButtonText: 'Cancel',
             cancelButtonColor: '#dd000f',
@@ -7321,6 +7338,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 formData.append("faculty_id", obj.id);
                 formData.append("faculty_name", result.value[0]);
                 formData.append("faculty_code", result.value[1]);
+                formData.append("description", result.value[2]);
+                formData.append("file", result.value[3]);
                 return $vm.axios.post($vm.baseApiUrl + 'faculties/update', formData, {
                   headers: $vm.axiosHeader
                 }).then(function (response) {
@@ -15263,11 +15282,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   compontents: {
@@ -16371,7 +16385,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   confirmButtonText: "Goto Create Course"
                 }).then(function (result) {
                   if (result.isConfirmed) {
-                    location.href = "/created-course";
+                    location.href = "/create-course";
                   }
                 });
               }
@@ -46282,9 +46296,17 @@ var render = function() {
                       staticStyle: { height: "230px", position: "relative" }
                     },
                     [
+                      _c("div", { staticStyle: { height: "60%" } }, [
+                        _c("img", {
+                          attrs: {
+                            src: cat.picture,
+                            width: "100%;",
+                            height: "100%"
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
                       _c("div", { staticClass: "p-3 rounded" }, [
-                        _c("br"),
-                        _vm._v(" "),
                         _c("h5", { staticClass: "fw5 text-dark" }, [
                           _vm._v(_vm._s(cat.name))
                         ]),
@@ -46758,7 +46780,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("li", { staticClass: "navbar__list__item" }, [
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Articles")])
+      _c("a", { attrs: { href: "/contributors" } }, [_vm._v("Contributors")])
     ])
   },
   function() {
@@ -50829,12 +50851,8 @@ var render = function() {
                       _vm._v(_vm._s(faculty.code))
                     ]),
                     _vm._v(" "),
-                    _c("td", { attrs: { width: "15%" } }, [
-                      _vm._v(_vm._s(faculty.updated_at))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { attrs: { width: "5%" } }, [
-                      _vm._v(_vm._s(faculty.status))
+                    _c("td", { attrs: { width: "30%" } }, [
+                      _vm._v(_vm._s(faculty.description))
                     ]),
                     _vm._v(" "),
                     _c("td", { attrs: { width: "10%" } }, [
@@ -50878,11 +50896,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { width: "20%" } }, [_vm._v("faculty abbr.")]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "15%" } }, [_vm._v("date created")]),
+        _c("th", { attrs: { width: "30%" } }, [_vm._v("Description")]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "5%" } }, [_vm._v("status")]),
-        _vm._v(" "),
-        _c("th", { attrs: { width: "20%" } }, [_vm._v("Action")])
+        _c("th", { attrs: { width: "10%" } }, [_vm._v("Action")])
       ])
     ])
   }
@@ -55913,7 +55929,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n        "
+                      "\n          " +
+                        _vm._s(_vm.faculty.description) +
+                        "\n        "
                     )
                   ]
                 )
@@ -56206,7 +56224,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-lg-4 col-md-12 col-sm-12 p-0" }, [
       _c("div", { staticClass: "boxX p-4" }, [
-        _c("p", { staticClass: "fs2 fw8 font2" }, [_vm._v("What to Expect")]),
+        _c("p", { staticClass: "fs2 fw8 font2" }, [_vm._v("What to Do")]),
         _vm._v(" "),
         _c("div", { staticClass: "d-flex " }, [
           _c("span", {
@@ -56215,9 +56233,7 @@ var staticRenderFns = [
           }),
           _vm._v(" "),
           _c("p", { staticClass: "font2 fs1" }, [
-            _vm._v(
-              "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
-            )
+            _vm._v("Get Enrollment Code from Course Instructor")
           ])
         ]),
         _vm._v(" "),
@@ -56227,11 +56243,16 @@ var staticRenderFns = [
               "mr-2 fa fa-check text-success p-light border-rounded h1 r1 p-1"
           }),
           _vm._v(" "),
-          _c("p", { staticClass: "font2 fs1" }, [
-            _vm._v(
-              "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
-            )
-          ])
+          _c("p", { staticClass: "font2 fs1" }, [_vm._v("Find Your Course")])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "d-flex " }, [
+          _c("span", {
+            staticClass:
+              "mr-2 fa fa-check text-success p-light border-rounded h1 r1 p-1"
+          }),
+          _vm._v(" "),
+          _c("p", { staticClass: "font2 fs1" }, [_vm._v("Click on Enroll")])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "d-flex " }, [
@@ -56241,9 +56262,7 @@ var staticRenderFns = [
           }),
           _vm._v(" "),
           _c("p", { staticClass: "font2 fs1" }, [
-            _vm._v(
-              "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
-            )
+            _vm._v("Enter Enrollment Code")
           ])
         ]),
         _vm._v(" "),
@@ -56253,24 +56272,7 @@ var staticRenderFns = [
               "mr-2 fa fa-check text-success p-light border-rounded h1 r1 p-1"
           }),
           _vm._v(" "),
-          _c("p", { staticClass: "font2 fs1" }, [
-            _vm._v(
-              "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "d-flex " }, [
-          _c("span", {
-            staticClass:
-              "mr-2 fa fa-check text-success p-light border-rounded h1 r1 p-1"
-          }),
-          _vm._v(" "),
-          _c("p", { staticClass: "font2 fs1" }, [
-            _vm._v(
-              "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod"
-            )
-          ])
+          _c("p", { staticClass: "font2 fs1" }, [_vm._v("Click OK")])
         ])
       ])
     ])

@@ -175,7 +175,7 @@
 				}).then((result) => {
 				  
 				  if (result.isConfirmed) {
-				    location.href = "/created-course";
+				    location.href = "/create-course";
 				  }
 				})
 		     }
