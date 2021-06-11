@@ -1,6 +1,7 @@
 import axios from 'axios';
 //axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'http://localhost:8000' : '';
-axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'https://demo.vlabnigeria.org/' : 'https://demo.vlabnigeria.org/'; 
+//axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'https://demo.vlabnigeria.org/' : 'https://demo.vlabnigeria.org/'; 
+axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'https://vlab.ibbu.edu.ng/' : 'https://vlab.ibbu.edu.ng/'; 
 import loader from '../components/skeletalLoaderA.vue'; 
 export default {
   install(Vue, options) {
