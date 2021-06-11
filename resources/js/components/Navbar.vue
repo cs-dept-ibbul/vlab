@@ -6,8 +6,7 @@
       </div>
       <ul
         class="navbar__list d-lg-flex mobile-nav mb-0"
-        :class="showNav ? 'mobile-nav--open' : null"
-      >
+        :class="showNav ? 'mobile-nav--open' : null"      >
         <button
           class="navbar__toggle d-inline-block d-lg-none"
           :class="showNav ? 'navbar__toggle--active' : null"
@@ -17,8 +16,16 @@
         </button>
         <li class="navbar__list__item"><a :href="home">Home</a></li>
         <li class="navbar__list__item"><a :href="explore">Explore</a></li>
+        <li class="navbar__list__item"><a href="https://www.youtube.com/watch?v=dw7IAZa0VYc&list=PL--mhtYCTMobbvT1bDbfCAUS5Sdksnltm">Videos</a></li>
+        <li class="navbar__list__item survey-main"><a href="#">Survey <span class="fa fa-caret-down"></span></a>
+          <ul class="survey-sub d-none">
+            <li><a href="/faculty-survey">Faculty Survey</a></li>
+            <li><a href="/student-survey">Student Survey</a></li>
+            <li><a href="/usability">Usability Test</a></li>
+          </ul>
+        </li>
         <li class="navbar__list__item"><a href="/contributors">Contributors</a></li>
-        <li class="navbar__list__item"><a href="#">Videos</a></li>
+
         <div v-if="username == ''" class="d-inline-block d-lg-none">
           <li class="navbar__list__item"><a :href="login">Login</a></li>
           <li class="navbar__list__item navbar__list__item--btn">
@@ -30,7 +37,7 @@
             <span style="font-size: 0.9em; font-weight: 300;">{{username}}</span>
             <span class="fa fa-chevron-down ml-2"></span>
             <a @click="logout" class="forLogout" v-bind:class="{extra:forLogout}">Logout</a>            
-          </div>
+        </div>
       </ul>
       <ul id="lnav" class="navbar__list d-none d-lg-flex align-items-lg-center mb-0">
         <li v-if="username == ''"  class="navbar__list__item"><a :href="login">Login</a></li>
@@ -132,7 +139,48 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss" scoped>  
+  ul li.navbar__list__item.survey-main:hover{
+      color:#4d6 !important;
+  }
+  .survey-main:hover >.survey-sub{
+      display: block !important;
+  }
+  .survey-main{
+    position: relative;    
+  }
+  .survey-sub li a:hover{    
+      color: #4b7 !important;    
+      text-decoration: none;
+  }  
+  .survey-sub li{
+    list-style: none;    
+    align-items: left;
+    width: 100%;
+    height: 40px;
+  }
+  .survey-sub li a{
+    width: 100%;
+    padding: 7px 11px;
+    display: block;
+
+  }
+  .survey-sub li:not(:last-child){
+    border-bottom: 1px solid #ccd;
+
+  }
+  .survey-sub{
+    z-index: 100;
+    position: absolute;
+    left: -30px;
+    width: 150px;
+    margin: 0;
+    padding: 0px;
+    border-left: 1px solid #ccd;
+    border-right: 1px solid #ccd;
+    border-bottom: 1px solid #ccd;    
+    background: white;    
+  }
   #navbarId{
     user-select: none;
   }

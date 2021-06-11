@@ -21,6 +21,20 @@ Route::get('/logout', 'App\Http\Controllers\loginController@logout')->name('logo
 Route::get('/contributors', function(){
 	return view('contributors');
 })->name('contributors');
+
+Route::get('/faculty-survey', function(){
+	return view('faculty-survey');
+})->name('faculty-survey');
+
+Route::get('/student-survey', function(){
+	return view('student-survey');
+})->name('student-survey');
+
+Route::get('/usability', function(){
+	return view('usability');
+})->name('usability');
+
+
 Route::get('/feedbacks', function(){
 	return view('feedbacks');
 });
