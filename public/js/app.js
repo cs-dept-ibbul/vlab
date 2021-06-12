@@ -16801,8 +16801,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
  //axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'http://localhost:8000' : '';
 //axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'https://demo.vlabnigeria.org/' : 'https://demo.vlabnigeria.org/'; 
+//axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'https://vlab.ibbu.edu.ng/' : 'https://vlab.ibbu.edu.ng/'; 
 
-(axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.baseURL) = process.env.API_PATH !== 'production' ? 'https://vlab.ibbu.edu.ng/' : 'https://vlab.ibbu.edu.ng/';
+(axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.baseURL) = process.env.API_PATH !== 'production' ? 'https://vlab.sediminna.org.ng/' : 'https://vlab.sediminna.org.ng/';
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   install: function install(Vue, options) {
