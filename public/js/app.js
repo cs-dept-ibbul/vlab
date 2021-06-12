@@ -7573,6 +7573,7 @@ __webpack_require__.r(__webpack_exports__);
         border: '0px',
         // default: '0'
         bgcolor: '#5d44ae',
+        'background-image': "url('/videoimg.jpg')",
         // default: '#fff'
         titleattr: 'data-title',
         // default: 'title'
@@ -13420,6 +13421,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+//
+//
+//
 //
 //
 //
@@ -23670,7 +23674,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\ndiv.datepicker{\n         padding: 10px !important;\n}\ntd.day{\n         font-size: 0.9em;\n         font-weight: 400;\n}\n.bootstrap-select .dropdown-toggle, .form-control w-100{\n         background: white !important;\n         border: 1px solid #ccc !important;\n}\n.bootstrap-select .dropdown-toggle:focus{\n    outline: 0 !important;\n}\n.form-control w-100:focus{\n\n    box-shadow: none;\n}\n.dropdown-item.active, .dropdown-item:active{\n    background: white;\n}\n.btn:focus, .btn.focus{\n    box-shadow: none;\n    outline: 0;\n}\n.swal2-popup{      \n     overflow-x: scroll;\n     overflow-y: scroll;\n     max-height: 90vh;\n}\n.formExp{       \n     min-width: 300px;\n     overflow-x: scroll;\n     display: none;\n}\n.w-96{\n     width: 95% !important;\n}\n.valueReading {\n     border-radius: 0px !important;\n     width: 85%!important;\n     padding: 0px;\n}\n.v-template{      \n     padding: 2px;\n     margin-bottom: 3px;\n}\ntable.table-stripped tr:nth-child(odd){\n     background: rgba(5,90,20,.1);\n}\n.text-capitalize{\n     text-transform: capitalize;\n}\ninput[type='radio']{\n     cursor: pointer;\n}\n.without_ampm::-webkit-datetime-edit-ampm-field {\n  display: none !important;\n}\ninput[type=time]::-webkit-clear-button {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  -o-appearance: none;\n  appearance: none;\n  margin: -10px;\n}\n.chosen-container{\n width: 100% !important;\n}\n.chosen-choices{\n width: 100% !important;\n padding: 0.375rem 0.75rem !important;\n border: 1px solid #ced4da !important;\n border-radius: 0.25rem !important;\n transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\n}\n.search-choice-close{\n content: 'x' !important;\n color:red !important;\n font-size: 0.8em;\n}\n.search-choice-close:after{\n   content: 'x';\n   color: red !important;   \n   display: block;\n   width: 10px;\n   height: 10px;\n   position: relative;\n   z-index: 5;\n   background: #aaa;\n   border-radius: 50px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\ndiv.datepicker{\n         padding: 10px !important;\n}\ntd.day{\n         font-size: 0.9em;\n         font-weight: 400;\n}\n.bootstrap-select .dropdown-toggle, .form-control w-100{\n         background: white !important;\n         border: 1px solid #ccc !important;\n}\n.bootstrap-select .dropdown-toggle:focus{\n    outline: 0 !important;\n}\n.form-control w-100:focus{\n\n    box-shadow: none;\n}\n.taskform{\n     position: absolute; \n     z-index: 10000;\n     height:150vh;\n}\n#VueSweetAlert2{\n     position:relative;\n     height:85vh;\n}\n.dropdown-item.active, .dropdown-item:active{\n    background: white;\n}\n.btn:focus, .btn.focus{\n    box-shadow: none;\n    outline: 0;\n}\n.swal2-popup{      \n     overflow-x: scroll;\n     overflow-y: scroll;\n     max-height: 90vh;\n}\n.formExp{       \n     min-width: 300px;\n     overflow-x: scroll;\n     display: none;\n}\n.w-96{\n     width: 95% !important;\n}\n.valueReading {\n     border-radius: 0px !important;\n     width: 85%!important;\n     padding: 0px;\n}\n.v-template{      \n     padding: 2px;\n     margin-bottom: 3px;\n}\ntable.table-stripped tr:nth-child(odd){\n     background: rgba(5,90,20,.1);\n}\n.text-capitalize{\n     text-transform: capitalize;\n}\ninput[type='radio']{\n     cursor: pointer;\n}\n.without_ampm::-webkit-datetime-edit-ampm-field {\n  display: none !important;\n}\ninput[type=time]::-webkit-clear-button {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  -o-appearance: none;\n  appearance: none;\n  margin: -10px;\n}\n.chosen-container{\n width: 100% !important;\n}\n.chosen-choices{\n width: 100% !important;\n padding: 0.375rem 0.75rem !important;\n border: 1px solid #ced4da !important;\n border-radius: 0.25rem !important;\n transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\n}\n.search-choice-close{\n content: 'x' !important;\n color:red !important;\n font-size: 0.8em;\n}\n.search-choice-close:after{\n   content: 'x';\n   color: red !important;   \n   display: block;\n   width: 10px;\n   height: 10px;\n   position: relative;\n   z-index: 5;\n   background: #aaa;\n   border-radius: 50px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -46080,7 +46084,8 @@ var render = function() {
                         _vm._m(2),
                         _vm._v(" "),
                         _c("div", {
-                          staticClass: "panel accordBodyV bg-white",
+                          staticClass:
+                            "panel accordBodyV bg-white text-dark fw5",
                           domProps: {
                             innerHTML: _vm._s(_vm.experiment.required)
                           }
@@ -46124,6 +46129,7 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("div", {
+                      staticClass: "text-dark fw5",
                       staticStyle: { display: "none", padding: "10px 14px" },
                       attrs: { id: "exercise" },
                       domProps: { innerHTML: _vm._s(_vm.experiment.exercise) }
@@ -46233,9 +46239,17 @@ var render = function() {
                       staticStyle: { height: "230px", position: "relative" }
                     },
                     [
+                      _c("div", { staticStyle: { height: "60%" } }, [
+                        _c("img", {
+                          attrs: {
+                            src: cat.picture,
+                            width: "100%;",
+                            height: "100%"
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
                       _c("div", { staticClass: "p-3 rounded" }, [
-                        _c("br"),
-                        _vm._v(" "),
                         _c("h5", { staticClass: "fw5 text-dark" }, [
                           _vm._v(_vm._s(cat.name))
                         ]),
@@ -46385,9 +46399,17 @@ var render = function() {
                       staticStyle: { height: "230px", position: "relative" }
                     },
                     [
+                      _c("div", { staticStyle: { height: "60%" } }, [
+                        _c("img", {
+                          attrs: {
+                            src: cat.picture,
+                            width: "100%;",
+                            height: "100%"
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
                       _c("div", { staticClass: "p-3 rounded" }, [
-                        _c("br"),
-                        _vm._v(" "),
                         _c("h5", { staticClass: "fw5 text-dark" }, [
                           _vm._v(_vm._s(cat.name))
                         ]),
@@ -46836,7 +46858,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("li", { staticClass: "navbar__list__item" }, [
-      _c("a", { attrs: { href: "/contributors" } }, [_vm._v("Contributors")])
+      _c("a", { attrs: { href: "#" } }, [_vm._v("Contributors")])
     ])
   },
   function() {
@@ -48606,7 +48628,7 @@ var render = function() {
                 "a",
                 {
                   class: { btnActive: _vm.checkActive("home") },
-                  attrs: { href: _vm.home }
+                  attrs: { href: "/" }
                 },
                 [_c("span", { staticClass: "iconOV  fa fa-home " })]
               ),
@@ -48684,7 +48706,7 @@ var render = function() {
                 {
                   staticClass: "nChildV",
                   class: { btnActive: _vm.checkActive("home") },
-                  attrs: { href: _vm.home }
+                  attrs: { href: "/" }
                 },
                 [
                   _c("span", { staticClass: "iconV fa fa-home " }),
@@ -51045,17 +51067,27 @@ var staticRenderFns = [
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-12 col-lg-5" }, [
-              _c("div", { staticClass: "hero__video" }, [
-                _c("a", {
-                  staticClass: "venobox play-btn mb-4",
-                  attrs: {
-                    href: "https://youtu.be/IaDbk6MvQPs?rel=0&autoplay=1",
-                    "data-overlay": "rgba(15,14,100,0.8)",
-                    "data-vbtype": "video",
-                    "data-autoplay": "true"
+              _c(
+                "div",
+                {
+                  staticClass: "hero__video",
+                  staticStyle: {
+                    "background-image": "url('videoimg.jpg')",
+                    "background-size": "contain"
                   }
-                })
-              ])
+                },
+                [
+                  _c("a", {
+                    staticClass: "venobox play-btn mb-4",
+                    attrs: {
+                      href: "https://youtu.be/IaDbk6MvQPs?rel=0&autoplay=1",
+                      "data-overlay": "rgba(15,14,100,0.8)",
+                      "data-vbtype": "video",
+                      "data-autoplay": "true"
+                    }
+                  })
+                ]
+              )
             ])
           ]
         )
@@ -51341,7 +51373,7 @@ var render = function() {
               {
                 staticClass: "nChildV",
                 class: { btnActive: _vm.checkActive("home") },
-                attrs: { href: "/home" }
+                attrs: { href: "/" }
               },
               [
                 _c("span", { staticClass: "iconV fa fa-home " }),
@@ -54670,8 +54702,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "mx-auto p-5 taskForm" }, [
-    _c("br"),
-    _vm._v(" "),
     _c("h3", { staticClass: "form-header" }, [_vm._v("Create Task")]),
     _vm._v(" "),
     _c("div", { staticClass: "m-0 row  p-3 form-body" }, [
@@ -54685,9 +54715,25 @@ var render = function() {
           _c("label", [_vm._v("Title")]),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.title,
+                expression: "title"
+              }
+            ],
             staticClass: "form-control w-100 vI",
             attrs: { type: "text", name: "title", id: "titleD" },
-            domProps: { value: _vm.title }
+            domProps: { value: _vm.title },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.title = $event.target.value
+              }
+            }
           })
         ]
       ),
@@ -54772,9 +54818,25 @@ var render = function() {
           _c("label", [_vm._v("Access Code")]),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.access_code,
+                expression: "access_code"
+              }
+            ],
             staticClass: "form-control w-100 vI",
             attrs: { type: "password", name: "code", id: "codeD" },
-            domProps: { value: _vm.access_code }
+            domProps: { value: _vm.access_code },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.access_code = $event.target.value
+              }
+            }
           })
         ]
       ),
@@ -54789,6 +54851,14 @@ var render = function() {
           _c("label", [_vm._v("Open")]),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.open,
+                expression: "open"
+              }
+            ],
             staticClass: "form-control w-100 vI datepicker2",
             attrs: {
               type: "text",
@@ -54797,7 +54867,15 @@ var render = function() {
               "date-format": "dd-mm-yyyy",
               autocomplete: "off"
             },
-            domProps: { value: _vm.open }
+            domProps: { value: _vm.open },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.open = $event.target.value
+              }
+            }
           })
         ]
       ),
@@ -54812,6 +54890,14 @@ var render = function() {
           _c("label", [_vm._v("Close")]),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.close,
+                expression: "close"
+              }
+            ],
             staticClass: "form-control w-100 vI datepicker2",
             attrs: {
               type: "text",
@@ -54820,7 +54906,18 @@ var render = function() {
               "date-format": "dd-mm-yyyy",
               autocomplete: "off"
             },
-            domProps: { value: _vm.close }
+            domProps: { value: _vm.close },
+            on: {
+              mouseout: function($event) {
+                return _vm.alert(2)
+              },
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.close = $event.target.value
+              }
+            }
           })
         ]
       ),
@@ -54948,6 +55045,7 @@ var render = function() {
                       ? _c("span", { staticClass: "w-100" }, [
                           _c("div", {
                             staticClass: "formExp w-100",
+                            staticStyle: { height: "240px" },
                             attrs: { id: exp.id },
                             domProps: {
                               innerHTML: _vm._s(

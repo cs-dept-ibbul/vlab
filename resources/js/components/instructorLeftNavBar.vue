@@ -87,7 +87,7 @@
 			</div>
 			<!-- end mini side bar -->
 			<div id="wideMenu" v-bind:class="{slidein:showWideMenu, slideout:hideMiniMenuWideMenu}" style="position: relative; margin-left: 5px; margin-right:5px;width: 240px;" >
-				<a href="/home" class="nChildV" v-bind:class="{btnActive:checkActive('home')}">
+				<a href="/" class="nChildV" v-bind:class="{btnActive:checkActive('home')}">
 					<span class="iconV fa fa-home "></span><div class="labelV">Home</div>
 				</a>	
 				<!-- <a href="/dashboard" class="nChildV"  v-bind:class="{btnActive:checkActive('dashboard')}">

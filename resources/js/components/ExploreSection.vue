@@ -8,9 +8,9 @@
         <div class="row hm300 w-100 px-6 py-5 m-0" style="background: #f0f0f0;">          
           <div class="col-12 col-md-6 col-lg-4 mt-5" v-for="cat in courseCate.faculties" >
             <a style="text-decoration: none;" :href="link+cat.id" class="w-100 cadin" v-if="cat.courses_count >0 && roletype=='student'">
-              <div class="w-100 r2 shadow bg-white" style="height: 230px;position: relative;">           
-                <div class="p-3 rounded">
-                  <br>
+              <div class="w-100 r2 shadow bg-white" style="height: 230px;position: relative;">
+                <div style="height: 60%;"><img :src="cat.picture" width="100%;" height="100%"></div>
+                <div class="p-3 rounded">                  
                   <h5 class="fw5 text-dark">{{cat.name}}</h5>
                   <br>
                   <div class="d-flex justify-content-between text-dark" style="position: absolute;bottom: 0;padding: 20px 0px; width: 85%;">
@@ -46,9 +46,9 @@
               </div>            
             </a>
             <a style="text-decoration: none;" href="#" @click="onlyStudent" class="w-100 cadin" v-if="cat.courses_count >0 && roletype!='student'">
-              <div class="w-100 r2 shadow bg-white" style="height: 230px;position: relative;">           
-                <div class="p-3 rounded">
-                  <br>
+              <div class="w-100 r2 shadow bg-white" style="height: 230px;position: relative;">
+                <div style="height: 60%;"><img :src="cat.picture" width="100%;" height="100%"></div>
+                <div class="p-3 rounded">                  
                   <h5 class="fw5 text-dark">{{cat.name}}</h5>
                   <br>
                   <div class="d-flex justify-content-between text-dark" style="position: absolute;bottom: 0;padding: 20px 0px; width: 85%;">

@@ -15,7 +15,7 @@
           <br>
         </div>
         <div class="col-12 col-lg-5">
-          <div class="hero__video">
+          <div class="hero__video" style="background-image: url('videoimg.jpg');background-size: contain;">
             <a href="https://youtu.be/IaDbk6MvQPs?rel=0&autoplay=1" data-overlay="rgba(15,14,100,0.8)" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
           </div>
         </div>
@@ -34,7 +34,8 @@ export default {
           framewidth : '75%',                            // default: ''
         frameheight: '400px',                            // default: ''
         border     : '0px',                             // default: '0'
-        bgcolor    : '#5d44ae',                          // default: '#fff'
+        bgcolor    : '#5d44ae',  
+      'background-image':"url('/videoimg.jpg')",                        // default: '#fff'
         titleattr  : 'data-title',                       // default: 'title'
         numeratio  : true,                               // default: false
         infinigall : true,                               // default: false

@@ -7,6 +7,7 @@ use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class DepartmentController extends Controller
 {
@@ -43,7 +44,7 @@ class DepartmentController extends Controller
         $department->status = $status;
 
 
-        $checkDepartment = Department::where(['name' => $departmentName,'status'=>'Active'])->first();
+        $checkDepartment = Department::where(['name' => $departmentName,'status'=>'Active','code'=>$departmentCode])->orWhere(['status'=>'Active','code'=>$departmentCode])->first();
         //$checkDepartment1 = Department::where(['name' => $departmentName,'status'=>'Inactive'])->first();
         if (empty($checkDepartment)) {
             if ($department->save()) {

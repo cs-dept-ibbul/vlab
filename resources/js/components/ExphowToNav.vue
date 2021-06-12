@@ -28,7 +28,7 @@
 						
 						<!-- Requirment -->
 						<h3 class="accordion accordBtnV" >Requirement<span class="fa fa-chevron-right fontType-ico" style=""></span> </h3>
-						<div class="panel accordBodyV bg-white" v-html="experiment.required">						    		
+						<div class="panel accordBodyV bg-white text-dark fw5" v-html="experiment.required">						    		
 						</div>		
 						<p class="fontType-ico mt-2" style="font-size: 1.3em;padding: 0px 14px;">Instructor's Mock Experiment</p>
 						<div class="mt-1" id="smallArea" style="padding: 0px 14px;">
@@ -38,7 +38,7 @@
 						</div>
 
 					</div>
-					<div id="exercise" style="display: none; padding: 10px 14px;" v-html="experiment.exercise"></div>
+					<div id="exercise" class="text-dark fw5" style="display: none; padding: 10px 14px;" v-html="experiment.exercise"></div>
 					<div id="resources" style="display: none; padding: 10px 14px" v-html="experiment.experiment_resource" >resources</div>
 				</div>
 		</div>

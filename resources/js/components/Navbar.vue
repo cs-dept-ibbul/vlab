@@ -24,7 +24,7 @@
             <li><a href="/usability">Usability Test</a></li>
           </ul>
         </li>
-        <li class="navbar__list__item"><a href="/contributors">Contributors</a></li>
+        <li class="navbar__list__item"><a href="#">Contributors</a></li>
 
         <div v-if="username == ''" class="d-inline-block d-lg-none">
           <li class="navbar__list__item"><a :href="login">Login</a></li>
