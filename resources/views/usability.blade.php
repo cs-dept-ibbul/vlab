@@ -7,8 +7,8 @@
      	<div class="font fs1 fw5 ml-4">
      		<span>You are here <i class="fa fa-long-arrow-right"></span></i> <span>Survey<i class="fa fa-angle-double-right"></i>Usability Test</span>
      	</div>
-     	<div class="p-4">
-     		<iframe src="https://forms.gle/VtystnxHcdqgT4Gq6" width="100%" style="border: none;background: none; height: 100%;">sdkjek</iframe>	     		
+     	<div class="px-4 ">
+     		<iframe src="https://forms.gle/VtystnxHcdqgT4Gq6" width="100%" style="border: none;background-position: center; background-size: 100px;background-repeat: no-repeat; background-image: url('/loading.gif'); height: 80vh;"></iframe>	     		
      	</div>
 </div>
 @endsection
