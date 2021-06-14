@@ -6,7 +6,9 @@ use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Api\SchoolController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DepartmentController;
+use App\Http\Controllers\Api\ForgotPasswordController;
 use App\Http\Controllers\Api\SessionController;
+use App\Http\Controllers\Api\StatsController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WeeklyWorkController;
 use Illuminate\Http\Request;
@@ -26,6 +28,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('password/forgot', [ForgotPasswordController::class, 'forgot']);
+Route::post('password/reset', [ForgotPasswordController::class, 'reset']);
 
 Route::group([
     'middleware' => 'api',
@@ -116,6 +120,7 @@ Route::group([
             Route::post('update', [SessionController::class, 'update']);
             Route::post('set_session', [SessionController::class, 'setSession']);
             Route::post('delete', [SessionController::class, 'delete']);
+            Route::post('set_session', [SessionController::class, 'setCurrentSession']);
             Route::get('all_session', [SessionController::class, 'getAllSession']);
         });
 

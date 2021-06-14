@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::view('forgot_password', 'reset_password')->name('password.reset');
 
 
 Route::get('/', 'App\Http\Controllers\PagesController@index')->name('home');
