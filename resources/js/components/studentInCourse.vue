@@ -50,7 +50,7 @@
 					</div>
 				</div>									
 			</div>
-			<div class="col-lg-9 col-md-12" v-show="section">						
+			<div class="col-lg-9 col-md-12 v-scroll-x" v-show="section">						
 					<table id="studenttable" class="table table-hover">
 						<thead>
 							<tr id="cheadV">					

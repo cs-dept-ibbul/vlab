@@ -105,6 +105,8 @@ Vue.component('v-loginscript', require('./components/loginScript.vue').default);
 Vue.component('v-userauth', require('./components/userAuthentication.vue').default);
 Vue.component('v-feedback', require('./components/feedback.vue').default);
 Vue.component('v-errorpage', require('./components/errorPage.vue').default);
+Vue.component('v-studentprofile', require('./components/studentProfile.vue').default);
+Vue.component('v-adminprofile', require('./components/adminProfile.vue').default);
 
 
 

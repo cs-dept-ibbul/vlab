@@ -15,7 +15,7 @@
   <!-- end main side bar -->
    <div style="width: 100%;">
    		<!-- top nav bar -->
-     <v-systopnave title="My Courses" username='said'></v-systopnave>        		
+     <v-systopnave title="Manage Experiment" username='said'></v-systopnave>        		
    		<!-- end to nav bar -->
 
    	  <!-- content -->

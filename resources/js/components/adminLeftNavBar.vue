@@ -1,6 +1,8 @@
 
 <template>
-
+	<div>
+		
+	<div class="m-0 mobileMenu p-display-none " id="MainMobile"></div>
 	<div class="vh-100" style="height: 100vh;background: #f0f0f0;"  id="leftNavbarCover">
 		<h5 style="" class="font fw6 fs1 w-100 text-white forSessionOnNav">
 			<span class="pb-1 d-inline-block">
@@ -15,7 +17,7 @@
 
 		
 
-		<div class="m-0 mobileMenu p-display-none " id="MainMobile"></div>
+		
 		<div  class="MenuLContainer scroll-y vh-70"  v-bind:class="{reduceSize:show}">			
 			<div v-bind:class="{slidein:show, slideout:hide}" class="niconsV slider" >
 				<a href="/"  v-bind:class="{btnActive:checkActive('home')}">
@@ -47,9 +49,9 @@
 					<span class="iconOV fa fa-users"></span>
 				</a>
 
-				<!-- <a href="/settings"   v-bind:class="{btnActive:checkActive('settings')}">
+				<a href="/admin-settings"   v-bind:class="{btnActive:checkActive('settings')}">
 					<span class="iconOV fa fa-gear"></span>
-				</a>			 -->		
+				</a>					
 				<a  href="/logout"  >				
 					<span class="iconOV fa fa-arrow-circle-left"></span>
 				</a>	
@@ -80,9 +82,9 @@
 				<a href="/manage-user" class="nChildV"  v-bind:class="{btnActive:checkActive('user')}">
 					<span class="iconV fa fa-users"></span><div class="labelV">Manage Users</div>
 				</a>	
-				<!-- <a href="/settings"  class="nChildV" v-bind:class="{btnActive:checkActive('settings')}">
+				<a href="/admin-settings"  class="nChildV" v-bind:class="{btnActive:checkActive('settings')}">
 					<span class="iconV fa fa-gear"></span><div class="labelV">Settings</div>
-				</a>	 -->	
+				</a>		
 
 				<a href="/explore" class="nChildV"  v-bind:class="{btnActive:checkActive('explore')}">
 					<span class="iconV fa fa-spinner"></span><div class="labelV">Explore</div>
@@ -93,6 +95,7 @@
 				</a>				
 			</div>
 		</div>
+	</div>
 	</div>
 </template>
 <script>	

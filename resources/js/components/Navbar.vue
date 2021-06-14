@@ -36,7 +36,11 @@
             <span class="fa fa-user mr-2"></span>
             <span style="font-size: 0.9em; font-weight: 300;">{{username}}</span>
             <span class="fa fa-chevron-down ml-2"></span>
-            <a @click="logout" class="forLogout" v-bind:class="{extra:forLogout}">Logout</a>            
+            <div class="forLogout" v-bind:class="{extra:forLogout}">
+              <a :href="mydashboard">My Account</a>
+              <a @click="logout">Logout</a>              
+            </div>
+            <!-- <a @click="logout" class="forLogout" v-bind:class="{extra:forLogout}">Logout</a>             -->
         </div>
       </ul>
       <ul id="lnav" class="navbar__list d-none d-lg-flex align-items-lg-center mb-0">
@@ -166,7 +170,7 @@ export default {
 
   }
   .survey-sub li:not(:last-child){
-    border-bottom: 1px solid #ccd;
+    border-bottom: 1px solid #eee;
 
   }
   .survey-sub{
@@ -176,10 +180,10 @@ export default {
     width: 150px;
     margin: 0;
     padding: 0px;
-    border-left: 1px solid #ccd;
-    border-right: 1px solid #ccd;
-    border-bottom: 1px solid #ccd;    
-    background: white;    
+    border-top: 3px solid rgb(30,10,60);
+    box-shadow: 1px 2px 4px #eee;
+    background: #fff;
+    border-radius: 5px;
   }
   #navbarId{
     user-select: none;
@@ -188,8 +192,9 @@ export default {
     position: absolute;
     left: -15px;
     top: 0px;
-    border: 1px solid #ccc;
+    border-top: 3px solid rgb(30,10,60);
     border-radius: 5px;
+    box-shadow: 1px 2px 4px #eee;
     padding: 0px;
     background: #fff;
     width: 150px;    
@@ -198,13 +203,21 @@ export default {
     display: none;
   }
   .forLogout a{
-    display: block;
-    border-bottom: 1px solid #eee;
+    display: block;    
+    color:rgb(30,10,60);
     padding: 10px 15px;
+
   }
   .forLogout a:hover{
-    background: rgba(30,10,60,.5);
+    text-decoration: none;
+    background: rgba(30,10,60);
     color: white;
+  }
+  .forLogout a:not(:last-child){    
+    border-bottom: 1px solid #eee;
+  }
+  .forLogout a:hover:not(:first-child){    
+    border-radius: 5px;
   }
 
 @keyframes fdown {
@@ -221,7 +234,9 @@ export default {
     
   }
   .sys-acc{
-    display: flex;flex-wrap: wrap;align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     cursor: pointer;
     position: relative;
   }

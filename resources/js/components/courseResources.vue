@@ -204,7 +204,7 @@
 	}
 </script>
 
-<style>
+<style scoped="">
 	.cover-template{
 		position: relative;		
 	}
@@ -240,8 +240,8 @@
   text-align: center;
 }
 	.resource:hover .resource-caption{
-		 bottom: 0;
-  		height: 100%;
+		bottom: 0 !important;
+  		height: 100% !important;
 	}
 	.button:focus{
 		box-shadow: none !important;

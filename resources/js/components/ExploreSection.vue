@@ -6,7 +6,7 @@
         <div class="font2 fw4 systab ml-3">Most Visited Courses</div>
         </div>
         <div class="row hm300 w-100 px-6 py-5 m-0" style="background: #f0f0f0;">          
-          <div class="col-12 col-md-6 col-lg-4 mt-5" v-for="cat in courseCate.faculties" >
+          <div class="col-lg-4 col-md-6 col-lg-4 mt-5" v-for="cat in courseCate.faculties" >
             <a style="text-decoration: none;" :href="link+cat.id" class="w-100 cadin" v-if="cat.courses_count >0 && roletype=='student'">
               <div class="w-100 r2 shadow bg-white" style="height: 230px;position: relative;">
                 <div style="height: 60%;"><img :src="cat.picture" width="100%;" height="100%"></div>
@@ -65,7 +65,8 @@
               </div>            
             </a>
            
-          </div>          
+          </div>   
+                 
         </div>
   </div>
 </template>

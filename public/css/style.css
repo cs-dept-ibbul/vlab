@@ -540,7 +540,7 @@ button:focus{
   color: #777;
   display: inline-block;
   padding: 8px 15px;
-  border-bottom: 2px solid transparent;
+  border-bottom:4px solid transparent;
   cursor: pointer;
   transition: all 0.5s;
 }
@@ -549,8 +549,7 @@ button:focus{
 }
 
 .systab.systab--active {
-  border-bottom: 4px solid #00b96b;
-  font-weight: 500;
+  border-bottom: 4px solid #00b96b !important;  
   color: #00b96b;
 }
 
@@ -1833,6 +1832,9 @@ span.ripple {
       border-bottom-right-radius: 6px;
       z-index: -1;
     }
+    .removeClick{
+      pointer-events: none;
+    }
     .task-active:nth-child(even) .task-overlay {
       position: absolute;
       top: 0;
@@ -1848,7 +1850,9 @@ span.ripple {
       border-bottom-right-radius: 6px;
       z-index: -1;
     }
-
+    .v-scroll-x{
+      overflow-x:scroll;
+    }
     .task-item1:focus .task-overlay {
       opacity: 1;
       width: 100%;
@@ -1983,6 +1987,12 @@ span.ripple {
       z-index:10;
     }
     @media (max-width: 1145px) {
+      .profile-menu{
+        padding: 0px 10px;
+      }
+      .profile-menu div{
+        font-size: 0.8em;
+      }
         .notification-table.forUser{
           margin-top: 145px;
         }
@@ -2010,6 +2020,14 @@ span.ripple {
       }
     }    
     @media (max-width: 720px  ) {
+      .systab{
+        font-size: 0.85em;      
+        padding-bottom: 10px !important;
+      }
+      .profile-menu{
+        margin-top: 5px;
+        padding: 0px 10px !important;
+      }
       #leftNavbarCover{
         display: none;
       }
@@ -2060,8 +2078,15 @@ span.ripple {
       .task-container {
         grid-template-columns: repeat(2, 1fr);
       }
-    }
-    @media (max-width: 497px) {
+    }    
+    @media (max-width: 498px) {
+      .systab span{
+        display: none;
+      }
+      .systab{
+        padding-left: 15px;
+        padding-right: 25px;
+      }
       .addExperimentForm > div{
         padding: 0px !important;
       }

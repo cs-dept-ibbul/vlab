@@ -44,9 +44,11 @@ class DepartmentController extends Controller
         $department->status = $status;
 
 
-        $checkDepartment = Department::where(['name' => $departmentName,'status'=>'Active','code'=>$departmentCode])->orWhere(['status'=>'Active','code'=>$departmentCode])->first();
+        $checkDepartment = Department::where(['name' => $departmentName,'status'=>'Active'])->first();
+        $checkDepartment1 = Department::where(['code' => $departmentCode,'status'=>'Active'])->first();                
         //$checkDepartment1 = Department::where(['name' => $departmentName,'status'=>'Inactive'])->first();
-        if (empty($checkDepartment)) {
+
+        if (empty($checkDepartment) && empty($checkDepartment1)) {
             if ($department->save()) {
                 return response()->json(['success' => true], 201);
             }
