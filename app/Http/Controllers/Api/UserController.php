@@ -264,7 +264,7 @@ class UserController extends Controller
         $data = [];
         $exists = [];
         $newStudents = [];
-        $password = md5(123456);
+        $password = md5(12345678);
 
         foreach ($users as $user) {
 
@@ -281,7 +281,7 @@ class UserController extends Controller
                         'first_name' => $user['first_name'],
                         'other_names' => $user['other_names'],
                         'gender' => $user['gender'],
-                        'password' => md5($user['phone'])?? $password,
+                        'password' => $password,
                         'role_id' => $roleId,
                         'phone' => $user['phone'],
                         'salute'=>$user['salute'],
@@ -306,7 +306,7 @@ class UserController extends Controller
                         'first_name' => $user['first_name'],
                         'other_names' => $user['other_names'],
                         'gender' => $user['gender'],
-                        'password' => md5($user['phone'])?? $password,
+                        'password' => $password,
                         'role_id' => $roleId,
                         'phone' => $user['phone'],
                         'salute'=>$user['salute'],

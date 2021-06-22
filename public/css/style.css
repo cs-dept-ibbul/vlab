@@ -1019,6 +1019,34 @@ input.login-input{
   cursor: pointer;
 }
 
+
+/* width */
+.v-scroll-x::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  cursor: pointer;
+}
+
+/* Track */
+.v-scroll-x::-webkit-scrollbar-track {
+  width: 5px;
+  height: 5px;              
+  border-radius: 5px;
+}
+
+/* Handle */
+
+.v-scroll-x::-webkit-scrollbar-thumb {
+  background: #cccecc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Handle on hover */
+.v-scroll-x::-webkit-scrollbar-thumb:hover {
+  background: #20154e;
+  cursor: pointer;
+}
 .dashboard-content {
   background-color: #ebeaef;
   width: 80%;
