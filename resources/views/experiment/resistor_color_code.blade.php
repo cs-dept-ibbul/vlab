@@ -25,8 +25,8 @@ $access_code = session('access_code');
 $user_type = session('user_type');
 $resultTable ='
     <div id="result_table" class="bg-white p-2 mx-auto mt-2" style="border-radius:10px;width:450px;overflow:auto;"> 
-      <h4 class="text-warning font2 mb-0"> Measurement of the diameter of the wire</h4>
-      <h5 class="text-dark font2 fs1 fw6 mt-2">Length of Cylinder</h5>
+      <h4 class="text-warning font2 mb-0"> Measurement of a Resistor</h4>
+      <h5 class="text-dark font2 fs1 fw6 mt-2">Resistor Color Code</h5>
       <table class="table table-bordered result-table main_result_table"> 
           <thead>
             <th class="p-1 fs01 text-center" width="12%">No.</th>

@@ -2,7 +2,7 @@
 		<div class="w-100 mt-2 py-3">
           <a v-if="!tableLoaded" href="#" @click="createdepartment" class="btn py-3 mb-5 mr-2 px-4 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 0.6rem">Create New <span class="text-white fa fa-chevron-down"></span></a>
           <br>
-          <div class="notification-table ">
+          <div class="notification-table v-scroll-x ">
 				<table id="departmenttable" class="table table-hover">
 					<thead>
 						<tr id="cheadV">
@@ -119,7 +119,9 @@
 					  } 
 					}).then((result)=>{
 						if (result.value) {
+
 					    const answers = {faculty_id:result.value[0], name:result.value[1], code:result.value[2]}
+
 					    Swal.fire({
 					      title: 'click on proceed',
 					      text: 'other cancel and restart',
@@ -168,8 +170,7 @@
 								      	}
 							      	}
 						      	})
-					        }else{
-						      	   	
+					        }else{						      	   
 					        	return $vm.axios.post('api/departments/create',$vm.createFormData(answers),{headers:$vm.axiosHeader})
 						      	.then(response => {		
 							        if (!response.data.sucess) {

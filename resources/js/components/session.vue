@@ -2,7 +2,7 @@
 		<div class="w-100 mt-2 py-3">
           <a href="#" @click="createsession" class="btn py-3 mb-5 mr-2 px-4 text-white fs1 font1 p-success btn-lg pull-right" style="border-radius: 0.6rem">Create New <span class="text-white fa fa-chevron-down"></span></a>
           <br>
-          <div class="notification-table ">
+          <div class="notification-table v-scroll-x">
 				<table id="sessiontable" class="table table-hover">
 					<thead>
 						<tr id="cheadV">							

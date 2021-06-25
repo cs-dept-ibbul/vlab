@@ -2,7 +2,7 @@
 	<div>
 		
 		<v-loader v-if="loaderState"></v-loader>		
-		<div v-show="!loaderState">				
+		<div v-show="!loaderState" class="v-scroll-x">				
 			<table id="coursetable" class="table table-hover">
 				<thead>
 					<tr id="cheadV">
