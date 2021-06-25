@@ -20,6 +20,8 @@ class FacultySeeder extends Seeder
             'school_id'=> $uuids->school_id,            
             'name'=>'Natural Science',
             'code'=>'FNS',            
+            'picture'=>'',            
+            'description'=>'Faculty description... will soon be updated by admin',            
             'status'=>'Active'
         ]);    
     }

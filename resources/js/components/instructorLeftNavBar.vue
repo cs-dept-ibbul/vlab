@@ -72,22 +72,22 @@
 					
 					</ul>
 				</ul>
-				<!-- <a href="/settings"   v-bind:class="{btnActive:checkActive('settings')}">
-					<span class="iconOV fa fa-gear"></span>
-				</a>		 -->
 				<a href="/view-student"   v-bind:class="{btnActive:checkActive('student')}">
 					<span class="iconOV fa fa-user"></span>
 				</a>			
 				<a href="/manage-task"   v-bind:class="{btnActive:checkActive('task')}">
 					<span class="iconOV fa fa-tasks"></span>
 				</a>					
+				<a href="/profile"   v-bind:class="{btnActive:checkActive('settings')}">
+					<span class="iconOV fa fa-gear"></span>
+				</a>		
 				<a href="/logout"  >				
 					<span class="iconOV fa fa-arrow-circle-left"></span>
 				</a>	
 			</div>
 			<!-- end mini side bar -->
 			<div id="wideMenu" v-bind:class="{slidein:showWideMenu, slideout:hideMiniMenuWideMenu}" style="position: relative; margin-left: 5px; margin-right:5px;width: 240px;" >
-				<a href="/home" class="nChildV" v-bind:class="{btnActive:checkActive('home')}">
+				<a href="/" class="nChildV" v-bind:class="{btnActive:checkActive('home')}">
 					<span class="iconV fa fa-home "></span><div class="labelV">Home</div>
 				</a>	
 				<!-- <a href="/dashboard" class="nChildV"  v-bind:class="{btnActive:checkActive('dashboard')}">
@@ -166,12 +166,12 @@
 					<span class="iconV fa fa-file"></span><div class="labelV">Results</div>
 				</a>					
 	
-				<!-- <a href="/settings"  class="nChildV" v-bind:class="{btnActive:checkActive('settings')}">
-					<span class="iconV fa fa-gear"></span><div class="labelV">Settings</div>
-				</a> -->	
 				<a href="/manage-task"  class="nChildV" v-bind:class="{btnActive:checkActive('task')}">
 					<span class="iconV fa fa-tasks"></span><div class="labelV">Manage Task</div>
 				</a>					
+				<a href="/profile"  class="nChildV" v-bind:class="{btnActive:checkActive('settings')}">
+					<span class="iconV fa fa-gear"></span><div class="labelV">Settings</div>
+				</a>	
 				<a  href="/logout"  class="nChildV">				
 					<span class="iconV fa fa-arrow-circle-left"></span><div class="labelV">Logout</div>
 				</a>				
