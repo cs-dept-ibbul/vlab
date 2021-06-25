@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Role;
+use App\Models\School;
 class UserController extends Controller
 {
 
@@ -263,7 +264,7 @@ class UserController extends Controller
         $data = [];
         $exists = [];
         $newStudents = [];
-        $password = md5(123456);
+        $password = md5(12345678);
 
         foreach ($users as $user) {
 
@@ -280,7 +281,7 @@ class UserController extends Controller
                         'first_name' => $user['first_name'],
                         'other_names' => $user['other_names'],
                         'gender' => $user['gender'],
-                        'password' => md5($user['phone'])?? $password,
+                        'password' => $password,
                         'role_id' => $roleId,
                         'phone' => $user['phone'],
                         'salute'=>$user['salute'],
@@ -305,7 +306,7 @@ class UserController extends Controller
                         'first_name' => $user['first_name'],
                         'other_names' => $user['other_names'],
                         'gender' => $user['gender'],
-                        'password' => md5($user['phone'])?? $password,
+                        'password' => $password,
                         'role_id' => $roleId,
                         'phone' => $user['phone'],
                         'salute'=>$user['salute'],
@@ -373,4 +374,115 @@ class UserController extends Controller
         }
         return $student;
     }
+
+    public function changeSchoolInfo(Request $request){
+        $validator = Validator::make($request->all(), [
+            'schoolname'=>'required',
+            'schoolabbr'=>'required',            
+        ]);
+
+         if ($validator->fails()) {
+            return response()->json(['error' => "All fields is required"], 400);
+        }
+
+        $schoolname = $request->get('schoolname');
+        $schoolabbr = $request->get('schoolabbr');
+        $schooldescription = $request->get('schooldescription');
+        $school_id = School::where('id','!=','')->update(['name'=>$schoolname, 'code'=>$schoolabbr]);
+
+        return response()->json(['success' => true], 200);
+
+    }
+
+    public function changeUserInfo(Request $request){
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "user_id field is required"], 400);
+        }
+
+        $userId = $request->get('user_id');        
+        $phone = $request->get('phone');                
+        $matric_number = $request->get('matric_number')??'';
+        $first_name = $request->get('first_name');
+        $other_names = $request->get('other_names');        
+        $gender = $request->get('gender');        
+        $user_ip_address = (new Util())->ip();    
+        
+        $user = User::find($userId);        
+        $user->first_name = $first_name;
+        $user->other_names = $other_names;
+        $user->gender = $gender;
+        $user->user_ip_address = $user_ip_address;            
+        $user->phone = $phone;
+        $user->matric_number = $matric_number;                
+        $save = $user->save();
+        return response()->json(['success' => true], 200); 
+
+    }
+
+    public function changePassword(Request $request){
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+            'password' => 'required',
+            'oldpassword' => 'required',
+        ]);
+
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "all field are required"], 400);
+        }
+
+        $oldpassword = md5($request->get('oldpassword'));                
+        $password = md5($request->get('password'));                
+        $userId = $request->get('user_id');                
+        $user_id = User::where(['id'=>$userId,'password'=> $oldpassword])->first();          
+        if (!empty($user_id) && !is_null($user_id)) {
+            $tuser = User::find($userId);            
+            $tuser->password = $password;
+            $tuser->save();
+            return response()->json(['success'=>'true'], 200);
+        } else {
+            //Incorrect Old Password
+            return response()->json(['success' => 'true'], 404);
+        }        
+
+    }
+
+    public function changeEmail(Request $request){
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+            'email' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => "user_id field is required"], 400);
+        }
+
+        $email = $request->get('email');                        
+        $userId = $request->get('user_id');               
+
+        $user = User::whereNotIn('id', [$userId])->first();
+        $user_n = User::where('id',$userId)->first();
+
+        if (!empty($user)) {
+            if ($user_n->matric_number == '') {   
+                $user = User::find($userId);
+                $user->email = $email;
+                $user->username = $email;
+            }else{
+                $user = User::find($userId);
+                $user->email = $email;
+            }
+            $user->save();
+            return response()->json(['success' => true], 200);                 
+        } else {
+            return response()->json(['success' => true], 409);
+        }   
+    }
+
+    
+    
 }

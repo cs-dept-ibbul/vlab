@@ -28,10 +28,10 @@ class CourseStudents extends Model
     }*/
     public function students()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->hasOne(User::class,'id','user_id');
     }
     protected $table = 'user_courses';
     protected $fillable = [
-        'course_id',
+        'course_id', 'user_id'
     ];
 }

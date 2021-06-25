@@ -1,25 +1,31 @@
 <template>
-	<div class="topNav">
-		<div style="display: flex;flex-wrap: wrap;align-items: center; ">
-			<!-- <span @click="toggleExperimentGuider" style="font-size: 1.4em;cursor: pointer;" class="fa fa-align-justify mr-3"></span> -->
-			<div class="navicon-wide-screen change cursor" @click="toggle()">
-			  <div class="bar1"></div>
-			  <div class="bar2"></div>
-			  <div class="bar3"></div>
+	<div >
+		<!-- <div id="showSessionOnMobile" class="p-warning text-white" style="font-size: 0.8em; position: absolute;top: 45%;left: 0;border-radius:0px 5px 5px 0px;background:white;padding: 4px 0px;font-weight: 500; writing-mode: vertical-rl;">2021/2022 SESSION</div> -->
+		<div class="topNav">			
+			<div style="display: flex;flex-wrap: wrap;align-items: center; ">
+				<!-- <span @click="toggleExperimentGuider" style="font-size: 1.4em;cursor: pointer;" class="fa fa-align-justify mr-3"></span> -->
+				<div class="navicon-wide-screen change cursor" @click="toggle()">
+				  <div class="bar1"></div>
+				  <div class="bar2"></div>
+				  <div class="bar3"></div>
+				</div>
+				<div class="navicon-small-screen cursor" @click="naviconToggler()">
+				  <div class="bar1"></div>
+				  <div class="bar2"></div>
+				  <div class="bar3"></div>
+				</div>
+				<span style="font-weight: 500;font-size: 1em;" class="ml-2" id="pageTitle">{{title}}</span>
+				
+			</div>		
+
+			<!-- <div>{{department}}</div> -->
+			<div style="display: flex;flex-wrap: wrap;align-items: center;">
+				<span class="fa fa-user mr-2"></span>
+				<span style="font-size: 0.9em; font-weight: 300;">{{username}}</span>
+				<span class="fa fa-chevron-down ml-2"></span>
 			</div>
-			<div class="navicon-small-screen cursor" @click="naviconToggler()">
-			  <div class="bar1"></div>
-			  <div class="bar2"></div>
-			  <div class="bar3"></div>
-			</div>
-			<span style="font-weight: 500;font-size: 1em;" class="ml-2">{{title}}</span>
-		</div>		
-		<div>{{department}}</div>
-		<div style="display: flex;flex-wrap: wrap;align-items: center;">
-			<span class="fa fa-user mr-2"></span>
-			<span style="font-size: 0.9em; font-weight: 300;">{{username}}</span>
-			<span class="fa fa-chevron-down ml-2"></span>
 		</div>
+		<div class="text-center fs01 fw5 mt-2 p-display-none" id="showSessionOnMobile"  style="width: 100%; opacity: 0.5;">2021/2022 SESSION</div>
 	</div>
 </template>
 

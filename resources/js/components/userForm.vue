@@ -175,7 +175,8 @@ import axios_x from 'axios';
 				}
 			},
 			submitUserForm: function(){	
-				this.validateI('myform');											
+				this.validateI('myform');		
+													
 				if($('#department_id').val() == ""){
 					$('.requiredv').remove();					
 					$('#department_id').after('<span class="text-danger requiredv">Required !</span>');					

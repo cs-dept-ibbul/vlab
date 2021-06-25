@@ -17,6 +17,8 @@ class CreateFacultiesTable extends Migration
             $table->string('id')->primary();
             $table->string('school_id');
             $table->string('name');
+            $table->string('picture')->nullable();
+            $table->string('description',1000)->nullable();
             $table->string('code');
             $table->enum('status', ['Active', 'Inactive']);
             $table->rememberToken();

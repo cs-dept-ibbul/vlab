@@ -39,18 +39,8 @@ class SchoolController extends Controller
     }
     
     public function getSchool(Request $request)
-    {
-
-        $validator = Validator::make($request->all(), [
-            'school_id' => 'required|max:36',
-        ]);
-        
-        if ($validator->fails()) {
-            return response()->json(['error' => "All fields are required"], 400);
-        }
-
-        $schoolId = $request->get('school_id');
-        $school = School::where(['id' => $schoolId])->first();
+    {    
+        $school = School::first();
         
         if(!empty($school)){
             return response()->json($school, 200);
