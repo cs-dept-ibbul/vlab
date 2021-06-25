@@ -52,6 +52,11 @@ Route::group([
         Route::group([
             'prefix' => 'users'
         ], function () {
+            Route::post('change_school_info', [UserController::class, 'changeSchoolInfo']);
+            Route::post('change_user_info', [UserController::class, 'changeUserInfo']);
+            Route::post('change_password', [UserController::class, 'changePassword']);
+            Route::post('changeEmail', [UserController::class, 'changeEmail']);
+
             Route::post('students', [UserController::class, 'getStudents']);
             Route::get('users', [UserController::class, 'getAllUsers']);
             Route::post('by_search', [UserController::class, 'getAllUsersBySearch']);
@@ -68,7 +73,7 @@ Route::group([
             'prefix' => 'schools'
         ], function () {
             Route::post('create', [SchoolController::class, 'create']);
-            Route::post('school', [SchoolController::class, 'getSchool']);
+            Route::get('school', [SchoolController::class, 'getSchool']);
             Route::get('schools', [SchoolController::class, 'getAllSchools']);
         });
 

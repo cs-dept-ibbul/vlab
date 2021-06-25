@@ -19,6 +19,24 @@ Route::view('forgot_password', 'reset_password')->name('password.reset');
 Route::get('/', 'App\Http\Controllers\PagesController@index')->name('home');
 Route::get('/explore', 'App\Http\Controllers\ExploreController@index')->name('explore');
 Route::get('/logout', 'App\Http\Controllers\loginController@logout')->name('logout');
+Route::get('/contributors', function(){
+	return view('contributors');
+})->name('contributors');
+
+Route::get('/faculty-survey', function(){
+	return view('faculty-survey');
+})->name('faculty-survey');
+
+Route::get('/student-survey', function(){
+	return view('student-survey');
+})->name('student-survey');
+
+Route::get('/usability', function(){
+	return view('usability');
+})->name('usability
+');
+
+
 Route::get('/feedbacks', function(){
 	return view('feedbacks');
 });
@@ -37,7 +55,9 @@ Route::middleware(['is_loggedin'])->group(function(){
 
 //AMDIN
 Route::middleware(['adminauth'])->group(function(){
-
+	Route::get('/admin-settings', function(){
+		return view('admin.admin_profile');
+	})->name('sprofile');
 	Route::get('/manage-faculty', 'App\Http\Controllers\ManageFacultyController@index')->name('manage-faculty');
 	Route::get('/manage-department', 'App\Http\Controllers\ManageDepartmentController@index')->name('manage-department');
 	Route::get('/manage-session', 'App\Http\Controllers\ManageSessionController@index')->name('manage-session');
@@ -46,7 +66,9 @@ Route::middleware(['adminauth'])->group(function(){
 
 Route::middleware(['studentauth'])->group(function(){
 	Route::get('/UserDashboard', 'App\Http\Controllers\ViewUserDashboard@index')->name('sdashboard');
-
+	Route::get('/settings', function(){
+		return view('student_profile');
+	})->name('sprofile');
 	Route::get('/my-courses', 'App\Http\Controllers\StudentCourses@index')->name('courses');
 	Route::middleware(['is_enrolled'])->group(function(){
 		Route::get('/my-course-review/{id}', 'App\Http\Controllers\StudentCourses@review')->name('my-course-review');
@@ -69,6 +91,9 @@ Route::middleware(['studentauth'])->group(function(){
 Route::middleware(['instructorauth'])->group(function(){
 	Route::get('/view-course/{id?}', 'App\Http\Controllers\ViewCourseController@forInstructor')->name('view-course');
 
+	Route::get('/profile', function(){
+		return view('instructor.instructor_settings');
+	})->name('iprofile');
 	Route::get('/view-created-course', 'App\Http\Controllers\ManageCourseController@viewCourse')->name('view-created-course');
 	Route::get('/manage-task', 'App\Http\Controllers\InstructorController@task')->name('manage-task');
 	Route::get('/create-course', 'App\Http\Controllers\ManageCourseController@index')->name('create-courses');

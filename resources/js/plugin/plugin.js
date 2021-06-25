@@ -1,10 +1,14 @@
 import axios from 'axios';
-axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'https://demo.vlabnigeria.org/' : 'https://demo.vlabnigeria.org/';
+//axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'http://localhost:8000' : '';
+axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'https://demo.vlabnigeria.org/' : 'https://demo.vlabnigeria.org/'; 
+//axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'https://vlab.ibbu.edu.ng/' : 'https://vlab.ibbu.edu.ng/'; 
+//axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'https://vlab.sediminna.org.ng/' : 'https://vlab.sediminna.org.ng/'; 
+ 
 import loader from '../components/skeletalLoaderA.vue'; 
 export default {
   install(Vue, options) {
     Vue.mixin({
-    	components:{		
+    	components:{		 
 			'v-loader':loader,
 		},
       data(){
@@ -22,7 +26,6 @@ export default {
       		navbarState:false,      		
       		freePath:['','explore','feedbacks'],
       		baseApiUrl : 'api/'      		
-
       	}
       },
       methods:{
@@ -718,7 +721,7 @@ export default {
 					  $this.append("<span class='ripple b-warning' style='width:"+diameter+"px; height:"+diameter+"px; left:"+left+"px; top:"+top+"px;'></span>");
 					})			
       			},
-      	naviconToggler: function(e){      		
+      	naviconToggler: function(e){   
       		if ($(window).width() <720) {
 
 	      		if (this.navbarState === false) {
@@ -794,7 +797,10 @@ export default {
 	      				$('.MenuLContainer').addClass('removeMenu');
 	      				$('.menuBtnToggler').addClass('removeMenu');      				
 	      			/*end  wide screen element*/
+	      			$('#showSessionOnMobile').show()
       				let widemenu = $('#wideMenu').clone();
+      				let forSessionOnNav = $('.forSessionOnNav').clone();
+      				//$('.topNav').after(forSessionOnNav)
       				widemenu.removeClass('slideout slidein');
       				widemenu.removeAttr('');
       				widemenu.css({'position':'relative', 'top':'-70px','margin':'0px auto','opacity':'0'});
@@ -806,6 +812,7 @@ export default {
        				$('.listMenu').not($(this).next()).slideUp(200);
   	 			    $(this).parent().find('ul.listMenu').slideDown(200);
       			}else{
+	      			$('#showSessionOnMobile').hide()      				
       				$('#MainMobile').css('display','none');      				
       				$('.MenuLContainer').removeClass('removeMenu');
       				$('.menuBtnToggler').removeClass('removeMenu');

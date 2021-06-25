@@ -34,12 +34,26 @@ class FacultyController extends Controller
     {
         $id = Util::uuid();
         $facultyName = $request->get('faculty_name');
-        $facultyCode = $request->get('faculty_code');
+        $facultyCode = $request->get('faculty_code');        
+        
+        $description = $request->get('description');
+        $file = $request->file;
+
+        $file_ex = explode('.', $file->getClientOriginalName());                    
+        $ext = $file_ex[sizeof($file_ex)-1];   
+        $i = mt_rand(1,100);              
+        $name = $i.'_'.date('m-d-Y-ha');
+        $pictureName = $name.'.'.$ext;                    
+        $pictureUrl= 'images/'.$pictureName;
+        $file->move(public_path('images/'), $pictureName);
+
         $schoolID = Auth::user()->school_id;
         $status = $request->get('status') ?? 'Active';
         $faculty = new Faculty();
         $faculty->id = $id;
         $faculty->name = $facultyName;
+        $faculty->picture = $pictureUrl;
+        $faculty->description = $description;
         $faculty->code = $facultyCode;
         $faculty->school_id = $schoolID;
         $faculty->status = $status;
@@ -110,11 +124,27 @@ class FacultyController extends Controller
         $facultyName = $request->get('faculty_name');
         $facultyCode = $request->get('faculty_code');
 
+        $description = $request->get('description');
+        $file = $request->file;        
+        if ($file != '/no-pic' && !empty($file)) {            
+            $file_ex = explode('.', $file->getClientOriginalName());                    
+            $ext = $file_ex[sizeof($file_ex)-1];   
+            $i = mt_rand(1,100);              
+            $name = $i.'_'.date('m-d-Y-ha');
+            $pictureName = $name.'.'.$ext;                    
+            $pictureUrl= 'images/'.$pictureName;
+            $file->move(public_path('images/'), $pictureName);
+        }else{
+            $pictureUrl= '';            
+        }
+
         $facultyId = $request->get('faculty_id');
         $faculty = Faculty::find($facultyId);
         if($faculty){
             $facultyName != null ? $faculty->name = $facultyName : null;
             $facultyCode != null ? $faculty->code = $facultyCode : null;
+            $faculty->description = $description;
+            $faculty->picture = $pictureUrl;
     
             if(empty($facultyName) && empty($facultyCode) && empty($schoolID)){
                 return response()->json(['message' => 'Nothing to update'], 200);

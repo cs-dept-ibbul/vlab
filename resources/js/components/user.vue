@@ -29,7 +29,7 @@
 			<br><br><br><br><br><br>
           	<v-loader count="2"></v-loader>
          </div>
-          <div class="notification-table forUser">			     
+          <div class="notification-table forUser v-scroll-x" >			     
 			     
 				<table id="usertable" class="table table-hover">
 					<thead>

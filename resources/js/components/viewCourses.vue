@@ -8,37 +8,32 @@
           <v-loader v-if="loadederState" type='line'></v-loader>                       
           <p v-if="!loadederState" style="font-size: 3em; font-family: 'Roboto', serif; font-weight:400;">{{faculty.name}}</p>
           <p class="text-justify" style="font-family: 'Roboto', serif;font-size: 0.9em;font-weight: 300;">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            {{faculty.description}}
           </p>
         </div>
         <div class="col-lg-2 col-md-12 col-sm-12"></div>
         <div class="col-lg-4 col-md-12 col-sm-12 p-0">
           <div class="boxX p-4" style="">
-            <p class="fs2 fw8 font2">What to Expect</p>
+            <p class="fs2 fw8 font2">What to Do</p>
             <div class="d-flex ">
               <span class="mr-2 fa fa-check text-success p-light border-rounded h1 r1 p-1" ></span>
-              <p class="font2 fs1">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+              <p class="font2 fs1">Get Enrollment Code from Course Instructor</p>
             </div>
             <div class="d-flex ">
               <span class="mr-2 fa fa-check text-success p-light border-rounded h1 r1 p-1" ></span>
-              <p class="font2 fs1">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+              <p class="font2 fs1">Find Your Course</p>
             </div>
             <div class="d-flex ">
               <span class="mr-2 fa fa-check text-success p-light border-rounded h1 r1 p-1" ></span>
-              <p class="font2 fs1">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+              <p class="font2 fs1">Click on Enroll</p>
             </div>
             <div class="d-flex ">
               <span class="mr-2 fa fa-check text-success p-light border-rounded h1 r1 p-1" ></span>
-              <p class="font2 fs1">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+              <p class="font2 fs1">Enter Enrollment Code</p>
             </div>
             <div class="d-flex ">
               <span class="mr-2 fa fa-check text-success p-light border-rounded h1 r1 p-1" ></span>
-              <p class="font2 fs1">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+              <p class="font2 fs1">Click OK</p>
             </div>
           </div>            
         </div>          

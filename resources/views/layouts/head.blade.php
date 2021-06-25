@@ -4,6 +4,8 @@
  <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.css')}}">
  <link rel="stylesheet" href="{{ asset('css/bootstrap-select.css')}}">
  <link rel="stylesheet" href="{{ asset('css/bootstrap4.css')}}">
+ <link href="/vlab.png" rel="icon">
+ <link href="/vlab.png" rel="apple-touch-icon">
 
 <!-- <link rel="stylesheet" href="{{ asset('js/datepicker.css')}}"> -->
  <link href="{{ asset('css/datatable.css')}}" rel="stylesheet" media="all">
