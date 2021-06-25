@@ -35,9 +35,9 @@
 				<!-- <a href="#" >
 					<span v-bind:class="{btnActive: checkActive('discussion')}" class="iconOV fa fa-comment" title="Discussion"></span>					
 				</a> -->
-				<!-- <a href="#" >
+				<a href="/settings" >
 					<span v-bind:class="{btnActive: checkActive('settings')}" class="iconOV fa fa-gear" title="Settings"></span>					
-				</a> -->
+				</a>
 				<a @click="logout" >
 					<span class="iconOV fa fa-arrow-circle-left" style="margin-top: ;" title="Logout"></span>
 				</a>
@@ -62,9 +62,9 @@
 				<!-- <a href="#"  class="nChildV" v-bind:class="{btnActive: checkActive('discussion')}">
 					<span class="iconV fa fa-comment"></span><div class="labelV">Discussion</div>
 				</a> -->	
-				<!-- <a href="#"  class="nChildV" v-bind:class="{btnActive: checkActive('settings')}">
+				<a href="/settings"  class="nChildV" v-bind:class="{btnActive: checkActive('settings')}">
 					<span class="iconV fa fa-gear"></span><div class="labelV">Settings</div>
-				</a>	 -->				
+				</a>					
 				<a @click="logout" :href="'#'"  class="nChildV">				
 					<span class="iconV fa fa-arrow-circle-left"></span><div class="labelV">Logout</div>
 				</a>				

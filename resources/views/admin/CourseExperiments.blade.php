@@ -37,7 +37,7 @@
 
    <div class="expr-dashboard-container" style="background-color:#eee;">
    		<!-- top nav bar -->
-        <v-systopnave title="Courses" username='said'></v-systopnave>   
+        <v-systopnave title="Courses Experiment" username='said'></v-systopnave>   
    		<!-- end to nav bar -->
 
    		<!-- content -->

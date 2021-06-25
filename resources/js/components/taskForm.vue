@@ -1,11 +1,11 @@
 <template>
-	<div class="mx-auto p-5 taskForm">         
-    <br>
+	<div class="mx-auto p-5 taskForm" style="">             
           <h3 class="form-header">Create Task</h3>
           <div class="m-0 row  p-3 form-body">
           	 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-4" id="titleForm">
           	 	<label>Title</label>
-          	 	<input type="text" name="title" id="titleD" :value="title" class="form-control w-100 vI">
+              <input type="text" name="title" id="titleD" v-model="title" class="form-control w-100 vI">
+          	 	<!-- <input type="text" name="title" id="titleD" v-model="title" :value="title" class="form-control w-100 vI"> -->
           	 </div>
           	 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4">
           	 	<label>Course</label>
@@ -22,18 +22,21 @@
                       <option>-</option>
                     </select>
  
-          	 </div>
+          	 </div> 
           	 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4" id="accessCodeForm">
           	 	<label>Access Code</label>
-          	 	<input type="password" name="code" id="codeD" :value="access_code" class="form-control w-100 vI">
+              <input type="password" name="code" id="codeD" v-model="access_code" class="form-control w-100 vI">
+          	 	<!-- <input type="password" name="code" id="codeD" :value="access_code" class="form-control w-100 vI"> -->
           	 </div>
           	 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4" id="openForm">
           	 	<label>Open</label>
-          	 	<input type="text" name="title" id="openD" :value="open" date-format='dd-mm-yyyy'  autocomplete="off" class="form-control w-100 vI datepicker2">
+              <input type="text" name="title" id="openD" v-model="open" date-format='dd-mm-yyyy'  autocomplete="off" class="form-control w-100 vI datepicker2">
+          	 	<!-- <input type="text" name="title" id="openD" :value="open" date-format='dd-mm-yyyy'  autocomplete="off" class="form-control w-100 vI datepicker2"> -->
           	 </div>
           	 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4" id="closeForm">
           	 	<label>Close</label>
-          	 	<input type="text" name="title" id="closeD" :value="close" date-format='dd-mm-yyyy' autocomplete="off" class="form-control w-100 vI datepicker2">
+              <input type="text" name="title" id="closeD" v-model="close" @mouseout="alert(2)" date-format='dd-mm-yyyy' autocomplete="off" class="form-control w-100 vI datepicker2">
+          	 	<!-- <input type="text" name="title" id="closeD" :value="close" date-format='dd-mm-yyyy' autocomplete="off" class="form-control w-100 vI datepicker2"> -->
           	 </div>   
             
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mt-4" id="closeForm">
@@ -64,7 +67,7 @@
                         </span>
                         </span>
                         <span v-if="experiment_data_format[exp.page] !== undefined" class="w-100">
-                          <div :id="exp.id" class="formExp w-100" v-html="experiment_data_format[exp.page]">      
+                          <div :id="exp.id" class="formExp w-100" v-html="experiment_data_format[exp.page]" style="height:240px;">      
                           </div>                          
                         </span>
                         <span v-else class="w-100">                          
@@ -103,7 +106,7 @@
                     title:"",
                     access_code:"",
                     open:"",
-                    close:"",
+                    close:"", 
                     ucourse:"",
                     experiment:"",
                     flipNow:true,
@@ -574,6 +577,15 @@
     .form-control w-100:focus{
 
      box-shadow: none;
+    }
+    .taskform{
+      position: absolute; 
+      z-index: 10000;
+      height:150vh;
+    }
+    #VueSweetAlert2{
+      position:relative;
+      height:85vh;
     }
     .dropdown-item.active, .dropdown-item:active{
      background: white;

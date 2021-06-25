@@ -105,6 +105,8 @@ Vue.component('v-loginscript', require('./components/loginScript.vue').default);
 Vue.component('v-userauth', require('./components/userAuthentication.vue').default);
 Vue.component('v-feedback', require('./components/feedback.vue').default);
 Vue.component('v-errorpage', require('./components/errorPage.vue').default);
+Vue.component('v-studentprofile', require('./components/studentProfile.vue').default);
+Vue.component('v-adminprofile', require('./components/adminProfile.vue').default);
 
 
 
@@ -133,7 +135,7 @@ Vue.component('v-errorpage', require('./components/errorPage.vue').default);
      },
       mounted(){     
         $('body').append(`
-          <a class="flex-wrap forBug" style=" width:50px; height:50px; display:flex; justify-content:center;"><span class="fa fa-bug text-danger fs8 p-0"></span></a>
+          <a href="https://forms.gle/UFBRWF1KwiwGeuS66" class="flex-wrap forBug" style=" width:50px; height:50px; display:flex; justify-content:center;"><span class="fa fa-bug text-danger fs8 p-0"></span></a>
           `);
         $('body').append(`
           <div class="flex-wrap justify-between forThumb d-flex">
