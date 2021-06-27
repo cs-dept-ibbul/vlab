@@ -42,4 +42,16 @@ class Util extends Controller
     {
         return $_SERVER['REMOTE_ADDR'];
     }
+
+    static public function hasInternetConnection()
+    {
+        $connected = @fsockopen('www.example.com', 80);
+
+        if($connected){
+            fclose($connected);
+            return true;
+        }
+
+        return false;
+    }
 }
